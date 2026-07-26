@@ -931,6 +931,26 @@ export default {
       return String(value);
     },
 
+    decodeHtmlEntities(value, fallback = "") {
+      const text = this.stringifyValue(value, fallback);
+
+      if (!text || text.indexOf("&") === -1) {
+        return text;
+      }
+
+      return text
+        .replace(/&amp;/gi, "&")
+        .replace(/&quot;/gi, '"')
+        .replace(/&#34;/g, '"')
+        .replace(/&#x22;/gi, '"')
+        .replace(/&#039;/g, "'")
+        .replace(/&#39;/g, "'")
+        .replace(/&#x27;/gi, "'")
+        .replace(/&apos;/gi, "'")
+        .replace(/&nbsp;/gi, " ")
+        .trim();
+    },
+
     decodeBadgeOperator(value, fallback = "=") {
       const operator = this.stringifyValue(value, fallback)
         .trim()
@@ -973,7 +993,7 @@ export default {
 
       return {
         value: this.stringifyValue(option.value),
-        label: this.stringifyValue(option.label, option.value),
+        label: this.decodeHtmlEntities(option.label, option.value),
         fieldKey: this.stringifyValue(option.fieldKey || option.field_key),
         fieldType: this.stringifyValue(option.fieldType || option.field_type),
         directoryId: this.stringifyValue(
@@ -1008,8 +1028,8 @@ export default {
     normalizeValueOptions(options) {
       return options
         .map((item) => ({
-          value: this.stringifyValue(item.value || item.option_value),
-          label: this.stringifyValue(
+          value: this.decodeHtmlEntities(item.value || item.option_value),
+          label: this.decodeHtmlEntities(
             item.label || item.option_label,
             item.value || item.option_value,
           ),
@@ -1970,12 +1990,12 @@ export default {
     },
 
     conditionOptionByValue(options, value) {
-      const optionValue = String(value);
+      const optionValue = this.decodeHtmlEntities(value);
       const comparableValue = optionValue.toLowerCase();
 
       return options.find((option) => {
-        const valueMatch = String(option.value).toLowerCase();
-        const labelMatch = String(option.label).toLowerCase();
+        const valueMatch = this.decodeHtmlEntities(option.value).toLowerCase();
+        const labelMatch = this.decodeHtmlEntities(option.label).toLowerCase();
 
         return valueMatch === comparableValue || labelMatch === comparableValue;
       });

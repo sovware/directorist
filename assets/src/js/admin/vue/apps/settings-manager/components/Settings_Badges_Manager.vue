@@ -480,7 +480,7 @@
                       <option value="false">False</option>
                     </select>
                     <select
-                      v-else-if="condition.valueType === 'select'"
+                      v-else-if="conditionUsesSelectControl(condition)"
                       :value="condition.value"
                       :aria-label="conditionAriaLabel(badge, 'condition value')"
                       @change="
@@ -501,7 +501,7 @@
                     </select>
                     <input
                       v-else
-                      type="text"
+                      :type="conditionTextInputType(condition)"
                       :value="condition.value"
                       :aria-label="conditionAriaLabel(badge, 'condition value')"
                       @input="
@@ -974,6 +974,14 @@ export default {
       return {
         value: this.stringifyValue(option.value),
         label: this.stringifyValue(option.label, option.value),
+        fieldKey: this.stringifyValue(option.fieldKey || option.field_key),
+        fieldType: this.stringifyValue(option.fieldType || option.field_type),
+        directoryId: this.stringifyValue(
+          option.directoryId || option.directory_id,
+        ),
+        directoryName: this.stringifyValue(
+          option.directoryName || option.directory_name,
+        ),
         valueType,
         defaultOperator: this.operatorAlias(
           option.defaultOperator ||
@@ -1651,12 +1659,40 @@ export default {
     },
 
     savableConditions(conditions) {
-      return this.normalizedConditions(conditions).map((condition) => ({
+      return this.normalizedConditions(conditions).map((condition) =>
+        this.savableCondition(condition),
+      );
+    },
+
+    savableCondition(condition) {
+      const nextCondition = {
         source: condition.source,
         key: condition.key,
         operator: condition.operator,
         value: condition.value,
-      }));
+      };
+
+      if (condition.source !== "field" || condition.unsupported) {
+        return nextCondition;
+      }
+
+      const definition = this.conditionDefinition(
+        condition.source,
+        condition.key,
+        false,
+      );
+
+      if (!definition) {
+        return nextCondition;
+      }
+
+      ["fieldKey", "fieldType", "valueType", "directoryId"].forEach((key) => {
+        if (definition[key]) {
+          nextCondition[key] = definition[key];
+        }
+      });
+
+      return nextCondition;
     },
 
     unsupportedCondition(source, key, condition) {
@@ -1811,7 +1847,7 @@ export default {
 
       if (
         definition.valueType === "boolean" ||
-        definition.valueType === "select"
+        this.exactSelectValueTypes().includes(definition.valueType)
       ) {
         return [
           { value: "is", label: "is" },
@@ -1819,7 +1855,27 @@ export default {
         ];
       }
 
-      if (definition.valueType === "text") {
+      if (this.optionMembershipValueTypes().includes(definition.valueType)) {
+        return [
+          { value: "is", label: "is" },
+          { value: "is_not", label: "is not" },
+          { value: "contains", label: "contains" },
+          { value: "not_contains", label: "does not contain" },
+          { value: "is_empty", label: "is empty" },
+          { value: "is_not_empty", label: "is not empty" },
+        ];
+      }
+
+      if (this.exactInputValueTypes().includes(definition.valueType)) {
+        return [
+          { value: "is", label: "is" },
+          { value: "is_not", label: "is not" },
+          { value: "is_empty", label: "is empty" },
+          { value: "is_not_empty", label: "is not empty" },
+        ];
+      }
+
+      if (this.textConditionValueTypes().includes(definition.valueType)) {
         return [
           { value: "=", label: "equals" },
           { value: "is_not", label: "does not equal" },
@@ -1841,7 +1897,12 @@ export default {
     },
 
     defaultOperatorForValueType(valueType) {
-      if (valueType === "boolean" || valueType === "select") {
+      if (
+        valueType === "boolean" ||
+        this.exactSelectValueTypes().includes(valueType) ||
+        this.optionMembershipValueTypes().includes(valueType) ||
+        this.exactInputValueTypes().includes(valueType)
+      ) {
         return "is";
       }
 
@@ -1876,6 +1937,61 @@ export default {
       return !["is_empty", "is_not_empty"].includes(operator);
     },
 
+    exactSelectValueTypes() {
+      return ["select", "radio", "presence", "privacy"];
+    },
+
+    optionMembershipValueTypes() {
+      return ["checkbox", "taxonomy", "map", "button"];
+    },
+
+    exactInputValueTypes() {
+      return ["date", "time", "color"];
+    },
+
+    textConditionValueTypes() {
+      return ["text", "html_text"];
+    },
+
+    conditionUsesSelectControl(condition) {
+      return (
+        this.conditionHasValueOptions(condition) &&
+        (this.exactSelectValueTypes().includes(condition.valueType) ||
+          this.optionMembershipValueTypes().includes(condition.valueType))
+      );
+    },
+
+    conditionHasValueOptions(condition) {
+      return (
+        condition &&
+        Array.isArray(condition.valueOptions) &&
+        condition.valueOptions.length > 0
+      );
+    },
+
+    conditionOptionByValue(options, value) {
+      const optionValue = String(value);
+      const comparableValue = optionValue.toLowerCase();
+
+      return options.find((option) => {
+        const valueMatch = String(option.value).toLowerCase();
+        const labelMatch = String(option.label).toLowerCase();
+
+        return valueMatch === comparableValue || labelMatch === comparableValue;
+      });
+    },
+
+    conditionTextInputType(condition) {
+      if (
+        !condition ||
+        !this.exactInputValueTypes().includes(condition.valueType)
+      ) {
+        return "text";
+      }
+
+      return condition.valueType;
+    },
+
     normalizeConditionValue(source, key, value) {
       const definition = this.conditionDefinition(source, key);
 
@@ -1891,7 +2007,10 @@ export default {
         return this.normalizeRuleNumber(value);
       }
 
-      if (definition.valueType === "select") {
+      if (
+        this.exactSelectValueTypes().includes(definition.valueType) ||
+        this.optionMembershipValueTypes().includes(definition.valueType)
+      ) {
         const options = Array.isArray(definition.valueOptions)
           ? definition.valueOptions
           : [];
@@ -1900,11 +2019,11 @@ export default {
           return this.stringifyValue(value, definition.defaultValue);
         }
 
-        const optionExists = options.some(
-          (option) => option.value === String(value),
-        );
+        const matchedOption = this.conditionOptionByValue(options, value);
 
-        return optionExists ? String(value) : String(definition.defaultValue);
+        return matchedOption
+          ? String(matchedOption.value)
+          : String(definition.defaultValue);
       }
 
       return this.stringifyValue(value, definition.defaultValue);
@@ -2779,9 +2898,13 @@ export default {
           : "false";
       }
 
-      if (condition.valueType === "select") {
-        const option = condition.valueOptions.find(
-          (item) => item.value === condition.value,
+      if (
+        this.exactSelectValueTypes().includes(condition.valueType) ||
+        this.optionMembershipValueTypes().includes(condition.valueType)
+      ) {
+        const option = this.conditionOptionByValue(
+          condition.valueOptions,
+          condition.value,
         );
 
         return option ? option.label : condition.value;

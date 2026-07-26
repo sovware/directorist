@@ -21,6 +21,7 @@
 - Confirm encoded condition operators such as `&lt;=`, `&lt;`, `&gt;=`, `&gt;`, and `&ne;` normalize back to valid raw operators in summaries, selects, future saved rules, and PHP frontend matching.
 - Confirm `directorist_badge_rules` resets to the cached value when visible badge edits are reverted.
 - Confirm Field source options come from raw supported listing submission fields, are not hidden by Pricing Plans add-listing gating, and tolerate both `value`/`label` and `option_value`/`option_label` option shapes.
+- Confirm Field taxonomy/category/location/tag, checkbox, presence, map, privacy, and button rows render dropdown values with non-numeric operators; category/location should save term IDs from the dropdown, not manually typed labels.
 - Confirm General source options come from `condition_sources.general` and unsupported mockup-only conditions are absent unless an extension registers metadata and a runtime value resolver.
 - Confirm the General source does not include `Listing status`, and old saved `listing_status` rows remain unsupported instead of becoming another General condition.
 - Confirm Pricing plan source options include published legacy core pricing plans, v4 Pricing Plans rows from `directorist_plans`, and WooCommerce listing pricing products when those sources exist.
@@ -66,13 +67,14 @@ Use Agent Browser when an authenticated admin session is available:
 14. Edit General match-condition row keys/operators/values, Add condition, Remove condition, and All/Any mode; verify Save enables and no duplicate old generic rows appear.
 15. Remove the final condition row, save, refresh, and verify `conditions: []` persists.
 16. Switch a row to Field, choose a real listing field, set operator/value, save, refresh, and verify the saved source/key/operator/value persist without changing legacy threshold keys.
-17. Switch a row to Pricing plan, test both `Has pricing plan` and a specific `Pricing plan`, save, refresh, and verify persistence.
-18. Add a custom badge, set internal name, visible label, type/icon, colors, and conditions; save, refresh, and verify persistence.
-19. Delete the custom badge, save, refresh, and verify it is gone.
-20. Add a custom badge again, click Reset defaults, verify the warning popup copy, cancel once, then confirm reset; save, refresh, and verify core labels/colors/icons are restored, custom badges are removed, New shows `Listing age (days) <= 3`, Popular shows `Any (OR)` with `View count >= 5` and `Average rating >= 4`, and Featured shows `Is featured is true`.
-21. Save and verify the request posts changed badge keys and, when badge settings changed, `directorist_badge_rules` to `save_settings_data`.
-22. Refresh and verify saved values persist and Save is disabled after load.
-23. Use settings search for a badge field and verify it opens the Badges tab and highlights/scrolls to the custom control.
+17. Switch a row to Field > Category, Tag, or Location and verify the value control is a dropdown, the operator is `is`/membership-style rather than numeric, and the saved badge matches the selected term on archive/single output.
+18. Switch a row to Pricing plan, test both `Has pricing plan` and a specific `Pricing plan`, save, refresh, and verify persistence.
+19. Add a custom badge, set internal name, visible label, type/icon, colors, and conditions; save, refresh, and verify persistence.
+20. Delete the custom badge, save, refresh, and verify it is gone.
+21. Add a custom badge again, click Reset defaults, verify the warning popup copy, cancel once, then confirm reset; save, refresh, and verify core labels/colors/icons are restored, custom badges are removed, New shows `Listing age (days) <= 3`, Popular shows `Any (OR)` with `View count >= 5` and `Average rating >= 4`, and Featured shows `Is featured is true`.
+22. Save and verify the request posts changed badge keys and, when badge settings changed, `directorist_badge_rules` to `save_settings_data`.
+23. Refresh and verify saved values persist and Save is disabled after load.
+24. Use settings search for a badge field and verify it opens the Badges tab and highlights/scrolls to the custom control.
 
 ### LocalWP Auth Fallback
 

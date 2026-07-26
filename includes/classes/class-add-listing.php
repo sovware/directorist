@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 
 use Directorist\Helper;
 use Directorist\Fields\Fields;
+use Directorist\Fields\Conditional_Logic;
 
 if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
@@ -257,7 +258,9 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         continue;
                     }
 
-                    // Removed: should_ignore_category_custom_field check (assign_to feature removed)
+                    if ( self::should_ignore_conditional_logic_field( $field, $posted_data ) ) {
+                        continue;
+                    }
 
                     switch ( $field->get_internal_key() ) {
                         case 'title':
@@ -886,10 +889,18 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
         // Removed: should_ignore_category_custom_field method (assign_to feature removed)
 
+        public static function should_ignore_conditional_logic_field( $field, $posted_data ) {
+            return ! Conditional_Logic::should_show_field( $field->get_props(), $posted_data );
+        }
+
         public static function validate_field( $field, $posted_data ) {
             $should_validate = (bool) apply_filters( 'atbdp_add_listing_form_validation_logic', true, $field->get_props(), $posted_data );
 
             // Removed: should_ignore_category_custom_field check (assign_to feature removed)
+
+            if ( self::should_ignore_conditional_logic_field( $field, $posted_data ) ) {
+                $should_validate = false;
+            }
 
             if ( ! $should_validate ) {
                 return [

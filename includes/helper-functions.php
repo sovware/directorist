@@ -4295,8 +4295,6 @@ function directorist_generate_password_reset_pin_code( $user ) {
 }
 
 function directorist_check_password_reset_pin_code( $user, $pin_code ) {
-    global $wp_hasher;
-
     $tail_code = directorist_get_password_reset_code_transient( $user );
 
     if ( empty( $tail_code ) ) {
@@ -4320,17 +4318,7 @@ function directorist_check_password_reset_pin_code( $user, $pin_code ) {
 
     $reset_key_hash = $reset_data['reset_hash'];
 
-    /*
-     * If the stored hash is longer than an MD5,
-     * presume the new style phpass portable hash.
-     */
-    if ( empty( $wp_hasher ) ) {
-        require_once ABSPATH . WPINC . '/class-phpass.php';
-        // By default, use the portable hash from phpass.
-        $wp_hasher = new PasswordHash( 8, true );
-    }
-
-    if ( ! $wp_hasher->CheckPassword( $reset_key, $reset_key_hash ) ) {
+    if ( ! wp_check_password( $reset_key, $reset_key_hash ) ) {
         $reset_attempt = absint( $reset_data['reset_attempt'] ) - 1;
 
         if ( $reset_attempt < 0 ) {

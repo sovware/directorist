@@ -70,6 +70,19 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
         register_rest_route(
             $this->namespace,
+            '/' . $this->rest_base . '/timezones',
+            array(
+                array(
+                    'methods'             => WP_REST_Server::READABLE,
+                    'callback'            => array( $this, 'get_timezones' ),
+                    'permission_callback' => '__return_true',
+                ),
+                'schema' => array( $this, 'get_timezones_schema' ),
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
             '/' . $this->rest_base . '/(?P<id>[\d]+)',
             array(
                 'args'   => array(
@@ -94,6 +107,62 @@ class Listings_Controller extends Legacy_Listings_Controller {
                 ),
                 'schema' => array( $this, 'get_public_item_schema' ),
             )
+        );
+    }
+
+    public function get_timezones( $request ) {
+        $timezones = array_map(
+            static function( $timezone ) {
+                return array(
+                    'value' => $timezone,
+                    'label' => $timezone,
+                );
+            },
+            \DateTimeZone::listIdentifiers( \DateTimeZone::ALL )
+        );
+
+        $default_timezone = function_exists( 'directorist_get_wp_default_timezone_identifier' ) ? directorist_get_wp_default_timezone_identifier( 'America/New_York' ) : 'America/New_York';
+
+        return rest_ensure_response(
+            array(
+                'default'   => $default_timezone,
+                'timezones' => $timezones,
+            )
+        );
+    }
+
+    public function get_timezones_schema() {
+        return array(
+            '$schema'    => 'http://json-schema.org/draft-04/schema#',
+            'title'      => 'listing_timezones',
+            'type'       => 'object',
+            'properties' => array(
+                'default'   => array(
+                    'description' => __( 'Default timezone.', 'directorist' ),
+                    'type'        => 'string',
+                    'context'     => array( 'view' ),
+                ),
+                'timezones' => array(
+                    'description' => __( 'Available business hours timezones.', 'directorist' ),
+                    'type'        => 'array',
+                    'context'     => array( 'view' ),
+                    'items'       => array(
+                        'type'       => 'object',
+                        'properties' => array(
+                            'value' => array(
+                                'description' => __( 'Timezone identifier.', 'directorist' ),
+                                'type'        => 'string',
+                                'context'     => array( 'view' ),
+                            ),
+                            'label' => array(
+                                'description' => __( 'Timezone label.', 'directorist' ),
+                                'type'        => 'string',
+                                'context'     => array( 'view' ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         );
     }
 
@@ -140,6 +209,57 @@ class Listings_Controller extends Legacy_Listings_Controller {
         );
     }
 
+    protected function hydrate_business_hours_fields( $request ) {
+        if ( ! isset( $request['fields'] ) || ! is_array( $request['fields'] ) ) {
+            return;
+        }
+
+        if ( array_key_exists( 'timezone', $request['fields'] ) ) {
+            $_POST['timezone'] = sanitize_text_field( $request['fields']['timezone'] );
+        }
+
+        if ( array_key_exists( 'always_open', $request['fields'] ) && rest_sanitize_boolean( $request['fields']['always_open'] ) ) {
+            $_POST['enable_directorist_bh_listing'] = 'enable';
+            $_POST['enable247hour']                 = 'always';
+            $_POST['bdbh_version']                  = 'v3.6';
+        }
+    }
+
+    protected function update_business_hours_timezone( $listing_id, $request ) {
+        if ( ! isset( $request['fields'] ) || ! is_array( $request['fields'] ) || empty( $request['fields']['timezone'] ) ) {
+            return;
+        }
+
+        $timezone = sanitize_text_field( $request['fields']['timezone'] );
+
+        if ( ! in_array( $timezone, \DateTimeZone::listIdentifiers( \DateTimeZone::ALL ), true ) ) {
+            return;
+        }
+
+        update_post_meta( $listing_id, '_timezone', $timezone );
+    }
+
+    protected function validate_business_hours_timezone( $request ) {
+        if ( ! isset( $request['fields'] ) || ! is_array( $request['fields'] ) || empty( $request['fields']['timezone'] ) ) {
+            return true;
+        }
+
+        $timezone = sanitize_text_field( $request['fields']['timezone'] );
+
+        if ( in_array( $timezone, \DateTimeZone::listIdentifiers( \DateTimeZone::ALL ), true ) ) {
+            return true;
+        }
+
+        return new WP_Error(
+            'directorist_invalid_field',
+            __( 'Invalid business hours timezone.', 'directorist' ),
+            array(
+                'field'  => 'timezone',
+                'status' => 400,
+            )
+        );
+    }
+
     protected function hydrate_global_post( $request ) {
         $directory_id = $request['directory'];
         $plan_id      = $request['plan'];
@@ -149,6 +269,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
         $_POST['directory_id'] = $directory_id;
         $_POST['tax_input']    = array();
         $_POST['plan_id']      = $plan_id;
+
+        $this->hydrate_business_hours_fields( $request );
 
         foreach ( $form_fields as $form_field ) {
             if ( empty( $form_field['widget_name'] ) || (bool) directorist_get_var( $form_field['only_for_admin'] ) ) {
@@ -257,6 +379,12 @@ class Listings_Controller extends Legacy_Listings_Controller {
     }
 
     public function create_item( $request ) {
+        $timezone_validation = $this->validate_business_hours_timezone( $request );
+
+        if ( is_wp_error( $timezone_validation ) ) {
+            return $timezone_validation;
+        }
+
         $this->hydrate_global_post( $request );
         // phpcs:ignore WordPress.Security.NonceVerification.Missing
         $controller_response = SubmissionController::submit( wp_unslash( $_POST ), 'api' );
@@ -264,6 +392,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
         if ( is_wp_error( $controller_response ) ) {
             return $controller_response;
         }
+
+        $this->update_business_hours_timezone( $controller_response['id'], $request );
 
         $listing = get_post( $controller_response['id'] );
 
@@ -294,6 +424,12 @@ class Listings_Controller extends Legacy_Listings_Controller {
 
         do_action( 'directorist_rest_before_query', 'update_listing_item', $request, $id );
 
+        $timezone_validation = $this->validate_business_hours_timezone( $request );
+
+        if ( is_wp_error( $timezone_validation ) ) {
+            return $timezone_validation;
+        }
+
         $this->hydrate_global_post( $request );
 
         // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -302,6 +438,8 @@ class Listings_Controller extends Legacy_Listings_Controller {
         if ( is_wp_error( $controller_response ) ) {
             return $controller_response;
         }
+
+        $this->update_business_hours_timezone( $id, $request );
 
         $listing = get_post( $id );
 
@@ -841,6 +979,16 @@ class Listings_Controller extends Legacy_Listings_Controller {
                         ),
                     ),
                 ),
+            ),
+            'always_open'   => array(
+                'description' => __( 'Whether the listing is open 24 hours a day, 7 days a week.', 'directorist' ),
+                'type'        => 'boolean',
+                'context'     => array( 'edit' ),
+            ),
+            'timezone'      => array(
+                'description' => __( 'Business hours timezone.', 'directorist' ),
+                'type'        => 'string',
+                'context'     => array( 'edit' ),
             ),
             '[field_key]'   => array(
                 'description' => __( 'Field key: value.', 'directorist' ),

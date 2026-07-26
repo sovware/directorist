@@ -180,6 +180,7 @@
 						<settings-extension-promotion
 							v-else-if="shouldRenderExtensionPromotion(field)"
 							:field="fields[field]"
+							:extension-context="extensionPromotionContext()"
 						/>
 
 						<settings-active-gateways-toggle
@@ -800,6 +801,50 @@ export default {
 				this.tabKey === 'extensions_general';
 
 			return isExtensionsSettings && field === 'extension_promotion';
+		},
+
+		extensionPromotionContext() {
+			const extensionLabels = [];
+			let hasExtensionSettings = false;
+
+			Object.keys(this.layout || {}).forEach((menuKey) => {
+				const submenus = this.layout[menuKey]?.submenu || {};
+
+				Object.keys(submenus).forEach((submenuKey) => {
+					const submenu = submenus[submenuKey];
+
+					if (!submenu?.extensionSettings) {
+						return;
+					}
+
+					hasExtensionSettings = true;
+
+					if (submenu.label) {
+						extensionLabels.push(submenu.label);
+					}
+				});
+			});
+
+			const extensionMenu =
+				this.layout.extension_settings ||
+				this.layout.extensions_settings ||
+				{};
+			const submenus = extensionMenu.submenu || {};
+			const generalSections = submenus.extensions_general?.sections || {};
+			const hasGeneralFields = Object.keys(generalSections).some(
+				(sectionKey) => {
+					const fields = generalSections[sectionKey]?.fields || [];
+
+					return fields.some(
+						(field) => field !== 'extension_promotion',
+					);
+				},
+			);
+
+			return {
+				hasExtensionSettings: hasExtensionSettings || hasGeneralFields,
+				extensionLabels: [...new Set(extensionLabels)],
+			};
 		},
 
 		shouldRenderActiveGatewaysToggle(field) {

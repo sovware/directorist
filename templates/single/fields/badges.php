@@ -9,29 +9,45 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! $listing->has_badge( $data ) ) {
+$badges = $listing->matched_badges( $data );
+
+if ( empty( $badges ) ) {
     return;
 }
 ?>
 
-<?php if ( $listing->display_new_badge( $data ) || $listing->display_featured_badge( $data ) || $listing->display_popular_badge( $data ) ) : ?>
+<div class="directorist-info-item directorist-info-item-badges">
+    <?php foreach ( $badges as $badge ) : ?>
+        <?php
+        $badge_data = Helper::badge_template_data( $badge['key'] );
 
-    <div class="directorist-info-item directorist-info-item-badges">
+        if ( empty( $badge_data ) ) {
+            continue;
+        }
 
-        <?php if ( $listing->display_new_badge( $data ) ) : ?>
-            <span class="directorist-badge directorist-badge-new"><?php echo esc_html( Helper::new_badge_text() ); ?></span>
-        <?php endif; ?>
+        $badge_style_attr   = ! empty( $badge_data['badge_style_attr'] ) ? $badge_data['badge_style_attr'] : '';
+        $badge_display_type = ! empty( $badge_data['badge_display_type'] ) ? $badge_data['badge_display_type'] : 'text_badge';
+        $badge_text_class   = ! empty( $badge_data['badge_text_class'] ) ? $badge_data['badge_text_class'] : '';
+        $badge_icon         = ! empty( $badge_data['badge_icon_html'] ) ? $badge_data['badge_icon_html'] : '';
+        $badge_show_icon    = ! empty( $badge_data['badge_show_icon'] );
 
-        <?php if ( $listing->display_featured_badge( $data ) ) : ?>
-            <span class="directorist-badge directorist-badge-featured ">
-                <?php echo esc_html( Helper::featured_badge_text() ); ?>
-            </span>
-        <?php endif; ?>
+        if ( empty( $badge_icon ) && $badge_show_icon && ! empty( $badge_data['icon'] ) ) {
+            $badge_icon = Helper::badge_icon_markup( $badge_data['icon'], $badge_data );
+        }
 
-        <?php if ( $listing->display_popular_badge( $data ) ) : ?>
-            <span class="directorist-badge directorist-badge-popular"><?php echo esc_html( Helper::popular_badge_text() ); ?></span>
-        <?php endif; ?>
-
-    </div>
-
-<?php endif; ?>
+        $badge_label        = ! empty( $badge_data['label'] ) ? $badge_data['label'] : '';
+        $tooltip_label      = ! empty( $badge_data['tooltip_label'] ) ? $badge_data['tooltip_label'] : $badge_label;
+        $badge_class        = ! empty( $badge_data['class'] ) ? $badge_data['class'] : $badge['class'];
+        $tooltip_class      = ! empty( $badge_data['tooltip_class'] ) ? $badge_data['tooltip_class'] : '';
+        ?>
+        <span class="directorist-badge directorist-badge-<?php echo esc_attr( $badge_class ); ?> <?php echo esc_attr( $badge_text_class ); ?>"<?php echo $badge_style_attr ? ' style="' . esc_attr( $badge_style_attr ) . '"' : ''; ?>>
+            <?php if ( 'icon_badge' === $badge_display_type ) : ?>
+                <?php echo $badge_icon ? wp_kses_post( $badge_icon ) : ''; ?>
+                <span class="directorist-badge-tooltip <?php echo esc_attr( $tooltip_class ); ?>"><?php echo esc_html( $tooltip_label ); ?></span>
+            <?php else : ?>
+                <?php echo $badge_icon ? wp_kses_post( $badge_icon ) : ''; ?>
+                <?php echo esc_html( $badge_label ); ?>
+            <?php endif; ?>
+        </span>
+    <?php endforeach; ?>
+</div>

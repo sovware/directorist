@@ -34,7 +34,7 @@
 
 			try {
 				const response = await wp.apiFetch({
-					path: '/directorist/v1/checkout',
+					path: '/directorist/v2/checkout',
 					method: 'POST',
 					data: data,
 				});

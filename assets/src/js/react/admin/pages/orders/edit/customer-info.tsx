@@ -7,15 +7,22 @@ type DetailsProps = {
 };
 
 export default function CustomerInfo({ order }: DetailsProps) {
+	const customerName =
+		order?.user?.display_name ||
+		order?.user?.user_email ||
+		__('Guest customer', 'directorist');
+	const customerEmail =
+		order?.user?.user_email || __('No user account', 'directorist');
+
 	return (
 		<Card title="Customer Information">
 			<InfoBox>
 				<li className="directorist-infobox-item">
 					<span className="directorist-infobox-item-label">
-						{order?.user?.display_name}
+						{customerName}
 					</span>
 					<span className="directorist-infobox-item-text">
-						{order?.user?.user_email}
+						{customerEmail}
 					</span>
 				</li>
 				{order?.user?.phone && (

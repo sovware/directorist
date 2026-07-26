@@ -33418,7 +33418,7 @@ function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { 
 
 var checkoutPageUrl = directorist_admin_order.checkout_page_url;
 var orderStoreName = 'directorist/orders';
-var orderStorePath = '/directorist/v1/orders';
+var orderStorePath = '/directorist/v2/orders';
 var baseColumns = [{
   id: 'id',
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Order Id', 'directorist'),
@@ -33529,7 +33529,7 @@ function App() {
             _context.p = 2;
             _context.n = 3;
             return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
-              path: "/directorist/v1/orders/".concat(cancelItem.id, "/cancel"),
+              path: "".concat(orderStorePath, "/").concat(cancelItem.id, "/cancel"),
               method: 'POST'
             });
           case 3:

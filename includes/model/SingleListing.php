@@ -731,26 +731,56 @@ class Directorist_Single_Listing {
     }
 
     public function has_badge( $data ) {
-        if ( $data['new_badge'] || $data['featured_badge'] || $data['popular_badge'] ) {
-            if ( Helper::badge_exists( $this->id ) ) {
-                return true;
+        return ! empty( $this->matched_badges( $data ) );
+    }
+
+    public function matched_badges( $data ) {
+        $badge_keys = [];
+
+        if ( ! empty( $data['new_badge'] ) ) {
+            $badge_keys[] = 'new';
+        }
+
+        if ( ! empty( $data['featured_badge'] ) ) {
+            $badge_keys[] = 'featured';
+        }
+
+        if ( ! empty( $data['popular_badge'] ) ) {
+            $badge_keys[] = 'popular';
+        }
+
+        foreach ( array_keys( Helper::custom_badge_definitions() ) as $custom_badge_key ) {
+            if ( ! empty( $data[ $custom_badge_key ] ) && $this->builder_toggle_enabled( $data[ $custom_badge_key ] ) ) {
+                $badge_keys[] = $custom_badge_key;
             }
         }
 
-        return false;
+        return Helper::matched_badges( $this->id, $badge_keys );
+    }
+
+    private function builder_toggle_enabled( $value ) {
+        if ( is_bool( $value ) ) {
+            return $value;
+        }
+
+        if ( is_numeric( $value ) ) {
+            return (bool) (int) $value;
+        }
+
+        return in_array( strtolower( trim( (string) $value ) ), [ '1', 'true', 'yes', 'on' ], true );
     }
 
     public function display_new_badge( $data ) {
-        return $data['new_badge'] && Helper::is_new( $this->id );
+        return $data['new_badge'] && Helper::display_badge( $this->id, 'new' );
     }
 
     public function display_featured_badge( $data ) {
         $featured_badge = ! empty( $data['featured_badge'] ) ? $data['featured_badge'] : '';
-        return $featured_badge && Helper::is_featured( $this->id );
+        return $featured_badge && Helper::display_badge( $this->id, 'featured' );
     }
 
     public function display_popular_badge( $data ) {
-        return $data['popular_badge'] && Helper::is_popular( $this->id );
+        return $data['popular_badge'] && Helper::display_badge( $this->id, 'popular' );
     }
 
     public function has_price_range() {

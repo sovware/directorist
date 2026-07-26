@@ -882,10 +882,14 @@
 							height: 20px;
 						}
 
-						.directorist-favorite-icon:before,
-						.directorist-badge .directorist-icon-mask:after {
+						.directorist-favorite-icon:before {
 							width: 10px;
 							height: 10px;
+						}
+
+						.directorist-badge .directorist-icon-mask:after {
+							width: var(--directorist-badge-icon-size, 10px);
+							height: var(--directorist-badge-icon-size, 10px);
 						}
 					}
 
@@ -1031,95 +1035,110 @@
 
 		&.directorist-listing-card,
 		&.directorist-listing-list {
-			.directorist-badge {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				width: 26px;
-				height: 26px;
-				margin: 0;
-				padding: 0;
-				border-radius: 100%;
-				color: var(--directorist-color-white);
+				.directorist-badge {
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					margin: 0;
+					background-color: var(--directorist-badge-bg, currentColor);
+					border: 1px solid var(--directorist-badge-border, currentColor);
+					border-radius: 999px;
+					box-sizing: border-box;
+					color: var(--directorist-badge-color, var(--directorist-color-white));
+					line-height: 1;
 
-				.directorist-icon-mask:after {
-					width: 12px;
-					height: 12px;
-				}
+					.directorist-icon-mask:after {
+						background-color: var(--directorist-badge-icon-color, currentColor);
+					}
 
-				&.directorist-badge--only-text,
-				&.directorist-badge-open,
-				&.directorist-badge-close {
+					&.directorist-badge--icon-only {
+						width: 28px;
+						min-width: 28px;
+						max-width: 28px;
+						height: 28px;
+						min-height: 28px;
+						max-height: 28px;
+						flex: 0 0 28px;
+						padding: 0;
+						font-size: 14px;
+						--directorist-badge-icon-size: 14px;
+					}
+
+					&.directorist-badge--only-text,
+					&.directorist-badge-open,
+					&.directorist-badge-close {
 					display: inline-flex;
 					gap: 6px;
 					align-items: center;
 					justify-content: center;
-					height: 21px;
-					line-height: 21px;
+					min-height: 24px;
+					height: 24px;
+					line-height: 1;
 					width: auto;
-					padding: 0 5px;
-					border-radius: 4px;
+					max-width: none;
+					flex: 0 1 auto;
+					padding: 4px 10px;
+					border-radius: 999px;
+					font-size: 12px;
 
 					@media screen and (max-width: 575px) {
-						height: 18px;
-						line-height: 18px;
-						font-size: 8px;
+						min-height: 20px;
+						height: 20px;
+						padding: 3px 8px;
+						font-size: 10px;
 					}
 				}
 
 				&.directorist-badge-popular {
-					background-color: var(--directorist-color-white);
-
 					.directorist-icon-mask:after {
-						background-color: var(--directorist-color-popular-badge);
+						background-color: var(--directorist-badge-icon-color, var(--directorist-color-popular-badge));
 					}
 				}
 
 				&.directorist-badge-new {
-					background-color: var(--directorist-color-white);
-
 					.directorist-icon-mask:after {
-						background-color: var(--directorist-color-new-badge);
+						background-color: var(--directorist-badge-icon-color, var(--directorist-color-new-badge));
 					}
 				}
 
 				&.directorist-badge-featured {
-					background-color: var(--directorist-color-white);
-
 					.directorist-icon-mask:after {
-						background-color: var(--directorist-color-featured-badge);
+						background-color: var(--directorist-badge-icon-color, var(--directorist-color-featured-badge));
 					}
 				}
 
 				&.directorist-badge--only-text {
 					.directorist-icon-mask {
-						display: none;
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						flex: 0 0 auto;
 					}
 
 					&.directorist-badge-featured {
-						background-color: var(--directorist-color-featured-badge);
-						color: var(--directorist-color-white);
+						background-color: var(--directorist-badge-bg, var(--directorist-color-featured-badge));
+						color: var(--directorist-badge-color, var(--directorist-color-white));
 
 						.directorist-icon-mask:after {
-							background-color: var(--directorist-color-white);
+							background-color: var(--directorist-badge-icon-color, var(--directorist-color-white));
 						}
 					}
 
 					&.directorist-badge-popular {
-						background-color: var(--directorist-color-popular-badge);
-						color: var(--directorist-color-white);
+						background-color: var(--directorist-badge-bg, var(--directorist-color-popular-badge));
+						color: var(--directorist-badge-color, var(--directorist-color-white));
 
 						.directorist-icon-mask:after {
-							background-color: var(--directorist-color-white);
+							background-color: var(--directorist-badge-icon-color, var(--directorist-color-white));
 						}
 					}
 
 					&.directorist-badge-new {
-						background-color: var(--directorist-color-new-badge);
-						color: var(--directorist-color-white);
+						background-color: var(--directorist-badge-bg, var(--directorist-color-new-badge));
+						color: var(--directorist-badge-color, var(--directorist-color-white));
 
 						.directorist-icon-mask:after {
-							background-color: var(--directorist-color-white);
+							background-color: var(--directorist-badge-icon-color, var(--directorist-color-white));
 						}
 					}
 				}

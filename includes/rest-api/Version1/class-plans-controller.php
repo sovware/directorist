@@ -130,6 +130,7 @@ class Plans_Controller extends Posts_Controller {
         }
         
         $plugin_type = $this->get_active_plugin_type();
+        
         if ( ! $plugin_type ) {
             return new WP_Error( 'extension_inactive', __( 'Pricing plan extension inactive.', 'directorist' ), array( 'status' => 400 ) );
         }

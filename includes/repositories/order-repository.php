@@ -25,7 +25,7 @@ class OrderRepository extends Repository {
     public function get( Read $dto ): array {
         $query = $this->get_query_builder()->select( 'd_order.*', 'users.user_email', 'users.display_name as user_display_name' );
 
-        $query->join( 'users', 'd_order.user_id', '=', 'users.ID' );
+        $query->left_join( 'users', 'd_order.user_id', '=', 'users.ID' );
 
         if ( ! empty( $dto->get_search() ) ) {
             $search_term = trim( $dto->get_search() );

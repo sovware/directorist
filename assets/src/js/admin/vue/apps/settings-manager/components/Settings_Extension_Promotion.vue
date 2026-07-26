@@ -28,6 +28,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    extensionContext: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   computed: {
@@ -36,9 +40,24 @@ export default {
     },
 
     description() {
+      const labels = Array.isArray(this.extensionContext.extensionLabels)
+        ? this.extensionContext.extensionLabels
+        : [];
+
+      if (this.extensionContext.hasExtensionSettings) {
+        const activeDescription =
+          "Extension settings are available in the settings panel";
+
+        if (labels.length) {
+          return `${activeDescription}: ${labels.join(", ")}.`;
+        }
+
+        return `${activeDescription}.`;
+      }
+
       return (
         this.field.description ||
-        "No extensions installed yet. Each extension you install will add its own section here."
+        "No extension settings available yet. Each extension you install can add its own settings section here."
       );
     },
 

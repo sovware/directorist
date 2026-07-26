@@ -172,7 +172,8 @@ $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data
                     echo 'plupload-upload-uic-multiple';
                 }
                 ?>
-                " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui">
+                " id="<?php echo esc_attr( $id ); ?>plupload-upload-ui"
+                data-upload-token="<?php echo esc_attr( $upload_token ); ?>">
                 <input id="<?php echo esc_attr( $id ); ?>plupload-browse-button" type="file"
                        value="<?php esc_attr_e( 'Select Files', 'directorist' ); ?>" class="directorist-btn"/>
                 <label for="<?php echo esc_attr( $id ); ?>plupload-browse-button" class="plupload-browse-button-label"><?php directorist_icon( $file_type_icon ); ?></label>

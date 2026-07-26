@@ -68,6 +68,66 @@
 }
 
 // Badge Tooltip
+.directorist-badge,
+.atbd_badge {
+    .directorist-icon-mask {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+    }
+
+    .directorist-icon-mask:after {
+        width: var(--directorist-badge-icon-size, 14px);
+        height: var(--directorist-badge-icon-size, 14px);
+        background-color: var(--directorist-badge-icon-color, currentColor);
+    }
+}
+
+.directorist-badge {
+    &.directorist-badge--only-text,
+    &.directorist-badge--icon-only {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        background-color: var(--directorist-badge-bg, currentColor);
+        border: 1px solid var(--directorist-badge-border, currentColor);
+        border-radius: 999px;
+        box-sizing: border-box;
+        color: var(--directorist-badge-color, var(--directorist-color-white));
+        font-weight: 500;
+        line-height: 1;
+        text-transform: none;
+        white-space: nowrap;
+    }
+
+    &.directorist-badge--only-text {
+        gap: 6px;
+        width: auto;
+        max-width: none;
+        min-width: 34px;
+        min-height: 24px;
+        flex: 0 1 auto;
+        padding: 4px 10px;
+        font-size: 12px;
+        --directorist-badge-icon-size: 13px;
+    }
+
+    &.directorist-badge--icon-only {
+        width: 28px;
+        min-width: 28px;
+        max-width: 28px;
+        height: 28px;
+        min-height: 28px;
+        max-height: 28px;
+        flex: 0 0 28px;
+        padding: 0;
+        font-size: 14px;
+        --directorist-badge-icon-size: 14px;
+    }
+}
+
 .directorist-badge {
     .directorist-badge-tooltip {
         position: absolute;
@@ -78,18 +138,20 @@
         padding: 0 20px;
         font-size: 12px;
         border-radius: 15px;
-        color: var(--directorist-color-white);
+        color: var(--directorist-badge-tooltip-color, var(--directorist-color-white));
+        background-color: var(--directorist-badge-tooltip-bg, var(--directorist-color-dark));
+        text-transform: none;
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease-in-out;
         @include e(featured) {
-            background-color: var(--directorist-color-featured-badge);
+            background-color: var(--directorist-badge-tooltip-bg, var(--directorist-color-featured-badge));
         }
         @include e(new) {
-            background-color: var(--directorist-color-new-badge);
+            background-color: var(--directorist-badge-tooltip-bg, var(--directorist-color-new-badge));
         }
         @include e(popular) {
-            background-color: var(--directorist-color-popular-badge);
+            background-color: var(--directorist-badge-tooltip-bg, var(--directorist-color-popular-badge));
         }
         @media screen and (max-width: 480px) {
             height: 25px;

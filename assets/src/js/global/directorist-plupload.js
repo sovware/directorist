@@ -30,6 +30,7 @@ function init() {
 		$('.plupload-upload-uic').each(function (ind, el) {
 			const $this = $(this);
 			const imgId = $this.attr('id').replace('plupload-upload-ui', '');
+			const uploadToken = $this.attr('data-upload-token');
 			const $errorHolder = jQuery('#' + imgId + 'upload-error');
 
 			plu_show_thumbs(imgId);
@@ -50,6 +51,10 @@ function init() {
 				imgId + pluploadConfig['file_data_name'];
 			pluploadConfig['multipart_params']['imgid'] = imgId;
 			pluploadConfig['multipart_params']['post_id'] = post_id;
+			if (uploadToken) {
+				pluploadConfig['multipart_params']['upload_token'] =
+					uploadToken;
+			}
 			pluploadConfig['max_file_size'] = $(
 				'#' + imgId + '_file_size'
 			).val();

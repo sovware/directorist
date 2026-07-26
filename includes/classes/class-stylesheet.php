@@ -207,18 +207,21 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ) :
                 }
 
                 /* Badge Featured */
-                .directorist-badge-featured, .atbd_bg-badge-feature, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured {
+                .atbd_bg-badge-feature, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_featured, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_featured, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_featured, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_featured {
                     background: <?php echo ! empty( $featured_back_color ) ? esc_attr( $featured_back_color ) : esc_attr( '#fa8b0c' ); ?>  !important;
+                    border-color: <?php echo ! empty( $featured_back_color ) ? esc_attr( $featured_back_color ) : esc_attr( '#fa8b0c' ); ?>  !important;
                 }
 
                 /* Badge Popular */
                 .atbd_bg-badge-popular, .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_popular, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_badge.atbd_badge_popular, .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_badge.atbd_badge_popular, .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_badge.atbd_badge_popular {
                     background: <?php echo ! empty( $popular_back_color ) ? esc_attr( $popular_back_color ) : esc_attr( '#f51957' ); ?> !important;
+                    border-color: <?php echo ! empty( $popular_back_color ) ? esc_attr( $popular_back_color ) : esc_attr( '#f51957' ); ?> !important;
                 }
 
                 /* Badge New */
                 .atbd_content_active #directorist.atbd_wrapper .atbd_badge.atbd_badge_new {
                     background: <?php echo ! empty( $new_back_color ) ? esc_attr( $new_back_color ) : esc_attr( '#2C99FF' ); ?> !important;
+                    border-color: <?php echo ! empty( $new_back_color ) ? esc_attr( $new_back_color ) : esc_attr( '#2C99FF' ); ?> !important;
                 }
 
                 /*

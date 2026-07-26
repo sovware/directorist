@@ -58,7 +58,7 @@ export default function Refund({ order }: { order: any }) {
 
 	registerCrudStore({
 		name: 'directorist/order-refund',
-		path: `/directorist/v1/admin/orders/${order?.id}/refunds`,
+		path: `/directorist/v2/admin/orders/${order?.id}/refunds`,
 	});
 
 	const { data: refundsData } = useCrudStoreData({
@@ -98,7 +98,7 @@ export default function Refund({ order }: { order: any }) {
 			<Table
 				heading={__('Refund Management', 'directorist')}
 				storeName="directorist/order-refund"
-				path={`/directorist/v1/admin/orders/${order?.id}/refunds`}
+				path={`/directorist/v2/admin/orders/${order?.id}/refunds`}
 				columns={columns}
 				showTable={showRefundTable}
 				create={{

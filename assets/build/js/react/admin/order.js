@@ -34419,8 +34419,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function CustomerInfo(_ref) {
-  var _order$user, _order$user2, _order$user3, _order$user4;
+  var _order$user, _order$user2, _order$user3, _order$user4, _order$user5;
   var order = _ref.order;
+  var customerName = (order === null || order === void 0 || (_order$user = order.user) === null || _order$user === void 0 ? void 0 : _order$user.display_name) || (order === null || order === void 0 || (_order$user2 = order.user) === null || _order$user2 === void 0 ? void 0 : _order$user2.user_email) || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Guest customer', 'directorist');
+  var customerEmail = (order === null || order === void 0 || (_order$user3 = order.user) === null || _order$user3 === void 0 ? void 0 : _order$user3.user_email) || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No user account', 'directorist');
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_admin_components_card__WEBPACK_IMPORTED_MODULE_0__["default"], {
     title: "Customer Information",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_style__WEBPACK_IMPORTED_MODULE_2__.InfoBox, {
@@ -34428,19 +34430,19 @@ function CustomerInfo(_ref) {
         className: "directorist-infobox-item",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "directorist-infobox-item-label",
-          children: order === null || order === void 0 || (_order$user = order.user) === null || _order$user === void 0 ? void 0 : _order$user.display_name
+          children: customerName
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "directorist-infobox-item-text",
-          children: order === null || order === void 0 || (_order$user2 = order.user) === null || _order$user2 === void 0 ? void 0 : _order$user2.user_email
+          children: customerEmail
         })]
-      }), (order === null || order === void 0 || (_order$user3 = order.user) === null || _order$user3 === void 0 ? void 0 : _order$user3.phone) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
+      }), (order === null || order === void 0 || (_order$user4 = order.user) === null || _order$user4 === void 0 ? void 0 : _order$user4.phone) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("li", {
         className: "directorist-infobox-item",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "directorist-infobox-item-label",
           children: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Phone Number', 'directorist')
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           className: "directorist-infobox-item-text",
-          children: order === null || order === void 0 || (_order$user4 = order.user) === null || _order$user4 === void 0 ? void 0 : _order$user4.phone
+          children: order === null || order === void 0 || (_order$user5 = order.user) === null || _order$user5 === void 0 ? void 0 : _order$user5.phone
         })]
       })]
     })
@@ -34567,7 +34569,7 @@ function OrderEdit(_ref) {
     setIsSaving = _useState6[1];
   var orderId = (0,_admin_hooks_useGetId__WEBPACK_IMPORTED_MODULE_11__.useGetId)();
   var singleOrderRoute = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_6__.useMemo)(function () {
-    return orderId ? "/directorist/v1/admin/orders/".concat(orderId) : '';
+    return orderId ? "/directorist/v2/admin/orders/".concat(orderId) : '';
   }, [orderId]);
 
   // Unique store name per order so re-navigation always fetches fresh data.
@@ -34619,7 +34621,7 @@ function OrderEdit(_ref) {
             _context.p = 2;
             _context.n = 3;
             return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
-              path: "directorist/v1/admin/orders/".concat(orderId, "/status"),
+              path: "directorist/v2/admin/orders/".concat(orderId, "/status"),
               method: 'POST',
               data: {
                 status: orderStatus
@@ -35017,7 +35019,7 @@ function Refund(_ref3) {
     setShowRefundTable = _useState2[1];
   (0,_shamim_ahmed_data__WEBPACK_IMPORTED_MODULE_4__.registerCrudStore)({
     name: 'directorist/order-refund',
-    path: "/directorist/v1/admin/orders/".concat(order === null || order === void 0 ? void 0 : order.id, "/refunds")
+    path: "/directorist/v2/admin/orders/".concat(order === null || order === void 0 ? void 0 : order.id, "/refunds")
   });
   var _useCrudStoreData = (0,_shamim_ahmed_data__WEBPACK_IMPORTED_MODULE_4__.useCrudStoreData)({
       name: 'directorist/order-refund',
@@ -35058,7 +35060,7 @@ function Refund(_ref3) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_3__.Table, {
       heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Refund Management', 'directorist'),
       storeName: "directorist/order-refund",
-      path: "/directorist/v1/admin/orders/".concat(order === null || order === void 0 ? void 0 : order.id, "/refunds"),
+      path: "/directorist/v2/admin/orders/".concat(order === null || order === void 0 ? void 0 : order.id, "/refunds"),
       columns: columns,
       showTable: showRefundTable,
       create: {
@@ -35512,13 +35514,18 @@ var baseColumns = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Customer', 'directorist'),
   render: function render(_ref7) {
     var item = _ref7.item;
+    var hasCustomer = !!(item !== null && item !== void 0 && item.user_id && (item !== null && item !== void 0 && item.user_display_name || item !== null && item !== void 0 && item.user_email));
+    var customerName = (item === null || item === void 0 ? void 0 : item.user_display_name) || (item === null || item === void 0 ? void 0 : item.user_email) || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Guest customer', 'directorist');
+    var customerEmail = (item === null || item === void 0 ? void 0 : item.user_email) || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('No user account', 'directorist');
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_styles__WEBPACK_IMPORTED_MODULE_15__.UserInfoContainer, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_styles__WEBPACK_IMPORTED_MODULE_15__.UserLink, {
+      children: [hasCustomer ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_styles__WEBPACK_IMPORTED_MODULE_15__.UserLink, {
         href: "".concat((0,_admin_helper_utils__WEBPACK_IMPORTED_MODULE_13__.getAdminUrl)(), "user-edit.php?user_id=").concat(item.user_id),
-        children: item.user_display_name
+        children: customerName
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
+        children: customerName
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)("span", {
         className: "directorist-table-text-light",
-        children: item.user_email
+        children: customerEmail
       })]
     });
   }
@@ -35536,7 +35543,7 @@ var baseColumns = [{
 function Orders() {
   (0,_shamim_ahmed_data__WEBPACK_IMPORTED_MODULE_9__.registerCrudStore)({
     name: 'directorist/orders',
-    path: '/directorist/v1/admin/orders'
+    path: '/directorist/v2/admin/orders'
   });
   var _useCrudStore = (0,_shamim_ahmed_data__WEBPACK_IMPORTED_MODULE_9__.useCrudStore)({
       name: 'directorist/orders'
@@ -35614,7 +35621,7 @@ function Orders() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_styles__WEBPACK_IMPORTED_MODULE_15__.GlobalDropdownMenuStyles, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_8__.Table, {
       heading: "Orders",
       storeName: "directorist/orders",
-      path: "/directorist/v1/admin/orders",
+      path: "/directorist/v2/admin/orders",
       columns: columns,
       actions: [],
       create: {

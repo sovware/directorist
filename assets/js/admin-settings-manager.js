@@ -2827,7 +2827,7 @@ var FIELD_OVERRIDES = {
   },
   extension_promotion: {
     title: 'Installed extensions',
-    description: 'No extensions installed yet. Each extension you install will add its own section here.',
+    description: 'No extension settings available yet. Each extension you install can add its own settings section here.',
     browseTitle: 'Browse extensions',
     browseDescription: '30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.',
     browseButtonLabel: 'View directory',
@@ -3606,6 +3606,7 @@ var buildMonetizationSettingsMenu = function buildMonetizationSettingsMenu() {
     submenu[submenuKey] = {
       label: rawSubmenu.label || rawSubmenu.title || 'Payment gateway',
       icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.gateways,
+      extensionSettings: true,
       sections: sections
     };
   });
@@ -3632,6 +3633,7 @@ var buildExtensionSettingsMenu = function buildExtensionSettingsMenu(rawLayouts,
     submenu[submenuKey] = {
       label: rawSubmenu.label || 'Extension',
       icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.extensions,
+      extensionSettings: submenuKey !== 'extensions_general',
       sections: sections
     };
   });
@@ -12506,6 +12508,12 @@ __webpack_require__.r(__webpack_exports__);
       default: function _default() {
         return {};
       }
+    },
+    extensionContext: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
     }
   },
   computed: {
@@ -12513,7 +12521,15 @@ __webpack_require__.r(__webpack_exports__);
       return this.field.title || "Installed extensions";
     },
     description: function description() {
-      return this.field.description || "No extensions installed yet. Each extension you install will add its own section here.";
+      var labels = Array.isArray(this.extensionContext.extensionLabels) ? this.extensionContext.extensionLabels : [];
+      if (this.extensionContext.hasExtensionSettings) {
+        var activeDescription = "Extension settings are available in the settings panel";
+        if (labels.length) {
+          return "".concat(activeDescription, ": ").concat(labels.join(", "), ".");
+        }
+        return "".concat(activeDescription, ".");
+      }
+      return this.field.description || "No extension settings available yet. Each extension you install can add its own settings section here.";
     },
     browseTitle: function browseTitle() {
       return this.field.browseTitle || "Browse extensions";
@@ -15215,6 +15231,40 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
     shouldRenderExtensionPromotion: function shouldRenderExtensionPromotion(field) {
       var isExtensionsSettings = this.menuKey.indexOf("extension_settings") === 0 || this.menuKey.indexOf("extensions_settings") === 0 || this.tabKey.indexOf("extension_settings") === 0 || this.tabKey.indexOf("extensions_settings") === 0 || this.tabKey === "extensions_general";
       return isExtensionsSettings && field === "extension_promotion";
+    },
+    extensionPromotionContext: function extensionPromotionContext() {
+      var _this = this;
+      var _submenus$extensions_;
+      var extensionLabels = [];
+      var hasExtensionSettings = false;
+      Object.keys(this.layout || {}).forEach(function (menuKey) {
+        var _this$layout$menuKey;
+        var submenus = ((_this$layout$menuKey = _this.layout[menuKey]) === null || _this$layout$menuKey === void 0 ? void 0 : _this$layout$menuKey.submenu) || {};
+        Object.keys(submenus).forEach(function (submenuKey) {
+          var submenu = submenus[submenuKey];
+          if (!(submenu !== null && submenu !== void 0 && submenu.extensionSettings)) {
+            return;
+          }
+          hasExtensionSettings = true;
+          if (submenu.label) {
+            extensionLabels.push(submenu.label);
+          }
+        });
+      });
+      var extensionMenu = this.layout.extension_settings || this.layout.extensions_settings || {};
+      var submenus = extensionMenu.submenu || {};
+      var generalSections = ((_submenus$extensions_ = submenus.extensions_general) === null || _submenus$extensions_ === void 0 ? void 0 : _submenus$extensions_.sections) || {};
+      var hasGeneralFields = Object.keys(generalSections).some(function (sectionKey) {
+        var _generalSections$sec;
+        var fields = ((_generalSections$sec = generalSections[sectionKey]) === null || _generalSections$sec === void 0 ? void 0 : _generalSections$sec.fields) || [];
+        return fields.some(function (field) {
+          return field !== "extension_promotion";
+        });
+      });
+      return {
+        hasExtensionSettings: hasExtensionSettings || hasGeneralFields,
+        extensionLabels: Array.from(new Set(extensionLabels))
+      };
     },
     shouldRenderActiveGatewaysToggle: function shouldRenderActiveGatewaysToggle(field) {
       var isPaymentGatewaySettings = this.menuKey === "monetization_settings__gateway" || this.tabKey === "gateway";
@@ -31551,7 +31601,8 @@ var render = function render() {
         }
       }) : _vm.shouldRenderExtensionPromotion(field) ? _c('settings-extension-promotion', {
         attrs: {
-          "field": _vm.fields[field]
+          "field": _vm.fields[field],
+          "extension-context": _vm.extensionPromotionContext()
         }
       }) : _vm.shouldRenderActiveGatewaysToggle(field) ? _c('settings-active-gateways-toggle', {
         attrs: {

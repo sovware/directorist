@@ -103,9 +103,12 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 ### Badges
 
 - `badge_display_type`: controls how badges are displayed.
+- `directorist_badge_rules`: hidden badge rule store for core and custom badge definitions, including internal name, visible label, type/icon, `typeEdited`, `iconEdited`, background/text-or-icon/border colors, icon-badge tooltip overrides in `hover.text`, `hover.bg`, and `hover.textColor`, General/Field/Pricing plan conditions, and match mode. Empty or invalid core conditions fall back to legacy badge checks; custom badges with empty conditions show wherever their builder widget is placed, while invalid custom conditions fail closed. Custom badges are additive and exposed as builder widgets only after they are saved.
 - `new_badge_text`, `new_listing_day`, `new_back_color`: new badge label, age threshold, and color.
 - `popular_badge_text`, `listing_popular_by`, `views_for_popular`, `average_review_for_popular`, `popular_back_color`: popular badge label, popularity rule, thresholds, and color.
 - `feature_badge_text`, `featured_back_color`: featured badge label and color.
+
+Redesigned UI note: Appearance > Badges uses a custom Vue badge manager with Reset defaults and Add badge. Core badge internal names affect admin/builder labels only; core visible labels and background colors still mirror the legacy options. Core default icons remain `la la-bolt`, `la la-fire`, and `la la-star-o`; saved icon changes update the builder widget icon class and text badge frontend output when present. Builder chips keep the old neutral builder UI and do not inherit badge colors or icon-only badge presentation. Frontend archive, single, and legacy badge output should visually match the Appearance preview chip tokens. Removing a text badge icon saves an intentionally empty icon and renders label-only; icon-only badges restore their default icon if empty and can use optional tooltip text/background/text-color overrides. Delete applies only to custom badges, and Reset defaults removes custom badges without requiring a migration.
 
 ### Review
 

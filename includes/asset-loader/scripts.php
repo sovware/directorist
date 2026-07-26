@@ -299,7 +299,7 @@ class Scripts {
             'directorist-settings-manager' => [
                 'type' => 'js',
                 'path' => DIRECTORIST_BUILD_ASSETS . 'js/admin/settings-manager',
-                'dep'  => [ 'lodash' ]
+                'dep'  => [ 'lodash', 'directorist-icon-picker' ]
             ],
             'directorist-plugins' => [
                 'type' => 'js',

@@ -1607,8 +1607,12 @@ class Directorist_Listings {
         $card = wp_json_encode( $this->openstreet_map_card_data() );
         $options = wp_json_encode( $this->map_options() );
         $style = 'height:' . $this->listings_map_height . 'px';
+        static $map_index = 0;
+        $map_index++;
+        $instance_id = wp_unique_id( 'directorist-map-' );
+        $map_id      = ( 1 === $map_index ) ? 'map' : $instance_id;
         ?>
-        <div id="map" style="<?php echo esc_attr( $style ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
+        <div id="<?php echo esc_attr( $map_id ); ?>" class="directorist-openstreet-map" style="<?php echo esc_attr( $style ); ?>" data-directorist-map-instance="<?php echo esc_attr( $instance_id ); ?>" data-card="<?php echo directorist_esc_json( $card ); ?>" data-options="<?php echo directorist_esc_json( $options ); ?>">
             <div id="gmap_full_screen_button">
                 <span class="fullscreen-enable"><?php directorist_icon( 'fas fa-expand' ); ?></span>
                 <span class="fullscreen-disable"><?php directorist_icon( 'fas fa-compress' ); ?></span>
@@ -1691,6 +1695,7 @@ class Directorist_Listings {
                 $this->set_loop_data();
                 $ls_data = [];
 
+                $ls_data['post_id']         = $listings_id;
                 $ls_data['manual_lat']      = get_post_meta( $listings_id, '_manual_lat', true );
                 $ls_data['manual_lng']      = get_post_meta( $listings_id, '_manual_lng', true );
                 $ls_data['listing_img']     = directorist_get_listing_gallery_images( $listings_id );
@@ -1728,6 +1733,7 @@ class Directorist_Listings {
 
                 $map_data[] = [
                     'content'   => $content,
+                    'listing_id' => $listings_id,
                     'latitude'  => get_post_meta( $listings_id, '_manual_lat', true ),
                     'longitude' => get_post_meta( $listings_id, '_manual_lng', true ),
                     'cat_icon'  => $cat_icon,
@@ -1763,8 +1769,9 @@ class Directorist_Listings {
 
         Helper::add_hidden_data_to_dom( 'atbdp_map', $data );
         $map_height = ! empty( $this->listings_map_height ) ? $this->listings_map_height : '';
+        $instance_id = wp_unique_id( 'directorist-map-' );
         ?>
-        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="<?php echo esc_attr( $this->options['marker_clustering'] ); ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-directorist-map-instance="<?php echo esc_attr( $instance_id ); ?>" data-type="<?php echo esc_attr( $this->options['marker_clustering'] ); ?>" style="height: <?php echo esc_attr( $map_height );?>px;">
             <?php
             $listings = $this->query_results;
 
@@ -2296,60 +2303,39 @@ class Directorist_Listings {
     }
 
     public function render_badge_template( $field ) {
-        global $post;
-        $id = get_the_ID();
+        $id        = get_the_ID();
+        $badge_key = '';
+
+        foreach ( [ 'widget_name', 'widget_key', 'original_widget_key', 'field_key' ] as $badge_key_source ) {
+            if ( empty( $field[ $badge_key_source ] ) ) {
+                continue;
+            }
+
+            $badge_key = Helper::badge_key_from_widget_key( $field[ $badge_key_source ] );
+
+            if ( ! empty( $badge_key ) ) {
+                break;
+            }
+        }
 
         // for development purpose
         do_action( 'atbdp_all_listings_badge_template', $field );
 
-        $field['badge_display_type'] = get_directorist_option( 'badge_display_type', 'text_badge' );
-        $field['badge_text_class']   = ( 'text_badge' === $field['badge_display_type'] ) ? 'directorist-badge--only-text' : '';
-
-        switch ( $field['widget_key'] ) {
-
-            case 'popular_badge':
-
-                $field['class']         = 'popular';
-                $field['icon']          = 'la la-fire';
-                $field['tooltip_class'] = 'directorist-badge-tooltip__popular';
-                $field['label']         = Helper::popular_badge_text();
-
-                if ( Helper::is_popular( $id ) ) {
-                    Helper::get_template( 'archive/fields/badge', $field );
-                }
-
-                break;
-
-            case 'featured_badge':
-
-                $field['class']               = 'featured';
-                $field['icon']                = 'la la-star-o';
-                $field['tooltip_class']       = 'directorist-badge-tooltip__featured';
-                $field['label']               = Helper::featured_badge_text();
-                $field['featured_badge_type'] = get_directorist_option( 'feature_badge_type', 'icon_badge' );
-
-                if ( Helper::is_featured( $id ) ) {
-                    Helper::get_template( 'archive/fields/badge', apply_filters( 'directorist_featured_badge_field_data', $field ) );
-                }
-
-                break;
-
-            case 'new_badge':
-
-                $field['class']           = 'new';
-                $field['icon']            = 'la la-bolt';
-                $field['tooltip_class']   = 'directorist-badge-tooltip__new';
-                $field['new_badge_type']  = get_directorist_option( 'new_badge_type', 'icon_badge' );
-                $field['new_badge_class'] = ( 'text_badge' === $field['new_badge_type'] ) ? 'directorist-badge--only-text' : '';
-                $field['label']           = Helper::new_badge_text();
-
-                if ( Helper::is_new( $id ) ) {
-                    Helper::get_template( 'archive/fields/badge', $field );
-                }
-
-                break;
-
+        if ( empty( $badge_key ) || ! Helper::display_badge( $id, $badge_key ) ) {
+            return;
         }
+
+        $field = Helper::badge_template_data( $badge_key, $field );
+
+        if ( empty( $field ) ) {
+            return;
+        }
+
+        if ( 'featured' === $badge_key ) {
+            $field = apply_filters( 'directorist_featured_badge_field_data', $field );
+        }
+
+        Helper::get_template( 'archive/fields/badge', $field );
     }
 
     public function listing_wrapper_class() {
@@ -2566,75 +2552,84 @@ class Directorist_Listings {
     }
 
     public static function featured_badge( $content ) {
-        $featured = get_post_meta( get_the_ID(), '_featured', true );
-        $feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
-
-        if ( $featured ) {
-            $badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
-            return $content . $badge_html;
+        if ( Helper::display_badge( get_the_ID(), 'featured' ) ) {
+            return $content . self::legacy_badge_html( 'featured' );
         }
 
         return $content;
     }
 
     public static function popular_badge( $content ) {
-        $popular_listing_id = atbdp_popular_listings( get_the_ID() );
-        $popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
-
-        if ( $popular_listing_id === get_the_ID() ) {
-            $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-            return $content . $badge;
+        if ( Helper::display_badge( get_the_ID(), 'popular' ) ) {
+            return $content . self::legacy_badge_html( 'popular' );
         }
 
         return $content;
     }
 
     public static function new_listing_badge( $content ) {
-        global $post;
-
-        $new_listing_time = get_directorist_option( 'new_listing_day' );
-        $new_badge_text = get_directorist_option( 'new_badge_text', 'New' );
-        $each_hours = 60 * 60 * 24; // seconds in a day
-        $s_date1 = strtotime( current_time( 'mysql' ) ); // seconds for date 1
-        $s_date2 = strtotime( $post->post_date ); // seconds for date 2
-        $s_date_diff = abs( $s_date1 - $s_date2 ); // different of the two dates in seconds
-        $days = round( $s_date_diff / $each_hours ); // divided the different with second in a day
-        $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
-        if ( $days <= (int) $new_listing_time ) {
-            return  $content .= $new;
-
+        if ( Helper::display_badge( get_the_ID(), 'new' ) ) {
+            return $content . self::legacy_badge_html( 'new' );
         }
 
         return $content;
     }
 
     public static function featured_badge_list_view( $content ) {
-        $featured = get_post_meta( get_the_ID(), '_featured', true );
-        $feature_badge_text = get_directorist_option( 'feature_badge_text', 'Featured' );
-
-        if ( $featured ) {
-            $badge = "<span class='atbd_badge atbd_badge_featured'>$feature_badge_text</span>";
-            $content .= $badge;
+        if ( Helper::display_badge( get_the_ID(), 'featured' ) ) {
+            $content .= self::legacy_badge_html( 'featured' );
         }
 
         return $content;
     }
 
     public static function populer_badge_list_view( $content ) {
-        $popular_badge_text = get_directorist_option( 'popular_badge_text', 'Popular' );
-
-        if ( atbdp_popular_listings( get_the_ID() ) === get_the_ID() ) {
-            $badge = "<span class='atbd_badge atbd_badge_popular'>$popular_badge_text</span>";
-            $content .= $badge;
+        if ( Helper::display_badge( get_the_ID(), 'popular' ) ) {
+            $content .= self::legacy_badge_html( 'popular' );
         }
 
         return $content;
     }
 
     public static function new_badge_list_view( $content ) {
-        $content .= new_badge();
+        if ( Helper::display_badge( get_the_ID(), 'new' ) ) {
+            $content .= self::legacy_badge_html( 'new' );
+        }
 
         return $content;
+    }
+
+    protected static function legacy_badge_html( $badge_key ) {
+        $badge = Helper::badge_definition( $badge_key );
+
+        if ( empty( $badge ) ) {
+            return '';
+        }
+
+        $style_attr    = Helper::badge_style_attr( $badge );
+        $badge_content = esc_html( $badge['label'] );
+
+		if ( ! empty( $badge['type'] ) && 'icon' === $badge['type'] && ! empty( $badge['icon'] ) ) {
+			$badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );
+
+			if ( $badge_icon ) {
+				$badge_content = wp_kses_post( $badge_icon );
+            }
+        } elseif ( ! empty( $badge['icon'] ) ) {
+            $badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );
+
+            if ( $badge_icon ) {
+                $badge_content = wp_kses_post( $badge_icon ) . $badge_content;
+            }
+        }
+
+        return sprintf(
+            '<span class="atbd_badge atbd_badge_%1$s"%2$s title="%3$s">%4$s</span>',
+            esc_attr( $badge['class'] ),
+            $style_attr ? ' style="' . esc_attr( $style_attr ) . '"' : '',
+            esc_attr( $badge['label'] ),
+            $badge_content
+        );
     }
 
     public static function list_view_business_hours() {

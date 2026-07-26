@@ -1,6 +1,7 @@
 const clone = (value) => JSON.parse(JSON.stringify(value || {}));
 
-const hasOwn = (object, key) => Object.prototype.hasOwnProperty.call(object || {}, key);
+const hasOwn = (object, key) =>
+	Object.prototype.hasOwnProperty.call(object || {}, key);
 
 const normalizeLayoutFieldKey = (fieldKey) => {
 	if (Array.isArray(fieldKey)) {
@@ -15,91 +16,89 @@ const svgIcon = (content) =>
 
 const SETTINGS_REDESIGN_ICONS = {
 	directory: svgIcon(
-		'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/>'
+		'<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/>',
 	),
 	monetization: svgIcon(
-		'<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/>'
+		'<rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/>',
 	),
 	notifications: svgIcon(
-		'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/>'
+		'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/>',
 	),
 	appearance: svgIcon(
-		'<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>'
+		'<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
 	),
 	sitePages: svgIcon(
-		'<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/>'
+		'<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/>',
 	),
 	extensions: svgIcon(
-		'<path d="M4 7v10c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V7M4 7l8-4 8 4M4 7l8 4 8-4M12 11v10"/>'
+		'<path d="M4 7v10c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V7M4 7l8-4 8 4M4 7l8 4 8-4M12 11v10"/>',
 	),
 	tools: svgIcon(
-		'<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>'
+		'<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>',
 	),
 	help: svgIcon(
-		'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>'
+		'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
 	),
 	general: svgIcon(
-		'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>'
+		'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>',
 	),
 	singleListing: svgIcon(
-		'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>'
+		'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>',
 	),
 	submissions: svgIcon(
-		'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>'
+		'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>',
 	),
 	map: svgIcon(
-		'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/>'
+		'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/>',
 	),
 	reviews: svgIcon(
-		'<path d="m12 2 3 6.5 7 .8-5 4.8 1.3 7L12 17.8 5.4 21l1.3-7-5-4.8 7-.8z"/>'
+		'<path d="m12 2 3 6.5 7 .8-5 4.8 1.3 7L12 17.8 5.4 21l1.3-7-5-4.8 7-.8z"/>',
 	),
 	listings: svgIcon(
-		'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>'
+		'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>',
 	),
 	taxonomies: svgIcon(
-		'<path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6v12M16 6v12"/>'
+		'<path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6v12M16 6v12"/>',
 	),
 	search: svgIcon(
-		'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'
+		'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
 	),
 	users: svgIcon(
-		'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
+		'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
 	),
 	currency: svgIcon(
-		'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
+		'<path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
 	),
 	featured: svgIcon(
-		'<circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/>'
+		'<circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/>',
 	),
 	gateways: svgIcon(
-		'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>'
+		'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
 	),
 	channels: svgIcon(
-		'<circle cx="12" cy="12" r="2"/><path d="M4.93 19.07a10 10 0 0 1 0-14.14M7.76 16.24a6 6 0 0 1 0-8.48M16.24 7.76a6 6 0 0 1 0 8.48M19.07 4.93a10 10 0 0 1 0 14.14"/>'
+		'<circle cx="12" cy="12" r="2"/><path d="M4.93 19.07a10 10 0 0 1 0-14.14M7.76 16.24a6 6 0 0 1 0-8.48M16.24 7.76a6 6 0 0 1 0 8.48M19.07 4.93a10 10 0 0 1 0 14.14"/>',
 	),
 	events: svgIcon(
-		'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'
+		'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
 	),
 	brand: svgIcon(
-		'<path d="M12 2.7s5.5 5 5.5 9.3a5.5 5.5 0 1 1-11 0C6.5 7.7 12 2.7 12 2.7Z"/>'
+		'<path d="M12 2.7s5.5 5 5.5 9.3a5.5 5.5 0 1 1-11 0C6.5 7.7 12 2.7 12 2.7Z"/>',
 	),
 	badges: svgIcon(
-		'<circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/>'
+		'<circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/>',
 	),
 	pages: svgIcon(
-		'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>'
+		'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
 	),
-	seo: svgIcon(
-		'<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'
-	),
+	seo: svgIcon('<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'),
 	schema: svgIcon(
-		'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/>'
+		'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5M3 12a9 3 0 0 0 18 0"/>',
 	),
 	maintenance: svgIcon(
-		'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>'
+		'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
 	),
 	docs: svgIcon(
-		'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/>'
+		'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/>',
 	),
 };
 
@@ -234,7 +233,8 @@ const FIELD_OVERRIDES = {
 	},
 	default_latitude: {
 		label: 'Default latitude',
-		description: 'Used as the fallback map center when no listing location is available.',
+		description:
+			'Used as the fallback map center when no listing location is available.',
 	},
 	default_longitude: {
 		label: 'Default longitude',
@@ -242,7 +242,8 @@ const FIELD_OVERRIDES = {
 	},
 	use_def_lat_long: {
 		label: 'Apply default location to all listings on the map',
-		description: 'Use the default address above for any listing that has no map pin set.',
+		description:
+			'Use the default address above for any listing that has no map pin set.',
 	},
 	listings_map_height: {
 		label: 'Map height',
@@ -254,7 +255,8 @@ const FIELD_OVERRIDES = {
 	},
 	map_view_zoom_level: {
 		label: 'Zoom on map view',
-		description: 'Zoom for the map that shows many listings. Lower is more zoomed out.',
+		description:
+			'Zoom for the map that shows many listings. Lower is more zoomed out.',
 	},
 	display_map_info: {
 		label: 'Show info window',
@@ -318,7 +320,8 @@ const FIELD_OVERRIDES = {
 	},
 	guest_review: {
 		label: 'Allow guest reviews',
-		description: 'Visitors can leave a review without signing in. Subject to moderation.',
+		description:
+			'Visitors can leave a review without signing in. Subject to moderation.',
 	},
 	review_enable_reply: {
 		label: 'Allow replies to reviews',
@@ -372,7 +375,8 @@ const FIELD_OVERRIDES = {
 	},
 	featured_listing_time: {
 		label: 'Featured duration',
-		description: 'How long a listing stays featured before it returns to normal.',
+		description:
+			'How long a listing stays featured before it returns to normal.',
 	},
 	featured_listing_desc: {
 		label: 'Description at checkout',
@@ -397,7 +401,8 @@ const FIELD_OVERRIDES = {
 	},
 	bank_transfer_instruction: {
 		label: 'Bank instructions',
-		description: 'Shown after order is placed. Use ==ORDER_ID== as a placeholder.',
+		description:
+			'Shown after order is placed. Use ==ORDER_ID== as a placeholder.',
 	},
 	email_to_expire_day: {
 		label: 'Send expiry notice',
@@ -418,7 +423,8 @@ const FIELD_OVERRIDES = {
 	},
 	web_push_notify_user: {
 		label: 'Web push listing owner events',
-		description: 'Events that send browser push notifications to listing owners.',
+		description:
+			'Events that send browser push notifications to listing owners.',
 	},
 	email_from_name: {
 		label: 'Sender name',
@@ -495,13 +501,16 @@ const FIELD_OVERRIDES = {
 	},
 	regenerate_pages: {
 		label: 'Regenerate missing pages',
-		description: 'Creates any pages from the list above that are not currently mapped.',
+		description:
+			'Creates any pages from the list above that are not currently mapped.',
 		buttonLabel: 'Regenerate',
-		buttonLabelOnProcessing: '<i class="fas fa-circle-notch fa-spin"></i> Regenerating',
+		buttonLabelOnProcessing:
+			'<i class="fas fa-circle-notch fa-spin"></i> Regenerating',
 	},
 	listing_import_button: {
 		label: 'Import listings',
-		description: 'Upload a CSV file. Map columns to listing fields in the next step.',
+		description:
+			'Upload a CSV file. Map columns to listing fields in the next step.',
 		buttonLabel: 'Import CSV',
 	},
 	listing_export_button: {
@@ -511,7 +520,8 @@ const FIELD_OVERRIDES = {
 	},
 	import_settings: {
 		label: 'Import settings',
-		description: 'Upload a JSON file exported from another Directorist site.',
+		description:
+			'Upload a JSON file exported from another Directorist site.',
 		buttonLabel: 'Import JSON',
 	},
 	export_settings: {
@@ -656,18 +666,21 @@ const FIELD_OVERRIDES = {
 	},
 	atbdp_enable_cache: {
 		label: 'Enable cache',
-		description: 'Stores frequently used queries in memory for faster page loads.',
+		description:
+			'Stores frequently used queries in memory for faster page loads.',
 	},
 	atbdp_reset_cache: {
 		label: 'Reset cache',
-		description: 'Clear all cached data. Useful after making large changes.',
+		description:
+			'Clear all cached data. Useful after making large changes.',
 		showIf: null,
 		show_if: null,
 		'show-if': null,
 	},
 	script_debugging: {
 		label: 'Script debugging',
-		description: 'Loads unminified JavaScript files. Use only when investigating bugs.',
+		description:
+			'Loads unminified JavaScript files. Use only when investigating bugs.',
 	},
 	enable_uninstall: {
 		label: 'Remove all data on uninstall',
@@ -677,12 +690,13 @@ const FIELD_OVERRIDES = {
 	extension_promotion: {
 		title: 'Installed extensions',
 		description:
-			'No extensions installed yet. Each extension you install will add its own section here.',
+			'No extension settings available yet. Each extension you install can add its own settings section here.',
 		browseTitle: 'Browse extensions',
 		browseDescription:
 			'30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.',
 		browseButtonLabel: 'View directory',
-		browseUrl: '/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-extension',
+		browseUrl:
+			'/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-extension',
 	},
 	brand_color: {
 		label: 'Brand color',
@@ -702,7 +716,8 @@ const FIELD_OVERRIDES = {
 	},
 	way_to_show_preview: {
 		label: 'Image fit',
-		description: 'Controls how listing preview images fill their card area.',
+		description:
+			'Controls how listing preview images fill their card area.',
 	},
 	crop_width: {
 		label: 'Width',
@@ -893,7 +908,10 @@ const FIELD_GROUPS = {
 		{
 			key: 'permalink',
 			title: 'Permalink',
-			fields: ['atbdp_listing_slug', 'single_listing_slug_with_directory_type'],
+			fields: [
+				'atbdp_listing_slug',
+				'single_listing_slug_with_directory_type',
+			],
 		},
 		{
 			key: 'slider_image',
@@ -916,7 +934,11 @@ const FIELD_GROUPS = {
 		{
 			key: 'guest_submissions',
 			title: 'Guest submissions',
-			fields: ['guest_listings', 'guest_email_label', 'guest_email_placeholder'],
+			fields: [
+				'guest_listings',
+				'guest_email_label',
+				'guest_email_placeholder',
+			],
 		},
 		{
 			key: 'confirmation_messages',
@@ -927,7 +949,10 @@ const FIELD_GROUPS = {
 				'publish_confirmation_msg',
 			],
 			advancedLabel: 'Customize message wording',
-			advancedFields: ['pending_confirmation_msg', 'publish_confirmation_msg'],
+			advancedFields: [
+				'pending_confirmation_msg',
+				'publish_confirmation_msg',
+			],
 		},
 	],
 
@@ -969,7 +994,11 @@ const FIELD_GROUPS = {
 		{
 			key: 'default_location',
 			title: 'Default location',
-			fields: ['default_latitude', 'default_longitude', 'use_def_lat_long'],
+			fields: [
+				'default_latitude',
+				'default_longitude',
+				'use_def_lat_long',
+			],
 			defaultLocationAddress: {
 				beforeField: 'use_def_lat_long',
 				latitudeField: 'default_latitude',
@@ -982,14 +1011,22 @@ const FIELD_GROUPS = {
 		{
 			key: 'zoom_size',
 			title: 'Zoom and size',
-			fields: ['listings_map_height', 'map_zoom_level', 'map_view_zoom_level'],
+			fields: [
+				'listings_map_height',
+				'map_zoom_level',
+				'map_view_zoom_level',
+			],
 			advancedLabel: 'Advanced',
 			advancedFields: ['map_zoom_level', 'map_view_zoom_level'],
 		},
 		{
 			key: 'pins_coverage',
 			title: 'Pins and coverage',
-			fields: ['marker_clustering', 'country_restriction', 'restricted_countries'],
+			fields: [
+				'marker_clustering',
+				'country_restriction',
+				'restricted_countries',
+			],
 			showIf: {
 				where: 'select_listing_map',
 				conditions: [
@@ -1004,7 +1041,8 @@ const FIELD_GROUPS = {
 		{
 			key: 'info_window',
 			title: 'Info window on map',
-			description: 'What appears in the popup when someone clicks a map pin.',
+			description:
+				'What appears in the popup when someone clicks a map pin.',
 			fields: [
 				'display_map_info',
 				'display_image_map',
@@ -1067,7 +1105,11 @@ const FIELD_GROUPS = {
 		{
 			key: 'popular_categories',
 			title: 'Popular categories',
-			fields: ['show_popular_category', 'popular_cat_title', 'popular_cat_num'],
+			fields: [
+				'show_popular_category',
+				'popular_cat_title',
+				'popular_cat_num',
+			],
 		},
 	],
 
@@ -1138,7 +1180,11 @@ const FIELD_GROUPS = {
 		{
 			key: 'registration_website',
 			title: 'Website',
-			fields: ['display_website_reg', 'reg_website', 'require_website_reg'],
+			fields: [
+				'display_website_reg',
+				'reg_website',
+				'require_website_reg',
+			],
 		},
 		{
 			key: 'registration_first_name',
@@ -1186,11 +1232,7 @@ const FIELD_GROUPS = {
 		{
 			key: 'registration_login_message',
 			title: 'Login Message',
-			fields: [
-				'display_login',
-				'login_text',
-				'log_linkingmsg',
-			],
+			fields: ['display_login', 'login_text', 'log_linkingmsg'],
 		},
 		{
 			key: 'registration_redirect',
@@ -1308,14 +1350,16 @@ const FIELD_GROUPS = {
 		{
 			key: 'display_currency',
 			title: 'Display currency',
-			description: 'How prices appear across listings, search, and the front-end.',
+			description:
+				'How prices appear across listings, search, and the front-end.',
 			fields: ['g_currency_note', 'g_currency', 'g_currency_position'],
 			hiddenFields: ['g_currency_note'],
 		},
 		{
 			key: 'checkout_currency',
 			title: 'Checkout currency',
-			description: 'The currency customers are actually charged in when they pay.',
+			description:
+				'The currency customers are actually charged in when they pay.',
 			fields: [
 				'payment_currency_note',
 				'payment_currency',
@@ -1423,7 +1467,11 @@ const FIELD_GROUPS = {
 		{
 			key: 'sender_details',
 			title: 'Sender details',
-			fields: ['email_from_name', 'email_from_email', 'admin_email_lists'],
+			fields: [
+				'email_from_name',
+				'email_from_email',
+				'admin_email_lists',
+			],
 		},
 		{
 			key: 'email_template_styling',
@@ -1614,30 +1662,40 @@ const FIELD_GROUPS = {
 
 	appearanceBadges: [
 		{
-			key: 'badge_display',
-			title: 'Badge display',
-			fields: ['badge_display_type'],
-		},
-		{
-			key: 'new_badge',
-			title: 'New badge',
-			fields: ['new_badge_text', 'new_listing_day', 'new_back_color'],
-		},
-		{
-			key: 'popular_badge',
-			title: 'Popular badge',
+			key: 'badges_manager',
+			title: '',
+			description: '',
 			fields: [
+				'badge_display_type',
+				'directorist_badge_rules',
+				'new_badge_text',
+				'new_listing_day',
+				'new_back_color',
 				'popular_badge_text',
 				'listing_popular_by',
 				'views_for_popular',
 				'average_review_for_popular',
 				'popular_back_color',
+				'feature_badge_text',
+				'featured_back_color',
 			],
-		},
-		{
-			key: 'featured_badge',
-			title: 'Featured badge',
-			fields: ['feature_badge_text', 'featured_back_color'],
+			hiddenFields: [
+				'badge_display_type',
+				'directorist_badge_rules',
+				'new_badge_text',
+				'new_listing_day',
+				'new_back_color',
+				'popular_badge_text',
+				'listing_popular_by',
+				'views_for_popular',
+				'average_review_for_popular',
+				'popular_back_color',
+				'feature_badge_text',
+				'featured_back_color',
+			],
+			badgesManager: {
+				beforeField: 'badge_display_type',
+			},
 		},
 	],
 
@@ -1864,7 +1922,11 @@ const FIELD_GROUPS = {
 			key: 'settings',
 			title: 'Settings',
 			description: 'Move your configuration between Directorist sites.',
-			fields: ['import_settings', 'export_settings', 'restore_default_settings'],
+			fields: [
+				'import_settings',
+				'export_settings',
+				'restore_default_settings',
+			],
 		},
 	],
 };
@@ -1892,7 +1954,7 @@ export const applySettingsRedesignFieldOverrides = (fields = {}) => {
 
 		updatedFields[fieldKey] = mergeFieldOverride(
 			updatedFields[fieldKey],
-			FIELD_OVERRIDES[fieldKey]
+			FIELD_OVERRIDES[fieldKey],
 		);
 	});
 
@@ -1907,7 +1969,9 @@ const makeMenu = (rawMenu, label, options = {}) => ({
 });
 
 const sectionFromFieldGroup = (group, fields, usedFields) => {
-	const existingFields = group.fields.filter((fieldKey) => hasOwn(fields, fieldKey));
+	const existingFields = group.fields.filter((fieldKey) =>
+		hasOwn(fields, fieldKey),
+	);
 
 	if (!existingFields.length) {
 		return null;
@@ -1938,19 +2002,22 @@ const sectionFromFieldGroup = (group, fields, usedFields) => {
 		...(group.checkoutCurrencyMatch
 			? { checkoutCurrencyMatch: clone(group.checkoutCurrencyMatch) }
 			: {}),
+		...(group.badgesManager
+			? { badgesManager: clone(group.badgesManager) }
+			: {}),
 		...(Array.isArray(group.hiddenFields)
 			? {
 					hiddenFields: group.hiddenFields.filter((fieldKey) =>
-						existingFields.includes(fieldKey)
+						existingFields.includes(fieldKey),
 					),
-			  }
+				}
 			: {}),
 		...(Array.isArray(group.advancedFields)
 			? {
 					advancedFields: group.advancedFields.filter((fieldKey) =>
-						existingFields.includes(fieldKey)
+						existingFields.includes(fieldKey),
 					),
-			  }
+				}
 			: {}),
 		fields: existingFields,
 	};
@@ -1971,12 +2038,15 @@ const sectionsFromGroups = (groups, fields, usedFields) => {
 };
 
 const hasFieldsForGroups = (groups, fields) =>
-	groups.some((group) => group.fields.some((fieldKey) => hasOwn(fields, fieldKey)));
+	groups.some((group) =>
+		group.fields.some((fieldKey) => hasOwn(fields, fieldKey)),
+	);
 
 const schemaGroups = (fields) => {
-	const schemaFields = Object.keys(fields || {}).filter((fieldKey) =>
-		fieldKey.indexOf('directory_schema_type_') === 0 &&
-		fieldKey !== 'directory_schema_type_global'
+	const schemaFields = Object.keys(fields || {}).filter(
+		(fieldKey) =>
+			fieldKey.indexOf('directory_schema_type_') === 0 &&
+			fieldKey !== 'directory_schema_type_global',
 	);
 
 	return [
@@ -1996,7 +2066,8 @@ const schemaGroups = (fields) => {
 					{
 						key: 'schema_type_per_directory',
 						title: 'Schema type per directory',
-						description: "Choose a schema type for each directory you've built.",
+						description:
+							"Choose a schema type for each directory you've built.",
 						fields: schemaFields,
 						showIf: [
 							{
@@ -2032,10 +2103,12 @@ const cloneRawMenu = (rawMenu, label, fields, usedFields) => {
 
 	const markSectionFields = (sections) => {
 		Object.keys(sections || {}).forEach((sectionKey) => {
-			sections[sectionKey].fields = (sections[sectionKey].fields || []).filter(
-				(fieldKey) => hasOwn(fields, fieldKey)
+			sections[sectionKey].fields = (
+				sections[sectionKey].fields || []
+			).filter((fieldKey) => hasOwn(fields, fieldKey));
+			sections[sectionKey].fields.forEach((fieldKey) =>
+				usedFields.add(fieldKey),
 			);
-			sections[sectionKey].fields.forEach((fieldKey) => usedFields.add(fieldKey));
 		});
 	};
 
@@ -2056,7 +2129,7 @@ const cloneRawSections = (
 	sections = {},
 	fields,
 	usedFields,
-	excludedFields = new Set()
+	excludedFields = new Set(),
 ) => {
 	const clonedSections = {};
 
@@ -2068,7 +2141,7 @@ const cloneRawSections = (
 				(fieldKey) =>
 					fieldKey &&
 					hasOwn(fields, fieldKey) &&
-					!excludedFields.has(fieldKey)
+					!excludedFields.has(fieldKey),
 			);
 
 		if (!section.fields.length) {
@@ -2103,7 +2176,7 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 			sections: sectionsFromGroups(
 				FIELD_GROUPS.monetizationCurrency,
 				fields,
-				usedFields
+				usedFields,
 			),
 		},
 		featured_listing: {
@@ -2112,7 +2185,7 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 			sections: sectionsFromGroups(
 				FIELD_GROUPS.monetizationFeatured,
 				fields,
-				usedFields
+				usedFields,
 			),
 		},
 		gateway: {
@@ -2121,7 +2194,7 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 			sections: sectionsFromGroups(
 				FIELD_GROUPS.monetizationGateways,
 				fields,
-				usedFields
+				usedFields,
 			),
 		},
 	};
@@ -2137,7 +2210,7 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 			rawSubmenu.sections || {},
 			fields,
 			usedFields,
-			usedFields
+			usedFields,
 		);
 
 		if (!Object.keys(sections).length) {
@@ -2147,6 +2220,7 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 		submenu[submenuKey] = {
 			label: rawSubmenu.label || rawSubmenu.title || 'Payment gateway',
 			icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.gateways,
+			extensionSettings: true,
 			sections,
 		};
 	});
@@ -2158,7 +2232,8 @@ const buildMonetizationSettingsMenu = (rawMenu = {}, fields, usedFields) => {
 };
 
 const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
-	const rawMenu = rawLayouts.extension_settings || rawLayouts.extensions_settings || {};
+	const rawMenu =
+		rawLayouts.extension_settings || rawLayouts.extensions_settings || {};
 	const rawSubmenus = rawMenu.submenu || {};
 	const submenu = {};
 
@@ -2167,19 +2242,23 @@ const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
 		const sections =
 			submenuKey === 'extensions_general'
 				? {}
-				: cloneRawSections(rawSubmenu.sections || {}, fields, usedFields);
+				: cloneRawSections(
+						rawSubmenu.sections || {},
+						fields,
+						usedFields,
+					);
 
 		if (submenuKey === 'extensions_general') {
 			const generalSections = sectionsFromGroups(
 				FIELD_GROUPS.extensionsBrowse,
 				fields,
-				usedFields
+				usedFields,
 			);
 			const extraGeneralSections = cloneRawSections(
 				rawSubmenu.sections || {},
 				fields,
 				usedFields,
-				new Set(['extension_promotion'])
+				new Set(['extension_promotion']),
 			);
 
 			Object.assign(sections, generalSections, extraGeneralSections);
@@ -2192,6 +2271,7 @@ const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
 		submenu[submenuKey] = {
 			label: rawSubmenu.label || 'Extension',
 			icon: rawSubmenu.icon || SETTINGS_REDESIGN_ICONS.extensions,
+			extensionSettings: submenuKey !== 'extensions_general',
 			sections,
 		};
 	});
@@ -2203,7 +2283,11 @@ const buildExtensionSettingsMenu = (rawLayouts, fields, usedFields) => {
 		submenu.extensions_general = {
 			label: 'Extensions General',
 			icon: SETTINGS_REDESIGN_ICONS.extensions,
-			sections: sectionsFromGroups(FIELD_GROUPS.extensionsBrowse, fields, usedFields),
+			sections: sectionsFromGroups(
+				FIELD_GROUPS.extensionsBrowse,
+				fields,
+				usedFields,
+			),
 		};
 	}
 
@@ -2224,7 +2308,12 @@ const originalFieldPaths = (layouts, fields) => {
 					fieldKey = normalizeLayoutFieldKey(fieldKey);
 
 					if (hasOwn(fields, fieldKey)) {
-						paths.push({ menuKey, submenuKey, sectionKey, fieldKey });
+						paths.push({
+							menuKey,
+							submenuKey,
+							sectionKey,
+							fieldKey,
+						});
 					}
 				});
 			});
@@ -2240,7 +2329,12 @@ const originalFieldPaths = (layouts, fields) => {
 	return paths;
 };
 
-const appendUnmappedFields = (displayLayouts, rawLayouts, fields, usedFields) => {
+const appendUnmappedFields = (
+	displayLayouts,
+	rawLayouts,
+	fields,
+	usedFields,
+) => {
 	const designGapsMenuKey = 'settings_design_gaps';
 	const submenuKeyForPath = (path) =>
 		[path.menuKey, path.submenuKey || 'main']
@@ -2285,7 +2379,8 @@ const appendUnmappedFields = (displayLayouts, rawLayouts, fields, usedFields) =>
 			};
 		}
 
-		const targetSubmenu = displayLayouts[designGapsMenuKey].submenu[gapSubmenuKey];
+		const targetSubmenu =
+			displayLayouts[designGapsMenuKey].submenu[gapSubmenuKey];
 
 		if (!targetSubmenu.sections[sectionKey]) {
 			targetSubmenu.sections[sectionKey] = {
@@ -2334,7 +2429,10 @@ const getRecognizedFallbackTarget = (path) => {
 		};
 	}
 
-	if (['extension_settings', 'extensions_settings'].includes(menuKey) && submenuKey) {
+	if (
+		['extension_settings', 'extensions_settings'].includes(menuKey) &&
+		submenuKey
+	) {
 		return {
 			menuKey: 'extension_settings',
 			submenuKey,
@@ -2358,7 +2456,7 @@ const appendFieldsToExistingTab = (
 	displayLayouts,
 	rawLayouts,
 	fields,
-	usedFields
+	usedFields,
 ) => {
 	originalFieldPaths(rawLayouts, fields).forEach((path) => {
 		if (
@@ -2457,208 +2555,260 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 	const usedFields = new Set();
 	const displayLayouts = {};
 
-	displayLayouts.listing_settings = makeMenu(rawLayouts.listing_settings, 'Directory', {
-		icon: SETTINGS_REDESIGN_ICONS.directory,
-		submenu: {
-			general: {
-				label: 'General',
-				icon: SETTINGS_REDESIGN_ICONS.general,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.directoriesGeneral,
-					fields,
-					usedFields
-				),
-			},
-			listings_page: {
-				label: 'Listings page',
-				icon: SETTINGS_REDESIGN_ICONS.listings,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.directoriesListingsPage,
-					fields,
-					usedFields
-				),
-			},
-			single_listing: {
-				label: 'Single listing',
-				icon: SETTINGS_REDESIGN_ICONS.singleListing,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.directoriesSingleListing,
-					fields,
-					usedFields
-				),
-			},
-			submissions: {
-				label: 'Submissions',
-				icon: SETTINGS_REDESIGN_ICONS.submissions,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.directoriesSubmissions,
-					fields,
-					usedFields
-				),
-			},
-			category_location: {
-				label: 'Categories & locations',
-				icon: SETTINGS_REDESIGN_ICONS.taxonomies,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.directoriesCategoryLocation,
-					fields,
-					usedFields
-				),
-			},
-			map: {
-				label: 'Map',
-				icon: SETTINGS_REDESIGN_ICONS.map,
-				sections: sectionsFromGroups(FIELD_GROUPS.directoriesMap, fields, usedFields),
-			},
-			review: {
-				label: 'Reviews',
-				icon: SETTINGS_REDESIGN_ICONS.reviews,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.directoriesReviews,
-					fields,
-					usedFields
-				),
+	displayLayouts.listing_settings = makeMenu(
+		rawLayouts.listing_settings,
+		'Directory',
+		{
+			icon: SETTINGS_REDESIGN_ICONS.directory,
+			submenu: {
+				general: {
+					label: 'General',
+					icon: SETTINGS_REDESIGN_ICONS.general,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesGeneral,
+						fields,
+						usedFields,
+					),
+				},
+				listings_page: {
+					label: 'Listings page',
+					icon: SETTINGS_REDESIGN_ICONS.listings,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesListingsPage,
+						fields,
+						usedFields,
+					),
+				},
+				single_listing: {
+					label: 'Single listing',
+					icon: SETTINGS_REDESIGN_ICONS.singleListing,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesSingleListing,
+						fields,
+						usedFields,
+					),
+				},
+				submissions: {
+					label: 'Submissions',
+					icon: SETTINGS_REDESIGN_ICONS.submissions,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesSubmissions,
+						fields,
+						usedFields,
+					),
+				},
+				category_location: {
+					label: 'Categories & locations',
+					icon: SETTINGS_REDESIGN_ICONS.taxonomies,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesCategoryLocation,
+						fields,
+						usedFields,
+					),
+				},
+				map: {
+					label: 'Map',
+					icon: SETTINGS_REDESIGN_ICONS.map,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesMap,
+						fields,
+						usedFields,
+					),
+				},
+				review: {
+					label: 'Reviews',
+					icon: SETTINGS_REDESIGN_ICONS.reviews,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.directoriesReviews,
+						fields,
+						usedFields,
+					),
+				},
 			},
 		},
-	});
+	);
 
-	displayLayouts.search_settings = makeMenu(rawLayouts.search_settings, 'Search', {
-		icon: SETTINGS_REDESIGN_ICONS.search,
-		submenu: {
-			search_listing: {
-				label: 'Search form',
-				icon: SETTINGS_REDESIGN_ICONS.search,
-				sections: sectionsFromGroups(FIELD_GROUPS.searchForm, fields, usedFields),
-			},
-			search_result: {
-				label: 'Search results',
-				icon: SETTINGS_REDESIGN_ICONS.listings,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.searchResults,
-					fields,
-					usedFields
-				),
+	displayLayouts.search_settings = makeMenu(
+		rawLayouts.search_settings,
+		'Search',
+		{
+			icon: SETTINGS_REDESIGN_ICONS.search,
+			submenu: {
+				search_listing: {
+					label: 'Search form',
+					icon: SETTINGS_REDESIGN_ICONS.search,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.searchForm,
+						fields,
+						usedFields,
+					),
+				},
+				search_result: {
+					label: 'Search results',
+					icon: SETTINGS_REDESIGN_ICONS.listings,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.searchResults,
+						fields,
+						usedFields,
+					),
+				},
 			},
 		},
-	});
+	);
 
-	displayLayouts.user_settings = makeMenu(rawLayouts.user_settings, 'Users & accounts', {
-		icon: SETTINGS_REDESIGN_ICONS.users,
-		submenu: {
-			registration_form: {
-				label: 'Registration',
-				icon: SETTINGS_REDESIGN_ICONS.users,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.userRegistration,
-					fields,
-					usedFields
-				),
-			},
-			login_form: {
-				label: 'Login',
-				icon: SETTINGS_REDESIGN_ICONS.singleListing,
-				sections: sectionsFromGroups(FIELD_GROUPS.userLogin, fields, usedFields),
-			},
-			dashboard: {
-				label: 'Dashboard',
-				icon: SETTINGS_REDESIGN_ICONS.pages,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.userDashboard,
-					fields,
-					usedFields
-				),
-			},
-			all_authors: {
-				label: 'Authors',
-				icon: SETTINGS_REDESIGN_ICONS.users,
-				sections: sectionsFromGroups(FIELD_GROUPS.userAuthors, fields, usedFields),
+	displayLayouts.user_settings = makeMenu(
+		rawLayouts.user_settings,
+		'Users & accounts',
+		{
+			icon: SETTINGS_REDESIGN_ICONS.users,
+			submenu: {
+				registration_form: {
+					label: 'Registration',
+					icon: SETTINGS_REDESIGN_ICONS.users,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.userRegistration,
+						fields,
+						usedFields,
+					),
+				},
+				login_form: {
+					label: 'Login',
+					icon: SETTINGS_REDESIGN_ICONS.singleListing,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.userLogin,
+						fields,
+						usedFields,
+					),
+				},
+				dashboard: {
+					label: 'Dashboard',
+					icon: SETTINGS_REDESIGN_ICONS.pages,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.userDashboard,
+						fields,
+						usedFields,
+					),
+				},
+				all_authors: {
+					label: 'Authors',
+					icon: SETTINGS_REDESIGN_ICONS.users,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.userAuthors,
+						fields,
+						usedFields,
+					),
+				},
 			},
 		},
-	});
+	);
 
 	displayLayouts.monetization_settings = buildMonetizationSettingsMenu(
 		rawLayouts.monetization_settings,
 		fields,
-		usedFields
+		usedFields,
 	);
 
-	displayLayouts.email_settings = makeMenu(rawLayouts.email_settings, 'Notifications', {
-		icon: SETTINGS_REDESIGN_ICONS.notifications,
-		submenu: {
-			email_general: {
-				label: 'Channels',
-				icon: SETTINGS_REDESIGN_ICONS.channels,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.notificationChannels,
-					fields,
-					usedFields
-				),
-			},
-			email_events: {
-				label: 'Events & Templates',
-				icon: SETTINGS_REDESIGN_ICONS.events,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.notificationEventsTemplates,
-					fields,
-					usedFields
-				),
+	displayLayouts.email_settings = makeMenu(
+		rawLayouts.email_settings,
+		'Notifications',
+		{
+			icon: SETTINGS_REDESIGN_ICONS.notifications,
+			submenu: {
+				email_general: {
+					label: 'Channels',
+					icon: SETTINGS_REDESIGN_ICONS.channels,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.notificationChannels,
+						fields,
+						usedFields,
+					),
+				},
+				email_events: {
+					label: 'Events & Templates',
+					icon: SETTINGS_REDESIGN_ICONS.events,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.notificationEventsTemplates,
+						fields,
+						usedFields,
+					),
+				},
 			},
 		},
-	});
+	);
 
-	displayLayouts.style_settings = makeMenu(rawLayouts.style_settings, 'Appearance', {
-		icon: SETTINGS_REDESIGN_ICONS.appearance,
-		submenu: {
-			brand_styling: {
-				label: 'Brand & styling',
-				icon: SETTINGS_REDESIGN_ICONS.brand,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.appearanceBrand,
-					fields,
-					usedFields
-				),
-			},
-			badges: {
-				label: 'Badges',
-				icon: SETTINGS_REDESIGN_ICONS.badges,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.appearanceBadges,
-					fields,
-					usedFields
-				),
+	displayLayouts.style_settings = makeMenu(
+		rawLayouts.style_settings,
+		'Appearance',
+		{
+			icon: SETTINGS_REDESIGN_ICONS.appearance,
+			submenu: {
+				brand_styling: {
+					label: 'Brand & styling',
+					icon: SETTINGS_REDESIGN_ICONS.brand,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.appearanceBrand,
+						fields,
+						usedFields,
+					),
+				},
+				badges: {
+					label: 'Badges',
+					icon: SETTINGS_REDESIGN_ICONS.badges,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.appearanceBadges,
+						fields,
+						usedFields,
+					),
+				},
 			},
 		},
-	});
+	);
 
-	displayLayouts.page_setup = makeMenu(rawLayouts.page_setup, 'Site & pages', {
-		icon: SETTINGS_REDESIGN_ICONS.sitePages,
-		submenu: {
-			pages: {
-				label: 'Pages',
-				icon: SETTINGS_REDESIGN_ICONS.pages,
-				sections: sectionsFromGroups(FIELD_GROUPS.sitePages, fields, usedFields),
-			},
-			seo_settings: {
-				label: 'SEO',
-				icon: SETTINGS_REDESIGN_ICONS.seo,
-				sections: sectionsFromGroups(FIELD_GROUPS.siteSeo, fields, usedFields),
-			},
-			schema_markup: {
-				label: 'Schema',
-				icon: SETTINGS_REDESIGN_ICONS.schema,
-				sections: sectionsFromGroups(schemaGroups(fields), fields, usedFields),
-			},
-			maintenance: {
-				label: 'Maintenance',
-				icon: SETTINGS_REDESIGN_ICONS.maintenance,
-				sections: sectionsFromGroups(
-					FIELD_GROUPS.siteMaintenance,
-					fields,
-					usedFields
-				),
+	displayLayouts.page_setup = makeMenu(
+		rawLayouts.page_setup,
+		'Site & pages',
+		{
+			icon: SETTINGS_REDESIGN_ICONS.sitePages,
+			submenu: {
+				pages: {
+					label: 'Pages',
+					icon: SETTINGS_REDESIGN_ICONS.pages,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.sitePages,
+						fields,
+						usedFields,
+					),
+				},
+				seo_settings: {
+					label: 'SEO',
+					icon: SETTINGS_REDESIGN_ICONS.seo,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.siteSeo,
+						fields,
+						usedFields,
+					),
+				},
+				schema_markup: {
+					label: 'Schema',
+					icon: SETTINGS_REDESIGN_ICONS.schema,
+					sections: sectionsFromGroups(
+						schemaGroups(fields),
+						fields,
+						usedFields,
+					),
+				},
+				maintenance: {
+					label: 'Maintenance',
+					icon: SETTINGS_REDESIGN_ICONS.maintenance,
+					sections: sectionsFromGroups(
+						FIELD_GROUPS.siteMaintenance,
+						fields,
+						usedFields,
+					),
+				},
 			},
 		},
-	});
+	);
 
 	if (
 		rawLayouts.extension_settings ||
@@ -2668,14 +2818,21 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 		displayLayouts.extension_settings = buildExtensionSettingsMenu(
 			rawLayouts,
 			fields,
-			usedFields
+			usedFields,
 		);
 	}
 
-	if (rawLayouts.tools || hasFieldsForGroups(FIELD_GROUPS.importExport, fields)) {
+	if (
+		rawLayouts.tools ||
+		hasFieldsForGroups(FIELD_GROUPS.importExport, fields)
+	) {
 		displayLayouts.tools = makeMenu(rawLayouts.tools, 'Import / Export', {
 			icon: SETTINGS_REDESIGN_ICONS.tools,
-			sections: sectionsFromGroups(FIELD_GROUPS.importExport, fields, usedFields),
+			sections: sectionsFromGroups(
+				FIELD_GROUPS.importExport,
+				fields,
+				usedFields,
+			),
 		});
 	}
 
@@ -2686,7 +2843,11 @@ export const buildSettingsRedesignLayout = (rawLayouts = {}, fields = {}) => {
 	return displayLayouts;
 };
 
-export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {}) => {
+export const resolveSettingsHashTarget = (
+	hash,
+	layouts = {},
+	cachedFields = {},
+) => {
 	const cleanHash = String(hash || '').replace(/#/g, '');
 
 	if (!cleanHash) {
@@ -2707,37 +2868,39 @@ export const resolveSettingsHashTarget = (hash, layouts = {}, cachedFields = {})
 
 	const directAliases = {
 		search_settings: 'search_settings__search_listing',
-		'search_settings__search_listing': 'search_settings__search_listing',
-		'search_settings__search_result': 'search_settings__search_result',
+		search_settings__search_listing: 'search_settings__search_listing',
+		search_settings__search_result: 'search_settings__search_result',
 		user_settings: 'user_settings__registration_form',
-		'user_settings__registration_form': 'user_settings__registration_form',
-		'user_settings__login_form': 'user_settings__login_form',
-		'user_settings__dashboard': 'user_settings__dashboard',
-		'user_settings__all_authors': 'user_settings__all_authors',
-		'listing_settings__listings_page': 'listing_settings__listings_page',
-		'listing_settings__category_location': 'listing_settings__category_location',
+		user_settings__registration_form: 'user_settings__registration_form',
+		user_settings__login_form: 'user_settings__login_form',
+		user_settings__dashboard: 'user_settings__dashboard',
+		user_settings__all_authors: 'user_settings__all_authors',
+		listing_settings__listings_page: 'listing_settings__listings_page',
+		listing_settings__category_location:
+			'listing_settings__category_location',
 		page_setup: 'page_setup__pages',
 		page_settings: 'page_setup__pages',
-		'page_settings__upgrade_pages': 'page_setup__pages',
-		'page_settings__pages_links_views': 'page_setup__pages',
+		page_settings__upgrade_pages: 'page_setup__pages',
+		page_settings__pages_links_views: 'page_setup__pages',
 		advanced: 'page_setup__seo_settings',
-		'advanced__seo_settings': 'page_setup__seo_settings',
-		'advanced__schema_markup': 'page_setup__schema_markup',
-		'advanced__miscellaneous': 'page_setup__maintenance',
+		advanced__seo_settings: 'page_setup__seo_settings',
+		advanced__schema_markup: 'page_setup__schema_markup',
+		advanced__miscellaneous: 'page_setup__maintenance',
 		style_settings: 'style_settings__brand_styling',
-		'listing_settings__badge': 'style_settings__badges',
-		'listing_settings__review': 'listing_settings__review',
-		'email_settings__email_templates': 'email_settings__email_events',
-		'email_settings__email_events_templates': 'email_settings__email_events',
+		listing_settings__badge: 'style_settings__badges',
+		listing_settings__review: 'listing_settings__review',
+		email_settings__email_templates: 'email_settings__email_events',
+		email_settings__email_events_templates: 'email_settings__email_events',
 		extensions_settings: 'extension_settings__extensions_general',
 		extension_settings: 'extension_settings__extensions_general',
-		'extensions_settings__extensions_general':
+		extensions_settings__extensions_general:
 			'extension_settings__extensions_general',
-		'extension_settings__extensions_general':
+		extension_settings__extensions_general:
 			'extension_settings__extensions_general',
 	};
 
-	const resolvedHash = directAliases[extensionCompatibleHash] || extensionCompatibleHash;
+	const resolvedHash =
+		directAliases[extensionCompatibleHash] || extensionCompatibleHash;
 	const resolvedParts = resolvedHash.split('__');
 	const menuKey = resolvedParts[0];
 	const submenuKey = resolvedParts.length > 1 ? resolvedParts[1] : '';

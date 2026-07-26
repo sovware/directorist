@@ -12,7 +12,7 @@ class Directorist_Template_Hooks {
 
     private function __construct() {
 
-        // Allow '--directorist-icon' inline style var in wp_kses_post, which is used in directorist_icon()
+        // Allow Directorist icon/badge inline vars in wp_kses_post.
         add_filter( 'safe_style_css', [ $this, 'add_style_attr' ] );
         add_filter( 'safecss_filter_attr_allow_css', [ $this, 'allow_style_attr' ], 10, 2 );
 
@@ -63,14 +63,25 @@ class Directorist_Template_Hooks {
 
     public function add_style_attr( $args ) {
         $args[] = '--directorist-icon';
+        $args[] = '--directorist-badge-icon-color';
+        $args[] = '--directorist-color-new-badge';
+        $args[] = '--directorist-color-popular-badge';
+        $args[] = '--directorist-color-featured-badge';
         return $args;
     }
 
     public function allow_style_attr( $allow_css, $css_test_string ) {
         $parts = explode( ':', $css_test_string, 2 );
         $attr = trim( $parts[0] );
+        $allowed_directorist_vars = [
+            '--directorist-icon',
+            '--directorist-badge-icon-color',
+            '--directorist-color-new-badge',
+            '--directorist-color-popular-badge',
+            '--directorist-color-featured-badge',
+        ];
 
-        if ( $attr === '--directorist-icon' ) {
+        if ( in_array( $attr, $allowed_directorist_vars, true ) ) {
             return true;
         }
 

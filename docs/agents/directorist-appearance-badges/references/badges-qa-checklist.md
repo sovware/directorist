@@ -22,6 +22,7 @@
 - Confirm `directorist_badge_rules` resets to the cached value when visible badge edits are reverted.
 - Confirm Field source options come from raw supported listing submission fields, are not hidden by Pricing Plans add-listing gating, and tolerate both `value`/`label` and `option_value`/`option_label` option shapes.
 - Confirm Field taxonomy/category/location/tag, checkbox, presence, map, privacy, and button rows render dropdown values with non-numeric operators; category/location should save term IDs from the dropdown, not manually typed labels.
+- Confirm the operator dropdown uses the correct one of five option sets by value type: number comparison, text comparison, exact select, option membership, and exact input; saved values must remain raw operator tokens while labels stay human-readable.
 - Confirm General source options come from `condition_sources.general` and unsupported mockup-only conditions are absent unless an extension registers metadata and a runtime value resolver.
 - Confirm the General source does not include `Listing status`, and old saved `listing_status` rows remain unsupported instead of becoming another General condition.
 - Confirm Pricing plan source options include published legacy core pricing plans, v4 Pricing Plans rows from `directorist_plans`, and WooCommerce listing pricing products when those sources exist.

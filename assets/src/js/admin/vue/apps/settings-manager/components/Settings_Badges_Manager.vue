@@ -1897,23 +1897,49 @@ export default {
 
       if (this.textConditionValueTypes().includes(definition.valueType)) {
         return [
-          { value: "=", label: "equals" },
-          { value: "is_not", label: "does not equal" },
-          { value: "contains", label: "contains" },
-          { value: "not_contains", label: "does not contain" },
-          { value: "is_empty", label: "is empty" },
-          { value: "is_not_empty", label: "is not empty" },
+          this.operatorOption("="),
+          this.operatorOption("is_not"),
+          this.operatorOption("contains"),
+          this.operatorOption("not_contains"),
+          this.operatorOption("is_empty"),
+          this.operatorOption("is_not_empty"),
         ];
       }
 
       return [
-        { value: ">=", label: ">=" },
-        { value: ">", label: ">" },
-        { value: "<=", label: "<=" },
-        { value: "<", label: "<" },
-        { value: "=", label: "=" },
-        { value: "is_not", label: "!=" },
+        this.operatorOption(">="),
+        this.operatorOption(">"),
+        this.operatorOption("<="),
+        this.operatorOption("<"),
+        this.operatorOption("="),
+        this.operatorOption("is_not"),
       ];
+    },
+
+    operatorOption(value, label = "") {
+      return {
+        value,
+        label: label || this.operatorOptionLabel(value),
+      };
+    },
+
+    operatorOptionLabel(operator) {
+      const normalizedOperator = this.operatorAlias(operator);
+
+      const labels = {
+        ">=": "greater or equal",
+        ">": "is greater than",
+        "<=": "less or equal",
+        "<": "is less than",
+        "=": "equal to",
+        is_not: "not equal",
+        contains: "contains",
+        not_contains: "does not contain",
+        is_empty: "is empty",
+        is_not_empty: "is not empty",
+      };
+
+      return labels[normalizedOperator] || normalizedOperator;
     },
 
     defaultOperatorForValueType(valueType) {
@@ -2887,6 +2913,10 @@ export default {
 
     operatorLabel(operator) {
       const normalizedOperator = this.operatorAlias(operator);
+
+      if ([">=", ">", "<=", "<"].includes(normalizedOperator)) {
+        return this.operatorOptionLabel(normalizedOperator);
+      }
 
       if (normalizedOperator === "is_not") {
         return "is not";

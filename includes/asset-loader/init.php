@@ -277,6 +277,7 @@ class Asset_Loader {
         } elseif ( Helper::is_admin_page( 'settings' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );
             wp_enqueue_style( 'directorist-unicons' );
+            wp_enqueue_script( 'directorist-icon-picker' );
             wp_enqueue_script( 'directorist-settings-manager' );
             wp_enqueue_media();
         } elseif ( Helper::is_admin_page( 'extensions' ) ) {

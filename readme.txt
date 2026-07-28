@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.8.7
+Stable tag: 8.9.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,35 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.9.2 - Jul 27, 2026 =
+
+**Fixed**
+ - Undefined array key warning in Directorist widget checkbox field rendering.
+
+= 8.9.1 - Jul 26, 2026 =
+
+**Improved**
+ - support new pricing plans API. (#2935)
+
+= 8.9 - Jul 26, 2026 =
+
+**Added**
+ - Introduced custom badges with configurable rules, styles, icons, colors, and tooltips. (#2920)
+ - Pending order cancellation flow from the user dashboard. (#2930)
+ - Business Hours always-open and timezone support in the v2 Listings API, including timezone options and validation. (#2903)
+ - Directorist map bridge lifecycle events for map ready, viewport changes, and marker clicks to support Listings With Map sync. (#2928)
+
+**Improved**
+ - Legacy orders API compatibility by moving current order, checkout, and payment endpoints to v2 while restoring v1 orders routes. (#2907)
+ - Extension settings empty state messaging when active extension settings are available elsewhere in the settings panel. (#2923)
+ - Dashboard listing action menu behavior for short listing tables. (#2922)
+
+**Fixed**
+ - Admin orders list and order details for guest, missing, or deleted customer accounts. (#2906)
+ - Required hidden conditional fields blocking listing submissions. (#2927)
+ - Multiple custom File Upload fields failing with invalid upload requests. (#2929)
+ - REST API password reset PIN validation and temp media upload authentication for Application Password requests. (#2903)
 
 = 8.8.7 - Jul 16, 2026 =
 
@@ -887,152 +916,5 @@ Refactored
  - Listing directory update on quick and bulk edit screens (#2201)
  - Zipcode radius search issue with OpenStreetMap (#2208)
  - Checkout Amount Format (#2214)
-
-8.0.12 - Jan 10, 2025
-
-* Improve: Community guidelines
-
-8.0.11 - Jan 02, 2025
-
-* Improve: Location Value Change on Filter | Radius Search Value on Search (#2178)
-* Improve: Smooth Scroll Transition on Add Listing Section (#2170)
-* Improve: The search field when the filter button is disabled in the popup layout. (#2181)
-* Improve: Developer flexibility adding listing import before after hooks (#2161)
-* Improve: Listing Category Word Break (#2171)
-* Fix: Field Specific Query Fix (#2184)
-* Fix: Inheritance and Initialization of AdvancedMarkerElement in Custom Marker Implementation (#2182)
-* Fix: Account Block Alert Issue (#2176)
-* Fix: Made the Add Listing sidebar fully responsive. (#2180)
-* Fix: All Listings Default Map View - Resolved the issue where the listing card was being cut off (#2177)
-* Fix: Translate issue (#2174)
-* Fix: Privacy policy & terms condition page linking issue (#2172)
-* Fix: Float value issue of number custom field (#2175)
-* Fix: Taxonomy linking issue (#2186)
-
-
-8.0.10 - Dec 17, 2024
-
-* Improve: Extension updating experience from native plugins page (#2168)
-* Fix: Minor style issues (#2162)
-
-8.0.9 - Dec 17, 2024
-
-* Improve: Search form search box placeholder visibility based on label (#2152)
-* Improve: Logout button text (#2166)
-* Improve: Box shadow and border radius across the UI (#2151)
-* Fix: Missing active class in view as control (#2154)
-* Fix: Taxonomy permalink (#2165)
-* Fix: Search form responsive styles (#2157)
-* Fix: Listing card category popup alignment (#2155)
-* Fix: Search form more filter button visibility issue in mobile (#2153)
-* Fix: Map zoom in-out controls issue (#2158)
-
-8.0.8 - Nov 27, 2024
-
-* Fix: Translation notice issue with WP v6.7.1
-* Fix: Listing layout issue in search result page (#2148)
-* Improve: Listing image getter functions (#2146)
-
-8.0.7 - Nov 24, 2024
-
-* Fix: Feature listing border color now dynamically changes (#2141).
-* Fix: Fatal error issue when updating the plugin from v7 to v8; added all listings and search result layout during migration for no sidebar selection (#2139).
-* Fix: Single listing slider container width and height issue (#2138).
-* Fix: Responsive issue with 6-column layout (#2129).
-* Fix: Missing space in the listing card heading title when the author link is absent (#2130).
-* Fix: Initial load issue in all listing sliders (#2128).
-* Fix: Prevented re-declaration of constant variables in DashTab script (#2127).
-* Fix: Listing list view responsiveness on mobile (#2124).
-* Fix: "No extension installed" issue on the membership page (#2124).
-* Improve: Single listing header options now align responsively in a single line (#2140).
-
-8.0.6 - Nov 20, 2024
-
-* Fix: RTL style issues (#2120)
-* Fix: Registration confirmation notice when email verification disabled (#2117)
-* Fix: Improve v8 migration (#2118)
-* Fix: Empty markup issue in single listing (#2121)
-* New: Filter hook on System Status warnings (#2114)
-
-8.0.5 - Nov 19, 2024
-
-* New: Loader on authentication button while processing (#2109)
-* Fix: Add listing form nonce validation issue when using quick login (#2110)
-* Fix: Settings linking issue (#2112)
-* Fix: Translation issue with WP 6.7 (#2111)
-* Updated: Button icon markup on change directory icon (#2108)
-
-8.0.4 - Nov 16, 2024
-
-* New: Backward compatibility for deprecated shortcodes.
-* Fix: Issue with the phone field being deleted in the builder search form.
-* Fix: Map listing preview issue in settings.
-* Fix: Edit listing email confirmation notice
-* Improve: Builder migration process for users of the old theme.
-
-8.0.3 - Nov 14, 2024
-
-* Fix - Issue with Directorist theme users
-
-8.0.2 - Nov 13, 2024
-
-* Fix - Ajax search with Radius
-* Fix - Category icon picker width and color issue
-* Fix - Add listing image uploading issue with gallery extension
-* Improve - Migration form v7 to v8
-* Improve - User dashboard
-* Improve - Admin notices
-
-8.0.1 - Nov 10, 2024
-
-* Fix - Search form removal issue with AI created directory
-* Fix - Search-form fields label migration & removed search-form BG image
-* Fix - All listing sidebar conflict between setting and attribute
-* Fix - Issue in search form icon
-* Fix - Listing import
-* Fix - Builder style issue
-* Improve - Settings panel
-
-8.0 - Nov 5, 2024
-
-Enhancements:
-* New: Complete design overhaul for a modern and intuitive interface.
-* New: Improve drag-and-drop builder experience and added live previews for smoother customization.
-* New: New section navigation in the add listing form for quick navigation to specific sections.
-* New: The "All Listings" page has been redesigned with a modern interface.
-* New: New REST API endpoints for easier integration with external platforms.
-* New: AI-powered directory creation feature (coming in November).
-* New: Redesigned login, and registration, and checkout processes for a better user experience.
-* New: New a Preferences tab in the dashboard with new customization options for listings.
-* New: New min/max values, step control, and text display options in Number custom field.
-* New: Pagination added to "All Categories" and "All Locations" pages.
-* New: Introduced Bricks Directorist Blocks (Pro version).
-* New extension: Listing Search Alerts (Pro version) to notify users based on their search criteria.
-* Improve: Optimized performance with reduced database queries for faster page load times.
-* Improve: Improve instant search with AJAX search functionality.
-* Improve: Improve Gutenberg and Elementor block integrations.
-* Improve: Mobile App v2.0 now supports listing submission and payment integration.
-Fixes:
-* Fix category custom field issue in search forms.
-* Fix mobile search functionality problems.
-* Fix category filtering issues in author profile listings.
-* Fix conflicts with custom field values in the builder.
-* Fix directory type and listing count issues on "All Categories" and "All Locations" pages.
-Other:
-* Separated the announcement feature into the Directorist Announcement extension.
-* Reorganized and optimized settings for better usability and performance.
-
-
-7.9.0 - Apr 2, 2024
-
-* Add - New shortcode to show listing's meta (#1725)
-* Fix - Phone number plus prefix missing issue (#1720)
-* Fix - Single taxonomy archive page title issue for Yoast SEO plugin (#1721)
-* Fix - Contact listing owner email reply to issue (#1712)
-* Fix - widget checkbox boolean value (#1724)
-* Improve - Add listing price field (#1715)
-* Update - Promo banner nonce validation (#1723)
-* Tweak - Directories query and general config use (#1716)
-* Test - Compatibility with WP 6.5
 
 [Full Changelog](https://github.com/sovware/directorist/wiki/Changelogs)

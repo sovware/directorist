@@ -1,4 +1,8 @@
+import { directoristMapBridge } from './map-bridge';
+
 (function () {
+	directoristMapBridge();
+
 	// DOM Mutation observer
 	const targetNode = document.querySelector('.directorist-archive-contents');
 	if (targetNode) {

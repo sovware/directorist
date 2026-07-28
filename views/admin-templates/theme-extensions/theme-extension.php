@@ -21,6 +21,8 @@ $dashboard_welcome     = ! empty( $args['dashboard_welcome'] ) && is_array( $arg
 $dashboard_quick_actions = ! empty( $args['dashboard_quick_actions'] ) && is_array( $args['dashboard_quick_actions'] ) ? $args['dashboard_quick_actions'] : [];
 $dashboard_metrics     = ! empty( $args['dashboard_metrics'] ) && is_array( $args['dashboard_metrics'] ) ? $args['dashboard_metrics'] : [];
 $dashboard_setup       = ! empty( $args['dashboard_setup'] ) && is_array( $args['dashboard_setup'] ) ? $args['dashboard_setup'] : [];
+$dashboard_setup_visible = ! array_key_exists( 'is_visible', $dashboard_setup ) || ! empty( $dashboard_setup['is_visible'] );
+$dashboard_setup_dismiss_key = sprintf( 'directorist_te_dashboard_checklist_dismissed_%d_%d', get_current_blog_id(), get_current_user_id() );
 $dashboard_activity    = ! empty( $args['dashboard_activity'] ) && is_array( $args['dashboard_activity'] ) ? $args['dashboard_activity'] : [];
 $dashboard_activity_items = ! empty( $dashboard_activity['items'] ) && is_array( $dashboard_activity['items'] ) ? $dashboard_activity['items'] : [];
 $dashboard_recommendations = ! empty( $args['dashboard_recommendations'] ) && is_array( $args['dashboard_recommendations'] ) ? $args['dashboard_recommendations'] : [];
@@ -1063,13 +1065,14 @@ $notification_count = $total_updates + $required_rows;
                         </div>
                     </section>
 
-                    <?php
-                    $dashboard_setup_progress    = min( 100, max( 0, (int) ( $dashboard_setup['progress'] ?? 0 ) ) );
-                    $dashboard_setup_ring_length = 119.4;
-                    $dashboard_setup_ring_offset = $dashboard_setup_ring_length * ( 1 - ( $dashboard_setup_progress / 100 ) );
-                    $dashboard_setup_steps       = ! empty( $dashboard_setup['steps'] ) && is_array( $dashboard_setup['steps'] ) ? $dashboard_setup['steps'] : [];
-                    ?>
-                    <section class="directorist-te-dashboard-nudge" id="directorist-te-dashboard-nudge">
+                    <?php if ( $dashboard_setup_visible ) : ?>
+                        <?php
+                        $dashboard_setup_progress    = min( 100, max( 0, (int) ( $dashboard_setup['progress'] ?? 0 ) ) );
+                        $dashboard_setup_ring_length = 119.4;
+                        $dashboard_setup_ring_offset = $dashboard_setup_ring_length * ( 1 - ( $dashboard_setup_progress / 100 ) );
+                        $dashboard_setup_steps       = ! empty( $dashboard_setup['steps'] ) && is_array( $dashboard_setup['steps'] ) ? $dashboard_setup['steps'] : [];
+                        ?>
+                    <section class="directorist-te-dashboard-nudge" id="directorist-te-dashboard-nudge" data-dismiss-key="<?php echo esc_attr( $dashboard_setup_dismiss_key ); ?>">
                         <div class="directorist-te-dashboard-nudge__top">
                             <div
                                 class="directorist-te-dashboard-ring"
@@ -1102,6 +1105,7 @@ $notification_count = $total_updates + $required_rows;
                             <?php endforeach; ?>
                         </div>
                     </section>
+                    <?php endif; ?>
 
                     <?php
                     $revenue_symbol = html_entity_decode(

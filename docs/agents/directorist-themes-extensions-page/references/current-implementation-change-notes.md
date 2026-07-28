@@ -183,6 +183,8 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Final activity data is filterable through `directorist_themes_extensions_activity_data`. Runtime activity items and counts must not be stored in docs.
 - Dashboard summary cards now use current published/pending listing counts, listing-view meta, upcoming expirations, and paid-order totals instead of reference-design numbers.
 - The setup checklist now evaluates current directory types, categories, active gateways, and published listings. Its progress, copy, completion state, and links are generated on each request.
+- The setup checklist is server-eligible for 30 days from the current first directory type's existing `_created_date`. Sites without a directory keep the checklist until one is created; a missing, invalid, future, or expired first-directory date hides it without creating fallback database state.
+- Checklist dismissal is browser-local and scoped by WordPress blog ID plus administrator ID. It uses `localStorage`, sends no AJAX request, and never creates an option, user meta, table, migration, or licensing field.
 - The directory setup link follows the registered mode: `atbdp-layout-builder` for single-directory sites and the `atbdp-directory-types` overview for multi-directory sites.
 - Multi-directory mode intentionally does not deep-link to a default directory or the add-new screen. The overview lets administrators see all directory types before deciding which one to edit or create.
 - The payment gateway shortcut uses the settings route `#monetization_settings__gateway`.

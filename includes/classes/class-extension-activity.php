@@ -69,6 +69,15 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
         public function get_dashboard_setup( $metrics = [] ) {
             $directories   = directory_types();
             $directories   = is_array( $directories ) && ! is_wp_error( $directories ) ? $directories : [];
+
+            if ( ! $this->is_dashboard_setup_visible( $directories ) ) {
+                return [
+                    'is_visible' => false,
+                    'progress'   => 0,
+                    'steps'      => [],
+                ];
+            }
+
             $category_count = wp_count_terms(
                 [
                     'taxonomy'   => ATBDP_CATEGORY,
@@ -126,6 +135,7 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
             $progress = $steps ? (int) round( ( $completed_steps / count( $steps ) ) * 100 ) : 0;
 
             return [
+                'is_visible' => true,
                 'progress'    => $progress,
                 'title'       => 100 === $progress
                     ? __( 'Your directory foundation is ready', 'directorist' )
@@ -135,6 +145,41 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
                     : __( 'Complete the remaining setup tasks before accepting live submissions.', 'directorist' ),
                 'steps'       => $steps,
             ];
+        }
+
+        /**
+         * Check whether the first-directory setup window is still active.
+         *
+         * @param array $directories Current directory type terms.
+         *
+         * @return bool
+         */
+        private function is_dashboard_setup_visible( $directories ) {
+            if ( empty( $directories ) ) {
+                return true;
+            }
+
+            $created_dates = [];
+
+            foreach ( $directories as $directory ) {
+                $term_id    = is_object( $directory ) ? (int) ( $directory->term_id ?? 0 ) : 0;
+                $created_at = $term_id > 0 ? get_term_meta( $term_id, '_created_date', true ) : null;
+
+                if ( ! is_scalar( $created_at ) || ! is_numeric( $created_at ) || (int) $created_at < 1 ) {
+                    return false;
+                }
+
+                $created_dates[] = (int) $created_at;
+            }
+
+            $created_at = min( $created_dates );
+            $now        = time();
+
+            if ( $created_at > $now ) {
+                return false;
+            }
+
+            return $now < ( $created_at + ( 30 * DAY_IN_SECONDS ) );
         }
 
         /**

@@ -21,6 +21,8 @@ Use this checklist for Themes & Extensions page work. Current runtime data must 
 - Confirm previous, next, native directory selection, and pause/resume work without triggering product AJAX actions.
 - Confirm Quick Actions re-collect current directory terms and do not rely on stored documentation/runtime snapshots.
 - Confirm zero-directory state shows Create directory and Email notifications without dead directory-specific links.
+- Confirm the setup checklist remains visible before the first directory exists, uses the current first directory type's `_created_date` for its 30-day window, and is absent for missing, invalid, future, or expired dates.
+- Confirm checklist dismissal persists only in `localStorage` under a blog-and-user-scoped key, sends no network request, and creates no option, user meta, table, migration, or licensing data.
 - Confirm one-directory state hides the selector and binds Add Listing, Categories, Listing Layout, and Submission Form to that directory.
 - Confirm multiple-directory selection updates all four directory-specific links, descriptions, and accessible labels without changing the global Email Notifications link.
 - Confirm the selected Quick Actions directory is selected in the new-listing admin metabox and loads that directory's `submission_form_fields`.

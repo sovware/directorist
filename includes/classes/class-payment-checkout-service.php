@@ -51,15 +51,15 @@ class PaymentCheckoutService {
         $order = directorist_get_order_by_id( $request->get_param( 'order_id' ) );
 
         if ( ! $order ) {
-            throw new Exception( __( 'Order not found.', 'directorist-pricing-plans' ) );
+            throw new Exception( __( 'Order not found.', 'directorist' ) );
         }
 
         if ( (int) $order->user_id !== get_current_user_id() ) {
-            throw new Exception( __( 'You do not have permission to pay for this order.', 'directorist-pricing-plans' ) );
+            throw new Exception( __( 'You do not have permission to pay for this order.', 'directorist' ) );
         }
 
         if ( Status::PENDING !== $order->status ) {
-            throw new Exception( __( 'This order is not pending payment.', 'directorist-pricing-plans' ) );
+            throw new Exception( __( 'This order is not pending payment.', 'directorist' ) );
         }
     }
 
@@ -124,7 +124,7 @@ class PaymentCheckoutService {
         $order = directorist_get_order_by_id( $request->get_param( 'order_id' ) );
 
         if ( ! $order ) {
-            throw new Exception( __( 'Order not found.', 'directorist-pricing-plans' ) );
+            throw new Exception( __( 'Order not found.', 'directorist' ) );
         }
 
         // Set the existing order ID on the DTO so the core skips order creation

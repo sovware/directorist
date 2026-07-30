@@ -61,7 +61,7 @@ class RefundRepository extends Repository {
         $order = $this->order_repository->to_dto( $this->order_repository->get_by_id( $dto->get_order_id() ) );
 
         if ( ! $order ) {
-            throw new Exception( esc_html__( "Order not found" ) );
+            throw new Exception( esc_html__( "Order not found", 'directorist' ) );
         }
 
         $total = $order->get_sub_total();
@@ -75,7 +75,7 @@ class RefundRepository extends Repository {
 
         // Prevent refunding if order is already fully refunded
         if ( $already_refunded >= $total ) {
-            throw new Exception( esc_html__( "Order is already refunded" ) );
+            throw new Exception( esc_html__( "Order is already refunded", 'directorist' ) );
         }
 
         // Calculate remaining amount that can still be refunded

@@ -613,7 +613,7 @@ class Listings_Controller extends Posts_Controller {
 
         return rest_ensure_response(
             [
-                'message' => esc_html__( 'The listing status was updated successfully', 'directorist-pricing-plans' )
+                'message' => esc_html__( 'The listing status was updated successfully', 'directorist' )
             ]
         );
     }

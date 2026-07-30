@@ -1319,7 +1319,7 @@ Please remember that your order may be canceled if you do not make your payment 
                     // single listing settings
                     'disable_single_listing' => [
                         'type' => 'toggle',
-                        'label' => __( 'Disable Single Listing View' ),
+                        'label' => __( 'Disable Single Listing View', 'directorist' ),
                         'value' => false,
                     ],
                     'restrict_single_listing_for_logged_in_user' => [

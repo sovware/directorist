@@ -495,7 +495,7 @@ class Directorist_Listing_Dashboard {
 
         if ( $user_order_history ) {
             $dashboard_tabs[ 'order_history' ] = array(
-                'title'     => __( 'Order History', 'directorist-pricing-plans' ),
+                'title'     => __( 'Order History', 'directorist' ),
                 'content'   => Helper::get_template_contents( 'dashboard/tab-orders', [ 'dashboard' => $this ] ),
                 'icon'      => 'las la-clock',
             );

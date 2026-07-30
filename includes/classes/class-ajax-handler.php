@@ -1048,7 +1048,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 }
 
                 if ( empty( $status['url'] ) ) {
-                    throw new \Exception( __( 'Could not upload your file, please try again.' ), 400 );
+                    throw new \Exception( __( 'Could not upload your file, please try again.', 'directorist' ), 400 );
                 }
 
                 // Update the meta when post id is available.

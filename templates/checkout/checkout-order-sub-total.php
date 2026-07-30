@@ -8,7 +8,7 @@
 <tr class="atbdp_ch_subtotal directorist-checkout-subtotal directorist-row--order-sub-total" data-order-sub-total="<?php echo esc_attr( $sub_total ); ?>" data-subtotal="<?php echo esc_attr( $sub_total ); ?>">
     <td colspan="2">
         <span class="directorist-summery-label directorist-row-label--order-sub-total">
-            <?php esc_html_e( 'Subtotal', 'directorist-pricing-plans' ); ?>
+            <?php esc_html_e( 'Subtotal', 'directorist' ); ?>
         </span>
     </td>
     <td class="directorist-text-right">

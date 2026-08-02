@@ -29,11 +29,14 @@
     selectableChecks().filter(function () {
       return !$(this).closest(".directorist-te-row").hasClass("is-hidden");
     });
-  const updateBanner = () => $(".directorist-te-update-banner");
+  const updateBanner = () =>
+    $(".directorist-te-update-banner:not(.directorist-te-action-result)");
   const updatePill = () =>
     $(
       '.directorist-te-segmented button[data-filter-status="update"] .directorist-te-update-count',
     );
+  const actionResultStorageKey = "directorist_te_action_result";
+  let productQueueRunning = false;
 
   const ajaxConfig = () => window.directorist_admin || {};
   const ajaxUrl = () => ajaxConfig().ajaxurl || window.ajaxurl;
@@ -283,17 +286,6 @@
       );
   }
 
-  function resetButton(button) {
-    const $button = $(button);
-    const defaultHtml = $button.data("default-html");
-
-    $button.prop("disabled", false);
-
-    if (defaultHtml) {
-      $button.html(defaultHtml);
-    }
-  }
-
   function setCheckbox(checkbox, checked) {
     const $checkbox = $(checkbox);
     const $row = $checkbox.closest(".directorist-te-row");
@@ -314,8 +306,8 @@
       .filter(Boolean);
   }
 
-  function selectedBulkItems(task) {
-    return checkedSelectableChecks()
+  function bulkItemsForTask(checks, task) {
+    return checks
       .map(function () {
         const actions = checkboxActions(this);
 
@@ -326,11 +318,29 @@
         return {
           item: $(this).attr("data-bulk-item") || this.value || this.id,
           type: $(this).attr("data-bulk-type") || "plugin",
+          label:
+            $(this)
+              .closest(".directorist-te-row")
+              .find(".directorist-te-row__title h2")
+              .first()
+              .text()
+              .trim() ||
+            this.value ||
+            this.id,
+          row: $(this).closest(".directorist-te-row").get(0),
           actions,
         };
       })
       .get()
       .filter(Boolean);
+  }
+
+  function selectedBulkItems(task) {
+    return bulkItemsForTask(checkedSelectableChecks(), task);
+  }
+
+  function availableBulkItems(task) {
+    return bulkItemsForTask(selectableChecks(), task);
   }
 
   function selectedActionCounts() {
@@ -588,10 +598,7 @@
     });
 
     if (shouldFocus) {
-      form
-        .find(`[data-auth-panel="${method}"] input`)
-        .first()
-        .trigger("focus");
+      form.find(`[data-auth-panel="${method}"] input`).first().trigger("focus");
     }
   }
 
@@ -1454,7 +1461,6 @@
     const directorySelect = section.find(
       "[data-recommendation-directory-select]",
     );
-    const autoplayButton = section.find("[data-recommendation-autoplay]");
     const heading = section.find("[data-recommendation-heading]");
     const description = section.find("[data-recommendation-description]");
     const liveRegion = section.find("[data-recommendation-live]");
@@ -1584,19 +1590,6 @@
       }, rotationInterval);
     }
 
-    function updateAutoplayButton() {
-      const label = autoplayPaused
-        ? "Resume automatic recommendations"
-        : "Pause automatic recommendations";
-
-      autoplayButton
-        .attr("aria-pressed", autoplayPaused ? "true" : "false")
-        .attr("aria-label", label)
-        .attr("title", label)
-        .find("i")
-        .attr("class", autoplayPaused ? "la la-play" : "la la-pause");
-    }
-
     if (!directoryIds.includes(selectedId)) {
       selectedId = directoryIds[0];
     }
@@ -1606,9 +1599,7 @@
     previousButton.prop("hidden", !hasMultipleDirectories);
     nextButton.prop("hidden", !hasMultipleDirectories);
     directorySelect.prop("hidden", !hasMultipleDirectories);
-    autoplayButton.prop("hidden", !canAutoplay());
     selectDirectory(selectedId, false, false);
-    updateAutoplayButton();
     startAutoplay();
 
     previousButton.on("click.directoristTeRecommendations", function () {
@@ -1623,12 +1614,6 @@
 
     directorySelect.on("change.directoristTeRecommendations", function () {
       selectDirectory(String($(this).val() || ""), true, true);
-      startAutoplay();
-    });
-
-    autoplayButton.on("click.directoristTeRecommendations", function () {
-      autoplayPaused = !autoplayPaused;
-      updateAutoplayButton();
       startAutoplay();
     });
 
@@ -1650,7 +1635,6 @@
 
     const handleMotionPreference = function (event) {
       autoplayPaused = event.matches;
-      updateAutoplayButton();
       startAutoplay();
     };
 
@@ -1795,12 +1779,22 @@
       const done = steps.filter(".is-done").length;
       const percent = Math.round((done / steps.length) * 100);
 
-      ring
-        .attr("stroke-dasharray", circumference.toFixed(1))
-        .attr(
-          "stroke-dashoffset",
-          (circumference * (1 - percent / 100)).toFixed(1),
-        );
+      ring.removeAttr(
+        "visibility stroke-linecap stroke-dasharray stroke-dashoffset",
+      );
+
+      if (percent === 0) {
+        ring.attr("visibility", "hidden");
+      } else if (percent < 100) {
+        ring
+          .attr("stroke-linecap", "round")
+          .attr("stroke-dasharray", circumference.toFixed(1))
+          .attr(
+            "stroke-dashoffset",
+            (circumference * (1 - percent / 100)).toFixed(1),
+          );
+      }
+
       ringLabel.text(`${percent}%`);
     }
 
@@ -1830,76 +1824,424 @@
     });
   }
 
-  function runPluginBulkTask(task, pluginItems, button) {
-    if (!pluginItems.length) {
-      return;
+  const productActionConfig = {
+    install: {
+      progress: "Installing",
+      success: "Installed",
+      past: "installed",
+    },
+    update: { progress: "Updating", success: "Updated", past: "updated" },
+    activate: { progress: "Activating", success: "Active", past: "activated" },
+    deactivate: {
+      progress: "Deactivating",
+      success: "Inactive",
+      past: "deactivated",
+    },
+    uninstall: {
+      progress: "Deleting",
+      success: "Deleted",
+      past: "deleted",
+      verb: "delete",
+    },
+  };
+
+  function actionFailureMessage(response, fallback) {
+    if (!response || typeof response !== "object") {
+      return fallback;
     }
 
-    setButtonLoading(button, "Working");
+    if (response?.success === false) {
+      if (typeof response.data === "string") {
+        return response.data || fallback;
+      }
 
-    $.ajax({
-      type: "post",
-      url: ajaxUrl(),
-      data: {
-        action: "atbdp_plugins_bulk_action",
-        task,
-        plugin_items: pluginItems,
-        directorist_nonce: directoristNonce(),
-      },
-      success(response) {
-        if (response?.status && response.status.success === false) {
-          alert(response.status.message || "Action failed.");
-          resetButton(button);
-          return;
-        }
+      return response?.data?.message || fallback;
+    }
 
-        window.location.reload();
-      },
-      error() {
-        alert("Action failed. Please reload the page and try again.");
-        resetButton(button);
-      },
+    if (response?.status?.success === false) {
+      return response.status.message || fallback;
+    }
+
+    return response?.success === true || response?.status?.success === true
+      ? ""
+      : fallback;
+  }
+
+  function normalizeActionItems(action, items) {
+    const seen = new Set();
+
+    return items.filter((item) => {
+      const type = item?.type;
+      const key = String(item?.item || "").trim();
+      const id = `${type}:${key}`;
+      const supportsType =
+        ["install", "update"].includes(action) || type === "plugin";
+
+      if (
+        !["plugin", "theme"].includes(type) ||
+        !supportsType ||
+        !key ||
+        seen.has(id)
+      ) {
+        return false;
+      }
+
+      seen.add(id);
+      return true;
     });
   }
 
-  function runSelectedInstalls(items, button) {
-    const queue = items.slice();
+  function actionRequestData(action, item) {
+    if (action === "install") {
+      return {
+        action: "atbdp_install_file_from_subscriptions",
+        item_key: item.item,
+        type: item.type,
+        nonce: nonce(),
+      };
+    }
 
-    if (!queue.length) {
+    if (action === "update") {
+      return item.type === "theme"
+        ? {
+            action: "atbdp_update_theme",
+            theme_stylesheet: item.item,
+            nonce: nonce(),
+          }
+        : {
+            action: "atbdp_update_plugins",
+            plugin_key: item.item,
+            nonce: nonce(),
+          };
+    }
+
+    return {
+      action: "atbdp_plugins_bulk_action",
+      task: action,
+      plugin_items: [item.item],
+      directorist_nonce: directoristNonce(),
+    };
+  }
+
+  function productItemRow(item) {
+    if (item?.row) {
+      return $(item.row);
+    }
+
+    return rows()
+      .filter(function () {
+        const control = $(this).find("[data-bulk-item]").first();
+
+        return (
+          control.attr("data-bulk-item") === item.item &&
+          (control.attr("data-bulk-type") || "plugin") === item.type
+        );
+      })
+      .first();
+  }
+
+  function setProductItemState(item, stateName, label) {
+    const row = productItemRow(item);
+
+    if (!row.length) {
       return;
     }
 
-    setButtonLoading(button, "Installing");
+    const statusCell = row.find(".directorist-te-row__status").first();
+    let queueStatus = statusCell.find(".directorist-te-queue-status");
+    const iconClasses = {
+      waiting: "la la-clock",
+      current: "la la-spinner la-spin",
+      success: "la la-check-circle",
+      failed: "la la-exclamation-circle",
+      skipped: "la la-forward",
+    };
+
+    if (!queueStatus.length) {
+      queueStatus = $("<span>", {
+        class: "directorist-te-queue-status",
+        role: "status",
+        "aria-live": "polite",
+      });
+      statusCell.append(queueStatus);
+    }
+
+    statusCell.find(".directorist-te-status").prop("hidden", true);
+    queueStatus
+      .attr(
+        "class",
+        `directorist-te-queue-status directorist-te-queue-status--${stateName}`,
+      )
+      .empty()
+      .append(
+        $("<i>", {
+          class: iconClasses[stateName] || iconClasses.waiting,
+          "aria-hidden": "true",
+        }),
+        $("<span>").text(label),
+      );
+    row
+      .attr("aria-busy", stateName === "current" ? "true" : "false")
+      .removeClass(
+        "is-queue-waiting is-queue-current is-queue-success is-queue-failed is-queue-skipped",
+      )
+      .addClass(`is-queue-${stateName}`);
+  }
+
+  function setProductQueueLock(isLocked) {
+    productQueueRunning = isLocked;
+    page
+      .toggleClass("is-product-queue-running", isLocked)
+      .attr("aria-busy", isLocked ? "true" : "false");
+    selectableChecks().add("#select-all-installed").prop("disabled", isLocked);
+
+    page
+      .find(
+        ".directorist-te-bulk-action, .directorist-te-update-all, .file-install-btn, .ext-update-btn, .theme-update-btn, .plugin-active-btn, .directorist-te-single-plugin-task, .ext-action-uninstall",
+      )
+      .attr("aria-disabled", isLocked ? "true" : null);
+  }
+
+  function actionResultDescription(result) {
+    const parts = [];
+    const action =
+      productActionConfig[result.action] || productActionConfig.update;
+    const actionVerb = action.verb || result.action;
+
+    if (result.failedLabels.length) {
+      const failedLabels = result.failedLabels.slice(0, 3).join(", ");
+      const moreCount = Math.max(result.failedLabels.length - 3, 0);
+
+      parts.push(
+        `Could not ${actionVerb}: ${failedLabels}${moreCount ? ` and ${moreCount} more` : ""}.`,
+      );
+    }
+
+    if (result.skipped) {
+      parts.push(
+        `${result.skipped} remaining ${result.skipped === 1 ? "item was" : "items were"} skipped after a network or server interruption.`,
+      );
+    }
+
+    if (!parts.length) {
+      parts.push(
+        `WordPress product state was rechecked after each item was ${action.past}.`,
+      );
+    } else {
+      parts.push("Review the current product states before trying again.");
+    }
+
+    return parts.join(" ");
+  }
+
+  function renderActionResult(result) {
+    const total = Number(result?.total) || 0;
+    const succeeded = Number(result?.succeeded) || 0;
+    const failed = Number(result?.failed) || 0;
+    const skipped = Number(result?.skipped) || 0;
+    const actionKey = productActionConfig[result?.action]
+      ? result.action
+      : "update";
+    const action = productActionConfig[actionKey];
+
+    if (!total || succeeded + failed + skipped < 1) {
+      return;
+    }
+
+    const normalizedResult = {
+      action: actionKey,
+      total,
+      succeeded,
+      failed,
+      skipped,
+      failedLabels: Array.isArray(result.failedLabels)
+        ? result.failedLabels.map(String).filter(Boolean)
+        : [],
+    };
+    const isSuccess = failed === 0 && skipped === 0;
+    const title = isSuccess
+      ? `${succeeded} ${succeeded === 1 ? "item" : "items"} ${action.past}`
+      : `${succeeded} completed, ${failed} failed${skipped ? `, ${skipped} skipped` : ""}`;
+    const resultBanner = $("<section>", {
+      class: `directorist-te-update-banner directorist-te-action-result ${
+        isSuccess
+          ? "directorist-te-action-result--success"
+          : "directorist-te-action-result--partial"
+      }`,
+      role: "status",
+      "aria-live": "polite",
+    });
+    const icon = $("<div>", {
+      class: "directorist-te-update-icon",
+      "aria-hidden": "true",
+    }).append(
+      $("<i>", {
+        class: isSuccess ? "la la-check-circle" : "la la-exclamation-circle",
+      }),
+    );
+    const content = $("<div>").append(
+      $("<h2>").text(title),
+      $("<p>").text(actionResultDescription(normalizedResult)),
+    );
+
+    resultBanner.append(icon, content);
+
+    const anchor = updateBanner().first();
+
+    if (anchor.length) {
+      anchor.before(resultBanner);
+      return;
+    }
+
+    $(".directorist-te-toolbar").first().before(resultBanner);
+  }
+
+  function storeActionResult(result) {
+    try {
+      window.sessionStorage.setItem(
+        actionResultStorageKey,
+        JSON.stringify(result),
+      );
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function renderStoredActionResult() {
+    let storedResult = "";
+
+    try {
+      storedResult =
+        window.sessionStorage.getItem(actionResultStorageKey) || "";
+      window.sessionStorage.removeItem(actionResultStorageKey);
+    } catch (error) {
+      return;
+    }
+
+    if (!storedResult) {
+      return;
+    }
+
+    try {
+      renderActionResult(JSON.parse(storedResult));
+    } catch (error) {}
+  }
+
+  function setActionProgress(actionKey, button, current, total, item) {
+    const action = productActionConfig[actionKey];
+    const progressLabel = `${action.progress} ${current} of ${total}`;
+    const rowActionSelectors = {
+      install: ".file-install-btn",
+      update: ".ext-update-btn, .theme-update-btn",
+      activate: ".plugin-active-btn",
+    };
+    const rowAction = rowActionSelectors[actionKey]
+      ? productItemRow(item).find(rowActionSelectors[actionKey]).first()
+      : $();
+
+    setButtonLoading(button, progressLabel);
+    if (rowAction.length) {
+      setButtonLoading(rowAction, progressLabel);
+    }
+    setProductItemState(item, "current", progressLabel);
+
+    if (actionKey !== "update") {
+      return;
+    }
+
+    const banner = updateBanner().first();
+
+    if (!banner.length || banner.prop("hidden")) {
+      return;
+    }
+
+    banner.attr({ role: "status", "aria-live": "polite" });
+    banner.find("h2").text(progressLabel);
+    banner
+      .find("p")
+      .text(
+        `${item.label || item.item} is being ${action.progress.toLowerCase()}. Keep this page open.`,
+      );
+  }
+
+  function runProductActionQueue(actionKey, items, button) {
+    const action = productActionConfig[actionKey];
+    const queue = normalizeActionItems(actionKey, items);
+
+    if (!action || !queue.length || productQueueRunning) {
+      return;
+    }
+
+    const total = queue.length;
+    const result = {
+      action: actionKey,
+      total,
+      succeeded: 0,
+      failed: 0,
+      skipped: 0,
+      failedLabels: [],
+    };
+    let completed = 0;
+
+    queue.forEach((item) => setProductItemState(item, "waiting", "Waiting"));
+    setProductQueueLock(true);
+
+    const finish = () => {
+      const stored = storeActionResult(result);
+
+      if (!stored) {
+        renderActionResult(result);
+        setButtonLoading(button, "Reloading");
+        window.setTimeout(() => window.location.reload(), 1200);
+        return;
+      }
+
+      window.location.reload();
+    };
 
     const next = () => {
       const item = queue.shift();
 
       if (!item) {
-        window.location.reload();
+        finish();
         return;
       }
+
+      setActionProgress(actionKey, button, completed + 1, total, item);
 
       $.ajax({
         type: "post",
         url: ajaxUrl(),
-        data: {
-          action: "atbdp_install_file_from_subscriptions",
-          item_key: item.item,
-          type: item.type,
-          nonce: nonce(),
-        },
+        data: actionRequestData(actionKey, item),
         success(response) {
-          if (response?.status && response.status.success === false) {
-            alert(response.status.message || "Install failed.");
-            resetButton(button);
-            return;
+          const failureMessage = actionFailureMessage(
+            response,
+            `${action.progress} failed.`,
+          );
+
+          if (failureMessage) {
+            result.failed += 1;
+            result.failedLabels.push(item.label || item.item);
+            setProductItemState(item, "failed", "Failed");
+          } else {
+            result.succeeded += 1;
+            setProductItemState(item, "success", action.success);
           }
 
+          completed += 1;
           next();
         },
         error() {
-          alert("Install failed. Please reload the page and try again.");
-          resetButton(button);
+          result.failed += 1;
+          result.failedLabels.push(item.label || item.item);
+          setProductItemState(item, "failed", "Failed");
+          result.skipped += queue.length;
+          queue.forEach((queuedItem) =>
+            setProductItemState(queuedItem, "skipped", "Skipped"),
+          );
+          queue.length = 0;
+          finish();
         },
       });
     };
@@ -1907,58 +2249,7 @@
     next();
   }
 
-  function runSelectedUpdates(items, button) {
-    const queue = items.slice();
-
-    if (!queue.length) {
-      return;
-    }
-
-    setButtonLoading(button, "Updating");
-
-    const next = () => {
-      const item = queue.shift();
-
-      if (!item) {
-        window.location.reload();
-        return;
-      }
-
-      const data =
-        item.type === "theme"
-          ? {
-              action: "atbdp_update_theme",
-              theme_stylesheet: item.item,
-              nonce: nonce(),
-            }
-          : {
-              action: "atbdp_update_plugins",
-              plugin_key: item.item,
-              nonce: nonce(),
-            };
-
-      $.ajax({
-        type: "post",
-        url: ajaxUrl(),
-        data,
-        success(response) {
-          if (response?.status && response.status.success === false) {
-            alert(response.status.message || "Update failed.");
-            resetButton(button);
-            return;
-          }
-
-          next();
-        },
-        error() {
-          alert("Update failed. Please reload the page and try again.");
-          resetButton(button);
-        },
-      });
-    };
-
-    next();
-  }
+  renderStoredActionResult();
 
   $(".directorist-te-tab").on("click", function () {
     $(".directorist-te-tab").removeClass("is-active");
@@ -2123,34 +2414,29 @@
     }
   });
 
-  $(".directorist-te-auth-methods [data-auth-method]").on(
-    "click",
-    function () {
-      const button = $(this);
-      const form = button.closest(".directorist-te-connect-form");
+  $(".directorist-te-auth-methods [data-auth-method]").on("click", function () {
+    const button = $(this);
+    const form = button.closest(".directorist-te-connect-form");
 
-      if (!form.length || form.attr("aria-busy") === "true") {
-        return;
-      }
+    if (!form.length || form.attr("aria-busy") === "true") {
+      return;
+    }
 
-      form
-        .find('input[name="auth_method"]')
-        .val(
-          button.attr("data-auth-method") === "access_key"
-            ? "access_key"
-            : "account",
-        );
-      clearConnectFeedback(form);
-      syncConnectAuthMethod(form, true);
-    },
-  );
+    form
+      .find('input[name="auth_method"]')
+      .val(
+        button.attr("data-auth-method") === "access_key"
+          ? "access_key"
+          : "account",
+      );
+    clearConnectFeedback(form);
+    syncConnectAuthMethod(form, true);
+  });
 
   $(".directorist-te-auth-methods [data-auth-method]").on(
     "keydown",
     function (event) {
-      if (
-        !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)
-      ) {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
         return;
       }
 
@@ -2176,11 +2462,11 @@
     },
   );
 
-  $(
-    "#atbdp-directorist-license-login-form.directorist-te-connect-form",
-  ).each(function () {
-    syncConnectAuthMethod($(this), false);
-  });
+  $("#atbdp-directorist-license-login-form.directorist-te-connect-form").each(
+    function () {
+      syncConnectAuthMethod($(this), false);
+    },
+  );
 
   $(document).on("ajaxSuccess", function (_event, _xhr, settings, response) {
     if (settings?.directoristTeOwned || !isAuthRequest(settings)) {
@@ -2339,9 +2625,12 @@
     if (
       task === "uninstall" &&
       !window.confirm(
-        `Delete removes ${itemCountText(
-          selectedItems.length,
-        )} from this site.` +
+        `Delete ${itemCountText(selectedItems.length)} from this site: ${selectedItems
+          .slice(0, 3)
+          .map((item) => item.label || item.item)
+          .join(
+            ", ",
+          )}${selectedItems.length > 3 ? ` and ${selectedItems.length - 3} more` : ""}. Their plugin files will be removed.` +
           (skippedCount
             ? ` ${itemCountText(skippedCount)} will be skipped.`
             : "") +
@@ -2351,26 +2640,9 @@
       return;
     }
 
-    if (task === "install") {
-      runSelectedInstalls(selectedItems, this);
-      return;
+    if (productActionConfig[task]) {
+      runProductActionQueue(task, selectedItems, this);
     }
-
-    if (task === "update") {
-      runSelectedUpdates(selectedItems, this);
-      return;
-    }
-
-    const pluginItems = selectedItems
-      .filter((item) => item.type === "plugin")
-      .map((item) => item.item);
-
-    if (pluginItems.length !== selectedItems.length) {
-      alert("This bulk action is only available for plugins.");
-      return;
-    }
-
-    runPluginBulkTask(task, pluginItems, this);
   });
 
   $(".directorist-te-single-plugin-task").on("click", function (event) {
@@ -2383,7 +2655,24 @@
       return;
     }
 
-    runPluginBulkTask(task, [target], this);
+    const row = $(this).closest(".directorist-te-row");
+
+    runProductActionQueue(
+      task,
+      [
+        {
+          item: target,
+          type: "plugin",
+          label: row
+            .find(".directorist-te-row__title h2")
+            .first()
+            .text()
+            .trim(),
+          row: row.get(0),
+        },
+      ],
+      this,
+    );
   });
 
   $(".directorist-te-update-all").on("click", function (event) {
@@ -2392,55 +2681,35 @@
     const button = this;
     const updateExtensions = $(button).data("update-extensions") === 1;
     const updateThemes = $(button).data("update-themes") === 1;
-    const queue = [];
+    const items = availableBulkItems("update").filter(
+      (item) =>
+        (item.type === "plugin" && updateExtensions) ||
+        (item.type === "theme" && updateThemes),
+    );
 
-    if (updateExtensions) {
-      queue.push("atbdp_update_plugins");
-    }
-
-    if (updateThemes) {
-      queue.push("atbdp_update_theme");
-    }
-
-    if (!queue.length) {
+    if (!items.length) {
       return;
     }
 
-    setButtonLoading(button, "Updating");
-
-    const next = () => {
-      const action = queue.shift();
-
-      if (!action) {
-        window.location.reload();
-        return;
-      }
-
-      $.ajax({
-        type: "post",
-        url: ajaxUrl(),
-        data: {
-          action,
-          nonce: nonce(),
-        },
-        success(response) {
-          if (response?.status && response.status.success === false) {
-            alert(response.status.message || "Update failed.");
-            resetButton(button);
-            return;
-          }
-
-          next();
-        },
-        error() {
-          alert("Update failed. Please reload the page and try again.");
-          resetButton(button);
-        },
-      });
-    };
-
-    next();
+    runProductActionQueue("update", items, button);
   });
+
+  function actionItemFromControl(control, type) {
+    const element = $(control);
+    const row = element.closest(".directorist-te-row");
+    const item = element.data("key") || element.data("target");
+
+    if (!item) {
+      return null;
+    }
+
+    return {
+      item: String(item),
+      type,
+      label: row.find(".directorist-te-row__title h2").first().text().trim(),
+      row: row.get(0),
+    };
+  }
 
   $(".directorist-te-menu-toggle").on("click", function (event) {
     event.preventDefault();
@@ -2474,6 +2743,53 @@
   document.addEventListener(
     "click",
     function (event) {
+      const productControl = event.target.closest(
+        ".file-install-btn, .ext-update-btn, .theme-update-btn, .plugin-active-btn, .ext-action-uninstall",
+      );
+
+      if (productControl) {
+        const isTheme =
+          productControl.classList.contains("theme-update-btn") ||
+          productControl.dataset.type === "theme";
+        const item = actionItemFromControl(
+          productControl,
+          isTheme ? "theme" : "plugin",
+        );
+
+        if (item) {
+          event.preventDefault();
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+
+          let action = "install";
+
+          if (
+            productControl.classList.contains("ext-update-btn") ||
+            productControl.classList.contains("theme-update-btn")
+          ) {
+            action = "update";
+          } else if (productControl.classList.contains("plugin-active-btn")) {
+            action = "activate";
+          } else if (
+            productControl.classList.contains("ext-action-uninstall")
+          ) {
+            action = "uninstall";
+          }
+
+          if (
+            action === "uninstall" &&
+            !window.confirm(
+              `Delete ${item.label || "this plugin"} from this site? Its files will be removed.`,
+            )
+          ) {
+            return;
+          }
+
+          runProductActionQueue(action, [item], productControl);
+          return;
+        }
+      }
+
       const menuToggle = event.target.closest(".directorist-te-menu-toggle");
 
       if (menuToggle) {
@@ -2512,30 +2828,6 @@
           delete themeButton.dataset.directoristConfirmed;
         }, 1000);
       }
-
-      const uninstallLink = event.target.closest(".ext-action-uninstall");
-
-      if (!uninstallLink) {
-        return;
-      }
-
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-
-      const target = uninstallLink.dataset.target;
-
-      if (!target) {
-        return;
-      }
-
-      if (
-        !window.confirm("Delete removes this plugin from the server. Continue?")
-      ) {
-        return;
-      }
-
-      runPluginBulkTask("uninstall", [target], uninstallLink);
     },
     true,
   );

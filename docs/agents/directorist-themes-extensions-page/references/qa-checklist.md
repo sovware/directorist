@@ -17,8 +17,8 @@ Use this checklist for Themes & Extensions page work. Current runtime data must 
 - Confirm no old/new UI feature flag or rollout toggle was added unless explicitly requested.
 - Confirm disconnected-view files/selectors/styles were not changed unless the current task explicitly requested disconnected-view changes.
 - Confirm connected Dashboard recommendations show at most three cards, rotate through real directory types, and never expose the full catalog under an unknown/general type.
-- Confirm recommendation autoplay pauses on hover, keyboard focus, explicit Pause, hidden browser tabs, and reduced-motion preference.
-- Confirm previous, next, native directory selection, and pause/resume work without triggering product AJAX actions.
+- Confirm recommendation autoplay pauses on hover, keyboard focus, hidden browser tabs, and reduced-motion preference without rendering a Pause control.
+- Confirm previous, next, and native directory selection work without triggering product AJAX actions.
 - Confirm Quick Actions re-collect current directory terms and do not rely on stored documentation/runtime snapshots.
 - Confirm zero-directory state shows Create directory and Email notifications without dead directory-specific links.
 - Confirm the setup checklist remains visible before the first directory exists, uses the current first directory type's `_created_date` for its 30-day window, and is absent for missing, invalid, future, or expired dates.
@@ -119,6 +119,22 @@ Use categories only in docs. Do not preserve observed counts or product lists.
 - Confirm full reload fallback still works.
 - Compare desktop and mobile interaction latency.
 - Check console and page errors after each tested journey.
+
+Product-action queue QA:
+
+- Confirm every request includes exactly one `plugin_key` or `theme_stylesheet`; no unscoped update-all request is sent.
+- Confirm install requests include exactly one `item_key` and activate/deactivate/delete requests include exactly one `plugin_items` entry.
+- Simulate more than twenty install/update candidates and confirm request concurrency never exceeds one.
+- Confirm visible progress advances from the first candidate through the total without disabling unrelated navigation.
+- Confirm row states advance through Waiting, action progress, success/failure, and Skipped where applicable.
+- Confirm later legacy direct-control handlers cannot cause duplicate Install, Update, or Activate requests.
+- Confirm an explicit product-level failure is recorded and later products are still attempted.
+- Confirm a transport/server interruption stops new requests, marks untouched candidates skipped, and does not retry the uncertain product automatically.
+- Confirm malformed and duplicate candidates do not create requests.
+- Confirm completion reloads canonical state and shows an action/failed/skipped summary without storing licenses, credentials, download URLs, or runtime catalog snapshots.
+- Confirm the result summary is readable without overflow on desktop and mobile.
+- Confirm plugin activation errors and `delete_plugins()` errors are returned as failures rather than false success.
+- Confirm invalid archives, unzip failure, stage-copy failure, and final-move failure leave the previous installed product directory recoverable.
 
 ## Disconnected Accessibility Checks
 

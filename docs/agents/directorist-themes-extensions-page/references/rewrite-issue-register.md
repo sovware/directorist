@@ -210,26 +210,25 @@ Primary areas:
 
 ### Registered Download Handler Type Bug
 
-- `ATBDP_Extensions::handle_file_download_request()` currently has invalid product type validation: valid `plugin` and `theme` values cannot pass the condition.
-- Do not reuse this handler for new flows until the condition and response contract are fixed.
-- Prefer `atbdp_install_file_from_subscriptions` for current subscription installs unless this legacy handler is intentionally repaired and tested.
+- `ATBDP_Extensions::handle_file_download_request()` previously rejected both valid `plugin` and `theme` values because of an invalid type condition.
+- The condition and failure response envelope are repaired, but current subscription installs should still prefer `atbdp_install_file_from_subscriptions`.
+- Keep `atbdp_install_file_from_subscriptions` as the canonical current subscription-install action; the legacy handler remains compatibility-only.
 
 ### Plugin Activation Error Handling
 
-- Single plugin activation calls WordPress `activate_plugin()` without checking for `WP_Error`.
-- A rewrite must surface activation errors, avoid false-success UI, and keep the button recoverable on failure.
-- Bulk activation already checks `WP_Error`; align single activation response behavior with that pattern.
+- Single and bulk plugin activation now check `activate_plugin()` for `WP_Error` and return failure through the established status envelope.
+- Future rewrites must preserve this behavior and avoid optimistic Active state before canonical reload/recheck.
 
 ### Filesystem Install And Update Safety
 
 - Plugin/theme download, install, and update flows write to `wp-content/plugins` and `wp-content/themes`.
-- Existing code can delete an existing destination directory before fully validating package extraction and copy success.
-- Full rewrite should introduce a safer install/update service behind existing AJAX actions:
+- The connected action backend now validates archives and stages package files before replacing an existing destination, with a temporary backup available for rollback.
+- A future service extraction should preserve these rules behind existing AJAX actions:
   - validate download host and URL before download;
   - validate `download_url()`, `unzip_file()`, and `copy_dir()` results;
   - verify expected package structure before replacing an existing directory;
   - clean temp directories reliably;
-  - restore temporary error handlers;
+  - do not install temporary global error handlers;
   - return structured failures with recovery instructions;
   - never mark UI complete until server confirms final state.
 
@@ -243,6 +242,7 @@ Primary areas:
 - The server should confirm capability, nonce, plugin target validity, and `delete_plugins()` result before returning success.
 - The UI must not mark uninstall complete until canonical WordPress plugin state has been re-checked, or a reload fallback has completed.
 - Failed uninstall must restore the action UI and show inline failure feedback.
+- The current connected UI meets the baseline by queueing one delete at a time, showing row progress only after dispatch, checking the server result, and reloading canonical state before the final summary.
 
 ### Theme Update State Defensive Checks
 

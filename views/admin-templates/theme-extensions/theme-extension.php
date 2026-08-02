@@ -414,7 +414,7 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
             ];
         } else {
             $menu[] = [
-                'label' => __( 'Delete plugin', 'directorist' ),
+                'label' => __( 'Delete', 'directorist' ),
                 'class' => 'directorist-te-menu-link directorist-te-menu-link--danger ext-action-uninstall',
                 'attrs' => [ 'data-target' => $extension_base ],
             ];
@@ -776,7 +776,7 @@ $notification_count = $total_updates + $required_rows;
                 <?php if ( $is_logged_in ) : ?>
                     <nav class="directorist-te-nav" aria-label="<?php esc_attr_e( 'Directorist sections', 'directorist' ); ?>">
                         <button type="button" class="<?php echo esc_attr( 'dashboard' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view" <?php if ( 'dashboard' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
-                        <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Add-ons', 'directorist' ); ?></button>
+                        <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Themes and Extensions', 'directorist' ); ?></button>
                     </nav>
                     <div class="directorist-te-top-right">
                         <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
@@ -1055,7 +1055,7 @@ $notification_count = $total_updates + $required_rows;
                             <?php if ( ! empty( $dashboard_welcome['has_directories'] ) ) : ?>
                                 <a class="directorist-te-btn directorist-te-btn--secondary" href="<?php echo esc_url( $dashboard_welcome['view_listings_url'] ?? home_url( '/' ) ); ?>" target="_blank" rel="noopener noreferrer">
                                     <i class="la la-external-link-alt" aria-hidden="true"></i>
-                                    <?php esc_html_e( 'View listings', 'directorist' ); ?>
+                                    <?php esc_html_e( 'View directory', 'directorist' ); ?>
                                 </a>
                             <?php endif; ?>
                             <a class="directorist-te-btn directorist-te-btn--primary" href="<?php echo esc_url( $dashboard_welcome['primary_action_url'] ?? home_url( '/' ) ); ?>">
@@ -1080,7 +1080,21 @@ $notification_count = $total_updates + $required_rows;
                             >
                                 <svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" focusable="false">
                                     <circle cx="23" cy="23" r="19" fill="none" stroke="#e5e7eb" stroke-width="4.5"></circle>
-                                    <circle cx="23" cy="23" r="19" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="<?php echo esc_attr( $dashboard_setup_ring_length ); ?>" stroke-dashoffset="<?php echo esc_attr( $dashboard_setup_ring_offset ); ?>"></circle>
+                                    <circle
+                                        cx="23"
+                                        cy="23"
+                                        r="19"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="4.5"
+                                        <?php if ( 0 === $dashboard_setup_progress ) : ?>
+                                            visibility="hidden"
+                                        <?php elseif ( $dashboard_setup_progress < 100 ) : ?>
+                                            stroke-linecap="round"
+                                            stroke-dasharray="<?php echo esc_attr( $dashboard_setup_ring_length ); ?>"
+                                            stroke-dashoffset="<?php echo esc_attr( $dashboard_setup_ring_offset ); ?>"
+                                        <?php endif; ?>
+                                    ></circle>
                                 </svg>
                                 <span><?php echo esc_html( $dashboard_setup_progress . '%' ); ?></span>
                             </div>
@@ -1142,7 +1156,9 @@ $notification_count = $total_updates + $required_rows;
                                     esc_html( number_format_i18n( (int) ( $dashboard_metrics['expiring_this_week'] ?? 0 ) ) )
                                 );
                                 ?>
-                                <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=at_biz_dir&post_status=pending' ) ); ?>"><?php esc_html_e( 'Review now', 'directorist' ); ?></a>
+                                <?php if ( (int) ( $dashboard_metrics['pending_listings'] ?? 0 ) > 0 ) : ?>
+                                    <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=at_biz_dir&post_status=pending' ) ); ?>"><?php esc_html_e( 'Review now', 'directorist' ); ?></a>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="directorist-te-dashboard-metric">
@@ -1381,16 +1397,6 @@ $notification_count = $total_updates + $required_rows;
                                                 title="<?php esc_attr_e( 'Next directory', 'directorist' ); ?>"
                                             >
                                                 <i class="la la-angle-right" aria-hidden="true"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="directorist-te-recommendation-control"
-                                                data-recommendation-autoplay
-                                                aria-pressed="false"
-                                                aria-label="<?php esc_attr_e( 'Pause automatic recommendations', 'directorist' ); ?>"
-                                                title="<?php esc_attr_e( 'Pause automatic recommendations', 'directorist' ); ?>"
-                                            >
-                                                <i class="la la-pause" aria-hidden="true"></i>
                                             </button>
                                         </span>
                                     </div>

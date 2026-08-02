@@ -1297,14 +1297,16 @@
 
 .directorist-te-dashboard-ring {
   position: relative;
-  width: 46px;
-  height: 46px;
-  flex: 0 0 46px;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 52px;
   color: var(--accent);
 }
 
 .directorist-te-dashboard-ring svg {
   display: block;
+  width: 100%;
+  height: 100%;
   transform: rotate(-90deg);
 }
 
@@ -2332,6 +2334,28 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
   line-height: 1.4;
 }
 
+.directorist-te-page .directorist-te-action-result--success {
+  border-color: #b7e4c7;
+  background: #f0fdf4;
+}
+
+.directorist-te-page
+  .directorist-te-action-result--success
+  .directorist-te-update-icon {
+  background: #22a447;
+}
+
+.directorist-te-page .directorist-te-action-result--partial {
+  border-color: #f2c7c7;
+  background: #fff5f5;
+}
+
+.directorist-te-page
+  .directorist-te-action-result--partial
+  .directorist-te-update-icon {
+  background: #d63638;
+}
+
 .directorist-te-toolbar {
   margin: 0;
   padding: 0;
@@ -2858,6 +2882,64 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
 
 .directorist-te-row__status {
   min-width: 0;
+}
+
+.directorist-te-queue-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.directorist-te-queue-status--current {
+  color: var(--primary);
+}
+
+.directorist-te-queue-status--success {
+  color: var(--success);
+}
+
+.directorist-te-queue-status--failed {
+  color: #d63638;
+}
+
+.directorist-te-queue-status--waiting,
+.directorist-te-queue-status--skipped {
+  color: var(--muted);
+}
+
+.directorist-te-row.is-queue-current {
+  background: #f5f7ff;
+}
+
+.directorist-te-row.is-queue-success {
+  background: #f7fcf8;
+}
+
+.directorist-te-row.is-queue-failed {
+  background: #fff8f8;
+}
+
+.directorist-te-row.is-queue-success .directorist-te-row__actions {
+  opacity: 0.55;
+}
+
+.directorist-te-page.is-product-queue-running
+  :is(
+    .directorist-te-bulk-action,
+    .directorist-te-update-all,
+    .file-install-btn,
+    .ext-update-btn,
+    .theme-update-btn,
+    .plugin-active-btn,
+    .directorist-te-single-plugin-task,
+    .ext-action-uninstall
+  ) {
+  pointer-events: none;
 }
 
 .directorist-te-status {

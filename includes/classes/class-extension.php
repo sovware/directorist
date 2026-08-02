@@ -1206,7 +1206,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             if ( ! current_user_can( 'manage_options' ) ) {
                 wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
             }
-            $status = [ 'success' => true ];
+            $status = [
+                'success'         => true,
+                'processed_items' => [],
+                'failed_items'    => [],
+            ];
 
             if ( ! directorist_verify_nonce() ) {
                 $status['success'] = false;
@@ -1215,13 +1219,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            $task         = ( isset( $_POST['task'] ) ) ? directorist_clean( wp_unslash( $_POST['task'] ) ) : '';
-            $plugin_items = ( isset( $_POST['plugin_items'] ) ) ? directorist_clean( wp_unslash( $_POST['plugin_items'] ) ) : '';
+            $task         = isset( $_POST['task'] ) ? directorist_clean( wp_unslash( $_POST['task'] ) ) : '';
+            $plugin_items = isset( $_POST['plugin_items'] ) ? (array) directorist_clean( wp_unslash( $_POST['plugin_items'] ) ) : [];
+            $plugin_items  = array_values( array_unique( array_filter( array_map( 'sanitize_text_field', $plugin_items ) ) ) );
+            $allowed_tasks = [ 'activate', 'deactivate', 'uninstall' ];
 
             // Validation
-            if ( empty( $task ) ) {
+            if ( ! in_array( $task, $allowed_tasks, true ) ) {
                 $status['success'] = false;
-                $status['message'] = 'No task found';
+                $status['message'] = __( 'Invalid plugin action.', 'directorist' );
                 wp_send_json( [ 'status' => $status ] );
             }
 
@@ -1231,26 +1237,59 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            // Activate
-            if ( 'activate' === $task ) {
-                foreach ( $plugin_items as $plugin ) {
+            if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'delete_plugins' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+
+            $installed_plugins = get_plugins();
+
+            foreach ( $plugin_items as $plugin ) {
+                if ( ! isset( $installed_plugins[ $plugin ] ) ) {
+                    $status['failed_items'][ $plugin ] = __( 'Plugin files were not found.', 'directorist' );
+                    continue;
+                }
+
+                if ( 'activate' === $task ) {
                     $activated = activate_plugin( $plugin );
+
                     if ( is_wp_error( $activated ) ) {
-                        $status['success'] = false;
-                        $status['message'] = 'Error in plugin activation';
-                        wp_send_json( [ 'status' => $status ] );
+                        $status['failed_items'][ $plugin ] = $activated->get_error_message();
+                        continue;
+                    }
+                } elseif ( 'deactivate' === $task ) {
+                    deactivate_plugins( [ $plugin ] );
+
+                    if ( is_plugin_active( $plugin ) ) {
+                        $status['failed_items'][ $plugin ] = __( 'WordPress could not deactivate this plugin.', 'directorist' );
+                        continue;
+                    }
+                } else {
+                    if ( is_plugin_active( $plugin ) ) {
+                        $status['failed_items'][ $plugin ] = __( 'Deactivate the plugin before deleting it.', 'directorist' );
+                        continue;
+                    }
+
+                    $deleted = delete_plugins( [ $plugin ] );
+
+                    if ( is_wp_error( $deleted ) ) {
+                        $status['failed_items'][ $plugin ] = $deleted->get_error_message();
+                        continue;
+                    }
+
+                    if ( false === $deleted ) {
+                        $status['failed_items'][ $plugin ] = __( 'WordPress could not delete this plugin.', 'directorist' );
+                        continue;
                     }
                 }
+
+                $status['processed_items'][] = $plugin;
             }
 
-            // Deactivate
-            if ( 'deactivate' === $task ) {
-                deactivate_plugins( $plugin_items );
-            }
-
-            // Uninstall
-            if ( 'uninstall' === $task ) {
-                delete_plugins( $plugin_items );
+            if ( ! empty( $status['failed_items'] ) ) {
+                $status['success'] = false;
+                $status['message'] = reset( $status['failed_items'] );
+            } else {
+                $status['message'] = __( 'Plugin action completed successfully.', 'directorist' );
             }
 
             wp_send_json( [ 'status' => $status ] );
@@ -1305,7 +1344,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            activate_plugin( $plugin_key );
+            $activation_status = activate_plugin( $plugin_key );
+
+            if ( is_wp_error( $activation_status ) ) {
+                $status['success'] = false;
+                $status['message'] = $activation_status->get_error_message();
+            }
+
             wp_send_json( [ 'status' => $status ] );
         }
 
@@ -1336,9 +1381,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $status = [ 'success' => true ];
 
-            $theme_stylesheet    = $args['theme_stylesheet'];
-            $theme_updates       = get_site_transient( 'update_themes' );
-            $outdated_themes     = $theme_updates->response;
+            $theme_stylesheet = $args['theme_stylesheet'];
+            $theme_updates    = get_site_transient( 'update_themes' );
+            $outdated_themes  = is_object( $theme_updates ) && isset( $theme_updates->response ) && is_array( $theme_updates->response )
+                ? $theme_updates->response
+                : [];
             $outdated_themes_key = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             if ( empty( $outdated_themes_key ) ) {
@@ -1367,9 +1414,25 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     return [ 'status' => $status ];
                 }
 
+                if ( empty( $themes_available_in_subscriptions[ $theme_stylesheet ] ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'License not found for this theme', 'directorist' );
+
+                    return [ 'status' => $status ];
+                }
+
                 $theme_item = $themes_available_in_subscriptions[ $theme_stylesheet ];
                 $url        = self::get_file_download_link( $theme_item, 'theme' );
-                $url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
+                $theme_update_item = $outdated_themes[ $theme_stylesheet ];
+                $package_url       = is_object( $theme_update_item ) ? ( $theme_update_item->package ?? '' ) : ( $theme_update_item['package'] ?? '' );
+                $url               = empty( $url ) && ! empty( $package_url ) ? $package_url : $url;
+
+                if ( empty( $url ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'Download link could not be retrieved', 'directorist' );
+
+                    return [ 'status' => $status ];
+                }
 
                 $download_status = $this->download_theme( [ 'url' => $url ] );
 
@@ -2029,7 +2092,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            if ( 'plugin' !== $type || 'theme' !== $type ) {
+            if ( 'plugin' !== $type && 'theme' !== $type ) {
                 $status['success'] = false;
                 $status['message'] = 'Invalid type';
 
@@ -2072,243 +2135,250 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             if ( ! $download_status['success'] ) {
-                return $download_status;
+                $status['success'] = false;
+                $status['message'] = $download_status['message'] ?? __( 'Download failed', 'directorist' );
+                wp_send_json( [ 'status' => $status ] );
             }
 
             $status['success'] = true;
-            $status['message'] = __( 'Donloaded', 'directorist' );
+            $status['message'] = __( 'Downloaded', 'directorist' );
 
             wp_send_json( [ 'status' => $status ] );
         }
 
         // download_plugin
         public function download_plugin( array $args = [] ) {
-            $status = [ 'success' => false ];
-
-            $default = [
-                'url' => '',
-                'init_wp_filesystem' => true,
-            ];
-            $args    = array_merge( $default, $args );
-
-            if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Invalid download link', 'directorist' );
-
-                return $status;
-            }
-
-            global $wp_filesystem;
-
-            if ( $args['init_wp_filesystem'] ) {
-
-                if ( ! function_exists( 'WP_Filesystem' ) ) {
-                    include ABSPATH . 'wp-admin/includes/file.php';
-                }
-
-                WP_Filesystem();
-            }
-
-            $plugin_path = WP_CONTENT_DIR . '/plugins';
-            $temp_dest   = "{$plugin_path}/atbdp-temp-dir";
-            $file_url    = $args['url'];
-            $file_name   = basename( $file_url );
-            $tmp_file    = download_url( $file_url );
-
-            if ( ! is_string( $tmp_file ) ) {
-                $status['success']  = false;
-                $status['tmp_file'] = $tmp_file;
-                $status['file_url'] = $file_url;
-                $status['message']  = 'Could not download the file';
-
-                return $status;
-            }
-
-            // Make Temp Dir
-            if ( $wp_filesystem->exists( $temp_dest ) ) {
-                $wp_filesystem->delete( $temp_dest, true );
-            }
-
-            $wp_filesystem->mkdir( $temp_dest );
-
-            if ( ! file_exists( $temp_dest ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Could not create temp directory', 'directorist' );
-
-                return $status;
-            }
-
-            // Sets file temp destination.
-            $file_path = "{$temp_dest}/{$file_name}";
-
-            set_error_handler(
-                function ( $errno, $errstr, $errfile, $errline ) {
-                    // error was suppressed with the @-operator
-                    if ( 0 === error_reporting() ) {
-                          return false;
-                    }
-
-                    throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
-                }
-            );
-
-            // Copies the file to the final destination and deletes temporary file.
-            try {
-                copy( $tmp_file, $file_path );
-            } catch ( Exception $e ) {
-                $status['success'] = false;
-                $status['message'] = $e->getMessage();
-
-                return $status;
-            }
-
-            @unlink( $tmp_file );
-            unzip_file( $file_path, $temp_dest );
-
-            if ( "{$plugin_path}/" !== $file_path || $file_path !== $plugin_path ) {
-                @unlink( $file_path );
-            }
-
-            $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
-
-            foreach ( $extracted_file_dir as $dir_path ) {
-                $dir_name  = basename( $dir_path );
-                $dest_path = "{$plugin_path}/{$dir_name}";
-
-                // Delete Previous Files if Exists
-                if ( $wp_filesystem->exists( $dest_path ) ) {
-                    $wp_filesystem->delete( $dest_path, true );
-                }
-            }
-
-            copy_dir( $temp_dest, $plugin_path );
-            $wp_filesystem->delete( $temp_dest, true );
-
-            $status['success'] = true;
-            $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
-
-            return $status;
+            return $this->download_product_package( $args, 'plugin' );
         }
 
         // download_theme
         public function download_theme( array $args = [] ) {
-            $status = [ 'success' => false ];
+            return $this->download_product_package( $args, 'theme' );
+        }
 
-            $default = [
-                'url' => '',
-                'init_wp_filesystem' => true,
-            ];
-            $args    = array_merge( $default, $args );
+        private function download_product_package( array $args, $product_type ) {
+            $status = [ 'success' => false ];
+            $args   = array_merge(
+                [
+                    'url'                => '',
+                    'init_wp_filesystem' => true,
+                ],
+                $args
+            );
 
             if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
-                $status['success'] = false;
                 $status['message'] = __( 'Invalid download link', 'directorist' );
-
                 return $status;
+            }
+
+            if ( ! in_array( $product_type, [ 'plugin', 'theme' ], true ) ) {
+                $status['message'] = __( 'Invalid product type', 'directorist' );
+                return $status;
+            }
+
+            if ( ! function_exists( 'WP_Filesystem' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
             }
 
             global $wp_filesystem;
 
-            if ( $args['init_wp_filesystem'] ) {
+            if ( $args['init_wp_filesystem'] && ! WP_Filesystem() ) {
+                $status['message'] = __( 'Could not initialize the WordPress filesystem.', 'directorist' );
+                return $status;
+            }
 
-                if ( ! function_exists( 'WP_Filesystem' ) ) {
-                    include ABSPATH . 'wp-admin/includes/file.php';
+            if ( ! is_object( $wp_filesystem ) ) {
+                $status['message'] = __( 'The WordPress filesystem is unavailable.', 'directorist' );
+                return $status;
+            }
+
+            $destination_root = 'plugin' === $product_type ? WP_PLUGIN_DIR : get_theme_root();
+            $token            = str_replace( '-', '', wp_generate_uuid4() );
+            $extract_path     = trailingslashit( get_temp_dir() ) . "directorist-{$product_type}-{$token}";
+            $tmp_file         = download_url( $args['url'] );
+            $stage_paths      = [];
+            $backup_paths     = [];
+            $installed_paths  = [];
+
+            if ( is_wp_error( $tmp_file ) ) {
+                $status['message'] = $tmp_file->get_error_message();
+                return $status;
+            }
+
+            if ( ! is_string( $tmp_file ) || ! $wp_filesystem->mkdir( $extract_path ) ) {
+                if ( is_string( $tmp_file ) && file_exists( $tmp_file ) ) {
+                    wp_delete_file( $tmp_file );
                 }
 
-                WP_Filesystem();
-            }
-
-            $theme_path = WP_CONTENT_DIR . '/themes';
-            $temp_dest  = "{$theme_path}/atbdp-temp-dir";
-            $file_url   = $args['url'];
-            $file_name  = basename( $file_url );
-            $tmp_file   = download_url( $file_url );
-
-            if ( ! is_string( $tmp_file ) ) {
-                $status['success']  = false;
-                $status['tmp_file'] = $tmp_file;
-                $status['file_url'] = $file_url;
-                $status['message']  = 'Could not download the file';
-
+                $status['message'] = __( 'Could not create a temporary product directory.', 'directorist' );
                 return $status;
             }
 
-            // Make Temp Dir
-            if ( $wp_filesystem->exists( $temp_dest ) ) {
-                $wp_filesystem->delete( $temp_dest, true );
-            }
+            $unzip_status = unzip_file( $tmp_file, $extract_path );
+            wp_delete_file( $tmp_file );
 
-            $wp_filesystem->mkdir( $temp_dest );
-
-            if ( ! file_exists( $temp_dest ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Could not create temp directory', 'directorist' );
-
+            if ( is_wp_error( $unzip_status ) ) {
+                $wp_filesystem->delete( $extract_path, true );
+                $status['message'] = $unzip_status->get_error_message();
                 return $status;
             }
 
-            // Sets file temp destination.
-            $file_path = "{$temp_dest}/{$file_name}";
+            $sources = $this->get_product_package_sources( $extract_path, $product_type );
 
-            set_error_handler(
-                function ( $errno, $errstr, $errfile, $errline ) {
-                    // error was suppressed with the @-operator
-                    if ( 0 === error_reporting() ) {
-                          return false;
+            if ( is_wp_error( $sources ) ) {
+                $wp_filesystem->delete( $extract_path, true );
+                $status['message'] = $sources->get_error_message();
+                return $status;
+            }
+
+            foreach ( $sources as $source_path ) {
+                $directory_name = basename( $source_path );
+
+                if ( 0 !== validate_file( $directory_name ) || in_array( $directory_name, [ '.', '..' ], true ) ) {
+                    $status['message'] = __( 'The product package contains an invalid directory name.', 'directorist' );
+                    break;
+                }
+
+                $stage_path = trailingslashit( $destination_root ) . ".directorist-stage-{$token}-{$directory_name}";
+                $stage_paths[ $directory_name ] = $stage_path;
+                $copy_status = copy_dir( $source_path, $stage_path );
+
+                if ( is_wp_error( $copy_status ) ) {
+                    $status['message'] = $copy_status->get_error_message();
+                    break;
+                }
+
+                if ( ! $this->is_valid_product_directory( $stage_path, $product_type ) ) {
+                    $status['message'] = __( 'The staged product files are invalid.', 'directorist' );
+                    break;
+                }
+
+            }
+
+            if ( empty( $status['message'] ) ) {
+                foreach ( $stage_paths as $directory_name => $stage_path ) {
+                    $destination_path = trailingslashit( $destination_root ) . $directory_name;
+                    $backup_path      = trailingslashit( $destination_root ) . ".directorist-backup-{$token}-{$directory_name}";
+
+                    if ( $wp_filesystem->exists( $destination_path ) ) {
+                        if ( ! $wp_filesystem->move( $destination_path, $backup_path, false ) ) {
+                            $status['message'] = __( 'Could not prepare the existing product files for replacement.', 'directorist' );
+                            break;
+                        }
+
+                        $backup_paths[ $directory_name ] = $backup_path;
                     }
 
-                    throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
+                    if ( ! $wp_filesystem->move( $stage_path, $destination_path, false ) ) {
+                        $status['message'] = __( 'Could not move the staged product files into place.', 'directorist' );
+                        break;
+                    }
+
+                    $installed_paths[ $directory_name ] = $destination_path;
+                    unset( $stage_paths[ $directory_name ] );
                 }
-            );
-
-            // Copies the file to the final destination and deletes temporary file.
-            try {
-                copy( $tmp_file, $file_path );
-            } catch ( Exception $e ) {
-                $status['success'] = false;
-                $status['message'] = $e->getMessage();
-
-                return $status;
             }
 
-            @unlink( $tmp_file );
-            unzip_file( $file_path, $temp_dest );
+            if ( ! empty( $status['message'] ) ) {
+                foreach ( $installed_paths as $destination_path ) {
+                    $wp_filesystem->delete( $destination_path, true );
+                }
 
-            if ( "{$theme_path}/" !== $file_path || $file_path !== $theme_path ) {
-                @unlink( $file_path );
+                foreach ( $backup_paths as $directory_name => $backup_path ) {
+                    $destination_path = trailingslashit( $destination_root ) . $directory_name;
+
+                    if ( $wp_filesystem->exists( $backup_path ) ) {
+                        $wp_filesystem->move( $backup_path, $destination_path, false );
+                    }
+                }
+            } else {
+                foreach ( $backup_paths as $backup_path ) {
+                    $wp_filesystem->delete( $backup_path, true );
+                }
+
+                $status['success'] = true;
+                $status['message'] = 'plugin' === $product_type
+                    ? __( 'The plugin has been downloaded successfully', 'directorist' )
+                    : __( 'The theme has been downloaded successfully', 'directorist' );
             }
 
-            $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
-            $dir_path           = $extracted_file_dir[0];
-
-            $dir_name  = basename( $dir_path );
-            $dest_path = "{$theme_path}/{$dir_name}";
-            $zip_files = glob( "{$dir_path}/*.zip" );
-
-            // If has child theme
-            if ( ! empty( $zip_files ) ) {
-                $new_temp_dest = "{$temp_dest}/_temp_dest";
-                $this->install_themes_from_zip_files( $zip_files, $new_temp_dest, $wp_filesystem );
-
-                copy_dir( $new_temp_dest, $theme_path );
-                $wp_filesystem->delete( $temp_dest, true );
-
-                $status['success'] = false;
-                $status['message'] = __( 'The theme has been downloaded successfully', 'directorist' );
+            foreach ( $stage_paths as $stage_path ) {
+                $wp_filesystem->delete( $stage_path, true );
             }
 
-            // Delete Previous Files If Exists
-            if ( $wp_filesystem->exists( $dest_path ) ) {
-                $wp_filesystem->delete( $dest_path, true );
-            }
-
-            copy_dir( $temp_dest, $theme_path );
-            $wp_filesystem->delete( $temp_dest, true );
-
-            $status['success'] = true;
-            $status['message'] = __( 'The theme has been downloaded successfully', 'directorist' );
-
+            $wp_filesystem->delete( $extract_path, true );
             return $status;
+        }
+
+        private function get_product_package_sources( $extract_path, $product_type ) {
+            $directories = glob( trailingslashit( $extract_path ) . '*', GLOB_ONLYDIR );
+            $sources     = [];
+
+            foreach ( (array) $directories as $directory ) {
+                if ( '__MACOSX' === basename( $directory ) ) {
+                    continue;
+                }
+
+                if ( $this->is_valid_product_directory( $directory, $product_type ) ) {
+                    $sources[ basename( $directory ) ] = $directory;
+                }
+            }
+
+            if ( 'theme' === $product_type && empty( $sources ) ) {
+                $nested_path = trailingslashit( $extract_path ) . '_directorist_nested_themes';
+                $zip_files   = glob( trailingslashit( $extract_path ) . '*/*.zip' );
+
+                if ( ! empty( $zip_files ) ) {
+                    wp_mkdir_p( $nested_path );
+
+                    foreach ( $zip_files as $zip_file ) {
+                        $unzip_status = unzip_file( $zip_file, $nested_path );
+
+                        if ( is_wp_error( $unzip_status ) ) {
+                            return $unzip_status;
+                        }
+                    }
+
+                    foreach ( (array) glob( trailingslashit( $nested_path ) . '*', GLOB_ONLYDIR ) as $directory ) {
+                        if ( $this->is_valid_product_directory( $directory, $product_type ) ) {
+                            $sources[ basename( $directory ) ] = $directory;
+                        }
+                    }
+                }
+            }
+
+            if ( empty( $sources ) ) {
+                return new WP_Error( 'directorist_invalid_product_package', __( 'The downloaded archive does not contain valid product files.', 'directorist' ) );
+            }
+
+            if ( 'plugin' === $product_type && 1 !== count( $sources ) ) {
+                return new WP_Error( 'directorist_ambiguous_plugin_package', __( 'The downloaded archive contains multiple plugin directories.', 'directorist' ) );
+            }
+
+            return array_values( $sources );
+        }
+
+        private function is_valid_product_directory( $directory, $product_type ) {
+            if ( 'theme' === $product_type ) {
+                $style_file = trailingslashit( $directory ) . 'style.css';
+
+                if ( ! file_exists( $style_file ) ) {
+                    return false;
+                }
+
+                $headers = get_file_data( $style_file, [ 'name' => 'Theme Name' ], 'theme' );
+                return ! empty( $headers['name'] );
+            }
+
+            foreach ( (array) glob( trailingslashit( $directory ) . '*.php' ) as $plugin_file ) {
+                $headers = get_file_data( $plugin_file, [ 'name' => 'Plugin Name' ], 'plugin' );
+
+                if ( ! empty( $headers['name'] ) ) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // install_theme_from_zip

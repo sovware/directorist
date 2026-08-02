@@ -30,8 +30,8 @@ Do not store runtime product counts, installed product lists, update counts, acc
 ## Connected Header And Account Menu
 
 - The large connected account stats/action card was removed from the body.
-- Connected header navigation now uses `Dashboard` and `Add-ons` as internal page views.
-- The existing Themes & Extensions catalog is labeled `Add-ons` in the header nav, but keeps the original page slug, selectors, forms, rows, and AJAX contracts.
+- Connected header navigation now uses `Dashboard` and `Themes and Extensions` as the visible page views.
+- The Themes & Extensions catalog keeps `addons` as its internal view key, plus the original page slug, selectors, forms, rows, and AJAX contracts.
 - `Docs`, `Tutorials`, and `Support` remain external resource links, not dashboard tabs, and are grouped on the right side of the connected header like the disconnected view.
 - The Dashboard welcome section uses the connected Directorist licensing account owner's display name. It falls back to a non-email licensing username and then generic `Welcome back`; it does not expose the licensing email or use the local WordPress administrator identity.
 - The connected header account control uses the optional authoritative licensing-account `avatar_url`, with a Gravatar-derived URL or licensing-owner initials as safe client fallbacks. The account dropdown identifies the licensing owner instead of the local WordPress user.
@@ -43,7 +43,7 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Until the username-capable License Manager reaches Directorist.com, a username rejected by the older email-only POST route falls back to the legacy licensing endpoint instead of breaking existing connections.
 - Optional account-summary generation is fail-open on Directorist.com; an EDD summary exception returns the established licensing payload with `account_summary: null`.
 - Core accepts the new authentication response only when both theme and extension entitlement arrays have the expected shape, and credential-bearing POST requests do not follow redirects.
-- `View listings` uses the configured Directorist All Listings page and is hidden when no directory type exists.
+- `View directory` uses the configured Directorist All Listings page and is hidden when no directory type exists.
 - `Add listing` uses the configured frontend Directorist Add Listing page, allowing the existing form to handle one or multiple directory types. With no directory type, it becomes `Create directory` and links to Directory Builder.
 - The Dashboard footer uses the runtime `ATBDP_VERSION`, the API-backed account-summary plan name/status with legacy-safe fallbacks, and a filterable official changelog URL. It must not contain a hardcoded plugin version or plan name.
 - Dashboard summary metrics now use current local Directorist data for published listings, listing views, pending listings, upcoming expirations, paid-order revenue, and paid-order count.
@@ -141,7 +141,7 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Demo actions are exposed directly where applicable.
 - Active plugin rows use `Settings` as the primary action when no update is available.
 - Active installed plugin overflow contains `Deactivate` only when applicable.
-- Inactive installed plugin overflow uses `Delete plugin` as the destructive file-removal action.
+- Inactive installed plugin overflow uses `Delete` as the destructive file-removal action.
 - `Delete` remains protected by confirmation and should never be exposed as an easy primary action.
 - Duplicate Settings/Customize-style actions should be avoided.
 
@@ -161,6 +161,19 @@ Do not store runtime product counts, installed product lists, update counts, acc
   - `atbdp_update_plugins`
   - `atbdp_update_theme`
   - `atbdp_plugins_bulk_action`
+
+## Sequential Product Action Queue
+
+- Install, update, activate, deactivate, and delete now share one connected-view queue with concurrency one and item-level Waiting/current/success/failure/skipped states.
+- `Update all` no longer sends one unscoped request that performs every product update inside a single PHP process. Candidates are collected from current server-rendered row contracts, including products outside the active filter.
+- Existing endpoint and nonce contracts remain unchanged. Install sends one `item_key`; plugin update sends one `plugin_key`; theme update sends one `theme_stylesheet`; activate/deactivate/delete send one `plugin_items` entry per request.
+- Direct row controls are owned at capture phase on the rewritten page so later legacy click handlers cannot submit a duplicate action. Legacy classes remain in markup for compatibility.
+- A product-level server failure is recorded and the queue continues. A transport-level failure stops the queue because filesystem state is uncertain; untouched remaining items are reported as skipped.
+- Duplicate, malformed, or unsupported candidates are ignored before the queue begins. Other product mutation controls are locked while a queue runs.
+- On completion, a short non-sensitive result is stored once in `sessionStorage`, the page reloads to collect canonical WordPress state, and a success or partial-failure summary is shown after reload.
+- Bulk/single plugin activation now surfaces `WP_Error`. Delete validates the target, rejects active plugins, and checks the `delete_plugins()` result before success.
+- Package install/update uses a unique temporary extraction directory, validates the archive and staged plugin/theme headers, stages every replacement, backs up existing files, and restores backups after a failed move. Shared `atbdp-temp-dir`, unchecked unzip/copy results, and the leaked temporary error handler are no longer used.
+- The registered legacy download handler now accepts valid plugin/theme types and returns structured failure JSON. The disconnected view, action names, licensing data, and response envelope compatibility remain unchanged.
 
 ## Connected View Responsive Fixes
 
@@ -197,7 +210,7 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - `ATBDP_Extension_Recommendations` owns the centralized profile registry, directory classification, API override merge, product-state resolution, and final card data.
 - The active recommendation group comes from real `atbdp_listing_types` terms and starts from the current default directory.
 - Recommendations rotate every six seconds through real directory terms. When a directory returns, its next deterministic three-card window is shown; the implementation does not use unpredictable random ordering.
-- Hover, keyboard focus, browser-tab inactivity, the explicit Pause control, and `prefers-reduced-motion` stop automatic rotation. Previous, next, and the compact native directory selector remain available without reload.
+- Hover, keyboard focus, browser-tab inactivity, and `prefers-reduced-motion` stop automatic rotation. Previous, next, and the compact native directory selector remain available without reload; the visible Pause control was intentionally removed.
 - The recommendation directory chooser mirrors the Quick Actions control: a visible `Directory` label and the same select height, typography, border, radius, focus treatment, and responsive sizing. Previous, next, and pause remain grouped as secondary carousel controls.
 - Known directory profiles render their ordered recommendation candidates three at a time. Unknown/custom directory types use the generic candidate pool three at a time and never expose the complete extension catalog as a recommendation group.
 - Directory mappings are recommendations, not hard dependencies. The `Required` product state remains reserved for extensions declared through the existing theme-required-extension contract.
@@ -212,7 +225,7 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Product copy, thumbnail, link, installation state, activity state, and entitlement still come from the existing dynamic catalog and WordPress state. The template does not hardcode product cards.
 - Post Your Need is no longer a local catalog product or recommendation candidate because it was removed from the remote product API.
 - The predefined Post Your Need directory profile remains supported and recommends other available products. Legacy detection for already-installed Post Your Need extension copies remains untouched for customer compatibility.
-- Automatic rotation, manual switching, card-window changes, and pause/resume are page-local interactions and make no remote request.
+- Automatic rotation, manual switching, card-window changes, and interaction-based pausing are page-local interactions and make no remote request.
 
 ## Compatibility Rules Preserved
 

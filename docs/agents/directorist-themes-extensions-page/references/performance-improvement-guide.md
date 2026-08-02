@@ -88,6 +88,16 @@ Only consider React or a new SPA-style architecture if a future task explicitly 
 
 For these, show progress without reload, but reconcile with canonical server state before claiming completion. Keep reload fallback.
 
+Product action queue rule:
+
+- Never implement multi-install, `Update all`, activate, deactivate, or delete as one long PHP request over every selected product.
+- Collect candidates from canonical server-rendered state and send one existing single-product AJAX request at a time.
+- Keep concurrency at one because install/update replace filesystem directories and activation/deletion can leave partial WordPress state when a request fails.
+- Show Waiting and action-specific progress on each row; lock other mutation controls until the queue reconciles.
+- Continue after an explicit product-level failure, but stop after an uncertain network/transport failure and mark untouched queue entries as skipped.
+- Do not retry an uncertain filesystem action automatically. Reload and re-check canonical WordPress state before allowing another attempt.
+- Store only a one-time non-sensitive action summary in `sessionStorage`; never persist product catalogs, credentials, licenses, or download URLs.
+
 ## High-Risk Or Destructive
 
 - Plugin uninstall
@@ -124,6 +134,13 @@ Before a deeper rewrite, plan a service layer behind existing AJAX actions:
 - State summary endpoint for client-side refresh
 
 Maintain the current AJAX action names and response compatibility while introducing safer internals.
+
+Current filesystem baseline:
+
+- Download each package to a unique temporary extraction directory; never share a fixed temp folder across requests.
+- Validate unzip/copy results and plugin/theme headers before touching the current destination.
+- Copy to a same-filesystem staging directory, move the current destination to a unique backup, then move the validated stage into place.
+- Restore backups on replacement failure and clean stage/extraction/backup paths after completion.
 
 ## Page Speed Acceptance
 

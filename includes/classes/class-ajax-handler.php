@@ -195,13 +195,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $user  = get_user_by( 'email', $email );
             if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
                 ATBDP()->email->send_user_confirmation_email( $user );
+                $query_args = [ 'send_verification_email' => true ];
+            } else {
+                $resent = ATBDP()->user->pending_registration->resend( $email );
+
+                $query_args = is_wp_error( $resent )
+                    ? [ 'pending_registration_error' => $resent->get_error_code() ]
+                    : [ 'send_verification_email' => true ];
             }
 
-            $args = ATBDP_Permalink::get_signin_signup_page_link(
-                [
-                    'send_verification_email' => true
-                ]
-            );
+            $args = ATBDP_Permalink::get_signin_signup_page_link( $query_args );
 
             wp_safe_redirect( $args );
             exit;
@@ -953,8 +956,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     $upload_token = isset( $_POST['upload_token'] ) ? sanitize_text_field( wp_unslash( $_POST['upload_token'] ) ) : '';
                     $token_data   = $upload_token ? get_transient( 'directorist_file_upload_' . $upload_token ) : false;
 
-                    if (
-                        empty( $token_data )
+                    if ( empty( $token_data )
                         || ! is_array( $token_data )
                         || (int) ( $token_data['directory'] ?? 0 ) !== $directory
                         || (string) ( $token_data['field_key'] ?? '' ) !== $field_id

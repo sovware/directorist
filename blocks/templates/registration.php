@@ -82,7 +82,7 @@ extract( $reg_args );
             <div class="directorist-account-block-modal-wrap">
                 <div class="directorist-form-group directorist-mb-15">
                     <label for="username"><?php echo esc_html( $username ); ?> <strong class="directorist-form-required">*</strong></label>
-                    <input id="username" class="directorist-form-element" type="text" name="username" value="<?php echo isset( $_REQUEST['username'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['username'] ) ) ) : ''; ?>" required>
+                    <input id="username" class="directorist-form-element" type="text" name="username" minlength="4" maxlength="60" value="<?php echo isset( $_REQUEST['username'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['username'] ) ) ) : ''; ?>" required>
                 </div>
                 <div class="directorist-form-group directorist-mb-15">
                     <label for="email"><?php echo esc_html( $email ); ?> <strong class="directorist-form-required">*</strong></label>

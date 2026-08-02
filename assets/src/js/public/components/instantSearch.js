@@ -713,34 +713,16 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 
 	// Close all search modal
 	function closeAllSearchModal() {
-		var searchModalElement = document.querySelectorAll(
+		const searchModalElements = document.querySelectorAll(
 			'.directorist-search-modal'
 		);
 
-		searchModalElement.forEach((modal) => {
-			var modalOverlay = modal.querySelector(
-				'.directorist-search-modal__overlay'
+		searchModalElements.forEach((modal) => {
+			modal.dispatchEvent(
+				new CustomEvent('directorist-search-modal-close', {
+					bubbles: true,
+				})
 			);
-			var modalContent = modal.querySelector(
-				'.directorist-search-modal__contents'
-			);
-			var modalBodyOverlay = document.querySelector(
-				'.directorist-content-active'
-			);
-
-			// Overlay Style
-			if (modalOverlay) {
-				modalOverlay.style.cssText =
-					'opacity: 0; visibility: hidden; transition: 0.5s ease';
-				// remove overlay class on body
-				modalBodyOverlay.classList.remove('directorist-overlay-active');
-			}
-
-			// Modal Content Style
-			if (modalContent) {
-				modalContent.style.cssText =
-					'opacity: 0; visibility: hidden; bottom: -200px;';
-			}
 		});
 	}
 

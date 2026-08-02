@@ -18,10 +18,10 @@ if ( is_numeric( $searchform->listing_type ) ) {
         <form action="<?php atbdp_search_result_page_link(); ?>" class="directorist-advanced-filter__form">
             <div class="directorist-search-modal__contents__header">
                 <h3 class="directorist-search-modal__contents__title"><?php esc_html_e( 'More Filters', 'directorist' ) ?></h3>
-                <button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close">
+                <button type="button" class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close" aria-label="<?php esc_attr_e( 'Close search', 'directorist' ); ?>">
                     <?php directorist_icon( 'fas fa-times' ); ?>
                 </button>
-                <span class="directorist-search-modal__minimizer"></span>
+                <span class="directorist-search-modal__minimizer" aria-hidden="true"></span>
             </div>
 
             <div class="directorist-search-modal__contents__body">

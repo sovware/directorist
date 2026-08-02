@@ -833,27 +833,42 @@ class Directorist_Listing_Search_Form {
         $top_categories = [];
 
         $args = [
-            'type'          => ATBDP_POST_TYPE,
-            'parent'        => 0,
-            'orderby'       => 'count',
-            'order'         => 'desc',
-            'hide_empty'    => 1,
-            'number'        => (int) $this->popular_cat_num,
-            'taxonomy'      => ATBDP_CATEGORY,
-            'no_found_rows' => true,
+            'type'                                  => ATBDP_POST_TYPE,
+            'orderby'                               => 'count',
+            'order'                                 => 'desc',
+            'hide_empty'                            => 1,
+            'hierarchical'                          => false,
+            'number'                                => (int) $this->popular_cat_num,
+            'taxonomy'                              => ATBDP_CATEGORY,
+            'no_found_rows'                         => true,
+            'directorist_popular_categories_query' => true,
+            'meta_query'                            => [
+                'relation' => 'OR',
+                [
+                    'key'     => '_directory_type_' . absint( $this->listing_type ),
+                    'compare' => 'EXISTS',
+                ],
+                [
+                    'key'     => '_directory_type',
+                    'value'   => 'i:' . absint( $this->listing_type ) . ';',
+                    'compare' => 'LIKE',
+                ],
+            ],
         ];
 
-        $cats = get_categories( $args );
-
-        foreach ( $cats as $cat ) {
-            $directory_type      = get_term_meta( $cat->term_id, '_directory_type', true );
-            $directory_type      = ! empty( $directory_type ) ? (array) $directory_type : [];
-            $listing_type_id     = $this->listing_type;
-
-            if ( in_array( $listing_type_id, $directory_type ) ) {
-                $top_categories[] = $cat;
+        $root_categories_only = static function ( $clauses, $taxonomies, $query_args ) {
+            if ( empty( $query_args['directorist_popular_categories_query'] ) || ! in_array( ATBDP_CATEGORY, $taxonomies, true ) ) {
+                return $clauses;
             }
-        }
+
+            $clauses['where'] .= ' AND tt.parent = 0';
+
+            return $clauses;
+        };
+
+        add_filter( 'terms_clauses', $root_categories_only, 10, 3 );
+        $top_categories = get_categories( $args );
+        remove_filter( 'terms_clauses', $root_categories_only, 10 );
 
         return $top_categories;
     }

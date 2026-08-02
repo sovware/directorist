@@ -953,8 +953,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     $upload_token = isset( $_POST['upload_token'] ) ? sanitize_text_field( wp_unslash( $_POST['upload_token'] ) ) : '';
                     $token_data   = $upload_token ? get_transient( 'directorist_file_upload_' . $upload_token ) : false;
 
-                    if (
-                        empty( $token_data )
+                    if ( empty( $token_data )
                         || ! is_array( $token_data )
                         || (int) ( $token_data['directory'] ?? 0 ) !== $directory
                         || (string) ( $token_data['field_key'] ?? '' ) !== $field_id
@@ -985,7 +984,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 }
 
                 $field_id   = sanitize_text_field( $field_config['field_key'] );
-                $fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) ) : '';
+                $fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( $_FILES[ $field_id . 'async-upload' ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Unslashing corrupts Windows upload paths in raw $_FILES data.
 
                 if ( empty( $fixed_file ) ) {
                     throw new \Exception( __( 'No file supplied.', 'directorist' ), 400 );

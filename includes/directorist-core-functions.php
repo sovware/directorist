@@ -47,11 +47,17 @@ function directorist_get_admin_notifiable_events() {
 }
 
 function directorist_is_owner_notifiable_event( $event ) {
-    return in_array( $event, directorist_get_owner_notifiable_events(), true );
+    $events = directorist_get_owner_notifiable_events();
+
+    return in_array( $event, $events, true )
+        || ( 'order_completed' === $event && in_array( 'payment_received', $events, true ) );
 }
 
 function directorist_is_admin_notifiable_event( $event ) {
-    return in_array( $event, directorist_get_admin_notifiable_events(), true );
+    $events = directorist_get_admin_notifiable_events();
+
+    return in_array( $event, $events, true )
+        || ( 'order_completed' === $event && in_array( 'payment_received', $events, true ) );
 }
 
 function directorist_get_user_types() {

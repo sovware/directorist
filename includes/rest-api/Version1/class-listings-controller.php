@@ -14,6 +14,7 @@ use WP_REST_Request;
 use WP_Query;
 use WP_REST_Server;
 use WP_Error;
+use Directorist\AddListingForm\SubmissionController;
 use Directorist\Helper;
 use Directorist\Repositories\ListingRepository;
 
@@ -227,6 +228,336 @@ class Listings_Controller extends Posts_Controller {
             'total'   => (int) $total_posts,
             'pages'   => (int) ceil( $total_posts / (int) $query->query_vars['posts_per_page'] ),
         );
+    }
+
+    /**
+     * Create a listing from the legacy V1 schema.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_Error|\WP_REST_Response
+     */
+    public function create_item( $request ) {
+        $posted_data = $this->prepare_create_item_data( $request );
+
+        if ( is_wp_error( $posted_data ) ) {
+            return $posted_data;
+        }
+
+        $controller_response = SubmissionController::submit( $posted_data, 'api' );
+
+        if ( is_wp_error( $controller_response ) ) {
+            return $controller_response;
+        }
+
+        $listing = get_post( $controller_response['id'] );
+
+        if ( ! $listing ) {
+            return new WP_Error(
+                'directorist_rest_listing_not_created',
+                __( 'The listing could not be created.', 'directorist' ),
+                array( 'status' => 500 )
+            );
+        }
+
+        $request->set_param( 'context', 'edit' );
+        $response = rest_ensure_response( $this->prepare_item_for_response( $listing, $request ) );
+        $response->set_status( 201 );
+
+        if ( isset( $controller_response['preview_url'] ) ) {
+            $response->add_link( 'preview', $controller_response['preview_url'] );
+        }
+
+        if ( isset( $controller_response['redirect_url'] ) ) {
+            $response->add_link( 'redirect', $controller_response['redirect_url'] );
+        }
+
+        $base = '/' . $this->namespace . '/' . $this->rest_base;
+        $response->header( 'Location', rest_url( $base . '/' . $listing->ID ) );
+
+        return apply_filters( 'directorist_rest_response', $response, 'create_listing_item', $request );
+    }
+
+    /**
+     * Convert the flat V1 request into builder-aware listing form data.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return array|WP_Error
+     */
+    protected function prepare_create_item_data( $request ) {
+        $directory_id = $this->get_create_item_directory_id( $request );
+
+        if ( is_wp_error( $directory_id ) ) {
+            return $directory_id;
+        }
+
+        $posted_data = array(
+            'directory_type' => $directory_id,
+        );
+
+        if ( $request->has_param( 'plan' ) ) {
+            $posted_data['plan_id'] = absint( $request->get_param( 'plan' ) );
+        }
+
+        if ( $request->has_param( 'privacy_policy' ) ) {
+            $posted_data['privacy_policy'] = rest_sanitize_boolean( $request->get_param( 'privacy_policy' ) );
+        }
+
+        if ( $request->has_param( 'terms_conditions' ) ) {
+            $posted_data['t_c_check'] = rest_sanitize_boolean( $request->get_param( 'terms_conditions' ) );
+        } elseif ( $request->has_param( 't_c_check' ) ) {
+            $posted_data['t_c_check'] = rest_sanitize_boolean( $request->get_param( 't_c_check' ) );
+        }
+
+        $field_map = array(
+            'title'              => 'name',
+            'description'        => 'description',
+            'excerpt'            => 'short_description',
+            'zip'                => 'zip',
+            'phone'              => 'phone',
+            'phone2'             => 'phone_2',
+            'fax'                => 'fax',
+            'email'              => 'email',
+            'website'            => 'website',
+            'social_info'        => 'social_links',
+            'address'            => 'address',
+            'hide_contact_owner' => 'owner_contact_hidden',
+            'video'              => 'video_url',
+            'tagline'            => 'tagline',
+        );
+
+        foreach ( directorist_get_listing_form_fields( $directory_id ) as $form_field ) {
+            $field_key  = $form_field['field_key'] ?? '';
+            $widget_key = $form_field['widget_name'] ?? ( $form_field['widget_key'] ?? '' );
+
+            if ( ! $field_key ) {
+                continue;
+            }
+
+            if ( 'category' === $widget_key || 'location' === $widget_key || 'tag' === $widget_key ) {
+                $taxonomy_map = array(
+                    'category' => array( 'request' => 'categories', 'taxonomy' => ATBDP_CATEGORY ),
+                    'location' => array( 'request' => 'locations', 'taxonomy' => ATBDP_LOCATION ),
+                    'tag'      => array( 'request' => 'tags', 'taxonomy' => ATBDP_TAGS ),
+                );
+                $mapping      = $taxonomy_map[ $widget_key ];
+
+                if ( ! $request->has_param( $mapping['request'] ) ) {
+                    continue;
+                }
+
+                $terms = $this->prepare_create_item_terms(
+                    $request->get_param( $mapping['request'] ),
+                    $mapping['taxonomy'],
+                    $directory_id,
+                    $mapping['request']
+                );
+
+                if ( is_wp_error( $terms ) ) {
+                    return $terms;
+                }
+
+                if ( ! isset( $posted_data['tax_input'] ) ) {
+                    $posted_data['tax_input'] = array();
+                }
+
+                $posted_data['tax_input'][ $mapping['taxonomy'] ] = $terms;
+                continue;
+            }
+
+            if ( 'pricing' === $widget_key ) {
+                $this->prepare_create_item_pricing( $request, $posted_data );
+                continue;
+            }
+
+            if ( 'map' === $widget_key ) {
+                $this->prepare_create_item_map( $request, $posted_data );
+                continue;
+            }
+
+            if ( 'image_upload' === $widget_key && $request->has_param( 'images' ) ) {
+                $images = $this->prepare_create_item_images( $request->get_param( 'images' ) );
+
+                if ( is_wp_error( $images ) ) {
+                    return $images;
+                }
+
+                $posted_data[ $field_key ] = $images;
+                continue;
+            }
+
+            if ( isset( $field_map[ $widget_key ] ) && $request->has_param( $field_map[ $widget_key ] ) ) {
+                $posted_data[ $field_key ] = $request->get_param( $field_map[ $widget_key ] );
+                continue;
+            }
+
+            if ( $request->has_param( $field_key ) ) {
+                $posted_data[ $field_key ] = $request->get_param( $field_key );
+            }
+        }
+
+        return $posted_data;
+    }
+
+    /**
+     * Resolve and validate the listing directory.
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return int|WP_Error
+     */
+    protected function get_create_item_directory_id( $request ) {
+        $directory_id = $request->has_param( 'directory' ) ? absint( $request->get_param( 'directory' ) ) : directorist_get_default_directory();
+        $directory    = get_term( $directory_id, ATBDP_DIRECTORY_TYPE );
+
+        if ( ! $directory_id || ! $directory || is_wp_error( $directory ) ) {
+            return new WP_Error(
+                'directorist_invalid_directory',
+                __( 'Invalid directory id.', 'directorist' ),
+                array( 'status' => 400 )
+            );
+        }
+
+        return (int) $directory->term_id;
+    }
+
+    /**
+     * Validate V1 taxonomy objects and convert them to submission values.
+     *
+     * @param mixed  $items        Taxonomy objects from the request.
+     * @param string $taxonomy     Taxonomy name.
+     * @param int    $directory_id Directory ID.
+     * @param string $field_name   REST field name.
+     * @return array|WP_Error
+     */
+    protected function prepare_create_item_terms( $items, $taxonomy, $directory_id, $field_name ) {
+        $term_ids = array();
+
+        foreach ( (array) $items as $item ) {
+            $term_id = is_array( $item ) ? absint( $item['id'] ?? 0 ) : absint( $item );
+            $term    = $term_id ? get_term( $term_id, $taxonomy ) : false;
+
+            if ( ! $term || is_wp_error( $term ) ) {
+                return new WP_Error(
+                    'directorist_invalid_taxonomy_term',
+                    sprintf(
+                        /* translators: %s: REST taxonomy field name. */
+                        __( 'Invalid term supplied for %s.', 'directorist' ),
+                        $field_name
+                    ),
+                    array(
+                        'field'  => $field_name,
+                        'status' => 400,
+                    )
+                );
+            }
+
+            $term_directories = array_map( 'absint', directorist_get_term_directory( $term_id ) );
+
+            if ( $term_directories && ! in_array( $directory_id, $term_directories, true ) ) {
+                return new WP_Error(
+                    'directorist_invalid_taxonomy_term',
+                    sprintf(
+                        /* translators: %s: REST taxonomy field name. */
+                        __( 'Invalid term supplied for %s.', 'directorist' ),
+                        $field_name
+                    ),
+                    array(
+                        'field'  => $field_name,
+                        'status' => 400,
+                    )
+                );
+            }
+
+            $term_ids[] = (int) $term->term_id;
+        }
+
+        return array_values( array_unique( $term_ids ) );
+    }
+
+    /**
+     * Add pricing fields to submission data.
+     *
+     * @param WP_REST_Request $request     Full details about the request.
+     * @param array           $posted_data Listing submission data.
+     */
+    protected function prepare_create_item_pricing( $request, &$posted_data ) {
+        $pricing_map = array(
+            'pricing_type' => 'atbd_listing_pricing',
+            'price'        => 'price',
+            'price_range'  => 'price_range',
+        );
+
+        foreach ( $pricing_map as $request_key => $post_key ) {
+            if ( $request->has_param( $request_key ) ) {
+                $posted_data[ $post_key ] = $request->get_param( $request_key );
+            }
+        }
+    }
+
+    /**
+     * Add map fields to submission data.
+     *
+     * @param WP_REST_Request $request     Full details about the request.
+     * @param array           $posted_data Listing submission data.
+     */
+    protected function prepare_create_item_map( $request, &$posted_data ) {
+        $map = array(
+            'map_hidden' => 'hide_map',
+            'latitude'   => 'manual_lat',
+            'longitude'  => 'manual_lng',
+        );
+
+        foreach ( $map as $request_key => $post_key ) {
+            if ( $request->has_param( $request_key ) ) {
+                $posted_data[ $post_key ] = $request->get_param( $request_key );
+            }
+        }
+    }
+
+    /**
+     * Convert V1 image objects into attachment IDs or temporary filenames.
+     *
+     * @param mixed $items Image objects from the request.
+     * @return array|WP_Error
+     */
+    protected function prepare_create_item_images( $items ) {
+        $images = array();
+
+        foreach ( (array) $items as $item ) {
+            $attachment_id = is_array( $item ) ? absint( $item['id'] ?? 0 ) : absint( $item );
+
+            if ( $attachment_id ) {
+                if ( 'attachment' !== get_post_type( $attachment_id ) || ! wp_attachment_is_image( $attachment_id ) || ! current_user_can( 'edit_post', $attachment_id ) ) {
+                    return new WP_Error(
+                        'directorist_invalid_image',
+                        __( 'Invalid image supplied.', 'directorist' ),
+                        array(
+                            'field'  => 'images',
+                            'status' => 400,
+                        )
+                    );
+                }
+
+                $images[] = $attachment_id;
+                continue;
+            }
+
+            $filename = is_array( $item ) ? sanitize_file_name( $item['name'] ?? '' ) : '';
+
+            if ( ! $filename ) {
+                return new WP_Error(
+                    'directorist_invalid_image',
+                    __( 'Invalid image supplied.', 'directorist' ),
+                    array(
+                        'field'  => 'images',
+                        'status' => 400,
+                    )
+                );
+            }
+
+            $images[] = $filename;
+        }
+
+        return array_values( array_unique( $images ) );
     }
 
     /**

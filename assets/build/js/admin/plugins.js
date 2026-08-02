@@ -1,1 +1,49 @@
-jQuery(document).ready(function(t){var e=t("#directorist-update"),i=t('[data-slug="directorist"]');(e.length?e:i).after('<tr class="directorist-extensions"></tr>'),t(".directorist-extensions").append(t('<td colspan="4"><div class="ext-all-wrapper"><input type="checkbox" class="select_all"> All Extensions<table class="atbdp_extensions"><tbody class="de-list"></tbody></table></div></td>'));var s=t(".directorist-extensions").find(".de-list"),a=t(".directorist-extensions").find(".ext-all-wrapper");t(a).append('<div class="ext-more"><a href="" class="ext-more-link">Click to view directorist all extensions</a></div>');var l=t(".directorist-extensions").find(".ext-more-link");t(l).hide(),t(s).append(t('#the-list tr[data-slug^="directorist-"], #the-list tr[data-slug^="addonskit-for-elementor"]')),t("body").on("click",".select_all",function(e){var i=t(e.target).closest("table");t("td input:checkbox",i).prop("checked",this.checked)}),t(a).innerHeight()>250&&(t(a).addClass("ext-height-fix"),t(l).show(),t(a).css("padding-bottom","60px")),t(l).on("click",function(e){var i=this;e.preventDefault(),t(a).hasClass("ext-height-fix")?(t(a).animate({height:"100%"},"fast").removeClass("ext-height-fix"),t(this).html("Click to collapse")):(t(a).animate({height:"250px"},"fast").addClass("ext-height-fix"),setTimeout(function(){t(i).html("Click to view directorist all extensions")},1e3))}),""===t(s).html()&&t(".directorist-extensions").hide()});
+/******/ (function() { // webpackBootstrap
+/*!****************************************!*\
+  !*** ./assets/src/js/admin/plugins.js ***!
+  \****************************************/
+jQuery(document).ready(function ($) {
+  var update = $('#directorist-update');
+  var main_div = $('[data-slug="directorist"]');
+  var extensions_area = update.length ? update : main_div;
+  extensions_area.after('<tr class="directorist-extensions"></tr>');
+  $('.directorist-extensions').append($('<td colspan="4"><div class="ext-all-wrapper"><input type="checkbox" class="select_all"> All Extensions<table class="atbdp_extensions"><tbody class="de-list"></tbody></table></div></td>'));
+  var tbody = $('.directorist-extensions').find('.de-list');
+  var extWrapper = $('.directorist-extensions').find('.ext-all-wrapper');
+  $(extWrapper).append('<div class="ext-more"><a href="" class="ext-more-link">Click to view directorist all extensions</a></div>');
+  var moreLink = $('.directorist-extensions').find('.ext-more-link');
+  $(moreLink).hide();
+  $(tbody).append($('#the-list tr[data-slug^="directorist-"], #the-list tr[data-slug^="addonskit-for-elementor"]'));
+  $('body').on('click', '.select_all', function (e) {
+    var table = $(e.target).closest('table');
+    $('td input:checkbox', table).prop('checked', this.checked);
+  });
+  if ($(extWrapper).innerHeight() > 250) {
+    $(extWrapper).addClass('ext-height-fix');
+    $(moreLink).show();
+    $(extWrapper).css('padding-bottom', '60px');
+  }
+  $(moreLink).on('click', function (e) {
+    var _this = this;
+    e.preventDefault();
+    if ($(extWrapper).hasClass('ext-height-fix')) {
+      $(extWrapper).animate({
+        height: '100%'
+      }, 'fast').removeClass('ext-height-fix');
+      $(this).html('Click to collapse');
+    } else {
+      $(extWrapper).animate({
+        height: '250px'
+      }, 'fast').addClass('ext-height-fix');
+      setTimeout(function () {
+        $(_this).html('Click to view directorist all extensions');
+      }, 1000);
+    }
+  });
+  if ($(tbody).html() === '') {
+    $('.directorist-extensions').hide();
+  }
+});
+/******/ })()
+;
+//# sourceMappingURL=plugins.js.map

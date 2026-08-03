@@ -317,7 +317,6 @@ const EVENT_TEMPLATE_MAP = {
 const ADMIN_EVENTS = [
   ["order_created", "Order created", "A new order has been placed"],
   ["order_completed", "Order completed", "An order has been fulfilled"],
-  ["payment_received", "Payment received", "A payment has been confirmed"],
   ["listing_submitted", "New listing submitted", "A listing is waiting for review"],
   ["listing_published", "Listing approved or published", "A listing has gone live"],
   ["listing_edited", "Listing edited", "A listing was updated by its owner"],
@@ -337,9 +336,6 @@ const USER_EVENTS = [
   ["listing_expired", "Listing expired", "Their listing plan has ended"],
   ["remind_to_renew", "Remind to renew", "Renewal reminder after expiry"],
   ["listing_renewed", "Listing renewed", "Confirmation their listing was renewed"],
-  ["order_created", "Order created", "Confirmation their order was placed"],
-  ["order_completed", "Order completed", "Their order has been fulfilled"],
-  ["payment_received", "Payment received", "Confirmation of a successful payment"],
   ["listing_contact_form", "Listing contact form", "A visitor messaged via their listing"],
   ["listing_review", "Listing review", "Someone reviewed their listing"],
 ];

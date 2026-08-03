@@ -7,13 +7,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( is_admin() || ! empty( $data['value'] ) ) {
+if ( is_admin() || $data['value'] ) {
     return;
 }
-
-$field_type     = ! empty( $data['type'] ) ? $data['type'] : 'radio';
-$general_label  = ! empty( $data['general_label'] ) ? $data['general_label'] : __( 'General', 'directorist' );
-$featured_label = ! empty( $data['featured_label'] ) ? $data['featured_label'] : __( 'Featured', 'directorist' );
 
 // Get conditional logic attributes using centralized method
 $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data );
@@ -23,20 +19,10 @@ $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data
 
     <?php $listing_form->field_label_template( $data );?>
 
-    <?php if ( 'checkbox' === $field_type && empty( $data['general_label'] ) ) : ?>
-        <div class="directorist-form-listing-type__single directorist-checkbox">
-
-            <input id="directorist-form-listing-type__featured" type="checkbox" class="atbdp_radio_input" name="listing_type" value="featured">
-            <label for="directorist-form-listing-type__featured" class="directorist-form-listing-type__featured directorist-checkbox__label">
-                <?php echo esc_html( $featured_label ); ?>
-            </label>
-
-        </div>
-    <?php else : ?>
     <div class="directorist-form-listing-type__single directorist-radio directorist-radio-circle">
 
         <input id="directorist-form-listing-type__general" type="radio" class="atbdp_radio_input" name="listing_type" value="general" checked>
-        <label for="directorist-form-listing-type__general" class="directorist-form-listing-type__general directorist-radio__label"><?php echo esc_html( $general_label ); ?></label>
+        <label for="directorist-form-listing-type__general" class="directorist-form-listing-type__general directorist-radio__label"><?php echo esc_attr( $data['general_label'] ); ?></label>
 
     </div>
 
@@ -44,11 +30,10 @@ $conditional_logic_attr = $listing_form->get_conditional_logic_attributes( $data
 
         <input id="directorist-form-listing-type__featured" type="radio" class="atbdp_radio_input" name="listing_type" value="featured">
         <label for="directorist-form-listing-type__featured" class="directorist-form-listing-type__featured directorist-radio__label">
-            <?php echo esc_html( $featured_label ); ?>
+            <?php echo esc_html( $data['featured_label'] ); ?>
             <small class="atbdp_make_str_green"><?php echo esc_html( ! empty( $data['featured_description'] ) ? $data['featured_description'] : __( 'Promote your listing to the top of search results and listings pages for a specific duration, with an additional payment.', 'directorist' ) ); ?></small>
         </label>
 
     </div>
-    <?php endif; ?>
 
 </div>

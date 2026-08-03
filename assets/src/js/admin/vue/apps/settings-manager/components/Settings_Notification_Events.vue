@@ -62,7 +62,7 @@
                 class="cptm-input-toggle"
                 :class="{ active: eventIsEnabled(event, 'email') }"
                 :aria-pressed="eventIsEnabled(event, 'email') ? 'true' : 'false'"
-                @click="toggleEvent(event.emailFieldKey, event.value)"
+                @click="toggleEmailEvent(event)"
               ></button>
               <span v-else class="cptm-notification-events__unavailable">-</span>
             </td>
@@ -339,6 +339,8 @@ const USER_EVENTS = [
   ["listing_contact_form", "Listing contact form", "A visitor messaged via their listing"],
   ["listing_review", "Listing review", "Someone reviewed their listing"],
 ];
+
+const ORDER_EMAIL_EVENTS = ["order_created", "order_completed"];
 
 const ACCOUNT_EVENTS = [
   [
@@ -822,6 +824,7 @@ export default {
     buildChannelEvents(eventDefinitions, emailFieldKey, webPushFieldKey, recipient) {
       const emailValues = this.optionValues(emailFieldKey);
       const webPushValues = this.optionValues(webPushFieldKey);
+      const ownerEmailValues = this.optionValues("notify_user");
       const availableValues = [...new Set([...emailValues, ...webPushValues])];
 
       return eventDefinitions
@@ -834,6 +837,12 @@ export default {
             key: `${emailFieldKey}-${value}`,
             value,
             emailFieldKey: hasEmail ? emailFieldKey : "",
+            secondaryEmailFieldKey:
+              emailFieldKey === "notify_admin" &&
+              ORDER_EMAIL_EVENTS.includes(value) &&
+              ownerEmailValues.includes(value)
+                ? "notify_user"
+                : "",
             webPushFieldKey: hasWebPush ? webPushFieldKey : "",
             label,
             description,
@@ -889,6 +898,10 @@ export default {
         keys.push(event.emailFieldKey);
       }
 
+      if (event.secondaryEmailFieldKey) {
+        keys.push(event.secondaryEmailFieldKey);
+      }
+
       if (event.webPushFieldKey) {
         keys.push(event.webPushFieldKey);
       }
@@ -917,14 +930,21 @@ export default {
         return false;
       }
 
-      const fieldKey =
-        channel === "webPush" ? event.webPushFieldKey : event.emailFieldKey;
+      if (channel === "webPush") {
+        return event.webPushFieldKey
+          ? this.valueForField(event.webPushFieldKey).includes(event.value)
+          : false;
+      }
 
-      if (!fieldKey) {
+      const fieldKeys = this.emailFieldKeysForEvent(event);
+
+      if (!fieldKeys.length) {
         return false;
       }
 
-      return this.valueForField(fieldKey).includes(event.value);
+      return fieldKeys.every((fieldKey) =>
+        this.valueForField(fieldKey).includes(event.value)
+      );
     },
 
     eventIsDisplayedEnabled(event, channel) {
@@ -966,6 +986,42 @@ export default {
       this.$emit("update-field", {
         fieldKey,
         value: nextValue,
+      });
+    },
+
+    emailFieldKeysForEvent(event) {
+      if (!event) {
+        return [];
+      }
+
+      return [...new Set([event.emailFieldKey, event.secondaryEmailFieldKey])]
+        .filter(Boolean);
+    },
+
+    toggleEmailEvent(event) {
+      const fieldKeys = this.emailFieldKeysForEvent(event);
+
+      if (!fieldKeys.length) {
+        return;
+      }
+
+      const shouldEnable = !this.eventIsEnabled(event, "email");
+
+      fieldKeys.forEach((fieldKey) => {
+        let nextValue = [...this.valueForField(fieldKey)];
+
+        if (shouldEnable) {
+          if (!nextValue.includes(event.value)) {
+            nextValue.push(event.value);
+          }
+        } else {
+          nextValue = nextValue.filter((item) => item !== event.value);
+        }
+
+        this.$emit("update-field", {
+          fieldKey,
+          value: nextValue,
+        });
       });
     },
 

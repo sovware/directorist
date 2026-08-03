@@ -801,6 +801,7 @@ class Directorist_Listing_Form {
 
         $field_data['value'] = $value;
         $field_data['form'] = $this;
+        $field_data = $this->apply_listing_type_field_defaults( $field_data );
 
         $args = [
             'listing_form' => $this,
@@ -856,6 +857,7 @@ class Directorist_Listing_Form {
         $field_data['value'] = $value;
         $field_data['form']  = $this;
         $field_data          = apply_filters( 'directorist_form_field_data', $field_data );
+        $field_data          = $this->apply_listing_type_field_defaults( $field_data );
         
         // Extract and prepare conditional logic data for frontend
         // This ensures conditional_logic_data is available in templates
@@ -896,6 +898,35 @@ class Directorist_Listing_Form {
         } elseif ( empty( $field_data['only_for_admin'] ) ) {
             Helper::get_template( $template, $args );
         }
+    }
+
+    protected function apply_listing_type_field_defaults( array $field_data ): array {
+        if ( ! $this->is_listing_type_field( $field_data ) ) {
+            return $field_data;
+        }
+
+        if ( ! isset( $field_data['value'] ) ) {
+            $field_data['value'] = '';
+        }
+
+        if ( empty( $field_data['general_label'] ) ) {
+            $field_data['general_label'] = __( 'General', 'directorist' );
+        }
+
+        if ( empty( $field_data['featured_label'] ) ) {
+            $field_data['featured_label'] = __( 'Featured', 'directorist' );
+        }
+
+        return $field_data;
+    }
+
+    protected function is_listing_type_field( array $field_data ): bool {
+        $field_key   = ! empty( $field_data['field_key'] ) ? (string) $field_data['field_key'] : '';
+        $widget_name = ! empty( $field_data['widget_name'] ) ? (string) $field_data['widget_name'] : '';
+        $widget_key  = ! empty( $field_data['widget_key'] ) ? (string) $field_data['widget_key'] : '';
+
+        return 'listing_type' === $field_key
+            || in_array( 'listing-type', [ $widget_name, $widget_key ], true );
     }
 
     protected function get_field_value( $listing_id, $field_data ) {

@@ -21,6 +21,7 @@ class Activation {
     public static function run() {
         // Run the activation tasks.
         self::create_tables();
+        self::sync_order_status_enum();
     }
 
     public static function create_tables() {
@@ -75,6 +76,27 @@ class Activation {
                 $table->string( "reason" )->nullable();
                 $table->timestamps();
             }
+        );
+    }
+
+    private static function sync_order_status_enum() {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'directorist_orders';
+
+        if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) {
+            return;
+        }
+
+        $statuses = array_map(
+            function( $status ) {
+                return "'" . esc_sql( $status ) . "'";
+            },
+            OrderStatus::all()
+        );
+
+        $wpdb->query(
+            "ALTER TABLE {$table_name} MODIFY status ENUM(" . implode( ',', $statuses ) . ") DEFAULT '" . esc_sql( OrderStatus::PENDING ) . "'"
         );
     }
 }

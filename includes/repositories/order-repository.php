@@ -11,6 +11,7 @@ use Directorist\Utils\Database\Query\Builder;
 use Directorist\Helpers\DateTime;
 use Directorist\DTO\Order\DTO;
 use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Payment\Status as PaymentStatus;
 use Directorist\Enums\Order\TaxType as OrderTaxType;
 use Directorist\Enums\Order\DiscountType as OrderDiscountType;
 use Directorist\DTO\Order\Read;
@@ -169,7 +170,7 @@ class OrderRepository extends Repository {
 
         do_action( 'directorist_after_order_update', $this->to_dto( $updated_order ), $old_order );
 
-        if ( $dto->is_initialized( 'status' ) ) {
+        if ( $dto->is_initialized( 'status' ) && in_array( $dto->get_status(), PaymentStatus::all(), true ) ) {
             ( new PaymentRepository )->update_status_by_order_id( $dto->get_id(), $dto->get_status() );
         }
 

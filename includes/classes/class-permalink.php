@@ -33,12 +33,26 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
                 $permalink = get_the_permalink( $post_id );
             }
 
+            $directory_slug = self::get_listing_directory_type_slug( $post_id );
+
+            $permalink = str_replace( '%' . ATBDP_DIRECTORY_TYPE . '%', $directory_slug, $permalink );
+
+            return $permalink;
+        }
+
+        /**
+         * Get the directory type slug for a listing.
+         *
+         * @param int $post_id Listing ID.
+         * @return string
+         */
+        public static function get_listing_directory_type_slug( $post_id = 0 ) {
             $directory_slug = '';
             $directory_id   = directorist_get_listing_directory( $post_id );
 
             if ( $directory_id ) {
                 $directory_term = get_term( $directory_id, ATBDP_DIRECTORY_TYPE );
-                $directory_slug = $directory_term ? $directory_term->slug : '';
+                $directory_slug = ( $directory_term && ! is_wp_error( $directory_term ) ) ? $directory_term->slug : '';
             }
 
             if ( empty( $directory_slug ) ) {
@@ -49,9 +63,7 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
                 }
             }
 
-            $permalink = str_replace( '%' . ATBDP_DIRECTORY_TYPE . '%', $directory_slug, $permalink );
-
-            return $permalink;
+            return $directory_slug;
         }
 
         public static function get_listing_slug() {

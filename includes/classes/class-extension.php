@@ -246,6 +246,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'active'      => true,
                     'item_id'     => 370908,
                 ],
+                'directorist-divi-integration' => [
+                    'name'        => 'Directorist Divi Integration',
+                    'description' => __( 'Turn your directory into native Divi 5 modules and visually customize listing archives, search, categories, locations, single listings, and author profile pages.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-divi-integration/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2026/06/Directorist-Divi_620x400.jpg',
+                    'active'      => true,
+                    'item_id'     => 371246,
+                ],
                 'directorist-listing-importer' => [
                     'name'        => 'Directorist Listing Importer',
                     'description' => __( 'Import Google Maps and feeds into Directorist automatically, effortlessly.', 'directorist' ),

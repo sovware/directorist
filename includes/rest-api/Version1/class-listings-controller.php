@@ -767,6 +767,7 @@ class Listings_Controller extends Posts_Controller {
                 'name'              => get_the_title( $attachment_id ),
                 'alt'               => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
                 'position'          => (int) $position,
+                'focal_point'       => directorist_get_listing_image_focal_point( $listing->ID, $attachment_id ),
             );
         }
 

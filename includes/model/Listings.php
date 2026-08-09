@@ -1723,6 +1723,9 @@ class Directorist_Listings {
                     $ls_data['gallery_img'] = atbdp_get_image_source( $ls_data['listing_img'][0], 'medium' );
                 }
 
+                $ls_data['image_attachment_id']     = ! empty( $ls_data['listing_prv_img'] ) ? absint( $ls_data['listing_prv_img'] ) : absint( $ls_data['listing_img'][0] ?? 0 );
+                $ls_data['image_focal_point_style'] = directorist_get_listing_image_focal_point_style( $listings_id, $ls_data['image_attachment_id'] );
+
                 $cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
                 $ls_data['cat_icon'] = $cat_icon;
 
@@ -1806,8 +1809,8 @@ class Directorist_Listings {
                     $cat_icon = directorist_icon( $this->loop_map_cat_icon(), false );
                     $ls_data['cat_icon'] = wp_json_encode( $cat_icon );
 
-                    $listing_type           = directorist_get_listing_directory( $listings_id );
-                    $ls_data['default_img'] = Helper::default_preview_image_src( $listing_type );
+                    $listing_type                 = directorist_get_listing_directory( $listings_id );
+                    $ls_data['default_image']     = Helper::default_preview_image_src( $listing_type );
 
                     if ( ! empty( $ls_data['listing_prv_img'] ) ) {
                         $ls_data['prv_image']   = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
@@ -1816,6 +1819,9 @@ class Directorist_Listings {
                     if ( ! empty( $ls_data['listing_img'][0] ) ) {
                         $ls_data['gallery_img'] = atbdp_get_image_source( $ls_data['listing_img'][0], 'medium' );
                     }
+
+                    $ls_data['image_attachment_id']     = ! empty( $ls_data['listing_prv_img'] ) ? absint( $ls_data['listing_prv_img'] ) : absint( $ls_data['listing_img'][0] ?? 0 );
+                    $ls_data['image_focal_point_style'] = directorist_get_listing_image_focal_point_style( $listings_id, $ls_data['image_attachment_id'] );
 
                     if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
                         $opt['ls_data'] = $ls_data;
@@ -1872,8 +1878,9 @@ class Directorist_Listings {
 
         $default_image_src = Helper::default_preview_image_src( $this->current_listing_type );
 
-        $id = get_the_ID();
-        $image_quality     = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+        $id                = get_the_ID();
+        $display_config    = directorist_get_listing_preview_image_display_config();
+        $image_quality     = $display_config['image_quality'];
         $listing_prv_img   = directorist_get_listing_preview_image( $id );
         $listing_img       = directorist_get_listing_gallery_images( $id );
 
@@ -1886,7 +1893,8 @@ class Directorist_Listings {
         if ( empty( $thumbnail_img_id ) ) {
             $thumbnail_img_id = $default_image_src;
             $image_alt        = esc_html( get_the_title( $id ) );
-            $image            = "<img src='$default_image_src' alt='$image_alt' class='$class' />";
+            $image_style      = esc_attr( directorist_get_listing_image_focal_point_style( $id ) );
+            $image            = "<img src='$default_image_src' alt='$image_alt' class='$class' style='$image_style' />";
             if ( ! $this->disable_single_listing ) {
                 $image = $link_start . $image . $link_end;
             }
@@ -1902,10 +1910,12 @@ class Directorist_Listings {
         $image_count = count( $thumbnail_img_id );
 
         if ( 1 === (int) $image_count ) {
-            $image_src  = atbdp_get_image_source( reset( $thumbnail_img_id ), $image_quality );
-            $image_alt  = get_post_meta( reset( $thumbnail_img_id ), '_wp_attachment_image_alt', true );
-            $image_alt  = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( reset( $thumbnail_img_id ) ) );
-            $image      = "<img src='$image_src' alt='$image_alt' class='$class' />";
+            $attachment_id = reset( $thumbnail_img_id );
+            $image_src     = atbdp_get_image_source( $attachment_id, $image_quality );
+            $image_alt     = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+            $image_alt     = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $attachment_id ) );
+            $image_style   = esc_attr( directorist_get_listing_image_focal_point_style( $id, $attachment_id ) );
+            $image         = "<img src='$image_src' alt='$image_alt' class='$class' style='$image_style' />";
             if ( ! $this->disable_single_listing ) {
                 $image = $link_start . $image . $link_end;
             }
@@ -1919,7 +1929,8 @@ class Directorist_Listings {
                 $image_src = atbdp_get_image_source( $img_id, $image_quality );
                 $image_alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
                 $image_alt = ! empty( $image_alt ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $img_id ) );
-                $image = "<img src='$image_src' alt='$image_alt' class='$class' />";
+                $image_style = esc_attr( directorist_get_listing_image_focal_point_style( $id, $img_id ) );
+                $image = "<img src='$image_src' alt='$image_alt' class='$class' style='$image_style' />";
 
                 if ( ! $this->disable_single_listing ) {
                     $image = $link_start . $image . $link_end;

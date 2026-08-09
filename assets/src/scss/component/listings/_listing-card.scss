@@ -551,6 +551,9 @@
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+				object-position:
+					var(--directorist-image-focus-x, 50%)
+					var(--directorist-image-focus-y, 50%);
 				margin: 0;
 			}
 
@@ -1213,6 +1216,12 @@
 			}
 		}
 	}
+}
+
+.directorist-image-focal-point {
+	object-position:
+		var(--directorist-image-focus-x, 50%)
+		var(--directorist-image-focus-y, 50%);
 }
 
 // Rating Meta

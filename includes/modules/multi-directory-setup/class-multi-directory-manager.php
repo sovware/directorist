@@ -747,13 +747,9 @@ class Multi_Directory_Manager {
 
     // add_menu_pages
     public function add_menu_pages() {
-        $page_title = __( 'Directory Builder', 'directorist' );
-        $page_slug  = 'atbdp-layout-builder';
-
-        if ( directorist_is_multi_directory_enabled() ) {
-            $page_title = __( 'Directory Builder', 'directorist' );
-            $page_slug  = 'atbdp-directory-types';
-        }
+        $page_title              = __( 'Directory Builder', 'directorist' );
+        $page_slug               = $this->get_active_directory_builder_page_slug();
+        $compatibility_page_slug = ( 'atbdp-directory-types' === $page_slug ) ? 'atbdp-layout-builder' : 'atbdp-directory-types';
 
         add_submenu_page(
             'edit.php?post_type=at_biz_dir',
@@ -764,6 +760,49 @@ class Multi_Directory_Manager {
             [$this, 'menu_page_callback__directory_types'],
             5
         );
+
+        $compatibility_page_hook = add_submenu_page(
+            '',
+            $page_title,
+            $page_title,
+            'manage_options',
+            $compatibility_page_slug,
+            [$this, 'redirect_to_active_directory_builder_page']
+        );
+
+        if ( $compatibility_page_hook ) {
+            add_action( "load-{$compatibility_page_hook}", [$this, 'redirect_to_active_directory_builder_page'] );
+        }
+    }
+
+    /**
+     * Get the directory builder page slug for the current multi-directory mode.
+     *
+     * @return string
+     */
+    private function get_active_directory_builder_page_slug() {
+        return directorist_is_multi_directory_enabled() ? 'atbdp-directory-types' : 'atbdp-layout-builder';
+    }
+
+    /**
+     * Redirect the inactive directory builder route to the active route.
+     *
+     * This keeps stale admin-menu links and saved bookmarks working after the
+     * multi-directory setting is changed through the AJAX settings form.
+     *
+     * @return void
+     */
+    public function redirect_to_active_directory_builder_page() {
+        $redirect_url = add_query_arg(
+            [
+                'post_type' => 'at_biz_dir',
+                'page'      => $this->get_active_directory_builder_page_slug(),
+            ],
+            admin_url( 'edit.php' )
+        );
+
+        wp_safe_redirect( $redirect_url );
+        exit;
     }
 
     // get_default_directory_id

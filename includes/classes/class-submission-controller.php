@@ -109,6 +109,13 @@ class SubmissionController {
             }
         }
 
+        $value = self::get_safe_submitted_filename( $value );
+        if ( ! $value ) {
+            $field->add_error( __( 'Invalid file name.', 'directorist' ) );
+
+            return;
+        }
+
         try {
             $upload_dir = wp_get_upload_dir();
             $temp_dir   = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( directorist_get_temp_upload_dir() . DIRECTORY_SEPARATOR . date( 'nj' ) );
@@ -116,6 +123,12 @@ class SubmissionController {
 
             if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
                 $field->add_error( __( 'Invalid file or file does not exist.', 'directorist' ) );
+                return;
+            }
+
+            if ( ! self::is_path_inside_directory( $filepath, $temp_dir ) ) {
+                $field->add_error( __( 'Invalid file path.', 'directorist' ) );
+
                 return;
             }
 
@@ -165,6 +178,37 @@ class SubmissionController {
         }
     }
 
+    protected static function get_safe_submitted_filename( $filename ) {
+        if ( ! is_string( $filename ) ) {
+            return false;
+        }
+
+        $filename = trim( $filename );
+
+        if ( '' === $filename || wp_basename( $filename ) !== $filename || preg_match( '#[\\\\/]#', $filename ) ) {
+            return false;
+        }
+
+        $sanitized_filename = sanitize_file_name( $filename );
+
+        if ( '' === $sanitized_filename || $sanitized_filename !== $filename ) {
+            return false;
+        }
+
+        return $filename;
+    }
+
+    protected static function is_path_inside_directory( $path, $directory ) {
+        $real_path      = realpath( $path );
+        $real_directory = realpath( $directory );
+
+        if ( false === $real_path || false === $real_directory ) {
+            return false;
+        }
+
+        return 0 === strpos( $real_path, trailingslashit( $real_directory ) );
+    }
+
     protected static function get_file_value( $field, &$posted_data ) {
         $value = $field->get_value( $posted_data );
 
@@ -182,6 +226,11 @@ class SubmissionController {
             if ( $stored_value && ( $value === $stored_value ) ) {
                 return $stored_value;
             }
+        }
+
+        $value = self::get_safe_submitted_filename( $value );
+        if ( ! $value ) {
+            return;
         }
 
         try {
@@ -202,8 +251,16 @@ class SubmissionController {
                 return;
             }
 
+            if ( ! self::is_path_inside_directory( $filepath, $temp_dir ) ) {
+                return;
+            }
+
             if ( file_exists( $target_dir . $value ) ) {
                 $value = wp_unique_filename( $target_dir, $value );
+            }
+
+            if ( ! self::is_path_inside_directory( $target_dir, $upload_dir['basedir'] ) ) {
+                return;
             }
 
             rename( $filepath, $target_dir . $value );
@@ -584,10 +641,11 @@ class SubmissionController {
 
         static::cache_selected_categories( $directory_id, $posted_data );
 
-        $error        = new WP_Error();
-        $tax_data     = array();
-        $meta_data    = array();
-        $listing_data = array(
+        $error           = new WP_Error();
+        $tax_data        = array();
+        $meta_data       = array();
+        $api_file_fields = array();
+        $listing_data    = array(
             'post_type' => ATBDP_POST_TYPE
         );
 
@@ -667,12 +725,16 @@ class SubmissionController {
 
             // Exception from the web version.
             if ( self::$from === 'api' && $field->type === 'file' ) {
-                $meta_data[ '_' . $field->get_key() ] = self::get_file_value( $field, $posted_data );
+                $api_file_fields[] = $field;
             }
         }
 
         if ( $error->has_errors() ) {
             return $error;
+        }
+
+        foreach ( $api_file_fields as $field ) {
+            $meta_data[ '_' . $field->get_key() ] = self::get_file_value( $field, $posted_data );
         }
 
         // Terms & conditions and privacy policy have been merged in v8.
@@ -860,14 +922,27 @@ class SubmissionController {
                     continue;
                 }
 
+                $image = self::get_safe_submitted_filename( $image );
+                if ( ! $image ) {
+                    continue;
+                }
+
                 $filepath = $temp_dir . $image;
 
                 if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
                     continue;
                 }
 
+                if ( ! self::is_path_inside_directory( $filepath, $temp_dir ) ) {
+                    continue;
+                }
+
                 if ( file_exists( $target_dir . $image ) ) {
                     $image = wp_unique_filename( $target_dir, $image );
+                }
+
+                if ( ! self::is_path_inside_directory( $target_dir, $upload_dir['basedir'] ) ) {
+                    continue;
                 }
 
                 rename( $filepath, $target_dir . $image );

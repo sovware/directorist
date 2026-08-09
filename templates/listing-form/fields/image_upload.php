@@ -2,12 +2,13 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.6
+ * @version 8.9.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$listing_img            = atbdp_get_listing_attachment_ids( $listing_form->get_add_listing_id() );
+$listing_id             = $listing_form->get_add_listing_id();
+$listing_img            = atbdp_get_listing_attachment_ids( $listing_id );
 $maximum                = ! empty( $data['max'] ) ? $data['max'] : $data['max_image_limit'];
 $unlimited              = ! empty( $data['unlimited'] ) ? $data['unlimited'] : '';
 $limit                  = $unlimited ? '0' : $maximum;
@@ -17,6 +18,9 @@ $max_file_size_kb       = $max_file_size * 1024;
 $max_total_file_size_kb = $max_total_file_size * 1024;
 $required               = (bool) $data['required'];
 $select_files_label     = ! empty( $data['select_files_label'] ) ? $data['select_files_label'] : __( 'Select Files', 'directorist' ); 
+$enable_image_focus     = ! isset( $data['enable_image_focus'] ) || ! in_array( $data['enable_image_focus'], [ false, 0, '0', 'false' ], true );
+$image_focal_points     = directorist_get_listing_image_focal_points( $listing_id );
+$focus_preview_display  = directorist_get_listing_preview_image_display_config();
 
 $accepted_mime_types       = directorist_get_mime_types( 'image', 'extension' );
 $accepted_mime_types_upper = array_map( 'strtoupper', $accepted_mime_types );
@@ -30,6 +34,9 @@ $img_upload_data = apply_filters(
         'max_total_img_size' => $max_total_file_size_kb,
         'is_required'        => $required,
         'max_size_per_img'   => $max_file_size_kb,
+        'enable_image_focus' => $enable_image_focus,
+        'image_focal_points' => $image_focal_points,
+        'focus_preview_display' => $focus_preview_display,
     ],
     $listing_form, 
     $data

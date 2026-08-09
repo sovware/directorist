@@ -4864,6 +4864,346 @@ function directorist_get_listing_preview_image( $listing_id = 0 ) {
 }
 
 /**
+ * Get the normalized display configuration for listing preview images.
+ *
+ * This keeps the archive renderer, focal-point editor, themes, and extensions
+ * aligned with the existing Preview Image settings without changing how those
+ * settings are stored.
+ *
+ * @since 8.9.3
+ *
+ * @return array
+ */
+function directorist_get_listing_preview_image_display_config() {
+    $config = [
+        'mode'             => get_directorist_option( 'way_to_show_preview', 'cover' ),
+        'size_by'          => get_directorist_option( 'prv_container_size_by', 'px' ),
+        'width'            => get_directorist_option( 'crop_width', 360 ),
+        'height'           => get_directorist_option( 'crop_height', 300 ),
+        'background_type'  => get_directorist_option( 'prv_background_type', 'blur' ),
+        'background_color' => get_directorist_option( 'prv_background_color', '#fff' ),
+        'image_quality'    => get_directorist_option( 'preview_image_quality', 'directorist_preview' ),
+    ];
+
+    /**
+     * Filters the listing preview image display configuration.
+     *
+     * @since 8.9.3
+     *
+     * @param array $config Listing preview image display configuration.
+     */
+    $config = apply_filters( 'directorist_listing_preview_image_display_config', $config );
+    $config = is_array( $config ) ? $config : [];
+
+    $mode            = isset( $config['mode'] ) && in_array( $config['mode'], [ 'cover', 'contain', 'full' ], true ) ? $config['mode'] : 'cover';
+    $size_by         = isset( $config['size_by'] ) && in_array( $config['size_by'], [ 'px', 'ratio' ], true ) ? $config['size_by'] : 'px';
+    $background_type = isset( $config['background_type'] ) && in_array( $config['background_type'], [ 'blur', 'color' ], true ) ? $config['background_type'] : 'blur';
+    $width           = isset( $config['width'] ) && is_numeric( $config['width'] ) ? absint( $config['width'] ) : 360;
+    $height          = isset( $config['height'] ) && is_numeric( $config['height'] ) ? absint( $config['height'] ) : 300;
+    $width           = $width ? $width : 360;
+    $height          = $height ? $height : 300;
+    $background      = isset( $config['background_color'] ) && is_scalar( $config['background_color'] ) ? sanitize_text_field( (string) $config['background_color'] ) : '#fff';
+    $image_quality   = isset( $config['image_quality'] ) && is_scalar( $config['image_quality'] ) ? sanitize_key( (string) $config['image_quality'] ) : 'directorist_preview';
+    $style           = [];
+
+    if ( 'ratio' === $size_by ) {
+        $style['padding-top'] = ( $height / $width * 100 ) . '%';
+    } elseif ( 'full' !== $mode ) {
+        $style['height'] = $height . 'px';
+    }
+
+    if ( 'full' !== $mode && 'color' === $background_type ) {
+        $style['background-color'] = $background;
+    }
+
+    $container_style = '';
+    foreach ( $style as $property => $value ) {
+        $container_style .= $property . ':' . $value . ';';
+    }
+
+    return [
+        'mode'             => $mode,
+        'size_by'          => $size_by,
+        'width'            => $width,
+        'height'           => $height,
+        'background_type'  => $background_type,
+        'background_color' => $background,
+        'image_quality'    => $image_quality,
+        'container_class'  => 'directorist-card-' . $mode,
+        'container_style'  => safecss_filter_attr( $container_style ),
+    ];
+}
+
+/**
+ * Sanitize listing image focal point coordinates.
+ *
+ * @since 8.9.3
+ *
+ * @param array $focal_point Image focal point coordinates.
+ * @return array
+ */
+function directorist_sanitize_listing_image_focal_point( $focal_point = [] ) {
+    $focal_point = is_array( $focal_point ) ? $focal_point : [];
+    $x           = isset( $focal_point['x'] ) && is_numeric( $focal_point['x'] ) ? (float) $focal_point['x'] : 50;
+    $y           = isset( $focal_point['y'] ) && is_numeric( $focal_point['y'] ) ? (float) $focal_point['y'] : 50;
+
+    return [
+        'x' => min( 100, max( 0, round( $x, 2 ) ) ),
+        'y' => min( 100, max( 0, round( $y, 2 ) ) ),
+    ];
+}
+
+/**
+ * Get all image focal points saved for a listing.
+ *
+ * Focal points are stored against the listing instead of the attachment so the
+ * same media-library image can be positioned differently in different listings.
+ *
+ * @since 8.9.3
+ *
+ * @param int $listing_id Listing ID.
+ * @return array
+ */
+function directorist_get_listing_image_focal_points( $listing_id = 0 ) {
+    $listing_id   = absint( $listing_id );
+    $focal_points = $listing_id ? get_post_meta( $listing_id, '_directorist_image_focal_points', true ) : [];
+    $focal_points = is_array( $focal_points ) ? $focal_points : [];
+    $sanitized    = [];
+
+    foreach ( $focal_points as $attachment_id => $focal_point ) {
+        $attachment_id = absint( $attachment_id );
+
+        if ( ! $attachment_id ) {
+            continue;
+        }
+
+        $sanitized[ $attachment_id ] = directorist_sanitize_listing_image_focal_point( $focal_point );
+    }
+
+    return $sanitized;
+}
+
+/**
+ * Get the focal point for a listing image.
+ *
+ * @since 8.9.3
+ *
+ * @param int $listing_id    Listing ID.
+ * @param int $attachment_id Attachment ID.
+ * @return array
+ */
+function directorist_get_listing_image_focal_point( $listing_id = 0, $attachment_id = 0 ) {
+    $listing_id    = absint( $listing_id );
+    $attachment_id = absint( $attachment_id );
+    $focal_points  = directorist_get_listing_image_focal_points( $listing_id );
+    $focal_point   = isset( $focal_points[ $attachment_id ] ) ? $focal_points[ $attachment_id ] : [ 'x' => 50, 'y' => 50 ];
+
+    /**
+     * Filters a listing image focal point before it is rendered.
+     *
+     * @since 8.9.3
+     *
+     * @param array $focal_point   Focal point coordinates.
+     * @param int   $listing_id    Listing ID.
+     * @param int   $attachment_id Attachment ID.
+     */
+    $focal_point = apply_filters( 'directorist_listing_image_focal_point', $focal_point, $listing_id, $attachment_id );
+
+    return directorist_sanitize_listing_image_focal_point( $focal_point );
+}
+
+/**
+ * Get CSS custom properties for a listing image focal point.
+ *
+ * @since 8.9.3
+ *
+ * @param int $listing_id    Listing ID.
+ * @param int $attachment_id Attachment ID.
+ * @return string
+ */
+function directorist_get_listing_image_focal_point_style( $listing_id = 0, $attachment_id = 0 ) {
+    $focal_point = directorist_get_listing_image_focal_point( $listing_id, $attachment_id );
+    $x           = rtrim( rtrim( number_format( $focal_point['x'], 2, '.', '' ), '0' ), '.' );
+    $y           = rtrim( rtrim( number_format( $focal_point['y'], 2, '.', '' ), '0' ), '.' );
+
+    return sprintf( '--directorist-image-focus-x:%1$s%%;--directorist-image-focus-y:%2$s%%;', $x, $y );
+}
+
+/**
+ * Save a focal point for one image in a listing.
+ *
+ * @since 8.9.3
+ *
+ * @param int   $listing_id    Listing ID.
+ * @param int   $attachment_id Attachment ID.
+ * @param array $focal_point   Focal point coordinates.
+ * @return bool
+ */
+function directorist_update_listing_image_focal_point( $listing_id, $attachment_id, $focal_point ) {
+    $listing_id    = absint( $listing_id );
+    $attachment_id = absint( $attachment_id );
+
+    if ( ! $listing_id || ! $attachment_id ) {
+        return false;
+    }
+
+    $focal_points                   = directorist_get_listing_image_focal_points( $listing_id );
+    $focal_points[ $attachment_id ] = directorist_sanitize_listing_image_focal_point( $focal_point );
+
+    return (bool) update_post_meta( $listing_id, '_directorist_image_focal_points', $focal_points );
+}
+
+/**
+ * Delete the focal point for one image in a listing.
+ *
+ * @since 8.9.3
+ *
+ * @param int $listing_id    Listing ID.
+ * @param int $attachment_id Attachment ID.
+ * @return bool
+ */
+function directorist_delete_listing_image_focal_point( $listing_id, $attachment_id ) {
+    $listing_id    = absint( $listing_id );
+    $attachment_id = absint( $attachment_id );
+
+    if ( ! $listing_id || ! $attachment_id ) {
+        return false;
+    }
+
+    $focal_points = directorist_get_listing_image_focal_points( $listing_id );
+
+    if ( ! isset( $focal_points[ $attachment_id ] ) ) {
+        return true;
+    }
+
+    unset( $focal_points[ $attachment_id ] );
+
+    if ( empty( $focal_points ) ) {
+        delete_post_meta( $listing_id, '_directorist_image_focal_points' );
+        return true;
+    }
+
+    return (bool) update_post_meta( $listing_id, '_directorist_image_focal_points', $focal_points );
+}
+
+/**
+ * Check whether the focal-point control is enabled for a listing's image field.
+ *
+ * @since 8.9.3
+ *
+ * @param int $listing_id Listing ID.
+ * @return bool
+ */
+function directorist_is_listing_image_focal_point_enabled( $listing_id = 0 ) {
+    $directory_id = directorist_get_listing_directory( absint( $listing_id ) );
+    $image_field  = $directory_id ? directorist_get_listing_form_field( $directory_id, 'image_upload' ) : [];
+    $admin_only   = isset( $image_field['only_for_admin'] ) && ! in_array( $image_field['only_for_admin'], [ false, 0, '0', 'false', '' ], true );
+
+    if ( empty( $image_field ) || $admin_only ) {
+        return false;
+    }
+
+    if ( ! isset( $image_field['enable_image_focus'] ) ) {
+        return true;
+    }
+
+    return ! in_array( $image_field['enable_image_focus'], [ false, 0, '0', 'false' ], true );
+}
+
+/**
+ * Remove focal points for images that are no longer attached to a listing.
+ *
+ * @since 8.9.3
+ *
+ * @param int   $listing_id     Listing ID.
+ * @param array $attachment_ids Attachment IDs that remain in the listing.
+ * @return void
+ */
+function directorist_clean_listing_image_focal_points( $listing_id, $attachment_ids = [] ) {
+    $listing_id     = absint( $listing_id );
+    $attachment_ids = array_filter( wp_parse_id_list( $attachment_ids ) );
+
+    if ( ! $listing_id ) {
+        return;
+    }
+
+    $focal_points = directorist_get_listing_image_focal_points( $listing_id );
+    $focal_points = array_intersect_key( $focal_points, array_flip( $attachment_ids ) );
+
+    if ( empty( $focal_points ) ) {
+        delete_post_meta( $listing_id, '_directorist_image_focal_points' );
+        return;
+    }
+
+    update_post_meta( $listing_id, '_directorist_image_focal_points', $focal_points );
+}
+
+/**
+ * Resolve the preview image selected by the frontend image uploader.
+ *
+ * @since 8.9.3
+ *
+ * @param string $source             Preview source token.
+ * @param array  $attachment_ids     Available attachment IDs.
+ * @param array  $new_attachment_ids Temporary file names mapped to attachment IDs.
+ * @return int
+ */
+function directorist_resolve_listing_preview_image_source( $source, $attachment_ids = [], $new_attachment_ids = [] ) {
+    $source         = sanitize_text_field( (string) $source );
+    $attachment_ids = array_filter( wp_parse_id_list( $attachment_ids ) );
+
+    if ( ! $source || strpos( $source, ':' ) === false ) {
+        return 0;
+    }
+
+    list( $source_type, $source_value ) = explode( ':', $source, 2 );
+    $preview_image_id                  = 0;
+
+    if ( 'attachment' === $source_type ) {
+        $preview_image_id = absint( $source_value );
+    } elseif ( 'temp' === $source_type ) {
+        $source_value     = sanitize_file_name( $source_value );
+        $preview_image_id = isset( $new_attachment_ids[ $source_value ] ) ? absint( $new_attachment_ids[ $source_value ] ) : 0;
+    }
+
+    return in_array( $preview_image_id, $attachment_ids, true ) ? $preview_image_id : 0;
+}
+
+/**
+ * Save focal point coordinates submitted for the selected preview image.
+ *
+ * @since 8.9.3
+ *
+ * @param int   $listing_id      Listing ID.
+ * @param int   $attachment_id   Preview attachment ID.
+ * @param array $posted_data     Listing submission data.
+ * @return void
+ */
+function directorist_save_listing_image_focal_point( $listing_id, $attachment_id, $posted_data = [] ) {
+    if ( ! array_key_exists( 'listing_image_focal_x', $posted_data ) || ! array_key_exists( 'listing_image_focal_y', $posted_data ) ) {
+        return;
+    }
+
+    if ( array_key_exists( 'listing_image_focal_is_custom', $posted_data ) ) {
+        $is_custom = ! in_array( $posted_data['listing_image_focal_is_custom'], [ false, 0, '0', 'false', '' ], true );
+
+        if ( ! $is_custom ) {
+            directorist_delete_listing_image_focal_point( $listing_id, $attachment_id );
+            return;
+        }
+    }
+
+    directorist_update_listing_image_focal_point(
+        $listing_id,
+        $attachment_id,
+        [
+            'x' => $posted_data['listing_image_focal_x'],
+            'y' => $posted_data['listing_image_focal_y'],
+        ]
+    );
+}
+
+/**
  * Get listing gallery images.
  *
  * @since 8.0.8

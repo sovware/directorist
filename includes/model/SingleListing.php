@@ -1393,16 +1393,16 @@ class Directorist_Single_Listing {
         $default_image   = Helper::default_preview_image_src( $listing_type );
         $listing_title   = get_the_title( $id );
         $img_url         = '';
+        $attachment_id   = 0;
 
         if ( ! empty( $listing_prv_img ) ) {
-            $cropped_image = atbdp_image_cropping( $listing_prv_img, 150, 150, true, 100 );
-            $img_url = ! empty( $cropped_image['url'] ) ? $cropped_image['url'] : atbdp_get_image_source( $listing_prv_img, 'small' );
+            $attachment_id = absint( $listing_prv_img );
+            $img_url       = atbdp_get_image_source( $attachment_id, 'medium' );
         }
 
         if ( empty( $img_url ) && ! empty( $listing_img[0] ) ) {
-            $gallery_image_id = (int) $listing_img[0];
-            $cropped_image = atbdp_image_cropping( $gallery_image_id, 150, 150, true, 100 );
-            $img_url = ! empty( $cropped_image['url'] ) ? $cropped_image['url'] : atbdp_get_image_source( $gallery_image_id, 'small' );
+            $attachment_id = absint( $listing_img[0] );
+            $img_url       = atbdp_get_image_source( $attachment_id, 'medium' );
         }
 
         if ( empty( $img_url ) ) {
@@ -1410,9 +1410,10 @@ class Directorist_Single_Listing {
         }
 
         $image = sprintf(
-            "<figure><img src='%s' alt='%s' /></figure>",
+            "<figure><img class='directorist-image-focal-point' src='%s' alt='%s' style='%s' /></figure>",
             esc_url( $img_url ),
-            esc_attr( $listing_title )
+            esc_attr( $listing_title ),
+            esc_attr( directorist_get_listing_image_focal_point_style( $id, $attachment_id ) )
         );
         if ( empty( $display_image_map ) ) {
             $image = '';

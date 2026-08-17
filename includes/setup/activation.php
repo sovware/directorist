@@ -96,7 +96,7 @@ class Activation {
         );
 
         $wpdb->query(
-            "ALTER TABLE {$table_name} MODIFY status ENUM(" . implode( ',', $statuses ) . ") DEFAULT '" . esc_sql( OrderStatus::PENDING ) . "'"
+            "ALTER TABLE {$table_name} MODIFY status ENUM(" . implode( ',', $statuses ) . ") NOT NULL DEFAULT '" . esc_sql( OrderStatus::PENDING ) . "'"
         );
     }
 }

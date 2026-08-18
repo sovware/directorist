@@ -13,10 +13,10 @@ use Directorist\Utils\Template;
 class FeaturedListingCheckout {
     const CHECKOUT_TYPE = 'featured_listing';
 
-    public function __construct()  {
+    public function __construct() {
         add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
         add_filter( 'directorist_order_data', [ $this, 'handle_order_data' ] );
-        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
+        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'], 10, 2 );
         add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
         add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 2 );
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
@@ -142,7 +142,7 @@ class FeaturedListingCheckout {
         }
     }
 
-    public function handle_after_order_update( OrderDTO $dto ) {
+    public function handle_after_order_update( OrderDTO $dto, $old_order = null ) {
         if ( ! $this->is_featured_order( $dto ) ) {
             return;
         }
@@ -159,6 +159,12 @@ class FeaturedListingCheckout {
             
             if ( $listing && 'publish' !== $listing->post_status ) {
                 directorist_set_listing_status( $dto->get_listing_id(), 'publish' );
+            }
+
+            if ( ! isset( $old_order->status ) || Status::PAID !== $old_order->status ) {
+                $order = directorist_order_repository()->single( $dto->get_id() );
+
+                do_action( 'atbdp_order_completed', $dto->get_id(), $dto->get_listing_id(), $order );
             }
         } else {
             directorist_set_listing_featured( $dto->get_listing_id(), false );

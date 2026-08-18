@@ -1590,12 +1590,13 @@ class Directorist_Single_Listing {
         $user_pro_pic   = get_user_meta( $this->author_id, 'pro_pic', true );
         $u_pro_pic      = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
         $author_data    = get_userdata( $this->author_id );
+        $directory_type = ATBDP_Permalink::get_listing_directory_type_slug( $this->id );
 
         $author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
         $author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
 
         $args = [
-            'author_link'      => ATBDP_Permalink::get_user_profile_page_link( $this->author_id ),
+            'author_link'      => ATBDP_Permalink::get_user_profile_page_link( $this->author_id, $directory_type ),
             'u_pro_pic'        => $u_pro_pic,
             'avatar_img'       => get_avatar( $this->author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
             'author_full_name' => $author_first_name . ' ' . $author_last_name,

@@ -18,6 +18,13 @@ function directorist_is_guest_submission_enabled() {
     return (bool) get_directorist_option( 'guest_listings', false );
 }
 
+/**
+ * @return bool
+ */
+function directorist_is_force_disabled_featured_listings() {
+    return (bool) apply_filters( 'directorist_is_force_disabled_featured_listings', false );
+}
+
 function directorist_is_featured_listing_enabled( array $context = [] ) {
     return (bool) apply_filters( 'directorist_is_featured_listing_enabled', get_directorist_option( 'enable_featured_listing' ), $context );
 }

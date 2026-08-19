@@ -31,7 +31,7 @@ class FeaturedListingCheckout {
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
-        add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
+        add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'], 10, 2 );
         add_filter( 'directorist_checkout_product_name', [$this, 'handle_checkout_product_name'], 10, 2 );
         add_filter( 'directorist_ajax_listing_submission_response', [ $this, 'handle_listing_submission_response_data' ], 10, 2 );
         add_filter( 'directorist_listing_update_args_after_preview', [ $this, 'handle_listing_status_after_preview' ], 10, 2 );
@@ -134,21 +134,20 @@ class FeaturedListingCheckout {
         $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_ref_type( self::CHECKOUT_TYPE )->set_amount( $amount )->set_sub_total( $amount );
     }
 
-    public function handle_before_order_update( OrderDTO $dto ) {
-        if ( ! $this->is_featured_order( $dto ) ) {
-            return;
-        }
-
+    public function handle_before_order_update( OrderDTO $dto, $old_order ) {
         if ( ! $dto->is_initialized( 'status' ) || $dto->get_status() !== Status::PAID ) {
             return;
         }
 
-        $order = directorist_get_order_by_id( $dto->get_id() );
-
-        if ( $order->is_featured_listing && ! $order->expires_at ) {
-            $featured_days = get_directorist_option( 'featured_listing_time', 30 );
-            $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
+        if ( empty( $old_order->is_featured_listing )
+            || self::CHECKOUT_TYPE !== ( $old_order->ref_type ?? null )
+            || ! empty( $old_order->expires_at )
+        ) {
+            return;
         }
+
+        $featured_days = (int) get_directorist_option( 'featured_listing_time', 30 );
+        $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
     }
 
     public function handle_after_order_update( OrderDTO $dto ) {

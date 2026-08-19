@@ -156,13 +156,39 @@ class FeaturedListingCheckout {
 
             // Publish the listing if it's pending
             $listing = get_post( $dto->get_listing_id() );
-            
+
+            if ( $listing ) {
+                $this->updated_listing_expiration( $listing, $dto );
+            }
+
             if ( $listing && 'publish' !== $listing->post_status ) {
                 directorist_set_listing_status( $dto->get_listing_id(), 'publish' );
             }
         } else {
             directorist_set_listing_featured( $dto->get_listing_id(), false );
         }
+    }
+
+    private function updated_listing_expiration( $listing, OrderDTO $order ) {
+        if ( ! $order->is_initialized( 'expires_at' ) || get_post_meta( $listing->ID, '_never_expire', true ) ) {
+            return;
+        }
+
+        $order_expiration        = $order->get_expires_at();
+        $listing_expiration      = get_post_meta( $listing->ID, '_expiry_date', true );
+        $listing_expiration_date = $listing_expiration
+            ? date_create_from_format( 'Y-m-d H:i:s', $listing_expiration, wp_timezone() )
+            : false;
+
+        if (
+            $listing_expiration_date &&
+            $listing_expiration === $listing_expiration_date->format( 'Y-m-d H:i:s' ) &&
+            $listing_expiration_date->getTimestamp() >= $order_expiration->getTimestamp()
+        ) {
+            return;
+        }
+
+        update_post_meta( $listing->ID, '_expiry_date', $order_expiration->format( 'Y-m-d H:i:s' ) );
     }
 
     public function handle_payment_receipt_order_items( array $order_items, OrderDTO $order ) {

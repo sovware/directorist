@@ -94,6 +94,7 @@ class OrderRepository extends Repository {
             ->select( 'd_order.created_at', 'd_order.expires_at' )
             ->where( 'd_order.listing_id', $listing_id )
             ->where( 'd_order.is_featured_listing', 1 )
+            ->where( 'd_order.ref_type', 'featured_listing' )
             ->where( 'd_order.status', OrderStatus::PAID )
             ->order_by_desc( 'd_order.id' )
             ->first();

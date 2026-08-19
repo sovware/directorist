@@ -13,10 +13,14 @@ use Directorist\Utils\Template;
 class FeaturedListingCheckout {
     const CHECKOUT_TYPE = 'featured_listing';
 
-    public function __construct()  {
+    public function __construct() {
         add_filter( 'directorist_order_data', [ $this, 'handle_order_data' ] );
         add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
 
+        add_action( 'plugins_loaded', [ $this, 'register_hooks' ], 20 );
+    }
+
+    public function register_hooks() {
         if ( directorist_is_force_disabled_featured_listings() ) {
             return;
         }
@@ -185,10 +189,9 @@ class FeaturedListingCheckout {
             ? date_create_from_format( 'Y-m-d H:i:s', $listing_expiration, wp_timezone() )
             : false;
 
-        if (
-            $listing_expiration_date &&
-            $listing_expiration === $listing_expiration_date->format( 'Y-m-d H:i:s' ) &&
-            $listing_expiration_date->getTimestamp() >= $order_expiration->getTimestamp()
+        if ( $listing_expiration_date
+            && $listing_expiration === $listing_expiration_date->format( 'Y-m-d H:i:s' )
+            && $listing_expiration_date->getTimestamp() >= $order_expiration->getTimestamp()
         ) {
             return;
         }
@@ -237,7 +240,7 @@ class FeaturedListingCheckout {
     }
 
     public function is_featured_order( OrderDTO $order_dto ): bool {
-        if ( ! $order_dto->is_initialized( 'ref_type' ) || ! $order_dto->is_initialized( 'ref' ) || ! $order_dto->is_initialized( 'listing_id' ) ) {
+        if ( ! $order_dto->is_initialized( 'ref_type' ) || ! $order_dto->is_initialized( 'listing_id' ) ) {
             return false;
         }
         

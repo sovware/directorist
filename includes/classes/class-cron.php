@@ -103,7 +103,9 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
             }
 
             if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
-                $featured_days = get_directorist_option( 'featured_listing_time', 30 );
+                $featured_days = (int) get_directorist_option( 'featured_listing_time', 30 );
+                $orders        = directorist_order_repository();
+                $current_time  = directorist_now()->getTimestamp();
                 // Define the query
                 $args = [
                     'post_type'      => ATBDP_POST_TYPE,
@@ -124,44 +126,23 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                 // Start the Loop
                 if ( $listings->found_posts ) {
                     foreach ( $listings->posts as $listing ) {
-                        $order = $this->get_order_by_listing( $listing->ID );
-                        if ( $order ) {
-                            $days = round( abs( strtotime( current_time( 'mysql' ) ) - strtotime( $order[0]->post_date ) ) / 86400 );
-                            if ( $days > $featured_days ) {
-                                do_action( 'atbdp_listing_featured_to_general', $listing->ID );
-                                update_post_meta( $listing->ID, '_featured', '' );
-                            }
+                        $order = $orders->get_latest_paid_featured_order_by_listing_id( $listing->ID );
+
+                        if ( ! $order ) {
+                            continue;
+                        }
+
+                        $expiration = ! empty( $order->expires_at )
+                            ? new \Directorist\Helpers\DateTime( $order->expires_at )
+                            : ( new \Directorist\Helpers\DateTime( $order->created_at ) )->add_days( $featured_days );
+
+                        if ( $expiration->getTimestamp() <= $current_time ) {
+                            do_action( 'atbdp_listing_featured_to_general', $listing->ID );
+                            update_post_meta( $listing->ID, '_featured', '' );
                         }
                     }
                 }
             }
-        }
-
-        private function get_order_by_listing( $listing_id ) {
-            $args = [
-                'post_type'      => ATBDP_ORDER_POST_TYPE,
-                'posts_per_page' => 1,
-                'post_status'    => 'publish',
-                'meta_query'     => [
-                    'relation' => 'AND',
-                    [
-                        'key'   => '_listing_id',
-                        'value' => $listing_id,
-                    ],
-                    [
-                        'key'   => '_payment_status',
-                        'value' => 'completed',
-                    ],
-                ],
-            ];
-
-            $listings = new WP_Query( $args );
-
-            // Start the Loop
-            if ( $listings->found_posts ) {
-                return $listings->posts;
-            }
-            return '';
         }
 
         /**

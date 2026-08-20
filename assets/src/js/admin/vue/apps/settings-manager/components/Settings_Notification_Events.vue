@@ -500,7 +500,10 @@ export default {
     },
 
     modalPlaceholders() {
-      const placeholders = [...this.placeholders];
+      const placeholders = [
+        ...this.placeholders,
+        ...this.eventTemplatePlaceholders(this.modalEvent),
+      ];
 
       Object.keys(this.modalDraft).forEach((fieldKey) => {
         if (this.modalDraft[fieldKey]) {
@@ -868,6 +871,22 @@ export default {
       );
     },
 
+    eventTemplatePlaceholders(event) {
+      if (!event) {
+        return [];
+      }
+
+      return this.eventFieldKeys(event).flatMap((fieldKey) => {
+        const field = this.fields[fieldKey] || {};
+
+        return [
+          field.description,
+          field.value,
+          field.placeholder,
+        ].flatMap((value) => this.extractPlaceholders(value));
+      });
+    },
+
     eventRowClass(event) {
       const classes = {};
 
@@ -1058,7 +1077,9 @@ export default {
     },
 
     extractPlaceholders(value) {
-      const matches = String(value || "").match(/==[A-Z0-9_]+==/g);
+      const matches = String(value || "").match(
+        /==[A-Z0-9_]+==|{{\s*[a-zA-Z0-9_]+\s*}}/g
+      );
 
       return matches || [];
     },

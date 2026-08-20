@@ -141,7 +141,6 @@ class FeaturedListingCheckout {
 
         if ( empty( $old_order->is_featured_listing )
             || self::CHECKOUT_TYPE !== ( $old_order->ref_type ?? null )
-            || ! empty( $old_order->expires_at )
         ) {
             return;
         }

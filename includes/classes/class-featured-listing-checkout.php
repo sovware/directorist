@@ -31,7 +31,6 @@ class FeaturedListingCheckout {
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
-        add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'], 10, 2 );
         add_filter( 'directorist_checkout_product_name', [$this, 'handle_checkout_product_name'], 10, 2 );
         add_filter( 'directorist_ajax_listing_submission_response', [ $this, 'handle_listing_submission_response_data' ], 10, 2 );
         add_filter( 'directorist_listing_update_args_after_preview', [ $this, 'handle_listing_status_after_preview' ], 10, 2 );
@@ -134,21 +133,6 @@ class FeaturedListingCheckout {
         $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_ref_type( self::CHECKOUT_TYPE )->set_amount( $amount )->set_sub_total( $amount );
     }
 
-    public function handle_before_order_update( OrderDTO $dto, $old_order ) {
-        if ( ! $dto->is_initialized( 'status' ) || $dto->get_status() !== Status::PAID ) {
-            return;
-        }
-
-        if ( empty( $old_order->is_featured_listing )
-            || self::CHECKOUT_TYPE !== ( $old_order->ref_type ?? null )
-        ) {
-            return;
-        }
-
-        $featured_days = (int) get_directorist_option( 'featured_listing_time', 30 );
-        $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
-    }
-
     public function handle_after_order_update( OrderDTO $dto ) {
         if ( ! $this->is_featured_order( $dto ) ) {
             return;
@@ -177,11 +161,13 @@ class FeaturedListingCheckout {
     }
 
     private function updated_listing_expiration( $listing, OrderDTO $order ) {
-        if ( ! $order->is_initialized( 'expires_at' ) || get_post_meta( $listing->ID, '_never_expire', true ) ) {
+        if ( get_post_meta( $listing->ID, '_never_expire', true ) ) {
             return;
         }
 
-        $order_expiration        = $order->get_expires_at();
+        $featured_days    = (int) get_directorist_option( 'featured_listing_time', 30 );
+        $order_expiration = directorist_now()->add_days( $featured_days );
+
         $listing_expiration      = get_post_meta( $listing->ID, '_expiry_date', true );
         $listing_expiration_date = $listing_expiration
             ? date_create_from_format( 'Y-m-d H:i:s', $listing_expiration, wp_timezone() )
@@ -193,6 +179,9 @@ class FeaturedListingCheckout {
         ) {
             return;
         }
+
+        $order->set_expires_at( $order_expiration );
+        directorist_order_repository()->silent_update( $order );
 
         update_post_meta( $listing->ID, '_expiry_date', $order_expiration->format( 'Y-m-d H:i:s' ) );
     }

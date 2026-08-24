@@ -1361,10 +1361,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// Listing Type Change
 		$('body').on(
 			'click',
-			'.search_listing_types, .directorist-type-nav__link',
+			'.directorist-search-contents .search_listing_types, .directorist-search-contents .directorist-type-nav__link',
 			function (event) {
-				event.preventDefault();
 				let parent = $(this).closest('.directorist-search-contents');
+
+				if (!parent.length) {
+					return;
+				}
+
+				event.preventDefault();
 				let listing_type = $(this).attr('data-listing_type');
 				let type_current = parent.find(
 					'.directorist-listing-type-selection__link--current'

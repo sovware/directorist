@@ -305,6 +305,7 @@ class Orders_Controller extends Abstract_Controller {
         $map = array(
             'created'   => OrderStatus::PENDING,
             'pending'   => OrderStatus::PENDING,
+            'prepaid'   => OrderStatus::PREPAID,
             'completed' => OrderStatus::PAID,
             'failed'    => OrderStatus::FAILED,
             'cancelled' => OrderStatus::CANCELLED,
@@ -317,6 +318,7 @@ class Orders_Controller extends Abstract_Controller {
     protected function current_status_to_legacy_status( string $status ): string {
         $map = array(
             OrderStatus::PENDING   => 'pending',
+            OrderStatus::PREPAID   => 'prepaid',
             OrderStatus::PAID      => 'completed',
             OrderStatus::FAILED    => 'failed',
             OrderStatus::CANCELLED => 'cancelled',

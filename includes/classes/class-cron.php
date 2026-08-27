@@ -103,9 +103,7 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
             }
 
             if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
-                $featured_days = (int) get_directorist_option( 'featured_listing_time', 30 );
-                $orders        = directorist_order_repository();
-                $current_time  = directorist_now()->getTimestamp();
+                $orders = directorist_order_repository();
                 // Define the query
                 $args = [
                     'post_type'      => ATBDP_POST_TYPE,
@@ -126,20 +124,15 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                 // Start the Loop
                 if ( $listings->found_posts ) {
                     foreach ( $listings->posts as $listing ) {
-                        $order = $orders->get_latest_paid_featured_order_by_listing_id( $listing->ID );
+                        $has_paid_order         = $orders->listing_has_paid_featured_order( $listing->ID );
+                        $has_active_entitlement = $orders->listing_has_active_featured_entitlement( $listing->ID );
 
-                        if ( ! $order ) {
+                        if ( ! $has_paid_order || $has_active_entitlement ) {
                             continue;
                         }
 
-                        $expiration = ! empty( $order->expires_at )
-                            ? new \Directorist\Helpers\DateTime( $order->expires_at )
-                            : ( new \Directorist\Helpers\DateTime( $order->created_at ) )->add_days( $featured_days );
-
-                        if ( $expiration->getTimestamp() <= $current_time ) {
-                            do_action( 'atbdp_listing_featured_to_general', $listing->ID );
-                            update_post_meta( $listing->ID, '_featured', '' );
-                        }
+                        do_action( 'atbdp_listing_featured_to_general', $listing->ID );
+                        update_post_meta( $listing->ID, '_featured', '' );
                     }
                 }
             }

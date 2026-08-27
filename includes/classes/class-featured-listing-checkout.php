@@ -26,7 +26,7 @@ class FeaturedListingCheckout {
         }
 
         add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
-        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
+        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'], 10, 2 );
         add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 2 );
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
@@ -133,7 +133,7 @@ class FeaturedListingCheckout {
         $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_ref_type( self::CHECKOUT_TYPE )->set_amount( $amount )->set_sub_total( $amount );
     }
 
-    public function handle_after_order_update( OrderDTO $dto ) {
+    public function handle_after_order_update( OrderDTO $dto, $old_order = null ) {
         if ( ! $this->is_featured_order( $dto ) ) {
             return;
         }
@@ -143,14 +143,16 @@ class FeaturedListingCheckout {
         }
 
         if ( Status::PAID === $dto->get_status() ) {
-            $order_expiration = $this->refresh_order_expiration( $dto );
+            $order_expiration = $this->is_paid_transition( $old_order )
+                ? $this->refresh_order_expiration( $dto )
+                : null;
 
             directorist_set_listing_featured( $dto->get_listing_id(), true );
 
             // Publish the listing if it's pending
             $listing = get_post( $dto->get_listing_id() );
 
-            if ( $listing ) {
+            if ( $listing && $order_expiration ) {
                 $this->update_listing_expiration( $listing, $order_expiration );
             }
 
@@ -160,6 +162,10 @@ class FeaturedListingCheckout {
         } elseif ( ! directorist_order_repository()->listing_has_active_featured_entitlement( $dto->get_listing_id() ) ) {
             directorist_set_listing_featured( $dto->get_listing_id(), false );
         }
+    }
+
+    private function is_paid_transition( $old_order ): bool {
+        return ! $old_order || ! isset( $old_order->status ) || Status::PAID !== $old_order->status;
     }
 
     private function refresh_order_expiration( OrderDTO $order ) {

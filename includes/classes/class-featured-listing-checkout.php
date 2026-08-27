@@ -26,7 +26,7 @@ class FeaturedListingCheckout {
         }
 
         add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
-        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
+        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'], 10, 2 );
         add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 2 );
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
@@ -133,7 +133,7 @@ class FeaturedListingCheckout {
         $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_ref_type( self::CHECKOUT_TYPE )->set_amount( $amount )->set_sub_total( $amount );
     }
 
-    public function handle_after_order_update( OrderDTO $dto ) {
+    public function handle_after_order_update( OrderDTO $dto, $old_order = null ) {
         if ( ! $this->is_featured_order( $dto ) ) {
             return;
         }
@@ -143,30 +143,53 @@ class FeaturedListingCheckout {
         }
 
         if ( Status::PAID === $dto->get_status() ) {
+            $order_expiration = $this->should_refresh_order_expiration( $dto, $old_order )
+                ? $this->refresh_order_expiration( $dto )
+                : null;
+
             directorist_set_listing_featured( $dto->get_listing_id(), true );
 
             // Publish the listing if it's pending
             $listing = get_post( $dto->get_listing_id() );
 
-            if ( $listing ) {
-                $this->updated_listing_expiration( $listing, $dto );
+            if ( $listing && $order_expiration ) {
+                $this->update_listing_expiration( $listing, $order_expiration );
             }
 
             if ( $listing && 'publish' !== $listing->post_status ) {
                 directorist_set_listing_status( $dto->get_listing_id(), 'publish' );
             }
-        } else {
+        } elseif ( ! directorist_order_repository()->listing_has_active_featured_entitlement( $dto->get_listing_id() ) ) {
             directorist_set_listing_featured( $dto->get_listing_id(), false );
         }
     }
 
-    private function updated_listing_expiration( $listing, OrderDTO $order ) {
+    private function is_paid_transition( $old_order ): bool {
+        return ! $old_order || ! isset( $old_order->status ) || Status::PAID !== $old_order->status;
+    }
+
+    private function should_refresh_order_expiration( OrderDTO $order, $old_order ): bool {
+        return $this->is_paid_transition( $old_order ) || ! $order->is_initialized( 'expires_at' );
+    }
+
+    private function refresh_order_expiration( OrderDTO $order ) {
+        $featured_days    = (int) get_directorist_option( 'featured_listing_time', 30 );
+        $order_expiration = directorist_now()->add_days( $featured_days );
+
+        $order->set_expires_at( $order_expiration );
+        $expiration_update = ( new OrderDTO() )
+            ->set_id( $order->get_id() )
+            ->set_expires_at( $order_expiration );
+
+        directorist_order_repository()->silent_update( $expiration_update );
+
+        return $order_expiration;
+    }
+
+    private function update_listing_expiration( $listing, $order_expiration ) {
         if ( get_post_meta( $listing->ID, '_never_expire', true ) ) {
             return;
         }
-
-        $featured_days    = (int) get_directorist_option( 'featured_listing_time', 30 );
-        $order_expiration = directorist_now()->add_days( $featured_days );
 
         $listing_expiration      = get_post_meta( $listing->ID, '_expiry_date', true );
         $listing_expiration_date = $listing_expiration
@@ -179,9 +202,6 @@ class FeaturedListingCheckout {
         ) {
             return;
         }
-
-        $order->set_expires_at( $order_expiration );
-        directorist_order_repository()->silent_update( $order );
 
         update_post_meta( $listing->ID, '_expiry_date', $order_expiration->format( 'Y-m-d H:i:s' ) );
     }

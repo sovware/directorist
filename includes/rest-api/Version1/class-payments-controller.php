@@ -26,7 +26,7 @@ class Payments_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => [
                         'order_id'     => [
-                            'description'       => __( 'The order ID.' ),
+                            'description'       => __( 'The order ID.', 'directorist' ),
                             'type'              => 'integer',
                             'required'          => true,
                         ],
@@ -51,7 +51,7 @@ class Payments_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => [
                         'id'     => [
-                            'description'       => __( 'The order ID.' ),
+                            'description'       => __( 'The order ID.', 'directorist' ),
                             'type'              => 'integer',
                             'required'          => true,
                         ],
@@ -65,7 +65,7 @@ class Payments_Controller extends Abstract_Controller {
                         $this->store_args(), 
                         [
                             'id'     => [
-                                'description'       => __( 'The order ID.' ),
+                                'description'       => __( 'The order ID.', 'directorist' ),
                                 'type'              => 'integer',
                                 'required'          => true,
                             ],
@@ -78,7 +78,7 @@ class Payments_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => [
                         'id'     => [
-                            'description'       => __( 'The order ID.' ),
+                            'description'       => __( 'The order ID.', 'directorist' ),
                             'type'              => 'integer',
                             'required'          => true,
                         ],
@@ -112,7 +112,7 @@ class Payments_Controller extends Abstract_Controller {
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Payment was created successfully" ),
+                "message" => esc_html__( "Payment was created successfully", 'directorist' ),
                 "data"    => [
                     "id" => $id
                 ]
@@ -125,7 +125,7 @@ class Payments_Controller extends Abstract_Controller {
         $payment    = $repository->get_by_id( $request->get_param( "id" ) );
 
         if ( ! $payment ) {
-            return new WP_Error( 'rest_not_found', __( 'The payment was not found' ) );
+            return new WP_Error( 'rest_not_found', __( 'The payment was not found', 'directorist' ) );
         }
 
         return rest_ensure_response(
@@ -145,7 +145,7 @@ class Payments_Controller extends Abstract_Controller {
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Payment was updated successfully" )
+                "message" => esc_html__( "Payment was updated successfully", 'directorist' )
             ]
         );
     }
@@ -156,7 +156,7 @@ class Payments_Controller extends Abstract_Controller {
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Payment was deleted successfully" )
+                "message" => esc_html__( "Payment was deleted successfully", 'directorist' )
             ]
         );
     }
@@ -164,24 +164,24 @@ class Payments_Controller extends Abstract_Controller {
     protected function store_args(): array {
         return [
             'order_id' => [
-                'description'       => __( 'The order ID.' ),
+                'description'       => __( 'The order ID.', 'directorist' ),
                 'type'              => 'integer',
                 'required'          => true,
             ],
             'status' => [
-                'description'       => __( 'The status of the payment.' ),
+                'description'       => __( 'The status of the payment.', 'directorist' ),
                 'type'              => 'string',
                 'required'          => true,
                 'enum'              => PaymentStatus::all(),
             ],
             'transaction_id' => [
-                'description'       => __( 'The transaction ID.' ),
+                'description'       => __( 'The transaction ID.', 'directorist' ),
                 'type'              => 'string',
                 'required'          => true,
                 'maxlength'         => 100,
             ],
             'method' => [
-                'description'       => __( 'The method of the payment.' ),
+                'description'       => __( 'The method of the payment.', 'directorist' ),
                 'type'              => 'string',
                 'required'          => true,
                 'maxlength'         => 30,

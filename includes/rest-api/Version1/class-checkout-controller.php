@@ -27,14 +27,14 @@ class Checkout_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'auth_permissions_check' ],
                     'args'                => [
                         'checkout_type'     => [
-                            'description'       => __( 'The type of checkout to be performed.' ),
+                            'description'       => __( 'The type of checkout to be performed.', 'directorist' ),
                             'type'              => 'string',
                             'sanitize_callback' => 'sanitize_text_field',
                             'enum'              => directorist_get_checkout_types(),
                             'required'          => true,
                         ],
                         'payment_gateway'     => [
-                            'description'       => __( 'The payment gateway to be used for the checkout.' ),
+                            'description'       => __( 'The payment gateway to be used for the checkout.', 'directorist' ),
                             'type'              => 'string',
                             'sanitize_callback' => 'sanitize_text_field',
                             'required'          => false,
@@ -54,7 +54,7 @@ class Checkout_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'auth_permissions_check' ],
                     'args'                => [
                         'order_id'     => [
-                            'description'       => __( 'The order id to be retried.' ),
+                            'description'       => __( 'The order id to be retried.', 'directorist' ),
                             'type'              => 'integer',
                             'sanitize_callback' => 'absint',
                             'required'          => true,
@@ -84,7 +84,7 @@ class Checkout_Controller extends Abstract_Controller {
                 $order = $repository->get_by_id( $dto->get_id() );
 
                 if ( ! $order ) {
-                    return new WP_Error( 'rest_not_found', __( 'Order not found.' ) );
+                    return new WP_Error( 'rest_not_found', __( 'Order not found.', 'directorist' ) );
                 }
 
                 $dto = $repository->to_dto( $order );
@@ -98,13 +98,13 @@ class Checkout_Controller extends Abstract_Controller {
                 $payment_gateway = $request->get_param( 'payment_gateway' );
 
                 if ( ! $payment_gateway ) {
-                    return new WP_Error( 'rest_empty_value', __( 'Payment gateway is required.' ) );
+                    return new WP_Error( 'rest_empty_value', __( 'Payment gateway is required.', 'directorist' ) );
                 }
 
                 $payment_processors = directorist_get_payment_processors();
 
                 if ( ! isset( $payment_processors[ $payment_gateway ] ) ) {
-                    return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+                    return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.', 'directorist' ) );
                 }
 
                 /**
@@ -113,7 +113,7 @@ class Checkout_Controller extends Abstract_Controller {
                 $processor_instance = directorist_make( $payment_processors[ $payment_gateway ], __( 'Invalid payment gateway.', 'directorist' ) );
 
                 if ( ! $processor_instance instanceof PaymentInterface ) {
-                    return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+                    return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.', 'directorist' ) );
                 }
 
                 do_action( 'directorist_checkout_validate_payment_processor', $processor_instance, $dto, $checkout_type, $request );
@@ -165,27 +165,27 @@ class Checkout_Controller extends Abstract_Controller {
         $order            = $order_repository->get_by_id( $order_id );
 
         if ( ! $order ) {
-            return new WP_Error( 'rest_not_found', __( 'Order not found.' ) );
+            return new WP_Error( 'rest_not_found', __( 'Order not found.', 'directorist' ) );
         }
 
         $order = $order_repository->to_dto( $order );
 
         if ( ! in_array( $order->get_status(), [ OrderStatus::PENDING, OrderStatus::FAILED ], true ) ) {
-            return new WP_Error( 'rest_invalid_value', __( 'Order is not pending or failed.' ) );
+            return new WP_Error( 'rest_invalid_value', __( 'Order is not pending or failed.', 'directorist' ) );
         }
 
         $payment_repository = directorist_payment_repository();
         $payment            = $payment_repository->get_last_payment( $order_id );
 
         if ( ! $payment ) {
-            return new WP_Error( 'rest_not_found', __( 'Payment not found.' ) );
+            return new WP_Error( 'rest_not_found', __( 'Payment not found.', 'directorist' ) );
         }
 
         $payment            = $payment_repository->to_dto( $payment );
         $payment_processors = directorist_get_payment_processors();
 
         if ( ! isset( $payment_processors[$payment->get_method()] ) ) {
-            return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.' ) );
+            return new WP_Error( 'rest_invalid_value', __( 'Invalid payment gateway.', 'directorist' ) );
         }
 
         /**

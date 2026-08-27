@@ -342,6 +342,7 @@ class Asset_Loader {
             Enqueue::style( 'directorist/admin-order-dataview', 'build/css/admin/style-app', ['wp-components'] );
             Enqueue::style( 'directorist/admin-app', 'build/css/admin/app' );
             Enqueue::script( 'directorist/admin-order', 'build/js/react/admin/order' );
+            wp_set_script_translations( 'directorist/admin-order', 'directorist', ATBDP_DIR . 'languages' );
         
             $c_position = directorist_get_currency_position();
             $currency   = directorist_get_currency();

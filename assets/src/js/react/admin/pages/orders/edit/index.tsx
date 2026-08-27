@@ -237,7 +237,7 @@ export default function OrderEdit({}: EditProps) {
 			doAction('wpmvc-toast', {
 				message: __(
 					'Order status updated successfully',
-					'directorist-pricing-plans'
+					'directorist'
 				),
 			});
 			refresh();
@@ -247,7 +247,7 @@ export default function OrderEdit({}: EditProps) {
 				type: 'error',
 				message: __(
 					'Oppps! Something went wrong',
-					'directorist-pricing-plans'
+					'directorist'
 				),
 			});
 		} finally {

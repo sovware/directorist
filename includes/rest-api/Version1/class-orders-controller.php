@@ -161,14 +161,18 @@ class Orders_Controller extends Abstract_Controller {
 
             $payment_dto        = apply_filters( 'directorist_rest_legacy_order_create_payment_dto', $payment_dto, $request, $dto );
             $payment_repository = directorist_payment_repository();
-            $payment_id         = $payment_repository->create( $payment_dto );
+            $payment_id         = $payment_repository->create_without_order_update( $payment_dto );
             $payment            = $payment_repository->get_last_payment( $order_id );
 
-            if ( ! $payment_id || ! $payment || $payment->status !== $payment_dto->get_status() ) {
+            if ( ! $payment_id || ! $payment || (int) $payment->id !== $payment_id || $payment->status !== $payment_dto->get_status() ) {
                 $payment_repository->delete_by( 'order_id', $order_id );
                 $order_repository->delete_by_id( $order_id );
 
                 return new WP_Error( 'rest_payment_create_failed', __( 'Unable to create payment.', 'directorist' ), array( 'status' => 500 ) );
+            }
+
+            if ( OrderStatus::PAID === $dto->get_status() ) {
+                $order_repository->update_status( $order_id, OrderStatus::PAID );
             }
         }
 
@@ -270,6 +274,9 @@ class Orders_Controller extends Abstract_Controller {
     protected function prepare_legacy_order_data( $order, WP_REST_Request $request ): array {
         $payment = ! empty( $order->payment ) ? $order->payment : null;
         $plan_id = $this->get_plan_id( $order );
+        $status  = OrderStatus::PREPAID === ( $order->status ?? '' )
+            ? $order->status
+            : ( $payment->status ?? $order->status ?? '' );
 
         $data = array(
             'id'                          => (int) $order->id,
@@ -285,7 +292,7 @@ class Orders_Controller extends Abstract_Controller {
             'remaining_featured_listings' => 0,
             'amount'                      => round( (float) ( $order->amount ?? 0 ), 2 ),
             'currency'                    => (string) ( $order->currency ?? '' ),
-            'payment_status'              => $this->current_status_to_legacy_status( $payment->status ?? $order->status ?? '' ),
+            'payment_status'              => $this->current_status_to_legacy_status( $status ),
             'payment_gateway'             => (string) ( $payment->method ?? '' ),
             'transaction_id'              => (string) ( $payment->transaction_id ?? '' ),
             'created_by'                  => 'web',

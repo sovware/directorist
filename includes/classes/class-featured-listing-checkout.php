@@ -143,7 +143,7 @@ class FeaturedListingCheckout {
         }
 
         if ( Status::PAID === $dto->get_status() ) {
-            $order_expiration = $this->is_paid_transition( $old_order )
+            $order_expiration = $this->should_refresh_order_expiration( $dto, $old_order )
                 ? $this->refresh_order_expiration( $dto )
                 : null;
 
@@ -166,6 +166,10 @@ class FeaturedListingCheckout {
 
     private function is_paid_transition( $old_order ): bool {
         return ! $old_order || ! isset( $old_order->status ) || Status::PAID !== $old_order->status;
+    }
+
+    private function should_refresh_order_expiration( OrderDTO $order, $old_order ): bool {
+        return $this->is_paid_transition( $old_order ) || ! $order->is_initialized( 'expires_at' );
     }
 
     private function refresh_order_expiration( OrderDTO $order ) {

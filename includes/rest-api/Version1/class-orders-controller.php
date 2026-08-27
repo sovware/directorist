@@ -12,6 +12,7 @@ defined( 'ABSPATH' ) || exit;
 use Directorist\DTO\Order\DTO as OrderDTO;
 use Directorist\DTO\Payment\DTO as PaymentDTO;
 use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Payment\Status as PaymentStatus;
 use WP_Error;
 use WP_REST_Request;
 use WP_REST_Server;
@@ -140,7 +141,8 @@ class Orders_Controller extends Abstract_Controller {
 
         $dto = apply_filters( 'directorist_rest_legacy_order_create_dto', $dto, $request );
 
-        $order_id = directorist_order_repository()->create( $dto );
+        $order_repository = directorist_order_repository();
+        $order_id         = $order_repository->create( $dto );
 
         if ( ! $order_id ) {
             return new WP_Error( 'invalid_order', __( 'Unable to create order.', 'directorist' ), array( 'status' => 400 ) );
@@ -153,11 +155,21 @@ class Orders_Controller extends Abstract_Controller {
                 ->set_order_id( $order_id )
                 ->set_amount( $amount )
                 ->set_currency( $currency )
-                ->set_status( $this->legacy_status_to_current_status( $legacy_status ) )
+                ->set_status( $this->legacy_payment_status_to_current_status( $legacy_status ) )
                 ->set_method( $gateway )
                 ->set_transaction_id( $transaction_id ? $transaction_id : null );
 
-            directorist_payment_repository()->create( apply_filters( 'directorist_rest_legacy_order_create_payment_dto', $payment_dto, $request, $dto ) );
+            $payment_dto        = apply_filters( 'directorist_rest_legacy_order_create_payment_dto', $payment_dto, $request, $dto );
+            $payment_repository = directorist_payment_repository();
+            $payment_id         = $payment_repository->create( $payment_dto );
+            $payment            = $payment_repository->get_last_payment( $order_id );
+
+            if ( ! $payment_id || ! $payment || $payment->status !== $payment_dto->get_status() ) {
+                $payment_repository->delete_by( 'order_id', $order_id );
+                $order_repository->delete_by_id( $order_id );
+
+                return new WP_Error( 'rest_payment_create_failed', __( 'Unable to create payment.', 'directorist' ), array( 'status' => 500 ) );
+            }
         }
 
         do_action( 'atbdp_order_created', $order_id, $listing_id );
@@ -313,6 +325,20 @@ class Orders_Controller extends Abstract_Controller {
         );
 
         return $map[ $status ] ?? OrderStatus::PENDING;
+    }
+
+    protected function legacy_payment_status_to_current_status( string $status ): string {
+        $map = array(
+            'created'   => PaymentStatus::PENDING,
+            'pending'   => PaymentStatus::PENDING,
+            'prepaid'   => PaymentStatus::PAID,
+            'completed' => PaymentStatus::PAID,
+            'failed'    => PaymentStatus::FAILED,
+            'cancelled' => PaymentStatus::CANCELLED,
+            'refunded'  => PaymentStatus::REFUNDED,
+        );
+
+        return $map[ $status ] ?? PaymentStatus::PENDING;
     }
 
     protected function current_status_to_legacy_status( string $status ): string {

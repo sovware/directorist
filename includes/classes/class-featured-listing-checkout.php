@@ -143,13 +143,15 @@ class FeaturedListingCheckout {
         }
 
         if ( Status::PAID === $dto->get_status() ) {
+            $order_expiration = $this->refresh_order_expiration( $dto );
+
             directorist_set_listing_featured( $dto->get_listing_id(), true );
 
             // Publish the listing if it's pending
             $listing = get_post( $dto->get_listing_id() );
 
             if ( $listing ) {
-                $this->updated_listing_expiration( $listing, $dto );
+                $this->update_listing_expiration( $listing, $order_expiration );
             }
 
             if ( $listing && 'publish' !== $listing->post_status ) {
@@ -160,22 +162,29 @@ class FeaturedListingCheckout {
         }
     }
 
-    private function updated_listing_expiration( $listing, OrderDTO $order ) {
+    private function refresh_order_expiration( OrderDTO $order ) {
+        $featured_days    = (int) get_directorist_option( 'featured_listing_time', 30 );
+        $order_expiration = directorist_now()->add_days( $featured_days );
+
+        $order->set_expires_at( $order_expiration );
+        $expiration_update = ( new OrderDTO() )
+            ->set_id( $order->get_id() )
+            ->set_expires_at( $order_expiration );
+
+        directorist_order_repository()->silent_update( $expiration_update );
+
+        return $order_expiration;
+    }
+
+    private function update_listing_expiration( $listing, $order_expiration ) {
         if ( get_post_meta( $listing->ID, '_never_expire', true ) ) {
             return;
         }
-
-        $featured_days    = (int) get_directorist_option( 'featured_listing_time', 30 );
-        $order_expiration = directorist_now()->add_days( $featured_days );
 
         $listing_expiration      = get_post_meta( $listing->ID, '_expiry_date', true );
         $listing_expiration_date = $listing_expiration
             ? date_create_from_format( 'Y-m-d H:i:s', $listing_expiration, wp_timezone() )
             : false;
-
-
-        $order->set_expires_at( $order_expiration );
-        directorist_order_repository()->silent_update( $order );
 
         if ( $listing_expiration_date
             && $listing_expiration === $listing_expiration_date->format( 'Y-m-d H:i:s' )

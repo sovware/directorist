@@ -173,15 +173,16 @@ class FeaturedListingCheckout {
             ? date_create_from_format( 'Y-m-d H:i:s', $listing_expiration, wp_timezone() )
             : false;
 
+
+        $order->set_expires_at( $order_expiration );
+        directorist_order_repository()->silent_update( $order );
+
         if ( $listing_expiration_date
             && $listing_expiration === $listing_expiration_date->format( 'Y-m-d H:i:s' )
             && $listing_expiration_date->getTimestamp() >= $order_expiration->getTimestamp()
         ) {
             return;
         }
-
-        $order->set_expires_at( $order_expiration );
-        directorist_order_repository()->silent_update( $order );
 
         update_post_meta( $listing->ID, '_expiry_date', $order_expiration->format( 'Y-m-d H:i:s' ) );
     }

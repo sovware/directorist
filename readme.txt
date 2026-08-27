@@ -307,6 +307,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 **Fixed**
 - Author profile links missing directory type slug in multi-directory listings. (#2957)
+- Featured listing expiration sync issue. (#2969)
 
 = 8.9.3 - Aug 9, 2026 =
 

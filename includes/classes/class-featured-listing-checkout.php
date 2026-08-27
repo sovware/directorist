@@ -157,7 +157,7 @@ class FeaturedListingCheckout {
             if ( $listing && 'publish' !== $listing->post_status ) {
                 directorist_set_listing_status( $dto->get_listing_id(), 'publish' );
             }
-        } else {
+        } elseif ( ! directorist_order_repository()->listing_has_active_featured_entitlement( $dto->get_listing_id() ) ) {
             directorist_set_listing_featured( $dto->get_listing_id(), false );
         }
     }

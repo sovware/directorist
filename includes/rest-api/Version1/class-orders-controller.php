@@ -162,7 +162,7 @@ class Orders_Controller extends Abstract_Controller {
             $payment_dto        = apply_filters( 'directorist_rest_legacy_order_create_payment_dto', $payment_dto, $request, $dto );
             $payment_repository = directorist_payment_repository();
             $payment_id         = $payment_repository->create_without_order_update( $payment_dto );
-            $payment            = $payment_repository->get_last_payment( $order_id );
+            $payment            = $payment_id ? $payment_repository->get_by_id( $payment_id ) : null;
 
             if ( ! $payment_id || ! $payment || (int) $payment->id !== $payment_id || $payment->status !== $payment_dto->get_status() ) {
                 $payment_repository->delete_by( 'order_id', $order_id );

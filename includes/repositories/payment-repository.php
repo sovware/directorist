@@ -35,7 +35,7 @@ class PaymentRepository extends Repository {
      */
     public function create( \Directorist\Utils\DTO $dto ) {
         $payment_id = $this->create_without_order_update( $dto );
-        $payment    = $payment_id ? $this->get_last_payment( $dto->get_order_id() ) : null;
+        $payment    = $payment_id ? $this->get_by_id( $payment_id ) : null;
 
         if ( ! $payment || (int) $payment->id !== $payment_id || $payment->status !== $dto->get_status() ) {
             return 0;

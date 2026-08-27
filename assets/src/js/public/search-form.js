@@ -12,6 +12,11 @@ import initSearchCategoryCustomFields from './components/category-custom-fields'
 import './components/colorPicker';
 import './components/directoristDropdown';
 import './components/directoristSelect';
+import {
+	closeSearchModal,
+	initSearchModals,
+	openSearchModal,
+} from './components/searchModal';
 
 class ViewportAwareDropdown {
 	constructor(options = {}) {
@@ -959,113 +964,50 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		// Search Modal Open
-		function searchModalOpen(searchModalParent) {
-			// Modal Overlay
-			let modalOverlay = searchModalParent.querySelector(
-				'.directorist-search-modal__overlay'
-			);
-			// Modal Content
-			let modalContent = searchModalParent.querySelector(
-				'.directorist-search-modal__contents'
-			);
-
-			// Modal Overlay Style
-			modalOverlay.style.cssText =
-				'opacity: 1; visibility: visible; transition: 0.3s ease;';
-
-			// Modal Content Style
-			modalContent.style.cssText =
-				'opacity: 1; visibility: visible; bottom: 50%; transform: translate(-50%, 50%)';
-
-			// Check if container width is less than 576px
-			const containerWidth = document.body.offsetWidth;
-			if (containerWidth < 576) {
-				// Check if backdrop is added to body
-				const bodyElement = document.body;
-				const bodyStyles = getComputedStyle(bodyElement);
-				const bodyBackdropStyle = bodyStyles?.backdropFilter || '';
-
-				if (bodyBackdropStyle !== 'none' && bodyBackdropStyle !== '') {
-					// If backdrop is added to body, set bottom to 50%
-					modalContent.style.cssText +=
-						'bottom: 50%; transform: translate(-50%, 50%)';
-				} else {
-					// If backdrop is not added to body, set bottom to 0
-					modalContent.style.cssText +=
-						'bottom: 0; transform: translate(-50%, 0)';
-				}
-			}
+		function searchModalOpen(searchModalParent, trigger) {
+			openSearchModal(searchModalParent, trigger);
 		}
 
 		// Search Modal Close
 		function searchModalClose(searchModalParent) {
-			let modalOverlay = searchModalParent.querySelector(
-				'.directorist-search-modal__overlay'
-			);
-			let modalContent = searchModalParent.querySelector(
-				'.directorist-search-modal__contents'
-			);
-
-			// Overlay Style
-			if (modalOverlay) {
-				modalOverlay.style.cssText = 'opacity: 0; visibility: hidden';
-			}
-
-			// Modal Content Style
-			if (modalContent) {
-				modalContent.style.cssText =
-					'opacity: 0; visibility: hidden; bottom: -200px;';
-			}
+			closeSearchModal(searchModalParent);
 		}
 
 		// Search Modal Minimizer
 		function searchModalMinimize(searchModalParent) {
-			let modalContent = searchModalParent.querySelector(
-				'.directorist-search-modal__contents'
-			);
-			let modalMinimizer = searchModalParent.querySelector(
-				'.directorist-search-modal__minimizer'
-			);
-
-			if (modalMinimizer.classList.contains('minimized')) {
-				modalMinimizer.classList.remove('minimized');
-				modalContent.style.bottom = '0';
-			} else {
-				modalMinimizer.classList.add('minimized');
-				modalContent.style.bottom = '-50%';
-			}
+			closeSearchModal(searchModalParent);
 		}
+
+		initSearchModals();
 
 		// Search Modal Open Trigger
 		$('body').on('click', '.directorist-modal-btn', function (e) {
 			e.preventDefault();
-			// added overlay class on body
-			document
-				.querySelector('.directorist-content-active')
-				.classList.add('directorist-overlay-active');
-
 			let parentElement = this.closest('.directorist-contents-wrap');
+			if (!parentElement) {
+				return;
+			}
 
 			if (this.classList.contains('directorist-modal-btn--basic')) {
 				let searchModalElement = parentElement.querySelector(
 					'.directorist-search-modal--basic'
 				);
 
-				searchModalOpen(searchModalElement);
+				searchModalOpen(searchModalElement, this);
 			}
 			if (this.classList.contains('directorist-modal-btn--advanced')) {
 				let searchModalElement = parentElement.querySelector(
 					'.directorist-search-modal--advanced'
 				);
 
-				searchModalOpen(searchModalElement);
+				searchModalOpen(searchModalElement, this);
 			}
 			if (this.classList.contains('directorist-modal-btn--full')) {
 				let searchModalElement = parentElement.querySelector(
 					'.directorist-search-modal--full'
 				);
 
-				searchModalOpen(searchModalElement);
+				searchModalOpen(searchModalElement, this);
 			}
 		});
 
@@ -1075,11 +1017,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			'.directorist-search-modal__contents__btn--close, .directorist-search-modal__overlay',
 			function (e) {
 				e.preventDefault();
-				// removed overlay class from body
-				document
-					.querySelector('.directorist-content-active')
-					.classList.remove('directorist-overlay-active');
-
 				let searchModalElement = this.closest(
 					'.directorist-search-modal'
 				);

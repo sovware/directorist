@@ -89,6 +89,17 @@ class OrderRepository extends Repository {
         return $order ? true : false;
     }
 
+    public function get_latest_paid_featured_order_by_listing_id( int $listing_id ) {
+        return $this->get_query_builder()
+            ->select( 'd_order.created_at', 'd_order.expires_at' )
+            ->where( 'd_order.listing_id', $listing_id )
+            ->where( 'd_order.is_featured_listing', 1 )
+            ->where( 'd_order.ref_type', 'featured_listing' )
+            ->where( 'd_order.status', OrderStatus::PAID )
+            ->order_by_desc( 'd_order.id' )
+            ->first();
+    }
+
     protected function get_orders( Builder $query, Read $dto ) {
         $query = apply_filters( 'directorist_order_list_query', $query, $dto );
 

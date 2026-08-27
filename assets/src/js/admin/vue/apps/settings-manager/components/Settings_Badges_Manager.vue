@@ -361,7 +361,6 @@
                     </button>
                   </div>
                 </div>
-                <span class="cptm-badge-preview-hint">Live preview</span>
               </div>
 
               <div class="cptm-badge-condition-list">

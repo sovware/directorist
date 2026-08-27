@@ -500,6 +500,16 @@ export default {
     },
 
     modalPlaceholders() {
+      const eventPlaceholders = this.eventTemplatePlaceholders(this.modalEvent);
+
+      if (eventPlaceholders.length) {
+        return [...new Set(eventPlaceholders)];
+      }
+
+      if (this.modalEvent && this.modalEvent.templateOnly) {
+        return [];
+      }
+
       const placeholders = [...this.placeholders];
 
       Object.keys(this.modalDraft).forEach((fieldKey) => {
@@ -762,10 +772,32 @@ export default {
         label: this.cleanExtensionTemplateLabel(section.title || sectionKey),
         description: section.description || "",
         template,
+        placeholders: this.getExtensionTemplatePlaceholders(section, template),
         webPushTemplate: null,
         alwaysOn: false,
         templateOnly: true,
       };
+    },
+
+    getExtensionTemplatePlaceholders(section, template) {
+      const placeholders = [
+        ...this.normalizePlaceholders(section.placeholders),
+        ...this.normalizePlaceholders(section.template_placeholders),
+      ];
+
+      if (template) {
+        [template.subject, template.body].forEach((fieldKey) => {
+          const field = this.fields[fieldKey] || {};
+
+          placeholders.push(
+            ...this.normalizePlaceholders(field.placeholders),
+            ...this.normalizePlaceholders(field.supported_placeholders),
+            ...this.normalizePlaceholders(field.supportedPlaceholders)
+          );
+        });
+      }
+
+      return [...new Set(placeholders)];
     },
 
     getTemplatePairFromFields(fieldKeys) {
@@ -866,6 +898,30 @@ export default {
           templateOnly: false,
         })
       );
+    },
+
+    eventTemplatePlaceholders(event) {
+      if (!event) {
+        return [];
+      }
+
+      if (event.placeholders && event.placeholders.length) {
+        return event.placeholders;
+      }
+
+      if (event.templateOnly) {
+        return [];
+      }
+
+      return this.eventFieldKeys(event).flatMap((fieldKey) => {
+        const field = this.fields[fieldKey] || {};
+
+        return [
+          field.description,
+          field.value,
+          field.placeholder,
+        ].flatMap((value) => this.extractPlaceholders(value));
+      });
     },
 
     eventRowClass(event) {
@@ -1058,9 +1114,35 @@ export default {
     },
 
     extractPlaceholders(value) {
-      const matches = String(value || "").match(/==[A-Z0-9_]+==/g);
+      const matches = String(value || "").match(
+        /==[A-Z0-9_]+==|{{\s*[a-zA-Z0-9_]+\s*}}/g
+      );
 
       return matches || [];
+    },
+
+    normalizePlaceholders(value) {
+      if (!value) {
+        return [];
+      }
+
+      if (Array.isArray(value)) {
+        return value.flatMap((item) => this.normalizePlaceholders(item));
+      }
+
+      if (typeof value === "object") {
+        return Object.values(value).flatMap((item) =>
+          this.normalizePlaceholders(item)
+        );
+      }
+
+      const placeholder = String(value || "").trim();
+
+      if (!placeholder) {
+        return [];
+      }
+
+      return [placeholder];
     },
 
     insertPlaceholder(placeholder) {

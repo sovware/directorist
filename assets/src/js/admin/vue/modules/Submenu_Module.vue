@@ -112,6 +112,20 @@ export default {
         return 0;
       }
 
+      try {
+        const hash = decodeURIComponent(
+          String(window.location.hash || "").replace(/^#/, ""),
+        );
+        const [menuKey, submenuKey] = hash.split("__");
+        const submenuKeys = Object.keys(this.submenu || {});
+        const requestedIndex =
+          menuKey === this.menuKey ? submenuKeys.indexOf(submenuKey) : -1;
+
+        if (requestedIndex >= 0) {
+          return requestedIndex;
+        }
+      } catch (error) {}
+
       let fallbackIndex = this.subNavigation.findIndex(
         (submenu) => submenu.active === true,
       );

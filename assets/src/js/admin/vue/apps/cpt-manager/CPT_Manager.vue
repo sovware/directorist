@@ -187,6 +187,13 @@ export default {
         return;
       }
 
+      const requestedNavIndex = this.getRequestedNavigationIndex(layoutKeys);
+
+      if (requestedNavIndex >= 0) {
+        this.$store.commit("swichNav", requestedNavIndex);
+        return;
+      }
+
       let activeNavIndex = 0;
 
       try {
@@ -206,6 +213,19 @@ export default {
       } catch (error) {}
 
       this.$store.commit("swichNav", activeNavIndex);
+    },
+
+    getRequestedNavigationIndex(layoutKeys) {
+      try {
+        const hash = decodeURIComponent(
+          String(window.location.hash || "").replace(/^#/, ""),
+        );
+        const menuKey = hash.split("__")[0];
+
+        return menuKey ? layoutKeys.indexOf(menuKey) : -1;
+      } catch (error) {
+        return -1;
+      }
     },
 
     focusDirectoryNameForNewDirectory() {

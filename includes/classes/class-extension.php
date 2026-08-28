@@ -42,6 +42,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'admin_menu', [ $this, 'admin_menu' ], 100 );
             add_action( 'admin_init', [ $this, 'setup_ajax_actions' ] );
             add_action( 'admin_head', [ $this, 'add_menu_separator_classes' ] );
+            add_filter( 'submenu_file', [ $this, 'set_active_submenu' ], 10, 2 );
 
             if ( ! empty( $_GET['page'] ) && ( 'atbdp-extension' === $_GET['page'] ) ) {
                 add_action( 'admin_init', [ $this, 'initial_setup' ] );
@@ -64,6 +65,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'wp_ajax_atbdp_update_theme', [ $this, 'handle_theme_update_request' ] );
             add_action( 'wp_ajax_atbdp_refresh_purchase_status', [ $this, 'handle_refresh_purchase_status_request' ] );
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', [ $this, 'handle_close_subscriptions_sassion_request' ] );
+            add_action( 'wp_ajax_directorist_te_get_activity', [ $this, 'get_dashboard_activity' ] );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
@@ -236,8 +238,39 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
         }
 
+        private static function get_product_badge( $type, $label, $expires_at = null ) {
+            $badge = [
+                'type'  => $type,
+                'label' => $label,
+            ];
+
+            if ( null !== $expires_at ) {
+                $badge['expires_at'] = $expires_at;
+            }
+
+            return $badge;
+        }
+
         public static function get_default_extensions() {
             return [
+                'directorist-notifications-pro' => [
+                    'name'        => 'Directorist Notifications Pro',
+                    'description' => __( 'Send instant browser push notifications for listings, payments, reviews, renewals, and other important directory events.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-notifications-pro/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-notifications-pro.jpg',
+                    'active'      => true,
+                    'item_id'     => 371698,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
+                ],
+                'directorist-divi-integration' => [
+                    'name'        => 'Directorist Divi Integration',
+                    'description' => __( 'Build and customize your directory visually with native Divi 5 modules.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-divi-integration/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-divi-integration.jpg',
+                    'active'      => true,
+                    'item_id'     => 371246,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
+                ],
                 'directorist-ai-search' => [
                     'name'        => 'Directorist AI Search',
                     'description' => __( 'AI-powered directory search that understands intent and improves listing discovery.', 'directorist' ),
@@ -245,6 +278,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/AI-Search-Preview.jpg',
                     'active'      => true,
                     'item_id'     => 370908,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-divi-integration' => [
                     'name'        => 'Directorist Divi Integration',
@@ -261,6 +295,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-listing-importer.png',
                     'active'      => true,
                     'item_id'     => 370853,
+                    'badges'      => [
+                        self::get_product_badge( 'new', __( 'New', 'directorist' ) ),
+                        self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
+                    ],
                 ],
 
                 'directorist-analytics' => [
@@ -297,6 +335,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-search-alert.png',
                     'active'      => true,
                     'item_id'     => 323908,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
 
                 'directorist-announcement' => [
@@ -306,6 +345,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-announcement.svg',
                     'active'      => true,
                     'item_id'     => 308031,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
 
                 'addonskit-for-bricks' => [
@@ -315,6 +355,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/addonskit-bricks.svg',
                     'active'      => true,
                     'item_id'     => 307581,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
 
                 'directorist-coupon' => [
@@ -341,6 +382,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'base'        => 'directorist-listings-with-map/directorist-listings-map.php',
                     'active'      => true,
                     'item_id'     => 13794,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-pricing-plans' => [
                     'name'        => 'Pricing Plans',
@@ -349,6 +391,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13776,
+                    'badges'      => [
+                        self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ),
+                        self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
+                    ],
                 ],
                 'directorist-woocommerce-pricing-plans' => [
                     'name'        => 'WooCommerce Pricing Plans',
@@ -357,6 +403,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/woo-pricing-plans.png',
                     'active'      => true,
                     'item_id'     => 13784,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-paypal' => [
                     'name'        => 'PayPal Payment Gateway',
@@ -365,6 +412,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/paypal-gateway.png',
                     'active'      => true,
                     'item_id'     => 13702,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-stripe' => [
                     'name'        => 'Stripe Payment Gateway',
@@ -422,6 +470,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'base'        => 'directorist-business-hours/bd-business-hour.php',
                     'active'      => true,
                     'item_id'     => 13714,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-slider-carousel' => [
                     'name'        => 'Listings Slider & Carousel',
@@ -447,6 +496,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/booking.png',
                     'active'      => true,
                     'item_id'     => 21718,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'directorist-gallery' => [
                     'name'        => 'Image Gallery',
@@ -512,6 +562,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/jobs-manager.svg',
                     'active'      => true,
                     'item_id'     => 134332,
+                    'badges'      => [ self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ) ],
                 ],
                 'directorist-mailchimp-integration' => [
                     'name'        => 'Mailchimp Integration',
@@ -528,6 +579,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/helpgent.svg',
                     'active'      => true,
                     'item_id'     => 188735,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-wpml-integration' => [
                     'name'        => 'WPML Integration',
@@ -544,6 +596,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/marketplace.svg',
                     'active'      => true,
                     'item_id'     => 148417,
+                    'badges'      => [ self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ) ],
                 ],
                 'directorist-gamipress-integration' => [
                     'name'        => 'Gamipress Integration',
@@ -566,6 +619,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/djobs/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/djobs.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'dhotels' => [
                     'name'        => 'dHotels',
@@ -574,6 +628,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/dhotels/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/dhotels.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dclassified' => [
                     'name'        => 'dClassified',
@@ -582,6 +637,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/dclassified/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/dclassified.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ) ],
                 ],
                 'onelisting' => [
                     'name'        => 'OneListing',
@@ -598,6 +654,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/onelisting-pro/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/onelisting.png',
                     'active'      => true,
+                    'badges'      => [
+                        self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ),
+                        self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
+                    ],
                 ],
                 'dplace' => [
                     'name'        => 'dPlace',
@@ -630,6 +690,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/dcar/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/dcar.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dlist' => [
                     'name'        => 'dList',
@@ -654,6 +715,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'demo_link'   => 'https://demo.directorist.com/theme/ddoctors/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/themes/ddoctors.png',
                     'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dlawyers' => [
                     'name'        => 'dLawyers',
@@ -1152,7 +1214,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             if ( ! current_user_can( 'manage_options' ) ) {
                 wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'directorist' ) ), 403 );
             }
-            $status = [ 'success' => true ];
+            $status = [
+                'success'         => true,
+                'processed_items' => [],
+                'failed_items'    => [],
+            ];
 
             if ( ! directorist_verify_nonce() ) {
                 $status['success'] = false;
@@ -1161,13 +1227,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            $task         = ( isset( $_POST['task'] ) ) ? directorist_clean( wp_unslash( $_POST['task'] ) ) : '';
-            $plugin_items = ( isset( $_POST['plugin_items'] ) ) ? directorist_clean( wp_unslash( $_POST['plugin_items'] ) ) : '';
+            $task         = isset( $_POST['task'] ) ? directorist_clean( wp_unslash( $_POST['task'] ) ) : '';
+            $plugin_items = isset( $_POST['plugin_items'] ) ? (array) directorist_clean( wp_unslash( $_POST['plugin_items'] ) ) : [];
+            $plugin_items  = array_values( array_unique( array_filter( array_map( 'sanitize_text_field', $plugin_items ) ) ) );
+            $allowed_tasks = [ 'activate', 'deactivate', 'uninstall' ];
 
             // Validation
-            if ( empty( $task ) ) {
+            if ( ! in_array( $task, $allowed_tasks, true ) ) {
                 $status['success'] = false;
-                $status['message'] = 'No task found';
+                $status['message'] = __( 'Invalid plugin action.', 'directorist' );
                 wp_send_json( [ 'status' => $status ] );
             }
 
@@ -1177,26 +1245,59 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            // Activate
-            if ( 'activate' === $task ) {
-                foreach ( $plugin_items as $plugin ) {
+            if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'delete_plugins' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+
+            $installed_plugins = get_plugins();
+
+            foreach ( $plugin_items as $plugin ) {
+                if ( ! isset( $installed_plugins[ $plugin ] ) ) {
+                    $status['failed_items'][ $plugin ] = __( 'Plugin files were not found.', 'directorist' );
+                    continue;
+                }
+
+                if ( 'activate' === $task ) {
                     $activated = activate_plugin( $plugin );
+
                     if ( is_wp_error( $activated ) ) {
-                        $status['success'] = false;
-                        $status['message'] = 'Error in plugin activation';
-                        wp_send_json( [ 'status' => $status ] );
+                        $status['failed_items'][ $plugin ] = $activated->get_error_message();
+                        continue;
+                    }
+                } elseif ( 'deactivate' === $task ) {
+                    deactivate_plugins( [ $plugin ] );
+
+                    if ( is_plugin_active( $plugin ) ) {
+                        $status['failed_items'][ $plugin ] = __( 'WordPress could not deactivate this plugin.', 'directorist' );
+                        continue;
+                    }
+                } else {
+                    if ( is_plugin_active( $plugin ) ) {
+                        $status['failed_items'][ $plugin ] = __( 'Deactivate the plugin before deleting it.', 'directorist' );
+                        continue;
+                    }
+
+                    $deleted = delete_plugins( [ $plugin ] );
+
+                    if ( is_wp_error( $deleted ) ) {
+                        $status['failed_items'][ $plugin ] = $deleted->get_error_message();
+                        continue;
+                    }
+
+                    if ( false === $deleted ) {
+                        $status['failed_items'][ $plugin ] = __( 'WordPress could not delete this plugin.', 'directorist' );
+                        continue;
                     }
                 }
+
+                $status['processed_items'][] = $plugin;
             }
 
-            // Deactivate
-            if ( 'deactivate' === $task ) {
-                deactivate_plugins( $plugin_items );
-            }
-
-            // Uninstall
-            if ( 'uninstall' === $task ) {
-                delete_plugins( $plugin_items );
+            if ( ! empty( $status['failed_items'] ) ) {
+                $status['success'] = false;
+                $status['message'] = reset( $status['failed_items'] );
+            } else {
+                $status['message'] = __( 'Plugin action completed successfully.', 'directorist' );
             }
 
             wp_send_json( [ 'status' => $status ] );
@@ -1251,7 +1352,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            activate_plugin( $plugin_key );
+            $activation_status = activate_plugin( $plugin_key );
+
+            if ( is_wp_error( $activation_status ) ) {
+                $status['success'] = false;
+                $status['message'] = $activation_status->get_error_message();
+            }
+
             wp_send_json( [ 'status' => $status ] );
         }
 
@@ -1282,9 +1389,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $status = [ 'success' => true ];
 
-            $theme_stylesheet    = $args['theme_stylesheet'];
-            $theme_updates       = get_site_transient( 'update_themes' );
-            $outdated_themes     = $theme_updates->response;
+            $theme_stylesheet = $args['theme_stylesheet'];
+            $theme_updates    = get_site_transient( 'update_themes' );
+            $outdated_themes  = is_object( $theme_updates ) && isset( $theme_updates->response ) && is_array( $theme_updates->response )
+                ? $theme_updates->response
+                : [];
             $outdated_themes_key = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             if ( empty( $outdated_themes_key ) ) {
@@ -1313,9 +1422,25 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     return [ 'status' => $status ];
                 }
 
+                if ( empty( $themes_available_in_subscriptions[ $theme_stylesheet ] ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'License not found for this theme', 'directorist' );
+
+                    return [ 'status' => $status ];
+                }
+
                 $theme_item = $themes_available_in_subscriptions[ $theme_stylesheet ];
                 $url        = self::get_file_download_link( $theme_item, 'theme' );
-                $url        = ( empty( $url ) && ! empty( $outdated_themes[ $theme_stylesheet ]['package'] ) ) ? $outdated_themes[ $theme_stylesheet ]['package'] : $url;
+                $theme_update_item = $outdated_themes[ $theme_stylesheet ];
+                $package_url       = is_object( $theme_update_item ) ? ( $theme_update_item->package ?? '' ) : ( $theme_update_item['package'] ?? '' );
+                $url               = empty( $url ) && ! empty( $package_url ) ? $package_url : $url;
+
+                if ( empty( $url ) ) {
+                    $status['success'] = false;
+                    $status['message'] = __( 'Download link could not be retrieved', 'directorist' );
+
+                    return [ 'status' => $status ];
+                }
 
                 $download_status = $this->download_theme( [ 'url' => $url ] );
 
@@ -1386,8 +1511,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $status = [
                 'success' => true,
-                'log' => [],
+                'log'     => [],
             ];
+
+            if ( ! current_user_can( 'manage_options' ) ) {
+                $status['success']                  = false;
+                $status['log']['permission_denied'] = [
+                    'type'    => 'error',
+                    'message' => __( 'You do not have permission to perform this action.', 'directorist' ),
+                ];
+
+                wp_send_json( [ 'status' => $status ] );
+            }
 
             if ( ! directorist_verify_nonce( 'nonce', 'atbdp_nonce_action_js' ) ) {
                 $status['success']                 = false;
@@ -1398,34 +1533,50 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             // Get form data
-			$username = ( isset( $_POST['username'] ) ) ? sanitize_user( $_POST['username'] ) : ''; // @codingStandardsIgnoreLine.
-			$password = ( isset( $_POST['password'] ) ) ? urlencode( $_POST['password'] ) : ''; // @codingStandardsIgnoreLine.
+            $auth_method = isset( $_POST['auth_method'] ) && 'access_key' === sanitize_key( wp_unslash( $_POST['auth_method'] ) )
+                ? 'access_key'
+                : 'account';
+            $access_key  = ( isset( $_POST['access_key'] ) ) ? sanitize_text_field( wp_unslash( $_POST['access_key'] ) ) : '';
+			$submitted_login = ( isset( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : ''; // @codingStandardsIgnoreLine.
+			$username        = is_email( $submitted_login ) ? sanitize_email( $submitted_login ) : sanitize_user( $submitted_login );
+			$password_raw    = ( isset( $_POST['password'] ) ) ? wp_unslash( $_POST['password'] ) : ''; // @codingStandardsIgnoreLine.
+			$password        = urlencode( $password_raw );
 
-            // Validate username
-            if ( empty( $username ) && ! empty( $password ) ) {
-                $status['success']                 = false;
-                $status['log']['username_missing'] = [
+            if ( 'access_key' === $auth_method && empty( $access_key ) ) {
+                $status['success']                    = false;
+                $status['log']['access_key_missing'] = [
                     'type'    => 'error',
-                    'message' => 'Username is required',
+                    'message' => __( 'Access key is required', 'directorist' ),
                 ];
             }
 
-            // Validate password
-            if ( empty( $password ) && ! empty( $username ) ) {
-                $status['success']                 = false;
-                $status['log']['password_missing'] = [
-                    'type'    => 'error',
-                    'message' => 'Password is required',
-                ];
-            }
+            if ( 'account' === $auth_method ) {
+                // Validate username
+                if ( empty( $username ) && ! empty( $password ) ) {
+                    $status['success']                 = false;
+                    $status['log']['username_missing'] = [
+                        'type'    => 'error',
+                        'message' => __( 'Username or email address is required', 'directorist' ),
+                    ];
+                }
 
-            // Validate username && password
-            if ( empty( $password ) && empty( $username ) ) {
-                $status['success']                 = false;
-                $status['log']['password_missing'] = [
-                    'type'    => 'error',
-                    'message' => 'Username and Password is required',
-                ];
+                // Validate password
+                if ( empty( $password ) && ! empty( $username ) ) {
+                    $status['success']                 = false;
+                    $status['log']['password_missing'] = [
+                        'type'    => 'error',
+                        'message' => __( 'Password is required', 'directorist' ),
+                    ];
+                }
+
+                // Validate username && password
+                if ( empty( $password ) && empty( $username ) ) {
+                    $status['success']                 = false;
+                    $status['log']['password_missing'] = [
+                        'type'    => 'error',
+                        'message' => __( 'Username or email address and password are required', 'directorist' ),
+                    ];
+                }
             }
 
             if ( ! $status['success'] ) {
@@ -1433,12 +1584,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             // Get licencing data
-            $response = self::remote_authenticate_user(
-                [
-                    'user' => $username,
-                    'password' => $password,
-                ]
-            );
+            $response = 'access_key' === $auth_method
+                ? self::remote_authenticate_user_by_access_key( $access_key )
+                : self::remote_authenticate_user(
+                    [
+                        'user'         => $username,
+                        'password'     => $password,
+                        'password_raw' => $password_raw,
+                    ]
+                );
 
             // Validate response
             if ( ! $response['success'] ) {
@@ -1467,28 +1621,36 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 );
             }
 
-            $previous_username = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
+            $this->store_account_summary_from_response( $response );
+
+            $account_data       = isset( $response['account_data'] ) && is_array( $response['account_data'] ) ? $response['account_data'] : [];
+            $account_identifier = $username;
+
+            if ( 'access_key' === $auth_method ) {
+                $account_identifier = isset( $account_data['user_email'] ) && is_scalar( $account_data['user_email'] )
+                    ? sanitize_email( (string) $account_data['user_email'] )
+                    : '';
+
+                if ( ! $account_identifier && isset( $account_data['display_name'] ) && is_scalar( $account_data['display_name'] ) ) {
+                    $account_identifier = sanitize_text_field( (string) $account_data['display_name'] );
+                }
+            }
+
+            $previous_username    = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
+            $previous_auth_method = get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true );
+            $previous_auth_method = 'access_key' === $previous_auth_method ? 'access_key' : 'account';
 
             // Enable Sassion
-            update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
+            update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $account_identifier );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            update_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', $auth_method );
 
             $plugins_available_in_subscriptions = self::get_purchased_extension_list();
             $themes_available_in_subscriptions  = self::get_purchased_theme_list();
             $has_previous_subscriptions         = ( ! empty( $plugins_available_in_subscriptions ) || ! empty( $themes_available_in_subscriptions ) ) ? true : false;
-
-            if ( $previous_username === $username && $has_previous_subscriptions ) {
-                // Enable Sassion
-                update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
-                $this->refresh_purchase_status( $args = [ 'password' => $password ] );
-
-                wp_send_json(
-                    [
-                        'status' => $status,
-                        'has_previous_subscriptions' => true,
-                    ]
-                );
-            }
+            $is_returning_customer              = $previous_username === $account_identifier
+                && $previous_auth_method === $auth_method
+                && $has_previous_subscriptions;
 
             delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
             delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
@@ -1504,6 +1666,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             if ( ! empty( $license_data['plugins'] ) ) {
                 $plugins_available_in_subscriptions = $this->prepare_available_in_subscriptions( $license_data['plugins'] );
                 update_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', $plugins_available_in_subscriptions );
+            }
+
+            if ( $is_returning_customer ) {
+                wp_send_json(
+                    [
+                        'status'                     => $status,
+                        'has_previous_subscriptions' => true,
+                    ]
+                );
             }
 
             $status['success']                 = true;
@@ -1535,9 +1706,20 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-			$password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : ''; // @codingStandardsIgnoreLine.
+			$credential        = isset( $_POST['credential'] )
+                ? wp_unslash( $_POST['credential'] ) // @codingStandardsIgnoreLine.
+                : ( ( isset( $_POST['password'] ) ) ? wp_unslash( $_POST['password'] ) : '' ); // @codingStandardsIgnoreLine.
+            $connection_method = get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true );
+            $connection_method = 'access_key' === $connection_method ? 'access_key' : 'account';
 
-            $status = $this->refresh_purchase_status( [ 'password' => $password ] );
+            $status = $this->refresh_purchase_status(
+                [
+                    'credential'        => $credential,
+                    'password'          => $credential,
+                    'password_raw'      => $credential,
+                    'connection_method' => $connection_method,
+                ]
+            );
 
             wp_send_json( $status );
         }
@@ -1545,20 +1727,28 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         // refresh_purchase_status
         public function refresh_purchase_status( array $args = [] ) {
             $status  = [ 'success' => true ];
-            $default = [ 'password' => '' ];
-            $args    = array_merge( $default, $args );
+            $default = [
+                'credential'        => '',
+                'password'          => '',
+                'password_raw'      => null,
+                'connection_method' => 'account',
+            ];
+            $args              = array_merge( $default, $args );
+            $connection_method = 'access_key' === $args['connection_method'] ? 'access_key' : 'account';
+            $credential        = '' !== $args['credential'] ? $args['credential'] : $args['password'];
 
-            if ( empty( $args['password'] ) ) {
+            if ( empty( $credential ) ) {
                 $status['success'] = false;
-                $status['message'] = __( 'Password is required', 'directorist' );
+                $status['message'] = 'access_key' === $connection_method
+                    ? __( 'Access key is required', 'directorist' )
+                    : __( 'Password is required', 'directorist' );
 
                 return [ 'status' => $status ];
             }
 
             $username = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
-            $password = $args['password'];
 
-            if ( empty( $username ) ) {
+            if ( 'account' === $connection_method && empty( $username ) ) {
                 $status['success'] = false;
                 $status['reload']  = true;
                 $status['message'] = __( 'Sassion is destroyed, please sign-in again', 'directorist' );
@@ -1569,12 +1759,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             // Get licencing data
-            $authentication = self::remote_authenticate_user(
-                [
-                    'user' => $username,
-                    'password' => $password,
-                ]
-            );
+            $authentication = 'access_key' === $connection_method
+                ? self::remote_authenticate_user_by_access_key( sanitize_text_field( $credential ) )
+                : self::remote_authenticate_user(
+                    [
+                        'user'         => $username,
+                        'password'     => $credential,
+                        'password_raw' => $args['password_raw'],
+                    ]
+                );
 
             // Validate response
             if ( ! $authentication['success'] ) {
@@ -1585,6 +1778,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'status' => $status,
                     'response_body' => $authentication,
                 ];
+            }
+
+            $this->store_account_summary_from_response( $authentication );
+
+            if ( 'access_key' === $connection_method ) {
+                $account_data = isset( $authentication['account_data'] ) && is_array( $authentication['account_data'] )
+                    ? $authentication['account_data']
+                    : [];
+
+                if ( isset( $account_data['user_email'] ) && is_scalar( $account_data['user_email'] ) ) {
+                    update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', sanitize_email( (string) $account_data['user_email'] ) );
+                }
             }
 
             $license_data = $authentication['license_data'];
@@ -1633,6 +1838,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $status = [ 'success' => true ];
             delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
+            delete_user_meta( get_current_user_id(), '_atbdp_account_summary' );
+            delete_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method' );
 
             if ( $args['hard_logout'] ) {
                 delete_user_meta( get_current_user_id(), '_atbdp_subscribed_username' );
@@ -1893,7 +2100,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            if ( 'plugin' !== $type || 'theme' !== $type ) {
+            if ( 'plugin' !== $type && 'theme' !== $type ) {
                 $status['success'] = false;
                 $status['message'] = 'Invalid type';
 
@@ -1936,243 +2143,250 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             if ( ! $download_status['success'] ) {
-                return $download_status;
+                $status['success'] = false;
+                $status['message'] = $download_status['message'] ?? __( 'Download failed', 'directorist' );
+                wp_send_json( [ 'status' => $status ] );
             }
 
             $status['success'] = true;
-            $status['message'] = __( 'Donloaded', 'directorist' );
+            $status['message'] = __( 'Downloaded', 'directorist' );
 
             wp_send_json( [ 'status' => $status ] );
         }
 
         // download_plugin
         public function download_plugin( array $args = [] ) {
-            $status = [ 'success' => false ];
-
-            $default = [
-                'url' => '',
-                'init_wp_filesystem' => true,
-            ];
-            $args    = array_merge( $default, $args );
-
-            if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Invalid download link', 'directorist' );
-
-                return $status;
-            }
-
-            global $wp_filesystem;
-
-            if ( $args['init_wp_filesystem'] ) {
-
-                if ( ! function_exists( 'WP_Filesystem' ) ) {
-                    include ABSPATH . 'wp-admin/includes/file.php';
-                }
-
-                WP_Filesystem();
-            }
-
-            $plugin_path = WP_CONTENT_DIR . '/plugins';
-            $temp_dest   = "{$plugin_path}/atbdp-temp-dir";
-            $file_url    = $args['url'];
-            $file_name   = basename( $file_url );
-            $tmp_file    = download_url( $file_url );
-
-            if ( ! is_string( $tmp_file ) ) {
-                $status['success']  = false;
-                $status['tmp_file'] = $tmp_file;
-                $status['file_url'] = $file_url;
-                $status['message']  = 'Could not download the file';
-
-                return $status;
-            }
-
-            // Make Temp Dir
-            if ( $wp_filesystem->exists( $temp_dest ) ) {
-                $wp_filesystem->delete( $temp_dest, true );
-            }
-
-            $wp_filesystem->mkdir( $temp_dest );
-
-            if ( ! file_exists( $temp_dest ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Could not create temp directory', 'directorist' );
-
-                return $status;
-            }
-
-            // Sets file temp destination.
-            $file_path = "{$temp_dest}/{$file_name}";
-
-            set_error_handler(
-                function ( $errno, $errstr, $errfile, $errline ) {
-                    // error was suppressed with the @-operator
-                    if ( 0 === error_reporting() ) {
-                          return false;
-                    }
-
-                    throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
-                }
-            );
-
-            // Copies the file to the final destination and deletes temporary file.
-            try {
-                copy( $tmp_file, $file_path );
-            } catch ( Exception $e ) {
-                $status['success'] = false;
-                $status['message'] = $e->getMessage();
-
-                return $status;
-            }
-
-            @unlink( $tmp_file );
-            unzip_file( $file_path, $temp_dest );
-
-            if ( "{$plugin_path}/" !== $file_path || $file_path !== $plugin_path ) {
-                @unlink( $file_path );
-            }
-
-            $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
-
-            foreach ( $extracted_file_dir as $dir_path ) {
-                $dir_name  = basename( $dir_path );
-                $dest_path = "{$plugin_path}/{$dir_name}";
-
-                // Delete Previous Files if Exists
-                if ( $wp_filesystem->exists( $dest_path ) ) {
-                    $wp_filesystem->delete( $dest_path, true );
-                }
-            }
-
-            copy_dir( $temp_dest, $plugin_path );
-            $wp_filesystem->delete( $temp_dest, true );
-
-            $status['success'] = true;
-            $status['message'] = __( 'The plugin has been downloaded successfully', 'directorist' );
-
-            return $status;
+            return $this->download_product_package( $args, 'plugin' );
         }
 
         // download_theme
         public function download_theme( array $args = [] ) {
-            $status = [ 'success' => false ];
+            return $this->download_product_package( $args, 'theme' );
+        }
 
-            $default = [
-                'url' => '',
-                'init_wp_filesystem' => true,
-            ];
-            $args    = array_merge( $default, $args );
+        private function download_product_package( array $args, $product_type ) {
+            $status = [ 'success' => false ];
+            $args   = array_merge(
+                [
+                    'url'                => '',
+                    'init_wp_filesystem' => true,
+                ],
+                $args
+            );
 
             if ( empty( $args['url'] ) || ! self::is_varified_host( $args['url'] ) ) {
-                $status['success'] = false;
                 $status['message'] = __( 'Invalid download link', 'directorist' );
-
                 return $status;
+            }
+
+            if ( ! in_array( $product_type, [ 'plugin', 'theme' ], true ) ) {
+                $status['message'] = __( 'Invalid product type', 'directorist' );
+                return $status;
+            }
+
+            if ( ! function_exists( 'WP_Filesystem' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/file.php';
             }
 
             global $wp_filesystem;
 
-            if ( $args['init_wp_filesystem'] ) {
+            if ( $args['init_wp_filesystem'] && ! WP_Filesystem() ) {
+                $status['message'] = __( 'Could not initialize the WordPress filesystem.', 'directorist' );
+                return $status;
+            }
 
-                if ( ! function_exists( 'WP_Filesystem' ) ) {
-                    include ABSPATH . 'wp-admin/includes/file.php';
+            if ( ! is_object( $wp_filesystem ) ) {
+                $status['message'] = __( 'The WordPress filesystem is unavailable.', 'directorist' );
+                return $status;
+            }
+
+            $destination_root = 'plugin' === $product_type ? WP_PLUGIN_DIR : get_theme_root();
+            $token            = str_replace( '-', '', wp_generate_uuid4() );
+            $extract_path     = trailingslashit( get_temp_dir() ) . "directorist-{$product_type}-{$token}";
+            $tmp_file         = download_url( $args['url'] );
+            $stage_paths      = [];
+            $backup_paths     = [];
+            $installed_paths  = [];
+
+            if ( is_wp_error( $tmp_file ) ) {
+                $status['message'] = $tmp_file->get_error_message();
+                return $status;
+            }
+
+            if ( ! is_string( $tmp_file ) || ! $wp_filesystem->mkdir( $extract_path ) ) {
+                if ( is_string( $tmp_file ) && file_exists( $tmp_file ) ) {
+                    wp_delete_file( $tmp_file );
                 }
 
-                WP_Filesystem();
-            }
-
-            $theme_path = WP_CONTENT_DIR . '/themes';
-            $temp_dest  = "{$theme_path}/atbdp-temp-dir";
-            $file_url   = $args['url'];
-            $file_name  = basename( $file_url );
-            $tmp_file   = download_url( $file_url );
-
-            if ( ! is_string( $tmp_file ) ) {
-                $status['success']  = false;
-                $status['tmp_file'] = $tmp_file;
-                $status['file_url'] = $file_url;
-                $status['message']  = 'Could not download the file';
-
+                $status['message'] = __( 'Could not create a temporary product directory.', 'directorist' );
                 return $status;
             }
 
-            // Make Temp Dir
-            if ( $wp_filesystem->exists( $temp_dest ) ) {
-                $wp_filesystem->delete( $temp_dest, true );
-            }
+            $unzip_status = unzip_file( $tmp_file, $extract_path );
+            wp_delete_file( $tmp_file );
 
-            $wp_filesystem->mkdir( $temp_dest );
-
-            if ( ! file_exists( $temp_dest ) ) {
-                $status['success'] = false;
-                $status['message'] = __( 'Could not create temp directory', 'directorist' );
-
+            if ( is_wp_error( $unzip_status ) ) {
+                $wp_filesystem->delete( $extract_path, true );
+                $status['message'] = $unzip_status->get_error_message();
                 return $status;
             }
 
-            // Sets file temp destination.
-            $file_path = "{$temp_dest}/{$file_name}";
+            $sources = $this->get_product_package_sources( $extract_path, $product_type );
 
-            set_error_handler(
-                function ( $errno, $errstr, $errfile, $errline ) {
-                    // error was suppressed with the @-operator
-                    if ( 0 === error_reporting() ) {
-                          return false;
+            if ( is_wp_error( $sources ) ) {
+                $wp_filesystem->delete( $extract_path, true );
+                $status['message'] = $sources->get_error_message();
+                return $status;
+            }
+
+            foreach ( $sources as $source_path ) {
+                $directory_name = basename( $source_path );
+
+                if ( 0 !== validate_file( $directory_name ) || in_array( $directory_name, [ '.', '..' ], true ) ) {
+                    $status['message'] = __( 'The product package contains an invalid directory name.', 'directorist' );
+                    break;
+                }
+
+                $stage_path = trailingslashit( $destination_root ) . ".directorist-stage-{$token}-{$directory_name}";
+                $stage_paths[ $directory_name ] = $stage_path;
+                $copy_status = copy_dir( $source_path, $stage_path );
+
+                if ( is_wp_error( $copy_status ) ) {
+                    $status['message'] = $copy_status->get_error_message();
+                    break;
+                }
+
+                if ( ! $this->is_valid_product_directory( $stage_path, $product_type ) ) {
+                    $status['message'] = __( 'The staged product files are invalid.', 'directorist' );
+                    break;
+                }
+
+            }
+
+            if ( empty( $status['message'] ) ) {
+                foreach ( $stage_paths as $directory_name => $stage_path ) {
+                    $destination_path = trailingslashit( $destination_root ) . $directory_name;
+                    $backup_path      = trailingslashit( $destination_root ) . ".directorist-backup-{$token}-{$directory_name}";
+
+                    if ( $wp_filesystem->exists( $destination_path ) ) {
+                        if ( ! $wp_filesystem->move( $destination_path, $backup_path, false ) ) {
+                            $status['message'] = __( 'Could not prepare the existing product files for replacement.', 'directorist' );
+                            break;
+                        }
+
+                        $backup_paths[ $directory_name ] = $backup_path;
                     }
 
-                    throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
+                    if ( ! $wp_filesystem->move( $stage_path, $destination_path, false ) ) {
+                        $status['message'] = __( 'Could not move the staged product files into place.', 'directorist' );
+                        break;
+                    }
+
+                    $installed_paths[ $directory_name ] = $destination_path;
+                    unset( $stage_paths[ $directory_name ] );
                 }
-            );
-
-            // Copies the file to the final destination and deletes temporary file.
-            try {
-                copy( $tmp_file, $file_path );
-            } catch ( Exception $e ) {
-                $status['success'] = false;
-                $status['message'] = $e->getMessage();
-
-                return $status;
             }
 
-            @unlink( $tmp_file );
-            unzip_file( $file_path, $temp_dest );
+            if ( ! empty( $status['message'] ) ) {
+                foreach ( $installed_paths as $destination_path ) {
+                    $wp_filesystem->delete( $destination_path, true );
+                }
 
-            if ( "{$theme_path}/" !== $file_path || $file_path !== $theme_path ) {
-                @unlink( $file_path );
+                foreach ( $backup_paths as $directory_name => $backup_path ) {
+                    $destination_path = trailingslashit( $destination_root ) . $directory_name;
+
+                    if ( $wp_filesystem->exists( $backup_path ) ) {
+                        $wp_filesystem->move( $backup_path, $destination_path, false );
+                    }
+                }
+            } else {
+                foreach ( $backup_paths as $backup_path ) {
+                    $wp_filesystem->delete( $backup_path, true );
+                }
+
+                $status['success'] = true;
+                $status['message'] = 'plugin' === $product_type
+                    ? __( 'The plugin has been downloaded successfully', 'directorist' )
+                    : __( 'The theme has been downloaded successfully', 'directorist' );
             }
 
-            $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
-            $dir_path           = $extracted_file_dir[0];
-
-            $dir_name  = basename( $dir_path );
-            $dest_path = "{$theme_path}/{$dir_name}";
-            $zip_files = glob( "{$dir_path}/*.zip" );
-
-            // If has child theme
-            if ( ! empty( $zip_files ) ) {
-                $new_temp_dest = "{$temp_dest}/_temp_dest";
-                $this->install_themes_from_zip_files( $zip_files, $new_temp_dest, $wp_filesystem );
-
-                copy_dir( $new_temp_dest, $theme_path );
-                $wp_filesystem->delete( $temp_dest, true );
-
-                $status['success'] = false;
-                $status['message'] = __( 'The theme has been downloaded successfully', 'directorist' );
+            foreach ( $stage_paths as $stage_path ) {
+                $wp_filesystem->delete( $stage_path, true );
             }
 
-            // Delete Previous Files If Exists
-            if ( $wp_filesystem->exists( $dest_path ) ) {
-                $wp_filesystem->delete( $dest_path, true );
-            }
-
-            copy_dir( $temp_dest, $theme_path );
-            $wp_filesystem->delete( $temp_dest, true );
-
-            $status['success'] = true;
-            $status['message'] = __( 'The theme has been downloaded successfully', 'directorist' );
-
+            $wp_filesystem->delete( $extract_path, true );
             return $status;
+        }
+
+        private function get_product_package_sources( $extract_path, $product_type ) {
+            $directories = glob( trailingslashit( $extract_path ) . '*', GLOB_ONLYDIR );
+            $sources     = [];
+
+            foreach ( (array) $directories as $directory ) {
+                if ( '__MACOSX' === basename( $directory ) ) {
+                    continue;
+                }
+
+                if ( $this->is_valid_product_directory( $directory, $product_type ) ) {
+                    $sources[ basename( $directory ) ] = $directory;
+                }
+            }
+
+            if ( 'theme' === $product_type && empty( $sources ) ) {
+                $nested_path = trailingslashit( $extract_path ) . '_directorist_nested_themes';
+                $zip_files   = glob( trailingslashit( $extract_path ) . '*/*.zip' );
+
+                if ( ! empty( $zip_files ) ) {
+                    wp_mkdir_p( $nested_path );
+
+                    foreach ( $zip_files as $zip_file ) {
+                        $unzip_status = unzip_file( $zip_file, $nested_path );
+
+                        if ( is_wp_error( $unzip_status ) ) {
+                            return $unzip_status;
+                        }
+                    }
+
+                    foreach ( (array) glob( trailingslashit( $nested_path ) . '*', GLOB_ONLYDIR ) as $directory ) {
+                        if ( $this->is_valid_product_directory( $directory, $product_type ) ) {
+                            $sources[ basename( $directory ) ] = $directory;
+                        }
+                    }
+                }
+            }
+
+            if ( empty( $sources ) ) {
+                return new WP_Error( 'directorist_invalid_product_package', __( 'The downloaded archive does not contain valid product files.', 'directorist' ) );
+            }
+
+            if ( 'plugin' === $product_type && 1 !== count( $sources ) ) {
+                return new WP_Error( 'directorist_ambiguous_plugin_package', __( 'The downloaded archive contains multiple plugin directories.', 'directorist' ) );
+            }
+
+            return array_values( $sources );
+        }
+
+        private function is_valid_product_directory( $directory, $product_type ) {
+            if ( 'theme' === $product_type ) {
+                $style_file = trailingslashit( $directory ) . 'style.css';
+
+                if ( ! file_exists( $style_file ) ) {
+                    return false;
+                }
+
+                $headers = get_file_data( $style_file, [ 'name' => 'Theme Name' ], 'theme' );
+                return ! empty( $headers['name'] );
+            }
+
+            foreach ( (array) glob( trailingslashit( $directory ) . '*.php' ) as $plugin_file ) {
+                $headers = get_file_data( $plugin_file, [ 'name' => 'Plugin Name' ], 'plugin' );
+
+                if ( ! empty( $headers['name'] ) ) {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // install_theme_from_zip
@@ -2384,13 +2598,85 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
          * It Adds menu item
          */
         public function admin_menu() {
+            $parent_slug  = 'edit.php?post_type=at_biz_dir';
+            $is_connected = (bool) get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            $is_addons     = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] ) && 'addons' === sanitize_key( wp_unslash( $_GET['te_view'] ) );
+
             add_submenu_page(
-                'edit.php?post_type=at_biz_dir',
-                __( 'Get Extensions', 'directorist' ),
-                __( 'Themes & Extensions', 'directorist' ),
+                $parent_slug,
+                $is_connected && ! $is_addons ? __( 'Directorist Dashboard', 'directorist' ) : __( 'Themes & Extensions', 'directorist' ),
+                $is_connected ? __( 'Dashboard', 'directorist' ) : __( 'Themes & Extensions', 'directorist' ),
                 'manage_options',
                 'atbdp-extension',
                 [ $this, 'show_extension_view' ]
+            );
+
+            if ( ! $is_connected ) {
+                return;
+            }
+
+            global $submenu;
+
+            if ( ! empty( $submenu[ $parent_slug ] ) ) {
+                foreach ( $submenu[ $parent_slug ] as $index => $item ) {
+                    if ( isset( $item[2] ) && 'atbdp-extension' === $item[2] ) {
+                        unset( $submenu[ $parent_slug ][ $index ] );
+                        array_unshift( $submenu[ $parent_slug ], $item );
+                        break;
+                    }
+                }
+            }
+
+            $addons_url = add_query_arg(
+                [
+                    'post_type' => ATBDP_POST_TYPE,
+                    'page'      => 'atbdp-extension',
+                    'te_view'   => 'addons',
+                ],
+                admin_url( 'edit.php' )
+            );
+
+            $submenu[ $parent_slug ][] = [
+                __( 'Themes & Extensions', 'directorist' ),
+                'manage_options',
+                esc_url_raw( $addons_url ),
+                __( 'Themes & Extensions', 'directorist' ),
+            ];
+        }
+
+        /**
+         * Keep the WordPress submenu selection aligned with the current page view.
+         *
+         * @param string $submenu_file Current submenu file.
+         * @param string $parent_file  Current parent file.
+         *
+         * @return string
+         */
+        public function set_active_submenu( $submenu_file, $parent_file ) {
+            $requested_page = isset( $_GET['page'] ) && is_scalar( $_GET['page'] )
+                ? sanitize_key( wp_unslash( $_GET['page'] ) )
+                : '';
+
+            if ( 'edit.php?post_type=at_biz_dir' !== $parent_file || 'atbdp-extension' !== $requested_page ) {
+                return $submenu_file;
+            }
+
+            $is_connected = (bool) get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            $requested    = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] )
+                ? sanitize_key( wp_unslash( $_GET['te_view'] ) )
+                : '';
+
+            if ( ! $is_connected || 'addons' !== $requested ) {
+                return 'atbdp-extension';
+            }
+
+            return add_query_arg(
+                [
+                    'post_type' => ATBDP_POST_TYPE,
+                    'page'      => 'atbdp-extension',
+                    'te_view'   => 'addons',
+                ],
+                admin_url( 'edit.php' )
             );
         }
 
@@ -2654,7 +2940,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $sovware_themes       = ( is_array( $this->themes ) ) ? array_keys( $this->themes ) : [];
             $theme_updates        = get_site_transient( 'update_themes' );
-            $outdated_themes      = $theme_updates->response;
+            $outdated_themes      = ( is_object( $theme_updates ) && isset( $theme_updates->response ) && is_array( $theme_updates->response ) ) ? $theme_updates->response : array();
             $outdated_themes_keys = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             $all_themes            = wp_get_themes();
@@ -2668,13 +2954,29 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 if ( in_array( $theme_base, $sovware_themes ) ) {
                     $customizer_link = "customize.php?theme={$theme_data->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
                     $customizer_link = admin_url( $customizer_link );
+                    $has_theme_update  = isset( $outdated_themes[ $theme_data->stylesheet ] );
+                    $theme_update_info = $has_theme_update ? $outdated_themes[ $theme_data->stylesheet ] : array();
+                    $theme_new_version = '';
+
+                    if ( is_object( $theme_update_info ) ) {
+                        $theme_update_info = get_object_vars( $theme_update_info );
+                    }
+
+                    if ( is_array( $theme_update_info ) ) {
+                        if ( ! empty( $theme_update_info['new_version'] ) && is_scalar( $theme_update_info['new_version'] ) ) {
+                            $theme_new_version = sanitize_text_field( $theme_update_info['new_version'] );
+                        } elseif ( ! empty( $theme_update_info['version'] ) && is_scalar( $theme_update_info['version'] ) ) {
+                            $theme_new_version = sanitize_text_field( $theme_update_info['version'] );
+                        }
+                    }
 
                     $installed_theme_list[ $theme_base ] = [
                         'name'            => $theme_data->name,
                         'version'         => $theme_data->version,
                         'thumbnail'       => $theme_data->get_screenshot(),
                         'customizer_link' => $customizer_link,
-                        'has_update'      => ( in_array( $theme_data->stylesheet, $outdated_themes_keys ) ) ? true : false,
+                        'has_update'      => $has_theme_update,
+                        'new_version'     => $theme_new_version,
                         'stylesheet'      => $theme_data->stylesheet,
                     ];
 
@@ -2682,7 +2984,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                         $total_active_themes++;
                     }
 
-                    if ( in_array( $theme_base, $outdated_themes_keys ) ) {
+                    if ( $has_theme_update ) {
                         $total_outdated_themes++;
                     }
                 }
@@ -2763,7 +3065,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $customizer_link      = admin_url( $customizer_link );
 
             // Check form theme update
-            $has_update = isset( $args['installed_theme_list'][ $current_active_theme->stylesheet ] ) ? $args['installed_theme_list'][ $current_active_theme->stylesheet ]['has_update'] : '';
+            $active_theme_state = isset( $args['installed_theme_list'][ $current_active_theme->stylesheet ] ) ? $args['installed_theme_list'][ $current_active_theme->stylesheet ] : array();
+            $has_update         = isset( $active_theme_state['has_update'] ) ? $active_theme_state['has_update'] : '';
+            $new_version        = isset( $active_theme_state['new_version'] ) ? $active_theme_state['new_version'] : '';
 
             $active_theme_info = [
                 'name'            => $current_active_theme->name,
@@ -2771,6 +3075,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'thumbnail'       => $current_active_theme->get_screenshot(),
                 'customizer_link' => $customizer_link,
                 'has_update'      => $has_update,
+                'new_version'     => $new_version,
                 'stylesheet'      => $current_active_theme->stylesheet,
             ];
 
@@ -2885,8 +3190,222 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             return $status;
         }
 
+        private static function get_remote_auth_connection_error_message() {
+            return __( 'Could not reach Directorist.com. Please try again.', 'directorist' );
+        }
+
+        private static function get_remote_auth_invalid_credentials_message() {
+            return __( 'The username, email address, or password is incorrect. Please check your details and try again.', 'directorist' );
+        }
+
+        private static function get_remote_auth_invalid_access_key_message() {
+            return __( 'The access key is invalid. Check the key in your Directorist account and try again.', 'directorist' );
+        }
+
+        /**
+         * Normalize the shared Directorist License Manager response contract.
+         *
+         * @param array $response_body Remote response body.
+         *
+         * @return array|null
+         */
+        private static function normalize_license_manager_response( $response_body ) {
+            if ( ! is_array( $response_body ) ) {
+                return null;
+            }
+
+            if ( isset( $response_body['data'] ) && is_array( $response_body['data'] ) && isset( $response_body['data']['plan_data'] ) ) {
+                $response_body = $response_body['data'];
+            }
+
+            if ( empty( $response_body['plan_data'] ) || ! is_array( $response_body['plan_data'] ) ) {
+                return null;
+            }
+
+            $plan_data        = $response_body['plan_data'];
+            $raw_account_data = isset( $response_body['account_data'] ) && is_array( $response_body['account_data'] )
+                ? $response_body['account_data']
+                : [];
+            $account_data     = [
+                'user_id'      => isset( $raw_account_data['user_id'] ) ? absint( $raw_account_data['user_id'] ) : 0,
+                'user_email'   => isset( $raw_account_data['user_email'] ) && is_scalar( $raw_account_data['user_email'] )
+                    ? sanitize_email( (string) $raw_account_data['user_email'] )
+                    : '',
+                'display_name' => isset( $raw_account_data['display_name'] ) && is_scalar( $raw_account_data['display_name'] )
+                    ? sanitize_text_field( (string) $raw_account_data['display_name'] )
+                    : '',
+            ];
+
+            if (
+                empty( $plan_data['downloads'] )
+                || ! is_array( $plan_data['downloads'] )
+                || ! isset( $plan_data['downloads']['templates'], $plan_data['downloads']['extensions'] )
+                || ! is_array( $plan_data['downloads']['templates'] )
+                || ! is_array( $plan_data['downloads']['extensions'] )
+            ) {
+                return null;
+            }
+
+            $downloads       = $plan_data['downloads'];
+            $account_summary = isset( $plan_data['account_summary'] ) && is_array( $plan_data['account_summary'] )
+                ? $plan_data['account_summary']
+                : [];
+
+            return [
+                'success'           => true,
+                'connection_method' => isset( $response_body['method'] ) && is_scalar( $response_body['method'] )
+                    ? sanitize_key( (string) $response_body['method'] )
+                    : '',
+                'account_data'      => $account_data,
+                'plan_data'         => $plan_data,
+                'account_summary'   => $account_summary,
+                'license_data'      => [
+                    'themes'         => $downloads['templates'],
+                    'plugins'        => $downloads['extensions'],
+                    'account_summary' => $account_summary,
+                ],
+            ];
+        }
+
+        /**
+         * Authenticate with a Directorist account access key.
+         *
+         * The key is used for this request only and is never persisted locally.
+         *
+         * @param string $access_key Directorist account access key.
+         *
+         * @return array
+         */
+        private static function remote_authenticate_user_by_access_key( $access_key ) {
+            $url = apply_filters(
+                'directorist_license_manager_access_key_api_url',
+                'https://directorist.com/wp-json/directorist-license-manager/user-connect'
+            );
+
+            $response = wp_remote_post(
+                $url,
+                [
+                    'timeout'     => 30,
+                    'redirection' => 0,
+                    'headers'     => [
+                        'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
+                        'Accept'     => 'application/json',
+                    ],
+                    'body'        => [
+                        'access_key' => $access_key,
+                        'domain'     => home_url(),
+                    ],
+                ]
+            );
+
+            if ( is_wp_error( $response ) ) {
+                return [
+                    'success' => false,
+                    'message' => self::get_remote_auth_connection_error_message(),
+                ];
+            }
+
+            $response_code = wp_remote_retrieve_response_code( $response );
+            $response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+            if ( 422 === $response_code ) {
+                return [
+                    'success' => false,
+                    'message' => self::get_remote_auth_invalid_access_key_message(),
+                ];
+            }
+
+            if ( $response_code < 200 || $response_code >= 300 ) {
+                return [
+                    'success' => false,
+                    'message' => self::get_remote_auth_connection_error_message(),
+                ];
+            }
+
+            $normalized_response = self::normalize_license_manager_response( $response_body );
+
+            if ( null === $normalized_response || empty( $normalized_response['account_data']['user_id'] ) ) {
+                return [
+                    'success' => false,
+                    'message' => __( 'Directorist.com could not verify this access key. Please try again.', 'directorist' ),
+                ];
+            }
+
+            $normalized_response['connection_method'] = 'access_key';
+
+            return $normalized_response;
+        }
+
+        /**
+         * Authenticate through the current Directorist License Manager API.
+         *
+         * Returning null allows the legacy endpoint to remain the compatibility
+         * fallback when the newer route is unavailable.
+         *
+         * @param array $user_credentials User and password values.
+         *
+         * @return array|null
+         */
+        private static function remote_authenticate_user_v2( $user_credentials ) {
+            $url = apply_filters(
+                'directorist_license_manager_api_url',
+                'https://directorist.com/wp-json/directorist-license-manager/user-login'
+            );
+            $password = array_key_exists( 'password_raw', $user_credentials ) && is_string( $user_credentials['password_raw'] )
+                ? $user_credentials['password_raw']
+                : ( $user_credentials['password'] ?? '' );
+
+            $response = wp_remote_post(
+                $url,
+                [
+                    'timeout'     => 30,
+                    'redirection' => 0,
+                    'headers'     => [
+                        'user-agent' => 'Directorist/' . md5( esc_url( home_url() ) ) . ';',
+                        'Accept'     => 'application/json',
+                    ],
+                    'body'        => [
+                        'email'  => $user_credentials['user'] ?? '',
+                        'pass'   => $password,
+                        'domain' => home_url(),
+                    ],
+                ]
+            );
+
+            if ( is_wp_error( $response ) ) {
+                return null;
+            }
+
+            $response_code = wp_remote_retrieve_response_code( $response );
+            $response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+            if ( 422 === $response_code ) {
+                if ( ! is_email( $user_credentials['user'] ?? '' ) ) {
+                    return null;
+                }
+
+                return [
+                    'success' => false,
+                    'message' => self::get_remote_auth_invalid_credentials_message(),
+                ];
+            }
+
+            if ( $response_code < 200 || $response_code >= 300 || ! is_array( $response_body ) ) {
+                return null;
+            }
+
+            return self::normalize_license_manager_response( $response_body );
+        }
+
         // remote_authenticate_user
         public static function remote_authenticate_user( $user_credentials = [] ) {
+            $license_manager_response = self::remote_authenticate_user_v2( $user_credentials );
+            unset( $user_credentials['password_raw'] );
+
+            if ( null !== $license_manager_response ) {
+                return $license_manager_response;
+            }
+
             $status = [ 'success' => true ];
 
             $url     = 'https://directorist.com/wp-json/directorist/v1/licencing';
@@ -2911,14 +3430,20 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $response = wp_remote_get( $url, $config );
 
                 if ( is_wp_error( $response ) ) {
-                    $status['success'] = false;
-                    $status['message'] = Directorist\Helper::get_first_wp_error_message( $response );
+                    $status['success']    = false;
+                    $status['error_code'] = $response->get_error_code();
+                    $status['message']    = self::get_remote_auth_connection_error_message();
                 } else {
+                    $response_code = wp_remote_retrieve_response_code( $response );
                     $response_body = is_string( $response['body'] ) ? json_decode( $response['body'], true ) : $response['body'];
+
+                    if ( empty( $response_body ) && in_array( $response_code, [ 401, 403 ], true ) ) {
+                        $status['message'] = self::get_remote_auth_invalid_credentials_message();
+                    }
                 }
             } catch ( Exception $e ) {
                 $status['success'] = false;
-                $status['message'] = $e->getMessage();
+                $status['message'] = self::get_remote_auth_connection_error_message();
             }
 
             if ( is_array( $response_body ) ) {
@@ -2927,6 +3452,10 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( empty( $response_body['success'] ) ) {
                 $status['success'] = false;
+
+                if ( empty( $status['message'] ) && empty( $status['log'] ) ) {
+                    $status['message'] = self::get_remote_auth_invalid_credentials_message();
+                }
             }
 
             $status['response'] = $response_body;
@@ -3026,6 +3555,440 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         /**
+         * Store a normalized optional account summary from a remote response.
+         *
+         * @param array $response Remote API response.
+         *
+         * @return void
+         */
+        private function store_account_summary_from_response( $response ) {
+            $candidates = [
+                $response['account_summary'] ?? null,
+                $response['account']['summary'] ?? null,
+                $response['plan_data']['account_summary'] ?? null,
+                $response['license_data']['account_summary'] ?? null,
+            ];
+            $summary    = null;
+
+            foreach ( $candidates as $candidate ) {
+                if ( is_array( $candidate ) ) {
+                    $summary = $candidate;
+                    break;
+                }
+            }
+
+            if ( null === $summary ) {
+                delete_user_meta( get_current_user_id(), '_atbdp_account_summary' );
+                return;
+            }
+
+            $allowed_statuses = [ 'active', 'expired', 'cancelled', 'unknown' ];
+            $status           = isset( $summary['subscription_status'] ) && is_scalar( $summary['subscription_status'] )
+                ? sanitize_key( (string) $summary['subscription_status'] )
+                : 'unknown';
+            $expires_at       = isset( $summary['expires_at'] ) && is_scalar( $summary['expires_at'] )
+                ? trim( (string) $summary['expires_at'] )
+                : '';
+            $expires_timestamp = $expires_at ? strtotime( $expires_at ) : false;
+            $account_data      = isset( $response['account_data'] ) && is_array( $response['account_data'] )
+                ? $response['account_data']
+                : [];
+            $account_email     = isset( $account_data['user_email'] ) && is_scalar( $account_data['user_email'] )
+                ? sanitize_email( (string) $account_data['user_email'] )
+                : '';
+            $avatar_url        = isset( $summary['avatar_url'] ) && is_scalar( $summary['avatar_url'] )
+                ? esc_url_raw( (string) $summary['avatar_url'] )
+                : '';
+
+            if ( ! $avatar_url && is_email( $account_email ) ) {
+                $avatar_url = esc_url_raw( get_avatar_url( $account_email, [ 'size' => 64 ] ) );
+            }
+
+            $normalized = [
+                'display_name'        => isset( $summary['display_name'] ) && is_scalar( $summary['display_name'] )
+                    ? sanitize_text_field( (string) $summary['display_name'] )
+                    : ( isset( $account_data['display_name'] ) && is_scalar( $account_data['display_name'] )
+                        ? sanitize_text_field( (string) $account_data['display_name'] )
+                        : null ),
+                'avatar_url'          => $avatar_url ?: null,
+                'plan_name'           => isset( $summary['plan_name'] ) && is_scalar( $summary['plan_name'] )
+                    ? sanitize_text_field( (string) $summary['plan_name'] )
+                    : null,
+                'subscription_status' => in_array( $status, $allowed_statuses, true ) ? $status : 'unknown',
+                'expires_at'          => false !== $expires_timestamp ? gmdate( DATE_ATOM, $expires_timestamp ) : null,
+                'all_access'          => array_key_exists( 'all_access', $summary )
+                    ? filter_var( $summary['all_access'], FILTER_VALIDATE_BOOLEAN )
+                    : null,
+                'is_lifetime'         => array_key_exists( 'is_lifetime', $summary )
+                    ? filter_var( $summary['is_lifetime'], FILTER_VALIDATE_BOOLEAN )
+                    : null,
+            ];
+
+            update_user_meta( get_current_user_id(), '_atbdp_account_summary', $normalized );
+        }
+
+        /**
+         * Build connected account copy from authoritative summary data.
+         *
+         * @param array $account_summary Account summary data.
+         * @param bool  $has_entitlements Whether subscribed products are available.
+         *
+         * @return string
+         */
+        private function get_dashboard_account_description( $account_summary, $has_entitlements ) {
+            $status            = is_array( $account_summary ) ? ( $account_summary['subscription_status'] ?? 'unknown' ) : 'unknown';
+            $plan_name         = is_array( $account_summary ) ? trim( (string) ( $account_summary['plan_name'] ?? '' ) ) : '';
+            $all_access        = is_array( $account_summary ) && true === ( $account_summary['all_access'] ?? null );
+            $is_lifetime       = is_array( $account_summary ) && true === ( $account_summary['is_lifetime'] ?? null );
+            $expires_at        = is_array( $account_summary ) ? ( $account_summary['expires_at'] ?? null ) : null;
+            $expires_timestamp = is_scalar( $expires_at ) ? strtotime( (string) $expires_at ) : false;
+            $formatted_date    = false !== $expires_timestamp
+                ? ( function_exists( 'wp_date' )
+                    ? wp_date( get_option( 'date_format' ), $expires_timestamp )
+                    : date_i18n( get_option( 'date_format' ), $expires_timestamp ) )
+                : '';
+
+            if ( 'active' === $status ) {
+                if ( $all_access && $is_lifetime ) {
+                    return __( 'Your lifetime plan is active, so every theme and extension is unlocked.', 'directorist' );
+                }
+
+                if ( $all_access && $formatted_date ) {
+                    /* translators: %s: Subscription expiration date. */
+                    return sprintf( __( 'Your plan is active until %s, so every theme and extension is unlocked.', 'directorist' ), $formatted_date );
+                }
+
+                if ( $plan_name && $formatted_date ) {
+                    /* translators: 1: Plan name, 2: Subscription expiration date. */
+                    return sprintf( __( 'Your %1$s plan is active until %2$s.', 'directorist' ), $plan_name, $formatted_date );
+                }
+
+                if ( $formatted_date ) {
+                    /* translators: %s: Subscription expiration date. */
+                    return sprintf( __( 'Your plan is active until %s.', 'directorist' ), $formatted_date );
+                }
+            }
+
+            if ( 'expired' === $status ) {
+                if ( $formatted_date ) {
+                    /* translators: %s: Subscription expiration date. */
+                    return sprintf( __( 'Your plan expired on %s. Renew it to receive subscription updates and installs.', 'directorist' ), $formatted_date );
+                }
+
+                return __( 'Your plan has expired. Renew it to receive subscription updates and installs.', 'directorist' );
+            }
+
+            if ( 'cancelled' === $status ) {
+                return $formatted_date
+                    ? sprintf(
+                        /* translators: %s: Subscription access end date. */
+                        __( 'Your plan is cancelled. Your access remains available until %s.', 'directorist' ),
+                        $formatted_date
+                    )
+                    : __( 'Your plan is cancelled. Check your Directorist account for current access details.', 'directorist' );
+            }
+
+            return $has_entitlements
+                ? __( 'Your Directorist account is connected. Your subscribed themes and extensions are ready to manage.', 'directorist' )
+                : __( 'Your Directorist account is connected, but no subscribed products were found. Refresh purchases to sync your account.', 'directorist' );
+        }
+
+        /**
+         * Build the connected account plan label for the dashboard footer.
+         *
+         * @param array $account_summary Account summary data.
+         *
+         * @return string
+         */
+        private function get_dashboard_plan_label( $account_summary ) {
+            $plan_name = is_array( $account_summary ) && isset( $account_summary['plan_name'] )
+                ? trim( sanitize_text_field( (string) $account_summary['plan_name'] ) )
+                : '';
+
+            if ( $plan_name ) {
+                if ( preg_match( '/\bplan$/i', $plan_name ) ) {
+                    return $plan_name;
+                }
+
+                /* translators: %s: Connected Directorist subscription plan name. */
+                return sprintf( __( '%s plan', 'directorist' ), $plan_name );
+            }
+
+            if ( is_array( $account_summary ) && true === ( $account_summary['is_lifetime'] ?? null ) ) {
+                return __( 'Lifetime plan', 'directorist' );
+            }
+
+            $status = is_array( $account_summary ) ? ( $account_summary['subscription_status'] ?? 'unknown' ) : 'unknown';
+
+            if ( 'active' === $status ) {
+                return __( 'Active plan', 'directorist' );
+            }
+
+            if ( 'expired' === $status ) {
+                return __( 'Expired plan', 'directorist' );
+            }
+
+            if ( 'cancelled' === $status ) {
+                return __( 'Cancelled plan', 'directorist' );
+            }
+
+            return __( 'Connected account', 'directorist' );
+        }
+
+        /**
+         * Prepare the connected dashboard welcome section data.
+         *
+         * @param array $extensions_overview Extensions overview data.
+         * @param array $themes_overview     Themes overview data.
+         *
+         * @return array
+         */
+        private function get_dashboard_welcome_data( $extensions_overview, $themes_overview ) {
+            $has_entitlements = ! empty( $extensions_overview['extensions_available_in_subscriptions'] )
+                || ! empty( $themes_overview['themes_available_in_subscriptions'] );
+            $account_summary  = get_user_meta( get_current_user_id(), '_atbdp_account_summary', true );
+            $account_summary  = is_array( $account_summary ) ? $account_summary : [];
+            $connection_method = get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true );
+            $connection_method = 'access_key' === $connection_method ? 'access_key' : 'account';
+            $account_name     = isset( $account_summary['display_name'] )
+                ? trim( sanitize_text_field( (string) $account_summary['display_name'] ) )
+                : '';
+            $account_login    = trim( (string) get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true ) );
+
+            if ( ! $account_name && $account_login && ! is_email( $account_login ) ) {
+                $account_name = sanitize_user( $account_login );
+            }
+
+            if ( is_email( $account_name ) ) {
+                $account_name = '';
+            }
+
+            if ( $account_name ) {
+                /* translators: %s: Connected Directorist account owner's display name. */
+                $title = sprintf( __( 'Welcome back, %s', 'directorist' ), $account_name );
+            } else {
+                $title = __( 'Welcome back', 'directorist' );
+            }
+
+            $name_parts = $account_name ? preg_split( '/\s+/', $account_name ) : [];
+            $initials   = '';
+
+            if ( ! empty( $name_parts ) ) {
+                $first_part = reset( $name_parts );
+                $last_part  = end( $name_parts );
+                $initials   = function_exists( 'mb_substr' )
+                    ? mb_substr( (string) $first_part, 0, 1 )
+                    : substr( (string) $first_part, 0, 1 );
+
+                if ( count( $name_parts ) > 1 ) {
+                    $initials .= function_exists( 'mb_substr' )
+                        ? mb_substr( (string) $last_part, 0, 1 )
+                        : substr( (string) $last_part, 0, 1 );
+                }
+            }
+
+            $description      = $this->get_dashboard_account_description( $account_summary, $has_entitlements );
+            $plugin_version   = defined( 'ATBDP_VERSION' ) ? sanitize_text_field( (string) ATBDP_VERSION ) : '';
+            $whats_new_url    = apply_filters(
+                'directorist_themes_extensions_whats_new_url',
+                'https://directorist.com/changelog/',
+                $plugin_version
+            );
+
+            $directories = directory_types();
+            $directories = is_array( $directories ) && ! is_wp_error( $directories ) ? $directories : [];
+
+            return [
+                'title'               => $title,
+                'description'         => $description,
+                'account_name'        => $account_name,
+                'account_avatar_url'  => isset( $account_summary['avatar_url'] ) ? esc_url_raw( (string) $account_summary['avatar_url'] ) : '',
+                'account_initials'    => $initials
+                    ? ( function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $initials ) : strtoupper( $initials ) )
+                    : 'D',
+                'connection_method'   => $connection_method,
+                'plugin_version'      => $plugin_version,
+                'plan_label'          => $this->get_dashboard_plan_label( $account_summary ),
+                'whats_new_url'       => esc_url_raw( (string) $whats_new_url ),
+                'has_directories'     => ! empty( $directories ),
+                'view_listings_url'   => ATBDP_Permalink::get_directorist_listings_page_link(),
+                'primary_action_url'  => ! empty( $directories )
+                    ? ATBDP_Permalink::get_add_listing_page_link()
+                    : admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new' ),
+                'primary_action_text' => ! empty( $directories )
+                    ? __( 'Add listing', 'directorist' )
+                    : __( 'Create directory', 'directorist' ),
+            ];
+        }
+
+        /**
+         * Build a Directory Builder URL for the current directory mode.
+         *
+         * @param int    $directory_id Directory term ID.
+         * @param string $target       Optional stable Builder navigation target.
+         *
+         * @return string
+         */
+        private function get_dashboard_builder_url( $directory_id = 0, $target = '' ) {
+            $is_multi_directory = directorist_is_multi_directory_enabled();
+            $query_args         = [
+                'post_type' => ATBDP_POST_TYPE,
+                'page'      => $is_multi_directory ? 'atbdp-directory-types' : 'atbdp-layout-builder',
+            ];
+
+            if ( $is_multi_directory && $directory_id ) {
+                $query_args['listing_type_id'] = absint( $directory_id );
+                $query_args['action']          = 'edit';
+            }
+
+            $url    = add_query_arg( $query_args, admin_url( 'edit.php' ) );
+            $target = sanitize_key( $target );
+
+            return $target ? $url . '#' . $target : $url;
+        }
+
+        /**
+         * Prepare directory-aware connected Dashboard quick actions.
+         *
+         * @return array
+         */
+        private function get_dashboard_quick_actions_data() {
+            $directories = directory_types();
+            $directories = is_array( $directories ) && ! is_wp_error( $directories ) ? $directories : [];
+            $default_id  = (string) absint( default_directory_type() );
+            $items       = [];
+
+            foreach ( $directories as $directory ) {
+                if ( ! $directory instanceof WP_Term ) {
+                    continue;
+                }
+
+                $directory_id   = (string) absint( $directory->term_id );
+                $directory_name = sanitize_text_field( $directory->name );
+                $builder_url    = $this->get_dashboard_builder_url( $directory->term_id );
+
+                $items[] = [
+                    'id'      => $directory_id,
+                    'name'    => $directory_name,
+                    'actions' => [
+                        'add-listing'       => [
+                            'key'         => 'add-listing',
+                            'label'       => __( 'Add a listing', 'directorist' ),
+                            /* translators: %s: Directory type name. */
+                            'description' => sprintf( __( 'Create a new %s listing', 'directorist' ), $directory_name ),
+                            /* translators: %s: Directory type name. */
+                            'aria_label'  => sprintf( __( 'Add a listing for %s', 'directorist' ), $directory_name ),
+                            'icon'        => 'la la-plus',
+                            'url'         => add_query_arg(
+                                [
+                                    'post_type'      => ATBDP_POST_TYPE,
+                                    'directory_type' => $directory->term_id,
+                                ],
+                                admin_url( 'post-new.php' )
+                            ),
+                        ],
+                        'manage-categories' => [
+                            'key'         => 'manage-categories',
+                            'label'       => __( 'Manage categories', 'directorist' ),
+                            'description' => __( 'Organize how listings are grouped', 'directorist' ),
+                            /* translators: %s: Directory type name. */
+                            'aria_label'  => sprintf( __( 'Manage categories for %s', 'directorist' ), $directory_name ),
+                            'icon'        => 'la la-tags',
+                            'url'         => add_query_arg(
+                                [
+                                    'taxonomy'       => 'at_biz_dir-category',
+                                    'post_type'      => ATBDP_POST_TYPE,
+                                    'directory_type' => $directory->term_id,
+                                ],
+                                admin_url( 'edit-tags.php' )
+                            ),
+                        ],
+                        'listing-layout'    => [
+                            'key'         => 'listing-layout',
+                            'label'       => __( 'Customize listing layout', 'directorist' ),
+                            'description' => __( 'Design the single listing page', 'directorist' ),
+                            /* translators: %s: Directory type name. */
+                            'aria_label'  => sprintf( __( 'Customize the listing layout for %s', 'directorist' ), $directory_name ),
+                            'icon'        => 'la la-paint-roller',
+                            'url'         => $builder_url . '#single_page_layout__contents',
+                        ],
+                        'submission-form'   => [
+                            'key'         => 'submission-form',
+                            'label'       => __( 'Submission form settings', 'directorist' ),
+                            'description' => __( 'Control what users can submit', 'directorist' ),
+                            /* translators: %s: Directory type name. */
+                            'aria_label'  => sprintf( __( 'Edit submission form settings for %s', 'directorist' ), $directory_name ),
+                            'icon'        => 'la la-file-alt',
+                            'url'         => $builder_url . '#submission_form',
+                        ],
+                    ],
+                ];
+            }
+
+            $available_ids = wp_list_pluck( $items, 'id' );
+
+            if ( $items && ! in_array( $default_id, $available_ids, true ) ) {
+                $default_id = (string) $items[0]['id'];
+            }
+
+            $builder_page = directorist_is_multi_directory_enabled()
+                ? add_query_arg(
+                    [
+                        'post_type' => ATBDP_POST_TYPE,
+                        'page'      => 'atbdp-directory-types',
+                        'action'    => 'add_new',
+                    ],
+                    admin_url( 'edit.php' )
+                )
+                : $this->get_dashboard_builder_url();
+
+            return [
+                'default_id'       => $default_id,
+                'directories'      => $items,
+                'create_directory' => [
+                    'key'         => 'create-directory',
+                    'label'       => __( 'Create directory', 'directorist' ),
+                    'description' => __( 'Set up your first directory type', 'directorist' ),
+                    'aria_label'  => __( 'Create a directory', 'directorist' ),
+                    'icon'        => 'la la-folder-plus',
+                    'url'         => $builder_page,
+                ],
+                'email'            => [
+                    'key'         => 'email-notifications',
+                    'label'       => __( 'Email notifications', 'directorist' ),
+                    'description' => __( 'Set who gets notified, and when', 'directorist' ),
+                    'aria_label'  => __( 'Manage Directorist email notifications', 'directorist' ),
+                    'icon'        => 'la la-envelope',
+                    'url'         => add_query_arg(
+                        [
+                            'post_type' => ATBDP_POST_TYPE,
+                            'page'      => 'atbdp-settings',
+                        ],
+                        admin_url( 'edit.php' )
+                    ) . '#email_settings__email_general__active_channels__disable_email_notification',
+                ],
+            ];
+        }
+
+        /**
+         * Return a paginated connected-dashboard activity page.
+         */
+        public function get_dashboard_activity() {
+            if ( ! current_user_can( 'manage_options' ) || ! $this->is_verified_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'You are not allowed to load this activity.', 'directorist' ) ], 403 );
+            }
+
+            $page = isset( $_POST['activity_page'] ) ? absint( $_POST['activity_page'] ) : 1;
+            $type = isset( $_POST['activity_type'] ) && is_scalar( $_POST['activity_type'] )
+                ? sanitize_key( wp_unslash( $_POST['activity_type'] ) )
+                : 'all';
+
+            $activity = new ATBDP_Extension_Activity();
+
+            wp_send_json_success( $activity->get_page( $page, 10, $type ) );
+        }
+
+        /**
          * It Loads Extension view
          */
         public function show_extension_view() {
@@ -3040,6 +4003,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $extensions_overview = $this->get_extensions_overview();
             $themes_overview     = $this->get_themes_overview();
+            $dashboard_activity  = $is_logged_in ? new ATBDP_Extension_Activity() : null;
+            $dashboard_metrics   = $dashboard_activity ? $dashboard_activity->get_dashboard_metrics() : [];
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
@@ -3071,6 +4036,19 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'theme_list'                            => $this->themes,
 
                 'settings_url'                          => $settings_url,
+                'dashboard_welcome'                     => $is_logged_in ? $this->get_dashboard_welcome_data( $extensions_overview, $themes_overview ) : [],
+                'dashboard_quick_actions'               => $is_logged_in ? $this->get_dashboard_quick_actions_data() : [],
+                'dashboard_metrics'                     => $dashboard_metrics,
+                'dashboard_setup'                       => $dashboard_activity ? $dashboard_activity->get_dashboard_setup( $dashboard_metrics ) : [],
+                'dashboard_activity'                    => $dashboard_activity ? $dashboard_activity->get_page( 1, 5, 'all' ) : [],
+                'dashboard_recommendations'             => $is_logged_in
+                    ? ( new ATBDP_Extension_Recommendations(
+                        $this->extensions,
+                        $extensions_overview,
+                        self::$extensions_aliases,
+                        ATBDP()->beta
+                    ) )->get_dashboard_data()
+                    : [],
             ];
 
             ATBDP()->load_template( 'admin-templates/theme-extensions/theme-extension', $data );

@@ -9,6 +9,7 @@ use Directorist\Utils\Repositories\Repository;
 use Directorist\Utils\Database\Query\Builder;
 use Directorist\DTO\Payment\DTO;
 use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Payment\Status as PaymentStatus;
 use Directorist\DBModels\Payment;
 
 class PaymentRepository extends Repository {
@@ -33,13 +34,32 @@ class PaymentRepository extends Repository {
      * @return int
      */
     public function create( \Directorist\Utils\DTO $dto ) {
-        $payment_id = parent::create( $dto );
+        $payment_id = $this->create_without_order_update( $dto );
+        $payment    = $payment_id ? $this->get_by_id( $payment_id ) : null;
 
-        if ( $dto->is_initialized( 'status' ) && $dto->get_status() === OrderStatus::PAID ) {
+        if ( ! $payment || (int) $payment->id !== $payment_id || $payment->status !== $dto->get_status() ) {
+            return 0;
+        }
+
+        if ( $dto->is_initialized( 'status' ) && $dto->get_status() === PaymentStatus::PAID ) {
             $this->order_repository->update_status( $dto->get_order_id(), OrderStatus::PAID );
         }
 
         return $payment_id;
+    }
+
+    /**
+     * Create a payment without synchronizing the related order status.
+     *
+     * @param \Directorist\Utils\DTO $dto Payment data.
+     * @return int Payment ID, or zero when the insert fails.
+     */
+    public function create_without_order_update( \Directorist\Utils\DTO $dto ) {
+        global $wpdb;
+
+        $payment_id = parent::create( $dto );
+
+        return $wpdb->last_error ? 0 : $payment_id;
     }
 
     public function update_status_by_order_id( int $order_id, string $status ): int {

@@ -24,14 +24,14 @@ class Listings_Exporter {
         file_put_contents( $file, $file_contents );
 
         $wp_filetype = wp_check_filetype( $file_name, null );
-        $attachment = [
+        $attachment  = [
             'post_mime_type' => $wp_filetype['type'],
             'post_title'     => sanitize_file_name( $filename ),
             'post_content'   => '',
             'post_status'    => 'inherit'
         ];
 
-        $attach_id = wp_insert_attachment( $attachment, $file );
+        $attach_id  = wp_insert_attachment( $attachment, $file );
         $attach_url = wp_get_attachment_url( $attach_id );
 
         update_directorist_option( 'directorist_export_attachent_id', $attach_id );
@@ -49,35 +49,25 @@ class Listings_Exporter {
             return $contents;
         }
 
-        foreach ( $listings_data as $index => $row ) {
-            if ( $index === 0 ) {
-                $contents .= join( ',', array_keys( $row ) ) . "\n";
-            }
+        $handle = fopen( 'php://temp', 'r+' );
 
-            $row_content = '';
-
-            foreach ( $row as $row_key => $row_value ) {
-
-                $row_content__ = '';
-
-                // $accepted_types = [ 'string', 'integer', 'double', 'boolean' ];
-                if ( is_bool( $row_value ) || is_int( $row_value ) || is_double( $row_value ) || is_string( $row_value ) ) {
-                    $row_content__ = $row_value;
-                }
-
-                if ( is_array( $row_value ) ) {
-                    $row_content__ = maybe_serialize( $row_value );
-                }
-
-                $row_content__ = str_replace( '"', "'", $row_content__ );
-                $row_content__ = '"' . $row_content__ . '",';
-                $row_content .= $row_content__;
-            }
-            $contents .= rtrim( $row_content, ',' ) . "\n";
+        if ( false === $handle ) {
+            return $contents;
         }
 
+        foreach ( $listings_data as $index => $row ) {
+            if ( $index === 0 ) {
+                fputcsv( $handle, array_keys( $row ), ',', '"', '\\' );
+            }
 
-        return $contents;
+            fputcsv( $handle, array_map( [ __CLASS__, 'prepareCsvCellValue' ], $row ), ',', '"', '\\' );
+        }
+
+        rewind( $handle );
+        $contents = stream_get_contents( $handle );
+        fclose( $handle );
+
+        return false === $contents ? '' : $contents;
     }
 
     // get_listings_data
@@ -95,11 +85,11 @@ class Listings_Exporter {
         );
 
         $field_map = [
-            'native_field' => [
+            'native_field'               => [
                 'verify'      => 'verifyNativeField',
                 'update_data' => 'updateNativeFieldData',
             ],
-            'taxonomy_field' => [
+            'taxonomy_field'             => [
                 'verify'      => 'verifyTaxonomyField',
                 'update_data' => 'updateTaxonomyFieldData',
             ],
@@ -107,29 +97,28 @@ class Listings_Exporter {
                 'verify'      => 'verifyListingImageModuleField',
                 'update_data' => 'updateListingImageModuleFieldsData',
             ],
-            'price_module_field' => [
+            'price_module_field'         => [
                 'verify'      => 'verifyPriceModuleField',
                 'update_data' => 'updatePriceModuleFieldData',
             ],
-            'map_module_field' => [
+            'map_module_field'           => [
                 'verify'      => 'verifyMapModuleField',
                 'update_data' => 'updateMapModuleFieldData',
             ],
-            'meta_key_field' => [
+            'meta_key_field'             => [
                 'verify'      => 'verifyMetaKeyField',
                 'update_data' => 'updateMetaKeyFieldData',
             ],
         ];
 
-        $tr_lengths = [];
-
         if ( $listings->have_posts() ) {
             while ( $listings->have_posts() ) {
                 $listings->the_post();
 
-                $row = [];
-                $row['id'] = get_the_ID();
-                $row['directory'] = self::get_directory_slug_by_id( get_the_id() );
+                $row                 = [];
+                $row['id']           = get_the_ID();
+                $row['directory']    = self::get_directory_slug_by_id( get_the_id() );
+                $row['publish_date'] = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
 
                 $directory_type_id = get_post_meta( get_the_ID(), '_directory_type', true );
                 $submission_form   = get_term_meta( $directory_type_id, 'submission_form_fields', true );
@@ -149,16 +138,14 @@ class Listings_Exporter {
                     }
                 }
 
-                $row = self::updateListingReviewsData( $row, get_the_ID() );
-                $row = apply_filters( 'directorist_listings_export_row', $row );
-                $max_row_length = count( array_keys( $row ) );
-                $tr_lengths   [] = $max_row_length;
+                $row             = self::updateListingReviewsData( $row, get_the_ID() );
+                $row             = apply_filters( 'directorist_listings_export_row', $row );
                 $listings_data[] = $row;
             }
             wp_reset_postdata();
         }
 
-        $listings_data = self::justifyDataTableRow( $listings_data, $tr_lengths );
+        $listings_data = self::justifyDataTableRow( $listings_data );
 
         return $listings_data;
     }
@@ -170,16 +157,24 @@ class Listings_Exporter {
         if ( ! is_array( $data_table ) ) {
             return $data_table; }
 
-        $max_tr_val   = max( $tr_lengths );
-        $max_tr_index = array_search( $max_tr_val, $tr_lengths );
-        $modal_tr     = $data_table[ $max_tr_index ];
+        $header_keys = [];
+
+        foreach ( $data_table as $row ) {
+            if ( ! is_array( $row ) ) {
+                continue;
+            }
+
+            foreach ( array_keys( $row ) as $row_key ) {
+                $header_keys[ $row_key ] = true;
+            }
+        }
 
         $justify_table = [];
         foreach ( $data_table as $row ) {
             $tr = [];
 
-            foreach ( $modal_tr as $row_key => $row_value ) {
-                $tr[ $row_key ] = ( isset( $row[ $row_key ] ) ) ? $row[ $row_key ] : '';
+            foreach ( array_keys( $header_keys ) as $row_key ) {
+                $tr[ $row_key ] = array_key_exists( $row_key, $row ) ? $row[ $row_key ] : '';
             }
 
             $justify_table[] = $tr;
@@ -218,7 +213,7 @@ class Listings_Exporter {
         ];
 
         $field_key = $field_args['field_key'];
-        $content = call_user_func( $field_data_map[ $field_key ] );
+        $content   = call_user_func( $field_data_map[ $field_key ] );
         // $content = str_replace( '"', '""', $content );
 
         $row[ $field_key ] = self::escape_data( $content );
@@ -326,15 +321,16 @@ class Listings_Exporter {
 
     // updateMetaKeyFieldData
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
-        $row[ 'publish_date' ] = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
-        $row[ $field_args['field_key'] ] = self::escape_data( $value );
+        $listing_id = get_the_ID();
+        $value      = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
+
+        $row[ $field_args['field_key'] ] = self::prepareExportFieldValue( $value, $field_args, $listing_id );
 
         return $row;
     }
 
     public static function updateListingReviewsData( array $row = [], $listing_id = 0 ) {
-        $reviews = self::get_listing_reviews_data( $listing_id );
+        $reviews        = self::get_listing_reviews_data( $listing_id );
         $row['reviews'] = '';
 
         if ( empty( $reviews ) ) {
@@ -362,8 +358,8 @@ class Listings_Exporter {
 
     // updatePriceModuleFieldData
     public static function updatePriceModuleFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $row[ 'price' ] = self::escape_data( get_post_meta( get_the_id(), '_price', true ) );
-        $row[ 'price_range' ] = self::escape_data( get_post_meta( get_the_id(), '_price_range', true ) );
+        $row[ 'price' ]                = self::escape_data( get_post_meta( get_the_id(), '_price', true ) );
+        $row[ 'price_range' ]          = self::escape_data( get_post_meta( get_the_id(), '_price_range', true ) );
         $row[ 'atbd_listing_pricing' ] = self::escape_data( get_post_meta( get_the_id(), '_atbd_listing_pricing', true ) );
 
         return $row;
@@ -385,7 +381,7 @@ class Listings_Exporter {
 
     // updateMapModuleFieldData
     public static function updateMapModuleFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $row[ 'hide_map' ] = get_post_meta( get_the_id(), '_hide_map', true );
+        $row[ 'hide_map' ]   = get_post_meta( get_the_id(), '_hide_map', true );
         $row[ 'manual_lat' ] = self::escape_data( get_post_meta( get_the_id(), '_manual_lat', true ) );
         $row[ 'manual_lng' ] = self::escape_data( get_post_meta( get_the_id(), '_manual_lng', true ) );
 
@@ -543,6 +539,112 @@ class Listings_Exporter {
         }
 
         return (string) $status;
+    }
+
+    /**
+     * Prepare field values for export before the CSV row is generated.
+     *
+     * @param mixed $value Field value.
+     * @param array $field_args Field arguments.
+     * @param int   $listing_id Listing ID.
+     * @return mixed
+     */
+    public static function prepareExportFieldValue( $value, array $field_args = [], $listing_id = 0 ) {
+        $value = self::maybeUnserializeValue( $value );
+
+        return apply_filters( 'directorist_listings_export_field_value', $value, $field_args, $listing_id );
+    }
+
+    /**
+     * Prepare a single CSV cell value.
+     *
+     * @param mixed $value CSV cell value.
+     * @return string|int|float
+     */
+    public static function prepareCsvCellValue( $value ) {
+        $value = self::maybeUnserializeValue( $value );
+
+        if ( is_bool( $value ) ) {
+            return $value ? '1' : '0';
+        }
+
+        if ( null === $value ) {
+            return '';
+        }
+
+        if ( is_array( $value ) ) {
+            if ( self::isSequentialScalarArray( $value ) ) {
+                return self::escape_data( implode( ', ', array_map( [ __CLASS__, 'stringifyScalarValue' ], $value ) ) );
+            }
+
+            return self::escape_data( maybe_serialize( $value ) );
+        }
+
+        if ( is_object( $value ) ) {
+            $json_value = wp_json_encode( $value, JSON_HEX_APOS );
+            return self::escape_data( false === $json_value ? '' : $json_value );
+        }
+
+        return self::escape_data( (string) $value );
+    }
+
+    /**
+     * Unserialize values saved by field controls.
+     *
+     * @param mixed $value Field value.
+     * @return mixed
+     */
+    protected static function maybeUnserializeValue( $value ) {
+        while ( is_string( $value ) && is_serialized( $value ) ) {
+            $value = maybe_unserialize( $value );
+        }
+
+        return $value;
+    }
+
+    /**
+     * Check whether an array can be exported as a readable value list.
+     *
+     * @param array $value Field value.
+     * @return bool
+     */
+    protected static function isSequentialScalarArray( array $value ) {
+        if ( [] === $value ) {
+            return true;
+        }
+
+        $index = 0;
+        foreach ( $value as $key => $item ) {
+            if ( $key !== $index ) {
+                return false;
+            }
+
+            if ( is_array( $item ) || is_object( $item ) ) {
+                return false;
+            }
+
+            $index++;
+        }
+
+        return true;
+    }
+
+    /**
+     * Convert scalar values to a readable string.
+     *
+     * @param mixed $value Field value.
+     * @return string
+     */
+    protected static function stringifyScalarValue( $value ) {
+        if ( is_bool( $value ) ) {
+            return $value ? '1' : '0';
+        }
+
+        if ( null === $value ) {
+            return '';
+        }
+
+        return (string) $value;
     }
 
     /**

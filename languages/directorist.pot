@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-27 05:26+0000\n"
+"POT-Creation-Date: 2026-09-01 10:31+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -494,23 +494,23 @@ msgstr ""
 msgid "Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing."
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:59, ../includes/classes/class-ajax-handler.php:429, ../includes/classes/class-settings-panel.php:4124
+#: ../includes/directorist-core-functions.php:66, ../includes/classes/class-ajax-handler.php:429, ../includes/classes/class-settings-panel.php:4124
 msgid "User"
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:60, ../includes/classes/class-ajax-handler.php:448, ../includes/classes/class-custom-post.php:775
+#: ../includes/directorist-core-functions.php:67, ../includes/classes/class-ajax-handler.php:448, ../includes/classes/class-custom-post.php:775
 msgid "Author"
 msgstr ""
 
-#: ../includes/directorist-core-functions.php:61, ../includes/classes/class-formgent.php:361
+#: ../includes/directorist-core-functions.php:68, ../includes/classes/class-formgent.php:361
 msgid "Guest"
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:172, ../includes/classes/class-featured-listing-checkout.php:92, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
+#: ../includes/directorist-directory-functions.php:172, ../includes/classes/class-featured-listing-checkout.php:100, ../includes/review/class-comment-form-processor.php:45, ../includes/review/class-comment-form-renderer.php:54, ../includes/review/class-comment-form-renderer.php:63, ../includes/rest-api/Version1/class-listings-actions-controller.php:112
 msgid "Invalid listing id."
 msgstr ""
 
-#: ../includes/directorist-directory-functions.php:176, ../includes/classes/class-submission-controller.php:516, ../includes/rest-api/Version1/class-builder-controller.php:103, ../includes/rest-api/Version1/class-categories-controller.php:281, ../includes/rest-api/Version1/class-locations-controller.php:265
+#: ../includes/directorist-directory-functions.php:176, ../includes/classes/class-submission-controller.php:573, ../includes/rest-api/Version1/class-builder-controller.php:103, ../includes/rest-api/Version1/class-categories-controller.php:281, ../includes/rest-api/Version1/class-locations-controller.php:265
 msgid "Invalid directory id."
 msgstr ""
 
@@ -819,15 +819,15 @@ msgid_plural "Invalid pin code. You have %s attempts left."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/helper-functions.php:4660, ../includes/classes/class-extension.php:1952, ../includes/classes/class-extension.php:2061
+#: ../includes/helper-functions.php:4660, ../includes/classes/class-extension.php:1960, ../includes/classes/class-extension.php:2069
 msgid "Invalid download link"
 msgstr ""
 
-#: ../includes/helper-functions.php:4700, ../includes/classes/class-extension.php:1992, ../includes/classes/class-extension.php:2101
+#: ../includes/helper-functions.php:4700, ../includes/classes/class-extension.php:2000, ../includes/classes/class-extension.php:2109
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4752, ../includes/classes/class-extension.php:2044
+#: ../includes/helper-functions.php:4752, ../includes/classes/class-extension.php:2052
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -1204,7 +1204,7 @@ msgstr ""
 msgid "Invalid directory!"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:163, ../includes/classes/class-submission-controller.php:493
+#: ../includes/classes/class-add-listing.php:163, ../includes/classes/class-submission-controller.php:550
 msgid "Invalid listing!"
 msgstr ""
 
@@ -1224,11 +1224,11 @@ msgstr ""
 msgid "Terms & Privacy is required"
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:476, ../includes/classes/class-submission-controller.php:800
+#: ../includes/classes/class-add-listing.php:476, ../includes/classes/class-submission-controller.php:862
 msgid "Your listing submission is completed! Redirecting..."
 msgstr ""
 
-#: ../includes/classes/class-add-listing.php:498, ../includes/classes/class-submission-controller.php:804
+#: ../includes/classes/class-add-listing.php:498, ../includes/classes/class-submission-controller.php:866
 msgid "Payment required! Redirecting to checkout..."
 msgstr ""
 
@@ -1308,7 +1308,7 @@ msgstr ""
 msgid "Invalid directory."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:620, ../includes/classes/class-ajax-handler.php:866, ../includes/classes/class-extension.php:766, ../includes/classes/class-extension.php:1145, ../includes/classes/class-extension.php:1200, ../includes/classes/class-extension.php:1226, ../includes/classes/class-extension.php:1253, ../includes/classes/class-extension.php:1518, ../includes/classes/class-extension.php:1604, ../includes/classes/class-extension.php:1743, ../includes/classes/class-extension.php:1860
+#: ../includes/classes/class-ajax-handler.php:620, ../includes/classes/class-ajax-handler.php:866, ../includes/classes/class-extension.php:774, ../includes/classes/class-extension.php:1153, ../includes/classes/class-extension.php:1208, ../includes/classes/class-extension.php:1234, ../includes/classes/class-extension.php:1261, ../includes/classes/class-extension.php:1526, ../includes/classes/class-extension.php:1612, ../includes/classes/class-extension.php:1751, ../includes/classes/class-extension.php:1868
 msgid "You do not have permission to perform this action."
 msgstr ""
 
@@ -1332,7 +1332,7 @@ msgstr ""
 msgid "No category selected."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:725, ../includes/classes/class-ajax-handler.php:2094, ../includes/rest-api/Version1/class-orders-controller.php:105
+#: ../includes/classes/class-ajax-handler.php:725, ../includes/classes/class-ajax-handler.php:2094, ../includes/rest-api/Version1/class-orders-controller.php:106
 msgid "Invalid listing."
 msgstr ""
 
@@ -2294,363 +2294,367 @@ msgid "AI-powered directory search that understands intent and improves listing 
 msgstr ""
 
 #: ../includes/classes/class-extension.php:251
+msgid "Turn your directory into native Divi 5 modules and visually customize listing archives, search, categories, locations, single listings, and author profile pages."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:259
 msgid "Import Google Maps and feeds into Directorist automatically, effortlessly."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:260
+#: ../includes/classes/class-extension.php:268
 msgid "Unlock powerful insights to grow your directory with confidence."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:269
+#: ../includes/classes/class-extension.php:277
 msgid "Detailed, criteria-based review to make listings more trustworthy."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:278
+#: ../includes/classes/class-extension.php:286
 msgid "Unified Search Across All Your Directories – Instantly Find What You Need"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:287
+#: ../includes/classes/class-extension.php:295
 msgid "The Search Alert Plugin lets users create, manage, and receive alerts for matches."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:296
+#: ../includes/classes/class-extension.php:304
 msgid "Effortlessly share updates, news, or promotions with the Directorist Announcement Extension."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:305
+#: ../includes/classes/class-extension.php:313
 msgid "Enhance directory sites with AddonsKit for Bricks Builder with drag-and-drop custom elements, interactive maps, and more."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:314
+#: ../includes/classes/class-extension.php:322
 msgid "It lets you offer discounts to users when purchasing listing plans or paying for featured listings."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:322
+#: ../includes/classes/class-extension.php:330
 msgid "Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:330
+#: ../includes/classes/class-extension.php:338
 msgid "Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:339
+#: ../includes/classes/class-extension.php:347
 msgid "Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:347
+#: ../includes/classes/class-extension.php:355
 msgid "Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:355
+#: ../includes/classes/class-extension.php:363
 msgid "Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:363
+#: ../includes/classes/class-extension.php:371
 msgid "Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:371
+#: ../includes/classes/class-extension.php:379
 msgid "Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:379
+#: ../includes/classes/class-extension.php:387
 msgid "Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:387
+#: ../includes/classes/class-extension.php:395
 msgid "Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:395
+#: ../includes/classes/class-extension.php:403
 msgid "Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:403
+#: ../includes/classes/class-extension.php:411
 msgid "Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:411
+#: ../includes/classes/class-extension.php:419
 msgid "Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:420
+#: ../includes/classes/class-extension.php:428
 msgid "Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:429
+#: ../includes/classes/class-extension.php:437
 msgid "Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:437
+#: ../includes/classes/class-extension.php:445
 msgid "This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:445
+#: ../includes/classes/class-extension.php:453
 msgid "Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:454
+#: ../includes/classes/class-extension.php:462
 msgid "Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:462
+#: ../includes/classes/class-extension.php:470
 msgid "Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:470
+#: ../includes/classes/class-extension.php:478
 msgid "Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:478
+#: ../includes/classes/class-extension.php:486
 msgid "Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:486
+#: ../includes/classes/class-extension.php:494
 msgid "Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:494
+#: ../includes/classes/class-extension.php:502
 msgid "If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories. This opens up a new window to earn money from your directory website."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:502
+#: ../includes/classes/class-extension.php:510
 msgid "If you're wondering how to place job listings with detailed specifications, then Directorist-Job Manager gets you rid out of this problem"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:510
+#: ../includes/classes/class-extension.php:518
 msgid "Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:518
+#: ../includes/classes/class-extension.php:526
 msgid "Directorist HelpGent Integration puts Directorist and HelpGent on the same avenue. The integration helps you to make your directory website more accessible to your audience which eventually creates more leads and conversions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:526
+#: ../includes/classes/class-extension.php:534
 msgid "Directorist WPML Integration connects Directorist and WPML in one place. It helps you to make your directory sites multilingual more conveniently & efficiently by switching your directory website from one language to another."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:534
+#: ../includes/classes/class-extension.php:542
 msgid "If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:542
+#: ../includes/classes/class-extension.php:550
 msgid "Directorist GamiPress Integration Connects Directorist with GamiPress in one place. It helps you to aggrandize the engagement of your directory business with the utmost possible ease."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:556
+#: ../includes/classes/class-extension.php:564
 msgid "dJobs is a beautiful WordPress directory theme for jobs, employment, and other job-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:564
+#: ../includes/classes/class-extension.php:572
 msgid "dHotels is a beautiful WordPress directory theme for hotels, motels, resorts, and other hospitality-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:572
+#: ../includes/classes/class-extension.php:580
 msgid "dClassified is a beautiful WordPress directory theme for classifieds, ads, and other classified-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:580
+#: ../includes/classes/class-extension.php:588
 msgid "Onelisting is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:588
+#: ../includes/classes/class-extension.php:596
 msgid "Onelisting Pro is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:596
+#: ../includes/classes/class-extension.php:604
 msgid "dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:604
+#: ../includes/classes/class-extension.php:612
 msgid "Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:612
+#: ../includes/classes/class-extension.php:620
 msgid "dRealEstate is a beautiful WordPress directory theme for real estate, property, and other real estate-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:620
+#: ../includes/classes/class-extension.php:628
 msgid "dCar is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:628
+#: ../includes/classes/class-extension.php:636
 msgid "DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:636
+#: ../includes/classes/class-extension.php:644
 msgid "DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:644
+#: ../includes/classes/class-extension.php:652
 msgid "dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:652
+#: ../includes/classes/class-extension.php:660
 msgid "dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:796
+#: ../includes/classes/class-extension.php:804
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:819
+#: ../includes/classes/class-extension.php:827
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:828
+#: ../includes/classes/class-extension.php:836
 msgid "No purchased extensions found"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:838
+#: ../includes/classes/class-extension.php:846
 msgid "License not found for this extension"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:846
+#: ../includes/classes/class-extension.php:854
 msgid "Download link could not be retrieved"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:862
+#: ../includes/classes/class-extension.php:870
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:854
+#: ../includes/classes/class-extension.php:862
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:914
+#: ../includes/classes/class-extension.php:922
 msgid "No plugins could be updated"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:911
+#: ../includes/classes/class-extension.php:919
 msgid "All plugins have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:908
+#: ../includes/classes/class-extension.php:916
 msgid "Some of the plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1214
+#: ../includes/classes/class-extension.php:1222
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1241
+#: ../includes/classes/class-extension.php:1249
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1283
+#: ../includes/classes/class-extension.php:1291
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1289
+#: ../includes/classes/class-extension.php:1297
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1303
+#: ../includes/classes/class-extension.php:1311
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1320
+#: ../includes/classes/class-extension.php:1328
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1316
+#: ../includes/classes/class-extension.php:1324
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1356
+#: ../includes/classes/class-extension.php:1364
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1361
+#: ../includes/classes/class-extension.php:1369
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1366
+#: ../includes/classes/class-extension.php:1374
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1450
+#: ../includes/classes/class-extension.php:1458
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1545
+#: ../includes/classes/class-extension.php:1553
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1556
+#: ../includes/classes/class-extension.php:1564
 msgid "Sassion is destroyed, please sign-in again"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1596
+#: ../includes/classes/class-extension.php:1604
 msgid "Your purchase has been refreshed successfuly"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1781
+#: ../includes/classes/class-extension.php:1789
 msgid "Item key is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1788
+#: ../includes/classes/class-extension.php:1796
 msgid "Type not specified"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1795
+#: ../includes/classes/class-extension.php:1803
 msgid "Invalid type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1810
+#: ../includes/classes/class-extension.php:1818
 msgid "Nothing available in subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1817
+#: ../includes/classes/class-extension.php:1825
 msgid "The item is not available in your subscriptions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1829
+#: ../includes/classes/class-extension.php:1837
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1852
+#: ../includes/classes/class-extension.php:1860
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1899, ../includes/classes/class-extension.php:2868
+#: ../includes/classes/class-extension.php:1907, ../includes/classes/class-extension.php:2876
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1935
+#: ../includes/classes/class-extension.php:1943
 msgid "Donloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2153, ../includes/classes/class-extension.php:2165
+#: ../includes/classes/class-extension.php:2161, ../includes/classes/class-extension.php:2173
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2381
+#: ../includes/classes/class-extension.php:2389
 msgid "Get Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2382
+#: ../includes/classes/class-extension.php:2390
 msgid "Themes & Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2814
+#: ../includes/classes/class-extension.php:2822
 msgid "Nothing to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2865, ../includes/classes/class-extension.php:2875
+#: ../includes/classes/class-extension.php:2873, ../includes/classes/class-extension.php:2883
 msgid "License activated successfully"
 msgstr ""
 
-#: ../includes/classes/class-featured-listing-checkout.php:86
+#: ../includes/classes/class-featured-listing-checkout.php:94
 msgid "Listing ID is required."
 msgstr ""
 
-#: ../includes/classes/class-featured-listing-checkout.php:193, ../templates/checkout/featured_listing-summary.php:15
+#: ../includes/classes/class-featured-listing-checkout.php:234, ../templates/checkout/featured_listing-summary.php:15
 msgid "Featured Listing"
 msgstr ""
 
 #. translators: %s is the listing title
-#: ../includes/classes/class-featured-listing-checkout.php:205
+#: ../includes/classes/class-featured-listing-checkout.php:246
 msgid "Featured Listing: %s"
 msgstr ""
 
@@ -5273,27 +5277,35 @@ msgstr ""
 msgid "Invalid data type, string allowed only."
 msgstr ""
 
-#: ../includes/classes/class-submission-controller.php:118
+#: ../includes/classes/class-submission-controller.php:114
+msgid "Invalid file name."
+msgstr ""
+
+#: ../includes/classes/class-submission-controller.php:125
 msgid "Invalid file or file does not exist."
 msgstr ""
 
-#: ../includes/classes/class-submission-controller.php:147
+#: ../includes/classes/class-submission-controller.php:130
+msgid "Invalid file path."
+msgstr ""
+
+#: ../includes/classes/class-submission-controller.php:160
 msgid "Invalid file type."
 msgstr ""
 
-#: ../includes/classes/class-submission-controller.php:154
+#: ../includes/classes/class-submission-controller.php:167
 msgid "Uploaded file (%s) is larger than supported size (%s)."
 msgstr ""
 
-#: ../includes/classes/class-submission-controller.php:501
+#: ../includes/classes/class-submission-controller.php:558
 msgid "You are not allowed to edit this listing."
 msgstr ""
 
-#: ../includes/classes/class-submission-controller.php:534
+#: ../includes/classes/class-submission-controller.php:591
 msgid "Privacy policy is required."
 msgstr ""
 
-#: ../includes/classes/class-submission-controller.php:544
+#: ../includes/classes/class-submission-controller.php:601
 msgid "Terms and condition is required."
 msgstr ""
 
@@ -6159,7 +6171,7 @@ msgstr ""
 msgid "The account page is only accessible to logged-out users.<a href=\"%s\">Go to Dashboard</a>"
 msgstr ""
 
-#: ../includes/model/ListingAuthor.php:249, ../templates/single/section-author_info.php:49, ../templates/widgets/author-info.php:36
+#: ../includes/model/ListingAuthor.php:249, ../templates/single/section-author_info.php:50, ../templates/widgets/author-info.php:37
 msgid "Member since %s ago"
 msgstr ""
 
@@ -6268,32 +6280,32 @@ msgstr[1] ""
 msgid "No listing found."
 msgstr ""
 
-#: ../includes/model/Listings.php:1952
+#: ../includes/model/Listings.php:1956
 msgid "Posted %s ago"
 msgstr ""
 
-#: ../includes/model/Listings.php:2012
+#: ../includes/model/Listings.php:2016
 msgctxt "search result header"
 msgid "%s result"
 msgid_plural "%s results"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:2010
+#: ../includes/model/Listings.php:2014
 msgctxt "search result header"
 msgid "%s result in %s"
 msgid_plural "%s results in %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:2008
+#: ../includes/model/Listings.php:2012
 msgctxt "search result header"
 msgid "%s result for %s"
 msgid_plural "%s results for %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/model/Listings.php:2006
+#: ../includes/model/Listings.php:2010
 msgctxt "search result header"
 msgid "%s result for %s in %s"
 msgid_plural "%s results for %s in %s"
@@ -6494,62 +6506,66 @@ msgid "Created"
 msgstr ""
 
 #: ../includes/payments/functions.php:48
+msgid "Prepaid"
+msgstr ""
+
+#: ../includes/payments/functions.php:49
 msgid "Completed"
 msgstr ""
 
-#: ../includes/payments/functions.php:49, ../includes/enums/payment/status.php:36
+#: ../includes/payments/functions.php:50, ../includes/enums/payment/status.php:36
 msgid "Failed"
 msgstr ""
 
-#: ../includes/payments/functions.php:50, ../includes/enums/payment/status.php:38
+#: ../includes/payments/functions.php:51, ../includes/enums/payment/status.php:38
 msgid "Cancelled"
 msgstr ""
 
-#: ../includes/payments/functions.php:51, ../includes/enums/payment/status.php:40
+#: ../includes/payments/functions.php:52, ../includes/enums/payment/status.php:40
 msgid "Refunded"
 msgstr ""
 
-#: ../includes/payments/functions.php:67
+#: ../includes/payments/functions.php:68
 msgid "Set Status to Created"
 msgstr ""
 
-#: ../includes/payments/functions.php:68
+#: ../includes/payments/functions.php:69
 msgid "Set Status to Pending"
 msgstr ""
 
-#: ../includes/payments/functions.php:69
+#: ../includes/payments/functions.php:70
 msgid "Set Status to Completed"
 msgstr ""
 
-#: ../includes/payments/functions.php:70
+#: ../includes/payments/functions.php:71
 msgid "Set Status to Failed"
 msgstr ""
 
-#: ../includes/payments/functions.php:71
+#: ../includes/payments/functions.php:72
 msgid "Set Status to Cancelled"
 msgstr ""
 
-#: ../includes/payments/functions.php:72
+#: ../includes/payments/functions.php:73
 msgid "Set Status to Refunded"
 msgstr ""
 
-#: ../includes/payments/functions.php:696, ../includes/enums/payment/status.php:46
+#: ../includes/payments/functions.php:697, ../includes/enums/payment/status.php:46
 msgid "Invalid"
 msgstr ""
 
-#: ../includes/repositories/order-repository.php:230
+#: ../includes/repositories/order-repository.php:271
 msgid "Discount ( %s%% )"
 msgstr ""
 
-#: ../includes/repositories/order-repository.php:230, ../templates/checkout/receipt.php:109, ../templates/payment/payment-receipt.php:141
+#: ../includes/repositories/order-repository.php:271, ../templates/checkout/receipt.php:109, ../templates/payment/payment-receipt.php:141
 msgid "Discount"
 msgstr ""
 
-#: ../includes/repositories/order-repository.php:239
+#: ../includes/repositories/order-repository.php:280
 msgid "Tax ( %s%% )"
 msgstr ""
 
-#: ../includes/repositories/order-repository.php:239, ../templates/checkout/receipt.php:120
+#: ../includes/repositories/order-repository.php:280, ../templates/checkout/receipt.php:120
 msgid "Tax"
 msgstr ""
 
@@ -7766,7 +7782,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2050, ../templates/single/section-author_info.php:41
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2050, ../templates/single/section-author_info.php:42
 msgid "Avatar"
 msgstr ""
 
@@ -8281,7 +8297,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items. Applies to hierarchical taxonomies only."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:775, ../includes/rest-api/Version1/class-listing-reviews-controller.php:526, ../includes/rest-api/Version1/class-listings-controller.php:1524, ../includes/rest-api/Version1/class-orders-controller.php:356, ../includes/rest-api/Version1/class-plans-controller.php:1091, ../includes/rest-api/Version1/class-users-controller.php:1025
+#: ../includes/rest-api/Version1/class-abstract-terms-controller.php:775, ../includes/rest-api/Version1/class-listing-reviews-controller.php:526, ../includes/rest-api/Version1/class-listings-controller.php:1524, ../includes/rest-api/Version1/class-orders-controller.php:391, ../includes/rest-api/Version1/class-plans-controller.php:1091, ../includes/rest-api/Version1/class-users-controller.php:1025
 msgid "Order sort attribute ascending or descending."
 msgstr ""
 
@@ -8526,7 +8542,7 @@ msgstr ""
 msgid "Offset the result set by a specific number of items."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:535, ../includes/rest-api/Version1/class-listings-controller.php:1532, ../includes/rest-api/Version1/class-orders-controller.php:363, ../includes/rest-api/Version1/class-plans-controller.php:1097, ../includes/rest-api/Version1/class-users-controller.php:1033
+#: ../includes/rest-api/Version1/class-listing-reviews-controller.php:535, ../includes/rest-api/Version1/class-listings-controller.php:1532, ../includes/rest-api/Version1/class-orders-controller.php:398, ../includes/rest-api/Version1/class-plans-controller.php:1097, ../includes/rest-api/Version1/class-users-controller.php:1033
 msgid "Sort collection by object attribute."
 msgstr ""
 
@@ -8602,7 +8618,7 @@ msgstr ""
 msgid "Sorry, you are not allowed to change this listing status."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-listings-controller.php:577, ../includes/rest-api/Version1/class-orders-controller.php:208, ../includes/rest-api/Version1/class-plans-controller.php:342, ../includes/rest-api/Version1/class-plans-controller.php:349, ../includes/rest-api/Version1/class-plans-controller.php:367
+#: ../includes/rest-api/Version1/class-listings-controller.php:577, ../includes/rest-api/Version1/class-orders-controller.php:224, ../includes/rest-api/Version1/class-plans-controller.php:342, ../includes/rest-api/Version1/class-plans-controller.php:349, ../includes/rest-api/Version1/class-plans-controller.php:367
 msgid "Invalid ID."
 msgstr ""
 
@@ -8890,39 +8906,43 @@ msgstr ""
 msgid "Limit result set to listings specific to author ID."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:61, ../includes/rest-api/Version2/class-listings-controller.php:60
+#: ../includes/rest-api/Version1/class-orders-controller.php:62, ../includes/rest-api/Version2/class-listings-controller.php:60
 msgid "Order id."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:88
+#: ../includes/rest-api/Version1/class-orders-controller.php:89
 msgid "Monetization disabled."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:95
+#: ../includes/rest-api/Version1/class-orders-controller.php:96
 msgid "Invalid customer."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:100
+#: ../includes/rest-api/Version1/class-orders-controller.php:101
 msgid "Invalid plan."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:146
+#: ../includes/rest-api/Version1/class-orders-controller.php:148
 msgid "Unable to create order."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:264
+#: ../includes/rest-api/Version1/class-orders-controller.php:171
+msgid "Unable to create payment."
+msgstr ""
+
+#: ../includes/rest-api/Version1/class-orders-controller.php:283
 msgid "Order #%d"
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:344
+#: ../includes/rest-api/Version1/class-orders-controller.php:379
 msgid "Current page of the collection."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:350
+#: ../includes/rest-api/Version1/class-orders-controller.php:385
 msgid "Maximum number of items to be returned in result set."
 msgstr ""
 
-#: ../includes/rest-api/Version1/class-orders-controller.php:369
+#: ../includes/rest-api/Version1/class-orders-controller.php:404
 msgid "Limit result set to specific customer id."
 msgstr ""
 
@@ -9941,7 +9961,7 @@ msgstr ""
 msgid "Your Transaction was not successful. Please contact support"
 msgstr ""
 
-#: ../templates/single/section-author_info.php:115, ../templates/widgets/author-info.php:128
+#: ../templates/single/section-author_info.php:116, ../templates/widgets/author-info.php:129
 msgid "View Profile"
 msgstr ""
 

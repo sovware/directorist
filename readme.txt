@@ -300,7 +300,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.9.4 - Aug 18, 2026 =
+= 8.9.4 - Sep 2, 2026 =
 
 **Improved**
 - Added prepaid order status support across order management and REST API status mapping. (#2955)
@@ -308,6 +308,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 **Fixed**
 - Author profile links missing directory type slug in multi-directory listings. (#2957)
 - Featured listing expiration sync issue. (#2969)
+- preserve archive filter directory context. (#2985)
 
 = 8.9.3 - Aug 9, 2026 =
 

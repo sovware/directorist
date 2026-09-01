@@ -53,12 +53,48 @@ function directorist_get_admin_notifiable_events() {
     return (array) get_directorist_option( 'notify_admin', [] );
 }
 
+function directorist_is_order_notifiable_event( $event ) {
+    return in_array( $event, [ 'order_created', 'order_completed' ], true );
+}
+
 function directorist_is_owner_notifiable_event( $event ) {
-    return in_array( $event, directorist_get_owner_notifiable_events(), true );
+    $owner_events = directorist_get_owner_notifiable_events();
+
+    if (
+        in_array( $event, $owner_events, true )
+        || ( 'order_completed' === $event && in_array( 'payment_received', $owner_events, true ) )
+    ) {
+        return true;
+    }
+
+    if ( ! directorist_is_order_notifiable_event( $event ) ) {
+        return false;
+    }
+
+    $admin_events = directorist_get_admin_notifiable_events();
+
+    return in_array( $event, $admin_events, true )
+        || ( 'order_completed' === $event && in_array( 'payment_received', $admin_events, true ) );
 }
 
 function directorist_is_admin_notifiable_event( $event ) {
-    return in_array( $event, directorist_get_admin_notifiable_events(), true );
+    $admin_events = directorist_get_admin_notifiable_events();
+
+    if (
+        in_array( $event, $admin_events, true )
+        || ( 'order_completed' === $event && in_array( 'payment_received', $admin_events, true ) )
+    ) {
+        return true;
+    }
+
+    if ( ! directorist_is_order_notifiable_event( $event ) ) {
+        return false;
+    }
+
+    $owner_events = directorist_get_owner_notifiable_events();
+
+    return in_array( $event, $owner_events, true )
+        || ( 'order_completed' === $event && in_array( 'payment_received', $owner_events, true ) );
 }
 
 function directorist_get_user_types() {

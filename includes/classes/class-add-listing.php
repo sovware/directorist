@@ -542,10 +542,6 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                         return false;
                     }
 
-                    if ( is_numeric( $value ) && $value == 0 ) {
-                        return false;
-                    }
-
                     return true;
                 }, ARRAY_FILTER_USE_BOTH
             );

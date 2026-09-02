@@ -997,8 +997,12 @@ class Directorist_Listings {
 
         if ( isset( $_REQUEST['custom_field'] ) ) {
             // Multi-dimensional array, sanitized inside
-			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-            $custom_fields = array_filter( wp_unslash( $_REQUEST['custom_field'] ) );
+            $custom_fields = array_filter(
+                // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+                wp_unslash( $_REQUEST['custom_field'] ), static function( $value ) {
+                    return is_array( $value ) ? ! empty( $value ) : null !== $value && '' !== $value;
+                }
+            );
 
             foreach ( $custom_fields as $key => $values ) {
                 $key = sanitize_text_field( $key );

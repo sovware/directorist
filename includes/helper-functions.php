@@ -4628,10 +4628,6 @@ function directorist_filter_listing_empty_metadata( $meta_data ) {
                 return false;
             }
 
-            if ( is_numeric( $value ) && $value == 0 ) {
-                return false;
-            }
-
             return true;
         }, ARRAY_FILTER_USE_BOTH
     );

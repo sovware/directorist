@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.9.3
+Stable tag: 8.9.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,16 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.9.4 - Sep 2, 2026 =
+
+**Improved**
+- Added prepaid order status support across order management and REST API status mapping. (#2955)
+
+**Fixed**
+- Author profile links missing directory type slug in multi-directory listings. (#2957)
+- Featured listing expiration sync issue. (#2969)
+- preserve archive filter directory context. (#2985)
 
 = 8.9.3 - Aug 9, 2026 =
 

@@ -6,6 +6,7 @@ defined( "ABSPATH" ) || exit;
 
 class Status {
     const PENDING   = 'pending';
+    const PREPAID   = 'prepaid';
     const PAID      = 'paid';
     const FAILED    = 'failed';
     const CANCELLED = 'cancelled';
@@ -16,6 +17,7 @@ class Status {
     public static function all() {
         return [
             self::PENDING,
+            self::PREPAID,
             self::PAID,
             self::FAILED,
             self::CANCELLED,

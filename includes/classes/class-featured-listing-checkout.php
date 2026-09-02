@@ -13,16 +13,24 @@ use Directorist\Utils\Template;
 class FeaturedListingCheckout {
     const CHECKOUT_TYPE = 'featured_listing';
 
-    public function __construct()  {
-        add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
+    public function __construct() {
         add_filter( 'directorist_order_data', [ $this, 'handle_order_data' ] );
-        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'] );
         add_filter( 'directorist_payment_receipt_order_items', [$this, 'handle_payment_receipt_order_items'], 10, 2 );
+
+        add_action( 'plugins_loaded', [ $this, 'register_hooks' ], 20 );
+    }
+
+    public function register_hooks() {
+        if ( directorist_is_force_disabled_featured_listings() ) {
+            return;
+        }
+
+        add_filter( 'directorist_checkout_types', [$this, 'add_checkout_type'] );
+        add_action( 'directorist_after_order_update', [$this, 'handle_after_order_update'], 10, 2 );
         add_filter( 'directorist_checkout_validation', [$this, 'validate_checkout'], 10, 2 );
         add_action( 'directorist_checkout_table', [$this, 'handle_checkout_table'], 10, 4 );
         add_filter( 'directorist_checkout_subtotal', [$this, 'handle_checkout_subtotal'], 10, 3 );
         add_action( 'directorist_checkout_create_order', [$this, 'handle_checkout_create_order'], 10, 3 );
-        add_action( 'directorist_before_order_update', [$this, 'handle_before_order_update'] );
         add_filter( 'directorist_checkout_product_name', [$this, 'handle_checkout_product_name'], 10, 2 );
         add_filter( 'directorist_ajax_listing_submission_response', [ $this, 'handle_listing_submission_response_data' ], 10, 2 );
         add_filter( 'directorist_listing_update_args_after_preview', [ $this, 'handle_listing_status_after_preview' ], 10, 2 );
@@ -125,24 +133,7 @@ class FeaturedListingCheckout {
         $dto->set_listing_id( $request->get_param( 'listing_id' ) )->set_is_featured_listing( 1 )->set_ref_type( self::CHECKOUT_TYPE )->set_amount( $amount )->set_sub_total( $amount );
     }
 
-    public function handle_before_order_update( OrderDTO $dto ) {
-        if ( ! $this->is_featured_order( $dto ) ) {
-            return;
-        }
-
-        if ( ! $dto->is_initialized( 'status' ) || $dto->get_status() !== Status::PAID ) {
-            return;
-        }
-
-        $order = directorist_get_order_by_id( $dto->get_id() );
-
-        if ( $order->is_featured_listing && ! $order->expires_at ) {
-            $featured_days = get_directorist_option( 'featured_listing_time', 30 );
-            $dto->set_expires_at( directorist_now()->add_days( $featured_days ) );
-        }
-    }
-
-    public function handle_after_order_update( OrderDTO $dto ) {
+    public function handle_after_order_update( OrderDTO $dto, $old_order = null ) {
         if ( ! $this->is_featured_order( $dto ) ) {
             return;
         }
@@ -152,17 +143,67 @@ class FeaturedListingCheckout {
         }
 
         if ( Status::PAID === $dto->get_status() ) {
+            $order_expiration = $this->should_refresh_order_expiration( $dto, $old_order )
+                ? $this->refresh_order_expiration( $dto )
+                : null;
+
             directorist_set_listing_featured( $dto->get_listing_id(), true );
 
             // Publish the listing if it's pending
             $listing = get_post( $dto->get_listing_id() );
-            
+
+            if ( $listing && $order_expiration ) {
+                $this->update_listing_expiration( $listing, $order_expiration );
+            }
+
             if ( $listing && 'publish' !== $listing->post_status ) {
                 directorist_set_listing_status( $dto->get_listing_id(), 'publish' );
             }
-        } else {
+        } elseif ( ! directorist_order_repository()->listing_has_active_featured_entitlement( $dto->get_listing_id() ) ) {
             directorist_set_listing_featured( $dto->get_listing_id(), false );
         }
+    }
+
+    private function is_paid_transition( $old_order ): bool {
+        return ! $old_order || ! isset( $old_order->status ) || Status::PAID !== $old_order->status;
+    }
+
+    private function should_refresh_order_expiration( OrderDTO $order, $old_order ): bool {
+        return $this->is_paid_transition( $old_order ) || ! $order->is_initialized( 'expires_at' );
+    }
+
+    private function refresh_order_expiration( OrderDTO $order ) {
+        $featured_days    = (int) get_directorist_option( 'featured_listing_time', 30 );
+        $order_expiration = directorist_now()->add_days( $featured_days );
+
+        $order->set_expires_at( $order_expiration );
+        $expiration_update = ( new OrderDTO() )
+            ->set_id( $order->get_id() )
+            ->set_expires_at( $order_expiration );
+
+        directorist_order_repository()->silent_update( $expiration_update );
+
+        return $order_expiration;
+    }
+
+    private function update_listing_expiration( $listing, $order_expiration ) {
+        if ( get_post_meta( $listing->ID, '_never_expire', true ) ) {
+            return;
+        }
+
+        $listing_expiration      = get_post_meta( $listing->ID, '_expiry_date', true );
+        $listing_expiration_date = $listing_expiration
+            ? date_create_from_format( 'Y-m-d H:i:s', $listing_expiration, wp_timezone() )
+            : false;
+
+        if ( $listing_expiration_date
+            && $listing_expiration === $listing_expiration_date->format( 'Y-m-d H:i:s' )
+            && $listing_expiration_date->getTimestamp() >= $order_expiration->getTimestamp()
+        ) {
+            return;
+        }
+
+        update_post_meta( $listing->ID, '_expiry_date', $order_expiration->format( 'Y-m-d H:i:s' ) );
     }
 
     public function handle_payment_receipt_order_items( array $order_items, OrderDTO $order ) {
@@ -206,7 +247,7 @@ class FeaturedListingCheckout {
     }
 
     public function is_featured_order( OrderDTO $order_dto ): bool {
-        if ( ! $order_dto->is_initialized( 'ref_type' ) || ! $order_dto->is_initialized( 'ref' ) || ! $order_dto->is_initialized( 'listing_id' ) ) {
+        if ( ! $order_dto->is_initialized( 'ref_type' ) || ! $order_dto->is_initialized( 'listing_id' ) ) {
             return false;
         }
         

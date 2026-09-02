@@ -98,8 +98,12 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
           */
 
         private function featured_listing_followup() {
+            if ( directorist_is_force_disabled_featured_listings() ) {
+                return;
+            }
+
             if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
-                $featured_days = get_directorist_option( 'featured_listing_time', 30 );
+                $orders = directorist_order_repository();
                 // Define the query
                 $args = [
                     'post_type'      => ATBDP_POST_TYPE,
@@ -120,44 +124,18 @@ if ( ! class_exists( 'ATBDP_Cron' ) ) :
                 // Start the Loop
                 if ( $listings->found_posts ) {
                     foreach ( $listings->posts as $listing ) {
-                        $order = $this->get_order_by_listing( $listing->ID );
-                        if ( $order ) {
-                            $days = round( abs( strtotime( current_time( 'mysql' ) ) - strtotime( $order[0]->post_date ) ) / 86400 );
-                            if ( $days > $featured_days ) {
-                                do_action( 'atbdp_listing_featured_to_general', $listing->ID );
-                                update_post_meta( $listing->ID, '_featured', '' );
-                            }
+                        $has_paid_order         = $orders->listing_has_paid_featured_order( $listing->ID );
+                        $has_active_entitlement = $orders->listing_has_active_featured_entitlement( $listing->ID );
+
+                        if ( ! $has_paid_order || $has_active_entitlement ) {
+                            continue;
                         }
+
+                        do_action( 'atbdp_listing_featured_to_general', $listing->ID );
+                        update_post_meta( $listing->ID, '_featured', '' );
                     }
                 }
             }
-        }
-
-        private function get_order_by_listing( $listing_id ) {
-            $args = [
-                'post_type'      => ATBDP_ORDER_POST_TYPE,
-                'posts_per_page' => 1,
-                'post_status'    => 'publish',
-                'meta_query'     => [
-                    'relation' => 'AND',
-                    [
-                        'key'   => '_listing_id',
-                        'value' => $listing_id,
-                    ],
-                    [
-                        'key'   => '_payment_status',
-                        'value' => 'completed',
-                    ],
-                ],
-            ];
-
-            $listings = new WP_Query( $args );
-
-            // Start the Loop
-            if ( $listings->found_posts ) {
-                return $listings->posts;
-            }
-            return '';
         }
 
         /**

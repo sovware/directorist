@@ -933,28 +933,53 @@ document.addEventListener('DOMContentLoaded', () => {
 				}, 300);
 
 				// Reset search form values
-				if (this.closest('.directorist-contents-wrap')) {
-					let searchForm = this.closest(
-						'.directorist-contents-wrap'
-					).querySelector('.directorist-search-form');
+				const resetTargets = new Set();
+				const searchModal = this.closest('.directorist-search-modal');
+
+				if (searchModal) {
+					resetTargets.add(searchModal);
+					searchModal
+						.querySelectorAll("input[type='checkbox'], input[type='radio']")
+						.forEach((input) => {
+							input.checked = false;
+							input
+								.closest('.directorist-search-field')
+								?.classList.remove('input-has-value', 'input-is-focused');
+						});
+					searchModal.querySelectorAll('select').forEach((select) => {
+						select.selectedIndex = 0;
+						select
+							.closest('.directorist-search-field')
+							?.classList.remove('input-has-value', 'input-is-focused');
+						$(select).trigger('change');
+					});
+				}
+
+				const contentsWrap = this.closest('.directorist-contents-wrap');
+				if (contentsWrap) {
+					let searchForm = contentsWrap.querySelector(
+						'.directorist-search-form'
+					);
 					if (searchForm) {
-						adsFormReset(searchForm);
+						resetTargets.add(searchForm);
 					}
 
-					let advanceSearchForm = this.closest(
-						'.directorist-contents-wrap'
-					).querySelector('.directorist-advanced-filter__form');
+					let advanceSearchForm = contentsWrap.querySelector(
+						'.directorist-advanced-filter__form'
+					);
 					if (advanceSearchForm) {
-						adsFormReset(advanceSearchForm);
+						resetTargets.add(advanceSearchForm);
 					}
 
-					let advanceSearchFilter = this.closest(
-						'.directorist-contents-wrap'
-					).querySelector('.directorist-advanced-filter__advanced');
+					let advanceSearchFilter = contentsWrap.querySelector(
+						'.directorist-advanced-filter__advanced'
+					);
 					if (advanceSearchFilter) {
-						adsFormReset(advanceSearchFilter);
+						resetTargets.add(advanceSearchFilter);
 					}
 				}
+
+				resetTargets.forEach(adsFormReset);
 			});
 		}
 

@@ -81,7 +81,10 @@
             </div>
         <?php } ?>
 
-        <?php if ( ! empty( $ls_data['address'] ) || ! empty( $ls_data['phone'] ) ) { ?>
+        <?php
+        $has_direction = ! empty( $display_direction_map ) && ( ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) || ! empty( $ls_data['address'] ) );
+
+        if ( ! empty( $ls_data['address'] ) || ! empty( $ls_data['phone'] ) || $has_direction ) { ?>
             <div class="map-listing-card-single__content__info">
                 <?php
                 if ( ! empty( $ls_data['address'] ) ) {
@@ -103,6 +106,23 @@
                             <a href='./' class='map-info-link'><?php echo esc_html( $ls_data['phone'] ); ?></a>
                         </div>
                         <?php
+                }
+
+                if ( $has_direction ) {
+                    $direction_destination = ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ? $ls_data['manual_lat'] . ',' . $ls_data['manual_lng'] : $ls_data['address'];
+                    $direction_url         = add_query_arg(
+                        array(
+                            'api'         => 1,
+                            'destination' => $direction_destination,
+                        ),
+                        'https://www.google.com/maps/dir/'
+                    );
+                    ?>
+                    <div class='directorist-info-item map-listing-card-single__content__direction'>
+                        <?php directorist_icon( 'fas fa-directions' ); ?>
+                        <a href='<?php echo esc_url( $direction_url ); ?>' target='_blank' rel='noopener noreferrer'><?php esc_html_e( 'Get Directions', 'directorist' ); ?></a>
+                    </div>
+                    <?php
                 }
                 ?>
             </div>

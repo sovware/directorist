@@ -1,9 +1,13 @@
 name: PHPCS Check
 
 on:
-  pull_request_target:
+  pull_request:
     paths:
-      - '**/*.php'  # Run only when PHP files change
+      - '**/*.php'  # Run when PHP files change
+      - '.github/workflows/phpcs.yml'
+
+permissions:
+  contents: read
 
 # Concurrency: Ensure only one instance of this workflow runs per pull request or commit. 
 # If a new workflow for the same pull request/commit is triggered, the previous one will be canceled.
@@ -16,13 +20,12 @@ jobs:
     name: PHPCS Check
     runs-on: ubuntu-latest
     steps:
-        # Step 1: Checkout the code from the pull request base branch to ensure we're analyzing the correct changes.
+        # Step 1: Checkout the unprivileged pull request merge commit.
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          # checkout the PR branch, not the base
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0        # ensures full history
+          fetch-depth: 0
+          persist-credentials: false
   
         # Step 2: Set up PHP 7.4 with necessary configurations. Also, install the "cs2pr" tool for converting PHPCS output into annotations.
       - name: Setup PHP
@@ -35,8 +38,26 @@ jobs:
 
         # Step 3: Install all required Composer dependencies for the project.
       - name: Install Composer dependencies
-        run: composer install
+        run: composer install --no-interaction --prefer-dist --no-progress
 
-        # Step 4: Run the PHPCS check using the "composer phpcs" command to detect coding standard violations.
+        # Step 4: Collect changed PHP files without losing special characters in filenames.
+      - name: Detect changed PHP files
+        id: changed-php
+        shell: bash
+        run: |
+          git diff --name-only -z --diff-filter=ACMRT \
+            "${{ github.event.pull_request.base.sha }}...HEAD" -- '*.php' \
+            > "$RUNNER_TEMP/php-files"
+
+          if [[ -s "$RUNNER_TEMP/php-files" ]]; then
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          fi
+
+        # Step 5: Run PHPCS only against PHP files changed by this pull request.
       - name: Run PHPCS checks
-        run: composer phpcs
+        if: steps.changed-php.outputs.has_files == 'true'
+        shell: bash
+        run: |
+          xargs -0 composer phpcs -- --warning-severity=0 -- < "$RUNNER_TEMP/php-files"

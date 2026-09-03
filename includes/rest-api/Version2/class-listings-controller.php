@@ -540,6 +540,12 @@ class Listings_Controller extends Legacy_Listings_Controller {
                 case 'plan':
                     $base_data['plan'] = $this->get_plan_id( $listing );
                     break;
+                case 'timezone':
+                    $base_data['timezone'] = $this->get_business_hours_timezone_identifier( $listing->ID );
+                    break;
+                case 'open_close_status':
+                    $base_data['open_close_status'] = $this->get_open_close_status( $listing );
+                    break;
                 case 'fields':
                     $base_data['fields'] = $this->get_fields_data( $listing, $context );
                     break;
@@ -672,6 +678,266 @@ class Listings_Controller extends Legacy_Listings_Controller {
         }
 
         return apply_filters( 'directorist_rest_listing_fields_data', $data, $listing, $context );
+    }
+
+    protected function get_open_close_status( $listing ) {
+        $default = array(
+            'is_open'       => false,
+            'always_open'   => false,
+            'current_open'  => null,
+            'current_close' => null,
+            'next_open'     => null,
+            'next_close'    => null,
+            'open_day'      => null,
+            'close_day'     => null,
+        );
+
+        if ( get_post_meta( $listing->ID, '_disable_bz_hour_listing', true ) ) {
+            return apply_filters( 'directorist_rest_listing_open_close_status', $default, $listing );
+        }
+
+        $always_open = 'always' === get_post_meta( $listing->ID, '_enable247hour', true );
+
+        if ( $always_open ) {
+            $timezone = $this->get_business_hours_timezone( $listing->ID );
+            $now      = new \DateTimeImmutable( 'now', $timezone );
+            $day      = strtolower( $now->format( 'l' ) );
+
+            return apply_filters(
+                'directorist_rest_listing_open_close_status',
+                array_merge(
+                    $default,
+                    array(
+                        'is_open'     => true,
+                        'always_open' => true,
+                        'open_day'    => $day,
+                        'close_day'   => $day,
+                    )
+                ),
+                $listing
+            );
+        }
+
+        $business_hours = get_post_meta( $listing->ID, '_bdbh', true );
+
+        if ( empty( $business_hours ) || ! is_array( $business_hours ) ) {
+            return apply_filters( 'directorist_rest_listing_open_close_status', $default, $listing );
+        }
+
+        $timezone  = $this->get_business_hours_timezone( $listing->ID );
+        $now       = new \DateTimeImmutable( 'now', $timezone );
+        $today_key = strtolower( $now->format( 'l' ) );
+        $weekdays  = array( 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' );
+        $today_pos = array_search( $today_key, $weekdays, true );
+        $intervals = array();
+
+        for ( $offset = -1; $offset <= 7; $offset++ ) {
+            $day_key       = $weekdays[ ( $today_pos + $offset + 7 ) % 7 ];
+            $date_modifier = ( $offset >= 0 ? '+' . $offset : (string) $offset ) . ' days';
+            $day_date      = $now->modify( $date_modifier )->format( 'Y-m-d' );
+
+            foreach ( $this->get_business_hours_day_ranges( $business_hours, $day_key ) as $range ) {
+                $open  = $this->create_business_hours_datetime( $day_date, $range['open'], $timezone );
+                $close = $this->create_business_hours_datetime( $day_date, $range['close'], $timezone );
+
+                if ( ! $open || ! $close ) {
+                    continue;
+                }
+
+                if ( $close <= $open ) {
+                    $close = $close->modify( '+1 day' );
+                }
+
+                $intervals[] = array(
+                    'open'      => $open,
+                    'close'     => $close,
+                    'open_day'  => $day_key,
+                    'close_day' => strtolower( $close->format( 'l' ) ),
+                );
+            }
+        }
+
+        usort(
+            $intervals,
+            static function( $a, $b ) {
+                return $a['open']->getTimestamp() <=> $b['open']->getTimestamp();
+            }
+        );
+
+        foreach ( $intervals as $interval ) {
+            if ( $now >= $interval['open'] && $now < $interval['close'] ) {
+                return apply_filters(
+                    'directorist_rest_listing_open_close_status',
+                    array(
+                        'is_open'       => true,
+                        'always_open'   => false,
+                        'current_open'  => $interval['open']->format( 'H:i' ),
+                        'current_close' => $interval['close']->format( 'H:i' ),
+                        'next_open'     => $interval['open']->getTimestamp(),
+                        'next_close'    => $interval['close']->getTimestamp(),
+                        'open_day'      => $interval['open_day'],
+                        'close_day'     => $interval['close_day'],
+                    ),
+                    $listing
+                );
+            }
+
+            if ( $interval['open'] > $now ) {
+                return apply_filters(
+                    'directorist_rest_listing_open_close_status',
+                    array(
+                        'is_open'       => false,
+                        'always_open'   => false,
+                        'current_open'  => null,
+                        'current_close' => null,
+                        'next_open'     => $interval['open']->getTimestamp(),
+                        'next_close'    => $interval['close']->getTimestamp(),
+                        'open_day'      => $interval['open_day'],
+                        'close_day'     => $interval['close_day'],
+                    ),
+                    $listing
+                );
+            }
+        }
+
+        return apply_filters( 'directorist_rest_listing_open_close_status', $default, $listing );
+    }
+
+    protected function get_business_hours_timezone( $listing_id ) {
+        $timezone = $this->get_business_hours_timezone_identifier( $listing_id );
+
+        try {
+            return new \DateTimeZone( $timezone );
+        } catch ( \Exception $e ) {
+            return wp_timezone();
+        }
+    }
+
+    protected function get_business_hours_timezone_identifier( $listing_id ) {
+        $timezone = get_post_meta( $listing_id, '_timezone', true );
+
+        if ( $timezone ) {
+            return $timezone;
+        }
+
+        $timezone = directorist_timezone_string();
+
+        if ( function_exists( 'directorist_get_wp_default_timezone_identifier' ) ) {
+            $timezone = directorist_get_wp_default_timezone_identifier( $timezone );
+        }
+
+        return $timezone;
+    }
+
+    protected function get_business_hours_day_ranges( $business_hours, $day ) {
+        $day_hours = null;
+
+        foreach ( array( $day, ucfirst( $day ), substr( $day, 0, 3 ), ucfirst( substr( $day, 0, 3 ) ) ) as $day_key ) {
+            if ( isset( $business_hours[ $day_key ] ) ) {
+                $day_hours = $business_hours[ $day_key ];
+                break;
+            }
+        }
+
+        if ( empty( $day_hours ) || ! is_array( $day_hours ) ) {
+            return array();
+        }
+
+        $ranges = $this->extract_business_hours_ranges( $day_hours );
+
+        return array_filter(
+            $ranges,
+            static function( $range ) {
+                return ! empty( $range['open'] ) && ! empty( $range['close'] );
+            }
+        );
+    }
+
+    protected function extract_business_hours_ranges( $value ) {
+        if ( ! is_array( $value ) ) {
+            return array();
+        }
+
+        if ( isset( $value['closed'] ) && rest_sanitize_boolean( $value['closed'] ) ) {
+            return array();
+        }
+
+        $open_keys  = array( 'open', 'start', 'opening', 'opening_time', 'start_time', 'from' );
+        $close_keys = array( 'close', 'end', 'closing', 'closing_time', 'end_time', 'to' );
+        $open       = null;
+        $close      = null;
+
+        foreach ( $open_keys as $key ) {
+            if ( ! empty( $value[ $key ] ) ) {
+                $open = $value[ $key ];
+                break;
+            }
+        }
+
+        foreach ( $close_keys as $key ) {
+            if ( ! empty( $value[ $key ] ) ) {
+                $close = $value[ $key ];
+                break;
+            }
+        }
+
+        if ( is_array( $open ) && is_array( $close ) ) {
+            $ranges = array();
+
+            foreach ( $open as $index => $open_time ) {
+                if ( empty( $close[ $index ] ) ) {
+                    continue;
+                }
+
+                $ranges[] = array(
+                    'open'  => $open_time,
+                    'close' => $close[ $index ],
+                );
+            }
+
+            return $ranges;
+        }
+
+        if ( $open && $close ) {
+            return array(
+                array(
+                    'open'  => $open,
+                    'close' => $close,
+                ),
+            );
+        }
+
+        $ranges = array();
+
+        foreach ( $value as $item ) {
+            if ( is_array( $item ) ) {
+                $ranges = array_merge( $ranges, $this->extract_business_hours_ranges( $item ) );
+            }
+        }
+
+        return $ranges;
+    }
+
+    protected function create_business_hours_datetime( $date, $time, \DateTimeZone $timezone ) {
+        if ( is_array( $time ) ) {
+            $time = implode( ':', array_filter( $time, 'strlen' ) );
+        }
+
+        $time = trim( (string) $time );
+
+        if ( '' === $time ) {
+            return null;
+        }
+
+        if ( is_numeric( $time ) ) {
+            return ( new \DateTimeImmutable( '@' . (int) $time ) )->setTimezone( $timezone );
+        }
+
+        try {
+            return new \DateTimeImmutable( $date . ' ' . $time, $timezone );
+        } catch ( \Exception $e ) {
+            return null;
+        }
     }
 
     /**
@@ -1147,6 +1413,60 @@ class Listings_Controller extends Legacy_Listings_Controller {
                     'description' => __( 'Listing plan id.', 'directorist' ),
                     'type'        => 'integer',
                     'context'     => array( 'view', 'edit' ),
+                ),
+                'timezone' => array(
+                    'description' => __( 'Saved business hours timezone.', 'directorist' ),
+                    'type'        => 'string',
+                    'context'     => array( 'view', 'edit' ),
+                    'readonly'    => true,
+                ),
+                'open_close_status' => array(
+                    'description' => __( 'Listing business open and close status.', 'directorist' ),
+                    'type'        => 'object',
+                    'context'     => array( 'view', 'edit' ),
+                    'readonly'    => true,
+                    'properties'  => array(
+                        'is_open' => array(
+                            'description' => __( 'Whether the listing is currently open.', 'directorist' ),
+                            'type'        => 'boolean',
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'always_open' => array(
+                            'description' => __( 'Whether the listing is always open.', 'directorist' ),
+                            'type'        => 'boolean',
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'current_open' => array(
+                            'description' => __( 'Current opening time.', 'directorist' ),
+                            'type'        => array( 'null', 'string' ),
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'current_close' => array(
+                            'description' => __( 'Current closing time.', 'directorist' ),
+                            'type'        => array( 'null', 'string' ),
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'next_open' => array(
+                            'description' => __( 'Next opening timestamp.', 'directorist' ),
+                            'type'        => array( 'null', 'integer' ),
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'next_close' => array(
+                            'description' => __( 'Next closing timestamp.', 'directorist' ),
+                            'type'        => array( 'null', 'integer' ),
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'open_day' => array(
+                            'description' => __( 'Opening day.', 'directorist' ),
+                            'type'        => array( 'null', 'string' ),
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                        'close_day' => array(
+                            'description' => __( 'Closing day.', 'directorist' ),
+                            'type'        => array( 'null', 'string' ),
+                            'context'     => array( 'view', 'edit' ),
+                        ),
+                    ),
                 ),
                 'privacy_policy' => array(
                     'description' => __( 'Agree to listing privacy policy.', 'directorist' ),

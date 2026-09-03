@@ -140,6 +140,78 @@ function directorist_has_listing_thumbnail( $listing = null ) {
     return (bool) directorist_get_listing_thumbnail_id( $listing );
 }
 
+function directorist_sort_location_terms_by_hierarchy( $terms ) {
+    if ( ! is_array( $terms ) || count( $terms ) < 2 ) {
+        return $terms;
+    }
+
+    $sort_data = [];
+
+    foreach ( $terms as $term ) {
+        $ancestors = get_ancestors( $term->term_id, ATBDP_LOCATION, 'taxonomy' );
+        $root_id   = empty( $ancestors ) ? $term->term_id : end( $ancestors );
+        $root_term = $root_id === $term->term_id ? $term : get_term( $root_id, ATBDP_LOCATION );
+
+        $sort_data[ $term->term_id ] = [
+            'root_id'   => (int) $root_id,
+            'root_name' => ! is_wp_error( $root_term ) && $root_term ? $root_term->name : '',
+            'depth'     => count( $ancestors ),
+            'name'      => $term->name,
+        ];
+    }
+
+    usort(
+        $terms,
+        function ( $first_term, $second_term ) use ( $sort_data ) {
+            $first  = $sort_data[ $first_term->term_id ];
+            $second = $sort_data[ $second_term->term_id ];
+
+            $root_name_comparison = strcasecmp( $first['root_name'], $second['root_name'] );
+            if ( 0 !== $root_name_comparison ) {
+                return $root_name_comparison;
+            }
+
+            if ( $first['root_id'] !== $second['root_id'] ) {
+                return $first['root_id'] <=> $second['root_id'];
+            }
+
+            if ( $first['depth'] !== $second['depth'] ) {
+                return $second['depth'] <=> $first['depth'];
+            }
+
+            $name_comparison = strcasecmp( $first['name'], $second['name'] );
+            if ( 0 !== $name_comparison ) {
+                return $name_comparison;
+            }
+
+            return $first_term->term_id <=> $second_term->term_id;
+        }
+    );
+
+    return $terms;
+}
+
 function directorist_the_locations( $before = '', $sep = ', ', $after = '', $listing_id = null ) {
-    the_terms( $listing_id, ATBDP_LOCATION, $before, $sep, $after );
+    $terms = get_the_terms( $listing_id, ATBDP_LOCATION );
+
+    if ( is_wp_error( $terms ) || empty( $terms ) ) {
+        return;
+    }
+
+    $links = [];
+    $terms = directorist_sort_location_terms_by_hierarchy( $terms );
+
+    foreach ( $terms as $term ) {
+        $link = get_term_link( $term, ATBDP_LOCATION );
+        if ( is_wp_error( $link ) ) {
+            return;
+        }
+
+        $links[] = '<a href="' . esc_url( $link ) . '" rel="tag">' . $term->name . '</a>';
+    }
+
+    $term_links = apply_filters( 'term_links-' . ATBDP_LOCATION, $links );
+    $term_list  = $before . implode( $sep, $term_links ) . $after;
+
+    echo apply_filters( 'the_terms', $term_list, ATBDP_LOCATION, $before, $sep, $after ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Preserve the core the_terms() filter contract.
 }

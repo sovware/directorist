@@ -1499,6 +1499,10 @@ class Directorist_Listings {
 
         if ( is_singular( ATBDP_POST_TYPE ) ) {
             $directory = get_post_meta( get_the_ID(), '_directory_type', true );
+        } else if ( 'listing' === $this->type && ! empty( $this->default_directory_type ) ) {
+            // An archive instance with an explicitly configured default directory
+            // must not inherit a directory value from another request context.
+            $directory = $this->default_directory_type;
         } else if ( ! empty( $_REQUEST['directory_type'] ) ) {
             $directory = sanitize_text_field( wp_unslash( $_REQUEST['directory_type'] ) );
         } else if ( ! empty( $this->default_directory_type ) ) {

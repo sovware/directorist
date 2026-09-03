@@ -29,7 +29,7 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 
 ### General
 
-- `enable_multi_directory`: enables multi-directory mode and exposes directory type workflows.
+- `enable_multi_directory`: enables multi-directory mode and exposes directory type workflows. The toggle changes directly without a confirmation modal and persists only through the standard `Save changes` action; it does not automatically save or reload the settings page.
 - `guest_listings`: allows listing submission by non-logged-in visitors.
 - `guest_email_label`, `guest_email_placeholder`: customize guest email field copy on listing submission.
 - `new_user_registration`: controls whether registration is enabled from Directorist flows.

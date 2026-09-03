@@ -149,14 +149,6 @@ if ( ! class_exists( 'ATBDP_Settings_Panel' ) ) {
                 'type'  => 'toggle',
                 'label' => 'Enable Multi Directory',
                 'value' => false,
-                'confirm-before-change' => true,
-                'confirmation-modal' => [
-                    'show-model-header' => false
-                ],
-                'data-on-change' => [
-                    'action' => 'updateData',
-                    'args'   => [ 'reload_after_save' => true ]
-                ],
                 'componets' => [
                     'link' => [
                         'label' => __( 'Start Building Directory', 'directorist' ),

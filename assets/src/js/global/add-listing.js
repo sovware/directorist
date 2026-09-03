@@ -15,6 +15,11 @@ import {
 	watchFieldChanges as watchFieldChangesBase,
 } from './components/conditional-logic';
 import debounce from './components/debounce';
+import {
+	appendImageFocalPointData,
+	initImageFocalPointDeepLink,
+	initImageFocalPointPicker,
+} from './components/image-focal-point';
 
 /* eslint-disable */
 const $ = jQuery;
@@ -561,10 +566,16 @@ $(function () {
 				});
 
 				EzUploader.init();
+				initImageFocalPointPicker(
+					EzUploader,
+					localized_data.i18n_text
+				);
 				// mediaUploaders[i].media_uploader.init();
 			}
 		}
 	}
+
+	initImageFocalPointDeepLink();
 
 	let FORM_ON_PROCESSING = false;
 	let has_media = true;
@@ -815,6 +826,14 @@ $(function () {
 					);
 				});
 			}
+
+			mediaUploaders.forEach(function (uploaderEntry) {
+				appendImageFocalPointData(
+					form_data,
+					uploaderEntry,
+					uploadedImages
+				);
+			});
 
 			// categories
 			var categories = $form.find('#at_biz_dir-categories').val();

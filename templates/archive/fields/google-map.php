@@ -2,8 +2,10 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 7.7.0
+ * @version 8.9.3
  */
+
+$image_focal_point_style = $ls_data['image_focal_point_style'] ?? directorist_get_listing_image_focal_point_style( $ls_data['post_id'] ?? get_the_ID() );
 ?>
 
 <div class="marker" data-listing-id="<?php echo esc_attr( $ls_data['post_id'] ?? get_the_ID() ); ?>" data-latitude="<?php echo esc_attr( $ls_data['manual_lat'] ); ?>" data-longitude="<?php echo esc_attr( $ls_data['manual_lng'] ); ?>" data-icon="<?php echo esc_attr( $ls_data['cat_icon'] ); ?>">
@@ -26,17 +28,17 @@
                     }
 
                     if ( ! empty( $ls_data['listing_prv_img'] ) ) { ?>
-                        <img src='<?php echo esc_url( $ls_data['prv_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
+                        <img class='directorist-image-focal-point' src='<?php echo esc_url( $ls_data['prv_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>' style='<?php echo esc_attr( $image_focal_point_style ); ?>'>
                         <?php
                     }
 
                     if ( ! empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) { ?>
-                        <img src='<?php echo esc_url( $ls_data['gallery_img'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
+                        <img class='directorist-image-focal-point' src='<?php echo esc_url( $ls_data['gallery_img'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>' style='<?php echo esc_attr( $image_focal_point_style ); ?>'>
                         <?php
                     }
 
                     if ( empty( $ls_data['listing_img'][0] ) && empty( $ls_data['listing_prv_img'] ) ) {?>
-                        <img src='<?php echo esc_url( $ls_data['default_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>'>
+                        <img class='directorist-image-focal-point' src='<?php echo esc_url( $ls_data['default_image'] ); ?>' alt='<?php echo esc_attr( get_the_title() ); ?>' style='<?php echo esc_attr( $image_focal_point_style ); ?>'>
                         <?php
                     }
 

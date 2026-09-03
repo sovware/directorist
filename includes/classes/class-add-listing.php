@@ -570,6 +570,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 delete_post_thumbnail( $listing_id );
                 delete_post_meta( $listing_id, '_listing_img' );
                 delete_post_meta( $listing_id, '_listing_prv_img' );
+                delete_post_meta( $listing_id, '_directorist_image_focal_points' );
 
                 return;
             }
@@ -589,13 +590,15 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 $target_dir                    = trailingslashit( $upload_dir['path'] );
                 $uploaded_images               = $old_images;
                 $background_processable_images = [];
+                $new_attachment_ids            = [];
 
                 foreach ( $new_images as $image ) {
                     if ( empty( $image ) ) {
                         continue;
                     }
 
-                    $image    = sanitize_file_name( $image );
+                    $submitted_image = sanitize_file_name( $image );
+                    $image           = $submitted_image;
                     $filepath = $temp_dir . $image;
 
                     if ( is_dir( $filepath ) || ! file_exists( $filepath ) ) {
@@ -628,18 +631,35 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                     }
 
                     $background_processable_images[ $attachment_id ] = $target_dir . $image;
+                    $new_attachment_ids[ $submitted_image ]          = $attachment_id;
 
                     $uploaded_images[] = $attachment_id;
                 }
 
                 if ( ! empty( $uploaded_images ) ) {
-                    update_post_meta( $listing_id, '_listing_prv_img', $uploaded_images[0] );
-                    set_post_thumbnail( $listing_id, $uploaded_images[0] );
+                    $uploaded_images = array_values( array_unique( wp_parse_id_list( $uploaded_images ) ) );
+                    $preview_source  = isset( $posted_data['listing_image_preview_source'] ) ? $posted_data['listing_image_preview_source'] : '';
+                    $preview_image   = directorist_resolve_listing_preview_image_source( $preview_source, $uploaded_images, $new_attachment_ids );
 
-                    unset( $uploaded_images[0] );
+                    if ( $preview_image ) {
+                        $uploaded_images = array_values( array_diff( $uploaded_images, [ $preview_image ] ) );
+                        array_unshift( $uploaded_images, $preview_image );
+                    }
 
-                    if ( count( $uploaded_images ) ) {
-                        update_post_meta( $listing_id, '_listing_img', $uploaded_images );
+                    $preview_image = reset( $uploaded_images );
+
+                    update_post_meta( $listing_id, '_listing_prv_img', $preview_image );
+                    set_post_thumbnail( $listing_id, $preview_image );
+
+                    directorist_clean_listing_image_focal_points( $listing_id, $uploaded_images );
+                    directorist_save_listing_image_focal_point( $listing_id, $preview_image, $posted_data );
+
+                    $gallery_images = array_values( array_slice( $uploaded_images, 1 ) );
+
+                    if ( count( $gallery_images ) ) {
+                        update_post_meta( $listing_id, '_listing_img', $gallery_images );
+                    } else {
+                        delete_post_meta( $listing_id, '_listing_img' );
                     }
 
                     directorist_background_image_process( $background_processable_images );

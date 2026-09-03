@@ -257,9 +257,12 @@ class Directorist_Listing_Dashboard {
     public function get_listing_thumbnail() {
         $id                = get_the_ID();
         $type              = directorist_get_listing_directory( $id );
+        $thumbnail_id      = 0;
+        $thumbnail_img     = '';
 
         $default_image_src = Helper::default_preview_image_src( $type );
-        $image_quality     = get_directorist_option( 'preview_image_quality', 'directorist_preview' );
+        $display_config    = directorist_get_listing_preview_image_display_config();
+        $image_quality     = $display_config['image_quality'];
         $listing_prv_img   = directorist_get_listing_preview_image( $id );
         $listing_img       = directorist_get_listing_gallery_images( $id );
 
@@ -287,8 +290,9 @@ class Directorist_Listing_Dashboard {
         $image_alt = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
         $image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
         $image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
+        $image_style = esc_attr( directorist_get_listing_image_focal_point_style( $id, $thumbnail_id ) );
 
-        return "<img src='" . esc_url( $image_src ) . "' alt='$image_alt' />";
+        return "<img class='directorist-image-focal-point' src='" . esc_url( $image_src ) . "' alt='$image_alt' style='$image_style' />";
     }
 
     public function fav_listing_items() {
@@ -702,6 +706,21 @@ class Directorist_Listing_Dashboard {
                 'link'              =>  directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $post_id ] ),
                 'icon'              =>  directorist_icon( 'las la-ad', false ),
                 'label'             =>  __( 'Promote', 'directorist' )
+            ];
+        }
+
+        if ( directorist_get_listing_preview_image( $post_id ) && directorist_is_listing_image_focal_point_enabled( $post_id ) ) {
+            $focus_url = add_query_arg(
+                'directorist_edit_focus',
+                '1',
+                ATBDP_Permalink::get_edit_listing_page_link( $post_id )
+            );
+            $dropdown_items['image_focus'] = [
+                'class'     => '',
+                'data_attr' => '',
+                'link'      => $focus_url,
+                'icon'      => directorist_icon( 'las la-crosshairs', false ),
+                'label'     => __( 'Edit image focus', 'directorist' ),
             ];
         }
 

@@ -751,8 +751,6 @@ const FIELD_OVERRIDES = {
 
 const SUPPRESSED_REDESIGN_FIELDS = new Set([
 	'atbdp_reset_cache',
-	'gallery_crop_width',
-	'gallery_crop_height',
 	'web_push_events_note',
 	'web_push_templates_note',
 ]);
@@ -921,11 +919,15 @@ const FIELD_GROUPS = {
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'gallery_crop_width',
+				'gallery_crop_height',
 			],
 			advancedFields: [
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'gallery_crop_width',
+				'gallery_crop_height',
 			],
 		},
 	],

@@ -1,6 +1,6 @@
 # Settings Option Catalog
 
-Last reviewed: 2026-06-04
+Last reviewed: 2026-09-04
 
 Source of truth reviewed:
 
@@ -76,6 +76,8 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 - `single_slider_image_size`: image size for single listing slider.
 - `single_slider_background_type`, `single_slider_background_color`: slider background behavior.
 - `gallery_crop_width`, `gallery_crop_height`: gallery image crop dimensions.
+
+Redesigned UI note (2026-09-04): `gallery_crop_width` and `gallery_crop_height` are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. They retain their existing number-field definitions, conditional visibility, saved option keys, and frontend readers.
 
 ### Category And Location
 

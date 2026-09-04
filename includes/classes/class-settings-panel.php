@@ -1396,6 +1396,32 @@ Please remember that your order may be canceled if you do not make your payment 
                             ],
                         ],
                     ],
+                    'single_slider_columns' => [
+                        'label'       => __( 'Images per View (Default: 1)', 'directorist' ),
+                        'description' => __( 'Choose how many main slider images appear side by side on desktop.', 'directorist' ),
+                        'type'        => 'select',
+                        'value'       => '1',
+                        'show-if'     => [
+                            'where'      => 'dsiplay_slider_single_page',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        'options'     => [
+                            [
+                                'value' => '1',
+                                'label' => __( '1 Image', 'directorist' ),
+                            ],
+                            [
+                                'value' => '2',
+                                'label' => __( '2 Images', 'directorist' ),
+                            ],
+                            [
+                                'value' => '3',
+                                'label' => __( '3 Images', 'directorist' ),
+                            ],
+                        ],
+                    ],
                     'single_slider_background_type' => [
                         'label' => __( 'Slider Background Type', 'directorist' ),
                         'type'  => 'select',
@@ -4020,6 +4046,7 @@ Best regards,
                                                 'fields'      => [
                                                     'dsiplay_slider_single_page',
                                                     'single_slider_image_size',
+                                                    'single_slider_columns',
                                                     'single_slider_background_type',
                                                     'single_slider_background_color',
                                                     'single_slider_show_thumbnails',

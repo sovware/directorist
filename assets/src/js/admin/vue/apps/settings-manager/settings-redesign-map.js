@@ -189,6 +189,11 @@ const FIELD_OVERRIDES = {
 		label: 'Image fit',
 		description: '',
 	},
+	single_slider_columns: {
+		label: 'Images per view (Default: 1)',
+		description:
+			'Controls how many main slider images appear side by side on desktop.',
+	},
 	single_slider_background_type: {
 		label: 'Background type',
 		description: '',
@@ -930,6 +935,7 @@ const FIELD_GROUPS = {
 			fields: [
 				'dsiplay_slider_single_page',
 				'single_slider_image_size',
+				'single_slider_columns',
 				'single_slider_background_type',
 				'single_slider_background_color',
 				'single_slider_show_thumbnails',
@@ -941,6 +947,7 @@ const FIELD_GROUPS = {
 			],
 			advancedFields: [
 				'single_slider_image_size',
+				'single_slider_columns',
 				'single_slider_background_type',
 				'single_slider_background_color',
 				'single_slider_show_thumbnails',

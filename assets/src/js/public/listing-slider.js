@@ -236,6 +236,7 @@
 			let dataWidthUnit = el.getAttribute('data-width-unit');
 			let dataHeight = el.getAttribute('data-height');
 			let dataPosition = el.getAttribute('data-position');
+			let dataColumns = parseInt(el.getAttribute('data-columns'), 10);
 			let dataRTL = el.getAttribute('data-rtl');
 			let dataBackgroundColor = el.getAttribute('data-background-color');
 			let dataBackgroundSize = el.getAttribute('data-background-size');
@@ -321,7 +322,17 @@
 				swiperCarouselSingleListing.querySelectorAll(
 					'.swiper-slide:not(.swiper-slide-duplicate)'
 				);
-			let singleSliderLoopEnable = singleSliderTotalSlides.length > 1;
+			let singleSliderColumns = Math.min(
+				3,
+				Math.max(1, dataColumns || 1)
+			);
+			let desktopSliderColumns = Math.min(
+				singleSliderColumns,
+				singleSliderTotalSlides.length || 1
+			);
+			let tabletSliderColumns = Math.min(2, desktopSliderColumns);
+			let singleSliderLoopEnable =
+				singleSliderTotalSlides.length > desktopSliderColumns;
 
 			// Single Listing Slider Config
 			let swiperSingleListingConfig = {
@@ -339,6 +350,16 @@
 					el: `.directorist-swiper__pagination--single-listing`,
 					type: 'bullets',
 					clickable: true,
+				},
+				breakpoints: {
+					768: {
+						slidesPerView: tabletSliderColumns,
+						spaceBetween: tabletSliderColumns > 1 ? 10 : 0,
+					},
+					1200: {
+						slidesPerView: desktopSliderColumns,
+						spaceBetween: desktopSliderColumns > 1 ? 10 : 0,
+					},
 				},
 			};
 
@@ -399,15 +420,12 @@
 			}
 
 			// Loop Destroy on Single Slider Item
-			let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll(
-				'.directorist-swiper__pagination .swiper-pagination-bullet'
-			);
 			let swiperListingThumb =
 				swiperCarouselSingleListing.parentElement.querySelector(
 					'.directorist-single-listing-slider-thumb'
 				);
 
-			if (sliderItemsCount.length <= 1) {
+			if (singleSliderTotalSlides.length <= 1) {
 				swiperSingleListing.loopDestroy();
 				swiperCarouselSingleListing.classList.add(
 					'slider-has-one-item'
@@ -415,7 +433,7 @@
 			}
 
 			// Show thumbnail slider if slider has more items
-			if (swiperListingThumb && sliderItemsCount.length > 1) {
+			if (swiperListingThumb && singleSliderTotalSlides.length > 1) {
 				swiperListingThumb.style.display = 'block';
 			}
 

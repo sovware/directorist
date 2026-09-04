@@ -74,6 +74,7 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 - `pending_confirmation_msg`, `publish_confirmation_msg`: confirmation messages for pending and published submissions.
 - `dsiplay_slider_single_page`: toggles image slider on single listing pages.
 - `single_slider_image_size`: image size for single listing slider.
+- `single_slider_columns`: number of main slider images shown side by side; accepts `1–3` and defaults to `1` when unset or invalid. Mobile remains one image per view and tablet is capped at two.
 - `single_slider_background_type`, `single_slider_background_color`: slider background behavior.
 - `single_slider_show_thumbnails`: show or hide thumbnail navigation below the slider; defaults to enabled for backward compatibility.
 - `single_slider_position`: horizontal slider and thumbnail placement (`left`, `center`, or `right`); defaults to `center` when unsaved or invalid.
@@ -82,7 +83,7 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 - `gallery_crop_width_percentage`: percentage slider width relative to the listing content container; default `100`, range `1–100`.
 - `gallery_crop_height`: pixel slider height; default `580`, range `1–1200`.
 
-Redesigned UI note (2026-09-04): Slider placement, width unit, the unit-specific width value, and pixel height are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. Pixel remains the default width mode, existing installations continue to read `gallery_crop_width`, and percentage mode uses its own value so an existing pixel width is never reinterpreted as a percentage. The resolved value is emitted as the scoped `--gallery-crop-width` CSS custom property with its selected unit; no option migration or backfill is required. The width and height labels identify their defaults.
+Redesigned UI note (2026-09-04): Images per view, slider placement, width unit, the unit-specific width value, and pixel height are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. Images per view defaults to the legacy single-image layout, pixel remains the default width mode, existing installations continue to read `gallery_crop_width`, and percentage mode uses its own value so an existing pixel width is never reinterpreted as a percentage. The resolved value is emitted as the scoped `--gallery-crop-width` CSS custom property with its selected unit; no option migration or backfill is required. The width and height labels identify their defaults.
 
 ### Category And Location
 

@@ -19,7 +19,16 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
      * User class.
      */
     class ATBDP_User {
+        /**
+         * Pending frontend registration manager.
+         *
+         * @var Directorist\Pending_Registration
+         */
+        public $pending_registration;
+
         public function __construct() {
+            $this->pending_registration = new Directorist\Pending_Registration();
+
             add_action( 'wp_loaded', [ $this, 'handle_user_registration' ] );
             //add_action('init', array($this, 'activate_user'));
             add_filter( 'pre_get_posts', [ $this,'restrict_listing_to_the_author' ] );
@@ -87,6 +96,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $terms_condition      = ! empty( $params['enable_registration_terms'] ) && 'yes' === $params['enable_registration_terms']  ? 1 : 0;
 
             $username       = ! empty( $_POST['username'] ) ? directorist_clean( wp_unslash( $_POST['username'] ) ) : '';
+            $clean_username = sanitize_user( $username, true );
             $password       = ! empty( $_POST['password'] ) ? $_POST['password'] : '';                                                 // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             $email          = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
             $website        = ! empty( $_POST['website'] ) ? directorist_clean( wp_unslash( $_POST['website'] ) ) : '';
@@ -97,6 +107,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $privacy_policy = ! empty( $_POST['privacy_policy'] ) ? directorist_clean( wp_unslash( $_POST['privacy_policy'] ) ) : '';
             $t_c_check      = ! empty( $_POST['t_c_check'] ) ? directorist_clean( wp_unslash( $_POST['t_c_check'] ) ) : '';
             $previous_page  = ! empty( $_POST['previous_page'] ) ? directorist_clean( wp_unslash( $_POST['previous_page'] ) ) : '';
+
+            $generated_password = empty( $display_password ) || empty( $password );
 
             //password validation
             if ( ! empty( $display_password ) && empty( $password ) ) {
@@ -142,15 +154,19 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             if ( 'passed' !== $validation ) {
                 $error_msg = '';
 
-                if ( empty( $username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation ) || ! empty( $privacy_validation ) || ! empty( $t_c_validation ) ) {
+                if ( empty( $username ) || empty( $clean_username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation ) || ! empty( $privacy_validation ) || ! empty( $t_c_validation ) ) {
                     $error_msg = directorist_get_registration_error_message( 1 );
                 } elseif ( email_exists( $email ) ) {
                     $error_msg = directorist_get_registration_error_message( 2 );
-                } elseif ( ! empty( $username ) && 4 > strlen( $username ) ) {
+                } elseif ( ! empty( $username ) && 4 > strlen( $clean_username ) ) {
                     $error_msg = directorist_get_registration_error_message( 3 );
+                } elseif ( 60 < strlen( $clean_username ) ) {
+                    $error_msg = directorist_get_registration_error_message( 9 );
                 } elseif ( ! empty( $username ) && preg_match( '/\s/',$username ) ) {
                     $error_msg = directorist_get_registration_error_message( 7 );
-                } elseif ( username_exists( $username ) ) {
+                } elseif ( ! validate_username( $username ) ) {
+                    $error_msg = directorist_get_registration_error_message( 13 );
+                } elseif ( username_exists( $clean_username ) ) {
                     $error_msg = directorist_get_registration_error_message( 4 );
                 } elseif ( ! empty( $password ) && 5 > strlen( $password ) ) {
                     $error_msg = directorist_get_registration_error_message( 5 );
@@ -171,7 +187,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
             // sanitize user form input
             global $username, $password, $email, $website, $first_name, $last_name, $bio;
-            $username = directorist_clean( wp_unslash( $_POST['username'] ) );
+            $username = sanitize_user( directorist_clean( wp_unslash( $_POST['username'] ) ), true );
 
             if ( empty( $display_password ) || empty( $_POST['password'] ) ) {
                 $password = wp_generate_password( 12, false );
@@ -193,6 +209,45 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
              * @since 8.0
              * */
             do_action( 'atbdp_before_processing_submitted_user_registration', $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
+            if ( directorist_is_email_verification_enabled() ) {
+                $pending = $this->pending_registration->create(
+                    [
+                        'user_login'           => $username,
+                        'user_email'           => $email,
+                        'password'             => $password,
+                        'website'              => $website,
+                        'first_name'           => $first_name,
+                        'last_name'            => $last_name,
+                        'bio'                  => $bio,
+                        'user_type'            => $user_type,
+                        'privacy_policy'       => $privacy_policy,
+                        'terms_and_conditions' => $t_c_check,
+                        'previous_page'        => $previous_page,
+                        'generated_password'   => $generated_password,
+                    ]
+                );
+
+                if ( is_wp_error( $pending ) ) {
+                    wp_send_json_error(
+                        [ 'error' => $pending->get_error_message() ],
+                        'registration_rate_limited' === $pending->get_error_code() ? 429 : 400
+                    );
+                }
+
+                wp_send_json_success(
+                    [
+                        'redirect_url' => esc_url_raw(
+                            ATBDP_Permalink::get_signin_signup_page_link(
+                                [
+                                    'user'         => base64_encode( $email ),
+                                    'verification' => 1,
+                                ]
+                            )
+                        ),
+                    ]
+                );
+            }
 
             $user_id = $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $bio );
 
@@ -754,6 +809,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
         public function registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $user_type, $privacy_policy, $t_c_check ) {
             global $reg_errors;
+            $clean_username = sanitize_user( $username, true );
+
             $require_website             = get_directorist_option( 'require_website_reg',0 );
             $display_website             = get_directorist_option( 'display_website_reg',1 );
             $display_fname               = get_directorist_option( 'display_fname_reg',1 );
@@ -800,15 +857,19 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
                 $t_c_validation = 'yes';
             }
             $reg_errors = new WP_Error;
-            if ( empty( $username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation ) || ! empty( $privacy_validation ) || ! empty( $t_c_validation ) || ! empty( $user_type_validation ) ) {
+            if ( empty( $username ) || empty( $clean_username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation ) || ! empty( $privacy_validation ) || ! empty( $t_c_validation ) || ! empty( $user_type_validation ) ) {
                 $reg_errors->add( 'field', esc_html__( 'Required form field is missing. Please fill all required fields.', 'directorist' ) );
             }
 
-            if ( ! empty( $username ) && 4 > strlen( $username ) ) {
+            if ( ! empty( $username ) && 4 > strlen( $clean_username ) ) {
                 $reg_errors->add( 'username_length', esc_html__( 'Username too short. At least 4 characters is required', 'directorist' ) );
             }
 
-            if ( username_exists( $username ) )
+            if ( 60 < strlen( $clean_username ) ) {
+                $reg_errors->add( 'username_length', esc_html__( 'Username too long. A maximum of 60 characters is allowed.', 'directorist' ) );
+            }
+
+            if ( username_exists( $clean_username ) )
                 $reg_errors->add( 'user_name', esc_html__( 'Sorry, that username already exists!', 'directorist' ) );
 
             if ( preg_match( '/\s/',$username ) )
@@ -901,6 +962,7 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             do_action( 'atbdp_before_processing_submitted_user_registration', $_POST ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
             $username       = ! empty( $_POST['username'] ) ? directorist_clean( wp_unslash( $_POST['username'] ) ) : '';
+            $clean_username = sanitize_user( $username, true );
             $password       = ! empty( $_POST['password'] ) ? $_POST['password'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             $email          = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
             $website        = ! empty( $_POST['website'] ) ? directorist_clean( wp_unslash( $_POST['website'] ) ) : '';
@@ -910,6 +972,8 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             $bio            = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
             $privacy_policy = ! empty( $_POST['privacy_policy'] ) ? directorist_clean( wp_unslash( $_POST['privacy_policy'] ) ) : '';
             $t_c_check      = ! empty( $_POST['t_c_check'] ) ? directorist_clean( wp_unslash( $_POST['t_c_check'] ) ) : '';
+
+            $generated_password = empty( $display_password ) || empty( $password );
 
             //password validation
             if ( ! empty( $require_password ) && ! empty( $display_password ) && empty( $password ) ) {
@@ -949,19 +1013,25 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
             // validate all the inputs
             $validation = $this->registration_validation( $username, $password, $email, $website, $first_name, $last_name, $bio, $user_type, $privacy_policy, $t_c_check );
             if ( 'passed' !== $validation ) {
-                if ( empty( $username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation ) || ! empty( $privacy_validation ) || ! empty( $t_c_validation ) ) {
+                if ( empty( $username ) || empty( $clean_username ) || ! empty( $password_validation ) || empty( $email ) || ! empty( $website_validation ) || ! empty( $fname_validation ) || ! empty( $lname_validation ) || ! empty( $bio_validation ) || ! empty( $privacy_validation ) || ! empty( $t_c_validation ) ) {
                     wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 1] ) );
                     exit();
                 } elseif ( email_exists( $email ) ) {
                     wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 2] ) );
                     exit();
-                } elseif ( ! empty( $username ) && 4 > strlen( $username ) ) {
+                } elseif ( ! empty( $username ) && 4 > strlen( $clean_username ) ) {
                     wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 3] ) );
+                    exit();
+                } elseif ( 60 < strlen( $clean_username ) ) {
+                    wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 9] ) );
                     exit();
                 } elseif ( ! empty( $username ) && preg_match( '/\s/',$username ) ) {
                     wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 7] ) );
                     exit();
-                } elseif ( username_exists( $username ) ) {
+                } elseif ( ! validate_username( $username ) ) {
+                    wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 13] ) );
+                    exit();
+                } elseif ( username_exists( $clean_username ) ) {
                     wp_safe_redirect( ATBDP_Permalink::get_registration_page_link( ['errors' => 4] ) );
                     exit();
                 } elseif ( ! empty( $password ) && 5 > strlen( $password ) ) {
@@ -978,21 +1048,60 @@ if ( ! class_exists( 'ATBDP_User' ) ) :
 
             // sanitize user form input
             global $username, $password, $email, $website, $first_name, $last_name, $bio;
-            $username   =   directorist_clean( wp_unslash( $_POST['username'] ) );
+            $username = sanitize_user( directorist_clean( wp_unslash( $_POST['username'] ) ), true );
 
             if ( empty( $display_password ) || empty( $_POST['password'] ) ) {
-                $password   =   wp_generate_password( 12, false );
+                $password = wp_generate_password( 12, false );
             } else {
-                $password   =  $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+                $password = $_POST['password']; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
             }
 
-            $email            =   ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
-            $website          =   ! empty( $_POST['website'] ) ? directorist_clean( $_POST['website'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-            $first_name       =   ! empty( $_POST['fname'] ) ? directorist_clean( wp_unslash( $_POST['fname'] ) ) : '';
-            $last_name        =   ! empty( $_POST['lname'] ) ? directorist_clean( wp_unslash( $_POST['lname'] ) ) : '';
-            $user_type        =   ! empty( $_POST['user_type'] ) ? directorist_clean( wp_unslash( $_POST['user_type'] ) ) : '';
-            $bio              =   ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
-            $previous_page    =   ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+            $email         = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+            $website       = ! empty( $_POST['website'] ) ? directorist_clean( $_POST['website'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+            $first_name    = ! empty( $_POST['fname'] ) ? directorist_clean( wp_unslash( $_POST['fname'] ) ) : '';
+            $last_name     = ! empty( $_POST['lname'] ) ? directorist_clean( wp_unslash( $_POST['lname'] ) ) : '';
+            $user_type     = ! empty( $_POST['user_type'] ) ? directorist_clean( wp_unslash( $_POST['user_type'] ) ) : '';
+            $bio           = ! empty( $_POST['bio'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio'] ) ) : '';
+            $previous_page = ! empty( $_POST['previous_page'] ) ? directorist_clean( $_POST['previous_page'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+
+            if ( directorist_is_email_verification_enabled() ) {
+                $pending = $this->pending_registration->create(
+                    [
+                        'user_login'           => $username,
+                        'user_email'           => $email,
+                        'password'             => $password,
+                        'website'              => $website,
+                        'first_name'           => $first_name,
+                        'last_name'            => $last_name,
+                        'bio'                  => $bio,
+                        'user_type'            => $user_type,
+                        'privacy_policy'       => $privacy_policy,
+                        'terms_and_conditions' => $t_c_check,
+                        'previous_page'        => $previous_page,
+                        'generated_password'   => $generated_password,
+                    ]
+                );
+
+                if ( is_wp_error( $pending ) ) {
+                    wp_safe_redirect(
+                        ATBDP_Permalink::get_registration_page_link(
+                            [ 'errors' => $this->pending_registration->get_legacy_error_code( $pending ) ]
+                        )
+                    );
+                    exit();
+                }
+
+                wp_safe_redirect(
+                    ATBDP_Permalink::get_login_page_link(
+                        [
+                            'user'         => base64_encode( $email ),
+                            'verification' => 1,
+                        ]
+                    )
+                );
+                exit();
+            }
+
             // call @function complete_registration to create the user
             // only when no WP_error is found
             $user_id = $this->complete_registration( $username, $password, $email, $website, $first_name, $last_name, $bio );

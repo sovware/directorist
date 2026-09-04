@@ -1323,5 +1323,82 @@ We look forward to seeing you soon'
 
             return $this->send_mail( $user->user_email, $subject, $body, $this->get_email_headers() );
         }
+
+        /**
+         * Send an email-verification message before a WordPress user exists.
+         *
+         * @since 8.9.3
+         *
+         * @param array  $registration    Sanitized pending registration data.
+         * @param string $verification_url Opaque verification URL.
+         * @return bool Whether the email was sent.
+         */
+        public function send_pending_user_confirmation_email( array $registration, $verification_url ) {
+            if ( get_directorist_option( 'disable_email_notification' ) ) {
+                return false;
+            }
+
+            $display_name       = trim( $registration['first_name'] . ' ' . $registration['last_name'] );
+            $display_name       = $display_name ? $display_name : $registration['user_login'];
+            $pending_user       = new WP_User();
+            $pending_user->data = (object) [
+                'ID'           => 0,
+                'user_login'   => $registration['user_login'],
+                'user_email'   => $registration['user_email'],
+                'display_name' => $display_name,
+            ];
+
+            $title = apply_filters( 'directorist_email_verification_title', __( 'Verify your email address', 'directorist' ), $pending_user );
+            $title = apply_filters( 'directorist_pending_registration_email_verification_title', $title, $registration );
+
+            $subject = get_directorist_option( 'email_sub_email_verification', __( '[==NAME==] Verify Your Email Address', 'directorist' ) );
+            $body    = get_directorist_option(
+                'email_tmpl_email_verification',
+                'Hi ==USERNAME==,
+
+			Thank you for signing up at ==SITE_NAME==, to complete the registration, please verify your email address.
+
+			To activate your account simply click on the link below and verify your email address within 24 hours. For your safety, you will not be able to access your account until verification of your email has been completed.
+
+			==CONFIRM_EMAIL_ADDRESS_URL==
+
+            <p align="center">If you did not sign up for this account you can ignore this email.</p>'
+            );
+
+            $site_name    = get_option( 'blogname' );
+            $site_url     = site_url();
+            $button_label = ! empty( $registration['generated_password'] ) ? __( 'Set Password And Confirm Email Address', 'directorist' ) : __( 'Confirm Email Address', 'directorist' );
+            $button       = sprintf(
+                '<p align="center"><a style="text-decoration: none;background-color: #8569fb;padding: 8px 10px;color: #fff;border-radius: 4px;" href="%s">%s</a></p>',
+                esc_url( $verification_url ),
+                esc_html( $button_label )
+            );
+
+            $find_replace = [
+                '==NAME=='                                       => $display_name,
+                '==USERNAME=='                                   => $registration['user_login'],
+                '==USER_EMAIL=='                                 => $registration['user_email'],
+                '==SITE_NAME=='                                  => $site_name,
+                '==SITE_LINK=='                                  => sprintf( '<a href="%s">%s</a>', esc_url( $site_url ), esc_html( $site_name ) ),
+                '==SITE_URL=='                                   => sprintf( '<a href="%s">%s</a>', esc_url( $site_url ), esc_html( $site_url ) ),
+                '==DASHBOARD_LINK=='                             => sprintf( '<a href="%s">%s</a>', esc_url( ATBDP_Permalink::get_dashboard_page_link() ), esc_html( ATBDP_Permalink::get_dashboard_page_link() ) ),
+                '==CONFIRM_EMAIL_ADDRESS_URL=='                  => $button,
+                '==SET_PASSWORD_AND_CONFIRM_EMAIL_ADDRESS_URL==' => $button,
+                '==USER_PASSWORD=='                              => '',
+            ];
+
+            $find_replace = apply_filters( 'directorist_replace_in_content', $find_replace, 0, $pending_user );
+
+            $subject = strtr( $subject, $find_replace );
+            $body    = nl2br( strtr( $body, $find_replace ) );
+            $body    = apply_filters( 'directorist_pending_registration_email_body', atbdp_email_html( $title, $body ), $registration, $verification_url );
+            $sent    = $this->send_mail( $registration['user_email'], $subject, $body, $this->get_email_headers() );
+
+            if ( $sent ) {
+                do_action( 'directorist_after_pending_registration_verification_email_sent', $registration, $subject, $body );
+            }
+
+            return $sent;
+        }
     } // ends class
 endif;

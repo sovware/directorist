@@ -423,12 +423,6 @@
 			if (swiperCarouselSingleListing) {
 				swiperCarouselSingleListing.dir =
 					dataRTL !== '0' ? 'rtl' : 'ltr';
-				if (dataWidthUnit === 'percentage') {
-					swiperCarouselSingleListing.style.setProperty(
-						'--gallery-crop-width',
-						'100%'
-					);
-				}
 				swiperCarouselSingleListing.style.width = sliderWidth;
 				swiperCarouselSingleListing.style.height = dataHeight
 					? dataHeight + 'px'

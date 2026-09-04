@@ -12,6 +12,7 @@ if ( empty( $data ) || ! is_array( $data ) ) {
 }
 ?>
 <section id="directorist-single-listing-slider-wrap" class="directorist-single-listing-slider-wrap background-<?php echo esc_attr( $data['background-size'] ); ?>"
+    style="--gallery-crop-width: <?php echo esc_attr( $data['width-css'] ); ?>;"
     data-width="<?php echo esc_attr( $data['width'] ); ?>"
     data-width-unit="<?php echo esc_attr( $data['width-unit'] ); ?>"
     data-height="<?php echo esc_attr( $data['height'] ); ?>"

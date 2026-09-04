@@ -82,7 +82,7 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 - `gallery_crop_width_percentage`: percentage slider width relative to the listing content container; default `100`, range `1–100`.
 - `gallery_crop_height`: pixel slider height; default `580`, range `1–1200`.
 
-Redesigned UI note (2026-09-04): Slider placement, width unit, the unit-specific width value, and pixel height are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. Pixel remains the default width mode, existing installations continue to read `gallery_crop_width`, and percentage mode uses its own value so an existing pixel width is never reinterpreted as a percentage. The width and height labels identify their defaults.
+Redesigned UI note (2026-09-04): Slider placement, width unit, the unit-specific width value, and pixel height are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. Pixel remains the default width mode, existing installations continue to read `gallery_crop_width`, and percentage mode uses its own value so an existing pixel width is never reinterpreted as a percentage. The resolved value is emitted as the scoped `--gallery-crop-width` CSS custom property with its selected unit; no option migration or backfill is required. The width and height labels identify their defaults.
 
 ### Category And Location
 

@@ -670,14 +670,17 @@ class Directorist_Single_Listing {
             $width = (int) get_directorist_option( 'gallery_crop_width', 740 );
         }
 
+        $width = empty( $width ) ? 740 : $width;
+
         // Set the options
         $data = [
             'images'             => [],
             'alt'                => $listing_title,
             'background-size'    => get_directorist_option( 'single_slider_image_size', 'cover' ),
             'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
-            'width'              => empty( $width ) ? 740 : $width,
+            'width'              => $width,
             'width-unit'         => $width_unit,
+            'width-css'          => $width . ( 'percentage' === $width_unit ? '%' : 'px' ),
             'height'             => empty( $height ) ? 580 : $height,
             'position'           => $position,
             'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),

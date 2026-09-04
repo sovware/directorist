@@ -1429,6 +1429,19 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => '#ffffff',
                     ],
 
+                    'single_slider_show_thumbnails' => [
+                        'type'        => 'toggle',
+                        'label'       => __( 'Show Thumbnails', 'directorist' ),
+                        'description' => __( 'Show or hide the thumbnail navigation below the single listing slider.', 'directorist' ),
+                        'value'       => true,
+                        'show-if'     => [
+                            'where'      => 'dsiplay_slider_single_page',
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                    ],
+
                     'single_slider_position' => [
                         'label' => __( 'Slider Placement', 'directorist' ),
                         'type'  => 'select',
@@ -4009,6 +4022,7 @@ Best regards,
                                                     'single_slider_image_size',
                                                     'single_slider_background_type',
                                                     'single_slider_background_color',
+                                                    'single_slider_show_thumbnails',
                                                     'single_slider_position',
                                                     'single_slider_width_unit',
                                                     'gallery_crop_width',

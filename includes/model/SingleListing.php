@@ -657,6 +657,8 @@ class Directorist_Single_Listing {
         $height          = (int) get_directorist_option( 'gallery_crop_height', 580 );
         $width_unit      = get_directorist_option( 'single_slider_width_unit', 'px' );
         $position        = get_directorist_option( 'single_slider_position', 'center' );
+        $show_thumbnails = atbdp_is_truthy( get_directorist_option( 'single_slider_show_thumbnails', true ) )
+            && ! empty( $data['footer_thumbnail'] );
 
         $width_unit = in_array( $width_unit, [ 'px', 'percentage' ], true ) ? $width_unit : 'px';
         $position   = in_array( $position, [ 'left', 'center', 'right' ], true ) ? $position : 'center';
@@ -680,7 +682,7 @@ class Directorist_Single_Listing {
             'position'           => $position,
             'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
             'thumbnail-bg-color' => '',
-            'show-thumbnails'    => ! empty( $data['footer_thumbnail'] ) ? '1' : '0',
+            'show-thumbnails'    => $show_thumbnails ? '1' : '0',
             'gallery'            => true,
             'rtl'                => is_rtl() ? '1' : '0',
         ];

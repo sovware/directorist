@@ -198,6 +198,15 @@ const FIELD_OVERRIDES = {
 		description:
 			"Shows around the image when it doesn't fill the slider area.",
 	},
+	single_slider_show_thumbnails: {
+		label: 'Show thumbnails',
+		description: 'Shows thumbnail navigation below the slider.',
+		componets: {
+			link: {
+				show: false,
+			},
+		},
+	},
 	guest_listings: {
 		label: 'Allow guest submissions',
 		description: 'Visitors can add a listing without creating an account.',
@@ -923,6 +932,7 @@ const FIELD_GROUPS = {
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'single_slider_show_thumbnails',
 				'single_slider_position',
 				'single_slider_width_unit',
 				'gallery_crop_width',
@@ -933,6 +943,7 @@ const FIELD_GROUPS = {
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'single_slider_show_thumbnails',
 				'single_slider_position',
 				'single_slider_width_unit',
 				'gallery_crop_width',

@@ -75,6 +75,7 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 - `dsiplay_slider_single_page`: toggles image slider on single listing pages.
 - `single_slider_image_size`: image size for single listing slider.
 - `single_slider_background_type`, `single_slider_background_color`: slider background behavior.
+- `single_slider_show_thumbnails`: show or hide thumbnail navigation below the slider; defaults to enabled for backward compatibility.
 - `single_slider_position`: horizontal slider and thumbnail placement (`left`, `center`, or `right`); defaults to `center` when unsaved or invalid.
 - `single_slider_width_unit`: switches slider width between the existing pixel value and a percentage value; defaults to `px` for backward compatibility.
 - `gallery_crop_width`: pixel slider width; default `740`, range `1–1200`.

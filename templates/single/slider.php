@@ -18,6 +18,7 @@ if ( empty( $data ) || ! is_array( $data ) ) {
     data-height="<?php echo esc_attr( $data['height'] ); ?>"
     data-position="<?php echo esc_attr( $data['position'] ); ?>"
     data-columns="<?php echo esc_attr( $data['columns'] ); ?>"
+    data-gap="<?php echo esc_attr( $data['gap'] ); ?>"
     data-rtl="<?php echo esc_attr( $data['rtl'] ); ?>"
     data-show-thumbnails="<?php echo esc_attr( $data['show-thumbnails'] ); ?>"
     data-background-size="<?php echo esc_attr( $data['background-size'] ); ?>"

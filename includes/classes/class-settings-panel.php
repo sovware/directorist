@@ -1422,6 +1422,29 @@ Please remember that your order may be canceled if you do not make your payment 
                             ],
                         ],
                     ],
+                    'single_slider_gap' => [
+                        'label'       => __( 'Image Gap (Default: 20px)', 'directorist' ),
+                        'description' => __( 'Set the space between main slider images.', 'directorist' ),
+                        'type'        => 'number',
+                        'value'       => '20',
+                        'min'         => '0',
+                        'max'         => '100',
+                        'step'        => '1',
+                        'show-if'     => [
+                            [
+                                'where'      => 'dsiplay_slider_single_page',
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => true],
+                                ],
+                            ],
+                            [
+                                'where'      => 'single_slider_columns',
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '!=', 'value' => '1'],
+                                ],
+                            ],
+                        ],
+                    ],
                     'single_slider_background_type' => [
                         'label' => __( 'Slider Background Type', 'directorist' ),
                         'type'  => 'select',
@@ -1447,9 +1470,17 @@ Please remember that your order may be canceled if you do not make your payment 
                         'type' => 'color',
                         'label' => __( 'Background Color', 'directorist' ),
                         'show-if' => [
-                            'where' => "single_slider_background_type",
-                            'conditions' => [
-                                ['key' => 'value', 'compare' => '=', 'value' => 'custom-color'],
+                            [
+                                'where' => "single_slider_image_size",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => 'contain'],
+                                ],
+                            ],
+                            [
+                                'where' => "single_slider_background_type",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => 'custom-color'],
+                                ],
                             ],
                         ],
                         'value' => '#ffffff',
@@ -4047,6 +4078,7 @@ Best regards,
                                                     'dsiplay_slider_single_page',
                                                     'single_slider_image_size',
                                                     'single_slider_columns',
+                                                    'single_slider_gap',
                                                     'single_slider_background_type',
                                                     'single_slider_background_color',
                                                     'single_slider_show_thumbnails',

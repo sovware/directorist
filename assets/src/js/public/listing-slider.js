@@ -237,6 +237,7 @@
 			let dataHeight = el.getAttribute('data-height');
 			let dataPosition = el.getAttribute('data-position');
 			let dataColumns = parseInt(el.getAttribute('data-columns'), 10);
+			let dataGap = parseInt(el.getAttribute('data-gap'), 10);
 			let dataRTL = el.getAttribute('data-rtl');
 			let dataBackgroundColor = el.getAttribute('data-background-color');
 			let dataBackgroundSize = el.getAttribute('data-background-size');
@@ -326,6 +327,10 @@
 				3,
 				Math.max(1, dataColumns || 1)
 			);
+			let singleSliderGap = Math.min(
+				100,
+				Math.max(0, Number.isNaN(dataGap) ? 20 : dataGap)
+			);
 			let desktopSliderColumns = Math.min(
 				singleSliderColumns,
 				singleSliderTotalSlides.length || 1
@@ -354,11 +359,13 @@
 				breakpoints: {
 					768: {
 						slidesPerView: tabletSliderColumns,
-						spaceBetween: tabletSliderColumns > 1 ? 10 : 0,
+						spaceBetween:
+							tabletSliderColumns > 1 ? singleSliderGap : 0,
 					},
 					1200: {
 						slidesPerView: desktopSliderColumns,
-						spaceBetween: desktopSliderColumns > 1 ? 10 : 0,
+						spaceBetween:
+							desktopSliderColumns > 1 ? singleSliderGap : 0,
 					},
 				},
 			};

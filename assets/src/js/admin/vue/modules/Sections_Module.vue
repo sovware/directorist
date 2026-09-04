@@ -133,7 +133,7 @@
 						v-show="
 							fieldIsVisibleInSection(section_key, section, field)
 						"
-						:key="field_key"
+						:key="field"
 						:class="
 							fieldWrapperClass(field, fields[field], section)
 						"

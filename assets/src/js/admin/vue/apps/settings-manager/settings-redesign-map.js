@@ -207,6 +207,12 @@ const FIELD_OVERRIDES = {
 		description:
 			"Shows around the image when it doesn't fill the slider area.",
 	},
+	single_slider_width_unit: {
+		label: 'Unit',
+		description: '',
+		group: 'container',
+		group_label: 'Container',
+	},
 	single_slider_show_thumbnails: {
 		label: 'Show thumbnails',
 		description: 'Shows thumbnail navigation below the slider.',
@@ -758,16 +764,22 @@ const FIELD_OVERRIDES = {
 		description: '',
 	},
 	gallery_crop_width: {
-		label: 'Image width (Default: 740px)',
+		label: 'Width',
 		description: '',
+		group: 'container',
+		group_label: 'Container',
 	},
 	gallery_crop_width_percentage: {
-		label: 'Image width (Default: 100%)',
+		label: 'Width',
 		description: '',
+		group: 'container',
+		group_label: 'Container',
 	},
 	gallery_crop_height: {
-		label: 'Image height (Default: 580px)',
+		label: 'Height',
 		description: '',
+		group: 'container',
+		group_label: 'Container',
 	},
 };
 
@@ -936,27 +948,30 @@ const FIELD_GROUPS = {
 		{
 			key: 'slider_image',
 			title: 'Slider image',
+			containerGroupAfterFields: [
+				'single_slider_background_color',
+				'single_slider_background_type',
+				'single_slider_image_size',
+			],
 			fields: [
 				'dsiplay_slider_single_page',
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
 				'gallery_crop_width',
+				'gallery_crop_width_percentage',
 				'gallery_crop_height',
+				'single_slider_width_unit',
 				'single_slider_columns',
 				'single_slider_gap',
 				'single_slider_show_thumbnails',
 				'single_slider_position',
-				'single_slider_width_unit',
-				'gallery_crop_width_percentage',
 			],
 			advancedFields: [
 				'single_slider_columns',
 				'single_slider_gap',
 				'single_slider_show_thumbnails',
 				'single_slider_position',
-				'single_slider_width_unit',
-				'gallery_crop_width_percentage',
 			],
 		},
 	],
@@ -2015,6 +2030,12 @@ const sectionFromFieldGroup = (group, fields, usedFields) => {
 		description: group.description || '',
 		...(group.advanced ? { advanced: true } : {}),
 		...(group.advancedLabel ? { advancedLabel: group.advancedLabel } : {}),
+		...(group.containerGroupAfterField
+			? { containerGroupAfterField: group.containerGroupAfterField }
+			: {}),
+		...(Array.isArray(group.containerGroupAfterFields)
+			? { containerGroupAfterFields: [...group.containerGroupAfterFields] }
+			: {}),
 		...(group.showIf ? { showIf: clone(group.showIf) } : {}),
 		...(group.show_if ? { show_if: clone(group.show_if) } : {}),
 		...(group['show-if'] ? { 'show-if': clone(group['show-if']) } : {}),

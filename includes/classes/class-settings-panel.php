@@ -1429,22 +1429,99 @@ Please remember that your order may be canceled if you do not make your payment 
                         'value' => '#ffffff',
                     ],
 
-                    'gallery_crop_width' => [
-                        'label' => __( 'Image Width', 'directorist' ),
-                        'type'  => 'number',
-                        'value' => '740',
-                        'min' => '1',
-                        'max' => '1200',
-                        'step' => '1',
+                    'single_slider_position' => [
+                        'label' => __( 'Slider Placement', 'directorist' ),
+                        'type'  => 'select',
+                        'value' => 'center',
                         'show-if' => [
                             'where' => "dsiplay_slider_single_page",
                             'conditions' => [
                                 ['key' => 'value', 'compare' => '=', 'value' => true],
                             ],
                         ],
+                        'options' => [
+                            [
+                                'value' => 'left',
+                                'label' => __( 'Left', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'center',
+                                'label' => __( 'Center', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'right',
+                                'label' => __( 'Right', 'directorist' ),
+                            ],
+                        ],
+                    ],
+                    'single_slider_width_unit' => [
+                        'label' => __( 'Width Unit', 'directorist' ),
+                        'type'  => 'select',
+                        'value' => 'px',
+                        'show-if' => [
+                            'where' => "dsiplay_slider_single_page",
+                            'conditions' => [
+                                ['key' => 'value', 'compare' => '=', 'value' => true],
+                            ],
+                        ],
+                        'options' => [
+                            [
+                                'value' => 'px',
+                                'label' => __( 'Pixel', 'directorist' ),
+                            ],
+                            [
+                                'value' => 'percentage',
+                                'label' => __( 'Percentage', 'directorist' ),
+                            ],
+                        ],
+                    ],
+
+                    'gallery_crop_width' => [
+                        'label' => __( 'Image Width (Default: 740px)', 'directorist' ),
+                        'type'  => 'number',
+                        'value' => '740',
+                        'min' => '1',
+                        'max' => '1200',
+                        'step' => '1',
+                        'show-if' => [
+                            [
+                                'where' => "dsiplay_slider_single_page",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => true],
+                                ],
+                            ],
+                            [
+                                'where' => "single_slider_width_unit",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => 'px'],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'gallery_crop_width_percentage' => [
+                        'label' => __( 'Image Width (Default: 100%)', 'directorist' ),
+                        'type'  => 'number',
+                        'value' => '100',
+                        'min' => '1',
+                        'max' => '100',
+                        'step' => '1',
+                        'show-if' => [
+                            [
+                                'where' => "dsiplay_slider_single_page",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => true],
+                                ],
+                            ],
+                            [
+                                'where' => "single_slider_width_unit",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => 'percentage'],
+                                ],
+                            ],
+                        ],
                     ],
                     'gallery_crop_height' => [
-                        'label' => __( 'Image Height', 'directorist' ),
+                        'label' => __( 'Image Height (Default: 580px)', 'directorist' ),
                         'type'  => 'number',
                         'value' => '580',
                         'min' => '1',
@@ -3932,7 +4009,10 @@ Best regards,
                                                     'single_slider_image_size',
                                                     'single_slider_background_type',
                                                     'single_slider_background_color',
+                                                    'single_slider_position',
+                                                    'single_slider_width_unit',
                                                     'gallery_crop_width',
+                                                    'gallery_crop_width_percentage',
                                                     'gallery_crop_height'
                                                 ],
                                             ],

@@ -740,11 +740,15 @@ const FIELD_OVERRIDES = {
 		description: '',
 	},
 	gallery_crop_width: {
-		label: 'Image width',
+		label: 'Image width (Default: 740px)',
+		description: '',
+	},
+	gallery_crop_width_percentage: {
+		label: 'Image width (Default: 100%)',
 		description: '',
 	},
 	gallery_crop_height: {
-		label: 'Image height',
+		label: 'Image height (Default: 580px)',
 		description: '',
 	},
 };
@@ -919,14 +923,20 @@ const FIELD_GROUPS = {
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'single_slider_position',
+				'single_slider_width_unit',
 				'gallery_crop_width',
+				'gallery_crop_width_percentage',
 				'gallery_crop_height',
 			],
 			advancedFields: [
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'single_slider_position',
+				'single_slider_width_unit',
 				'gallery_crop_width',
+				'gallery_crop_width_percentage',
 				'gallery_crop_height',
 			],
 		},

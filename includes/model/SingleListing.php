@@ -654,8 +654,19 @@ class Directorist_Single_Listing {
 
         // Get the options
         $background_type = get_directorist_option( 'single_slider_background_type', 'custom-color' );
-        $height          = (int) get_directorist_option( 'gallery_crop_height', 670 );
-        $width           = (int) get_directorist_option( 'gallery_crop_width', 750 );
+        $height          = (int) get_directorist_option( 'gallery_crop_height', 580 );
+        $width_unit      = get_directorist_option( 'single_slider_width_unit', 'px' );
+        $position        = get_directorist_option( 'single_slider_position', 'center' );
+
+        $width_unit = in_array( $width_unit, [ 'px', 'percentage' ], true ) ? $width_unit : 'px';
+        $position   = in_array( $position, [ 'left', 'center', 'right' ], true ) ? $position : 'center';
+
+        if ( 'percentage' === $width_unit ) {
+            $width = (int) get_directorist_option( 'gallery_crop_width_percentage', 100 );
+            $width = min( 100, max( 1, $width ) );
+        } else {
+            $width = (int) get_directorist_option( 'gallery_crop_width', 740 );
+        }
 
         // Set the options
         $data = [
@@ -664,7 +675,9 @@ class Directorist_Single_Listing {
             'background-size'    => get_directorist_option( 'single_slider_image_size', 'cover' ),
             'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
             'width'              => empty( $width ) ? 740 : $width,
+            'width-unit'         => $width_unit,
             'height'             => empty( $height ) ? 580 : $height,
+            'position'           => $position,
             'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
             'thumbnail-bg-color' => '',
             'show-thumbnails'    => ! empty( $data['footer_thumbnail'] ) ? '1' : '0',

@@ -75,9 +75,13 @@ Redesigned UI note (2026-06-08): Core listing display settings are no longer rou
 - `dsiplay_slider_single_page`: toggles image slider on single listing pages.
 - `single_slider_image_size`: image size for single listing slider.
 - `single_slider_background_type`, `single_slider_background_color`: slider background behavior.
-- `gallery_crop_width`, `gallery_crop_height`: gallery image crop dimensions.
+- `single_slider_position`: horizontal slider and thumbnail placement (`left`, `center`, or `right`); defaults to `center` when unsaved or invalid.
+- `single_slider_width_unit`: switches slider width between the existing pixel value and a percentage value; defaults to `px` for backward compatibility.
+- `gallery_crop_width`: pixel slider width; default `740`, range `1–1200`.
+- `gallery_crop_width_percentage`: percentage slider width relative to the listing content container; default `100`, range `1–100`.
+- `gallery_crop_height`: pixel slider height; default `580`, range `1–1200`.
 
-Redesigned UI note (2026-09-04): `gallery_crop_width` and `gallery_crop_height` are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. They retain their existing number-field definitions, conditional visibility, saved option keys, and frontend readers.
+Redesigned UI note (2026-09-04): Slider placement, width unit, the unit-specific width value, and pixel height are available in the `Directory > Single listing > Slider image` card's nested `Advanced` disclosure. Pixel remains the default width mode, existing installations continue to read `gallery_crop_width`, and percentage mode uses its own value so an existing pixel width is never reinterpreted as a percentage. The width and height labels identify their defaults.
 
 ### Category And Location
 

@@ -635,8 +635,13 @@ export default {
           ];
 
           for (let widget_name of uniqueWidgets) {
-            // Check if widget is available
-            if (!this.available_widgets[widget_name]) {
+            const availableWidget =
+              this.theAvailableWidgets[widget_name] ||
+              this.available_widgets[widget_name];
+
+            // Check if widget is available. Dynamic custom-field widgets only
+            // exist in theAvailableWidgets, not in the base available_widgets map.
+            if (!availableWidget) {
               continue;
             }
 
@@ -647,11 +652,11 @@ export default {
               typeof this.active_widgets[widget_name] !== "object"
             ) {
               // Get widget from theAvailableWidgets to ensure widget_key and widget_name are set
-              const widgetFromAvailable = this.theAvailableWidgets[widget_name];
+              const widgetFromAvailable = availableWidget;
               if (widgetFromAvailable) {
                 this.active_widgets[widget_name] = {
                   ...widgetFromAvailable,
-                  widget_name: widget_name,
+                  widget_name: widgetFromAvailable.widget_name || widget_name,
                   widget_key: widget_name,
                 };
               } else {
@@ -735,13 +740,18 @@ export default {
             let widget_keys = [];
             for (let matched_field of show_if_cond_state.matched_data) {
               let _main_widget = JSON.parse(JSON.stringify(main_widget));
-              let current_key = widget_keys.includes(widget)
-                ? widget + "_" + (widget_keys.length + 1)
-                : widget;
+              let current_key = matched_field.widget_key
+                ? matched_field.widget_key
+                : widget_keys.includes(widget)
+                  ? widget + "_" + (widget_keys.length + 1)
+                  : widget;
               _main_widget.widget_key = current_key;
 
               if (matched_field.widget_key) {
                 _main_widget.original_widget_key = matched_field.widget_key;
+              }
+              if (matched_field.field_key) {
+                _main_widget.field_key = matched_field.field_key;
               }
 
               if (
@@ -971,15 +981,21 @@ export default {
           }
 
           for (let widget of value[section][area]) {
-            if (typeof widget.widget_name === "undefined") {
+            const widget_key =
+              widget.widget_key ||
+              widget.original_widget_key ||
+              widget.widget_name;
+            if (typeof widget_key === "undefined") {
               continue;
             }
-            if (typeof widget.widget_key === "undefined") {
-              continue;
-            }
-            if (
-              typeof this.available_widgets[widget.widget_name] === "undefined"
-            ) {
+            const widget_template =
+              this.theAvailableWidgets[widget_key] ||
+              this.theAvailableWidgets[widget.original_widget_key] ||
+              this.theAvailableWidgets[widget.widget_name] ||
+              this.available_widgets[widget.widget_name] ||
+              this.available_widgets[widget_key];
+
+            if (typeof widget_template === "undefined") {
               continue;
             }
             if (typeof this.local_layout[section] === "undefined") {
@@ -989,11 +1005,16 @@ export default {
               continue;
             }
 
-            active_widgets_data[widget.widget_key] = widget;
+            active_widgets_data[widget_key] = {
+              ...widget,
+              widget_key: widget_key,
+              widget_name:
+                widget.widget_name || widget_template.widget_name || widget_key,
+            };
             selectedWidgets.push({
               section: section,
               area: area,
-              widget: widget.widget_key,
+              widget: widget_key,
             });
           }
         }

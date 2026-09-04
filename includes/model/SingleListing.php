@@ -1172,13 +1172,13 @@ class Directorist_Single_Listing {
         
         $display_title     = $this->listing_header( 'title', 'listing-title-placeholder' );
         $args = [
-                'listing'           => $this,
-                'use_listing_title' => true,
-                'section_title'     => '',
-                'section_icon'      => '',
-                'display_title'     => $display_title,
-                'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
-                'display_content'   => false,
+            'listing'           => $this,
+            'use_listing_title' => true,
+            'section_title'     => '',
+            'section_icon'      => '',
+            'display_title'     => $display_title,
+            'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
+            'display_content'   => false,
         ];
 
         return Helper::get_template( 'single/header', $args );

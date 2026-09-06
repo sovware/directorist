@@ -19,7 +19,9 @@ $dashboard     = Directorist_Listing_Dashboard::instance();
 $dashboard_url = get_permalink( get_directorist_option( 'user_dashboard' ) );
 ?>
 
-<div class="directorist-account-block-logged-mode__navigation">
+<?php $account_navigation_id = isset( $account_navigation_id ) ? $account_navigation_id : 'directorist-account-navigation'; ?>
+
+<div id="<?php echo esc_attr( $account_navigation_id ); ?>" class="directorist-account-block-logged-mode__navigation" aria-hidden="true">
 
     <ul>
 

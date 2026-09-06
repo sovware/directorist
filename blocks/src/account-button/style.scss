@@ -6,6 +6,55 @@
 // This variable is repeated across Button, Buttons, and Buttons editor styles.
 $blocks-block__margin: 0.5em;
 
+.directorist-modal-trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--directorist-modal-icon-gap, 8px);
+	font: inherit;
+	line-height: inherit;
+	cursor: pointer;
+
+	&--reverse {
+		flex-direction: row-reverse;
+	}
+
+	.directorist-modal-trigger__icon,
+	.directorist-modal-trigger__custom-icon,
+	.directorist-modal-trigger__editor-icon {
+		flex: 0 0 auto;
+		width: var(--directorist-modal-icon-size, 24px);
+		height: var(--directorist-modal-icon-size, 24px);
+		object-fit: contain;
+	}
+
+	.directorist-modal-trigger__icon::after {
+		width: 100%;
+		height: 100%;
+		background-color: var(--directorist-modal-icon-color, currentColor);
+	}
+}
+
+.directorist-account-block__trigger {
+	appearance: none;
+	border: 0;
+}
+
+.directorist-account-block__custom-avatar {
+	object-fit: cover;
+}
+
+.directorist-account-modal-open {
+	overflow: hidden;
+}
+
+.directorist-modal-icon-presets {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin-bottom: 16px;
+}
+
 // Prefer the link selector instead of the regular button classname
 // to support the previous markup in addition to the new one.
 .wp-block-button__link {

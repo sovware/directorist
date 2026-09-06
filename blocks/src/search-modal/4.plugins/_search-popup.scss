@@ -88,7 +88,8 @@
             right: 15px;
         }
         @include ssm{
-           display: none;
+            top: 16px;
+            right: 15px;
         }
     }
     &__overlay{
@@ -116,19 +117,7 @@
         cursor: pointer;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        @include media-custom-max(600px){
-            width: 40px;
-            height: 40px;
-            justify-content: center;
-            border: 1px solid var(--directorist-color-border);
-            border-radius: 50%;
-            &:hover{
-                .directorist-icon-mask:after{
-                    background-color: currentColor;
-                }
-            }
-        }
+        gap: var(--directorist-modal-icon-gap, 8px);
         .directorist-icon-mask:after{
             background-color: var(--directorist-color-gray);
         }

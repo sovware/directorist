@@ -1,28 +1,28 @@
 /**
  * External dependencies
  */
+/* eslint-disable @wordpress/no-unsafe-wp-apis */
 import clsx from 'clsx';
-
-function removeAnchorTag( value ) {
-	// To do: Refactor this to use rich text's removeFormat instead.
-	return value.toString().replace( /<\/?a[^>]*>/g, '' );
-}
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useRef } from '@wordpress/element';
+import { commentAuthorAvatar } from '@wordpress/icons';
 import {
 	Button,
-	ButtonGroup,
 	PanelBody,
+	RangeControl,
+	SelectControl,
+	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
 	BlockControls,
 	InspectorControls,
+	MediaUpload,
+	MediaUploadCheck,
 	RichText,
 	useBlockProps,
 	__experimentalUseBorderProps as useBorderProps,
@@ -30,184 +30,80 @@ import {
 	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
 	__experimentalGetShadowClassesAndStyles as useShadowProps,
 	__experimentalGetElementClassName,
-	store as blockEditorStore,
-	useBlockEditingMode,
 } from '@wordpress/block-editor';
-import { isKeyboardEvent, ENTER } from '@wordpress/keycodes';
+
 import {
-	createBlock,
-	cloneBlock,
-	getDefaultBlockName,
-} from '@wordpress/blocks';
-import { useMergeRefs, useRefEffect } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
+	ModalIconControls,
+	ModalIconPreview,
+} from '../components/modal-icon-controls';
 
-function useEnter( props ) {
-	const { replaceBlocks, selectionChange } = useDispatch( blockEditorStore );
-	const { getBlock, getBlockRootClientId, getBlockIndex } =
-		useSelect( blockEditorStore );
-	const propsRef = useRef( props );
-	propsRef.current = props;
-	return useRefEffect( ( element ) => {
-		function onKeyDown( event ) {
-			if ( event.defaultPrevented || event.keyCode !== ENTER ) {
-				return;
-			}
-			const { content, clientId } = propsRef.current;
-			if ( content.length ) {
-				return;
-			}
-			event.preventDefault();
-			const topParentListBlock = getBlock(
-				getBlockRootClientId( clientId )
-			);
-			const blockIndex = getBlockIndex( clientId );
-			const head = cloneBlock( {
-				...topParentListBlock,
-				innerBlocks: topParentListBlock.innerBlocks.slice(
-					0,
-					blockIndex
-				),
-			} );
-			const middle = createBlock( getDefaultBlockName() );
-			const after = topParentListBlock.innerBlocks.slice(
-				blockIndex + 1
-			);
-			const tail = after.length
-				? [
-						cloneBlock( {
-							...topParentListBlock,
-							innerBlocks: after,
-						} ),
-				  ]
-				: [];
-			replaceBlocks(
-				topParentListBlock.clientId,
-				[ head, middle, ...tail ],
-				1
-			);
-			// We manually change the selection here because we are replacing
-			// a different block than the selected one.
-			selectionChange( middle.clientId );
-		}
+const ACCOUNT_ICON_PRESETS = [
+	{ label: __( 'User', 'directorist' ), value: 'las la-user' },
+	{ label: __( 'Account', 'directorist' ), value: 'las la-user-circle' },
+	{ label: __( 'Sign in', 'directorist' ), value: 'las la-sign-in-alt' },
+	{ label: __( 'Menu', 'directorist' ), value: 'las la-bars' },
+];
 
-		element.addEventListener( 'keydown', onKeyDown );
-		return () => {
-			element.removeEventListener( 'keydown', onKeyDown );
-		};
-	}, [] );
-}
-
-function WidthPanel( { selectedWidth, setAttributes } ) {
-	function handleChange( newWidth ) {
-		// Check if we are toggling the width off
-		const width = selectedWidth === newWidth ? undefined : newWidth;
-
-		// Update attributes.
-		setAttributes( { width } );
-	}
-
-	return (
-		<ButtonGroup aria-label={ __( 'Button width' ) }>
-			{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
-				return (
-					<Button
-						key={ widthValue }
-						size="small"
-						variant={
-							widthValue === selectedWidth ? 'primary' : undefined
-						}
-						onClick={ () => handleChange( widthValue ) }
-					>
-						{ widthValue }%
-					</Button>
-				);
-			} ) }
-		</ButtonGroup>
-	);
-}
-
-function ButtonEdit( props ) {
+export default function Edit( { attributes, setAttributes, className } ) {
 	const {
-		attributes,
-		setAttributes,
-		className,
-		onReplace,
-		mergeBlocks,
-		clientId,
-	} = props;
-	const { textAlign, placeholder, style, text, width, showDashboardMenu } =
-		attributes;
-
-	function onKeyDown( event ) {
-		if ( isKeyboardEvent.primary( event, 'k' ) ) {
-			startEditing( event );
-		} else if ( isKeyboardEvent.primaryShift( event, 'k' ) ) {
-			unlink();
-			richTextRef.current?.focus();
-		}
-	}
-
-	// Use internal state instead of a ref to make sure that the component
-	// re-renders when the popover's anchor updates.
-	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
-
+		textAlign,
+		placeholder,
+		style,
+		text,
+		width,
+		showDashboardMenu,
+		styleDisplay,
+		iconSource,
+		iconUrl,
+		iconSize,
+		iconColor,
+		iconPosition,
+		iconGap,
+		accessibleLabel,
+		loggedInDisplay,
+		avatarSource,
+		avatarId,
+		avatarUrl,
+		avatarAlt,
+		avatarSize,
+		avatarRadius,
+	} = attributes;
 	const borderProps = useBorderProps( attributes );
 	const colorProps = useColorProps( attributes );
 	const spacingProps = useSpacingProps( attributes );
 	const shadowProps = useShadowProps( attributes );
-	const ref = useRef();
-	const richTextRef = useRef();
 	const blockProps = useBlockProps( {
-		ref: useMergeRefs( [ setPopoverAnchor, ref ] ),
-		onKeyDown,
+		className: clsx( className, {
+			[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+			'has-custom-font-size': style?.typography?.fontSize,
+		} ),
 	} );
-	const blockEditingMode = useBlockEditingMode();
-
-	function startEditing( event ) {
-		event.preventDefault();
-	}
-
-	function unlink() {
-		setAttributes( {
-			url: undefined,
-			linkTarget: undefined,
-			rel: undefined,
-		} );
-	}
-
-	const useEnterRef = useEnter( { content: text, clientId } );
-	const mergedRef = useMergeRefs( [ useEnterRef, richTextRef ] );
+	const showIcon = 'text' !== styleDisplay;
+	const showText = 'icon' !== styleDisplay;
+	const icon = showIcon ? (
+		<ModalIconPreview
+			source={ iconSource }
+			url={ iconUrl }
+			size={ iconSize }
+			color={ iconColor }
+			fallback={ commentAuthorAvatar }
+		/>
+	) : null;
 
 	return (
 		<>
-			<div
-				{ ...blockProps }
-				className={ clsx( blockProps.className, {
-					[ `has-custom-width wp-block-button__width-${ width }` ]:
-						width,
-					[ `has-custom-font-size` ]: blockProps.style.fontSize,
-				} ) }
-			>
-				<RichText
-					ref={ mergedRef }
-					aria-label={ __( 'Button text' ) }
-					placeholder={ placeholder || __( 'Add text…' ) }
-					value={ text }
-					onChange={ ( value ) =>
-						setAttributes( {
-							text: removeAnchorTag( value ),
-						} )
-					}
-					withoutInteractiveFormatting
+			<div { ...blockProps }>
+				<div
 					className={ clsx(
-						className,
 						'wp-block-button__link',
+						'directorist-modal-trigger',
 						colorProps.className,
 						borderProps.className,
 						{
 							[ `has-text-align-${ textAlign }` ]: textAlign,
 							'no-border-radius': style?.border?.radius === 0,
+							'directorist-modal-trigger--reverse':
+								'after' === iconPosition,
 						},
 						__experimentalGetElementClassName( 'button' )
 					) }
@@ -216,47 +112,244 @@ function ButtonEdit( props ) {
 						...colorProps.style,
 						...spacingProps.style,
 						...shadowProps.style,
+						gap: iconGap,
 					} }
-					onReplace={ onReplace }
-					onMerge={ mergeBlocks }
-					identifier="text"
-				/>
+					role="button"
+					aria-label={ accessibleLabel }
+				>
+					{ icon }
+					{ showText && (
+						<RichText
+							tagName="span"
+							aria-label={ __( 'Button text', 'directorist' ) }
+							placeholder={
+								placeholder || __( 'Account', 'directorist' )
+							}
+							value={ text }
+							onChange={ ( value ) =>
+								setAttributes( { text: value } )
+							}
+							withoutInteractiveFormatting
+						/>
+					) }
+				</div>
 			</div>
 
 			<BlockControls group="block">
-				{ blockEditingMode === 'default' && (
-					<AlignmentControl
-						value={ textAlign }
-						onChange={ ( nextAlign ) => {
-							setAttributes( { textAlign: nextAlign } );
-						} }
-					/>
-				) }
+				<AlignmentControl
+					value={ textAlign }
+					onChange={ ( value ) =>
+						setAttributes( { textAlign: value } )
+					}
+				/>
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
+				<PanelBody title={ __( 'Logged-out trigger', 'directorist' ) }>
+					<SelectControl
+						label={ __( 'Display', 'directorist' ) }
+						value={ styleDisplay }
+						options={ [
+							{
+								label: __( 'Icon only', 'directorist' ),
+								value: 'icon',
+							},
+							{
+								label: __( 'Text only', 'directorist' ),
+								value: 'text',
+							},
+							{
+								label: __( 'Icon and text', 'directorist' ),
+								value: 'icon_and_text',
+							},
+						] }
+						onChange={ ( value ) =>
+							setAttributes( { styleDisplay: value } )
+						}
+						__nextHasNoMarginBottom
+					/>
+					<TextControl
+						label={ __( 'Accessible label', 'directorist' ) }
+						value={ accessibleLabel }
+						onChange={ ( value ) =>
+							setAttributes( { accessibleLabel: value } )
+						}
+					/>
+					<RangeControl
+						label={ __( 'Button width', 'directorist' ) }
+						value={ width }
+						min={ 10 }
+						max={ 100 }
+						onChange={ ( value ) =>
+							setAttributes( { width: value } )
+						}
+						allowReset
+					/>
+				</PanelBody>
+
+				{ showIcon && (
+					<PanelBody
+						title={ __( 'Logged-out icon', 'directorist' ) }
+						initialOpen={ false }
+					>
+						<ModalIconControls
+							attributes={ attributes }
+							setAttributes={ setAttributes }
+							presets={ ACCOUNT_ICON_PRESETS }
+						/>
+					</PanelBody>
+				) }
+
+				<PanelBody
+					title={ __( 'Logged-in author', 'directorist' ) }
+					initialOpen={ false }
+				>
+					<SelectControl
+						label={ __( 'Display', 'directorist' ) }
+						value={ loggedInDisplay }
+						options={ [
+							{
+								label: __( 'Avatar', 'directorist' ),
+								value: 'avatar',
+							},
+							{
+								label: __(
+									'Avatar and display name',
+									'directorist'
+								),
+								value: 'avatar_and_name',
+							},
+							{
+								label: __( 'Icon', 'directorist' ),
+								value: 'icon',
+							},
+							{
+								label: __(
+									'Icon and display name',
+									'directorist'
+								),
+								value: 'icon_and_name',
+							},
+						] }
+						onChange={ ( value ) =>
+							setAttributes( { loggedInDisplay: value } )
+						}
+						__nextHasNoMarginBottom
+					/>
 					<ToggleControl
 						checked={ showDashboardMenu }
-						label={ __(
-							'Enable dropdown menu',
-							'directorist-account-block'
-						) }
-						onChange={ () =>
-							setAttributes( {
-								showDashboardMenu: ! showDashboardMenu,
-							} )
+						label={ __( 'Enable dashboard menu', 'directorist' ) }
+						onChange={ ( value ) =>
+							setAttributes( { showDashboardMenu: value } )
 						}
 					/>
 
-					<WidthPanel
-						selectedWidth={ width }
-						setAttributes={ setAttributes }
-					/>
+					{ loggedInDisplay.startsWith( 'avatar' ) && (
+						<>
+							<SelectControl
+								label={ __( 'Avatar source', 'directorist' ) }
+								value={ avatarSource }
+								options={ [
+									{
+										label: __(
+											'Current user',
+											'directorist'
+										),
+										value: 'user',
+									},
+									{
+										label: __(
+											'Media Library',
+											'directorist'
+										),
+										value: 'image',
+									},
+								] }
+								onChange={ ( value ) =>
+									setAttributes( { avatarSource: value } )
+								}
+								__nextHasNoMarginBottom
+							/>
+							{ 'image' === avatarSource && (
+								<>
+									<MediaUploadCheck>
+										<MediaUpload
+											onSelect={ ( media ) =>
+												setAttributes( {
+													avatarId: media.id,
+													avatarUrl: media.url,
+													avatarAlt: media.alt || '',
+												} )
+											}
+											allowedTypes={ [ 'image' ] }
+											value={ avatarId }
+											render={ ( { open } ) => (
+												<Button
+													variant="secondary"
+													onClick={ open }
+												>
+													{ avatarUrl
+														? __(
+																'Replace avatar',
+																'directorist'
+														  )
+														: __(
+																'Choose avatar',
+																'directorist'
+														  ) }
+												</Button>
+											) }
+										/>
+									</MediaUploadCheck>
+									<TextControl
+										label={ __(
+											'Alternative text',
+											'directorist'
+										) }
+										value={ avatarAlt }
+										onChange={ ( value ) =>
+											setAttributes( {
+												avatarAlt: value,
+											} )
+										}
+									/>
+								</>
+							) }
+							<RangeControl
+								label={ __( 'Avatar size', 'directorist' ) }
+								value={ avatarSize }
+								min={ 20 }
+								max={ 120 }
+								onChange={ ( value ) =>
+									setAttributes( { avatarSize: value } )
+								}
+							/>
+							<RangeControl
+								label={ __(
+									'Avatar roundness',
+									'directorist'
+								) }
+								value={ avatarRadius }
+								min={ 0 }
+								max={ 50 }
+								onChange={ ( value ) =>
+									setAttributes( { avatarRadius: value } )
+								}
+							/>
+						</>
+					) }
+
+					{ loggedInDisplay.startsWith( 'icon' ) && (
+						<ModalIconControls
+							attributes={ attributes }
+							setAttributes={ setAttributes }
+							prefix="author"
+							presets={ ACCOUNT_ICON_PRESETS }
+							showPosition={ false }
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 		</>
 	);
 }
-
-export default ButtonEdit;

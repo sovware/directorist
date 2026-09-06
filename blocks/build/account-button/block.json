@@ -18,6 +18,129 @@
       "type": "boolean",
       "default": true
     },
+    "styleDisplay": {
+      "type": "string",
+      "enum": [
+        "icon",
+        "text",
+        "icon_and_text"
+      ],
+      "default": "text"
+    },
+    "iconSource": {
+      "type": "string",
+      "enum": [
+        "library",
+        "image"
+      ],
+      "default": "library"
+    },
+    "iconClass": {
+      "type": "string",
+      "default": "las la-user"
+    },
+    "iconId": {
+      "type": "number",
+      "default": 0
+    },
+    "iconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "iconSize": {
+      "type": "number",
+      "default": 24
+    },
+    "iconColor": {
+      "type": "string",
+      "default": ""
+    },
+    "iconPosition": {
+      "type": "string",
+      "enum": [
+        "before",
+        "after"
+      ],
+      "default": "before"
+    },
+    "iconGap": {
+      "type": "number",
+      "default": 8
+    },
+    "accessibleLabel": {
+      "type": "string",
+      "default": "Open account"
+    },
+    "loggedInDisplay": {
+      "type": "string",
+      "enum": [
+        "avatar",
+        "avatar_and_name",
+        "icon",
+        "icon_and_name"
+      ],
+      "default": "avatar"
+    },
+    "avatarSource": {
+      "type": "string",
+      "enum": [
+        "user",
+        "image"
+      ],
+      "default": "user"
+    },
+    "avatarId": {
+      "type": "number",
+      "default": 0
+    },
+    "avatarUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "avatarAlt": {
+      "type": "string",
+      "default": ""
+    },
+    "avatarSize": {
+      "type": "number",
+      "default": 40
+    },
+    "avatarRadius": {
+      "type": "number",
+      "default": 50
+    },
+    "authorIconSource": {
+      "type": "string",
+      "enum": [
+        "library",
+        "image"
+      ],
+      "default": "library"
+    },
+    "authorIconClass": {
+      "type": "string",
+      "default": "las la-user-circle"
+    },
+    "authorIconId": {
+      "type": "number",
+      "default": 0
+    },
+    "authorIconUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "authorIconSize": {
+      "type": "number",
+      "default": 40
+    },
+    "authorIconColor": {
+      "type": "string",
+      "default": ""
+    },
+    "authorIconGap": {
+      "type": "number",
+      "default": 8
+    },
     "textAlign": {
       "type": "string"
     },
@@ -140,7 +263,7 @@
       "label": "Outline"
     }
   ],
-  "textdomain": "Directorist",
+  "textdomain": "directorist",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./editor.css",
   "style": "file:./style-index.css",

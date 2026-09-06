@@ -1,24 +1,19 @@
 /**
  * External dependencies
  */
+/* eslint-disable @wordpress/no-unsafe-wp-apis */
 import clsx from 'clsx';
-
-function removeAnchorTag( value ) {
-	// To do: Refactor this to use rich text's removeFormat instead.
-	return value.toString().replace( /<\/?a[^>]*>/g, '' );
-}
 
 /**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { useState, useRef } from '@wordpress/element';
+import { search } from '@wordpress/icons';
 import {
-	Button,
-	ButtonGroup,
 	PanelBody,
-	ToggleControl,
+	RangeControl,
 	SelectControl,
+	TextControl,
 } from '@wordpress/components';
 import {
 	AlignmentControl,
@@ -31,192 +26,72 @@ import {
 	__experimentalGetSpacingClassesAndStyles as useSpacingProps,
 	__experimentalGetShadowClassesAndStyles as useShadowProps,
 	__experimentalGetElementClassName,
-	store as blockEditorStore,
-	useBlockEditingMode,
 } from '@wordpress/block-editor';
-import { isKeyboardEvent, ENTER } from '@wordpress/keycodes';
+
 import {
-	createBlock,
-	cloneBlock,
-	getDefaultBlockName,
-} from '@wordpress/blocks';
-import { useMergeRefs, useRefEffect } from '@wordpress/compose';
-import { useSelect, useDispatch } from '@wordpress/data';
+	ModalIconControls,
+	ModalIconPreview,
+} from '../components/modal-icon-controls';
 
-function useEnter( props ) {
-	const { replaceBlocks, selectionChange } = useDispatch( blockEditorStore );
-	const { getBlock, getBlockRootClientId, getBlockIndex } =
-		useSelect( blockEditorStore );
-	const propsRef = useRef( props );
-	propsRef.current = props;
-	return useRefEffect( ( element ) => {
-		function onKeyDown( event ) {
-			if ( event.defaultPrevented || event.keyCode !== ENTER ) {
-				return;
-			}
-			const { content, clientId } = propsRef.current;
-			if ( content.length ) {
-				return;
-			}
-			event.preventDefault();
-			const topParentListBlock = getBlock(
-				getBlockRootClientId( clientId )
-			);
-			const blockIndex = getBlockIndex( clientId );
-			const head = cloneBlock( {
-				...topParentListBlock,
-				innerBlocks: topParentListBlock.innerBlocks.slice(
-					0,
-					blockIndex
-				),
-			} );
-			const middle = createBlock( getDefaultBlockName() );
-			const after = topParentListBlock.innerBlocks.slice(
-				blockIndex + 1
-			);
-			const tail = after.length
-				? [
-						cloneBlock( {
-							...topParentListBlock,
-							innerBlocks: after,
-						} ),
-				  ]
-				: [];
-			replaceBlocks(
-				topParentListBlock.clientId,
-				[ head, middle, ...tail ],
-				1
-			);
-			// We manually change the selection here because we are replacing
-			// a different block than the selected one.
-			selectionChange( middle.clientId );
-		}
+const SEARCH_ICON_PRESETS = [
+	{ label: __( 'Search', 'directorist' ), value: 'fas fa-search' },
+	{ label: __( 'Filter', 'directorist' ), value: 'las la-filter' },
+	{ label: __( 'Find', 'directorist' ), value: 'las la-search-location' },
+	{ label: __( 'Explore', 'directorist' ), value: 'las la-compass' },
+];
 
-		element.addEventListener( 'keydown', onKeyDown );
-		return () => {
-			element.removeEventListener( 'keydown', onKeyDown );
-		};
-	}, [] );
-}
-
-function WidthPanel( { selectedWidth, setAttributes } ) {
-	function handleChange( newWidth ) {
-		// Check if we are toggling the width off
-		const width = selectedWidth === newWidth ? undefined : newWidth;
-
-		// Update attributes.
-		setAttributes( { width } );
-	}
-
-	return (
-		<ButtonGroup aria-label={ __( 'Button width' ) }>
-			{ [ 25, 50, 75, 100 ].map( ( widthValue ) => {
-				return (
-					<Button
-						key={ widthValue }
-						size="small"
-						variant={
-							widthValue === selectedWidth ? 'primary' : undefined
-						}
-						onClick={ () => handleChange( widthValue ) }
-					>
-						{ widthValue }%
-					</Button>
-				);
-			} ) }
-		</ButtonGroup>
-	);
-}
-
-function ButtonEdit( props ) {
-	const {
-		attributes,
-		setAttributes,
-		className,
-		onReplace,
-		mergeBlocks,
-		clientId,
-	} = props;
+export default function Edit( { attributes, setAttributes, className } ) {
 	const {
 		textAlign,
 		placeholder,
 		style,
 		text,
 		width,
-		showUserAvatar,
-		showDashboardMenu,
 		styleDisplay,
+		iconSource,
+		iconUrl,
+		iconSize,
+		iconColor,
+		iconPosition,
+		iconGap,
+		accessibleLabel,
 	} = attributes;
-
-	function onKeyDown( event ) {
-		if ( isKeyboardEvent.primary( event, 'k' ) ) {
-			startEditing( event );
-		} else if ( isKeyboardEvent.primaryShift( event, 'k' ) ) {
-			unlink();
-			richTextRef.current?.focus();
-		}
-	}
-
-	// Use internal state instead of a ref to make sure that the component
-	// re-renders when the popover's anchor updates.
-	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
-
 	const borderProps = useBorderProps( attributes );
 	const colorProps = useColorProps( attributes );
 	const spacingProps = useSpacingProps( attributes );
 	const shadowProps = useShadowProps( attributes );
-	const ref = useRef();
-	const richTextRef = useRef();
 	const blockProps = useBlockProps( {
-		ref: useMergeRefs( [ setPopoverAnchor, ref ] ),
-		onKeyDown,
+		className: clsx( className, {
+			[ `has-custom-width wp-block-button__width-${ width }` ]: width,
+			'has-custom-font-size': style?.typography?.fontSize,
+		} ),
 	} );
-	const blockEditingMode = useBlockEditingMode();
-
-	function startEditing( event ) {
-		event.preventDefault();
-	}
-
-	function unlink() {
-		setAttributes( {
-			url: undefined,
-			linkTarget: undefined,
-			rel: undefined,
-		} );
-	}
-
-	const useEnterRef = useEnter( { content: text, clientId } );
-	const mergedRef = useMergeRefs( [ useEnterRef, richTextRef ] );
+	const showIcon = 'text' !== styleDisplay;
+	const showText = 'icon' !== styleDisplay;
+	const icon = showIcon ? (
+		<ModalIconPreview
+			source={ iconSource }
+			url={ iconUrl }
+			size={ iconSize }
+			color={ iconColor }
+			fallback={ search }
+		/>
+	) : null;
 
 	return (
 		<>
-			<div
-				{ ...blockProps }
-				className={ clsx( blockProps.className, {
-					[ `has-custom-width wp-block-button__width-${ width }` ]:
-						width,
-					[ `has-custom-font-size` ]: blockProps.style.fontSize,
-				} ) }
-			>
-				<RichText
-					ref={ mergedRef }
-					aria-label={ __( 'Button text' ) }
-					placeholder={ placeholder || __( 'Add text…' ) }
-					value={ text }
-					onChange={ ( value ) =>
-						setAttributes( {
-							text: removeAnchorTag( value ),
-						} )
-					}
-					withoutInteractiveFormatting
+			<div { ...blockProps }>
+				<div
 					className={ clsx(
-						className,
 						'wp-block-button__link',
+						'directorist-modal-trigger',
 						colorProps.className,
 						borderProps.className,
 						{
 							[ `has-text-align-${ textAlign }` ]: textAlign,
 							'no-border-radius': style?.border?.radius === 0,
+							'directorist-modal-trigger--reverse':
+								'after' === iconPosition,
 						},
 						__experimentalGetElementClassName( 'button' )
 					) }
@@ -225,50 +100,98 @@ function ButtonEdit( props ) {
 						...colorProps.style,
 						...spacingProps.style,
 						...shadowProps.style,
+						gap: iconGap,
 					} }
-					onReplace={ onReplace }
-					onMerge={ mergeBlocks }
-					identifier="text"
-				/>
+					role="button"
+					aria-label={ accessibleLabel }
+				>
+					{ icon }
+					{ showText && (
+						<RichText
+							tagName="span"
+							aria-label={ __( 'Button text', 'directorist' ) }
+							placeholder={
+								placeholder || __( 'Search', 'directorist' )
+							}
+							value={ text }
+							onChange={ ( value ) =>
+								setAttributes( { text: value } )
+							}
+							withoutInteractiveFormatting
+						/>
+					) }
+				</div>
 			</div>
 
 			<BlockControls group="block">
-				{ blockEditingMode === 'default' && (
-					<AlignmentControl
-						value={ textAlign }
-						onChange={ ( nextAlign ) => {
-							setAttributes( { textAlign: nextAlign } );
-						} }
-					/>
-				) }
+				<AlignmentControl
+					value={ textAlign }
+					onChange={ ( value ) =>
+						setAttributes( { textAlign: value } )
+					}
+				/>
 			</BlockControls>
 
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings' ) }>
+				<PanelBody title={ __( 'Trigger', 'directorist' ) }>
 					<SelectControl
-						label={ __( 'Style' ) }
+						label={ __( 'Display', 'directorist' ) }
 						value={ styleDisplay }
 						options={ [
-							{ label: 'Icon Only', value: 'icon' },
-							{ label: 'Text Only', value: 'text' },
-							{ label: 'Text & Icon', value: 'icon_and_text' },
+							{
+								label: __( 'Icon only', 'directorist' ),
+								value: 'icon',
+							},
+							{
+								label: __( 'Text only', 'directorist' ),
+								value: 'text',
+							},
+							{
+								label: __( 'Icon and text', 'directorist' ),
+								value: 'icon_and_text',
+							},
 						] }
-						onChange={ ( newStyleDisplay ) =>
-							setAttributes( {
-								styleDisplay: newStyleDisplay,
-							} )
+						onChange={ ( value ) =>
+							setAttributes( { styleDisplay: value } )
 						}
 						__nextHasNoMarginBottom
 					/>
-
-					<WidthPanel
-						selectedWidth={ width }
-						setAttributes={ setAttributes }
+					<TextControl
+						label={ __( 'Accessible label', 'directorist' ) }
+						value={ accessibleLabel }
+						help={ __(
+							'Describes the trigger for screen readers.',
+							'directorist'
+						) }
+						onChange={ ( value ) =>
+							setAttributes( { accessibleLabel: value } )
+						}
+					/>
+					<RangeControl
+						label={ __( 'Button width', 'directorist' ) }
+						value={ width }
+						min={ 10 }
+						max={ 100 }
+						onChange={ ( value ) =>
+							setAttributes( { width: value } )
+						}
+						allowReset
 					/>
 				</PanelBody>
+
+				{ showIcon && (
+					<PanelBody
+						title={ __( 'Icon', 'directorist' ) }
+						initialOpen={ false }
+					>
+						<ModalIconControls
+							attributes={ attributes }
+							setAttributes={ setAttributes }
+							presets={ SEARCH_ICON_PRESETS }
+						/>
+					</PanelBody>
+				) }
 			</InspectorControls>
 		</>
 	);
 }
-
-export default ButtonEdit;

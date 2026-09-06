@@ -732,7 +732,7 @@ class Directorist_Listing_Search_Form {
         $field_data['lazy_load'] = false;
 
         if ( $this->is_custom_field( $field_data ) ) {
-            if ( ! empty( $_REQUEST['custom_field'][$key] ) ) {
+            if ( isset( $_REQUEST['custom_field'][$key] ) ) {
                 $value = is_array( $_REQUEST['custom_field'][$key] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_field'][$key] ) ) : sanitize_text_field( wp_unslash( $_REQUEST['custom_field'][$key] ) );
             } else {
                 $value = '';

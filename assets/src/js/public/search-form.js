@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			});
 
-			let customRangeSliders = document.querySelectorAll(
+			let customRangeSliders = searchForm.querySelectorAll(
 				'.directorist-custom-range-slider'
 			);
 
@@ -2433,6 +2433,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			let slider = sliderItem.querySelector(
 				'.directorist-custom-range-slider__slide'
 			);
+
+			if (!slider) {
+				return;
+			}
+
 			let minInput = sliderItem.querySelector(
 				'.directorist-custom-range-slider__value__min'
 			);
@@ -2448,15 +2453,15 @@ document.addEventListener('DOMContentLoaded', () => {
 			let defaultValue = slider.getAttribute('default-value') || '0';
 
 			if (radiusSearch) {
-				minInput.value = '0';
-				maxInput.value = defaultValue;
+				if (minInput) minInput.value = '0';
+				if (maxInput) maxInput.value = defaultValue;
 				slider?.directoristCustomRangeSlider?.set([0, defaultValue]); // Set initial values
 			} else {
 				// Reset values to their initial state
 				slider?.directoristCustomRangeSlider?.set([0, 0]); // Set initial values
-				minInput.value = '0'; // Set initial min value
-				maxInput.value = '0'; // Set initial max value
-				rangeValue.value = '0-0';
+				if (minInput) minInput.value = '0'; // Set initial min value
+				if (maxInput) maxInput.value = '0'; // Set initial max value
+				if (rangeValue) rangeValue.value = '0-0';
 			}
 
 			const sidebarRangeSlider = slider.closest('.listing-with-sidebar');

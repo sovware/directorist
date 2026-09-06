@@ -32,6 +32,7 @@ $custom_search   = '<!-- wp:directorist/search-modal {"styleDisplay":"icon_and_t
 $custom_account  = '<!-- wp:directorist/account-button {"styleDisplay":"icon_and_text","iconClass":"las la-sign-in-alt","iconSize":34,"accessibleLabel":"Sign in now"} --><div class="wp-block-directorist-account-button"><button type="button" class="wp-block-button__link wp-element-button">Sign in</button></div><!-- /wp:directorist/account-button -->';
 $invalid_search  = '<!-- wp:directorist/search-modal {"iconClass":"las la-not-a-real-directorist-icon"} --><div class="wp-block-directorist-search-modal"><button type="button" class="wp-block-button__link wp-element-button"></button></div><!-- /wp:directorist/search-modal -->';
 $invalid_account = '<!-- wp:directorist/account-button {"styleDisplay":"icon","iconClass":"las la-not-a-real-directorist-icon"} --><div class="wp-block-directorist-account-button"><button type="button" class="wp-block-button__link wp-element-button"></button></div><!-- /wp:directorist/account-button -->';
+$styled_search   = '<!-- wp:directorist/search-modal {"styleDisplay":"icon_and_text","backgroundColor":"vivid-red","textColor":"white"} --><div class="wp-block-directorist-search-modal"><button type="button" class="wp-block-button__link has-white-color has-vivid-red-background-color has-text-color has-background wp-element-button" style="padding-top:7px">Styled search</button></div><!-- /wp:directorist/search-modal -->';
 
 $multi_search_output    = do_blocks( $legacy_search . $legacy_search );
 $multi_account_output   = do_blocks( $legacy_account . $legacy_account );
@@ -43,12 +44,15 @@ $custom_search_output   = do_blocks( $custom_search );
 $custom_account_output  = do_blocks( $custom_account );
 $invalid_search_output  = do_blocks( $invalid_search );
 $invalid_account_output = do_blocks( $invalid_account );
+$styled_search_output   = do_blocks( $styled_search );
 
 directorist_modal_blocks_assert( false !== strpos( $legacy_search_output, 'aria-label="Search listings"' ), 'Legacy Search Modal did not receive its accessible default.' );
 directorist_modal_blocks_assert( false !== strpos( $legacy_account_output, 'Account button' ), 'Legacy Account Button text was not migrated from saved markup.' );
 directorist_modal_blocks_assert( false !== strpos( $empty_account_output, 'user-solid.svg' ), 'An empty legacy Account Button did not receive a visible native icon.' );
 directorist_modal_blocks_assert( false !== strpos( $empty_account_output, 'directorist-modal-trigger--icon-only' ), 'An empty legacy Account Button did not migrate to the icon-only layout.' );
+directorist_modal_blocks_assert( false !== strpos( $empty_account_output, 'directorist-account-block-logout-mode wp-block-directorist-account-button' ), 'Account Button did not retain its native Gutenberg wrapper.' );
 directorist_modal_blocks_assert( false !== strpos( $empty_search_output, 'directorist-modal-trigger--icon-only' ), 'A default Search Modal did not use the icon-only layout.' );
+directorist_modal_blocks_assert( false !== strpos( $empty_search_output, 'directorist-search-popup-block wp-block-directorist-search-modal' ), 'Search Modal did not retain its native Gutenberg wrapper.' );
 directorist_modal_blocks_assert( false === strpos( $empty_search_output, 'directorist-modal-trigger__text' ), 'A default Search Modal rendered extra trigger text.' );
 directorist_modal_blocks_assert( false === strpos( $empty_account_output, 'directorist-modal-trigger__text' ), 'A default Account Button rendered extra trigger text.' );
 directorist_modal_blocks_assert( false !== strpos( $custom_search_output, 'Find providers' ), 'Custom Search Modal text was not rendered.' );
@@ -60,6 +64,8 @@ directorist_modal_blocks_assert( false !== strpos( $custom_account_output, 'Sign
 directorist_modal_blocks_assert( false !== strpos( $custom_account_output, '--directorist-modal-icon-size:34px' ), 'Logged-out Account Button icon size was not rendered.' );
 directorist_modal_blocks_assert( false !== strpos( $invalid_search_output, 'font-awesome/svgs/solid/search.svg' ), 'An unsupported Search Modal icon did not fall back to the default icon.' );
 directorist_modal_blocks_assert( false !== strpos( $invalid_account_output, 'line-awesome/svgs/user-solid.svg' ), 'An unsupported Account Button icon did not fall back to the default icon.' );
+directorist_modal_blocks_assert( false !== strpos( $styled_search_output, 'has-vivid-red-background-color' ), 'Search Modal did not preserve its native Gutenberg background class.' );
+directorist_modal_blocks_assert( false !== strpos( $styled_search_output, 'padding-top:7px' ), 'Search Modal did not preserve its native Gutenberg inline styles.' );
 directorist_modal_blocks_assert( 1 === substr_count( $multi_search_output, 'id="directorist-search-popup"' ), 'Multiple Search Modal triggers rendered duplicate search forms.' );
 directorist_modal_blocks_assert( 2 === substr_count( $multi_search_output, 'aria-controls="directorist-search-popup"' ), 'Multiple Search Modal triggers do not share the search dialog.' );
 directorist_modal_blocks_assert( 1 === substr_count( $multi_account_output, 'id="directorist-account-block-login-modal"' ), 'Multiple Account Button triggers rendered duplicate authentication forms.' );
@@ -82,6 +88,7 @@ if ( $administrator ) {
     $logged_in_output  = do_blocks( $logged_in_account );
 
     directorist_modal_blocks_assert( false !== strpos( $avatar_output, 'directorist-modal-trigger--icon-only' ), 'Logged-in avatar-only trigger did not receive its compact layout.' );
+    directorist_modal_blocks_assert( false !== strpos( $avatar_output, 'directorist-account-block-logged-mode wp-block-directorist-account-button' ), 'Logged-in Account Button did not retain its native Gutenberg wrapper.' );
     directorist_modal_blocks_assert( false !== strpos( $avatar_output, 'width="58"' ), 'Logged-in avatar size was not rendered.' );
     directorist_modal_blocks_assert( false !== strpos( $logged_in_output, wp_get_current_user()->display_name ), 'Logged-in display name was not rendered.' );
     directorist_modal_blocks_assert( false !== strpos( $logged_in_output, '--directorist-modal-icon-size:52px' ), 'Logged-in author icon size was not rendered.' );

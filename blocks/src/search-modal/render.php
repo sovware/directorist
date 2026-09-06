@@ -17,10 +17,13 @@ $label                             = ! empty( $attributes['accessibleLabel'] ) ?
 $text                              = directorist_modal_block_trigger_text( $attributes, $content );
 $trigger_attrs                     = directorist_modal_block_wrapper_attributes(
     $attributes,
-    'directorist-search-popup-block__button directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' )
+    'directorist-search-popup-block__button directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' ),
+    '',
+    $content
 );
+$container_attrs                   = directorist_modal_block_container_attributes( $attributes, $content, 'directorist-search-popup-block wp-block-directorist-search-modal' );
 ?>
-<div class="directorist-search-popup-block">
+<div <?php echo wp_kses_data( $container_attrs ); ?>>
     <button
         type="button"
         <?php echo wp_kses_data( $trigger_attrs ); ?>

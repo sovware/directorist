@@ -23,10 +23,12 @@ if ( is_user_logged_in() ) :
     $trigger_attrs = directorist_modal_block_wrapper_attributes(
         $attributes,
         'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( $show_name ? '' : ' directorist-modal-trigger--icon-only' ),
-        $show_icon ? 'author' : ''
+        $show_icon ? 'author' : '',
+        $content
     );
+    $container_attrs = directorist_modal_block_container_attributes( $attributes, $content, 'directorist-account-block-logged-mode wp-block-directorist-account-button' );
     ?>
-    <div class="directorist-account-block-logged-mode">
+    <div <?php echo wp_kses_data( $container_attrs ); ?>>
         <?php if ( $show_menu ) : ?>
             <button
                 type="button"
@@ -74,10 +76,13 @@ if ( is_user_logged_in() ) :
     $show_text     = 'icon' !== $display;
     $trigger_attrs = directorist_modal_block_wrapper_attributes(
         $attributes,
-        'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' )
+        'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' ),
+        '',
+        $content
     );
+    $container_attrs = directorist_modal_block_container_attributes( $attributes, $content, 'directorist-account-block-logout-mode wp-block-directorist-account-button' . ( $show_icon ? ' directorist-account-block-logout-mode--has-native-icon' : '' ) );
     ?>
-    <div class="directorist-account-block-logout-mode<?php echo $show_icon ? ' directorist-account-block-logout-mode--has-native-icon' : ''; ?>">
+    <div <?php echo wp_kses_data( $container_attrs ); ?>>
         <button
             type="button"
             <?php echo wp_kses_data( $trigger_attrs ); ?>

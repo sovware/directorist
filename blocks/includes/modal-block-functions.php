@@ -52,6 +52,73 @@ function directorist_modal_block_trigger_text( $attributes, $content ) {
 }
 
 /**
+ * Read classes, inline styles, and the ID from saved block markup.
+ *
+ * Dynamic modal blocks replace their saved markup on the frontend. Reading the
+ * native wrapper and button attributes keeps Gutenberg style support intact.
+ *
+ * @param string $content Saved block markup.
+ * @param string $tag     Element tag to inspect.
+ *
+ * @return array
+ */
+function directorist_modal_block_saved_element_attributes( $content, $tag ) {
+    $saved = [
+        'class' => [],
+        'style' => '',
+        'id'    => '',
+    ];
+    $tag   = preg_replace( '/[^a-z0-9]/i', '', $tag );
+
+    if ( ! $tag || ! preg_match( '/<' . preg_quote( $tag, '/' ) . '\\b([^>]*)>/i', $content, $element ) ) {
+        return $saved;
+    }
+
+    foreach ( [ 'class', 'style', 'id' ] as $attribute ) {
+        if ( ! preg_match( '/\\b' . $attribute . '\\s*=\\s*(["\'])(.*?)\\1/is', $element[1], $match ) ) {
+            continue;
+        }
+
+        $value = html_entity_decode( $match[2], ENT_QUOTES, get_bloginfo( 'charset' ) ?: 'UTF-8' );
+
+        if ( 'class' === $attribute ) {
+            $saved['class'] = array_filter( array_map( 'sanitize_html_class', preg_split( '/\\s+/', $value ) ) );
+        } elseif ( 'style' === $attribute ) {
+            $saved['style'] = safecss_filter_attr( $value );
+        } else {
+            $saved['id'] = sanitize_html_class( $value );
+        }
+    }
+
+    return $saved;
+}
+
+/**
+ * Format safe HTML attributes for modal block elements.
+ *
+ * @param array  $classes Element classes.
+ * @param string $style   Inline style declarations.
+ * @param string $id      Optional element ID.
+ *
+ * @return string
+ */
+function directorist_modal_block_html_attributes( $classes, $style = '', $id = '' ) {
+    $classes    = array_unique( array_filter( array_map( 'sanitize_html_class', $classes ) ) );
+    $attributes = 'class="' . esc_attr( implode( ' ', $classes ) ) . '"';
+    $style      = safecss_filter_attr( $style );
+
+    if ( $style ) {
+        $attributes .= ' style="' . esc_attr( $style ) . '"';
+    }
+
+    if ( $id ) {
+        $attributes .= ' id="' . esc_attr( sanitize_html_class( $id ) ) . '"';
+    }
+
+    return $attributes;
+}
+
+/**
  * Render a configurable modal trigger icon.
  *
  * @param array  $attributes Block attributes.
@@ -125,11 +192,37 @@ function directorist_modal_block_trigger_style( $attributes, $prefix = '' ) {
         }
     }
 
-    if ( ! empty( $attributes['width'] ) ) {
-        $styles[] = 'width:' . min( 100, max( 10, absint( $attributes['width'] ) ) ) . '%';
+    return implode( ';', $styles );
+}
+
+/**
+ * Get native block container attributes while preserving saved wrapper state.
+ *
+ * @param array  $attributes Block attributes.
+ * @param string $content    Saved block markup.
+ * @param string $class_name Required container class names.
+ *
+ * @return string
+ */
+function directorist_modal_block_container_attributes( $attributes, $content, $class_name ) {
+    $saved  = directorist_modal_block_saved_element_attributes( $content, 'div' );
+    $classes = array_merge( preg_split( '/\s+/', $class_name ), $saved['class'] );
+    $styles  = array_filter( [ $saved['style'] ] );
+
+    if ( ! empty( $attributes['className'] ) ) {
+        $classes = array_merge( $classes, preg_split( '/\s+/', $attributes['className'] ) );
     }
 
-    return implode( ';', $styles );
+    if ( ! empty( $attributes['width'] ) ) {
+        $width     = min( 100, max( 10, absint( $attributes['width'] ) ) );
+        $classes[] = 'has-custom-width';
+        $classes[] = 'wp-block-button__width-' . $width;
+        $styles[]  = 'width:' . $width . '%';
+    }
+
+    $id = ! empty( $attributes['anchor'] ) ? $attributes['anchor'] : $saved['id'];
+
+    return directorist_modal_block_html_attributes( $classes, implode( ';', $styles ), $id );
 }
 
 /**
@@ -138,10 +231,11 @@ function directorist_modal_block_trigger_style( $attributes, $prefix = '' ) {
  * @param array  $attributes Block attributes.
  * @param string $class_name Additional trigger classes.
  * @param string $prefix     Attribute prefix.
+ * @param string $content    Saved block markup.
  *
  * @return string
  */
-function directorist_modal_block_wrapper_attributes( $attributes, $class_name, $prefix = '' ) {
+function directorist_modal_block_wrapper_attributes( $attributes, $class_name, $prefix = '', $content = '' ) {
     $icon_key     = $prefix ? $prefix . 'Icon' : 'icon';
     $position_key = $icon_key . 'Position';
     $position     = isset( $attributes[ $position_key ] ) ? $attributes[ $position_key ] : 'before';
@@ -150,10 +244,14 @@ function directorist_modal_block_wrapper_attributes( $attributes, $class_name, $
         $class_name .= ' directorist-modal-trigger--reverse';
     }
 
-    return get_block_wrapper_attributes(
+    $saved  = directorist_modal_block_saved_element_attributes( $content, 'button' );
+    $classes = array_merge( preg_split( '/\s+/', $class_name ), $saved['class'] );
+    $styles  = array_filter(
         [
-            'class' => $class_name,
-            'style' => directorist_modal_block_trigger_style( $attributes, $prefix ),
+            $saved['style'],
+            directorist_modal_block_trigger_style( $attributes, $prefix ),
         ]
     );
+
+    return directorist_modal_block_html_attributes( $classes, implode( ';', $styles ) );
 }

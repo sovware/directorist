@@ -15,6 +15,15 @@ $blocks-block__margin: 0.5em;
   line-height: inherit;
   cursor: pointer;
 
+  &:not(.has-background) {
+    background-color: transparent;
+    background-image: none;
+  }
+
+  &:not(.has-text-color) {
+    color: inherit;
+  }
+
   &--reverse {
     flex-direction: row-reverse;
   }
@@ -52,6 +61,10 @@ $blocks-block__margin: 0.5em;
     mask-repeat: no-repeat;
     mask-size: contain;
   }
+}
+
+.directorist-search-popup-block.wp-block-directorist-search-modal {
+  display: block;
 }
 
 .directorist-modal-icon-presets {

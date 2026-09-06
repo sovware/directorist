@@ -233,7 +233,11 @@
 		singleListingSlider.forEach(function (el, i) {
 			// Get Data Attribute
 			let dataWidth = el.getAttribute('data-width');
+			let dataWidthUnit = el.getAttribute('data-width-unit');
 			let dataHeight = el.getAttribute('data-height');
+			let dataPosition = el.getAttribute('data-position');
+			let dataColumns = parseInt(el.getAttribute('data-columns'), 10);
+			let dataGap = parseInt(el.getAttribute('data-gap'), 10);
 			let dataRTL = el.getAttribute('data-rtl');
 			let dataBackgroundColor = el.getAttribute('data-background-color');
 			let dataBackgroundSize = el.getAttribute('data-background-size');
@@ -250,6 +254,27 @@
 			let swiperCarouselSingleListing = el.querySelector(
 				'.directorist-single-listing-slider'
 			);
+
+			const sliderWidthUnit =
+				dataWidthUnit === 'percentage' ? '%' : 'px';
+			const sliderWidth = dataWidth
+				? dataWidth + sliderWidthUnit
+				: '100%';
+			const applySliderPosition = (slider) => {
+				if (!slider) {
+					return;
+				}
+
+				const positions = {
+					left: ['0', 'auto'],
+					center: ['auto', 'auto'],
+					right: ['auto', '0'],
+				};
+				const margins = positions[dataPosition] || positions.center;
+
+				slider.style.marginLeft = margins[0];
+				slider.style.marginRight = margins[1];
+			};
 
 			// Single Listing Thumb Init
 			let swiperSingleListingThumb = new Swiper(
@@ -298,7 +323,21 @@
 				swiperCarouselSingleListing.querySelectorAll(
 					'.swiper-slide:not(.swiper-slide-duplicate)'
 				);
-			let singleSliderLoopEnable = singleSliderTotalSlides.length > 1;
+			let singleSliderColumns = Math.min(
+				3,
+				Math.max(1, dataColumns || 1)
+			);
+			let singleSliderGap = Math.min(
+				100,
+				Math.max(0, Number.isNaN(dataGap) ? 20 : dataGap)
+			);
+			let desktopSliderColumns = Math.min(
+				singleSliderColumns,
+				singleSliderTotalSlides.length || 1
+			);
+			let tabletSliderColumns = Math.min(2, desktopSliderColumns);
+			let singleSliderLoopEnable =
+				singleSliderTotalSlides.length > desktopSliderColumns;
 
 			// Single Listing Slider Config
 			let swiperSingleListingConfig = {
@@ -316,6 +355,18 @@
 					el: `.directorist-swiper__pagination--single-listing`,
 					type: 'bullets',
 					clickable: true,
+				},
+				breakpoints: {
+					768: {
+						slidesPerView: tabletSliderColumns,
+						spaceBetween:
+							tabletSliderColumns > 1 ? singleSliderGap : 0,
+					},
+					1200: {
+						slidesPerView: desktopSliderColumns,
+						spaceBetween:
+							desktopSliderColumns > 1 ? singleSliderGap : 0,
+					},
 				},
 			};
 
@@ -376,15 +427,12 @@
 			}
 
 			// Loop Destroy on Single Slider Item
-			let sliderItemsCount = swiperCarouselSingleListing.querySelectorAll(
-				'.directorist-swiper__pagination .swiper-pagination-bullet'
-			);
 			let swiperListingThumb =
 				swiperCarouselSingleListing.parentElement.querySelector(
 					'.directorist-single-listing-slider-thumb'
 				);
 
-			if (sliderItemsCount.length <= 1) {
+			if (singleSliderTotalSlides.length <= 1) {
 				swiperSingleListing.loopDestroy();
 				swiperCarouselSingleListing.classList.add(
 					'slider-has-one-item'
@@ -392,7 +440,7 @@
 			}
 
 			// Show thumbnail slider if slider has more items
-			if (swiperListingThumb && sliderItemsCount.length > 1) {
+			if (swiperListingThumb && singleSliderTotalSlides.length > 1) {
 				swiperListingThumb.style.display = 'block';
 			}
 
@@ -400,12 +448,11 @@
 			if (swiperCarouselSingleListing) {
 				swiperCarouselSingleListing.dir =
 					dataRTL !== '0' ? 'rtl' : 'ltr';
-				swiperCarouselSingleListing.style.width = dataWidth
-					? dataWidth + 'px'
-					: '100%';
+				swiperCarouselSingleListing.style.width = sliderWidth;
 				swiperCarouselSingleListing.style.height = dataHeight
 					? dataHeight + 'px'
 					: 'auto';
+				applySliderPosition(swiperCarouselSingleListing);
 				swiperCarouselSingleListing.style.backgroundSize =
 					dataBackgroundSize ? dataBackgroundSize : '';
 
@@ -436,9 +483,8 @@
 
 			if (swiperCarouselSingleListingThumb) {
 				// swiperCarouselSingleListingThumb.style.display = dataShowThumbnails == '0' ? 'none' : '';
-				swiperCarouselSingleListingThumb.style.width = dataWidth
-					? dataWidth + 'px'
-					: '100%';
+				swiperCarouselSingleListingThumb.style.width = sliderWidth;
+				applySliderPosition(swiperCarouselSingleListingThumb);
 				swiperCarouselSingleListingThumb.style.backgroundColor =
 					dataThumbnailsBackground
 						? dataThumbnailsBackground

@@ -207,7 +207,7 @@ function directorist_the_locations( $before = '', $sep = ', ', $after = '', $lis
             return;
         }
 
-        $links[] = '<a href="' . esc_url( $link ) . '" rel="tag">' . $term->name . '</a>';
+        $links[] = '<a href="' . esc_url( $link ) . '" rel="tag">' . esc_html( $term->name ) . '</a>';
     }
 
     $term_links = apply_filters( 'term_links-' . ATBDP_LOCATION, $links );

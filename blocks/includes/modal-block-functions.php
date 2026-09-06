@@ -74,11 +74,24 @@ function directorist_modal_block_icon( $attributes, $prefix = '', $default = '' 
         );
     }
 
-    $icon        = ! empty( $attributes[ $class_key ] ) ? $attributes[ $class_key ] : $default;
-    $icon_tokens = array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', $icon ) ) );
+    $icon          = ! empty( $attributes[ $class_key ] ) ? $attributes[ $class_key ] : $default;
+    $icon_tokens   = array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', $icon ) ) );
+    $icon          = implode( ' ', $icon_tokens );
+    $icon_src      = \Directorist\Helper::get_icon_src( $icon );
+    $icon_base_url = ATBDP_URL . 'assets/icons/';
+    $icon_exists   = false;
+
+    if ( $icon_src && 0 === strpos( $icon_src, $icon_base_url ) ) {
+        $icon_path   = ltrim( substr( $icon_src, strlen( $icon_base_url ) ), '/' );
+        $icon_exists = file_exists( DIRECTORIST_ICON_PATH . $icon_path );
+    }
+
+    if ( ! $icon_exists ) {
+        $icon = $default;
+    }
 
     return directorist_icon(
-        implode( ' ', $icon_tokens ),
+        $icon,
         false,
         'directorist-modal-trigger__icon'
     );

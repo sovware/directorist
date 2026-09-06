@@ -39,6 +39,7 @@ function directorist_register_blocks() {
             'locationTax'           => ATBDP_LOCATION,
             'postType'              => ATBDP_POST_TYPE,
             'previewUrl'            => plugin_dir_url( __FILE__ ),
+            'iconUrl'               => ATBDP_URL . 'assets/icons/',
             'multiDirectoryEnabled' => directorist_is_multi_directory_enabled(),
         ]
     );
@@ -160,7 +161,7 @@ function directorist_block_render_callback( $attributes, $content, $instance ) {
     }
 
     $attributes['is_block_editor'] = true;
-    $output = directorist_do_shortcode_callback( $shortcode, $attributes, $content );
+    $output                        = directorist_do_shortcode_callback( $shortcode, $attributes, $content );
 
     if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
         return sprintf(

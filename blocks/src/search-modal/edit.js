@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { search } from '@wordpress/icons';
 import {
+	Button,
 	PanelBody,
 	RangeControl,
 	SelectControl,
@@ -72,6 +73,7 @@ export default function Edit( { attributes, setAttributes, className } ) {
 		<ModalIconPreview
 			source={ iconSource }
 			url={ iconUrl }
+			iconClass={ attributes.iconClass }
 			size={ iconSize }
 			color={ iconColor }
 			fallback={ search }
@@ -179,6 +181,33 @@ export default function Edit( { attributes, setAttributes, className } ) {
 						}
 						allowReset
 					/>
+					<Button
+						variant="secondary"
+						onClick={ () =>
+							setAttributes( {
+								styleDisplay: 'icon',
+								iconSource: 'library',
+								iconClass: 'fas fa-search',
+								iconId: 0,
+								iconUrl: '',
+								iconSize: 24,
+								iconColor: '',
+								iconPosition: 'before',
+								iconGap: 8,
+								accessibleLabel: 'Search listings',
+								text: '',
+								width: undefined,
+								style: undefined,
+								backgroundColor: undefined,
+								textColor: undefined,
+								gradient: undefined,
+								fontSize: undefined,
+								textAlign: undefined,
+							} )
+						}
+					>
+						{ __( 'Reset trigger to default', 'directorist' ) }
+					</Button>
 				</PanelBody>
 
 				{ showIcon && (

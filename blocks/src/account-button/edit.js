@@ -9,6 +9,7 @@ import clsx from 'clsx';
  */
 import { __ } from '@wordpress/i18n';
 import { commentAuthorAvatar } from '@wordpress/icons';
+import { useState } from '@wordpress/element';
 import {
 	Button,
 	PanelBody,
@@ -67,7 +68,13 @@ export default function Edit( { attributes, setAttributes, className } ) {
 		avatarAlt,
 		avatarSize,
 		avatarRadius,
+		authorIconSource,
+		authorIconUrl,
+		authorIconSize,
+		authorIconColor,
+		authorIconGap,
 	} = attributes;
+	const [ previewMode, setPreviewMode ] = useState( 'logged_out' );
 	const borderProps = useBorderProps( attributes );
 	const colorProps = useColorProps( attributes );
 	const spacingProps = useSpacingProps( attributes );
@@ -78,18 +85,78 @@ export default function Edit( { attributes, setAttributes, className } ) {
 			'has-custom-font-size': style?.typography?.fontSize,
 		} ),
 	} );
-	const triggerDisplay = styleDisplay || ( text ? 'text' : 'icon' );
-	const showIcon = 'text' !== triggerDisplay;
-	const showText = 'icon' !== triggerDisplay;
-	const icon = showIcon ? (
+	const hasLegacyText = 0 < String( text || '' ).trim().length;
+	const triggerDisplay = styleDisplay || ( hasLegacyText ? 'text' : 'icon' );
+	const authorDisplay = loggedInDisplay || 'avatar';
+	const isLoggedInPreview = 'logged_in' === previewMode;
+	const showIcon = isLoggedInPreview
+		? ! authorDisplay.startsWith( 'avatar' )
+		: 'text' !== triggerDisplay;
+	const showText = isLoggedInPreview
+		? authorDisplay.endsWith( '_and_name' )
+		: 'icon' !== triggerDisplay;
+	const loggedOutIcon = (
 		<ModalIconPreview
 			source={ iconSource }
 			url={ iconUrl }
+			iconClass={ attributes.iconClass }
 			size={ iconSize }
 			color={ iconColor }
 			fallback={ commentAuthorAvatar }
 		/>
-	) : null;
+	);
+	let loggedInIcon;
+
+	if ( showIcon ) {
+		loggedInIcon = (
+			<ModalIconPreview
+				source={ authorIconSource }
+				url={ authorIconUrl }
+				iconClass={ attributes.authorIconClass }
+				size={ authorIconSize }
+				color={ authorIconColor }
+				fallback={ commentAuthorAvatar }
+			/>
+		);
+	} else if ( 'image' === avatarSource && avatarUrl ) {
+		loggedInIcon = (
+			<img
+				className="directorist-modal-trigger__custom-icon"
+				src={ avatarUrl }
+				alt={ avatarAlt }
+				style={ {
+					width: avatarSize,
+					height: avatarSize,
+					borderRadius: `${ avatarRadius }%`,
+				} }
+			/>
+		);
+	} else {
+		loggedInIcon = (
+			<span
+				className="directorist-account-block__editor-avatar"
+				style={ {
+					width: avatarSize,
+					height: avatarSize,
+					borderRadius: `${ avatarRadius }%`,
+				} }
+				aria-hidden="true"
+			>
+				{ commentAuthorAvatar }
+			</span>
+		);
+	}
+
+	let icon = null;
+	let previewGap = iconGap;
+
+	if ( isLoggedInPreview ) {
+		icon = loggedInIcon;
+		previewGap = showIcon ? authorIconGap : 8;
+	} else if ( showIcon ) {
+		icon = loggedOutIcon;
+	}
+	const iconOnly = isLoggedInPreview ? ! showText : 'icon' === triggerDisplay;
 
 	return (
 		<>
@@ -104,9 +171,8 @@ export default function Edit( { attributes, setAttributes, className } ) {
 							[ `has-text-align-${ textAlign }` ]: textAlign,
 							'no-border-radius': style?.border?.radius === 0,
 							'directorist-modal-trigger--reverse':
-								'after' === iconPosition,
-							'directorist-modal-trigger--icon-only':
-								'icon' === triggerDisplay,
+								! isLoggedInPreview && 'after' === iconPosition,
+							'directorist-modal-trigger--icon-only': iconOnly,
 						},
 						__experimentalGetElementClassName( 'button' )
 					) }
@@ -115,13 +181,16 @@ export default function Edit( { attributes, setAttributes, className } ) {
 						...colorProps.style,
 						...spacingProps.style,
 						...shadowProps.style,
-						gap: iconGap,
+						gap: previewGap,
 					} }
 					role="button"
 					aria-label={ accessibleLabel }
 				>
 					{ icon }
-					{ showText && (
+					{ showText && isLoggedInPreview && (
+						<span>{ __( 'Author', 'directorist' ) }</span>
+					) }
+					{ showText && ! isLoggedInPreview && (
 						<RichText
 							tagName="span"
 							aria-label={ __( 'Button text', 'directorist' ) }
@@ -148,6 +217,25 @@ export default function Edit( { attributes, setAttributes, className } ) {
 			</BlockControls>
 
 			<InspectorControls>
+				<PanelBody title={ __( 'Preview', 'directorist' ) }>
+					<SelectControl
+						label={ __( 'Editor preview', 'directorist' ) }
+						value={ previewMode }
+						options={ [
+							{
+								label: __( 'Logged out', 'directorist' ),
+								value: 'logged_out',
+							},
+							{
+								label: __( 'Logged in', 'directorist' ),
+								value: 'logged_in',
+							},
+						] }
+						onChange={ setPreviewMode }
+						__nextHasNoMarginBottom
+					/>
+				</PanelBody>
+
 				<PanelBody title={ __( 'Logged-out trigger', 'directorist' ) }>
 					<SelectControl
 						label={ __( 'Display', 'directorist' ) }
@@ -188,6 +276,33 @@ export default function Edit( { attributes, setAttributes, className } ) {
 						}
 						allowReset
 					/>
+					<Button
+						variant="secondary"
+						onClick={ () =>
+							setAttributes( {
+								styleDisplay: 'icon',
+								iconSource: 'library',
+								iconClass: 'las la-user',
+								iconId: 0,
+								iconUrl: '',
+								iconSize: 24,
+								iconColor: '',
+								iconPosition: 'before',
+								iconGap: 8,
+								accessibleLabel: 'Open account',
+								text: '',
+								width: undefined,
+								style: undefined,
+								backgroundColor: undefined,
+								textColor: undefined,
+								gradient: undefined,
+								fontSize: undefined,
+								textAlign: undefined,
+							} )
+						}
+					>
+						{ __( 'Reset logged-out trigger', 'directorist' ) }
+					</Button>
 				</PanelBody>
 
 				{ showIcon && (
@@ -246,8 +361,32 @@ export default function Edit( { attributes, setAttributes, className } ) {
 							setAttributes( { showDashboardMenu: value } )
 						}
 					/>
+					<Button
+						variant="secondary"
+						onClick={ () =>
+							setAttributes( {
+								showDashboardMenu: true,
+								loggedInDisplay: 'avatar',
+								avatarSource: 'user',
+								avatarId: 0,
+								avatarUrl: '',
+								avatarAlt: '',
+								avatarSize: 40,
+								avatarRadius: 50,
+								authorIconSource: 'library',
+								authorIconClass: 'las la-user-circle',
+								authorIconId: 0,
+								authorIconUrl: '',
+								authorIconSize: 40,
+								authorIconColor: '',
+								authorIconGap: 8,
+							} )
+						}
+					>
+						{ __( 'Reset logged-in author', 'directorist' ) }
+					</Button>
 
-					{ loggedInDisplay.startsWith( 'avatar' ) && (
+					{ authorDisplay.startsWith( 'avatar' ) && (
 						<>
 							<SelectControl
 								label={ __( 'Avatar source', 'directorist' ) }
@@ -342,7 +481,7 @@ export default function Edit( { attributes, setAttributes, className } ) {
 						</>
 					) }
 
-					{ loggedInDisplay.startsWith( 'icon' ) && (
+					{ authorDisplay.startsWith( 'icon' ) && (
 						<ModalIconControls
 							attributes={ attributes }
 							setAttributes={ setAttributes }

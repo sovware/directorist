@@ -1,6 +1,7 @@
 /**
  * WordPress dependencies
  */
+/* global directoristBlockConfig */
 import { __ } from '@wordpress/i18n';
 import {
 	Button,
@@ -15,6 +16,7 @@ import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
 export function ModalIconPreview( {
 	source,
 	url,
+	iconClass,
 	size = 24,
 	color,
 	fallback,
@@ -26,6 +28,43 @@ export function ModalIconPreview( {
 				src={ url }
 				alt=""
 				style={ { width: size, height: size } }
+			/>
+		);
+	}
+
+	const [ prefix, name ] = ( iconClass || '' ).trim().split( /\s+/ );
+	const cleanName = name ? name.replace( /^(?:fa|la|uil|uis)-/, '' ) : '';
+	let iconPath = '';
+
+	if ( cleanName && [ 'fas', 'far', 'fab' ].includes( prefix ) ) {
+		const directory = {
+			fas: 'solid',
+			far: 'regular',
+			fab: 'brands',
+		}[ prefix ];
+		iconPath = `font-awesome/svgs/${ directory }/${ cleanName }.svg`;
+	} else if ( cleanName && [ 'las', 'lar', 'lab' ].includes( prefix ) ) {
+		iconPath = `line-awesome/svgs/${ cleanName }${
+			'las' === prefix ? '-solid' : ''
+		}.svg`;
+	} else if ( cleanName && [ 'uil', 'uis' ].includes( prefix ) ) {
+		iconPath = `unicons/svgs/${
+			'uis' === prefix ? 'solid' : 'line'
+		}/${ cleanName }.svg`;
+	}
+
+	if ( iconPath && directoristBlockConfig?.iconUrl ) {
+		return (
+			<span
+				className="directorist-modal-trigger__editor-icon directorist-modal-trigger__editor-icon--directorist"
+				style={ {
+					width: size,
+					height: size,
+					backgroundColor: color || 'currentColor',
+					WebkitMaskImage: `url(${ directoristBlockConfig.iconUrl }${ iconPath })`,
+					maskImage: `url(${ directoristBlockConfig.iconUrl }${ iconPath })`,
+				} }
+				aria-hidden="true"
 			/>
 		);
 	}

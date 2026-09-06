@@ -17,7 +17,7 @@ $label                             = ! empty( $attributes['accessibleLabel'] ) ?
 $text                              = directorist_modal_block_trigger_text( $attributes, $content );
 $trigger_attrs                     = directorist_modal_block_wrapper_attributes(
     $attributes,
-    'directorist-search-popup-block__button directorist-modal-trigger wp-block-button__link'
+    'directorist-search-popup-block__button directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' )
 );
 ?>
 <div class="directorist-search-popup-block">

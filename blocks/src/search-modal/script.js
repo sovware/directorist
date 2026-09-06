@@ -8,7 +8,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			container.querySelectorAll(
 				'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 			)
-		).filter( ( element ) => element.getClientRects().length );
+		).filter(
+			( element ) =>
+				element.getClientRects().length &&
+				'hidden' !== window.getComputedStyle( element ).visibility
+		);
 	}
 
 	function closeSearchPopup( restoreFocus = true ) {
@@ -77,6 +81,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 
 			if ( ! trigger || ! popup || ! closeButton ) {
 				return;
+			}
+
+			if ( popup.parentElement !== document.body ) {
+				document.body.appendChild( popup );
 			}
 
 			const overlay = document.createElement( 'div' );

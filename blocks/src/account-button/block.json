@@ -14,8 +14,7 @@
 		},
 		"styleDisplay": {
 			"type": "string",
-			"enum": ["icon", "text", "icon_and_text"],
-			"default": "text"
+			"enum": ["icon", "text", "icon_and_text"]
 		},
 		"iconSource": {
 			"type": "string",

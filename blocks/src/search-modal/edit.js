@@ -92,6 +92,8 @@ export default function Edit( { attributes, setAttributes, className } ) {
 							'no-border-radius': style?.border?.radius === 0,
 							'directorist-modal-trigger--reverse':
 								'after' === iconPosition,
+							'directorist-modal-trigger--icon-only':
+								'icon' === styleDisplay,
 						},
 						__experimentalGetElementClassName( 'button' )
 					) }

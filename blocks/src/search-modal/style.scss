@@ -20,6 +20,12 @@ $blocks-block__margin: 0.5em;
 		flex-direction: row-reverse;
 	}
 
+	&.directorist-modal-trigger--icon-only {
+		min-width: 0;
+		min-height: 0;
+		padding: 0;
+	}
+
 	.directorist-modal-trigger__icon,
 	.directorist-modal-trigger__custom-icon,
 	.directorist-modal-trigger__editor-icon {

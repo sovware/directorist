@@ -24,8 +24,7 @@
         "icon",
         "text",
         "icon_and_text"
-      ],
-      "default": "text"
+      ]
     },
     "iconSource": {
       "type": "string",

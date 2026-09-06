@@ -7,7 +7,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            width: 100vw;
+            max-width: 100vw;
             height: auto;
             transition: all 0.3s ease-in-out;
             transform: translate(0, -50%) scaleY(0);
@@ -130,6 +132,15 @@
         @include ssm{
             padding:0;
         }
+    }
+}
+
+.directorist-search-popup-block__popup .directorist-search-contents {
+    padding: 65px 0 10px;
+    width: 100%;
+
+    @include ssm {
+        padding: 0;
     }
 }
 

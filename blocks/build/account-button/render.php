@@ -22,7 +22,7 @@ if ( is_user_logged_in() ) :
     $avatar_radius = isset( $attributes['avatarRadius'] ) ? min( 50, absint( $attributes['avatarRadius'] ) ) : 50;
     $trigger_attrs = directorist_modal_block_wrapper_attributes(
         $attributes,
-        'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link',
+        'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( $show_name ? '' : ' directorist-modal-trigger--icon-only' ),
         $show_icon ? 'author' : ''
     );
     ?>
@@ -68,16 +68,16 @@ if ( is_user_logged_in() ) :
         <?php endif; ?>
     </div>
 <?php else :
-    $display       = isset( $attributes['styleDisplay'] ) ? $attributes['styleDisplay'] : 'text';
+    $text          = directorist_modal_block_trigger_text( $attributes, $content );
+    $display       = ! empty( $attributes['styleDisplay'] ) ? $attributes['styleDisplay'] : ( '' !== trim( wp_strip_all_tags( $text ) ) ? 'text' : 'icon' );
     $show_icon     = 'text' !== $display;
     $show_text     = 'icon' !== $display;
-    $text          = directorist_modal_block_trigger_text( $attributes, $content );
     $trigger_attrs = directorist_modal_block_wrapper_attributes(
         $attributes,
-        'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link'
+        'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' )
     );
     ?>
-    <div class="directorist-account-block-logout-mode">
+    <div class="directorist-account-block-logout-mode<?php echo $show_icon ? ' directorist-account-block-logout-mode--has-native-icon' : ''; ?>">
         <button
             type="button"
             <?php echo wp_kses_data( $trigger_attrs ); ?>

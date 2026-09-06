@@ -78,8 +78,9 @@ export default function Edit( { attributes, setAttributes, className } ) {
 			'has-custom-font-size': style?.typography?.fontSize,
 		} ),
 	} );
-	const showIcon = 'text' !== styleDisplay;
-	const showText = 'icon' !== styleDisplay;
+	const triggerDisplay = styleDisplay || ( text ? 'text' : 'icon' );
+	const showIcon = 'text' !== triggerDisplay;
+	const showText = 'icon' !== triggerDisplay;
 	const icon = showIcon ? (
 		<ModalIconPreview
 			source={ iconSource }
@@ -104,6 +105,8 @@ export default function Edit( { attributes, setAttributes, className } ) {
 							'no-border-radius': style?.border?.radius === 0,
 							'directorist-modal-trigger--reverse':
 								'after' === iconPosition,
+							'directorist-modal-trigger--icon-only':
+								'icon' === triggerDisplay,
 						},
 						__experimentalGetElementClassName( 'button' )
 					) }
@@ -148,7 +151,7 @@ export default function Edit( { attributes, setAttributes, className } ) {
 				<PanelBody title={ __( 'Logged-out trigger', 'directorist' ) }>
 					<SelectControl
 						label={ __( 'Display', 'directorist' ) }
-						value={ styleDisplay }
+						value={ triggerDisplay }
 						options={ [
 							{
 								label: __( 'Icon only', 'directorist' ),

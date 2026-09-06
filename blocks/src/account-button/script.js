@@ -8,7 +8,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			container.querySelectorAll(
 				'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 			)
-		).filter( ( element ) => element.getClientRects().length );
+		).filter(
+			( element ) =>
+				element.getClientRects().length &&
+				'hidden' !== window.getComputedStyle( element ).visibility
+		);
 	}
 
 	function closeDialog( restoreFocus = true ) {
@@ -60,6 +64,13 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				return;
 			}
 
+			const dialogContainer = dialog.closest(
+				'.directorist-account-block-authentication-modal'
+			);
+			if ( dialogContainer?.parentElement !== document.body ) {
+				document.body.appendChild( dialogContainer );
+			}
+
 			trigger.addEventListener( 'click', () =>
 				openDialog( dialog, trigger )
 			);
@@ -93,8 +104,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				shade = document.createElement( 'div' );
 				shade.className =
 					'directorist-account-block-logged-mode__overlay';
-				block.appendChild( shade );
 			}
+			document.body.appendChild( shade );
 
 			function closeNavigation() {
 				navigation.classList.remove( 'show' );
@@ -109,9 +120,23 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				navigation.setAttribute( 'aria-hidden', String( ! willOpen ) );
 				shade.classList.toggle( 'show', willOpen );
 				trigger.setAttribute( 'aria-expanded', String( willOpen ) );
+
+				if ( willOpen ) {
+					navigation.classList.remove(
+						'directorist-account-block-logged-mode__navigation--align-end'
+					);
+					if (
+						navigation.getBoundingClientRect().right >
+						document.documentElement.clientWidth
+					) {
+						navigation.classList.add(
+							'directorist-account-block-logged-mode__navigation--align-end'
+						);
+					}
+				}
 			} );
 			shade.addEventListener( 'click', closeNavigation );
-			block.addEventListener( 'keydown', ( event ) => {
+			document.addEventListener( 'keydown', ( event ) => {
 				if (
 					'Escape' === event.key &&
 					navigation.classList.contains( 'show' )

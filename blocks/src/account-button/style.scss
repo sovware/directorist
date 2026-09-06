@@ -19,6 +19,12 @@ $blocks-block__margin: 0.5em;
 		flex-direction: row-reverse;
 	}
 
+	&.directorist-modal-trigger--icon-only {
+		min-width: 0;
+		min-height: 0;
+		padding: 0;
+	}
+
 	.directorist-modal-trigger__icon,
 	.directorist-modal-trigger__custom-icon,
 	.directorist-modal-trigger__editor-icon {
@@ -40,7 +46,18 @@ $blocks-block__margin: 0.5em;
 	border: 0;
 }
 
+.directorist-account-block-logout-mode--has-native-icon::before {
+	display: none !important;
+	content: none !important;
+}
+
 .directorist-account-block__custom-avatar {
+	object-fit: cover;
+}
+
+.directorist-account-block__trigger .avatar {
+	max-width: 100%;
+	max-height: 100%;
 	object-fit: cover;
 }
 

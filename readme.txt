@@ -13,7 +13,7 @@ Build any type of directory website such as a business directory, job directory,
 
 == Description ==
 
->👉 __[See what users are saying about Directorist](https://wordpress.org/support/plugin/directorist/reviews/?filter=5)__
+>👉 __[See what users are saying about Directorist](https://wordpress.org/support/plugin/directorist/reviews/)__
 >⭐⭐⭐⭐⭐
 >*I’ve been using Directorist for my directory website for over a year now, and I can honestly say it’s one of the most reliable and feature-rich directory plugins I’ve worked with.*
 

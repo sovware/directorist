@@ -1253,17 +1253,27 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             // delete the listing from here. first check the nonce and then delete and then send success.
             // save the data if nonce is good and data is valid
             if ( valid_js_nonce() && ! empty( $_POST['listing_id'] ) ) {
-                $pid = (int) $_POST['listing_id'];
-                // Check if the current user is the owner of the post
+                $pid = absint( wp_unslash( $_POST['listing_id'] ) );
                 $listing = get_post( $pid );
-                // delete the post if the current user is the owner of the listing
-                if ( get_current_user_id() == $listing->post_author || current_user_can( 'delete_at_biz_dirs' ) ) {
-                    $success = ATBDP()->listing->db->delete_listing_by_id( $pid );
-                    if ( $success ) {
-                        echo 'success';
-                    } else {
-                        echo 'error';
-                    }
+
+                if ( ! $listing || ATBDP_POST_TYPE !== $listing->post_type ) {
+                    echo 'error';
+                    wp_die();
+                }
+
+                $post_type_object = get_post_type_object( ATBDP_POST_TYPE );
+
+                if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->delete_post, $pid ) ) {
+                    echo 'error';
+                    wp_die();
+                }
+
+                // Delete the listing only when WordPress allows deleting this specific post.
+                $success = ATBDP()->listing->db->delete_listing_by_id( $pid );
+                if ( $success ) {
+                    echo 'success';
+                } else {
+                    echo 'error';
                 }
             } else {
                 echo 'error';

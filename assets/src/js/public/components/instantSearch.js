@@ -144,6 +144,12 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 				scrollingPage = 1;
 				infinitePaginationCompleted = false;
 			},
+			error: function () {
+				// The URL is updated before the request. If an intermediary blocks
+				// the AJAX POST, reload that URL so server-side filtering still works.
+				lastSubmittedFormData = '';
+				window.location.assign(window.location.href);
+			},
 		});
 	}
 
@@ -955,7 +961,7 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 	// sidebar on change searching - radio/checkbox/location/range
 	$('body').on(
 		'change',
-		".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name",
+		".directorist-instant-search .listing-with-sidebar input[type='checkbox'],.directorist-instant-search .listing-with-sidebar input[type='radio'], .directorist-instant-search .listing-with-sidebar .directorist-custom-range-slider__wrap .directorist-custom-range-slider__range, .directorist-instant-search .listing-with-sidebar .directorist-search-location .location-name",
 		debounce(function (e) {
 			e.preventDefault();
 			var searchElm = $(this).closest('.listing-with-sidebar');
@@ -964,6 +970,45 @@ import initSearchCategoryCustomFields from './category-custom-fields';
 			performInstantSearchWithRequiredValue(searchElm);
 		}, 250)
 	);
+
+	const dateTimeInputSelector =
+		".directorist-instant-search .listing-with-sidebar input[type='time'], .directorist-instant-search .listing-with-sidebar input[type='date']";
+
+	const performDateTimeInstantSearch = debounce(function (input) {
+		const searchElm = $(input).closest('.listing-with-sidebar');
+
+		performInstantSearchWithRequiredValue(searchElm);
+	}, 250);
+
+	// iOS date/time pickers can emit change while their native UI is still open.
+	// Wait for focus to leave the input before refreshing the listings so the
+	// picker is not interrupted. Android and desktop keep instant search on
+	// change because their native pickers commit the value before returning.
+	$('body').on('change', dateTimeInputSelector, function (e) {
+		e.preventDefault();
+
+		const isIOSDevice =
+			/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+			(navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+		if (isIOSDevice) {
+			$(this).data('directorist-ios-date-time-changed', true);
+			return;
+		}
+
+		performDateTimeInstantSearch(this);
+	});
+
+	$('body').on('blur', dateTimeInputSelector, function () {
+		const input = $(this);
+
+		if (!input.data('directorist-ios-date-time-changed')) {
+			return;
+		}
+
+		input.removeData('directorist-ios-date-time-changed');
+		performDateTimeInstantSearch(this);
+	});
 
 	// sidebar on change searching - zipcode/location
 	$('body').on(

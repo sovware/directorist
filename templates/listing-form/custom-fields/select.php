@@ -2,7 +2,7 @@
 /**
  * @author  wpWax
  * @since   6.6
- * @version 8.9.4
+ * @version 8.9.5
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;

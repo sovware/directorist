@@ -1123,9 +1123,16 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                 return new WP_Error( 'invalid_csv_file', 'Invalid file path or file does not exists.' );
             }
 
+            $filename = wp_basename( $file );
+
+            // WordPress appends .txt to files handled by wp_import_handle_upload().
+            if ( '.csv.txt' === strtolower( substr( $filename, -8 ) ) ) {
+                $filename = substr( $filename, 0, -4 );
+            }
+
             $file_type = wp_check_filetype_and_ext(
                 $file,
-                wp_basename( $file ),
+                $filename,
                 [
                     'csv' => 'text/csv',
                 ]

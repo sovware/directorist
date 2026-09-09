@@ -502,13 +502,6 @@ This email is sent automatically for information purpose only. Please do not res
          * @return bool Whether the message was sent successfully or not.
          */
         public function notify_owner_order_created( $order_id, $listing_id, $offline = false ) {
-
-            $gateway = get_post_meta( $order_id, '_payment_gateway', true );
-
-            if ( 'bank_transfer' !== $gateway ) {
-                return false;
-            }
-
             if ( get_directorist_option( 'disable_email_notification' ) ) {
                 return false;
             }
@@ -1043,13 +1036,6 @@ This email is sent automatically for information purpose only. Please do not res
          * @return bool Whether the email was sent successfully or not.
          */
         public function notify_admin_order_created( $order_id, $listing_id ) {
-
-            $gateway = get_post_meta( $order_id, '_payment_gateway', true );
-
-            if ( 'bank_transfer' !== $gateway ) {
-                return false;
-            }
-
             /*@todo; think if it is better to assign disabled_email_notification to the class prop*/
             if ( get_directorist_option( 'disable_email_notification' ) ) {
                 return false; // vail if email notification is off

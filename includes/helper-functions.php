@@ -3268,6 +3268,11 @@ function directorist_get_registration_error_message( $error_code ) {
         '6' => __( 'Email is not valid.', 'directorist' ),
         '7' => __( 'Spaces are not allowed in usernames.', 'directorist' ),
         '8' => __( 'Please make sure you selected the user type.', 'directorist' ),
+        '9' => __( 'Username too long. A maximum of 60 characters is allowed.', 'directorist' ),
+        '10' => __( 'A verification request is already pending. Please check your email or use the resend link.', 'directorist' ),
+        '11' => __( 'Too many registration requests. Please try again in one hour.', 'directorist' ),
+        '12' => __( 'The verification email could not be sent. Please try again later.', 'directorist' ),
+        '13' => __( 'The username you entered is not valid.', 'directorist' ),
     ];
 
     $messages = apply_filters( 'directorist_registration_error_messages', $messages, $error_code );

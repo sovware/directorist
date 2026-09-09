@@ -1,186 +1,242 @@
-"use strict";
+'use strict';
 
-document.addEventListener("DOMContentLoaded", function () {
-  let activePopup = null;
-  let activeButton = null;
-  let activeOverlay = null;
-  let scrollPosition = 0;
+document.addEventListener( 'DOMContentLoaded', function () {
+	let active = null;
+	let scrollPosition = 0;
+	const touchEnabledPopups = new WeakSet();
 
-  function setPageState(isOpen) {
-    if (isOpen) {
-      scrollPosition = window.scrollY;
-      document.body.style.setProperty(
-        "--directorist-search-popup-scroll-offset",
-        `-${scrollPosition}px`,
-      );
-    }
+	function focusableElements( container ) {
+		return Array.from(
+			container.querySelectorAll(
+				'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+			)
+		).filter(
+			( element ) =>
+				element.getClientRects().length &&
+				'hidden' !== window.getComputedStyle( element ).visibility
+		);
+	}
 
-    document.documentElement.classList.toggle(
-      "directorist-search-popup-block-hidden",
-      isOpen,
-    );
-    document.body.classList.toggle(
-      "directorist-search-popup-block-hidden",
-      isOpen,
-    );
+	function setPageState( isOpen ) {
+		if ( isOpen ) {
+			scrollPosition = window.scrollY;
+			document.body.style.setProperty(
+				'--directorist-search-popup-scroll-offset',
+				`-${ scrollPosition }px`
+			);
+		}
 
-    if (isOpen) {
-      return;
-    }
+		document.documentElement.classList.toggle(
+			'directorist-search-popup-block-hidden',
+			isOpen
+		);
+		document.body.classList.toggle(
+			'directorist-search-popup-block-hidden',
+			isOpen
+		);
 
-    document.body.style.removeProperty(
-      "--directorist-search-popup-scroll-offset",
-    );
-    window.scrollTo(0, scrollPosition);
-  }
+		if ( isOpen ) {
+			return;
+		}
 
-  function closeSearchPopup(restoreFocus = true) {
-    if (!activePopup) {
-      return;
-    }
+		document.body.style.removeProperty(
+			'--directorist-search-popup-scroll-offset'
+		);
+		window.scrollTo( 0, scrollPosition );
+	}
 
-    const button = activeButton;
-    activePopup.classList.remove("show");
-    activePopup.setAttribute("aria-hidden", "true");
-    activePopup.removeAttribute("style");
-    activeOverlay?.classList.remove("show");
-    button?.setAttribute("aria-expanded", "false");
-    activePopup = null;
-    activeButton = null;
-    activeOverlay = null;
-    setPageState(false);
+	function closeSearchPopup( restoreFocus = true ) {
+		if ( ! active ) {
+			return;
+		}
 
-    if (restoreFocus && button && document.contains(button)) {
-      window.requestAnimationFrame(() => button.focus({ preventScroll: true }));
-    }
-  }
+		const { popup, overlay, trigger } = active;
+		popup.classList.remove( 'show', 'responsive-true' );
+		popup.setAttribute( 'aria-hidden', 'true' );
+		popup.removeAttribute( 'style' );
+		overlay.classList.remove( 'show' );
+		trigger.setAttribute( 'aria-expanded', 'false' );
+		active = null;
+		setPageState( false );
 
-  function openSearchPopup(popup, overlay, button) {
-    if (activePopup && activePopup !== popup) {
-      closeSearchPopup(false);
-    }
+		if ( restoreFocus && document.contains( trigger ) ) {
+			window.requestAnimationFrame( () =>
+				trigger.focus( { preventScroll: true } )
+			);
+		}
+	}
 
-    activePopup = popup;
-    activeButton = button;
-    activeOverlay = overlay;
-    popup.classList.add("show");
-    popup.setAttribute("role", "dialog");
-    popup.setAttribute("aria-modal", "true");
-    popup.setAttribute("aria-hidden", "false");
-    overlay.classList.add("show");
-    button.setAttribute("aria-expanded", "true");
-    setPageState(true);
+	function openSearchPopup( popup, overlay, trigger ) {
+		if ( active ) {
+			closeSearchPopup( false );
+		}
 
-    const focusTarget =
-      popup.querySelector(
-        'input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])',
-      ) || popup.querySelector("button:not([disabled]), a[href]");
-    const focusSearchControl = () => {
-      if (activePopup === popup) {
-        focusTarget?.focus({ preventScroll: true });
-      }
-    };
+		active = { popup, overlay, trigger };
+		popup.classList.add( 'show' );
+		popup.setAttribute( 'role', 'dialog' );
+		popup.setAttribute( 'aria-modal', 'true' );
+		popup.setAttribute( 'aria-hidden', 'false' );
+		overlay.classList.add( 'show' );
+		trigger.setAttribute( 'aria-expanded', 'true' );
+		setPageState( true );
 
-    window.requestAnimationFrame(focusSearchControl);
-    window.setTimeout(() => {
-      if (document.activeElement !== focusTarget) {
-        focusSearchControl();
-      }
-    }, 350);
-  }
+		const focusTarget =
+			popup.querySelector(
+				'input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled])'
+			) || popup.querySelector( 'button:not([disabled]), a[href]' );
+		const focusPopup = () => {
+			if ( active?.popup === popup ) {
+				focusTarget?.focus( { preventScroll: true } );
+			}
+		};
 
-  document
-    .querySelectorAll(".directorist-search-popup-block")
-    .forEach((searchBlock, index) => {
-      const searchButton = searchBlock.querySelector(
-        ".directorist-search-popup-block__button",
-      );
-      const searchPopup = searchBlock.querySelector(
-        ".directorist-search-popup-block__popup",
-      );
-      const closeSearchButton = searchBlock.querySelector(
-        ".directorist-search-popup-block__form-close",
-      );
+		window.requestAnimationFrame( focusPopup );
+		window.setTimeout( focusPopup, 350 );
+	}
 
-      if (!searchButton || !searchPopup || !closeSearchButton) {
-        return;
-      }
+	function enableTouchDismiss( popup ) {
+		if ( touchEnabledPopups.has( popup ) ) {
+			return;
+		}
 
-      const popupId = searchPopup.id || `directorist-search-popup-${index + 1}`;
-      searchPopup.id = popupId;
-      searchPopup.setAttribute("aria-hidden", "true");
-      searchButton.setAttribute("aria-controls", popupId);
+		touchEnabledPopups.add( popup );
+		let touchStartY = null;
+		let touchDistance = 0;
 
-      const searchOverlay = document.createElement("div");
-      searchOverlay.className = "directorist-search-popup-block__overlay";
-      searchOverlay.setAttribute("aria-hidden", "true");
-      document.body.appendChild(searchOverlay);
+		popup.addEventListener(
+			'touchstart',
+			( event ) => {
+				if (
+					! window.matchMedia( '(max-width: 575px)' ).matches ||
+					1 !== event.touches.length ||
+					event.touches[ 0 ].clientY -
+						popup.getBoundingClientRect().top >
+						56
+				) {
+					return;
+				}
 
-      searchButton.addEventListener("click", function (event) {
-        event.preventDefault();
+				touchStartY = event.touches[ 0 ].clientY;
+				touchDistance = 0;
+				popup.style.transition = 'none';
+			},
+			{ passive: true }
+		);
 
-        if (activePopup === searchPopup) {
-          closeSearchPopup();
-          return;
-        }
+		popup.addEventListener(
+			'touchmove',
+			( event ) => {
+				if ( null === touchStartY || 1 !== event.touches.length ) {
+					return;
+				}
 
-        openSearchPopup(searchPopup, searchOverlay, searchButton);
-      });
+				touchDistance = Math.max(
+					0,
+					event.touches[ 0 ].clientY - touchStartY
+				);
+				popup.style.transform = `translateY(${ touchDistance }px)`;
+			},
+			{ passive: true }
+		);
 
-      searchOverlay.addEventListener("click", () => closeSearchPopup());
-      closeSearchButton.addEventListener("click", () => closeSearchPopup());
+		popup.addEventListener( 'touchend', () => {
+			popup.style.removeProperty( 'transition' );
+			popup.style.removeProperty( 'transform' );
 
-      let touchStartY = null;
-      let touchDistance = 0;
+			if ( touchDistance >= 80 && active?.popup === popup ) {
+				closeSearchPopup();
+			}
 
-      searchPopup.addEventListener(
-        "touchstart",
-        (event) => {
-          if (
-            !window.matchMedia("(max-width: 575px)").matches ||
-            event.touches.length !== 1 ||
-            event.touches[0].clientY - searchPopup.getBoundingClientRect().top >
-              56
-          ) {
-            return;
-          }
+			touchStartY = null;
+			touchDistance = 0;
+		} );
+	}
 
-          touchStartY = event.touches[0].clientY;
-          touchDistance = 0;
-          searchPopup.style.transition = "none";
-        },
-        { passive: true },
-      );
+	document
+		.querySelectorAll( '.directorist-search-popup-block' )
+		.forEach( ( block ) => {
+			const trigger = block.querySelector(
+				'.directorist-search-popup-block__button'
+			);
+			const popup = document.getElementById(
+				trigger?.getAttribute( 'aria-controls' )
+			);
+			const closeButton = popup?.querySelector(
+				'.directorist-search-popup-block__form-close'
+			);
 
-      searchPopup.addEventListener(
-        "touchmove",
-        (event) => {
-          if (null === touchStartY || event.touches.length !== 1) {
-            return;
-          }
+			if ( ! trigger || ! popup || ! closeButton ) {
+				return;
+			}
 
-          touchDistance = Math.max(0, event.touches[0].clientY - touchStartY);
-          searchPopup.style.transform = `translateY(${touchDistance}px)`;
-        },
-        { passive: true },
-      );
+			if ( popup.parentElement !== document.body ) {
+				document.body.appendChild( popup );
+			}
 
-      searchPopup.addEventListener("touchend", () => {
-        searchPopup.style.removeProperty("transition");
-        searchPopup.style.removeProperty("transform");
+			popup.setAttribute( 'aria-hidden', 'true' );
+			enableTouchDismiss( popup );
 
-        if (touchDistance >= 80) {
-          closeSearchPopup();
-        }
+			const overlay = document.createElement( 'div' );
+			overlay.className = 'directorist-search-popup-block__overlay';
+			overlay.setAttribute( 'aria-hidden', 'true' );
+			document.body.appendChild( overlay );
 
-        touchStartY = null;
-        touchDistance = 0;
-      });
-    });
+			trigger.addEventListener( 'click', ( event ) => {
+				event.preventDefault();
 
-  document.addEventListener("keydown", function (event) {
-    if ("Escape" === event.key && activePopup) {
-      closeSearchPopup();
-    }
-  });
-});
+				if ( active?.popup === popup ) {
+					closeSearchPopup();
+					return;
+				}
+
+				openSearchPopup( popup, overlay, trigger );
+			} );
+			overlay.addEventListener( 'click', () => closeSearchPopup() );
+			closeButton.addEventListener( 'click', () => closeSearchPopup() );
+
+			popup
+				.querySelectorAll(
+					'.directorist-search-form-action__modal .directorist-modal-btn'
+				)
+				.forEach( ( button ) =>
+					button.addEventListener( 'click', () => {
+						popup.classList.add( 'responsive-true' );
+						overlay.classList.remove( 'show' );
+					} )
+				);
+		} );
+
+	document.addEventListener( 'keydown', ( event ) => {
+		if ( ! active ) {
+			return;
+		}
+
+		if ( 'Escape' === event.key ) {
+			event.preventDefault();
+			closeSearchPopup();
+			return;
+		}
+
+		if ( 'Tab' !== event.key ) {
+			return;
+		}
+
+		const focusable = focusableElements( active.popup );
+		const first = focusable[ 0 ];
+		const last = focusable[ focusable.length - 1 ];
+
+		if (
+			event.shiftKey &&
+			active.popup.ownerDocument.activeElement === first
+		) {
+			event.preventDefault();
+			last?.focus();
+		} else if (
+			! event.shiftKey &&
+			active.popup.ownerDocument.activeElement === last
+		) {
+			event.preventDefault();
+			first?.focus();
+		}
+	} );
+} );

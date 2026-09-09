@@ -1125,10 +1125,8 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
 
             $filename = wp_basename( $file );
 
-            // WordPress appends .txt to files handled by wp_import_handle_upload().
-            if ( '.csv.txt' === strtolower( substr( $filename, -8 ) ) ) {
-                $filename = substr( $filename, 0, -4 );
-            }
+            // WordPress appends .txt and may add a numeric suffix to importer uploads.
+            $filename = preg_replace( '/\.csv(?:-\d+)?\.txt$/i', '.csv', $filename );
 
             $file_type = wp_check_filetype_and_ext(
                 $file,

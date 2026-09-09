@@ -954,6 +954,89 @@
 	}
 }
 
+.directorist-search-modal--open {
+	> .directorist-search-modal__overlay {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	> .directorist-search-modal__contents {
+		bottom: 50%;
+		opacity: 1;
+		visibility: visible;
+		transform: translate(-50%, 50%);
+	}
+}
+
+@media only screen and (max-width: 575px) {
+	.directorist-search-modal {
+		> .directorist-search-modal__contents {
+			display: flex;
+			flex-direction: column;
+			box-sizing: border-box;
+			width: 100%;
+			max-height: 80vh;
+			max-height: 80dvh;
+			padding-bottom: env(safe-area-inset-bottom, 0);
+			overflow: hidden;
+			border-radius: 16px 16px 0 0;
+		}
+
+		&--open > .directorist-search-modal__contents {
+			bottom: 0;
+			transform: translateX(-50%);
+		}
+
+		.directorist-search-modal__contents {
+			> form,
+			> .directorist-advanced-filter__form {
+				display: flex;
+				flex-direction: column;
+				min-height: 0;
+				max-height: inherit;
+				overflow: hidden;
+			}
+
+			.directorist-search-modal__contents__header {
+				position: relative;
+				flex: 0 0 auto;
+				padding: 20px 20px 15px;
+			}
+
+			.directorist-search-modal__contents__body,
+			.directorist-advanced-filter__form
+				.directorist-search-modal__contents__body {
+				flex: 1 1 auto;
+				min-height: 0;
+				height: auto;
+				padding: 24px 20px;
+				margin: 0;
+				overflow-y: auto;
+				overscroll-behavior: contain;
+				-webkit-overflow-scrolling: touch;
+			}
+
+			.directorist-search-modal__contents__footer {
+				position: relative;
+				flex: 0 0 auto;
+				padding-bottom: env(safe-area-inset-bottom, 0);
+			}
+
+			.directorist-search-modal__contents__btn--close {
+				width: 44px;
+				height: 44px;
+			}
+
+			input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+			select,
+			textarea,
+			.select2-search__field {
+				font-size: 16px !important;
+			}
+		}
+	}
+}
+
 .directorist-content-active {
 	&.directorist-overlay-active {
 		position: relative;
@@ -996,6 +1079,27 @@
 		.select2.select2-container
 		.select2-selection {
 		border: 0 none !important;
+	}
+}
+
+html.directorist-search-modal-open {
+	overflow: hidden;
+}
+
+body.directorist-search-modal-open.directorist-content-active,
+body.directorist-search-modal-open {
+	position: fixed;
+	top: var(--directorist-search-modal-scroll-offset, 0);
+	right: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.directorist-search-modal__overlay,
+	.directorist-search-modal__contents {
+		transition: none !important;
 	}
 }
 

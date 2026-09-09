@@ -18,6 +18,13 @@ function directorist_is_guest_submission_enabled() {
     return (bool) get_directorist_option( 'guest_listings', false );
 }
 
+/**
+ * @return bool
+ */
+function directorist_is_force_disabled_featured_listings() {
+    return (bool) apply_filters( 'directorist_is_force_disabled_featured_listings', false );
+}
+
 function directorist_is_featured_listing_enabled( array $context = [] ) {
     return (bool) apply_filters( 'directorist_is_featured_listing_enabled', get_directorist_option( 'enable_featured_listing' ), $context );
 }
@@ -53,8 +60,7 @@ function directorist_is_order_notifiable_event( $event ) {
 function directorist_is_owner_notifiable_event( $event ) {
     $owner_events = directorist_get_owner_notifiable_events();
 
-    if (
-        in_array( $event, $owner_events, true )
+    if ( in_array( $event, $owner_events, true )
         || ( 'order_completed' === $event && in_array( 'payment_received', $owner_events, true ) )
     ) {
         return true;
@@ -73,8 +79,7 @@ function directorist_is_owner_notifiable_event( $event ) {
 function directorist_is_admin_notifiable_event( $event ) {
     $admin_events = directorist_get_admin_notifiable_events();
 
-    if (
-        in_array( $event, $admin_events, true )
+    if ( in_array( $event, $admin_events, true )
         || ( 'order_completed' === $event && in_array( 'payment_received', $admin_events, true ) )
     ) {
         return true;

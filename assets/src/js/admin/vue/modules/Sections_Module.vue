@@ -133,7 +133,7 @@
 						v-show="
 							fieldIsVisibleInSection(section_key, section, field)
 						"
-						:key="field_key"
+						:key="field"
 						:class="
 							fieldWrapperClass(field, fields[field], section)
 						"
@@ -331,10 +331,10 @@
 							</div>
 						</div>
 
-						<!-- Insert the wrapped container fields right after "way_to_show_preview" -->
+						<!-- Insert wrapped container fields after the section's configured anchor. -->
 						<div
 							v-if="
-								field === 'way_to_show_preview' &&
+								field === containerGroupAfterField(section) &&
 								sectionGroupedContainerFields(section).length >
 									0
 							"
@@ -415,7 +415,7 @@
 													'sections-module',
 												)
 											"
-											:key="groupedFieldKey"
+											:key="groupedField"
 										/>
 									</div>
 								</div>
@@ -979,6 +979,20 @@ export default {
 			return section.fields.filter((field) => {
 				return this.fields[field]?.group === 'container';
 			});
+		},
+
+		containerGroupAfterField(section) {
+			const configuredFields = Array.isArray(
+				section?.containerGroupAfterFields,
+			)
+				? section.containerGroupAfterFields
+				: [section?.containerGroupAfterField || 'way_to_show_preview'];
+
+			return (
+				configuredFields.find((field) =>
+					this.fieldShouldRenderInSection(section, field),
+				) || configuredFields[configuredFields.length - 1]
+			);
 		},
 
 		containerGroupLabel(section) {

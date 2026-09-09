@@ -535,6 +535,7 @@ if ( ! class_exists( 'ATBDP_Custom_Taxonomy' ) ) :
                 'singular_name'     => _x( 'Listing Location', 'Location singular name', 'directorist' ),
                 'search_items'      => __( 'Search Location', 'directorist' ),
                 'all_items'         => __( 'All Locations', 'directorist' ),
+                'back_to_items'     => __( 'Go to Locations', 'directorist' ),
                 'parent_item'       => __( 'Parent Location', 'directorist' ),
                 'parent_item_colon' => __( 'Parent Location:', 'directorist' ),
                 'edit_item'         => __( 'Edit Location', 'directorist' ),

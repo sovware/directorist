@@ -1,7 +1,7 @@
 <div class="directorist-search-popup-block__popup">
-    <div class="directorist-search-popup-block__form-close">
+    <button type="button" class="directorist-search-popup-block__form-close" aria-label="<?php esc_attr_e( 'Close search', 'directorist' ); ?>">
         <?php directorist_icon( 'la times' );?>
-    </div>
+    </button>
     <div class="dspb-container">
         <div class="dspb-row">
             <div class="directorist-search-popup-block__form">

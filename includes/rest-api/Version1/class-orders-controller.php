@@ -89,7 +89,7 @@ class Orders_Controller extends Abstract_Controller {
             return new WP_Error( 'invalid_request', __( 'Monetization disabled.', 'directorist' ), array( 'status' => 400 ) );
         }
 
-        $customer_id = absint( $request->get_param( 'customer' ) );
+        $customer_id = $this->admin_permissions_check() ? absint( $request->get_param( 'customer' ) ) : 0;
         $customer_id = $customer_id ? $customer_id : get_current_user_id();
 
         if ( ! $customer_id || ! get_user_by( 'id', $customer_id ) ) {
@@ -241,7 +241,9 @@ class Orders_Controller extends Abstract_Controller {
             );
 
         $customer = absint( $request->get_param( 'customer' ) );
-        if ( $customer ) {
+        if ( ! $this->admin_permissions_check() ) {
+            $query->where( 'd_order.user_id', get_current_user_id() );
+        } elseif ( $customer ) {
             $query->where( 'd_order.user_id', $customer );
         }
 

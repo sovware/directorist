@@ -184,10 +184,12 @@ class Directorist_Listing_Taxonomy {
         return $html;
     }
 
-    public function subterms_html( $term ) {
+    public function subterms_html( $term, $depth = null ) {
 
-        if ( $this->depth <= 0 ) {
-            return;
+        $depth = is_null( $depth ) ? $this->depth : $depth;
+
+        if ( $depth <= 0 ) {
+            return '';
         }
 
         $args = [
@@ -204,7 +206,7 @@ class Directorist_Listing_Taxonomy {
 
         if ( count( $terms ) > 0 ) {
 
-            --$this->depth;
+            --$depth;
 
             $html .= '<ul class="directorist-taxonomy-list__sub-item">';
 
@@ -234,7 +236,7 @@ class Directorist_Listing_Taxonomy {
                     $html .= ' (' . $count . ')' . $plus_icon;
                 }
                 $html .= "</a>";
-                $html .= $this->subterms_html( $term );
+                $html .= $this->subterms_html( $term, $depth );
                 $html .= '</li>';
             }
 

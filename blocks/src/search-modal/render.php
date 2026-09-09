@@ -4,7 +4,6 @@
  *
  * @package Directorist
  */
-
 defined( 'ABSPATH' ) || exit;
 
 $directorist_search_modal_instance = directorist_modal_block_instance( 'search-modal' );

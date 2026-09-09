@@ -205,7 +205,7 @@ function directorist_modal_block_trigger_style( $attributes, $prefix = '' ) {
  * @return string
  */
 function directorist_modal_block_container_attributes( $attributes, $content, $class_name ) {
-    $saved  = directorist_modal_block_saved_element_attributes( $content, 'div' );
+    $saved   = directorist_modal_block_saved_element_attributes( $content, 'div' );
     $classes = array_merge( preg_split( '/\s+/', $class_name ), $saved['class'] );
     $styles  = array_filter( [ $saved['style'] ] );
 
@@ -244,7 +244,7 @@ function directorist_modal_block_wrapper_attributes( $attributes, $class_name, $
         $class_name .= ' directorist-modal-trigger--reverse';
     }
 
-    $saved  = directorist_modal_block_saved_element_attributes( $content, 'button' );
+    $saved   = directorist_modal_block_saved_element_attributes( $content, 'button' );
     $classes = array_merge( preg_split( '/\s+/', $class_name ), $saved['class'] );
     $styles  = array_filter(
         [

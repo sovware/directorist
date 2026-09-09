@@ -14,13 +14,13 @@ $render_account_modal               = 1 === $directorist_account_block_instance;
 $label                              = ! empty( $attributes['accessibleLabel'] ) ? $attributes['accessibleLabel'] : __( 'Open account', 'directorist' );
 
 if ( is_user_logged_in() ) :
-    $display       = isset( $attributes['loggedInDisplay'] ) ? $attributes['loggedInDisplay'] : 'avatar';
-    $show_name     = in_array( $display, [ 'avatar_and_name', 'icon_and_name' ], true );
-    $show_icon     = in_array( $display, [ 'icon', 'icon_and_name' ], true );
-    $show_menu     = ! empty( $attributes['showDashboardMenu'] );
-    $avatar_size   = isset( $attributes['avatarSize'] ) ? min( 120, max( 20, absint( $attributes['avatarSize'] ) ) ) : 40;
-    $avatar_radius = isset( $attributes['avatarRadius'] ) ? min( 50, absint( $attributes['avatarRadius'] ) ) : 50;
-    $trigger_attrs = directorist_modal_block_wrapper_attributes(
+    $display         = isset( $attributes['loggedInDisplay'] ) ? $attributes['loggedInDisplay'] : 'avatar';
+    $show_name       = in_array( $display, [ 'avatar_and_name', 'icon_and_name' ], true );
+    $show_icon       = in_array( $display, [ 'icon', 'icon_and_name' ], true );
+    $show_menu       = ! empty( $attributes['showDashboardMenu'] );
+    $avatar_size     = isset( $attributes['avatarSize'] ) ? min( 120, max( 20, absint( $attributes['avatarSize'] ) ) ) : 40;
+    $avatar_radius   = isset( $attributes['avatarRadius'] ) ? min( 50, absint( $attributes['avatarRadius'] ) ) : 50;
+    $trigger_attrs   = directorist_modal_block_wrapper_attributes(
         $attributes,
         'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( $show_name ? '' : ' directorist-modal-trigger--icon-only' ),
         $show_icon ? 'author' : '',
@@ -70,11 +70,11 @@ if ( is_user_logged_in() ) :
         <?php endif; ?>
     </div>
 <?php else :
-    $text          = directorist_modal_block_trigger_text( $attributes, $content );
-    $display       = ! empty( $attributes['styleDisplay'] ) ? $attributes['styleDisplay'] : ( '' !== trim( wp_strip_all_tags( $text ) ) ? 'text' : 'icon' );
-    $show_icon     = 'text' !== $display;
-    $show_text     = 'icon' !== $display;
-    $trigger_attrs = directorist_modal_block_wrapper_attributes(
+    $text            = directorist_modal_block_trigger_text( $attributes, $content );
+    $display         = ! empty( $attributes['styleDisplay'] ) ? $attributes['styleDisplay'] : ( '' !== trim( wp_strip_all_tags( $text ) ) ? 'text' : 'icon' );
+    $show_icon       = 'text' !== $display;
+    $show_text       = 'icon' !== $display;
+    $trigger_attrs   = directorist_modal_block_wrapper_attributes(
         $attributes,
         'directorist-account-block__trigger directorist-modal-trigger wp-block-button__link' . ( 'icon' === $display ? ' directorist-modal-trigger--icon-only' : '' ),
         '',

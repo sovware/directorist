@@ -85,7 +85,12 @@ export function getFieldValue(fieldKey, $) {
 		fieldKey === 'admin_category_select[]' ||
 		fieldKey === 'in_cat'
 	) {
-		$field = $(SELECTORS.CATEGORY_SELECT).first();
+		// Prefer the add-listing field over theme search fields that may occur
+		// earlier in the document and use the same taxonomy name.
+		$field = $(SELECTORS.CATEGORY).first();
+		if (!$field.length) {
+			$field = $(SELECTORS.IN_CAT).first();
+		}
 		if (!$field.length) {
 			const $checkboxes = $(SELECTORS.CATEGORY_CHECKLIST_CHECKED);
 			if ($checkboxes.length) {

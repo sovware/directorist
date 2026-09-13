@@ -223,7 +223,7 @@
       "initial_words": 0
     },
     {
-      "query": "\u09ac\u09cd\u09af\u09ac\u09b8\u09be\u09b0 \u09b8\u09ae\u09df \u09b8\u09c7\u09ad \u09b9\u099a\u09cd\u099b\u09c7 \u09a8\u09be",
+      "query": "business hours are not saving",
       "products": [
         "directorist-business-hours"
       ],
@@ -236,7 +236,7 @@
       "initial_words": 508
     },
     {
-      "query": "\u09b0\u09be\u09a4 \u09e7\u09e8\u099f\u09be\u09b0 \u09aa\u09b0\u09c7 \u0996\u09cb\u09b2\u09be \u09a6\u09c7\u0996\u09be\u09df \u09a8\u09be",
+      "query": "does not show open after midnight",
       "products": [
         "directorist-business-hours"
       ],
@@ -249,7 +249,7 @@
       "initial_words": 508
     },
     {
-      "query": "\u09aa\u09cd\u09b2\u09cd\u09af\u09be\u09a8 \u099b\u09be\u09dc\u09be \u09ac\u09bf\u099c\u09a8\u09c7\u09b8 \u0986\u0993\u09df\u09be\u09b0 \u09a6\u09c7\u0996\u09be\u099a\u09cd\u099b\u09c7 \u09a8\u09be",
+      "query": "without a plan business hours are not appearing",
       "products": [
         "directorist-business-hours",
         "directorist-pricing-plans"
@@ -265,7 +265,7 @@
       "initial_words": 1063
     },
     {
-      "query": "\u09a1\u09bf\u09ad\u09bf\u09a4\u09c7 \u09ac\u09bf\u099c\u09a8\u09c7\u09b8 \u0986\u0993\u09df\u09be\u09b0 \u0996\u09be\u09b2\u09bf",
+      "query": "business hours are blank in divi",
       "products": [
         "directorist-business-hours",
         "directorist-divi-integration"
@@ -281,7 +281,7 @@
       "initial_words": 1078
     },
     {
-      "query": "\u09b8\u09be\u09aa\u09cd\u09a4\u09be\u09b9\u09bf\u0995 \u09b0\u09bf\u09aa\u09cb\u09b0\u09cd\u099f\u09c7 \u09b6\u09c7\u09b7 \u09b2\u09bf\u09b8\u09cd\u099f\u09bf\u0982 \u09ac\u09be\u09b0\u09ac\u09be\u09b0",
+      "query": "weekly report keeps repeating the last listing",
       "products": [
         "directorist-analytics"
       ],
@@ -294,7 +294,7 @@
       "initial_words": 480
     },
     {
-      "query": "\u09b8\u09c7\u09ad \u0995\u09b0\u09be \u09b8\u09be\u09b0\u09cd\u099a\u09c7\u09b0 \u0987\u09ae\u09c7\u0987\u09b2 \u0986\u09b8\u09c7 \u09a8\u09be",
+      "query": "saved search emails do not arrive",
       "products": [
         "directorist-search-alert"
       ],
@@ -307,7 +307,7 @@
       "initial_words": 444
     },
     {
-      "query": "\u0989\u0995\u09ae\u09be\u09b0\u09cd\u09b8\u09c7\u09b0 \u09aa\u09c7\u09ae\u09c7\u09a8\u09cd\u099f \u09b9\u099a\u09cd\u099b\u09c7 \u09a8\u09be",
+      "query": "woocommerce payment is not working",
       "products": [
         "directorist-woocommerce-pricing-plans"
       ],
@@ -320,7 +320,7 @@
       "initial_words": 457
     },
     {
-      "query": "plan chara business hours dekhay na",
+      "query": "no pricing plan selected business hours do not appear",
       "products": [
         "directorist-business-hours",
         "directorist-pricing-plans"
@@ -336,7 +336,7 @@
       "initial_words": 1063
     },
     {
-      "query": "divi te hours khali",
+      "query": "hours are blank in divi",
       "products": [
         "directorist-business-hours",
         "directorist-divi-integration"
@@ -352,7 +352,7 @@
       "initial_words": 1078
     },
     {
-      "query": "saved search er mail ashe na",
+      "query": "saved search email never arrives",
       "products": [
         "directorist-search-alert"
       ],
@@ -365,7 +365,7 @@
       "initial_words": 444
     },
     {
-      "query": "gallery image import hocche na",
+      "query": "gallery image import is not working",
       "products": [
         "directorist-gallery"
       ],
@@ -378,7 +378,7 @@
       "initial_words": 466
     },
     {
-      "query": "claim badge tooltip vul",
+      "query": "claim badge tooltip is incorrect",
       "products": [
         "directorist-claim-listing"
       ],

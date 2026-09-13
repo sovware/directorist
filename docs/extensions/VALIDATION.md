@@ -8,7 +8,7 @@ Checked locally on 2026-09-13. These checks validate the documentation/routing/i
 | Source provenance | 89 selected snapshots across 44 product/generation repositories plus relevant local checkouts; all visible branch pages completed |
 | Selective topic coverage | 88 authored feature topics; 41 entry skills including central router |
 | Exact product name/repo routing | 80/80 cases passed |
-| Symptom/integration routing | 29/29 cases passed, including 12 Bengali/Banglish cases |
+| Symptom/integration routing | 29/29 cases passed, including 12 English symptom paraphrases |
 | Initial docs selected for matched symptom cases | 2–4 identity/topic files; 444–1078 words; 4580–12187 UTF-8 bytes |
 | Source relationship query | Exact Core emitter + Business Hours subscriber found for `directorist_field_template` |
 | Skill format | Official skill-creator validator passed for 41 repo skills and 41 installed copies |

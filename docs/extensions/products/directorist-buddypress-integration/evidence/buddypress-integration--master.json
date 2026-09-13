@@ -1,0 +1,1500 @@
+{
+  "snapshot": {
+    "key": "buddypress-integration--master",
+    "repo": "directorist-buddypress-integration",
+    "branch": "master",
+    "commit": "e63ae3d41639d5ddf4df772f1dbd12136792c8db",
+    "date": "2025-03-27T04:01:44Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-buddypress-integration",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b8d096fa69f0280968d9c3b5f55cbdc2279833c42a075a531d29e48611edc745",
+      "bytes": 22,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "changelog.txt": {
+      "sha256": "fcef1316c9674d398aa87150e1a8cd5feb583115c5f668617614acfba5215bd0",
+      "bytes": 534,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-buddypress-integration.php": {
+      "sha256": "57143ee41df5b2b3857953279490e0f4aca2f1c562ba24d922e89470c504908f",
+      "bytes": 9719,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_BuddyPress_Integration",
+          "line": 32,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_instance",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_variables",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_actions",
+          "line": 93,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 114,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "on_plugins_loaded",
+          "line": 122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "modify_plugin_action_links",
+          "line": 155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_plugin_textdomain",
+          "line": 172,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "can_see_admin_notice",
+          "line": 180,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "on_bp_include",
+          "line": 184,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_login_registration_redirect",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_directorist_missing_admin_notice",
+          "line": 228,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_buddypress_missing_admin_notice",
+          "line": 265,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_buddypress",
+          "line": 295,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 20,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'ATBDP_DIR_BUDDYPRESS_POST_ID'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 94,
+          "args": [
+            "'bp_include'",
+            "array( $this, 'on_bp_include' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 95,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'on_plugins_loaded' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 96,
+          "args": [
+            "'directorist_loaded'",
+            "array( $this, 'includes' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 97,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 101,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 116,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 124,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 126,
+          "args": [
+            "'admin_notices'",
+            "array( $this, 'show_directorist_missing_admin_notice' )"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 132,
+          "args": [
+            "'BuddyPress'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 134,
+          "args": [
+            "'admin_notices'",
+            "array( $this, 'show_buddypress_missing_admin_notice' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 144,
+          "args": [
+            "'template_redirect'",
+            "array( $this, 'setup_login_registration_redirect' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 149,
+          "args": [
+            "'plugin_action_links'",
+            "array( $this, 'modify_plugin_action_links' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 150,
+          "args": [
+            "'network_admin_plugin_action_links'",
+            "array( $this, 'modify_plugin_action_links' )"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 185,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 187,
+          "args": [
+            "'admin_notices'",
+            "array( $this, 'show_directorist_missing_admin_notice' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 203,
+          "args": [
+            "'user_login'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 204,
+          "args": [
+            "'redirect_login_to_bb_login'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 211,
+          "args": [
+            "'custom_registration'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 212,
+          "args": [
+            "'redirect_registration_to_bb_registration'"
+          ]
+        }
+      ]
+    },
+    "package-lock.json": {
+      "sha256": "d33c45e34911a2786f9864328492d69b1daa137a9c94247a8d8ab5214d7d499f",
+      "bytes": 10274,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "712dea4ff502db65d2d46b199edba3e3f75ad7c873976b175d4254db61e3cdf1",
+      "bytes": 499,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "pot.js": {
+      "sha256": "0a7404b452b007f50b874ba990fa19a89d03151def62889a449940cdc111beb8",
+      "bytes": 229,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "8584b84663b06f2d8a4141cba605a4df3336911858bab2ae64998ab48b4c9a72",
+      "bytes": 798,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "91bb5df90455ee5a9e104f908ca1cd38407346c3b55bb21335ca5fa8a5484129",
+      "bytes": 640,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/bp-listings-actions.php": {
+      "sha256": "922fc34198846dce40082a95d48d68854f3f694c24d81d691b6c6f2b487257d0",
+      "bytes": 3286,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_share_single_listing_on_timeline",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_transition_post_status_action",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_delete_activity",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 47,
+          "args": [
+            "'bp_actions'",
+            "'dbp_share_single_listing_on_timeline'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 94,
+          "args": [
+            "'transition_post_status'",
+            "'dbp_transition_post_status_action'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 119,
+          "args": [
+            "'delete_post'",
+            "'dbp_delete_activity'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 120,
+          "args": [
+            "'wp_trash_post'",
+            "'dbp_delete_activity'"
+          ]
+        }
+      ]
+    },
+    "includes/bp-listings-activity.php": {
+      "sha256": "02b0207684b662fe69c3a811ea0c78d25eddfc3ffbd82f1af29a7cff16695427",
+      "bytes": 4775,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_listings_record_activity",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_register_activity_actions",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_format_activity_action_new_listing",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_format_activity_action_share_listing",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 36,
+          "args": [
+            "'bp_activity_add'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 101,
+          "args": [
+            "'bp_register_activity_actions'",
+            "'dbp_listings_register_activity_actions'"
+          ]
+        }
+      ]
+    },
+    "includes/bp-listings-functions.php": {
+      "sha256": "d22898a6f932859220adfc6cf9222672b5d3c436f9e6b533c033ed88849589fd",
+      "bytes": 6895,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_listings_load_template_filter",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_get_template_directory",
+          "line": 95,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_fix_listings_default_action_pagination",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_start_fix_listings_default_action",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_end_fix_listings_default_action",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_run_shortcode_callback",
+          "line": 145,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_update_all_listings_query_arguments",
+          "line": 162,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_is_group_listings_enabled",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_enable_group_listings",
+          "line": 187,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_disable_group_listings",
+          "line": 196,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_get_new_group_enable_listings",
+          "line": 205,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_get_group_connected_listings_ids",
+          "line": 220,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_update_group_connected_listings_ids",
+          "line": 229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_delete_group_connected_listings_ids",
+          "line": 238,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'bp_template_content'",
+            "function() use ( $templates ) { foreach ( $templates as $template ) { $template_name = str_replace( '.php', '', $template ); if ( 'members/single/plugins' !== $template_name ) { bp_get_template_part( $template_name ); } } }"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 85,
+          "args": [
+            "'dbp_listings_load_template_filter'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 87,
+          "args": [
+            "'bp_located_template'",
+            "'dbp_listings_load_template_filter'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 96,
+          "args": [
+            "'dbp_listings_get_template_directory'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 122,
+          "args": [
+            "'get_pagenum_link'",
+            "'dbp_fix_listings_default_action_pagination'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 124,
+          "args": [
+            "'bp_before_member_my-listings_content'",
+            "'dbp_start_fix_listings_default_action'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 134,
+          "args": [
+            "'bp_after_member_my-listings_content'",
+            "'dbp_end_fix_listings_default_action'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 169,
+          "args": [
+            "'atbdp_all_listings_query_arguments'",
+            "'dbp_update_all_listings_query_arguments'"
+          ]
+        }
+      ]
+    },
+    "includes/bp-listings-screens.php": {
+      "sha256": "b6c5c5ff52300ad6ff900a80979c046c5933e994d98a87046f8b19adabbae207",
+      "bytes": 5333,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_listings_screen_my_listings",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_screen_favorites",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_screen_add_listing",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_screen_group_listings",
+          "line": 142,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_screen_group_listings_page_content",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 48,
+          "args": [
+            "'dbp_listings_screen_my_listings'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 50,
+          "args": [
+            "'dbp_listings_template_my_listings'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 90,
+          "args": [
+            "'dbp_listings_screen_favorites'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 92,
+          "args": [
+            "'dbp_listings_template_favorites'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 132,
+          "args": [
+            "'dbp_listings_screen_add_listing'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 134,
+          "args": [
+            "'dbp_listings_template_add_listing'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 143,
+          "args": [
+            "'bp_template_content'",
+            "'dbp_listings_screen_group_listings_page_content'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 145,
+          "args": [
+            "'bp_core_template_plugin'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 149,
+          "args": [
+            "'template_notices'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 151,
+          "args": [
+            "'dbp_listings_screen_group_listings_page_content'"
+          ]
+        }
+      ]
+    },
+    "includes/bp-listings-template.php": {
+      "sha256": "5bb7db3f8d5f1ca001fa2a56b5cb79e27941aac3ed2083341c210e56b8593ac0",
+      "bytes": 12151,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_is_listings_component",
+          "line": 214,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_slug",
+          "line": 223,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_get_listings_slug",
+          "line": 236,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_root_slug",
+          "line": 248,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_get_listings_root_slug",
+          "line": 261,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "apply_filters",
+          "line": 217,
+          "args": [
+            "'dbp_is_listings_component'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 242,
+          "args": [
+            "'dbp_get_listings_slug'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 267,
+          "args": [
+            "'dbp_get_listings_root_slug'"
+          ]
+        }
+      ]
+    },
+    "includes/class-bp-listings-component.php": {
+      "sha256": "16f1eae1e4a7da2dfa48a870d7db4351e0513747349d934a768aef263efd6a53",
+      "bytes": 8447,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BP_Listings_Component",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_actions",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_share_link",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_frontend_scripts",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_components",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 111,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_globals",
+          "line": 139,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_nav",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_admin_bar",
+          "line": 238,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 36,
+          "args": [
+            "'bp_init'",
+            "array( $this, 'setup_components' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'enqueue_frontend_scripts' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 40,
+          "args": [
+            "'directorist_single_listing_social_sharing_items'",
+            "array( $this, 'add_share_link' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 61,
+          "args": [
+            "'bp_listing_sharing_text'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 175,
+          "args": [
+            "bp_displayed_user_id()",
+            "'atbdp_favourites'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 225,
+          "args": [
+            "'dbp_listings_screen_my_listings_subnavs'"
+          ]
+        }
+      ]
+    },
+    "includes/class-bp-listings-loader.php": {
+      "sha256": "9b793540c7886c11b063d366c80c5962ff3a3447147ead057d7ce0fd2bfaa880",
+      "bytes": 420,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_setup_listings_component",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'bp_loaded'",
+            "'dbp_setup_listings_component'"
+          ]
+        }
+      ]
+    },
+    "includes/class-builder.php": {
+      "sha256": "b76b15acca93a7c2be3915a2c5067f90d6cd508a8be6260aacb3a225e47bab24",
+      "bytes": 3093,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Builder",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_single_fields",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_archive_fields",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( __CLASS__, 'register_archive_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'atbdp_single_listing_other_fields_widget'",
+            "array( __CLASS__, 'register_single_fields' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-group-listings-extension.php": {
+      "sha256": "882314ff94ed43130c33cdc992e8254af433e67d1efcb10be93f9c7aa1f06ee8",
+      "bytes": 15159,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Group_Listings_Extension",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_variables",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_actions",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listings_ids",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "disconnect_listings_from_group",
+          "line": 157,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "frontend_enqueue_scripts",
+          "line": 161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_enqueue_scripts",
+          "line": 167,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_scripts",
+          "line": 173,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display",
+          "line": 217,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "maybe_unset_listings_menu",
+          "line": 250,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "edit_screen",
+          "line": 268,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "edit_screen_save",
+          "line": 328,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "group_admin_ui_edit_screen",
+          "line": 377,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "group_admin_ui_display_metabox",
+          "line": 395,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_screen",
+          "line": 406,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_screen_save",
+          "line": 439,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "toggle_group_listings",
+          "line": 466,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'groups_before_delete_group'",
+            "array( $this, 'disconnect_listings_from_group' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 70,
+          "args": [
+            "'bp_groups_admin_meta_boxes'",
+            "array( $this, 'group_admin_ui_edit_screen' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 73,
+          "args": [
+            "'bp_group_admin_edit_after'",
+            "array( $this, 'edit_screen_save' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 76,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'frontend_enqueue_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 77,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'admin_enqueue_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 79,
+          "args": [
+            "'wp_ajax_' . self::AJAX_ACTION",
+            "array( $this, 'get_listings_ids' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 81,
+          "args": [
+            "'bp_nouveau_nav_has_count'",
+            "function( $has_count, $nav_item, $displayed_nav ) { if ( $displayed_nav === 'groups' && $nav_item->slug === 'listings' && $nav_item->parent_slug === groups_get_current_group()->slug ) { return true; } return $has_count; }"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 89,
+          "args": [
+            "'bp_nouveau_get_nav_count'",
+            "function( $count, $nav_item, $displayed_nav ) { if ( $displayed_nav !== 'groups' || $nav_item->slug !== 'listings' ) { return $count; } $listings_ids = dbp_get_group_connected_listings_ids( groups_get_current_group()->id ); if ( ! empty( $l"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 230,
+          "args": [
+            "'bp_group_listings_view'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 233,
+          "args": [
+            "'bp_group_listings_per_page'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 242,
+          "args": [
+            "'bbp_no_breadcrumb'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 363,
+          "args": [
+            "'bp_group_admin_after_edit_screen_save'"
+          ]
+        }
+      ]
+    },
+    "includes/class-settings.php": {
+      "sha256": "090b2cde12bdd44057d6d48fa3a94e89aaf53366acce8cd5d8af2b90ff795a84",
+      "bytes": 6031,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_my_profile_fields",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_group_listings_fields",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_page_redirection_fields",
+          "line": 109,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_fields",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_panel",
+          "line": 135,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'atbdp_listing_type_settings_layout'",
+            "array( __CLASS__, 'register_panel' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( __CLASS__, 'register_fields' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-template.php": {
+      "sha256": "b5b58d8562387af87098cc0a1d846a4cb9bdc1fd16c69e3faa43e25b9c40e6b8",
+      "bytes": 1375,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Template",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_styles",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_template_file_path",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'directorist_template_file_path'",
+            "array( __CLASS__, 'add_template_file_path' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( __CLASS__, 'add_styles' )"
+          ]
+        }
+      ]
+    },
+    "includes/listings-common-functions.php": {
+      "sha256": "00e1ae1941aa5a262ea94698577928e71f4a70fbc00fd7f98d1ffd7399f51f73",
+      "bytes": 3546,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dbp_is_admin_add_listing_sharing_enabled",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_is_admin_notification_enabled",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_is_admin_add_favorite_sharing_enabled",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_is_admin_listing_sharing_enabled",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_is_admin_group_listings_enabled",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_listings_dropdown",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_count_user_listings",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbp_get_send_message_link",
+          "line": 123,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 15,
+          "args": [
+            "'enable_add_listing_sharing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 24,
+          "args": [
+            "'enable_notification'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 33,
+          "args": [
+            "'enable_add_favorite_sharing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 42,
+          "args": [
+            "'enable_listing_sharing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 51,
+          "args": [
+            "'enable_group_listings'"
+          ]
+        }
+      ]
+    },
+    "includes/templates/buddypress/add-listing.php": {
+      "sha256": "6b8ad757c76119934738849abf9e18542917c159ac247af98a8be0ca0e1debc1",
+      "bytes": 365,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 11,
+          "args": [
+            "'bp_before_member_' . bp_current_action() . '_content'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 15,
+          "args": [
+            "'bp_after_member_' . bp_current_action() . '_content'"
+          ]
+        }
+      ]
+    },
+    "includes/templates/buddypress/favorites.php": {
+      "sha256": "d13858e0891a98b9ecf2b72ecce523e687f9173623de4d6c11ac73c6ec39deb6",
+      "bytes": 1333,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 10,
+          "args": [
+            "'bp_before_member_' . bp_current_action() . '_content'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 13,
+          "args": [
+            "bp_displayed_user_id()",
+            "'atbdp_favourites'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 31,
+          "args": [
+            "'bp_my_listings_view'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 34,
+          "args": [
+            "'bp_my_listings_per_page'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 43,
+          "args": [
+            "'bp_after_member_' . bp_current_action() . '_content'"
+          ]
+        }
+      ]
+    },
+    "includes/templates/buddypress/my-listings.php": {
+      "sha256": "b04ddb7478104a0d2cfca903f0cca66bde822fdd583f7434e4b4170552ecb22e",
+      "bytes": 697,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 10,
+          "args": [
+            "'bp_before_member_' . bp_current_action() . '_content'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 16,
+          "args": [
+            "'bp_my_listings_view'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 18,
+          "args": [
+            "'bp_my_listings_per_page'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 25,
+          "args": [
+            "'bp_after_member_' . bp_current_action() . '_content'"
+          ]
+        }
+      ]
+    },
+    "includes/templates/directorist/archive-message-button.php": {
+      "sha256": "cc440093bba653190ad5f8ba0873860d2ee680d221b37b7e66e286d416ec7ec9",
+      "bytes": 1419,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "includes/templates/directorist/single-message-button.php": {
+      "sha256": "cf080af8b202aedb72496b2065d40b07a94a5bb84dbc01ecd959339c6cfcb14a",
+      "bytes": 1155,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-buddypress-integration.pot": {
+      "sha256": "30dabfab0bad8dd08d3fcdcb5dca759f6613530a1882e057a2268de22dc5f8f2",
+      "bytes": 8047,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

@@ -1,0 +1,2598 @@
+{
+  "directorist-mpesa-payment-gateway": {
+    "name": "directorist-mpesa-payment-gateway",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "f304ecfa35049b5cc827b182f54dcbc048dc5bf3"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mw"
+      },
+      "nodes": [
+        {
+          "name": "codex/fix-directorist-pricing-plans-compatibility",
+          "target": {
+            "oid": "9ed6eb07f406863ffb9b4439dc91c4f1c2556f8d",
+            "committedDate": "2026-09-03T06:11:05Z",
+            "messageHeadline": "ci: repair PHPCS pull request checks"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "a9ad328642699baba4c1f854b35544cf571a2587",
+            "committedDate": "2026-09-03T06:12:33Z",
+            "messageHeadline": "Merge pull request #1 from sovware/codex/fix-directorist-pricing-plan\u2026"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "f304ecfa35049b5cc827b182f54dcbc048dc5bf3",
+            "committedDate": "2026-09-03T06:14:05Z",
+            "messageHeadline": "Merge pull request #2 from sovware/development"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-notifications-pro": {
+    "name": "directorist-notifications-pro",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "b9b5c721c27d55082f25cf0ea00b74c44008020a"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "main",
+          "target": {
+            "oid": "b9b5c721c27d55082f25cf0ea00b74c44008020a",
+            "committedDate": "2026-07-13T12:03:07Z",
+            "messageHeadline": "add license id"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-divi-integration": {
+    "name": "directorist-divi-integration",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "e3c8cafacaeae1422a5fe56fba16a0eced9eee18"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "Testing",
+          "target": {
+            "oid": "f9eb3e4ef9c6fe522b7fac1225cf3473580454cd",
+            "committedDate": "2026-04-26T04:20:26Z",
+            "messageHeadline": "Merge branch 'master' into Testing"
+          }
+        },
+        {
+          "name": "directorist-template-library",
+          "target": {
+            "oid": "1e91fdd92a6625954b214c8c431b9c8eb3f3efae",
+            "committedDate": "2026-09-10T04:25:25Z",
+            "messageHeadline": "fix(template-library): harden complete-site imports"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "e3c8cafacaeae1422a5fe56fba16a0eced9eee18",
+            "committedDate": "2026-09-13T11:24:04Z",
+            "messageHeadline": "Release v1.1.5"
+          }
+        },
+        {
+          "name": "performance",
+          "target": {
+            "oid": "8fcc4880e57081440d8e8b53aaa29ca9ae24c348",
+            "committedDate": "2026-05-13T08:13:16Z",
+            "messageHeadline": "improved performance"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-ai-search": {
+    "name": "directorist-ai-search",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "07f49c7e6c2ba400e756f69b815b4febaf4d886f"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "main",
+          "target": {
+            "oid": "07f49c7e6c2ba400e756f69b815b4febaf4d886f",
+            "committedDate": "2026-07-28T05:00:53Z",
+            "messageHeadline": "Restore full-row AI autocomplete links"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-listing-import": {
+    "name": "directorist-listing-import",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "81e621c5d45a938a1a21d9e0185f3f7528f9a660"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "main",
+          "target": {
+            "oid": "81e621c5d45a938a1a21d9e0185f3f7528f9a660",
+            "committedDate": "2026-09-10T08:42:37Z",
+            "messageHeadline": "Merge pull request #5 from ranahere007/fix/review-original-language"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-analytics": {
+    "name": "directorist-analytics",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "520e871fb6bae14d211bf3c60a8b01bb0c1e3651"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "OQ"
+      },
+      "nodes": [
+        {
+          "name": "aggregated",
+          "target": {
+            "oid": "4fbf703b4e3ca8575531218a4da0b1e45e08a46b",
+            "committedDate": "2025-11-05T05:51:38Z",
+            "messageHeadline": "build"
+          }
+        },
+        {
+          "name": "database-api",
+          "target": {
+            "oid": "9aa0ddde82ad082068df496fa2b8a05f1615f06b",
+            "committedDate": "2025-11-03T04:43:40Z",
+            "messageHeadline": "fixed activities issue"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "f54abd3be2fa4186d59b23d8a9b4e5e1daf77c23",
+            "committedDate": "2025-11-13T09:43:32Z",
+            "messageHeadline": "changed version"
+          }
+        },
+        {
+          "name": "export",
+          "target": {
+            "oid": "ba30edb980c350ca94bc081e49305b4075284fe4",
+            "committedDate": "2025-11-05T10:11:13Z",
+            "messageHeadline": "work on export api"
+          }
+        },
+        {
+          "name": "fix/weekly-monthly-report-duplicate-last-listing",
+          "target": {
+            "oid": "1cfab8c614df67718fac9065037174acec4370df",
+            "committedDate": "2026-09-07T04:51:41Z",
+            "messageHeadline": "fix: prevent duplicate rows in grouped analytics reports"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "520e871fb6bae14d211bf3c60a8b01bb0c1e3651",
+            "committedDate": "2025-10-20T03:56:44Z",
+            "messageHeadline": "initial commit"
+          }
+        },
+        {
+          "name": "routing",
+          "target": {
+            "oid": "19082a762760b5b92670afb5488330844ba681aa",
+            "committedDate": "2025-11-05T05:22:26Z",
+            "messageHeadline": "^[[200~Summary"
+          }
+        },
+        {
+          "name": "trunk",
+          "target": {
+            "oid": "520e871fb6bae14d211bf3c60a8b01bb0c1e3651",
+            "committedDate": "2025-10-20T03:56:44Z",
+            "messageHeadline": "initial commit"
+          }
+        },
+        {
+          "name": "user-dashboard",
+          "target": {
+            "oid": "982210055bc1fcad54cb015277c402ccca157490",
+            "committedDate": "2025-11-19T06:06:39Z",
+            "messageHeadline": "added user-dashboard"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-advanced-review": {
+    "name": "directorist-advanced-review",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "d21cfd0ea7d27149241495c578b7683cbd9823a9"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "development",
+          "target": {
+            "oid": "e3559325447ddb3ede6b916ffbf9defd658cbbf5",
+            "committedDate": "2026-06-22T04:41:52Z",
+            "messageHeadline": "update version"
+          }
+        },
+        {
+          "name": "fix/review-image-upload-validation",
+          "target": {
+            "oid": "e56037065e7f51b614412f993d5a2b613796ee2d",
+            "committedDate": "2026-07-18T10:04:28Z",
+            "messageHeadline": "Fix review image upload validation"
+          }
+        },
+        {
+          "name": "fix/review-translation-pluralization",
+          "target": {
+            "oid": "38089538e124bb99123f0db34860992247bb6506",
+            "committedDate": "2026-09-07T10:18:38Z",
+            "messageHeadline": "fix: translate review summary and pluralize counts"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "d21cfd0ea7d27149241495c578b7683cbd9823a9",
+            "committedDate": "2026-06-22T04:43:07Z",
+            "messageHeadline": "Merge pull request #48 from sovware/development"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-universal-search": {
+    "name": "directorist-universal-search",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "9a0d3ca53ba331cb1a473965b4c86d9904a6eb9a"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mg"
+      },
+      "nodes": [
+        {
+          "name": "development",
+          "target": {
+            "oid": "3abafc6bd041a96e14cadeb17d0596d90497545c",
+            "committedDate": "2025-12-17T09:04:22Z",
+            "messageHeadline": "Merge pull request #6 from RabbiIslamRony/fix/universal-search-input-\u2026"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "9a0d3ca53ba331cb1a473965b4c86d9904a6eb9a",
+            "committedDate": "2026-05-21T10:46:13Z",
+            "messageHeadline": "Simplify plugin release workflow"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-search-alert": {
+    "name": "directorist-search-alert",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "4b62ac4632520a7e5ea2494ac30ca2b3756899df"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "main",
+          "target": {
+            "oid": "4b62ac4632520a7e5ea2494ac30ca2b3756899df",
+            "committedDate": "2026-08-23T06:57:31Z",
+            "messageHeadline": "Merge pull request #2 from Arafat-plugins/feature/user-link"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-announcement": {
+    "name": "directorist-announcement",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "92c16c32b1f6610316b2250ebf68c5f6c2abd717"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "master",
+          "target": {
+            "oid": "92c16c32b1f6610316b2250ebf68c5f6c2abd717",
+            "committedDate": "2025-03-18T23:15:36Z",
+            "messageHeadline": "Updated v2.3"
+          }
+        }
+      ]
+    }
+  },
+  "addonskit-for-bricks": {
+    "name": "addonskit-for-bricks",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "abedcb63f283ae13e899a33c0b2a2a1c7a922c51"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mg"
+      },
+      "nodes": [
+        {
+          "name": "development",
+          "target": {
+            "oid": "c3056318b531babf4673c18bf2114525814244fa",
+            "committedDate": "2025-07-30T05:32:45Z",
+            "messageHeadline": "released v2.0.1"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "abedcb63f283ae13e899a33c0b2a2a1c7a922c51",
+            "committedDate": "2026-08-10T09:45:47Z",
+            "messageHeadline": "Merge pull request #5 from Arafat-plugins/main"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-helpgent-integration": {
+    "name": "directorist-helpgent-integration",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "681495a66d0f8072924937b8ae00e6f514ac68ab"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "development",
+          "target": {
+            "oid": "1637cb93e267271b00d49faa04234a5fdec0a719",
+            "committedDate": "2025-01-07T13:06:19Z",
+            "messageHeadline": "update"
+          }
+        },
+        {
+          "name": "feature/improve-form-table",
+          "target": {
+            "oid": "94cf541762488d44c888b577c6ff8c3c83854589",
+            "committedDate": "2024-02-07T04:57:31Z",
+            "messageHeadline": "Merge branch 'development' into feature/improve-form-table"
+          }
+        },
+        {
+          "name": "hotfix/translation",
+          "target": {
+            "oid": "6784c69c180a57603456a62a5ab4b9a4e22d5eb5",
+            "committedDate": "2024-05-16T05:37:12Z",
+            "messageHeadline": "Merge pull request #23 from sovware/development"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "681495a66d0f8072924937b8ae00e6f514ac68ab",
+            "committedDate": "2026-06-15T04:25:28Z",
+            "messageHeadline": "Fix release build Node version"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-wpml-integration": {
+    "name": "directorist-wpml-integration",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "7d9224d9f6937cf970a562c1abfcd1079c6aad15"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mw"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "10f8c139d55f250b687c9dd4d7f51f853a085cd7",
+            "committedDate": "2022-06-07T11:01:06Z",
+            "messageHeadline": "updated version"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "599d77a4698af796bb8e9b04f0b75684a91ab021",
+            "committedDate": "2026-08-23T04:49:28Z",
+            "messageHeadline": "Merge pull request #14 from syedgalib/fix/3137-admin-listing-director\u2026"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "7d9224d9f6937cf970a562c1abfcd1079c6aad15",
+            "committedDate": "2026-08-23T09:07:55Z",
+            "messageHeadline": "Prepare 2.2.2 release"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-digital-marketplace": {
+    "name": "directorist-digital-marketplace",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "4d6e283fd759a804d07b6510bbe1d055a80d4b79"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "development",
+          "target": {
+            "oid": "4d6e283fd759a804d07b6510bbe1d055a80d4b79",
+            "committedDate": "2026-03-30T07:23:23Z",
+            "messageHeadline": "version upgrated and composer setup issue fix"
+          }
+        },
+        {
+          "name": "feature/render-digital-form-helper",
+          "target": {
+            "oid": "0310ec6512c1d1771a9c3e49f41ade359fa33cef",
+            "committedDate": "2026-04-16T09:24:38Z",
+            "messageHeadline": "Add directorist_ddm_get_form_html() helper for reusable form rendering"
+          }
+        },
+        {
+          "name": "fix/safari-source-map-errors",
+          "target": {
+            "oid": "dc80ed24ba02b23f9f8157084bc02a5dea7502c7",
+            "committedDate": "2026-08-11T06:58:43Z",
+            "messageHeadline": "fix: include updater in production package"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "4d6e283fd759a804d07b6510bbe1d055a80d4b79",
+            "committedDate": "2026-03-30T07:23:23Z",
+            "messageHeadline": "version upgrated and composer setup issue fix"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-job-manager": {
+    "name": "directorist-job-manager",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "3c106a5bc659890d81844f9f907011fcd9c77b20"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NQ"
+      },
+      "nodes": [
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "221e7aae709a9401cd9883ec0292d01e5826ac30",
+            "committedDate": "2026-06-28T10:00:26Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "562615e4ede94f2c41c79c02e15035f7b9e64a41",
+            "committedDate": "2026-06-28T11:15:00Z",
+            "messageHeadline": "Merge pull request #5 from sovware/details-update"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "3c106a5bc659890d81844f9f907011fcd9c77b20",
+            "committedDate": "2026-04-23T09:41:54Z",
+            "messageHeadline": "Merge pull request #4 from Arafat-plugins/job-type"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "51d3ed76355e96f1e537116656a8e99354385aad",
+            "committedDate": "2024-11-16T13:59:21Z",
+            "messageHeadline": "Version updated for update-notice"
+          }
+        },
+        {
+          "name": "v8-beta",
+          "target": {
+            "oid": "654903722cc688e4a4f9c85cb56b9d123b2421e8",
+            "committedDate": "2024-11-04T08:45:50Z",
+            "messageHeadline": "version change"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-booking": {
+    "name": "directorist-booking",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "3b4ae45ba3b8a1c223d17f7f7573bfcec70cfb24"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTE"
+      },
+      "nodes": [
+        {
+          "name": "booking-old",
+          "target": {
+            "oid": "0ff340eda921a2601f67070a21846ae0859a69e7",
+            "committedDate": "2026-06-03T01:37:29Z",
+            "messageHeadline": "fixed security issue"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "61a7f9323e0c8c32a2efe1461f3a760870774544",
+            "committedDate": "2026-06-28T09:46:30Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "844c13bc26f443a558ef4595446cb964930d1276",
+            "committedDate": "2026-06-28T11:12:07Z",
+            "messageHeadline": "Merge pull request #52 from sovware/details-update"
+          }
+        },
+        {
+          "name": "feature/google-calander",
+          "target": {
+            "oid": "1ab485af234952648ebdce8e229a1dfcd91d25af",
+            "committedDate": "2025-10-26T10:21:37Z",
+            "messageHeadline": "added google calender"
+          }
+        },
+        {
+          "name": "feature/render-booking-form-helper",
+          "target": {
+            "oid": "c6ebe79297bde33126664fccd5f76afdfbb9f0db",
+            "committedDate": "2026-04-15T07:28:07Z",
+            "messageHeadline": "Add directorist_render_booking_form() helper for reusable booking ren\u2026"
+          }
+        },
+        {
+          "name": "fix/client-issue-3257-guest-confirmation",
+          "target": {
+            "oid": "3dac671d62a54fb22220d790d5b9fbad990717d9",
+            "committedDate": "2026-08-25T04:50:40Z",
+            "messageHeadline": "fix: use WordPress readonly helper"
+          }
+        },
+        {
+          "name": "initial-setup",
+          "target": {
+            "oid": "14e945ab4261ee02f49ba58e0fb32aa76aa44c64",
+            "committedDate": "2025-06-01T05:58:03Z",
+            "messageHeadline": "fixed enqueue issue"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "3b4ae45ba3b8a1c223d17f7f7573bfcec70cfb24",
+            "committedDate": "2025-05-15T10:43:51Z",
+            "messageHeadline": "work on calender"
+          }
+        },
+        {
+          "name": "pagination-issue",
+          "target": {
+            "oid": "25114ed041c5f32ab643ff220d5bae6902df30a6",
+            "committedDate": "2025-10-30T05:20:24Z",
+            "messageHeadline": "Merge pull request #16 from RabbiIslamRony/pagination-issue"
+          }
+        },
+        {
+          "name": "revert-48-booking-menu-fix",
+          "target": {
+            "oid": "cee3d67d9a4c42be6f451254ad2ddb9ce2cb38c0",
+            "committedDate": "2026-06-11T08:33:04Z",
+            "messageHeadline": "Revert \"fix: align booking dashboard tabs with hash navigation\""
+          }
+        },
+        {
+          "name": "security-issue",
+          "target": {
+            "oid": "1605f5fa2160445727a980cd669c7187f697b8ab",
+            "committedDate": "2026-06-16T11:26:56Z",
+            "messageHeadline": "fixed security issue"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-listings-with-map": {
+    "name": "directorist-listings-with-map",
+    "defaultBranchRef": {
+      "name": "v8-beta",
+      "target": {
+        "oid": "7bf445d274ade502b05927729362b4ba7f462a5e"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTY"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "16c1de7c62f27389b4b9f661607927a7918aaad8",
+            "committedDate": "2025-09-28T07:21:18Z",
+            "messageHeadline": "Merge pull request #16 from sovware/selector-problem"
+          }
+        },
+        {
+          "name": "before-beta-templating",
+          "target": {
+            "oid": "793bbc82919f0957dca67957ff16e4a002f37c15",
+            "committedDate": "2020-12-15T05:31:07Z",
+            "messageHeadline": "change version"
+          }
+        },
+        {
+          "name": "codex/lwm-map-sync-extension",
+          "target": {
+            "oid": "7a0d7a04f9b17b6053c8dee1f1440f84821268ad",
+            "committedDate": "2026-07-16T11:51:34Z",
+            "messageHeadline": "feat: sync listings map markers and pagination"
+          }
+        },
+        {
+          "name": "directorist-listings-map-v2",
+          "target": {
+            "oid": "270f57712584fb8d218a5bbafcf563f0c75147e3",
+            "committedDate": "2020-12-15T04:00:38Z",
+            "messageHeadline": "removed file"
+          }
+        },
+        {
+          "name": "fix/icon",
+          "target": {
+            "oid": "a74718e7060354f076297a4b137c48ef0c346708",
+            "committedDate": "2022-09-05T08:48:25Z",
+            "messageHeadline": "js"
+          }
+        },
+        {
+          "name": "fix/map-api-field-not-working-after-ajax-reload",
+          "target": {
+            "oid": "22f105f8543422d123eee9a6b16739301a281f90",
+            "committedDate": "2021-08-12T04:28:24Z",
+            "messageHeadline": "fixed map api field not working after ajax reload"
+          }
+        },
+        {
+          "name": "fix/map-height-issue-on-reload",
+          "target": {
+            "oid": "d65774d365651512e6c3f9097e2704591672d7d7",
+            "committedDate": "2021-08-11T11:15:30Z",
+            "messageHeadline": "fixed map height issue on reload"
+          }
+        },
+        {
+          "name": "improve/get-version-dynamically",
+          "target": {
+            "oid": "165791e3471d97959abacc8d9bd55087e899dda1",
+            "committedDate": "2021-08-12T05:30:36Z",
+            "messageHeadline": "code optimized"
+          }
+        },
+        {
+          "name": "improve/improve-dependency-check",
+          "target": {
+            "oid": "6eeaeab1c1ad0adfa8655317d2d47f088ee835cf",
+            "committedDate": "2021-08-12T05:34:21Z",
+            "messageHeadline": "improved dependency check"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "15ca193939d395568ea0bd01e0325170581dd4aa",
+            "committedDate": "2022-07-21T04:57:34Z",
+            "messageHeadline": "update"
+          }
+        },
+        {
+          "name": "new-markup",
+          "target": {
+            "oid": "7e3b181f25dac0ae56d4e6497446d4c5566e495d",
+            "committedDate": "2021-05-09T04:48:22Z",
+            "messageHeadline": "update style and markup"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "9e00f1ca46b2c0fca73b914a03c9bc5f25fb6590",
+            "committedDate": "2019-11-13T13:13:00Z",
+            "messageHeadline": "changed filter name"
+          }
+        },
+        {
+          "name": "removed/id",
+          "target": {
+            "oid": "8abec7d140d46fdc748a4621e220dae16af0a847",
+            "committedDate": "2024-09-03T06:10:08Z",
+            "messageHeadline": "update style"
+          }
+        },
+        {
+          "name": "selector-problem",
+          "target": {
+            "oid": "74e572396b94b486f55490edfd7a223f2ba231b4",
+            "committedDate": "2025-09-03T05:55:15Z",
+            "messageHeadline": "fix:  global selectors like  which affected all instances on the page\u2026"
+          }
+        },
+        {
+          "name": "template-restructuring",
+          "target": {
+            "oid": "415dbd589892cab830124d6400af1c0d70a1e11c",
+            "committedDate": "2021-08-05T13:59:04Z",
+            "messageHeadline": "Merge branch 'template-restructuring' of https://github.com/sovware/d\u2026"
+          }
+        },
+        {
+          "name": "v8-beta",
+          "target": {
+            "oid": "7bf445d274ade502b05927729362b4ba7f462a5e",
+            "committedDate": "2025-12-08T04:55:13Z",
+            "messageHeadline": "Pulled"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-business-hours": {
+    "name": "directorist-business-hours",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "c909d05184e786fd51cd0727553f3d389f64986b"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTQ"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "b662ae1faf21f381bb91818d636cdb4837187135",
+            "committedDate": "2025-04-23T03:55:00Z",
+            "messageHeadline": "fixed translate issue"
+          }
+        },
+        {
+          "name": "beta",
+          "target": {
+            "oid": "ee6e5e5ff8a3c8a046f46edd2e0647ea568298d2",
+            "committedDate": "2021-03-30T04:06:32Z",
+            "messageHeadline": "badge markup update"
+          }
+        },
+        {
+          "name": "beta-1",
+          "target": {
+            "oid": "589c7ad6d668eb0bbe715cc176ee8d6c8b4c7675",
+            "committedDate": "2026-04-14T04:43:44Z",
+            "messageHeadline": "Merge pull request #16 from syedgalib/feature/payment"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "a5e8dce8cce5c0e871e11904a29dfc14811aa98c",
+            "committedDate": "2026-06-28T09:57:43Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "f4ce722e68bff3f85b8b845042c904c7bfd52ef4",
+            "committedDate": "2026-09-06T08:49:44Z",
+            "messageHeadline": "Merge pull request #23 from sovware/fix/csv-business-hours-state"
+          }
+        },
+        {
+          "name": "fix/csv-business-hours-state",
+          "target": {
+            "oid": "b53b84875b5cf0e153d0839fc4f8d9109da2648f",
+            "committedDate": "2026-09-06T08:40:34Z",
+            "messageHeadline": "Merge remote-tracking branch 'origin/development' into fix/csv-busine\u2026"
+          }
+        },
+        {
+          "name": "fix/open-now-filter-shows-closed-listings",
+          "target": {
+            "oid": "0c5948334f67441bd6b1b503e721d3b66e22bf44",
+            "committedDate": "2022-07-03T02:38:30Z",
+            "messageHeadline": "code optimised"
+          }
+        },
+        {
+          "name": "improve/uiux",
+          "target": {
+            "oid": "b6d36a9bf90e22222195ad791fbeee94360f2b80",
+            "committedDate": "2023-10-30T05:58:57Z",
+            "messageHeadline": "Single Listing Style - Improved"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "c909d05184e786fd51cd0727553f3d389f64986b",
+            "committedDate": "2026-04-28T05:46:45Z",
+            "messageHeadline": "Merge pull request #17 from MahfuzulAlam/update/api"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "229672fd884ede979afbc8a4cec7c42df5df1493",
+            "committedDate": "2022-10-02T05:50:31Z",
+            "messageHeadline": "changes version"
+          }
+        },
+        {
+          "name": "new-feature",
+          "target": {
+            "oid": "f8a820fab7f55c0bcf06b0bc7036fee4a08d61d1",
+            "committedDate": "2021-03-22T04:30:47Z",
+            "messageHeadline": "style update"
+          }
+        },
+        {
+          "name": "new-markup",
+          "target": {
+            "oid": "e3880bc9e60f827ddb990d2547ce3782bcc654a0",
+            "committedDate": "2021-03-30T09:07:36Z",
+            "messageHeadline": "Merge branch 'new-markup' of https://github.com/sovware/directorist-b\u2026"
+          }
+        },
+        {
+          "name": "onload-problem",
+          "target": {
+            "oid": "43c73a6d9433e93366492d9fa1481d44f6a36bf8",
+            "committedDate": "2024-11-11T06:49:10Z",
+            "messageHeadline": "update css style"
+          }
+        },
+        {
+          "name": "phpcs",
+          "target": {
+            "oid": "42707700aba8de9972a7b378e789b9451a3844d3",
+            "committedDate": "2022-09-21T07:52:08Z",
+            "messageHeadline": "added php cs"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-woocommerce-pricing-plans": {
+    "name": "directorist-woocommerce-pricing-plans",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "922d5c0e7c7b2a917b58f46367e588bcde93be38"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTQ"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "3dc4d7f47c0b238add0b7eda15dd15d859cae719",
+            "committedDate": "2026-07-07T09:23:50Z",
+            "messageHeadline": "Merge pull request #20 from sovware/development"
+          }
+        },
+        {
+          "name": "beta",
+          "target": {
+            "oid": "9177b8ca60bec249f57c4ab60362fb1d8ef652bf",
+            "committedDate": "2022-03-16T08:38:33Z",
+            "messageHeadline": "spacing fixed with hestia theme"
+          }
+        },
+        {
+          "name": "beta-ext",
+          "target": {
+            "oid": "50a051fbe1211dc62890705a8591e7a0a24cf6b6",
+            "committedDate": "2021-04-18T04:03:37Z",
+            "messageHeadline": "change button added"
+          }
+        },
+        {
+          "name": "codex/fix-subscription-plan-repair",
+          "target": {
+            "oid": "c61131cdb1a319bc186bae5da4c3b55b10e42342",
+            "committedDate": "2026-08-27T10:26:18Z",
+            "messageHeadline": "fix(subscriptions): preserve listing pricing plan links"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "13bb635bc5bc4736c871556887af3cda1e8e9f58",
+            "committedDate": "2026-08-09T05:59:05Z",
+            "messageHeadline": "Bump version to 3.7.1"
+          }
+        },
+        {
+          "name": "excerpt-max-limit",
+          "target": {
+            "oid": "ffad801cf00acc237f1e70b1ae060ee19049fa34",
+            "committedDate": "2022-12-14T08:00:59Z",
+            "messageHeadline": "Excerpt Max Content Limit Issue Fixed"
+          }
+        },
+        {
+          "name": "frontend",
+          "target": {
+            "oid": "6564566c9842d937f85b847b2b3ec734194e9195",
+            "committedDate": "2022-03-07T04:34:32Z",
+            "messageHeadline": "Pricing Plan Frontend & Backend Design Updated"
+          }
+        },
+        {
+          "name": "improve/plan-switching-flow",
+          "target": {
+            "oid": "2990f2a9478258f2f61f3eee34060df87d8448c1",
+            "committedDate": "2021-07-14T12:00:10Z",
+            "messageHeadline": "added missing condition check"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "922d5c0e7c7b2a917b58f46367e588bcde93be38",
+            "committedDate": "2026-08-09T06:03:34Z",
+            "messageHeadline": "Merge pull request #24 from sovware/development"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "5b6eb0512f89900d841be33b60d9b9856a0d6ce8",
+            "committedDate": "2022-06-16T09:28:36Z",
+            "messageHeadline": "improve active order check"
+          }
+        },
+        {
+          "name": "old-alpha",
+          "target": {
+            "oid": "7c17fbce412622712c0b07152967a12cb17e39ab",
+            "committedDate": "2021-02-20T13:14:22Z",
+            "messageHeadline": "commit changes"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "73e7c5a736afcd79045e550110200e53c8cbb574",
+            "committedDate": "2021-01-27T13:19:30Z",
+            "messageHeadline": "commit style changes"
+          }
+        },
+        {
+          "name": "some-formatting",
+          "target": {
+            "oid": "d851ea7396b8e7c9f6812049d82d608f54e8cba4",
+            "committedDate": "2022-06-13T09:25:28Z",
+            "messageHeadline": "got rid of unnecessary spaces"
+          }
+        },
+        {
+          "name": "subscriptions",
+          "target": {
+            "oid": "3a9ada7664678326270bb99f16545ab2b94285bc",
+            "committedDate": "2022-07-26T10:01:44Z",
+            "messageHeadline": "Merge branch 'subscriptions' of https://github.com/sovware/directoris\u2026"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-paypal": {
+    "name": "directorist-paypal",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "89f2ecfeb827881950a35c44f3233afaa80b5d4b"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "89f2ecfeb827881950a35c44f3233afaa80b5d4b",
+            "committedDate": "2024-11-16T13:00:47Z",
+            "messageHeadline": "Released new"
+          }
+        },
+        {
+          "name": "maser",
+          "target": {
+            "oid": "d56154a09354609b7c38001384c6a04f6891afa7",
+            "committedDate": "2021-08-10T06:34:56Z",
+            "messageHeadline": "fixed paypal ipn issue"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "54ab4f6b4489739ca0749c0d42923f2915e7fcdb",
+            "committedDate": "2021-01-10T16:04:06Z",
+            "messageHeadline": "removed extra file"
+          }
+        },
+        {
+          "name": "undefined-const-error",
+          "target": {
+            "oid": "b6b11306b4c6388932714b3437eb22147c59345d",
+            "committedDate": "2025-05-07T06:15:34Z",
+            "messageHeadline": "Fix: Settings merging"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-pricing-plans": {
+    "name": "directorist-pricing-plans",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "1e8b549358d30d88ec39b2100b1e2cfe9ac31d49"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTM"
+      },
+      "nodes": [
+        {
+          "name": "add/listings-importer-compatibility",
+          "target": {
+            "oid": "e182a061264db197f240eb66ffc3ec7f76ab443a",
+            "committedDate": "2023-08-06T01:51:07Z",
+            "messageHeadline": "improved"
+          }
+        },
+        {
+          "name": "add/subscription-controll",
+          "target": {
+            "oid": "fbf5f9082aa8d295fa17cab9275d335e99951237",
+            "committedDate": "2022-07-17T16:23:34Z",
+            "messageHeadline": "fix conflict"
+          }
+        },
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "1e8b549358d30d88ec39b2100b1e2cfe9ac31d49",
+            "committedDate": "2026-03-08T06:31:10Z",
+            "messageHeadline": "Fixed - renewal data cross issue"
+          }
+        },
+        {
+          "name": "combine",
+          "target": {
+            "oid": "4f1542721333928d6606aa09ed4a11e3b62223db",
+            "committedDate": "2023-11-01T06:31:54Z",
+            "messageHeadline": "fix listing ordering issue"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "1e8b549358d30d88ec39b2100b1e2cfe9ac31d49",
+            "committedDate": "2026-03-08T06:31:10Z",
+            "messageHeadline": "Fixed - renewal data cross issue"
+          }
+        },
+        {
+          "name": "expiry-data",
+          "target": {
+            "oid": "c4e49bc300e75f5980e97637bb573ff77fffd144",
+            "committedDate": "2025-06-17T06:13:35Z",
+            "messageHeadline": "Merge branch 'alpha' into expiry-data"
+          }
+        },
+        {
+          "name": "fix/migration-issue",
+          "target": {
+            "oid": "2a84e2e3a6012ced9aa9df728fd34526c444fc80",
+            "committedDate": "2023-06-20T03:43:42Z",
+            "messageHeadline": "improved"
+          }
+        },
+        {
+          "name": "improve/listing-sorting",
+          "target": {
+            "oid": "33e1dfa25d31c8ee7a908eafb4aaff6fbfb88d34",
+            "committedDate": "2023-04-26T09:55:57Z",
+            "messageHeadline": "improved"
+          }
+        },
+        {
+          "name": "improve/plan-switching-flow",
+          "target": {
+            "oid": "36ea38e280e8597fa1b7a3e5e9d59f9bb9c9dc11",
+            "committedDate": "2021-07-14T11:53:31Z",
+            "messageHeadline": "improved"
+          }
+        },
+        {
+          "name": "improving-checkout-flow",
+          "target": {
+            "oid": "bdb43ea6f780f7b324474a93c9c49cb8850b6639",
+            "committedDate": "2021-07-13T06:58:55Z",
+            "messageHeadline": "improved"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "de42458413cb882d37ed6336525fb7c06185a974",
+            "committedDate": "2022-06-05T09:46:47Z",
+            "messageHeadline": "fixed field restricting with plan"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "35ad1f0efbaf1746a83e471238ac04c0ffb384a4",
+            "committedDate": "2021-01-27T16:09:15Z",
+            "messageHeadline": "added loading effect"
+          }
+        },
+        {
+          "name": "pricing-plan-restructuring",
+          "target": {
+            "oid": "9442ce15a1dca5be5e485fd4ebef0a2314d40cf3",
+            "committedDate": "2021-08-16T16:25:50Z",
+            "messageHeadline": "code optimized"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-gamipress-integration": {
+    "name": "directorist-gamipress-integration",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "d28b69c0ecce4b699fa8a9bbc7456c7fa7d36dff"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "master",
+          "target": {
+            "oid": "d28b69c0ecce4b699fa8a9bbc7456c7fa7d36dff",
+            "committedDate": "2024-11-16T13:00:44Z",
+            "messageHeadline": "Released new"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-mailchimp": {
+    "name": "directorist-mailchimp",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "00943169669bf9caa01ae6ebb1c2a34fb62098ca"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "master",
+          "target": {
+            "oid": "00943169669bf9caa01ae6ebb1c2a34fb62098ca",
+            "committedDate": "2025-03-27T02:47:36Z",
+            "messageHeadline": "updated plugin description"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-directory-linking": {
+    "name": "directorist-directory-linking",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "ade10cf1e0303510a7c9ad18a925f0799932ce46"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "ade10cf1e0303510a7c9ad18a925f0799932ce46",
+            "committedDate": "2026-08-03T10:32:23Z",
+            "messageHeadline": "fixed fatal error"
+          }
+        },
+        {
+          "name": "feature/render-linked-listings-helper",
+          "target": {
+            "oid": "d316f9057b3c5309961152be4849815183d1ba5e",
+            "committedDate": "2026-04-16T07:21:41Z",
+            "messageHeadline": "Update helpers.php"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "b37d4a068a5e228e5d8a9e22284705239a5dab94",
+            "committedDate": "2022-02-01T05:48:40Z",
+            "messageHeadline": "fixed single select 2 issue"
+          }
+        },
+        {
+          "name": "revert-1-feature/render-linked-listings-helper",
+          "target": {
+            "oid": "0595cf2d7e0bd01c4ba6d60633be70a43527f78c",
+            "committedDate": "2026-04-16T08:50:53Z",
+            "messageHeadline": "Revert \"Feature/render linked listings helper\""
+          }
+        }
+      ]
+    }
+  },
+  "directorist-buddypress-integration": {
+    "name": "directorist-buddypress-integration",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "e63ae3d41639d5ddf4df772f1dbd12136792c8db"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "master",
+          "target": {
+            "oid": "e63ae3d41639d5ddf4df772f1dbd12136792c8db",
+            "committedDate": "2025-03-27T04:01:44Z",
+            "messageHeadline": "updated plugin description"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-buddyboss-integration": {
+    "name": "directorist-buddyboss-integration",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "c0d40913b46a04e151ac76f0867fa96e8c3c2827"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MQ"
+      },
+      "nodes": [
+        {
+          "name": "master",
+          "target": {
+            "oid": "c0d40913b46a04e151ac76f0867fa96e8c3c2827",
+            "committedDate": "2025-03-27T03:53:08Z",
+            "messageHeadline": "updated plugin description"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-oxygen-integration": {
+    "name": "directorist-oxygen-integration",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "4dc1f5b906b0bdb7c8175c917a58c5b457ddea39"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NQ"
+      },
+      "nodes": [
+        {
+          "name": "fixing-asset-issue",
+          "target": {
+            "oid": "edcd40f7ef6d2e8ba5fd813725632897839efca5",
+            "committedDate": "2021-05-20T08:24:11Z",
+            "messageHeadline": "fixed asset issue with directorist"
+          }
+        },
+        {
+          "name": "improvement/oxygen-6-integration",
+          "target": {
+            "oid": "6830012382294315a8c6dad1dedf5789540f1e99",
+            "committedDate": "2026-08-10T02:16:12Z",
+            "messageHeadline": "Polish Oxygen 6 integration for review"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "4dc1f5b906b0bdb7c8175c917a58c5b457ddea39",
+            "committedDate": "2025-04-16T05:09:32Z",
+            "messageHeadline": "added directorist v8 support"
+          }
+        },
+        {
+          "name": "oxygen-6",
+          "target": {
+            "oid": "00c89b3ac448f0fc8d5a79835bb6206e75d5506e",
+            "committedDate": "2026-07-13T05:21:24Z",
+            "messageHeadline": "Exclude repo metadata from release archives"
+          }
+        },
+        {
+          "name": "polish/oxygen-6-ready-for-main",
+          "target": {
+            "oid": "6830012382294315a8c6dad1dedf5789540f1e99",
+            "committedDate": "2026-08-10T02:16:12Z",
+            "messageHeadline": "Polish Oxygen 6 integration for review"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-authorize-net": {
+    "name": "directorist-authorize-net",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "cc402159fa1d088d0acdbbd0eabc37a57845c59f"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mg"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "cc402159fa1d088d0acdbbd0eabc37a57845c59f",
+            "committedDate": "2025-12-17T09:49:52Z",
+            "messageHeadline": "updated version"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "c6ea6a509b4be65c0a21991152ac39efa3193b0f",
+            "committedDate": "2021-10-05T06:00:07Z",
+            "messageHeadline": "Removed: global input style"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-coupon": {
+    "name": "directorist-coupon",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "c98c9236247e4f3075732cc345a729cade8f0103"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Nw"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "c98c9236247e4f3075732cc345a729cade8f0103",
+            "committedDate": "2026-02-05T06:30:14Z",
+            "messageHeadline": "version updated"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "d98770d6b7dd98122f1be8fd0cd2038c25abe687",
+            "committedDate": "2026-06-28T11:51:55Z",
+            "messageHeadline": "Change plugin version to 2.5.0"
+          }
+        },
+        {
+          "name": "fix/stripe-coupon-amount-error",
+          "target": {
+            "oid": "902b5fe0307c346f4c8ff93992b8334657ccf318",
+            "committedDate": "2025-06-16T07:09:07Z",
+            "messageHeadline": "Update directorist-coupon.php"
+          }
+        },
+        {
+          "name": "hotfix/3.0.0/beta1",
+          "target": {
+            "oid": "afac28088fd9198161a547eafb217fe17f60d1c7",
+            "committedDate": "2026-06-27T09:16:04Z",
+            "messageHeadline": "Merge pull request #4 from syedgalib/hotfix/3.0.0/beta1"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "c98c9236247e4f3075732cc345a729cade8f0103",
+            "committedDate": "2026-02-05T06:30:14Z",
+            "messageHeadline": "version updated"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "75a1f4878c44903584678dd1b8449a084051e589",
+            "committedDate": "2020-11-30T08:59:57Z",
+            "messageHeadline": "commit change"
+          }
+        },
+        {
+          "name": "new-payment",
+          "target": {
+            "oid": "67453a0ac042a7b17e2db0844926a40b86f0aa20",
+            "committedDate": "2026-01-27T05:22:59Z",
+            "messageHeadline": "fixed license issue & fixed database add issue of coupon"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-adverts-manager": {
+    "name": "directorist-adverts-manager",
+    "defaultBranchRef": {
+      "name": "v8-beta",
+      "target": {
+        "oid": "b74a1c0372ec005708ea2bad386b30c3e439d402"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mw"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "0288f8da0306c9e0a895cec3b4616622f46d50a3",
+            "committedDate": "2024-11-24T06:19:59Z",
+            "messageHeadline": "fix auto update btn issue"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "8b2ec759d9799c945e6287b621bba6b1a8dbc295",
+            "committedDate": "2021-01-04T15:33:02Z",
+            "messageHeadline": "fix licencing issue"
+          }
+        },
+        {
+          "name": "v8-beta",
+          "target": {
+            "oid": "b74a1c0372ec005708ea2bad386b30c3e439d402",
+            "committedDate": "2025-07-21T07:07:53Z",
+            "messageHeadline": "Fixed widget closing issue"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-compare-listing": {
+    "name": "directorist-compare-listing",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2",
+            "committedDate": "2025-03-27T02:04:27Z",
+            "messageHeadline": "updated plugin description"
+          }
+        },
+        {
+          "name": "beta",
+          "target": {
+            "oid": "3e8789c35c6986db00876ca801987ac77c558199",
+            "committedDate": "2022-08-31T08:49:52Z",
+            "messageHeadline": "fix icon issue"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "161312488f4517ed8a22f506af787e6a74bbb418",
+            "committedDate": "2021-12-20T08:53:29Z",
+            "messageHeadline": "Fixed: style isssue"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "6583f755d92960f94d9e5c1317f5020592ae8687",
+            "committedDate": "2020-12-14T04:07:01Z",
+            "messageHeadline": "remove unused code"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-live-chat": {
+    "name": "directorist-live-chat",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "821d8e2b813dca1f26b82fd9f9198b296a63a980"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Nw"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "821d8e2b813dca1f26b82fd9f9198b296a63a980",
+            "committedDate": "2025-12-30T05:51:05Z",
+            "messageHeadline": "Merge pull request #3 from Arafat-plugins/beta"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "0e77f95b1f90faf5ccea3e0c52514dcc5d395499",
+            "committedDate": "2026-06-28T10:08:44Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "058296888c848f3cb1ddb4d8bf85713572c7021b",
+            "committedDate": "2026-06-28T11:15:57Z",
+            "messageHeadline": "Merge pull request #7 from sovware/details-update"
+          }
+        },
+        {
+          "name": "feature/render-live-chat-helper",
+          "target": {
+            "oid": "9e7eb10e004b86b787457a3db756b1ae8b5bb073",
+            "committedDate": "2026-04-15T09:01:59Z",
+            "messageHeadline": "Add directorist_render_live_chat() helper for reusable rendering"
+          }
+        },
+        {
+          "name": "fix/live-chat-visibility-socket-fallback",
+          "target": {
+            "oid": "3a48f59612eb61ad2fc6308063870e59c02fdb34",
+            "committedDate": "2026-09-10T13:28:57Z",
+            "messageHeadline": "fix: restore live chat visibility without socket service"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "821d8e2b813dca1f26b82fd9f9198b296a63a980",
+            "committedDate": "2025-12-30T05:51:05Z",
+            "messageHeadline": "Merge pull request #3 from Arafat-plugins/beta"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "f47a3797ed74d38a146428cb677c8065981c1b4a",
+            "committedDate": "2021-01-17T09:28:09Z",
+            "messageHeadline": "improved"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-mark-as-sold": {
+    "name": "directorist-mark-as-sold",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "0e783d2cd5bc97d13222f01611a2164a8ec86d0b"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NQ"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "0e783d2cd5bc97d13222f01611a2164a8ec86d0b",
+            "committedDate": "2025-03-27T02:21:02Z",
+            "messageHeadline": "updated plugin description"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "ce63a5af0e80c619d48fe9ba490acbf05b66fab2",
+            "committedDate": "2026-06-28T09:54:07Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "9dbd24b25d3e9b31ea2850d7cee184559e2d4839",
+            "committedDate": "2026-05-21T06:54:03Z",
+            "messageHeadline": "Merge pull request #1 from syedgalib/feature/payment"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "0e783d2cd5bc97d13222f01611a2164a8ec86d0b",
+            "committedDate": "2025-03-27T02:21:02Z",
+            "messageHeadline": "updated plugin description"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "8da08472b4ad5f68658d4e9be7e1a827a4dad17c",
+            "committedDate": "2020-12-08T03:05:56Z",
+            "messageHeadline": "restriction check and pot updated"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-social-login": {
+    "name": "directorist-social-login",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "94b2eacbd6be5dc019141202abd1a32bf14bf515"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "88bac3d0306c17e5637f37b58ecf8c71ce01d411",
+            "committedDate": "2021-07-08T10:35:00Z",
+            "messageHeadline": "added active network"
+          }
+        },
+        {
+          "name": "fixed/security-new",
+          "target": {
+            "oid": "ae9a0908b8bbedde815e399bf983cadca58c6c3f",
+            "committedDate": "2026-03-30T08:42:07Z",
+            "messageHeadline": "fixed security issue"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "94b2eacbd6be5dc019141202abd1a32bf14bf515",
+            "committedDate": "2026-08-20T04:30:45Z",
+            "messageHeadline": "Merge pull request #5 from Arafat-plugins/fix/social-login-non-latin-\u2026"
+          }
+        },
+        {
+          "name": "new-markup",
+          "target": {
+            "oid": "0d13ee017a939921905a12f707978906fd07915c",
+            "committedDate": "2021-03-25T04:13:05Z",
+            "messageHeadline": "update social login markup"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-gallery": {
+    "name": "directorist-gallery",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "a4bd383934f2fbedeaab6e00205282bcddbf0ff1"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Nw"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "a4bd383934f2fbedeaab6e00205282bcddbf0ff1",
+            "committedDate": "2026-06-22T04:52:45Z",
+            "messageHeadline": "update version"
+          }
+        },
+        {
+          "name": "feature/render-gallery-helper",
+          "target": {
+            "oid": "dc788c13c27663ab67ed34483dfc6507653289f4",
+            "committedDate": "2026-06-01T05:16:13Z",
+            "messageHeadline": "Adjust gallery render helper docs"
+          }
+        },
+        {
+          "name": "fix/gallery-import-cron-scheduling",
+          "target": {
+            "oid": "34048acde9eba93c63d2eb7b66f5d5b1ce21ba3b",
+            "committedDate": "2026-08-15T18:35:41Z",
+            "messageHeadline": "fix: stabilize gallery CSV importer scheduling"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "13e7d6694770313911157ef2674ffc3cd368c3c4",
+            "committedDate": "2022-05-15T09:35:10Z",
+            "messageHeadline": "Error Fixing Updated"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "5dd5f169249f5726e9ff02c8cd5ff420edcf7b80",
+            "committedDate": "2020-12-17T03:48:50Z",
+            "messageHeadline": "fixed translate issue"
+          }
+        },
+        {
+          "name": "remove/unused-options",
+          "target": {
+            "oid": "5a5177b490b87a1ca1f7334cb67a3e17c6f32f4f",
+            "committedDate": "2024-05-07T05:40:00Z",
+            "messageHeadline": "Updated temp directory"
+          }
+        },
+        {
+          "name": "temp1",
+          "target": {
+            "oid": "d99363bb1e7cf35282f6d8f5831367b64697b3d0",
+            "committedDate": "2022-06-21T09:19:54Z",
+            "messageHeadline": "Fixed gallery upload js issue"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-faqs": {
+    "name": "directorist-faqs",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "b83f4f571f845c19024f099fdc40438276c30563"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTA"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "b83f4f571f845c19024f099fdc40438276c30563",
+            "committedDate": "2025-05-29T04:59:19Z",
+            "messageHeadline": "fixed translate issue"
+          }
+        },
+        {
+          "name": "beta",
+          "target": {
+            "oid": "60023644c3ee91648857cd39765962a81a4d197f",
+            "committedDate": "2022-09-08T02:44:35Z",
+            "messageHeadline": "Icons Style Updated"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "1fc1107f64364641aa106a694e5be29fd8342de1",
+            "committedDate": "2026-06-28T10:04:11Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "cdcc5031f77ca1333fa39d1ee45dca4ca9937c70",
+            "committedDate": "2026-06-28T11:15:38Z",
+            "messageHeadline": "Merge pull request #7 from sovware/details-update"
+          }
+        },
+        {
+          "name": "feature/render-faqs-helper",
+          "target": {
+            "oid": "5976431851b5bb26c2fa2025c46041a68917083e",
+            "committedDate": "2026-04-15T08:46:04Z",
+            "messageHeadline": "Add directorist_render_faqs() helper for reusable FAQ rendering"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "b83f4f571f845c19024f099fdc40438276c30563",
+            "committedDate": "2025-05-29T04:59:19Z",
+            "messageHeadline": "fixed translate issue"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "ccc8abd82ce29677f5060916e8fd1bd16acb3f7e",
+            "committedDate": "2022-06-14T02:22:29Z",
+            "messageHeadline": "version updated"
+          }
+        },
+        {
+          "name": "new-markup",
+          "target": {
+            "oid": "d137b879bc73b03dd045593245ce05251285834c",
+            "committedDate": "2021-05-20T16:58:42Z",
+            "messageHeadline": "tweaked some markups"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "2c61d3d3184c3aa704c3f66f7f3d0e83ae393292",
+            "committedDate": "2021-01-12T09:24:54Z",
+            "messageHeadline": "fixed drag & drop issue"
+          }
+        },
+        {
+          "name": "v8-beta",
+          "target": {
+            "oid": "3969da2da37268b7f3e10815b42fa123e77f474b",
+            "committedDate": "2025-05-29T04:44:41Z",
+            "messageHeadline": "fixed translate issue"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-slider-carousel": {
+    "name": "directorist-slider-carousel",
+    "defaultBranchRef": {
+      "name": "beta",
+      "target": {
+        "oid": "fa74bc9ece627c2c36bf5c2464dc2f3710fec438"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mg"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "fa74bc9ece627c2c36bf5c2464dc2f3710fec438",
+            "committedDate": "2025-12-09T06:34:18Z",
+            "messageHeadline": "updated version"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "95147fb10edc0dbbbc4065f50848576d5910d492",
+            "committedDate": "2021-09-27T03:55:37Z",
+            "messageHeadline": "Fixed: slider arrow issue when used multiple instance of same shortco\u2026"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-google-recaptcha": {
+    "name": "directorist-google-recaptcha",
+    "defaultBranchRef": {
+      "name": "beta",
+      "target": {
+        "oid": "2fcd40af48879a19f1d30aff0ed5ee551709c083"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Mw"
+      },
+      "nodes": [
+        {
+          "name": "beta",
+          "target": {
+            "oid": "2fcd40af48879a19f1d30aff0ed5ee551709c083",
+            "committedDate": "2025-06-09T14:35:02Z",
+            "messageHeadline": "changed version"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "f9028fec394f2b80995c5e86c322b21e27c09d12",
+            "committedDate": "2020-06-29T05:51:22Z",
+            "messageHeadline": "fixed issue"
+          }
+        },
+        {
+          "name": "v3-support",
+          "target": {
+            "oid": "ae5173102e9d6f4a69d52159d610bf45856de762",
+            "committedDate": "2025-07-10T06:40:13Z",
+            "messageHeadline": "v3 support on all feature"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-claim-listing": {
+    "name": "directorist-claim-listing",
+    "defaultBranchRef": {
+      "name": "main",
+      "target": {
+        "oid": "f5e2920c3127bdda2954990f37eb6f1f1c849e16"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTA"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "6e10eb1009b30b717439cafa68b70f8ad181b361",
+            "committedDate": "2021-05-23T06:10:48Z",
+            "messageHeadline": "fixed checkout issue with pricing plan"
+          }
+        },
+        {
+          "name": "beta",
+          "target": {
+            "oid": "bb2a8b7ac417ac4c5658ba2b696d34b200dc99f7",
+            "committedDate": "2026-06-03T02:15:10Z",
+            "messageHeadline": "fixed user type issue"
+          }
+        },
+        {
+          "name": "beta-1",
+          "target": {
+            "oid": "d8e8545bae707e05b6e61e914e89972648ac6ad5",
+            "committedDate": "2026-04-14T04:38:22Z",
+            "messageHeadline": "Merge pull request #4 from syedgalib/feature/payment"
+          }
+        },
+        {
+          "name": "custom/steve",
+          "target": {
+            "oid": "809b4712be7a62b6eff15f8a38bfc9c35a6eff2c",
+            "committedDate": "2026-06-16T04:47:15Z",
+            "messageHeadline": "custom project"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "5c797d03501cfe5366590b8d262c9d82460d86df",
+            "committedDate": "2026-08-20T10:15:32Z",
+            "messageHeadline": "Merge pull request #9 from Arafat-plugins/fix/support-3185-claim-noti\u2026"
+          }
+        },
+        {
+          "name": "feature/render-claim-listing-helper",
+          "target": {
+            "oid": "9fc18431c3c9bdb5d0f168ee81cd4a46c4498633",
+            "committedDate": "2026-04-15T08:29:54Z",
+            "messageHeadline": "Refactor directory_type to use directorist_render_claim_listing() helper"
+          }
+        },
+        {
+          "name": "main",
+          "target": {
+            "oid": "f5e2920c3127bdda2954990f37eb6f1f1c849e16",
+            "committedDate": "2026-06-03T03:43:05Z",
+            "messageHeadline": "changed version"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "9eb06df4de36d0ef03880cdeef7b6b0ff3e97c87",
+            "committedDate": "2021-01-13T05:50:59Z",
+            "messageHeadline": "added hook in single listing claim section"
+          }
+        },
+        {
+          "name": "new-markup",
+          "target": {
+            "oid": "4734ce41fe1ea8516b5df7ddeaba26b797b7665e",
+            "committedDate": "2021-03-30T04:57:47Z",
+            "messageHeadline": "markup & style update"
+          }
+        },
+        {
+          "name": "new-payment",
+          "target": {
+            "oid": "156b90ed5e2e0bc01ce9c4b0ab6745060e3bf93b",
+            "committedDate": "2026-01-28T05:43:16Z",
+            "messageHeadline": "support clain on new payment"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-stripe": {
+    "name": "directorist-stripe",
+    "defaultBranchRef": {
+      "name": "alpha",
+      "target": {
+        "oid": "6621828d9236c4dc458393ed17fedbdce4056f66"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Ng"
+      },
+      "nodes": [
+        {
+          "name": "alpha",
+          "target": {
+            "oid": "6621828d9236c4dc458393ed17fedbdce4056f66",
+            "committedDate": "2026-03-08T06:31:26Z",
+            "messageHeadline": "Fixed - renewal data cross issue"
+          }
+        },
+        {
+          "name": "feature/sepa-direct-debit-support",
+          "target": {
+            "oid": "a0bd8e43a74c9cc6a2d5ba54a07e3ceb9a4c7c5c",
+            "committedDate": "2026-05-03T09:37:25Z",
+            "messageHeadline": "Add SEPA Direct Debit checkout support"
+          }
+        },
+        {
+          "name": "fix/duplicate-product-creation",
+          "target": {
+            "oid": "1cdd3dc51741064e0ff9e5f5d250f1e161640a09",
+            "committedDate": "2025-06-16T07:05:09Z",
+            "messageHeadline": "Fix: Duplicate Product Creation and Coupon Amount Error"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "0f4f19e7d05e875ffa632dc1650d23241155dc7d",
+            "committedDate": "2022-01-02T05:55:04Z",
+            "messageHeadline": "add more check"
+          }
+        },
+        {
+          "name": "new-markup",
+          "target": {
+            "oid": "35abff0b4edba059b5f26b28af7fe72be21695ed",
+            "committedDate": "2021-03-31T07:58:36Z",
+            "messageHeadline": "remove extra shadow in input"
+          }
+        },
+        {
+          "name": "old-master",
+          "target": {
+            "oid": "73837abaffa04f4139b8669e94c82bf088b7a644",
+            "committedDate": "2020-10-16T19:13:44Z",
+            "messageHeadline": "improved"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-pricing-plans-new": {
+    "name": "directorist-pricing-plans-new",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "8977a3e1395636a8710dea2674964558e80f107c"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MTY"
+      },
+      "nodes": [
+        {
+          "name": "development",
+          "target": {
+            "oid": "99f9cf0be143f40c4422be87ccd6e9ea028cc2df",
+            "committedDate": "2026-09-10T06:14:24Z",
+            "messageHeadline": "Merge pull request #128 from RabbiIslamRony/fix/single-listing-null-w\u2026"
+          }
+        },
+        {
+          "name": "feature/auto_create_default_plan",
+          "target": {
+            "oid": "140f8f23cf660eb964b0b28004d716a66c5215e9",
+            "committedDate": "2026-01-28T05:29:47Z",
+            "messageHeadline": "Merge pull request #11 from syedgalib/feature/auto_create_default_plan"
+          }
+        },
+        {
+          "name": "feature/create_plan",
+          "target": {
+            "oid": "b52ed4fa3d977a85a339a5c0033906d4c5b25cd7",
+            "committedDate": "2026-02-05T04:00:46Z",
+            "messageHeadline": "Merge pull request #17 from tanjimhasan/my-feature/create_plan"
+          }
+        },
+        {
+          "name": "feature/migration",
+          "target": {
+            "oid": "6e6ec71ec8ba049794a3ea81f44fbaedf5ca2103",
+            "committedDate": "2026-04-02T08:44:14Z",
+            "messageHeadline": "Merge pull request #37 from syedgalib/feature/pay-per-listings"
+          }
+        },
+        {
+          "name": "feature/purchase-plan",
+          "target": {
+            "oid": "28798b1d4fb8d3b3c1f72b2244c92bd0152e38c9",
+            "committedDate": "2026-02-01T08:52:09Z",
+            "messageHeadline": "Merge pull request #13 from syedgalib/feature/create_plan"
+          }
+        },
+        {
+          "name": "feature/user-dashboard",
+          "target": {
+            "oid": "28798b1d4fb8d3b3c1f72b2244c92bd0152e38c9",
+            "committedDate": "2026-02-01T08:52:09Z",
+            "messageHeadline": "Merge pull request #13 from syedgalib/feature/create_plan"
+          }
+        },
+        {
+          "name": "fix/add-listing-plan-columns",
+          "target": {
+            "oid": "6264a7c9db0296b73a7ac03fe746a424312d813d",
+            "committedDate": "2026-08-24T15:23:10Z",
+            "messageHeadline": "fix: support plan columns in add listing flow"
+          }
+        },
+        {
+          "name": "fix/unassigned-listing-content",
+          "target": {
+            "oid": "03c079c99f2b2182d0f309487f7127a3942565b0",
+            "committedDate": "2026-08-06T10:03:19Z",
+            "messageHeadline": "fix: preserve unassigned listing content"
+          }
+        },
+        {
+          "name": "hotfix/4.0.0-beta10",
+          "target": {
+            "oid": "13cff2a29f3573021e0cc93a3f494c0372cea6d6",
+            "committedDate": "2026-06-11T14:40:31Z",
+            "messageHeadline": "Merge pull request #61 from RabbiIslamRony/button-issue"
+          }
+        },
+        {
+          "name": "hotfix/4.0.0/beta11",
+          "target": {
+            "oid": "74be49e0e3bab6ecd1df53e93c716e8f5b5ad91f",
+            "committedDate": "2026-06-16T03:54:55Z",
+            "messageHeadline": "Merge pull request #64 from syedgalib/hotfix/4.0.0/beta11"
+          }
+        },
+        {
+          "name": "hotfix-4.0.0-beta6",
+          "target": {
+            "oid": "1b5894d687544f81f39e7bc7bbf88a2dcc059457",
+            "committedDate": "2026-05-23T10:39:34Z",
+            "messageHeadline": "Merge pull request #52 from syedgalib/hotfix-4.0.0-beta6"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "8977a3e1395636a8710dea2674964558e80f107c",
+            "committedDate": "2026-09-08T14:07:34Z",
+            "messageHeadline": "Merge pull request #127 from sovware/development"
+          }
+        },
+        {
+          "name": "release/4.0.3",
+          "target": {
+            "oid": "040097bd858f024717b7e73fea5f97f96f35127b",
+            "committedDate": "2026-09-08T10:18:37Z",
+            "messageHeadline": "chore(release): prepare 4.0.3"
+          }
+        },
+        {
+          "name": "release/4.1.0",
+          "target": {
+            "oid": "4eceb622ec2309706c6ac3a074ae3effd1372dd7",
+            "committedDate": "2026-09-08T10:38:06Z",
+            "messageHeadline": "chore(release): prepare 4.1.0"
+          }
+        },
+        {
+          "name": "release/4.1.1",
+          "target": {
+            "oid": "656bbaec2b5cae7c434834a992fb95299476a14b",
+            "committedDate": "2026-09-08T14:05:54Z",
+            "messageHeadline": "chore(release): prepare 4.1.1"
+          }
+        },
+        {
+          "name": "v4-beta-2",
+          "target": {
+            "oid": "e5a9c5a092459856c3352e46913a905e3c7a379f",
+            "committedDate": "2026-04-20T04:20:18Z",
+            "messageHeadline": "Merge pull request #46 from syedgalib/v4-beta-2-hotfix"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-stripe-new": {
+    "name": "directorist-stripe-new",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "498c48755f4168fdfdcaa955fb817647287a95e1"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NQ"
+      },
+      "nodes": [
+        {
+          "name": "beta-1",
+          "target": {
+            "oid": "7a585b7eb233cd5d8a482eed10781dd0d6489107",
+            "committedDate": "2026-04-14T05:32:26Z",
+            "messageHeadline": "Merge pull request #10 from syedgalib/beta-1-hot-fix"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "97977d3bedbc82c6cc8c3cfa672304de23303b34",
+            "committedDate": "2026-06-28T10:49:48Z",
+            "messageHeadline": "Merge branch 'development' into details-update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "6dbd9a3edc3b7453fb34f84a31ee6efebe90752d",
+            "committedDate": "2026-09-10T05:25:25Z",
+            "messageHeadline": "Merge pull request #21 from syedgalib/release/3.0.1"
+          }
+        },
+        {
+          "name": "fix/3174-directorist-version-guard",
+          "target": {
+            "oid": "21bb12fcf2d5b32a011cf77fc6f2f5e90d4404ab",
+            "committedDate": "2026-09-03T09:35:22Z",
+            "messageHeadline": "fix: harden Directorist dependency guard"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "498c48755f4168fdfdcaa955fb817647287a95e1",
+            "committedDate": "2026-09-10T05:26:09Z",
+            "messageHeadline": "Merge pull request #22 from sovware/development"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-paypal-new": {
+    "name": "directorist-paypal-new",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "84ec39c5da30366b388fc05c92bc58f3cb422dce"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "NA"
+      },
+      "nodes": [
+        {
+          "name": "beta-1",
+          "target": {
+            "oid": "2160ee08f88697c90073f8d60f226bacf7a98085",
+            "committedDate": "2026-04-14T05:31:40Z",
+            "messageHeadline": "Merge pull request #3 from syedgalib/beta-1-hot-fix"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "42fd3efe2cb13b36db037864cfd2fec89a1ff59f",
+            "committedDate": "2026-06-28T09:32:09Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "84de33e01f7a8aae9ee2ee801916403ec6537703",
+            "committedDate": "2026-06-28T11:11:03Z",
+            "messageHeadline": "Revise plugin metadata for Directorist Paypal"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "84ec39c5da30366b388fc05c92bc58f3cb422dce",
+            "committedDate": "2025-06-15T05:08:49Z",
+            "messageHeadline": "Added support script & admin menu"
+          }
+        }
+      ]
+    }
+  },
+  "directorist-authorize-net-new": {
+    "name": "directorist-authorize-net-new",
+    "defaultBranchRef": {
+      "name": "master",
+      "target": {
+        "oid": "8ed560d5ddebb4d72e7f4a4237c6324dc1f873dd"
+      }
+    },
+    "refs": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Ng"
+      },
+      "nodes": [
+        {
+          "name": "beta-1",
+          "target": {
+            "oid": "0d12a521a7d09d07d5b5e34f6ec161f5053069a9",
+            "committedDate": "2026-04-14T05:30:03Z",
+            "messageHeadline": "Merge pull request #3 from syedgalib/beta-1-hot-fix"
+          }
+        },
+        {
+          "name": "completed-basic-payment",
+          "target": {
+            "oid": "8ed560d5ddebb4d72e7f4a4237c6324dc1f873dd",
+            "committedDate": "2025-10-08T06:01:41Z",
+            "messageHeadline": "created subscription create, update & cancel"
+          }
+        },
+        {
+          "name": "details-update",
+          "target": {
+            "oid": "4a8c1c2d7644bd2a5587b593bea1c76cc989a532",
+            "committedDate": "2026-06-28T09:19:56Z",
+            "messageHeadline": "details update"
+          }
+        },
+        {
+          "name": "development",
+          "target": {
+            "oid": "ab7986313aa349c4cea2d9956169ae2d07da4fd0",
+            "committedDate": "2026-06-28T10:48:24Z",
+            "messageHeadline": "Merge pull request #5 from sovware/details-update"
+          }
+        },
+        {
+          "name": "final",
+          "target": {
+            "oid": "6017a46a0872c7da45d8e57508f196af8d76f3f1",
+            "committedDate": "2025-10-06T06:57:04Z",
+            "messageHeadline": "created subscription create, update & cancel"
+          }
+        },
+        {
+          "name": "master",
+          "target": {
+            "oid": "8ed560d5ddebb4d72e7f4a4237c6324dc1f873dd",
+            "committedDate": "2025-10-08T06:01:41Z",
+            "messageHeadline": "created subscription create, update & cancel"
+          }
+        }
+      ]
+    }
+  }
+}

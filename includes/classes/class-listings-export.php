@@ -24,14 +24,14 @@ class Listings_Exporter {
         file_put_contents( $file, $file_contents );
 
         $wp_filetype = wp_check_filetype( $file_name, null );
-        $attachment = [
+        $attachment  = [
             'post_mime_type' => $wp_filetype['type'],
             'post_title'     => sanitize_file_name( $filename ),
             'post_content'   => '',
             'post_status'    => 'inherit'
         ];
 
-        $attach_id = wp_insert_attachment( $attachment, $file );
+        $attach_id  = wp_insert_attachment( $attachment, $file );
         $attach_url = wp_get_attachment_url( $attach_id );
 
         update_directorist_option( 'directorist_export_attachent_id', $attach_id );
@@ -71,7 +71,7 @@ class Listings_Exporter {
 
                 $row_content__ = str_replace( '"', "'", $row_content__ );
                 $row_content__ = '"' . $row_content__ . '",';
-                $row_content .= $row_content__;
+                $row_content  .= $row_content__;
             }
             $contents .= rtrim( $row_content, ',' ) . "\n";
         }
@@ -95,11 +95,11 @@ class Listings_Exporter {
         );
 
         $field_map = [
-            'native_field' => [
+            'native_field'               => [
                 'verify'      => 'verifyNativeField',
                 'update_data' => 'updateNativeFieldData',
             ],
-            'taxonomy_field' => [
+            'taxonomy_field'             => [
                 'verify'      => 'verifyTaxonomyField',
                 'update_data' => 'updateTaxonomyFieldData',
             ],
@@ -107,15 +107,15 @@ class Listings_Exporter {
                 'verify'      => 'verifyListingImageModuleField',
                 'update_data' => 'updateListingImageModuleFieldsData',
             ],
-            'price_module_field' => [
+            'price_module_field'         => [
                 'verify'      => 'verifyPriceModuleField',
                 'update_data' => 'updatePriceModuleFieldData',
             ],
-            'map_module_field' => [
+            'map_module_field'           => [
                 'verify'      => 'verifyMapModuleField',
                 'update_data' => 'updateMapModuleFieldData',
             ],
-            'meta_key_field' => [
+            'meta_key_field'             => [
                 'verify'      => 'verifyMetaKeyField',
                 'update_data' => 'updateMetaKeyFieldData',
             ],
@@ -127,8 +127,8 @@ class Listings_Exporter {
             while ( $listings->have_posts() ) {
                 $listings->the_post();
 
-                $row = [];
-                $row['id'] = get_the_ID();
+                $row              = [];
+                $row['id']        = get_the_ID();
                 $row['directory'] = self::get_directory_slug_by_id( get_the_id() );
 
                 $directory_type_id = get_post_meta( get_the_ID(), '_directory_type', true );
@@ -149,9 +149,9 @@ class Listings_Exporter {
                     }
                 }
 
-                $row = self::updateListingReviewsData( $row, get_the_ID() );
-                $row = apply_filters( 'directorist_listings_export_row', $row );
-                $max_row_length = count( array_keys( $row ) );
+                $row             = self::updateListingReviewsData( $row, get_the_ID() );
+                $row             = apply_filters( 'directorist_listings_export_row', $row );
+                $max_row_length  = count( array_keys( $row ) );
                 $tr_lengths   [] = $max_row_length;
                 $listings_data[] = $row;
             }
@@ -166,20 +166,40 @@ class Listings_Exporter {
     // justifyDataRow
     public static function justifyDataTableRow( $data_table = [], $tr_lengths = [] ) {
         if ( empty( $data_table ) ) {
-            return $data_table; }
-        if ( ! is_array( $data_table ) ) {
-            return $data_table; }
+            return $data_table;
+        }
 
-        $max_tr_val   = max( $tr_lengths );
-        $max_tr_index = array_search( $max_tr_val, $tr_lengths );
-        $modal_tr     = $data_table[ $max_tr_index ];
+        if ( ! is_array( $data_table ) ) {
+            return $data_table;
+        }
+
+        $columns = [];
+        foreach ( $data_table as $row ) {
+            if ( ! is_array( $row ) ) {
+                continue;
+            }
+
+            foreach ( $row as $row_key => $row_value ) {
+                if ( ! array_key_exists( $row_key, $columns ) ) {
+                    $columns[ $row_key ] = '';
+                }
+            }
+        }
+
+        if ( empty( $columns ) ) {
+            return $data_table;
+        }
 
         $justify_table = [];
         foreach ( $data_table as $row ) {
+            if ( ! is_array( $row ) ) {
+                continue;
+            }
+
             $tr = [];
 
-            foreach ( $modal_tr as $row_key => $row_value ) {
-                $tr[ $row_key ] = ( isset( $row[ $row_key ] ) ) ? $row[ $row_key ] : '';
+            foreach ( array_keys( $columns ) as $row_key ) {
+                $tr[ $row_key ] = array_key_exists( $row_key, $row ) ? $row[ $row_key ] : '';
             }
 
             $justify_table[] = $tr;
@@ -218,7 +238,7 @@ class Listings_Exporter {
         ];
 
         $field_key = $field_args['field_key'];
-        $content = call_user_func( $field_data_map[ $field_key ] );
+        $content   = call_user_func( $field_data_map[ $field_key ] );
         // $content = str_replace( '"', '""', $content );
 
         $row[ $field_key ] = self::escape_data( $content );
@@ -326,15 +346,15 @@ class Listings_Exporter {
 
     // updateMetaKeyFieldData
     public static function updateMetaKeyFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $value = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
-        $row[ 'publish_date' ] = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
+        $value                           = get_post_meta( get_the_id(), '_' . $field_args['field_key'], true );
+        $row[ 'publish_date' ]           = get_the_date( 'Y-m-d H:i:s', get_the_ID() );
         $row[ $field_args['field_key'] ] = self::escape_data( $value );
 
         return $row;
     }
 
     public static function updateListingReviewsData( array $row = [], $listing_id = 0 ) {
-        $reviews = self::get_listing_reviews_data( $listing_id );
+        $reviews        = self::get_listing_reviews_data( $listing_id );
         $row['reviews'] = '';
 
         if ( empty( $reviews ) ) {
@@ -362,8 +382,8 @@ class Listings_Exporter {
 
     // updatePriceModuleFieldData
     public static function updatePriceModuleFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $row[ 'price' ] = self::escape_data( get_post_meta( get_the_id(), '_price', true ) );
-        $row[ 'price_range' ] = self::escape_data( get_post_meta( get_the_id(), '_price_range', true ) );
+        $row[ 'price' ]                = self::escape_data( get_post_meta( get_the_id(), '_price', true ) );
+        $row[ 'price_range' ]          = self::escape_data( get_post_meta( get_the_id(), '_price_range', true ) );
         $row[ 'atbd_listing_pricing' ] = self::escape_data( get_post_meta( get_the_id(), '_atbd_listing_pricing', true ) );
 
         return $row;
@@ -385,7 +405,7 @@ class Listings_Exporter {
 
     // updateMapModuleFieldData
     public static function updateMapModuleFieldData( array $row = [], string $field_key = '', array $field_args = [] ) {
-        $row[ 'hide_map' ] = get_post_meta( get_the_id(), '_hide_map', true );
+        $row[ 'hide_map' ]   = get_post_meta( get_the_id(), '_hide_map', true );
         $row[ 'manual_lat' ] = self::escape_data( get_post_meta( get_the_id(), '_manual_lat', true ) );
         $row[ 'manual_lng' ] = self::escape_data( get_post_meta( get_the_id(), '_manual_lng', true ) );
 

@@ -1,0 +1,402 @@
+[
+  {
+    "id": "directorist-mpesa-payment-gateway",
+    "primary": "mpesa-payment-gateway--main",
+    "counts": {
+      "support-or-generated": 29,
+      "infrastructure": 22,
+      "feature-linked": 15
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-notifications-pro",
+    "primary": "notifications-pro--main",
+    "counts": {
+      "support-or-generated": 5,
+      "infrastructure": 3,
+      "feature-linked": 12
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-divi-integration",
+    "primary": "divi-integration--master",
+    "counts": {
+      "support-or-generated": 84,
+      "infrastructure": 108,
+      "feature-linked": 860
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-ai-search",
+    "primary": "ai-search--main",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 3,
+      "feature-linked": 22
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-listing-import",
+    "primary": "listing-import--main",
+    "counts": {
+      "support-or-generated": 2,
+      "infrastructure": 2,
+      "feature-linked": 17
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-analytics",
+    "primary": "analytics--fix-weekly-monthly-report-duplicate-last-listing",
+    "counts": {
+      "support-or-generated": 27,
+      "infrastructure": 6,
+      "feature-linked": 123
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-advanced-review",
+    "primary": "advanced-review--fix-review-translation-pluralization",
+    "counts": {
+      "support-or-generated": 25,
+      "infrastructure": 31,
+      "feature-linked": 71
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-universal-search",
+    "primary": "universal-search--master",
+    "counts": {
+      "support-or-generated": 31,
+      "infrastructure": 9,
+      "feature-linked": 36
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-search-alert",
+    "primary": "search-alert--main",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 9,
+      "feature-linked": 17
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-announcement",
+    "primary": "announcement--master",
+    "counts": {
+      "support-or-generated": 7,
+      "infrastructure": 5,
+      "feature-linked": 7
+    },
+    "unresolved": []
+  },
+  {
+    "id": "addonskit-for-bricks",
+    "primary": "addonskit-for-bricks--main",
+    "counts": {
+      "support-or-generated": 9,
+      "feature-linked": 38,
+      "infrastructure": 1
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-helpgent-integration",
+    "primary": "helpgent-integration--master",
+    "counts": {
+      "support-or-generated": 16,
+      "infrastructure": 19,
+      "feature-linked": 29
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-wpml-integration",
+    "primary": "wpml-integration--main",
+    "counts": {
+      "support-or-generated": 54,
+      "feature-linked": 43,
+      "infrastructure": 5
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-digital-marketplace",
+    "primary": "digital-marketplace--fix-safari-source-map-errors",
+    "counts": {
+      "support-or-generated": 38,
+      "infrastructure": 17,
+      "feature-linked": 43
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-job-manager",
+    "primary": "job-manager--development",
+    "counts": {
+      "support-or-generated": 15,
+      "infrastructure": 5,
+      "feature-linked": 34
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-booking",
+    "primary": "booking--fix-client-issue-3257-guest-confirmation",
+    "counts": {
+      "support-or-generated": 57,
+      "infrastructure": 43,
+      "feature-linked": 60
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-listings-with-map",
+    "primary": "listings-with-map--codex-lwm-map-sync-extension",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 3,
+      "feature-linked": 35
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-business-hours",
+    "primary": "business-hours--development",
+    "counts": {
+      "support-or-generated": 14,
+      "feature-linked": 12,
+      "infrastructure": 10
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-woocommerce-pricing-plans",
+    "primary": "woocommerce-pricing-plans--codex-fix-subscription-plan-repair",
+    "counts": {
+      "support-or-generated": 5,
+      "infrastructure": 7,
+      "feature-linked": 27
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-paypal",
+    "primary": "paypal-new--development",
+    "counts": {
+      "support-or-generated": 25,
+      "infrastructure": 14,
+      "feature-linked": 14
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-pricing-plans",
+    "primary": "pricing-plans-new--development",
+    "counts": {
+      "support-or-generated": 36,
+      "infrastructure": 10,
+      "feature-linked": 205
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-gamipress-integration",
+    "primary": "gamipress-integration--master",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 3,
+      "feature-linked": 12,
+      "legacy-candidate": 2
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-mailchimp",
+    "primary": "mailchimp--master",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 3,
+      "feature-linked": 6
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-directory-linking",
+    "primary": "directory-linking--alpha",
+    "counts": {
+      "support-or-generated": 5,
+      "infrastructure": 10,
+      "feature-linked": 7
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-buddypress-integration",
+    "primary": "buddypress-integration--master",
+    "counts": {
+      "support-or-generated": 5,
+      "feature-linked": 19,
+      "infrastructure": 3
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-buddyboss-integration",
+    "primary": "buddyboss-integration--master",
+    "counts": {
+      "support-or-generated": 6,
+      "feature-linked": 19,
+      "infrastructure": 3
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-oxygen-integration",
+    "primary": "oxygen-integration--improvement-oxygen-6-integration",
+    "counts": {
+      "support-or-generated": 6,
+      "feature-linked": 25
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-authorize-net",
+    "primary": "authorize-net-new--development",
+    "counts": {
+      "support-or-generated": 21,
+      "infrastructure": 14,
+      "feature-linked": 12
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-coupon",
+    "primary": "coupon--development",
+    "counts": {
+      "support-or-generated": 3,
+      "feature-linked": 11,
+      "infrastructure": 7
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-adverts-manager",
+    "primary": "adverts-manager--v8-beta",
+    "counts": {
+      "support-or-generated": 74,
+      "infrastructure": 7,
+      "feature-linked": 27
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-compare-listing",
+    "primary": "compare-listing--alpha",
+    "counts": {
+      "support-or-generated": 5,
+      "infrastructure": 6,
+      "feature-linked": 14
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-live-chat",
+    "primary": "live-chat--fix-live-chat-visibility-socket-fallback",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 2,
+      "feature-linked": 11
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-mark-as-sold",
+    "primary": "mark-as-sold--details-update",
+    "counts": {
+      "support-or-generated": 5,
+      "infrastructure": 5,
+      "feature-linked": 3
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-social-login",
+    "primary": "social-login--master",
+    "counts": {
+      "support-or-generated": 9,
+      "infrastructure": 5,
+      "feature-linked": 7
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-gallery",
+    "primary": "gallery--fix-gallery-import-cron-scheduling",
+    "counts": {
+      "support-or-generated": 15,
+      "feature-linked": 8,
+      "infrastructure": 10
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-faqs",
+    "primary": "faqs--development",
+    "counts": {
+      "support-or-generated": 11,
+      "infrastructure": 6,
+      "feature-linked": 10
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-slider-carousel",
+    "primary": "slider-carousel--beta",
+    "counts": {
+      "support-or-generated": 8,
+      "feature-linked": 6,
+      "infrastructure": 3
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-google-recaptcha",
+    "primary": "google-recaptcha--v3-support",
+    "counts": {
+      "support-or-generated": 7,
+      "infrastructure": 4,
+      "feature-linked": 6
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-claim-listing",
+    "primary": "claim-listing--local",
+    "counts": {
+      "support-or-generated": 6,
+      "infrastructure": 9,
+      "feature-linked": 11
+    },
+    "unresolved": []
+  },
+  {
+    "id": "directorist-stripe",
+    "primary": "stripe-new--master",
+    "counts": {
+      "support-or-generated": 24,
+      "infrastructure": 12,
+      "feature-linked": 18
+    },
+    "unresolved": []
+  }
+]

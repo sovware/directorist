@@ -1,0 +1,836 @@
+{
+  "snapshot": {
+    "key": "paypal--undefined-const-error",
+    "repo": "directorist-paypal",
+    "branch": "undefined-const-error",
+    "commit": "b6b11306b4c6388932714b3437eb22147c59345d",
+    "date": "2025-05-07T06:15:34Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal__undefined-const-error",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "6f4606cceb58c9cf722fa676e826373b3d01016ce6d8cc404d6d8bcbca9bcfe6",
+      "bytes": 634,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "83bc2808edef1b85b166766329a717da149fc0b7a0515a94b4659abc0885be2e",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "constants.php": {
+      "sha256": "9399ac3f2569193274f5a0facf7cf6a1dd1d6bf98a861bd7c3b048b040ea5fc3",
+      "bytes": 988,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DT_PAYPAL_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DT_PAYPAL_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DT_PAYPAL_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DT_PAYPAL_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DT_PAYPAL_LIB_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'DT_PAYPAL_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 31,
+          "args": [
+            "'ATBDP_PAYPAL_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "directorist-paypal.php": {
+      "sha256": "686396de9d6b80e0be3330d14dd7ee9b1df08f3ab7a52d66efc6bbcb9cbdd364",
+      "bytes": 27648,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Paypal_Gateway",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_ips_delay_support",
+          "line": 95,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "api_endpoints",
+          "line": 114,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "payment",
+          "line": 123,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_monetization_settings_submenu",
+          "line": 160,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 177,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 190,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 207,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 222,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_enqueue_scripts",
+          "line": 236,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 253,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_active_gateways",
+          "line": 264,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "paypal_license_settings_controls",
+          "line": 277,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_payment",
+          "line": 324,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_paypal_ipn",
+          "line": 410,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_transection",
+          "line": 458,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "complete_order",
+          "line": 513,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_custom_error",
+          "line": 583,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "write_log_to_file",
+          "line": 593,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 602,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 608,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Paypal",
+          "line": 626,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 16,
+          "args": [
+            "'Directorist_Paypal_Gateway'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 53,
+          "args": [
+            "'paypal_gateway_test_mode'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'admin_enqueue_scripts')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 59,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'paypal_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 61,
+          "args": [
+            "'directorist_active_gateways'",
+            "array(self::$instance, 'default_active_gateways')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 62,
+          "args": [
+            "'atbdp_default_gateways'",
+            "array(self::$instance, 'default_active_gateways')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 64,
+          "args": [
+            "'atbdp_process_paypal_gateway_payment'",
+            "array(self::$instance, 'process_payment')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 67,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 68,
+          "args": [
+            "'atbdp_monetization_settings_submenu'",
+            "array( self::$instance, 'atbdp_monetization_settings_submenu' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 70,
+          "args": [
+            "'rest_api_init'",
+            "[self::$instance, 'api_endpoints' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'template_redirect'",
+            "[ self::$instance, 'add_ips_delay_support']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 74,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 81,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 97,
+          "args": [
+            "'payment_receipt_page'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 108,
+          "args": [
+            "$order_id",
+            "'_transaction_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 109,
+          "args": [
+            "$order_id",
+            "'_payment_status'"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 116,
+          "args": [
+            "'directorist/payment'",
+            "'/paypal/'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 164,
+          "args": [
+            "'atbdp_paypal_settings_controls'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 209,
+          "args": [
+            "'DT_PAYPAL_FILE'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 224,
+          "args": [
+            "'PaypalIPN'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 230,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 279,
+          "args": [
+            "'directorist_paypal_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 295,
+          "args": [
+            "'atbdp_paypal_extension_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 299,
+          "args": [
+            "'atbdp_paypal_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 311,
+          "args": [
+            "'atbdp_licence_menu_for_paypal'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 326,
+          "args": [
+            "'atbdp_payment_receipt_page_link'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 327,
+          "args": [
+            "'payment_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 327,
+          "args": [
+            "'g_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 328,
+          "args": [
+            "'paypal_gateway_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 329,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 330,
+          "args": [
+            "$order_id",
+            "'_amount'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 335,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 336,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 337,
+          "args": [
+            "$plan",
+            "'_atpp_recurring'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 365,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 366,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 367,
+          "args": [
+            "$plan",
+            "'_atpp_recurring'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 368,
+          "args": [
+            "$plan",
+            "'_recurrence_period_term'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 369,
+          "args": [
+            "$plan",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 460,
+          "args": [
+            "'payment_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 460,
+          "args": [
+            "'g_currency'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 461,
+          "args": [
+            "$order_id",
+            "'_transaction_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 462,
+          "args": [
+            "$order_id",
+            "'_amount'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 463,
+          "args": [
+            "'paypal_gateway_email'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 516,
+          "args": [
+            "$order_data['ID']",
+            "'_payment_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 517,
+          "args": [
+            "$order_data['ID']",
+            "'_transaction_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 519,
+          "args": [
+            "$order_data['ID']",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 521,
+          "args": [
+            "$order_data['ID']",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 524,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 529,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 530,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 531,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 542,
+          "args": [
+            "$listing_id",
+            "'_renew_with_plan'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 543,
+          "args": [
+            "'new_listing_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 558,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 561,
+          "args": [
+            "$listing_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 563,
+          "args": [
+            "$listing_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 575,
+          "args": [
+            "'atbdp_order_completed'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 601,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 603,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 607,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 613,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "helper.php": {
+      "sha256": "d55608119bfa4047d907a7673e85267748f2f0bb7c07b5c29c78869367b168ef",
+      "bytes": 1745,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "get_directorist_option",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 2,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 18,
+          "args": [
+            "'atbdp_option'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style-rtl.css": {
+      "sha256": "f9928d98646ffef585cf48a1bd7b4775e510d9a75316864adfc4070bef8893d2",
+      "bytes": 1651,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style.css": {
+      "sha256": "ba6fa8b40771e99b078a120b5760e59173b5f86f327c4b437fcb7ccbeebc638f",
+      "bytes": 1648,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "c372a0cefeeb3100c9b1bea7def97c4257a0317fd847db006fb76b6cb097fdac",
+      "bytes": 21653,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-paypal.pot": {
+      "sha256": "a56a3ea41999684268865176d37313640a7d246c247304ebe43412c4013103e4",
+      "bytes": 4665,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/index.php": {
+      "sha256": "dd52aa01b66e10e34eb50df2e3350bd0d4e26312eeae01dbac5c96e33f72ff38",
+      "bytes": 24,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "library/EDD_SL_Plugin_Updater.php": {
+      "sha256": "bd6d701d1953c7435890195735682f42f2be86d766ebea3ee8432e6071b58b3f",
+      "bytes": 17743,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "library/PaypalIPN.php": {
+      "sha256": "9a4dbf9594bb86d2f6f1de16109ccaf0e361fbc03c42fdebdaba911c8dc9b28b",
+      "bytes": 4663,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "library/index.php": {
+      "sha256": "0389dd77e20cca48547d4835927fe31c353707d35567bc75505df37f3365ecd0",
+      "bytes": 40,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "library/cert/cacert.pem": {
+      "sha256": "4943df7f17fb2105e94a5d5ab0384ede066b42d7bb03ee4ec025dd81fb29fb64",
+      "bytes": 261644,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "library/cert/index.php": {
+      "sha256": "0389dd77e20cca48547d4835927fe31c353707d35567bc75505df37f3365ecd0",
+      "bytes": 40,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

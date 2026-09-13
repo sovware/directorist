@@ -1,0 +1,396 @@
+{
+  "exact_name_repo_cases_passed": 80,
+  "routing_cases_passed": 29,
+  "cases": [
+    {
+      "query": "Business Hours overnight schedule is wrong",
+      "products": [
+        "directorist-business-hours"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/schedule.md"
+      ],
+      "initial_utf8_bytes": 5544,
+      "initial_words": 508
+    },
+    {
+      "query": "Open now shows closed after midnight",
+      "products": [
+        "directorist-business-hours"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/schedule.md"
+      ],
+      "initial_utf8_bytes": 5544,
+      "initial_words": 508
+    },
+    {
+      "query": "Business Hours missing only when no plan",
+      "products": [
+        "directorist-business-hours",
+        "directorist-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/display-import.md",
+        "products/directorist-pricing-plans/README.md",
+        "products/directorist-pricing-plans/topics/entitlements.md"
+      ],
+      "initial_utf8_bytes": 11965,
+      "initial_words": 1063
+    },
+    {
+      "query": "Business Hours empty in Divi template",
+      "products": [
+        "directorist-business-hours",
+        "directorist-divi-integration"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/display-import.md",
+        "products/directorist-divi-integration/README.md",
+        "products/directorist-divi-integration/topics/single-modules.md"
+      ],
+      "initial_utf8_bytes": 12136,
+      "initial_words": 1078
+    },
+    {
+      "query": "WooCommerce checkout payment fails",
+      "products": [
+        "directorist-woocommerce-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-woocommerce-pricing-plans/README.md",
+        "products/directorist-woocommerce-pricing-plans/topics/orders-subscriptions.md"
+      ],
+      "initial_utf8_bytes": 5073,
+      "initial_words": 457
+    },
+    {
+      "query": "WooCommerce Pricing Plans quota",
+      "products": [
+        "directorist-woocommerce-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-woocommerce-pricing-plans/README.md",
+        "products/directorist-woocommerce-pricing-plans/topics/products-entitlements.md"
+      ],
+      "initial_utf8_bytes": 5683,
+      "initial_words": 478
+    },
+    {
+      "query": "Stripe webhook duplicate after renewal",
+      "products": [
+        "directorist-pricing-plans",
+        "directorist-stripe"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-stripe/README.md",
+        "products/directorist-stripe/topics/webhooks.md",
+        "products/directorist-pricing-plans/README.md",
+        "products/directorist-pricing-plans/topics/checkout-renewal.md"
+      ],
+      "initial_utf8_bytes": 12187,
+      "initial_words": 1040
+    },
+    {
+      "query": "io is not defined when messaging owner",
+      "products": [
+        "directorist-live-chat"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-live-chat/README.md",
+        "products/directorist-live-chat/topics/socket-delivery.md"
+      ],
+      "initial_utf8_bytes": 5061,
+      "initial_words": 463
+    },
+    {
+      "query": "weekly report repeats duplicate last listing",
+      "products": [
+        "directorist-analytics"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-analytics/README.md",
+        "products/directorist-analytics/topics/tracking-reports.md"
+      ],
+      "initial_utf8_bytes": 5543,
+      "initial_words": 480
+    },
+    {
+      "query": "Search Alert monthly alert never arrives",
+      "products": [
+        "directorist-search-alert"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-search-alert/README.md",
+        "products/directorist-search-alert/topics/alert-delivery.md"
+      ],
+      "initial_utf8_bytes": 4580,
+      "initial_words": 444
+    },
+    {
+      "query": "google import field mapping place id duplicates",
+      "products": [
+        "directorist-listing-import"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-listing-import/README.md",
+        "products/directorist-listing-import/topics/google-import.md"
+      ],
+      "initial_utf8_bytes": 5868,
+      "initial_words": 514
+    },
+    {
+      "query": "Claim Listing claimed badge tooltip",
+      "products": [
+        "directorist-claim-listing"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-claim-listing/README.md",
+        "products/directorist-claim-listing/topics/paid-claim-badge.md"
+      ],
+      "initial_utf8_bytes": 5722,
+      "initial_words": 508
+    },
+    {
+      "query": "directorist-pricing-plans-new plan migration",
+      "products": [
+        "directorist-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-pricing-plans/README.md",
+        "products/directorist-pricing-plans/topics/migration-admin.md"
+      ],
+      "initial_utf8_bytes": 6528,
+      "initial_words": 556
+    },
+    {
+      "query": "WPML translated listing missing",
+      "products": [
+        "directorist-wpml-integration"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-wpml-integration/README.md",
+        "products/directorist-wpml-integration/topics/queries-links.md"
+      ],
+      "initial_utf8_bytes": 5502,
+      "initial_words": 461
+    },
+    {
+      "query": "M-Pesa ratiba callback duplicate",
+      "products": [
+        "directorist-mpesa-payment-gateway"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-mpesa-payment-gateway/README.md",
+        "products/directorist-mpesa-payment-gateway/topics/callback-recurring.md"
+      ],
+      "initial_utf8_bytes": 4980,
+      "initial_words": 457
+    },
+    {
+      "query": "font padding looks wrong",
+      "products": [],
+      "loaded_identity_topic_files": 0,
+      "selected_paths": [],
+      "initial_utf8_bytes": 0,
+      "initial_words": 0
+    },
+    {
+      "query": "unknown zephyr failure",
+      "products": [],
+      "loaded_identity_topic_files": 0,
+      "selected_paths": [],
+      "initial_utf8_bytes": 0,
+      "initial_words": 0
+    },
+    {
+      "query": "business hours are not saving",
+      "products": [
+        "directorist-business-hours"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/schedule.md"
+      ],
+      "initial_utf8_bytes": 5544,
+      "initial_words": 508
+    },
+    {
+      "query": "does not show open after midnight",
+      "products": [
+        "directorist-business-hours"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/schedule.md"
+      ],
+      "initial_utf8_bytes": 5544,
+      "initial_words": 508
+    },
+    {
+      "query": "without a plan business hours are not appearing",
+      "products": [
+        "directorist-business-hours",
+        "directorist-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/display-import.md",
+        "products/directorist-pricing-plans/README.md",
+        "products/directorist-pricing-plans/topics/entitlements.md"
+      ],
+      "initial_utf8_bytes": 11965,
+      "initial_words": 1063
+    },
+    {
+      "query": "business hours are blank in divi",
+      "products": [
+        "directorist-business-hours",
+        "directorist-divi-integration"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/display-import.md",
+        "products/directorist-divi-integration/README.md",
+        "products/directorist-divi-integration/topics/single-modules.md"
+      ],
+      "initial_utf8_bytes": 12136,
+      "initial_words": 1078
+    },
+    {
+      "query": "weekly report keeps repeating the last listing",
+      "products": [
+        "directorist-analytics"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-analytics/README.md",
+        "products/directorist-analytics/topics/tracking-reports.md"
+      ],
+      "initial_utf8_bytes": 5543,
+      "initial_words": 480
+    },
+    {
+      "query": "saved search emails do not arrive",
+      "products": [
+        "directorist-search-alert"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-search-alert/README.md",
+        "products/directorist-search-alert/topics/alert-delivery.md"
+      ],
+      "initial_utf8_bytes": 4580,
+      "initial_words": 444
+    },
+    {
+      "query": "woocommerce payment is not working",
+      "products": [
+        "directorist-woocommerce-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-woocommerce-pricing-plans/README.md",
+        "products/directorist-woocommerce-pricing-plans/topics/orders-subscriptions.md"
+      ],
+      "initial_utf8_bytes": 5073,
+      "initial_words": 457
+    },
+    {
+      "query": "no pricing plan selected business hours do not appear",
+      "products": [
+        "directorist-business-hours",
+        "directorist-pricing-plans"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/display-import.md",
+        "products/directorist-pricing-plans/README.md",
+        "products/directorist-pricing-plans/topics/entitlements.md"
+      ],
+      "initial_utf8_bytes": 11965,
+      "initial_words": 1063
+    },
+    {
+      "query": "hours are blank in divi",
+      "products": [
+        "directorist-business-hours",
+        "directorist-divi-integration"
+      ],
+      "loaded_identity_topic_files": 4,
+      "selected_paths": [
+        "products/directorist-business-hours/README.md",
+        "products/directorist-business-hours/topics/display-import.md",
+        "products/directorist-divi-integration/README.md",
+        "products/directorist-divi-integration/topics/single-modules.md"
+      ],
+      "initial_utf8_bytes": 12136,
+      "initial_words": 1078
+    },
+    {
+      "query": "saved search email never arrives",
+      "products": [
+        "directorist-search-alert"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-search-alert/README.md",
+        "products/directorist-search-alert/topics/alert-delivery.md"
+      ],
+      "initial_utf8_bytes": 4580,
+      "initial_words": 444
+    },
+    {
+      "query": "gallery image import is not working",
+      "products": [
+        "directorist-gallery"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-gallery/README.md",
+        "products/directorist-gallery/topics/gallery-import.md"
+      ],
+      "initial_utf8_bytes": 5134,
+      "initial_words": 466
+    },
+    {
+      "query": "claim badge tooltip is incorrect",
+      "products": [
+        "directorist-claim-listing"
+      ],
+      "loaded_identity_topic_files": 2,
+      "selected_paths": [
+        "products/directorist-claim-listing/README.md",
+        "products/directorist-claim-listing/topics/paid-claim-badge.md"
+      ],
+      "initial_utf8_bytes": 5722,
+      "initial_words": 508
+    }
+  ],
+  "source_lookup": "Core emitter and Business Hours subscriber verified",
+  "installation": "fresh/identical accepted; differing existing skill refused and preserved"
+}

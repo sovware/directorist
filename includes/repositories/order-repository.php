@@ -11,6 +11,7 @@ use Directorist\Utils\Database\Query\Builder;
 use Directorist\Helpers\DateTime;
 use Directorist\DTO\Order\DTO;
 use Directorist\Enums\Order\Status as OrderStatus;
+use Directorist\Enums\Payment\Status as PaymentStatus;
 use Directorist\Enums\Order\TaxType as OrderTaxType;
 use Directorist\Enums\Order\DiscountType as OrderDiscountType;
 use Directorist\DTO\Order\Read;
@@ -86,6 +87,46 @@ class OrderRepository extends Repository {
             ->first();
 
         return $order ? true : false;
+    }
+
+    public function listing_has_active_featured_entitlement( int $listing_id ): bool {
+        $orders = $this->get_query_builder()
+            ->select( 'd_order.ref_type', 'd_order.created_at', 'd_order.expires_at' )
+            ->where( 'd_order.listing_id', $listing_id )
+            ->where( 'd_order.is_featured_listing', 1 )
+            ->where( 'd_order.status', OrderStatus::PAID )
+            ->get();
+
+        $current_time  = directorist_now()->getTimestamp();
+        $featured_days = (int) get_directorist_option( 'featured_listing_time', 30 );
+        $is_active     = false;
+
+        foreach ( $orders as $order ) {
+            if ( ! empty( $order->expires_at ) ) {
+                $is_active = ( new DateTime( $order->expires_at ) )->getTimestamp() > $current_time;
+            } elseif ( 'featured_listing' === $order->ref_type ) {
+                $is_active = ( new DateTime( $order->created_at ) )->add_days( $featured_days )->getTimestamp() > $current_time;
+            } else {
+                $is_active = true;
+            }
+
+            if ( $is_active ) {
+                break;
+            }
+        }
+
+        return (bool) apply_filters( 'directorist_listing_has_active_featured_entitlement', $is_active, $listing_id, $orders );
+    }
+
+    public function get_latest_paid_featured_order_by_listing_id( int $listing_id ) {
+        return $this->get_query_builder()
+            ->select( 'd_order.created_at', 'd_order.expires_at' )
+            ->where( 'd_order.listing_id', $listing_id )
+            ->where( 'd_order.is_featured_listing', 1 )
+            ->where( 'd_order.ref_type', 'featured_listing' )
+            ->where( 'd_order.status', OrderStatus::PAID )
+            ->order_by_desc( 'd_order.id' )
+            ->first();
     }
 
     protected function get_orders( Builder $query, Read $dto ) {
@@ -169,7 +210,7 @@ class OrderRepository extends Repository {
 
         do_action( 'directorist_after_order_update', $this->to_dto( $updated_order ), $old_order );
 
-        if ( $dto->is_initialized( 'status' ) ) {
+        if ( $dto->is_initialized( 'status' ) && in_array( $dto->get_status(), PaymentStatus::all(), true ) ) {
             ( new PaymentRepository )->update_status_by_order_id( $dto->get_id(), $dto->get_status() );
         }
 

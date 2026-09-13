@@ -195,13 +195,16 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             $user  = get_user_by( 'email', $email );
             if ( $user instanceof \WP_User && get_user_meta( $user->ID, 'directorist_user_email_unverified', true ) ) {
                 ATBDP()->email->send_user_confirmation_email( $user );
+                $query_args = [ 'send_verification_email' => true ];
+            } else {
+                $resent = ATBDP()->user->pending_registration->resend( $email );
+
+                $query_args = is_wp_error( $resent )
+                    ? [ 'pending_registration_error' => $resent->get_error_code() ]
+                    : [ 'send_verification_email' => true ];
             }
 
-            $args = ATBDP_Permalink::get_signin_signup_page_link(
-                [
-                    'send_verification_email' => true
-                ]
-            );
+            $args = ATBDP_Permalink::get_signin_signup_page_link( $query_args );
 
             wp_safe_redirect( $args );
             exit;
@@ -953,8 +956,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                     $upload_token = isset( $_POST['upload_token'] ) ? sanitize_text_field( wp_unslash( $_POST['upload_token'] ) ) : '';
                     $token_data   = $upload_token ? get_transient( 'directorist_file_upload_' . $upload_token ) : false;
 
-                    if (
-                        empty( $token_data )
+                    if ( empty( $token_data )
                         || ! is_array( $token_data )
                         || (int) ( $token_data['directory'] ?? 0 ) !== $directory
                         || (string) ( $token_data['field_key'] ?? '' ) !== $field_id
@@ -985,7 +987,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 }
 
                 $field_id   = sanitize_text_field( $field_config['field_key'] );
-                $fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( wp_unslash( $_FILES[ $field_id . 'async-upload' ] ) ) : '';
+                $fixed_file = ( ! empty( $_FILES[ $field_id . 'async-upload' ] ) ) ? directorist_clean( $_FILES[ $field_id . 'async-upload' ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Unslashing corrupts Windows upload paths in raw $_FILES data.
 
                 if ( empty( $fixed_file ) ) {
                     throw new \Exception( __( 'No file supplied.', 'directorist' ), 400 );
@@ -1253,17 +1255,27 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
             // delete the listing from here. first check the nonce and then delete and then send success.
             // save the data if nonce is good and data is valid
             if ( valid_js_nonce() && ! empty( $_POST['listing_id'] ) ) {
-                $pid = (int) $_POST['listing_id'];
-                // Check if the current user is the owner of the post
+                $pid = absint( wp_unslash( $_POST['listing_id'] ) );
                 $listing = get_post( $pid );
-                // delete the post if the current user is the owner of the listing
-                if ( get_current_user_id() == $listing->post_author || current_user_can( 'delete_at_biz_dirs' ) ) {
-                    $success = ATBDP()->listing->db->delete_listing_by_id( $pid );
-                    if ( $success ) {
-                        echo 'success';
-                    } else {
-                        echo 'error';
-                    }
+
+                if ( ! $listing || ATBDP_POST_TYPE !== $listing->post_type ) {
+                    echo 'error';
+                    wp_die();
+                }
+
+                $post_type_object = get_post_type_object( ATBDP_POST_TYPE );
+
+                if ( ! $post_type_object || ! current_user_can( $post_type_object->cap->delete_post, $pid ) ) {
+                    echo 'error';
+                    wp_die();
+                }
+
+                // Delete the listing only when WordPress allows deleting this specific post.
+                $success = ATBDP()->listing->db->delete_listing_by_id( $pid );
+                if ( $success ) {
+                    echo 'success';
+                } else {
+                    echo 'error';
                 }
             } else {
                 echo 'error';

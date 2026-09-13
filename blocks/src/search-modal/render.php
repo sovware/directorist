@@ -1,5 +1,5 @@
 <div class="directorist-search-popup-block">
-    <div class="directorist-search-popup-block__button">
+    <button type="button" class="directorist-search-popup-block__button" aria-haspopup="dialog" aria-expanded="false">
         <?php
         if ( 'icon' === $attributes['styleDisplay'] ) {
             directorist_icon( 'fa fa-search' );
@@ -12,7 +12,7 @@
 
         }
         ?>
-    </div>
+    </button>
 
     <?php include_once DIRECTORIST_BLOCK_TEMPLATE_PATH . '/popup.php'; ?>
 </div>

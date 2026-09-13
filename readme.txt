@@ -13,7 +13,7 @@ Build any type of directory website such as a business directory, job directory,
 
 == Description ==
 
->👉 __[See what users are saying about Directorist](https://wordpress.org/support/topic/directorist-is-the-best-directory-plugin-out-there/)__
+>👉 __[See what users are saying about Directorist](https://wordpress.org/support/plugin/directorist/reviews/)__
 >⭐⭐⭐⭐⭐
 >*I’ve been using Directorist for my directory website for over a year now, and I can honestly say it’s one of the most reliable and feature-rich directory plugins I’ve worked with.*
 
@@ -300,13 +300,15 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.9.4 - Aug 18, 2026 =
+= 8.9.4 - Sep 2, 2026 =
 
 **Improved**
 - Added prepaid order status support across order management and REST API status mapping. (#2955)
 
 **Fixed**
 - Author profile links missing directory type slug in multi-directory listings. (#2957)
+- Featured listing expiration sync issue. (#2969)
+- preserve archive filter directory context. (#2985)
 
 = 8.9.3 - Aug 9, 2026 =
 

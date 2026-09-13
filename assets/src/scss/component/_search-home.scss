@@ -77,6 +77,27 @@
 		}
 	}
 
+	// Native date inputs do not expose reliable placeholder text on mobile.
+	// Use the field label as a tappable-area-safe placeholder until focus/value.
+	@media screen and (max-width: 767px) {
+		.directorist-search-form-top &.directorist-date {
+			.directorist-search-field__label {
+				opacity: 1;
+				pointer-events: none;
+			}
+
+			&:not(.input-has-value):not(.input-is-focused)
+				.directorist-search-field__input[type='date'] {
+				color: transparent;
+				-webkit-text-fill-color: transparent;
+
+				&::-webkit-datetime-edit {
+					color: transparent;
+				}
+			}
+		}
+	}
+
 	&.input-has-value,
 	&.input-is-focused {
 		.directorist-search-field__input {
@@ -1310,6 +1331,17 @@
 			justify-content: flex-end;
 			font-size: 14px;
 			font-weight: 500;
+		}
+	}
+}
+
+@media only screen and (max-width: 575px) {
+	.directorist-search-form {
+		input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+		select,
+		textarea,
+		.select2-search__field {
+			font-size: 16px !important;
 		}
 	}
 }

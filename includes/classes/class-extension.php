@@ -238,6 +238,22 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-mpesa-payment-gateway' => [
+                    'name'        => 'M-Pesa Payment Gateway',
+                    'description' => __( 'Accept M-Pesa payments directly through your Directorist checkout.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/m-pesa-payment-gateway/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Mpesa-thumbnail.png',
+                    'active'      => true,
+                    'item_id'     => 372057,
+                ],
+                'directorist-notifications-pro' => [
+                    'name'        => 'Directorist Notifications Pro',
+                    'description' => __( 'Send instant browser push notifications for listings, payments, reviews, renewals, and other important directory events.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-notifications-pro/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Directorist-Notifications-Pro.jpg',
+                    'active'      => true,
+                    'item_id'     => 371698,
+                ],
                 'directorist-ai-search' => [
                     'name'        => 'Directorist AI Search',
                     'description' => __( 'AI-powered directory search that understands intent and improves listing discovery.', 'directorist' ),

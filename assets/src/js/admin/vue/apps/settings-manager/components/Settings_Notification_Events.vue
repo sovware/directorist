@@ -500,7 +500,7 @@ export default {
     },
 
     modalPlaceholders() {
-      const eventPlaceholders = this.eventTemplatePlaceholders(this.modalEvent);
+      const eventPlaceholders = this.modalEvent?.placeholders || [];
 
       if (eventPlaceholders.length) {
         return [...new Set(eventPlaceholders)];

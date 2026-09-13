@@ -170,16 +170,31 @@ class Listings_Exporter {
         if ( ! is_array( $data_table ) ) {
             return $data_table; }
 
-        $max_tr_val   = max( $tr_lengths );
-        $max_tr_index = array_search( $max_tr_val, $tr_lengths );
-        $modal_tr     = $data_table[ $max_tr_index ];
+        $columns = [];
+        foreach ( $data_table as $row ) {
+            if ( ! is_array( $row ) ) {
+                continue;
+            }
+
+            foreach ( array_keys( $row ) as $row_key ) {
+                $columns[ $row_key ] = '';
+            }
+        }
+
+        if ( empty( $columns ) ) {
+            return $data_table;
+        }
 
         $justify_table = [];
         foreach ( $data_table as $row ) {
+            if ( ! is_array( $row ) ) {
+                continue;
+            }
+
             $tr = [];
 
-            foreach ( $modal_tr as $row_key => $row_value ) {
-                $tr[ $row_key ] = ( isset( $row[ $row_key ] ) ) ? $row[ $row_key ] : '';
+            foreach ( $columns as $row_key => $default_value ) {
+                $tr[ $row_key ] = array_key_exists( $row_key, $row ) ? $row[ $row_key ] : $default_value;
             }
 
             $justify_table[] = $tr;

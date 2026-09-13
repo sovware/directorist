@@ -27,8 +27,8 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
             Offline Payment Made*/
             // add_action('atbdp_offline_payment_created', array($this, 'notify_owner_offline_payment_created'), 10, 2);
             /*Fire up email for Completed Orders*/
-            add_action( 'atbdp_order_completed', [ $this, 'notify_owner_order_completed' ], 10, 2 );
-            add_action( 'atbdp_order_completed', [ $this, 'notify_admin_order_completed' ], 10, 2 );
+            add_action( 'atbdp_order_completed', [ $this, 'notify_owner_order_completed' ], 10, 3 );
+            add_action( 'atbdp_order_completed', [ $this, 'notify_admin_order_completed' ], 10, 3 );
             /*Fire up email for renewal notification*/
             add_action( 'atbdp_status_updated_to_renewal', [ $this, 'notify_owner_listing_to_expire' ] );
             /*Fire up email for expired listings*/
@@ -92,12 +92,13 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
          * @param int     $order_id [optional] Order ID
          * @param int     $listing_id [optional] Listing ID
          * @param WP_User $user [optional] User Object
+         * @param stdClass $order [optional] New table order object
          * @see strtr() is better than str_replace() in our case : https://stackoverflow.com/questions/8177296/when-to-use-strtr-vs-str-replace
          * @return string               It returns the content after replacing the placeholder with proper data.
          */
-        public function replace_in_content( $content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin = 0 ) {
+        public function replace_in_content( $content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null, $pin = 0, $order = null ) {
             if ( empty( $listing_id ) ) {
-                $listing_id = (int) get_post_meta( $order_id, '_listing_id', true );
+                $listing_id = ! empty( $order->listing_id ) ? (int) $order->listing_id : (int) get_post_meta( $order_id, '_listing_id', true );
             }
             if ( empty( $user ) ) {
                 $post_author_id = get_post_field( 'post_author', $listing_id ? $listing_id : $order_id );
@@ -184,7 +185,26 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
 
             $c = nl2br( strtr( $content, $find_replace ) );
             // we do not want to use br for line break in the order details markup. so we removed that from bulk replacement.
-            return str_replace( '==ORDER_DETAILS==', ATBDP_Order::get_order_details( $order_id ), $c );
+            if ( false === strpos( $c, '==ORDER_DETAILS==' ) ) {
+                return $c;
+            }
+
+            return str_replace( '==ORDER_DETAILS==', ATBDP_Order::get_order_details( $order_id, $order ), $c );
+        }
+
+        /**
+         * Get the admin order details URL for legacy and new table orders.
+         *
+         * @param int      $order_id The order ID.
+         * @param stdClass $order Optional new table order object.
+         * @return string
+         */
+        private function get_admin_order_receipt_url( $order_id, $order = null ) {
+            if ( ! empty( $order ) ) {
+                return admin_url( 'edit.php?post_type=at_biz_dir&page=directorist-orders#/edit/' . absint( $order_id ) );
+            }
+
+            return admin_url( 'edit.php?post_type=atbdp_orders' );
         }
 
         /**
@@ -571,7 +591,7 @@ This email is sent automatically for information purpose only. Please do not res
          * @param int $listing_id The Listing ID
          * @return bool Whether the message was sent successfully or not.
          */
-        public function notify_owner_order_completed( $order_id, $listing_id ) {
+        public function notify_owner_order_completed( $order_id, $listing_id, $order = null ) {
             if ( get_directorist_option( 'disable_email_notification' ) ) {
                 return false;
             }
@@ -581,8 +601,8 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $user = $this->get_owner( $listing_id ? $listing_id : $order_id );
-            $subject = $this->replace_in_content( get_directorist_option( 'email_sub_completed_order' ), $order_id, $listing_id, $user );
-            $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_completed_order' ), $order_id, $listing_id, $user );
+            $subject = $this->replace_in_content( get_directorist_option( 'email_sub_completed_order' ), $order_id, $listing_id, $user, null, 0, $order );
+            $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_completed_order' ), $order_id, $listing_id, $user, null, 0, $order );
             $message = atbdp_email_html( $subject, $body );
             $to = $user->user_email;
             $headers = $this->get_email_headers();
@@ -1094,7 +1114,7 @@ This email is sent automatically for information purpose only. Please do not res
          * @param int $listing_id the listing id
          * @return bool Whether the email was sent correctly or not
          */
-        public function notify_admin_order_completed( $order_id, $listing_id ) {
+        public function notify_admin_order_completed( $order_id, $listing_id, $order = null ) {
 
             if ( get_directorist_option( 'disable_email_notification' ) ) {
                 return false;
@@ -1105,11 +1125,11 @@ This email is sent automatically for information purpose only. Please do not res
             }
 
             $s = __( '[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist' );
-            $subject = $this->replace_in_content( $s, $order_id );
+            $subject = $this->replace_in_content( $s, $order_id, $listing_id, null, null, 0, $order );
 
             $t = $this->get_order_completed_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
-            $body = str_replace( '==ORDER_RECEIPT_URL==', admin_url( 'edit.php?post_type=atbdp_orders' ), $t );
-            $body = $this->replace_in_content( $body, $order_id, $listing_id );
+            $body = str_replace( '==ORDER_RECEIPT_URL==', $this->get_admin_order_receipt_url( $order_id, $order ), $t );
+            $body = $this->replace_in_content( $body, $order_id, $listing_id, null, null, 0, $order );
             $message = atbdp_email_html( $subject, $body );
             $to = $this->get_admin_email_list();
             $headers = $this->get_email_headers();

@@ -82,7 +82,8 @@
         <?php } ?>
 
         <?php
-        $has_direction = ! empty( $display_direction_map ) && ( ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) || ! empty( $ls_data['address'] ) );
+        $has_coordinates = isset( $ls_data['manual_lat'], $ls_data['manual_lng'] ) && is_numeric( $ls_data['manual_lat'] ) && is_numeric( $ls_data['manual_lng'] );
+        $has_direction   = ! empty( $display_direction_map ) && ( $has_coordinates || ! empty( $ls_data['address'] ) );
 
         if ( ! empty( $ls_data['address'] ) || ! empty( $ls_data['phone'] ) || $has_direction ) { ?>
             <div class="map-listing-card-single__content__info">
@@ -109,7 +110,7 @@
                 }
 
                 if ( $has_direction ) {
-                    $direction_destination = ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ? $ls_data['manual_lat'] . ',' . $ls_data['manual_lng'] : $ls_data['address'];
+                    $direction_destination = $has_coordinates ? $ls_data['manual_lat'] . ',' . $ls_data['manual_lng'] : $ls_data['address'];
                     $direction_url         = add_query_arg(
                         array(
                             'api'         => 1,

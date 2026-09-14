@@ -93,14 +93,20 @@ class ATBDP_Order
 
     /**
      * It returns order details in html format
-     * @param int $order_id The order ID
+     * @param int      $order_id The order ID
+     * @param stdClass $table_order Optional new table order object.
      * @return string
      */
-    public static function get_order_details( $order_id ) {
+    public static function get_order_details( $order_id, $table_order = null ) {
+        if ( ! empty( $table_order ) ) {
+            return self::get_table_order_details( $table_order );
+        }
+
         if ( empty( $order_id ) ) return __( 'No Order ID Provided', 'directorist' );
-        $c_position = get_directorist_option( 'payment_currency_position' );
-        $currency = atbdp_get_payment_currency();
-        $symbol = atbdp_currency_symbol( $currency );
+        $c_position  = get_directorist_option( 'payment_currency_position' );
+        $currency    = atbdp_get_payment_currency();
+        $symbol      = atbdp_currency_symbol( $currency );
+
         $order_items = apply_filters( 'atbdp_order_items_data', [], $order_id ); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
 
         $featured = get_post_meta( $order_id, '_featured', true );
@@ -155,6 +161,85 @@ class ATBDP_Order
                      * @return float The filtered order amount.
                      */
                     $total_amount = apply_filters( 'directorist_email_receipt_order_amount', $amount, $order_id );
+
+                    echo esc_html( $before . $total_amount . $after );
+                    do_action( 'atbdp_email_receipt_after_total_price', $listing_id );
+                    ?>
+                </td>
+            </tr>
+        </table>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
+     * It returns new table order details in html format.
+     *
+     * @param stdClass $table_order New table order object.
+     * @return string
+     */
+    public static function get_table_order_details( $table_order ) {
+        if ( empty( $table_order ) ) return __( 'No Order ID Provided', 'directorist' );
+
+        $table_order_id = ! empty( $table_order->id ) ? absint( $table_order->id ) : 0;
+
+        if ( $table_order_id && function_exists( 'directorist_order_repository' ) && ! isset( $table_order->listing_title ) ) {
+            $order = directorist_order_repository()->single( $table_order_id );
+
+            if ( ! empty( $order ) ) {
+                $table_order = $order;
+            }
+        }
+
+        $c_position     = get_directorist_option( 'payment_currency_position' );
+        $order_currency = ! empty( $table_order->currency ) ? $table_order->currency : atbdp_get_payment_currency();
+        $symbol         = html_entity_decode( atbdp_currency_symbol( $order_currency ), ENT_QUOTES, get_bloginfo( 'charset' ) );
+        $listing_id     = ! empty( $table_order->listing_id ) ? absint( $table_order->listing_id ) : 0;
+        $order_dto      = function_exists( 'directorist_order_repository' ) ? directorist_order_repository()->to_dto( $table_order ) : null;
+        $order_items    = $order_dto ? apply_filters( 'directorist_payment_receipt_order_items', [], $order_dto ) : [];
+
+        if ( empty( $order_items ) ) {
+            $order_items[] = [
+                'title' => ! empty( $table_order->order_type ) ? $table_order->order_type : __( 'Order', 'directorist' ),
+                'desc'  => ! empty( $table_order->listing_title ) ? $table_order->listing_title : get_the_title( $listing_id ),
+                'price' => $table_order->sub_total ?? $table_order->amount ?? 0,
+            ];
+        }
+
+        $before = '';
+        $after  = '';
+
+        if ( 'after' == $c_position ) {
+            $after = $symbol;
+        } else {
+            $before = $symbol;
+        }
+
+        ob_start();
+        ?>
+        <table border="0" cellspacing="0" cellpadding="7" style="border:1px solid #CCC;">
+            <tr style="background-color:#F0F0F0;">
+                <th style="border-right:1px solid #CCC; border-bottom:1px solid #CCC; text-align:left;"><?php esc_html_e( 'Item(s)', 'directorist' ); ?></th>
+                <th style="border-bottom:1px solid #CCC;"><?php printf( esc_html__( 'Price [%s]', 'directorist' ), esc_html( $order_currency ) ); ?></th>
+            </tr>
+            <?php foreach ( $order_items as $order ) : ?>
+                <tr>
+                    <td style="border-right:1px solid #CCC; border-bottom:1px solid #CCC;">
+                        <h3><?php echo ! empty( $order['label'] ) ? esc_html( $order['label'] ) : esc_html( $order['title'] ?? '' ); ?></h3>
+                        <?php echo ! empty( $order['desc'] ) ? esc_html( $order['desc'] ) : ''; ?>
+                    </td>
+                    <td style="border-bottom:1px solid #CCC;">
+                        <?php echo esc_html( $before . ( $order['price'] ?? 0 ) . $after ); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td style="border-right:1px solid #CCC; text-align:right; vertical-align:middle;">
+                    <?php printf( esc_html__( 'Total amount [%s]', 'directorist' ), esc_html( $order_currency ) ); ?>
+                </td>
+                <td>
+                    <?php
+                    $total_amount = apply_filters( 'directorist_email_receipt_order_amount', directorist_order_total_amount( $table_order ), $table_order_id );
 
                     echo esc_html( $before . $total_amount . $after );
                     do_action( 'atbdp_email_receipt_after_total_price', $listing_id );

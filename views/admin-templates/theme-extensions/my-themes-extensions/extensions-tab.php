@@ -95,7 +95,7 @@
                     </form>
                 </div>
             <?php else : ?>
-                <p class="atbdp-text-center"><?php esc_html_e( 'No extension found' ) ?></p>
+                <p class="atbdp-text-center"><?php esc_html_e( 'No extension found', 'directorist' ) ?></p>
             <?php endif; ?>
         </div>
     </div><!-- ends: .ext-installed -->

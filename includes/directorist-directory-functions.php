@@ -41,6 +41,10 @@ function directorist_get_listing_form_fields( $directory_id, $context = [] ) {
         unset( $fields['view_count'] );
     }
 
+    if ( isset( $fields['listing_type'] ) && ( is_fee_manager_active() || ! directorist_is_featured_listing_enabled( $context ) ) ) {
+        unset( $fields['listing_type'] );
+    }
+
     return $fields;
 }
 

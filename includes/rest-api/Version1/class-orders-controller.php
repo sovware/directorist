@@ -81,7 +81,11 @@ class Orders_Controller extends Abstract_Controller {
     }
 
     public function create_item_permissions_check( $request ) {
-        return is_user_logged_in();
+        if ( ! $this->admin_permissions_check() ) {
+            return new WP_Error( 'directorist_rest_cannot_create_order', __( 'Sorry, you are not allowed to create orders.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
+        }
+
+        return true;
     }
 
     public function create_item( $request ) {
@@ -89,7 +93,7 @@ class Orders_Controller extends Abstract_Controller {
             return new WP_Error( 'invalid_request', __( 'Monetization disabled.', 'directorist' ), array( 'status' => 400 ) );
         }
 
-        $customer_id = absint( $request->get_param( 'customer' ) );
+        $customer_id = $this->admin_permissions_check() ? absint( $request->get_param( 'customer' ) ) : 0;
         $customer_id = $customer_id ? $customer_id : get_current_user_id();
 
         if ( ! $customer_id || ! get_user_by( 'id', $customer_id ) ) {
@@ -241,7 +245,9 @@ class Orders_Controller extends Abstract_Controller {
             );
 
         $customer = absint( $request->get_param( 'customer' ) );
-        if ( $customer ) {
+        if ( ! $this->admin_permissions_check() ) {
+            $query->where( 'd_order.user_id', get_current_user_id() );
+        } elseif ( $customer ) {
             $query->where( 'd_order.user_id', $customer );
         }
 

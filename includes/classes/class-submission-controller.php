@@ -510,10 +510,6 @@ class SubmissionController {
                     return false;
                 }
 
-                if ( is_numeric( $value ) && $value == 0 ) {
-                    return false;
-                }
-
                 return true;
             }, ARRAY_FILTER_USE_BOTH 
         );

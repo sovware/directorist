@@ -118,6 +118,13 @@
                         </div>
                     </figcaption>
                 </figure>
+
+                <?php if ( ! empty( $_theme_args['is_installed'] ) && ! empty( $_theme_args['has_update'] ) && ! empty( $_theme_args['stylesheet'] ) ) : ?>
+                <div class="theme-card__footer">
+                    <p class="theme-update theme-update--available"><?php esc_html_e( 'Update available', 'directorist' )?></p>
+                    <a href="#" class="theme-update-btn" data-target="<?php echo esc_attr( $_theme_args['stylesheet'] ); ?>"><?php echo esc_html( $args['is_beta'] ? 'Update Beta' : 'Update' ); ?></a>
+                </div>
+                <?php endif;?>
             </div>
             <?php endforeach;?>
         </div>

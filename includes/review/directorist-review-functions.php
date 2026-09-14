@@ -121,7 +121,7 @@ function directorist_get_comment_edit_link( $args = [], $comment = null, $post =
         return;
     }
 
-    if ( ! current_user_can( 'edit_comment', $comment->comment_ID ) ) {
+    if ( ! current_user_can( 'edit_directorist_review', $comment->comment_ID ) ) {
         return;
     }
 

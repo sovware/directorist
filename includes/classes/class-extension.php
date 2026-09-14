@@ -238,6 +238,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-pay-per-lead' => [
+                    'name'        => 'Directorist Pay Per Lead',
+                    'description' => __( 'Monetize listing inquiries by charging owners to unlock qualified leads.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-pay-per-lead/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Pay-Per-Lead-Feature-Image.jpg',
+                    'active'      => true,
+                    'item_id'     => 372148,
+                ],
                 'directorist-mpesa-payment-gateway' => [
                     'name'        => 'M-Pesa Payment Gateway',
                     'description' => __( 'Accept M-Pesa payments directly through your Directorist checkout.', 'directorist' ),

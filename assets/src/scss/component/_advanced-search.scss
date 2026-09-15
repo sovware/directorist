@@ -100,6 +100,16 @@
 						}
 					}
 				}
+				// Keep select labels separate from their configured placeholders.
+				.directorist-select .directorist-search-field__label {
+					position: static;
+					display: block;
+					opacity: 1;
+					transform: none;
+					line-height: 1.5;
+					margin-bottom: 8px;
+					overflow-wrap: anywhere;
+				}
 				.directorist-form-group__prefix--start {
 					opacity: 0;
 					transition: opacity 0.3s ease;

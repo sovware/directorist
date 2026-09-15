@@ -139,6 +139,7 @@ class Asset_Loader {
                 wp_enqueue_style( 'directorist-formgent-integration-style' );
                 Enqueue::style( 'directorist/frontend', 'build/css/public/app', ['wp-components'] );
                 Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/react/frontend/listing-owner-dashboard' );
+                wp_set_script_translations( 'directorist-listing-owner-dashboard', 'directorist', ATBDP_DIR . 'languages' );
 
                 $currency = directorist_get_currency();
 

@@ -48,7 +48,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             // show the attachment of the current users only.
             add_filter( 'ajax_query_attachments_args', [ $this, 'show_current_user_attachments' ] );
             add_action( 'template_redirect', [ $this, 'handle_listing_renewal' ] );
-            add_action( 'wp_after_insert_post', [ $this, 'complete_renewal_approval' ], 100, 4 );
+            add_action( 'wp_insert_post', [ $this, 'complete_renewal_approval' ], 100, 3 );
             add_action( 'wp_ajax_add_listing_action', [ $this, 'atbdp_submit_listing' ] );
             add_action( 'wp_ajax_nopriv_add_listing_action', [ $this, 'atbdp_submit_listing' ] );
 
@@ -1051,7 +1051,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
         /**
          * Start the new listing lifetime when an administrator publishes a renewal.
          */
-        public function complete_renewal_approval( $post_id, $post, $update, $post_before ) {
+        public function complete_renewal_approval( $post_id, $post, $update ) {
             if ( ATBDP_POST_TYPE !== $post->post_type || ! get_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY, true ) ) {
                 return;
             }
@@ -1061,7 +1061,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 return;
             }
 
-            if ( ! $update || ! $post_before || 'pending' !== $post_before->post_status || 'publish' !== $post->post_status ) {
+            if ( ! $update || 'publish' !== $post->post_status ) {
                 return;
             }
 

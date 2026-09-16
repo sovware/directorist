@@ -990,6 +990,16 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 return;
             }
 
+            $listing_status = get_post_status( $listing_id );
+            $can_renew      = 'expired' === $listing_status || (
+                'publish' === $listing_status &&
+                'renewal' === get_post_meta( $listing_id, '_listing_status', true )
+            );
+
+            if ( ! directorist_can_user_renew_listings() || ! $can_renew ) {
+                wp_die( esc_html__( 'This listing is not eligible for renewal.', 'directorist' ), '', array( 'response' => 400 ) );
+            }
+
             $saved_token = get_post_meta( $listing_id, '_renewal_token', true );
             if ( ( ! empty( $saved_token ) && $saved_token === $token && $renew_from === 'email' ) || $renew_from === 'dashboard' ) {
                 $this->renew_listing( $listing_id );
@@ -1019,17 +1029,20 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             // Hook for developers
             do_action( 'atbdp_before_renewal', $listing_id );
 
-            update_post_meta( $listing_id, '_featured', 0 ); // delete featured
-
-            // for listing package extensions...
-            if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
-                // if paid submission enabled/triggered by an extension, redirect to the checkout page and let that handle it, and vail out.
-                update_post_meta( $listing_id, '_refresh_renewal_token', 1 );
-                wp_safe_redirect( ATBDP_Permalink::get_checkout_page_link( $listing_id ) );
+            if (
+                directorist_is_listing_featured( $listing_id ) &&
+                directorist_is_monetization_enabled() &&
+                directorist_is_featured_listing_enabled() &&
+                ! directorist_is_force_disabled_featured_listings()
+            ) {
+                wp_safe_redirect( directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $listing_id ] ) );
                 exit;
             }
 
+            update_post_meta( $listing_id, '_featured', 0 ); // delete featured
+
             $time       = current_time( 'mysql' );
+            $old_status = get_post_status( $listing_id );
             $post_array = [
                 'ID'            => $listing_id,
                 'post_status'   => 'publish',
@@ -1042,11 +1055,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
             $directory_type = directorist_get_listing_directory( $listing_id );
             // Update the post_meta into the database
-            // TODO: Status has been migrated, remove related code.
-            // $old_status = get_post_meta( $listing_id, '_listing_status', true );
-            $old_status = get_post_status( $listing_id );
             if ( 'expired' === $old_status ) {
-                $expiry_date = calc_listing_expiry_date();
+                $expiry_date = calc_listing_expiry_date( null, null, $directory_type );
             } else {
                 $old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
                 $expiry_date     = calc_listing_expiry_date( $old_expiry_date, '',  $directory_type );

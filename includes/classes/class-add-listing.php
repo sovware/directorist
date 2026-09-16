@@ -23,6 +23,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
      * Class ATBDP_Add_Listing
      */
     class ATBDP_Add_Listing {
+        const RENEWAL_PENDING_META_KEY = '_directorist_renewal_pending';
+
         protected static $selected_categories = null;
 
         /**
@@ -46,6 +48,7 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             // show the attachment of the current users only.
             add_filter( 'ajax_query_attachments_args', [ $this, 'show_current_user_attachments' ] );
             add_action( 'template_redirect', [ $this, 'handle_listing_renewal' ] );
+            add_action( 'wp_after_insert_post', [ $this, 'complete_renewal_approval' ], 100, 4 );
             add_action( 'wp_ajax_add_listing_action', [ $this, 'atbdp_submit_listing' ] );
             add_action( 'wp_ajax_nopriv_add_listing_action', [ $this, 'atbdp_submit_listing' ] );
 
@@ -1029,57 +1032,53 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             // Hook for developers
             do_action( 'atbdp_before_renewal', $listing_id );
 
-            if (
-                directorist_is_listing_featured( $listing_id ) &&
-                directorist_is_monetization_enabled() &&
-                directorist_is_featured_listing_enabled() &&
-                ! directorist_is_force_disabled_featured_listings()
-            ) {
-                wp_safe_redirect( directorist_get_checkout_page_url( 'featured_listing', [ 'listing_id' => $listing_id ] ) );
-                exit;
+            update_post_meta( $listing_id, self::RENEWAL_PENDING_META_KEY, 1 );
+            $updated = wp_update_post( [ 'ID' => $listing_id, 'post_status' => 'pending' ], true );
+
+            if ( is_wp_error( $updated ) || ! $updated ) {
+                delete_post_meta( $listing_id, self::RENEWAL_PENDING_META_KEY );
+                wp_die( esc_html__( 'Could not submit this listing for renewal.', 'directorist' ), '', [ 'response' => 500 ] );
             }
 
-            update_post_meta( $listing_id, '_featured', 0 ); // delete featured
-
-            $time       = current_time( 'mysql' );
-            $old_status = get_post_status( $listing_id );
-            $post_array = [
-                'ID'            => $listing_id,
-                'post_status'   => 'publish',
-                'post_date'     => $time,
-                'post_date_gmt' => get_gmt_from_date( $time ),
-            ];
-
-            // Updating listing
-            wp_update_post( $post_array );
-
-            $directory_type = directorist_get_listing_directory( $listing_id );
-            // Update the post_meta into the database
-            if ( 'expired' === $old_status ) {
-                $expiry_date = calc_listing_expiry_date( null, null, $directory_type );
-            } else {
-                $old_expiry_date = get_post_meta( $listing_id, '_expiry_date', true );
-                $expiry_date     = calc_listing_expiry_date( $old_expiry_date, '',  $directory_type );
-            }
-
-            // update related post meta_data
-            update_post_meta( $listing_id, '_expiry_date', $expiry_date );
-            // TODO: Status has been migrated, remove related code.
-            update_post_meta( $listing_id, '_listing_status', 'post_status' );
-
-            if ( directorist_get_default_expiration( $directory_type ) <= 0 ) {
-                update_post_meta( $listing_id, '_never_expire', 1 );
-            } else {
-                delete_post_meta( $listing_id, '_never_expire' );
-            }
-
-            do_action( 'atbdp_after_renewal', $listing_id );
-            $r_url = add_query_arg( 'renew', 'success', ATBDP_Permalink::get_dashboard_page_link() );
+            directorist_set_listing_featured( $listing_id, false );
             delete_post_meta( $listing_id, '_renewal_token', 0 );
-            // hook for dev
+            $r_url = add_query_arg( 'renew', 'pending', ATBDP_Permalink::get_dashboard_page_link() );
             do_action( 'atbdp_before_redirect_after_renewal', $listing_id );
             wp_safe_redirect( $r_url );
             exit;
+        }
+
+        /**
+         * Start the new listing lifetime when an administrator publishes a renewal.
+         */
+        public function complete_renewal_approval( $post_id, $post, $update, $post_before ) {
+            if ( ATBDP_POST_TYPE !== $post->post_type || ! get_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY, true ) ) {
+                return;
+            }
+
+            if ( in_array( $post->post_status, [ 'rejected', 'trash' ], true ) ) {
+                delete_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY );
+                return;
+            }
+
+            if ( ! $update || ! $post_before || 'pending' !== $post_before->post_status || 'publish' !== $post->post_status ) {
+                return;
+            }
+
+            $directory_type  = directorist_get_listing_directory( $post_id );
+            $expiration_days = directorist_get_default_expiration( $directory_type );
+
+            if ( $expiration_days > 0 ) {
+                update_post_meta( $post_id, '_expiry_date', calc_listing_expiry_date( null, $expiration_days, $directory_type ) );
+                delete_post_meta( $post_id, '_never_expire' );
+            } else {
+                delete_post_meta( $post_id, '_expiry_date' );
+                update_post_meta( $post_id, '_never_expire', 1 );
+            }
+
+            update_post_meta( $post_id, '_listing_status', 'post_status' );
+            delete_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY );
+            do_action( 'atbdp_after_renewal', $post_id );
         }
     } // ends ATBDP_Add_Listing
 

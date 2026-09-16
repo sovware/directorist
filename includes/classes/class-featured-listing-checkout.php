@@ -149,9 +149,8 @@ class FeaturedListingCheckout {
 
             directorist_set_listing_featured( $dto->get_listing_id(), true );
 
-            // A paid featured checkout also renews an expired listing.
+            // Publish the listing if it's pending
             $listing = get_post( $dto->get_listing_id() );
-            $is_renewal = $listing && 'expired' === $listing->post_status;
 
             if ( $listing && $order_expiration ) {
                 $this->update_listing_expiration( $listing, $order_expiration );
@@ -162,11 +161,6 @@ class FeaturedListingCheckout {
             }
 
             if ( ! isset( $old_order->status ) || Status::PAID !== $old_order->status ) {
-                if ( $is_renewal ) {
-                    delete_post_meta( $dto->get_listing_id(), '_renewal_token' );
-                    do_action( 'atbdp_after_renewal', $dto->get_listing_id() );
-                }
-
                 $order = directorist_order_repository()->single( $dto->get_id() );
 
                 do_action( 'atbdp_order_completed', $dto->get_id(), $dto->get_listing_id(), $order );

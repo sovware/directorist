@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <div class="directorist-alert directorist-alert-info directorist-alert-dismissable"><?php directorist_icon( 'las la-info-circle' ); ?><?php esc_html_e( 'Renewed successfully.', 'directorist' ); ?></div>
 <?php endif; ?>
 
+<?php if ( $renew_pending ) : ?>
+    <div class="directorist-alert directorist-alert-info directorist-alert-dismissable"><?php directorist_icon( 'las la-info-circle' ); ?><?php esc_html_e( 'Renewal submitted for approval.', 'directorist' ); ?></div>
+<?php endif; ?>
+
 <?php if ( $dashboard->confirmation_text() ) : ?>
     <div class="directorist-alert directorist-alert-info directorist-alert-dismissible">
         <?php echo esc_html( $dashboard->confirmation_text() ); ?>

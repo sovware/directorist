@@ -521,14 +521,16 @@ class Directorist_Listing_Dashboard {
         if ( isset( $_GET['renew'] ) ) {
             $renew_token_expired = $_GET['renew'] == 'token_expired' ? true : false;
             $renew_succeed = $_GET['renew'] == 'success' ? true : false;
+            $renew_pending = $_GET['renew'] == 'pending' ? true : false;
         } else {
-            $renew_token_expired = $renew_succeed = false;
+            $renew_token_expired = $renew_succeed = $renew_pending = false;
         }
 
         $args = [
             'dashboard' => $this,
             'renew_token_expired' => $renew_token_expired,
             'renew_succeed' => $renew_succeed,
+            'renew_pending' => $renew_pending,
         ];
 
         Helper::get_template( 'dashboard/notice', $args );

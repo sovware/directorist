@@ -167,7 +167,14 @@ class Walker extends Walker_Comment {
                 </div>
                 
                 <?php if ( $comment->comment_approved == '0' ) : ?>
-                    <p><em class="comment-awaiting-moderation"><?php echo esc_html( $moderation_note ); ?></em></p>
+                    <div class="directorist-alert directorist-alert-success comment-awaiting-moderation" role="status">
+                        <div class="directorist-alert__content">
+                            <span><?php echo esc_html( $moderation_note ); ?></span>
+                            <button type="button" class="directorist-alert__close" aria-label="<?php esc_attr_e( 'Dismiss notice', 'directorist' ); ?>">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
                 <?php endif; ?>
 
                 <?php if ( $comment_reply_link || current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>

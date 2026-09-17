@@ -129,6 +129,7 @@ class Directorist_AI_Setup_Wizard {
                 ],
                 'i18n'      => [
                     'generateError'      => __( 'Could not generate setup data. Please try again.', 'directorist' ),
+                    'fallbackNotice'     => __( 'AI is taking longer than expected, so we prepared a starter setup. You can edit it before launch.', 'directorist' ),
                     'launchError'        => __( 'Could not launch your directory. Please try again.', 'directorist' ),
                     'categoryName'       => __( 'Category name', 'directorist' ),
                     'exitConfirm'        => __( 'Exit setup and go to the dashboard? Your progress will not be saved.', 'directorist' ),
@@ -180,7 +181,13 @@ class Directorist_AI_Setup_Wizard {
         $response = $this->request_waxai( 'setup-wizard/generate', [ 'prompt' => $prompt ] );
 
         if ( is_wp_error( $response ) ) {
-            wp_send_json_error( [ 'message' => $response->get_error_message() ], 400 );
+            wp_send_json_success(
+                [
+                    'setup'    => $this->get_fallback_setup( $prompt ),
+                    'fallback' => true,
+                    'message'  => __( 'AI is taking longer than expected, so we prepared a starter setup. You can edit it before launch.', 'directorist' ),
+                ]
+            );
         }
 
         wp_send_json_success( [ 'setup' => $this->normalize_setup_payload( $response ) ] );
@@ -304,6 +311,266 @@ class Directorist_AI_Setup_Wizard {
         }
 
         return $data;
+    }
+
+    private function get_fallback_setup( $prompt ) {
+        $templates = $this->get_fallback_templates();
+        $key       = $this->match_fallback_template_key( $prompt, $templates );
+        $setup     = $templates[ $key ]['setup'];
+
+        /**
+         * Filters the setup payload used when AI setup generation is unavailable.
+         *
+         * @param array  $setup  Fallback setup payload.
+         * @param string $prompt User prompt.
+         * @param string $key    Matched fallback template key.
+         */
+        $setup = apply_filters( 'directorist_ai_setup_wizard_fallback_setup', $setup, $prompt, $key );
+
+        return $this->normalize_setup_payload( is_array( $setup ) ? $setup : $templates['local']['setup'] );
+    }
+
+    private function match_fallback_template_key( $prompt, array $templates ) {
+        $prompt = strtolower( sanitize_text_field( $prompt ) );
+
+        foreach ( $templates as $key => $template ) {
+            if ( empty( $template['keywords'] ) || ! is_array( $template['keywords'] ) ) {
+                continue;
+            }
+
+            foreach ( $template['keywords'] as $keyword ) {
+                if ( '' !== $keyword && false !== strpos( $prompt, strtolower( $keyword ) ) ) {
+                    return $key;
+                }
+            }
+        }
+
+        return 'local';
+    }
+
+    private function get_fallback_templates() {
+        return [
+            'restaurant' => [
+                'keywords' => [ 'restaurant', 'food', 'dining', 'cafe', 'coffee', 'menu' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Restaurant Directory', 'directorist' ),
+                    'categories'      => [ __( 'Restaurants', 'directorist' ), __( 'Cafes', 'directorist' ), __( 'Fast Food', 'directorist' ), __( 'Fine Dining', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Title', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Address', 'directorist' ), 'type' => 'address' ],
+                        [ 'label' => __( 'Map', 'directorist' ), 'type' => 'map' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Email', 'directorist' ), 'type' => 'email' ],
+                        [ 'label' => __( 'Website', 'directorist' ), 'type' => 'website' ],
+                        [ 'label' => __( 'Price Range', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Cuisine Type', 'directorist' ), 'type' => 'select', 'options' => [ __( 'Local', 'directorist' ), __( 'Italian', 'directorist' ), __( 'Chinese', 'directorist' ), __( 'Fast Food', 'directorist' ) ] ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'job'        => [
+                'keywords' => [ 'job', 'career', 'hiring', 'recruit', 'vacancy', 'employment' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Job Board', 'directorist' ),
+                    'categories'      => [ __( 'Full Time', 'directorist' ), __( 'Part Time', 'directorist' ), __( 'Remote', 'directorist' ), __( 'Contract', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Job Title', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Job Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Company', 'directorist' ), 'type' => 'text' ],
+                        [ 'label' => __( 'Location', 'directorist' ), 'type' => 'location' ],
+                        [ 'label' => __( 'Salary Range', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Job Type', 'directorist' ), 'type' => 'select', 'options' => [ __( 'Full Time', 'directorist' ), __( 'Part Time', 'directorist' ), __( 'Remote', 'directorist' ), __( 'Contract', 'directorist' ) ] ],
+                        [ 'label' => __( 'Application Link', 'directorist' ), 'type' => 'url' ],
+                        [ 'label' => __( 'Application Deadline', 'directorist' ), 'type' => 'date' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'realestate' => [
+                'keywords' => [ 'real estate', 'property', 'apartment', 'home', 'house', 'rent', 'sale' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Real Estate Directory', 'directorist' ),
+                    'categories'      => [ __( 'Apartments', 'directorist' ), __( 'Houses', 'directorist' ), __( 'Commercial', 'directorist' ), __( 'Land', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Property Title', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Address', 'directorist' ), 'type' => 'address' ],
+                        [ 'label' => __( 'Map', 'directorist' ), 'type' => 'map' ],
+                        [ 'label' => __( 'Price', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Bedrooms', 'directorist' ), 'type' => 'number' ],
+                        [ 'label' => __( 'Bathrooms', 'directorist' ), 'type' => 'number' ],
+                        [ 'label' => __( 'Area', 'directorist' ), 'type' => 'number' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'classified' => [
+                'keywords' => [ 'classified', 'marketplace', 'buy', 'sell', 'product', 'item' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Classifieds Marketplace', 'directorist' ),
+                    'categories'      => [ __( 'For Sale', 'directorist' ), __( 'Electronics', 'directorist' ), __( 'Vehicles', 'directorist' ), __( 'Home Goods', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Listing Title', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Price', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Condition', 'directorist' ), 'type' => 'select', 'options' => [ __( 'New', 'directorist' ), __( 'Used', 'directorist' ), __( 'Refurbished', 'directorist' ) ] ],
+                        [ 'label' => __( 'Location', 'directorist' ), 'type' => 'location' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'automotive' => [
+                'keywords' => [ 'car', 'vehicle', 'automotive', 'auto', 'motor', 'mileage' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Car Listings Directory', 'directorist' ),
+                    'categories'      => [ __( 'Sedan', 'directorist' ), __( 'SUV', 'directorist' ), __( 'Truck', 'directorist' ), __( 'Electric', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Vehicle Title', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Make', 'directorist' ), 'type' => 'text' ],
+                        [ 'label' => __( 'Model', 'directorist' ), 'type' => 'text' ],
+                        [ 'label' => __( 'Year', 'directorist' ), 'type' => 'number' ],
+                        [ 'label' => __( 'Mileage', 'directorist' ), 'type' => 'number' ],
+                        [ 'label' => __( 'Price', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Location', 'directorist' ), 'type' => 'location' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'hotel'      => [
+                'keywords' => [ 'hotel', 'room', 'booking', 'resort', 'stay', 'accommodation' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Hotel Directory', 'directorist' ),
+                    'categories'      => [ __( 'Hotels', 'directorist' ), __( 'Resorts', 'directorist' ), __( 'Guest Houses', 'directorist' ), __( 'Apartments', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Hotel Name', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Address', 'directorist' ), 'type' => 'address' ],
+                        [ 'label' => __( 'Map', 'directorist' ), 'type' => 'map' ],
+                        [ 'label' => __( 'Room Type', 'directorist' ), 'type' => 'select', 'options' => [ __( 'Single', 'directorist' ), __( 'Double', 'directorist' ), __( 'Suite', 'directorist' ) ] ],
+                        [ 'label' => __( 'Price Range', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Amenities', 'directorist' ), 'type' => 'checkbox', 'options' => [ __( 'WiFi', 'directorist' ), __( 'Parking', 'directorist' ), __( 'Pool', 'directorist' ) ] ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Booking Link', 'directorist' ), 'type' => 'url' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'medical'    => [
+                'keywords' => [ 'doctor', 'medical', 'clinic', 'health', 'dentist', 'physician' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Medical Directory', 'directorist' ),
+                    'categories'      => [ __( 'Doctors', 'directorist' ), __( 'Clinics', 'directorist' ), __( 'Dentists', 'directorist' ), __( 'Specialists', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Name', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Profile', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Specialty', 'directorist' ), 'type' => 'select', 'options' => [ __( 'General', 'directorist' ), __( 'Dental', 'directorist' ), __( 'Cardiology', 'directorist' ), __( 'Pediatrics', 'directorist' ) ] ],
+                        [ 'label' => __( 'Address', 'directorist' ), 'type' => 'address' ],
+                        [ 'label' => __( 'Map', 'directorist' ), 'type' => 'map' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Email', 'directorist' ), 'type' => 'email' ],
+                        [ 'label' => __( 'Appointment Link', 'directorist' ), 'type' => 'url' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => false,
+                    'demo_content'    => true,
+                ],
+            ],
+            'legal'      => [
+                'keywords' => [ 'law', 'lawyer', 'legal', 'attorney', 'firm', 'solicitor' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Legal Directory', 'directorist' ),
+                    'categories'      => [ __( 'Lawyers', 'directorist' ), __( 'Law Firms', 'directorist' ), __( 'Consultants', 'directorist' ), __( 'Notaries', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Name', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Profile', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Practice Area', 'directorist' ), 'type' => 'select', 'options' => [ __( 'Family Law', 'directorist' ), __( 'Business Law', 'directorist' ), __( 'Criminal Law', 'directorist' ), __( 'Real Estate Law', 'directorist' ) ] ],
+                        [ 'label' => __( 'Address', 'directorist' ), 'type' => 'address' ],
+                        [ 'label' => __( 'Map', 'directorist' ), 'type' => 'map' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Email', 'directorist' ), 'type' => 'email' ],
+                        [ 'label' => __( 'Website', 'directorist' ), 'type' => 'website' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'service'    => [
+                'keywords' => [ 'service', 'professional', 'lead', 'provider', 'contractor', 'expert' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Service Marketplace', 'directorist' ),
+                    'categories'      => [ __( 'Home Services', 'directorist' ), __( 'Business Services', 'directorist' ), __( 'Creative Services', 'directorist' ), __( 'Consulting', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Service Title', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Service Area', 'directorist' ), 'type' => 'location' ],
+                        [ 'label' => __( 'Starting Price', 'directorist' ), 'type' => 'pricing' ],
+                        [ 'label' => __( 'Experience', 'directorist' ), 'type' => 'number' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Email', 'directorist' ), 'type' => 'email' ],
+                        [ 'label' => __( 'Portfolio Link', 'directorist' ), 'type' => 'url' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+            'local'      => [
+                'keywords' => [ 'business', 'directory', 'local', 'place', 'city', 'community' ],
+                'setup'    => [
+                    'directory_name'  => __( 'Local Business Directory', 'directorist' ),
+                    'categories'      => [ __( 'Restaurants', 'directorist' ), __( 'Shopping', 'directorist' ), __( 'Services', 'directorist' ), __( 'Health', 'directorist' ) ],
+                    'default_address' => '',
+                    'fields'          => [
+                        [ 'label' => __( 'Business Name', 'directorist' ), 'type' => 'title' ],
+                        [ 'label' => __( 'Description', 'directorist' ), 'type' => 'description' ],
+                        [ 'label' => __( 'Category', 'directorist' ), 'type' => 'category' ],
+                        [ 'label' => __( 'Address', 'directorist' ), 'type' => 'address' ],
+                        [ 'label' => __( 'Map', 'directorist' ), 'type' => 'map' ],
+                        [ 'label' => __( 'Phone', 'directorist' ), 'type' => 'phone' ],
+                        [ 'label' => __( 'Email', 'directorist' ), 'type' => 'email' ],
+                        [ 'label' => __( 'Website', 'directorist' ), 'type' => 'website' ],
+                        [ 'label' => __( 'Photos', 'directorist' ), 'type' => 'image_upload' ],
+                        [ 'label' => __( 'Social Links', 'directorist' ), 'type' => 'social_info' ],
+                    ],
+                    'monetization'    => true,
+                    'demo_content'    => true,
+                ],
+            ],
+        ];
     }
 
     private function normalize_setup_payload( array $payload ) {

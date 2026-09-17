@@ -658,6 +658,18 @@
 
 				renderSummary();
 				showScreen('summary');
+
+				if (response.data && response.data.fallback) {
+					showNotice(
+						getMessage(
+							response,
+							t(
+								'fallbackNotice',
+								'AI is taking longer than expected, so we prepared a starter setup. You can edit it before launch.'
+							)
+						)
+					);
+				}
 			})
 			.fail(function (response) {
 				showScreen('prompt');

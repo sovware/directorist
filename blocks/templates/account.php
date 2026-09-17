@@ -27,9 +27,14 @@ if ( $is_logged_in ||
 }
 ?>
 
+<?php
+$account_modal_id = isset( $account_modal_id ) ? $account_modal_id : 'directorist-account-block-login-modal';
+$account_label_id = $account_modal_id . '-label';
+?>
+
 <div class="directorist-account-block-authentication-modal">
 
-    <div class="modal fade" id="directorist-account-block-login-modal" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="<?php echo esc_attr( $account_modal_id ); ?>" role="dialog" aria-modal="true" aria-labelledby="<?php echo esc_attr( $account_label_id ); ?>" aria-hidden="true" tabindex="-1">
 
         <div class="modal-dialog modal-dialog-centered" role="document">
 
@@ -37,9 +42,9 @@ if ( $is_logged_in ||
 
                 <div class="modal-header">
 
-                    <div class="modal-title" id="login_modal_label"><?php esc_html_e( 'Account', 'directorist' );?></div>
+                    <div class="modal-title" id="<?php echo esc_attr( $account_label_id ); ?>"><?php esc_html_e( 'Account', 'directorist' );?></div>
 
-                    <button type="button" class="directorist-account-block-close" data-bs-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                    <button type="button" class="directorist-account-block-close" data-bs-dismiss="modal" aria-label="<?php esc_attr_e( 'Close account dialog', 'directorist' ); ?>"> <span aria-hidden="true">×</span> </button>
 
                 </div>
 
@@ -55,8 +60,4 @@ if ( $is_logged_in ||
 
     </div>
 
-</div>
-
-<div class="directorist-account-block-logout-mode">
-    <?php echo wp_kses_post( $content ); ?>
 </div>

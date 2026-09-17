@@ -31,8 +31,8 @@ if ( is_numeric( $searchform->listing_type ) ) {
             <div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
                 <div class="directorist-search-modal__contents__header">
                     <h3 class="directorist-search-modal__contents__title"><?php esc_html_e( 'More Filters', 'directorist' ); ?></h3>
-                    <button class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close"><?php directorist_icon( 'fas fa-times' ); ?></button>
-                    <span class="directorist-search-modal__minimizer"></span>
+                    <button type="button" class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close" aria-label="<?php esc_attr_e( 'Close search', 'directorist' ); ?>"><?php directorist_icon( 'fas fa-times' ); ?></button>
+                    <span class="directorist-search-modal__minimizer" aria-hidden="true"></span>
                 </div>
                 <div class="directorist-search-modal__contents__body">
                     <?php foreach ( $searchform->form_data[1]['fields'] as $field ) : ?>
@@ -49,7 +49,11 @@ if ( is_numeric( $searchform->listing_type ) ) {
         <div class="directorist-search-modal directorist-search-modal--basic">
             <div class="directorist-search-modal__overlay"></div>
             <div class="directorist-search-adv-filter directorist-advanced-filter directorist-search-modal__contents">
-                <span class="directorist-search-modal__minimizer"></span>
+                <div class="directorist-search-modal__contents__header">
+                    <h3 class="directorist-search-modal__contents__title"><?php esc_html_e( 'Search', 'directorist' ); ?></h3>
+                    <button type="button" class="directorist-search-modal__contents__btn directorist-search-modal__contents__btn--close" aria-label="<?php esc_attr_e( 'Close search', 'directorist' ); ?>"><?php directorist_icon( 'fas fa-times' ); ?></button>
+                    <span class="directorist-search-modal__minimizer" aria-hidden="true"></span>
+                </div>
                 <div class="directorist-search-modal__contents__body">
                     <?php foreach ( $searchform->form_data[0]['fields'] as $field ) : ?>
                         <div class="directorist-search-modal__input">

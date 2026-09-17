@@ -732,7 +732,7 @@ class Directorist_Listing_Search_Form {
         $field_data['lazy_load'] = false;
 
         if ( $this->is_custom_field( $field_data ) ) {
-            if ( ! empty( $_REQUEST['custom_field'][$key] ) ) {
+            if ( isset( $_REQUEST['custom_field'][$key] ) ) {
                 $value = is_array( $_REQUEST['custom_field'][$key] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['custom_field'][$key] ) ) : sanitize_text_field( wp_unslash( $_REQUEST['custom_field'][$key] ) );
             } else {
                 $value = '';
@@ -830,30 +830,48 @@ class Directorist_Listing_Search_Form {
     }
 
     public function top_categories() {
-        $top_categories = [];
+        $directory_id = (string) absint( $this->listing_type );
+        // Walk complete serialized key/value pairs so array indexes cannot match a directory ID.
+        // Legacy metadata can contain either integer IDs or numeric string IDs.
+        $legacy_directory_pattern = '^a:[0-9]+:[{](i:[0-9]+;(i:[0-9]+;|s:[0-9]+:"[0-9]+";))*i:[0-9]+;(i:' . $directory_id . ';|s:' . strlen( $directory_id ) . ':"' . $directory_id . '";)';
 
         $args = [
-            'type'          => ATBDP_POST_TYPE,
-            'parent'        => 0,
-            'orderby'       => 'count',
-            'order'         => 'desc',
-            'hide_empty'    => 1,
-            'number'        => (int) $this->popular_cat_num,
-            'taxonomy'      => ATBDP_CATEGORY,
-            'no_found_rows' => true,
+            'type'                                  => ATBDP_POST_TYPE,
+            'orderby'                               => 'count',
+            'order'                                 => 'desc',
+            'hide_empty'                            => 1,
+            'hierarchical'                          => false,
+            'number'                                => (int) $this->popular_cat_num,
+            'taxonomy'                              => ATBDP_CATEGORY,
+            'no_found_rows'                         => true,
+            'directorist_popular_categories_query' => true,
+            'meta_query'                            => [
+                'relation' => 'OR',
+                [
+                    'key'     => '_directory_type_' . absint( $this->listing_type ),
+                    'compare' => 'EXISTS',
+                ],
+                [
+                    'key'     => '_directory_type',
+                    'value'   => $legacy_directory_pattern,
+                    'compare' => 'REGEXP',
+                ],
+            ],
         ];
 
-        $cats = get_categories( $args );
-
-        foreach ( $cats as $cat ) {
-            $directory_type      = get_term_meta( $cat->term_id, '_directory_type', true );
-            $directory_type      = ! empty( $directory_type ) ? (array) $directory_type : [];
-            $listing_type_id     = $this->listing_type;
-
-            if ( in_array( $listing_type_id, $directory_type ) ) {
-                $top_categories[] = $cat;
+        $root_categories_only = static function ( $clauses, $taxonomies, $query_args ) {
+            if ( empty( $query_args['directorist_popular_categories_query'] ) || ! in_array( ATBDP_CATEGORY, $taxonomies, true ) ) {
+                return $clauses;
             }
-        }
+
+            $clauses['where'] .= ' AND tt.parent = 0';
+
+            return $clauses;
+        };
+
+        add_filter( 'terms_clauses', $root_categories_only, 10, 3 );
+        $top_categories = get_categories( $args );
+        remove_filter( 'terms_clauses', $root_categories_only, 10 );
 
         return $top_categories;
     }

@@ -9,12 +9,13 @@ use \Directorist\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-$id         = $listing->id;
-$author_id  = $listing->author_id;
-$u_pro_pic  = get_user_meta( $author_id, 'pro_pic', true );
-$u_pro_pic  = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
-$author_img = ! empty( $u_pro_pic ) ? $u_pro_pic[0] : '';
-$avatar_img = get_avatar( $author_id, 32 );
+$id             = $listing->id;
+$author_id      = $listing->author_id;
+$directory_type = ATBDP_Permalink::get_listing_directory_type_slug( $id );
+$u_pro_pic      = get_user_meta( $author_id, 'pro_pic', true );
+$u_pro_pic      = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
+$author_img     = ! empty( $u_pro_pic ) ? $u_pro_pic[0] : '';
+$avatar_img     = get_avatar( $author_id, 32 );
 ?>
 
 <section class="directorist-card directorist-card-author-info <?php echo esc_attr( $class );?>" <?php $listing->section_id( $id ); ?>>
@@ -112,7 +113,7 @@ $avatar_img = get_avatar( $author_id, 32 );
 
             <?php endif; ?>
 
-            <a class="directorist-btn directorist-btn-light directorist-btn-md diretorist-view-profile-btn" href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id ) ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
+            <a class="directorist-btn directorist-btn-light directorist-btn-md diretorist-view-profile-btn" href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ) ); ?>"><?php esc_html_e( 'View Profile', 'directorist' ); ?></a>
 
         </div>
     </div>

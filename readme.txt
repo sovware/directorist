@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.0
 Requires PHP: 7.0
-Stable tag: 8.9.2
+Stable tag: 8.9.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Build any type of directory website such as a business directory, job directory,
 
 == Description ==
 
->👉 __[See what users are saying about Directorist](https://wordpress.org/support/topic/directorist-is-the-best-directory-plugin-out-there/)__
+>👉 __[See what users are saying about Directorist](https://wordpress.org/support/plugin/directorist/reviews/)__
 >⭐⭐⭐⭐⭐
 >*I’ve been using Directorist for my directory website for over a year now, and I can honestly say it’s one of the most reliable and feature-rich directory plugins I’ve worked with.*
 
@@ -299,6 +299,57 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.9.5 - Sep 14, 2026 =
+
+**Security**
+- Fixed a security issue in order REST API handling. (#3000)
+
+**Improved**
+- Added normalized contact data support for anonymous users. (#2977)
+- Added v2 Listings API improvements. (#2963)
+- Improved native search and account modal customization. (#2996)
+- Improved single listing slider layout controls. (#2995)
+- Improved extension email template placeholders. (#2970)
+- Allowed inactive themes to update from Themes & Extensions. (#2946)
+- Ordered listing card locations by hierarchy. (#2947)
+
+**Fixed**
+- Search reset range slider errors. (#2994)
+- Unavailable listing type and map directions handling. (#2993)
+- Number fields not preserving zero values. (#2988)
+- Multi-directory custom fields in listing export. (#2987)
+- Archive filter directory context. (#2986)
+- Badge condition preview label display. (#2981)
+- Taxonomy directory tabs being intercepted. (#2975)
+- Optional dropdowns auto-selecting the first value. (#2973)
+- Taxonomy subterm depth per root. (#2971)
+- Featured listing order completion emails. (#2966)
+- Multi-directory save flow and Directory Builder access. (#2958)
+- Mobile search modal interaction. (#2953)
+- User creation before email verification. (#2952)
+- Listing creation in the v1 REST API. (#2951)
+- Popular categories filtering before result limit. (#2950)
+- Location edit back-link label. (#2949)
+- Uploads and directory imports failing when using IIS temporary file paths. (#2948)
+- Native Directorist localization textdomains. (#2944)
+- Listing URL validation without explicit schemes. (#2943)
+- Mobile date picker display and instant search behavior. (#2936)
+
+= 8.9.4 - Sep 2, 2026 =
+
+**Improved**
+- Added prepaid order status support across order management and REST API status mapping. (#2955)
+
+**Fixed**
+- Author profile links missing directory type slug in multi-directory listings. (#2957)
+- Featured listing expiration sync issue. (#2969)
+- preserve archive filter directory context. (#2985)
+
+= 8.9.3 - Aug 9, 2026 =
+
+**Security**
+ - Prevent path traversal in REST listing submission file and image upload handling.
 
 = 8.9.2 - Jul 27, 2026 =
 

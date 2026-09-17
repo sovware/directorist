@@ -45,6 +45,7 @@ function atbdp_get_payment_statuses() {
     $statuses = [
         'created' => __( "Created", 'directorist' ),
         'pending' => __( "Pending", 'directorist' ),
+        'prepaid' => __( "Prepaid", 'directorist' ),
         'completed' => __( "Completed", 'directorist' ),
         'failed' => __( "Failed", 'directorist' ),
         'cancelled' => __( "Cancelled", 'directorist' ),

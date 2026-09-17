@@ -12,13 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <div class="directorist-single-author-info">
         <?php
-        $listing_id = get_the_ID();
-        $author_id = get_post_field( 'post_author', $listing_id );
-        $author_name = get_the_author_meta( 'display_name', $author_id );
+        $listing_id      = get_the_ID();
+        $author_id       = get_post_field( 'post_author', $listing_id );
+        $directory_type  = ATBDP_Permalink::get_listing_directory_type_slug( $listing_id );
+        $author_name     = get_the_author_meta( 'display_name', $author_id );
         $user_registered = get_the_author_meta( 'user_registered', $author_id );
-        $u_pro_pic = get_user_meta( $author_id, 'pro_pic', true );
-        $u_pro_pic = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
-        $avatar_img = get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) );
+        $u_pro_pic       = get_user_meta( $author_id, 'pro_pic', true );
+        $u_pro_pic       = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
+        $avatar_img      = get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) );
         ?>
         <div class="directorist-single-author-avatar">
             <figure class="directorist-single-author-avatar-inner">
@@ -124,7 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <?php endif; ?>
 
-    <a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id ) ); ?>"
+    <a href="<?php echo esc_url( ATBDP_Permalink::get_user_profile_page_link( $author_id, $directory_type ) ); ?>"
         class="<?php echo esc_attr( atbdp_directorist_button_classes( 'light' ) ); ?> diretorist-view-profile-btn"><?php esc_html_e( 'View Profile', 'directorist' ); ?>
     </a>
 

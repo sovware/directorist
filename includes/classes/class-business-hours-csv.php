@@ -43,6 +43,8 @@ if ( ! class_exists( 'ATBDP_Business_Hours_CSV' ) ) :
         }
 
         public function add_importable_field( $fields ) {
+            unset( $fields['bdbh'] );
+
             if ( ! isset( $fields[ self::COLUMN ] ) ) {
                 $fields[ self::COLUMN ] = __( 'Business Hours', 'directorist' );
             }
@@ -64,6 +66,8 @@ if ( ! class_exists( 'ATBDP_Business_Hours_CSV' ) ) :
 
         public function add_field_label_aliases( $map ) {
             $aliases = [
+                'bdbh'            => self::COLUMN,
+                'BDBH'            => self::COLUMN,
                 'business_hours'  => self::COLUMN,
                 'business hours'  => self::COLUMN,
                 'Business Hours'  => self::COLUMN,
@@ -95,6 +99,8 @@ if ( ! class_exists( 'ATBDP_Business_Hours_CSV' ) ) :
         }
 
         public function add_export_column( $row ) {
+            unset( $row['bdbh'] );
+
             $row[ self::COLUMN ] = $this->format_business_hours( get_the_ID() );
 
             $socials = $this->get_normalized_social_links( get_the_ID() );

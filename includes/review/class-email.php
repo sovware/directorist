@@ -12,11 +12,52 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Email {
+    /**
+     * Approved reviews awaiting their metadata before notification.
+     *
+     * @var array
+     */
+    private static $pending_owner_notifications = [];
+
     public static function init() {
-        add_action( 'comment_post', [ __CLASS__, 'notify_owner' ] );
+        add_action( 'wp_insert_comment', [ __CLASS__, 'queue_owner_notification' ] );
+        add_action( 'transition_comment_status', [ __CLASS__, 'on_status_transition' ], 10, 3 );
+        add_action( 'shutdown', [ __CLASS__, 'send_pending_owner_notifications' ] );
+        add_filter( 'notify_post_author', [ __CLASS__, 'disable_default_owner_notification' ], 10, 2 );
+        add_filter( 'comment_notification_recipients', [ __CLASS__, 'exclude_default_owner_recipients' ], 10, 2 );
         add_action( 'comment_post', [ __CLASS__, 'notify_admin' ] );
 
         add_action( 'comment_post', [ __CLASS__, 'maybe_disable_default_email' ], 0 );
+    }
+
+    public static function disable_default_owner_notification( $notify, $comment_id ) {
+        return self::get_review( $comment_id ) ? false : $notify;
+    }
+
+    public static function exclude_default_owner_recipients( $recipients, $comment_id ) {
+        return self::get_review( $comment_id ) ? [] : $recipients;
+    }
+
+    public static function queue_owner_notification( $comment_id ) {
+        $review = self::get_review( $comment_id );
+        if ( $review && '1' === $review->comment_approved ) {
+            self::$pending_owner_notifications[ $comment_id ] = $comment_id;
+        }
+    }
+
+    public static function on_status_transition( $new_status, $old_status, $comment ) {
+        if ( 'approved' === $new_status && $new_status !== $old_status ) {
+            self::queue_owner_notification( $comment->comment_ID );
+        }
+    }
+
+    public static function send_pending_owner_notifications() {
+        $comment_ids                       = self::$pending_owner_notifications;
+        self::$pending_owner_notifications = [];
+
+        foreach ( $comment_ids as $comment_id ) {
+            self::notify_owner( $comment_id );
+        }
     }
 
     public static function maybe_disable_default_email() {
@@ -34,20 +75,19 @@ class Email {
         }
 
         $review = self::get_review( $comment_id );
-        if ( ! $review ) {
+        if ( ! $review || '1' !== $review->comment_approved || get_comment_meta( $comment_id, '_directorist_owner_notified', true ) ) {
             return false;
         }
 
         $post = get_post( $review->comment_post_ID );
         $user = get_userdata( $post->post_author );
 
-        // The comment was left by the user.
-        if ( $user && $review->user_id == $post->post_author ) {
+        if ( ! $user ) {
             return false;
         }
 
-        // The author moderated a comment on their own post.
-        if ( $user && get_current_user_id() == $post->post_author ) {
+        // The comment was left by the user.
+        if ( $user && $review->user_id == $post->post_author ) {
             return false;
         }
 
@@ -56,33 +96,31 @@ class Email {
             return false;
         }
 
-        $site_name     = get_bloginfo( 'name' );
-        $site_url      = get_bloginfo( 'url' );
+        $reviewer      = get_userdata( $review->user_id );
+        $reviewer_name = $reviewer ? $reviewer->display_name : $review->comment_author;
+        $reviewer_name = $reviewer_name ? $reviewer_name : __( 'Anonymous', 'directorist' );
         $listing_title = get_the_title( $post->ID );
-        $listing_url   = get_permalink( $post->ID );
+        $review_link   = sprintf( '<a href="%s">%s</a>', esc_url( get_comment_link( $review ) ), esc_html__( 'View review', 'directorist' ) );
+        $rating        = (float) get_comment_meta( $comment_id, 'rating', true );
 
-        $placeholders = [
-            '{site_name}'     => $site_name,
-            '{site_link}'     => sprintf( '<a href="%s">%s</a>', $site_url, $site_name ),
-            '{site_url}'      => sprintf( '<a href="%s">%s</a>', $site_url, $site_url ),
-            '{listing_title}' => $listing_title,
-            '{listing_link}'  => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_title ),
-            '{listing_url}'   => sprintf( '<a href="%s">%s</a>', $listing_url, $listing_url ),
-            '{sender_name}'   => empty( $review->comment_author ) ? $review->comment_author_email : $review->comment_author,
-            '{sender_email}'  => $review->comment_author_email,
-            '{message}'       => $review->comment_content,
-        ];
+        /* translators: 1: Site name, 2: Listing title. */
+        $subject = sprintf( __( '[%1$s] New review at "%2$s"', 'directorist' ), get_bloginfo( 'name' ), $listing_title );
+        /* translators: 1: Listing title, 2: Public reviewer name, 3: Star rating, 4: Review text, 5: Public review link. */
+        $message = sprintf(
+            __( 'Listing: %1$s<br />Reviewer: %2$s<br />Rating: %3$s / 5<br />Review: %4$s<br /><br />%5$s', 'directorist' ),
+            esc_html( $listing_title ),
+            esc_html( $reviewer_name ),
+            esc_html( number_format_i18n( $rating, 1 ) ),
+            nl2br( esc_html( $review->comment_content ) ),
+            $review_link
+        );
 
-        $subject = __( '[{site_name}] New review at "{listing_title}"', 'directorist' );
-        $subject = strtr( $subject, $placeholders );
+        $sent = ATBDP()->email->send_mail( $user->user_email, $subject, $message, ATBDP()->email->get_email_headers() );
+        if ( $sent ) {
+            update_comment_meta( $comment_id, '_directorist_owner_notified', 1 );
+        }
 
-        $message = __( "Dear User,<br /><br />A new review at {listing_url}.<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Review: {message}", 'directorist' );
-        $message = strtr( $message, $placeholders );
-
-        $headers = "From: {$review->comment_author_email} <{$review->comment_author_email}>\r\n";
-        $headers .= "Reply-To: {$review->comment_author_email}\r\n";
-
-        return ATBDP()->email->send_mail( $user->user_email, $subject, $message, $headers );
+        return $sent;
     }
 
     public static function notify_admin( $comment_id ) {

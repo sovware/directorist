@@ -57,8 +57,8 @@ class Comment_Form_Processor {
                 );
             }
 
-            if ( ! current_user_can( 'edit_comment', $comment_id ) ) {
-                throw new Exception( sprintf( __( 'You are not allowed to edit this %s.', 'directorist' ), 400 ), $comment_type_label );
+            if ( ! current_user_can( 'edit_directorist_review', $comment_id ) ) {
+                throw new Exception( sprintf( __( 'You are not allowed to edit this %s.', 'directorist' ), $comment_type_label ), 403 );
             }
 
             if ( $is_review ) {

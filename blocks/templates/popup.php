@@ -1,5 +1,7 @@
-<div class="directorist-search-popup-block__popup">
-    <button type="button" class="directorist-search-popup-block__form-close" aria-label="<?php esc_attr_e( 'Close search', 'directorist' ); ?>">
+<?php $search_popup_id = isset( $search_popup_id ) ? $search_popup_id : 'directorist-search-popup'; ?>
+
+<div id="<?php echo esc_attr( $search_popup_id ); ?>" class="directorist-search-popup-block__popup" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Search listings', 'directorist' ); ?>" aria-hidden="true">
+    <button type="button" class="directorist-search-popup-block__form-close" aria-label="<?php esc_attr_e( 'Close search dialog', 'directorist' ); ?>">
         <?php directorist_icon( 'la times' );?>
     </button>
     <div class="dspb-container">

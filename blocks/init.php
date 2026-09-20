@@ -14,6 +14,7 @@ define( 'DIRECTORIST_BLOCK_TEMPLATE_PATH', __DIR__ . '/templates' );
 
 require_once __DIR__ . '/includes/class-block-template-utils.php';
 require_once __DIR__ . '/includes/class-block-templates-controller.php';
+require_once __DIR__ . '/includes/modal-block-functions.php';
 
 // Check if the current theme is a block theme
 if ( wp_is_block_theme() ) {
@@ -38,6 +39,7 @@ function directorist_register_blocks() {
             'locationTax'           => ATBDP_LOCATION,
             'postType'              => ATBDP_POST_TYPE,
             'previewUrl'            => plugin_dir_url( __FILE__ ),
+            'iconUrl'               => ATBDP_URL . 'assets/icons/',
             'multiDirectoryEnabled' => directorist_is_multi_directory_enabled(),
         ]
     );
@@ -159,7 +161,7 @@ function directorist_block_render_callback( $attributes, $content, $instance ) {
     }
 
     $attributes['is_block_editor'] = true;
-    $output = directorist_do_shortcode_callback( $shortcode, $attributes, $content );
+    $output                        = directorist_do_shortcode_callback( $shortcode, $attributes, $content );
 
     if ( empty( $output ) && current_user_can( 'edit_posts' ) ) {
         return sprintf(
@@ -278,26 +280,30 @@ function directorist_add_single_listing_shortcode( $atts = [] ) {
 
 add_shortcode( 'directorist_single_listing', 'directorist_add_single_listing_shortcode' );
 
-function directorist_account_block_avatar_image( $size = 40 ) {
+function directorist_account_block_avatar_image( $size = 40, $radius = 50 ) {
     $image_id  = (int) get_user_meta( get_current_user_id(), 'pro_pic', true );
     $image_url = wp_get_attachment_image_url( $image_id, 'thumbnail' );
 
     if ( empty( $image_url ) ) {
-        echo get_avatar(
-            get_current_user_id(),
-            $size,
-            null,
-            null,
-            [
-                'class' => 'rounded-circle'
-            ]
+        echo wp_kses_post(
+            get_avatar(
+                get_current_user_id(),
+                $size,
+                null,
+                get_the_author_meta( 'display_name', get_current_user_id() ),
+                [
+                    'class' => 'avatar rounded-circle',
+                    'style' => 'border-radius:' . min( 50, absint( $radius ) ) . '%',
+                ]
+            )
         );
     } else {
         echo sprintf(
-            '<img width="%1$s" src="%2$s" alt="%2$s" class="avatar rounded-circle"/>',
+            '<img width="%1$s" height="%1$s" src="%2$s" alt="%3$s" class="avatar rounded-circle" style="border-radius:%4$s%%" />',
             esc_attr( $size ),
             esc_url( $image_url ),
-            esc_attr( get_the_author_meta( 'display_name', get_current_user_id() ) )
+            esc_attr( get_the_author_meta( 'display_name', get_current_user_id() ) ),
+            esc_attr( min( 50, absint( $radius ) ) )
         );
     }
 }

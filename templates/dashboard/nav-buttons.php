@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-tab__nav__action">
 
     <?php if ( $dashboard->user_can_submit() ) : ?>
-        <a href="<?php echo esc_url( ATBDP_Permalink::get_add_listing_page_link() ); ?>" class="directorist-btn directorist-btn--add-listing"><?php esc_html_e( 'Submit Listing', 'directorist' ); ?></a>
+        <a href="<?php echo is_fee_manager_active() ? esc_url( ATBDP_Permalink::get_fee_plan_page_link() ) : esc_url( ATBDP_Permalink::get_add_listing_page_link() ); ?>" class="directorist-btn directorist-btn--add-listing"><?php esc_html_e( 'Submit Listing', 'directorist' ); ?></a>
     <?php endif; ?>
 
     <?php if ( $dashboard->user_type == 'general' && ! empty( $dashboard->become_author_button ) ) : ?>

@@ -1543,6 +1543,9 @@ function updateLocalNonce() {
 			if (response.success) {
 				window.directorist.directorist_nonce =
 					response.data.directorist_nonce;
+				if (response.data.rest_nonce) {
+					window.directorist.rest_nonce = response.data.rest_nonce;
+				}
 			}
 		},
 	});

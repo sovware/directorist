@@ -3,9 +3,9 @@ Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 8.9.5
+Stable tag: 8.9.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,19 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.9.6 - Sep 20, 2026 =
+
+**Security**
+- Hardened review moderation permissions and owner notifications to prevent private reviewer data exposure. (#3016)
+
+**Improved**
+- Improved listing CSV import and export with Business Hours and social link support. (#3028)
+
+**Fixed**
+- Dashboard listing submissions bypassing the configured Pricing Plans page. (#2999)
+- REST nonce not refreshing after guest listing submissions. (#3006)
+- Advanced search filter labels overlapping and retaining stale values after reset. (#3022)
 
 = 8.9.5 - Sep 14, 2026 =
 

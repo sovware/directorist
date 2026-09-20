@@ -159,6 +159,12 @@ class FeaturedListingCheckout {
             if ( $listing && 'publish' !== $listing->post_status ) {
                 directorist_set_listing_status( $dto->get_listing_id(), 'publish' );
             }
+
+            if ( ! isset( $old_order->status ) || Status::PAID !== $old_order->status ) {
+                $order = directorist_order_repository()->single( $dto->get_id() );
+
+                do_action( 'atbdp_order_completed', $dto->get_id(), $dto->get_listing_id(), $order );
+            }
         } elseif ( ! directorist_order_repository()->listing_has_active_featured_entitlement( $dto->get_listing_id() ) ) {
             directorist_set_listing_featured( $dto->get_listing_id(), false );
         }

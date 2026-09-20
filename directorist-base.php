@@ -844,7 +844,6 @@ final class Directorist_Base {
     }
 } // ends Directorist_Base
 
-
 /**
  * The main function for that returns Directorist_Base
  *

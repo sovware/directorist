@@ -1544,11 +1544,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $auth_method = isset( $_POST['auth_method'] ) && 'access_key' === sanitize_key( wp_unslash( $_POST['auth_method'] ) )
                 ? 'access_key'
                 : 'account';
-            $access_key  = ( isset( $_POST['access_key'] ) ) ? sanitize_text_field( wp_unslash( $_POST['access_key'] ) ) : '';
-			$submitted_login = ( isset( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : ''; // @codingStandardsIgnoreLine.
-			$username        = is_email( $submitted_login ) ? sanitize_email( $submitted_login ) : sanitize_user( $submitted_login );
-			$password_raw    = ( isset( $_POST['password'] ) ) ? wp_unslash( $_POST['password'] ) : ''; // @codingStandardsIgnoreLine.
-			$password        = urlencode( $password_raw );
+            $access_key      = ( isset( $_POST['access_key'] ) ) ? sanitize_text_field( wp_unslash( $_POST['access_key'] ) ) : '';
+            $submitted_login = ( isset( $_POST['username'] ) ) ? wp_unslash( $_POST['username'] ) : ''; // @codingStandardsIgnoreLine.
+            $username        = is_email( $submitted_login ) ? sanitize_email( $submitted_login ) : sanitize_user( $submitted_login );
+            $password_raw    = ( isset( $_POST['password'] ) ) ? wp_unslash( $_POST['password'] ) : ''; // @codingStandardsIgnoreLine.
+            $password        = urlencode( $password_raw );
 
             if ( 'access_key' === $auth_method && empty( $access_key ) ) {
                 $status['success']                    = false;
@@ -1714,7 +1714,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-			$credential        = isset( $_POST['credential'] )
+            $credential        = isset( $_POST['credential'] )
                 ? wp_unslash( $_POST['credential'] ) // @codingStandardsIgnoreLine.
                 : ( ( isset( $_POST['password'] ) ) ? wp_unslash( $_POST['password'] ) : '' ); // @codingStandardsIgnoreLine.
             $connection_method = get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true );

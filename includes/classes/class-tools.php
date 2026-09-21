@@ -417,7 +417,7 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                 }
 
                 foreach ( $metas as $index => $value ) {
-                    $meta_value = $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
+                    $meta_value = isset( $post[ $value ] ) && $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
                     $meta_value = $this->maybe_unserialize_csv_string( $meta_value );
 
                     if ( $meta_value ) {

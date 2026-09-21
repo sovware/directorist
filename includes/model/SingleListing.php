@@ -654,8 +654,28 @@ class Directorist_Single_Listing {
 
         // Get the options
         $background_type = get_directorist_option( 'single_slider_background_type', 'custom-color' );
-        $height          = (int) get_directorist_option( 'gallery_crop_height', 670 );
-        $width           = (int) get_directorist_option( 'gallery_crop_width', 750 );
+        $height          = (int) get_directorist_option( 'gallery_crop_height', 580 );
+        $width_unit      = get_directorist_option( 'single_slider_width_unit', 'px' );
+        $position        = get_directorist_option( 'single_slider_position', 'center' );
+        $columns         = (int) get_directorist_option( 'single_slider_columns', 1 );
+        $gap             = get_directorist_option( 'single_slider_gap', 20 );
+        $show_thumbnails = atbdp_is_truthy( get_directorist_option( 'single_slider_show_thumbnails', true ) )
+            && ! empty( $data['footer_thumbnail'] );
+
+        $width_unit = in_array( $width_unit, [ 'px', 'percentage' ], true ) ? $width_unit : 'px';
+        $position   = in_array( $position, [ 'left', 'center', 'right' ], true ) ? $position : 'center';
+        $columns    = min( 3, max( 1, $columns ) );
+        $gap        = is_numeric( $gap ) ? (int) $gap : 20;
+        $gap        = min( 100, max( 0, $gap ) );
+
+        if ( 'percentage' === $width_unit ) {
+            $width = (int) get_directorist_option( 'gallery_crop_width_percentage', 100 );
+            $width = min( 100, max( 1, $width ) );
+        } else {
+            $width = (int) get_directorist_option( 'gallery_crop_width', 740 );
+        }
+
+        $width = empty( $width ) ? 740 : $width;
 
         // Set the options
         $data = [
@@ -663,11 +683,16 @@ class Directorist_Single_Listing {
             'alt'                => $listing_title,
             'background-size'    => get_directorist_option( 'single_slider_image_size', 'cover' ),
             'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
-            'width'              => empty( $width ) ? 740 : $width,
+            'width'              => $width,
+            'width-unit'         => $width_unit,
+            'width-css'          => $width . ( 'percentage' === $width_unit ? '%' : 'px' ),
             'height'             => empty( $height ) ? 580 : $height,
+            'position'           => $position,
+            'columns'            => $columns,
+            'gap'                => $gap,
             'background-color'   => get_directorist_option( 'single_slider_background_color', 'gainsboro' ),
             'thumbnail-bg-color' => '',
-            'show-thumbnails'    => ! empty( $data['footer_thumbnail'] ) ? '1' : '0',
+            'show-thumbnails'    => $show_thumbnails ? '1' : '0',
             'gallery'            => true,
             'rtl'                => is_rtl() ? '1' : '0',
         ];
@@ -1159,13 +1184,13 @@ class Directorist_Single_Listing {
         
         $display_title     = $this->listing_header( 'title', 'listing-title-placeholder' );
         $args = [
-                'listing'           => $this,
-                'use_listing_title' => true,
-                'section_title'     => '',
-                'section_icon'      => '',
-                'display_title'     => $display_title,
-                'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
-                'display_content'   => false,
+            'listing'           => $this,
+            'use_listing_title' => true,
+            'section_title'     => '',
+            'section_icon'      => '',
+            'display_title'     => $display_title,
+            'display_tagline'   => ! empty( $display_title['enable_tagline'] ) ? $display_title['enable_tagline'] : false,
+            'display_content'   => false,
         ];
 
         return Helper::get_template( 'single/header', $args );
@@ -1590,12 +1615,13 @@ class Directorist_Single_Listing {
         $user_pro_pic   = get_user_meta( $this->author_id, 'pro_pic', true );
         $u_pro_pic      = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
         $author_data    = get_userdata( $this->author_id );
+        $directory_type = ATBDP_Permalink::get_listing_directory_type_slug( $this->id );
 
         $author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
         $author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
 
         $args = [
-            'author_link'      => ATBDP_Permalink::get_user_profile_page_link( $this->author_id ),
+            'author_link'      => ATBDP_Permalink::get_user_profile_page_link( $this->author_id, $directory_type ),
             'u_pro_pic'        => $u_pro_pic,
             'avatar_img'       => get_avatar( $this->author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
             'author_full_name' => $author_first_name . ' ' . $author_last_name,

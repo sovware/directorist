@@ -189,6 +189,15 @@ const FIELD_OVERRIDES = {
 		label: 'Image fit',
 		description: '',
 	},
+	single_slider_columns: {
+		label: 'Images per view (Default: 1)',
+		description:
+			'Controls how many main slider images appear side by side on desktop.',
+	},
+	single_slider_gap: {
+		label: 'Image gap (Default: 20px)',
+		description: 'Controls the space between main slider images.',
+	},
 	single_slider_background_type: {
 		label: 'Background type',
 		description: '',
@@ -197,6 +206,21 @@ const FIELD_OVERRIDES = {
 		label: 'Background color',
 		description:
 			"Shows around the image when it doesn't fill the slider area.",
+	},
+	single_slider_width_unit: {
+		label: 'Unit',
+		description: '',
+		group: 'container',
+		group_label: 'Container',
+	},
+	single_slider_show_thumbnails: {
+		label: 'Show thumbnails',
+		description: 'Shows thumbnail navigation below the slider.',
+		componets: {
+			link: {
+				show: false,
+			},
+		},
 	},
 	guest_listings: {
 		label: 'Allow guest submissions',
@@ -740,19 +764,27 @@ const FIELD_OVERRIDES = {
 		description: '',
 	},
 	gallery_crop_width: {
-		label: 'Image width',
+		label: 'Width',
 		description: '',
+		group: 'container',
+		group_label: 'Container',
+	},
+	gallery_crop_width_percentage: {
+		label: 'Width',
+		description: '',
+		group: 'container',
+		group_label: 'Container',
 	},
 	gallery_crop_height: {
-		label: 'Image height',
+		label: 'Height',
 		description: '',
+		group: 'container',
+		group_label: 'Container',
 	},
 };
 
 const SUPPRESSED_REDESIGN_FIELDS = new Set([
 	'atbdp_reset_cache',
-	'gallery_crop_width',
-	'gallery_crop_height',
 	'web_push_events_note',
 	'web_push_templates_note',
 ]);
@@ -916,16 +948,30 @@ const FIELD_GROUPS = {
 		{
 			key: 'slider_image',
 			title: 'Slider image',
+			containerGroupAfterFields: [
+				'single_slider_background_color',
+				'single_slider_background_type',
+				'single_slider_image_size',
+			],
 			fields: [
 				'dsiplay_slider_single_page',
 				'single_slider_image_size',
 				'single_slider_background_type',
 				'single_slider_background_color',
+				'gallery_crop_width',
+				'gallery_crop_width_percentage',
+				'gallery_crop_height',
+				'single_slider_width_unit',
+				'single_slider_columns',
+				'single_slider_gap',
+				'single_slider_show_thumbnails',
+				'single_slider_position',
 			],
 			advancedFields: [
-				'single_slider_image_size',
-				'single_slider_background_type',
-				'single_slider_background_color',
+				'single_slider_columns',
+				'single_slider_gap',
+				'single_slider_show_thumbnails',
+				'single_slider_position',
 			],
 		},
 	],
@@ -1984,6 +2030,12 @@ const sectionFromFieldGroup = (group, fields, usedFields) => {
 		description: group.description || '',
 		...(group.advanced ? { advanced: true } : {}),
 		...(group.advancedLabel ? { advancedLabel: group.advancedLabel } : {}),
+		...(group.containerGroupAfterField
+			? { containerGroupAfterField: group.containerGroupAfterField }
+			: {}),
+		...(Array.isArray(group.containerGroupAfterFields)
+			? { containerGroupAfterFields: [...group.containerGroupAfterFields] }
+			: {}),
 		...(group.showIf ? { showIf: clone(group.showIf) } : {}),
 		...(group.show_if ? { show_if: clone(group.show_if) } : {}),
 		...(group['show-if'] ? { 'show-if': clone(group['show-if']) } : {}),

@@ -34,6 +34,10 @@ class Number_Field extends Base_Field {
     }
 
     public function sanitize( $posted_data ) {
+        if ( $this->is_value_empty( $posted_data ) ) {
+            return '';
+        }
+
         return round( (float) $this->get_value( $posted_data ), 2 );
     }
 }

@@ -253,22 +253,29 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-pay-per-lead' => [
+                    'name'        => 'Directorist Pay Per Lead',
+                    'description' => __( 'Monetize listing inquiries by charging owners to unlock qualified leads.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-pay-per-lead/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Pay-Per-Lead-Feature-Image.jpg',
+                    'active'      => true,
+                    'item_id'     => 372148,
+                ],
+                'directorist-mpesa-payment-gateway' => [
+                    'name'        => 'M-Pesa Payment Gateway',
+                    'description' => __( 'Accept M-Pesa payments directly through your Directorist checkout.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/m-pesa-payment-gateway/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Mpesa-thumbnail.png',
+                    'active'      => true,
+                    'item_id'     => 372057,
+                ],
                 'directorist-notifications-pro' => [
                     'name'        => 'Directorist Notifications Pro',
                     'description' => __( 'Send instant browser push notifications for listings, payments, reviews, renewals, and other important directory events.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-notifications-pro/',
-                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-notifications-pro.jpg',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Directorist-Notifications-Pro.jpg',
                     'active'      => true,
                     'item_id'     => 371698,
-                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
-                ],
-                'directorist-divi-integration' => [
-                    'name'        => 'Directorist Divi Integration',
-                    'description' => __( 'Build and customize your directory visually with native Divi 5 modules.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-divi-integration/',
-                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-divi-integration.jpg',
-                    'active'      => true,
-                    'item_id'     => 371246,
                     'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-ai-search' => [
@@ -278,6 +285,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/AI-Search-Preview.jpg',
                     'active'      => true,
                     'item_id'     => 370908,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
+                ],
+                'directorist-divi-integration' => [
+                    'name'        => 'Directorist Divi Integration',
+                    'description' => __( 'Turn your directory into native Divi 5 modules and visually customize listing archives, search, categories, locations, single listings, and author profile pages.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-divi-integration/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-divi-integration.jpg',
+                    'active'      => true,
+                    'item_id'     => 371246,
                     'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-listing-importer' => [

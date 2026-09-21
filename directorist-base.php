@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Solution
  * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 8.9.5
+ * Version: 8.9.6
  * Requires PHP: 7.4
  * Author: wpWax
  * Author URI: https://wpwax.com
@@ -260,6 +260,7 @@ final class Directorist_Base {
             // self::$instance->validator = new ATBDP_Validator;
             // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->tools = new ATBDP_Tools();
+            new ATBDP_Business_Hours_CSV();
             new Directorist_Multilingual();
 
             self::$instance->background_image_process = new \Directorist\Background_Image_Process();
@@ -842,7 +843,6 @@ final class Directorist_Base {
         require_once ATBDP_DIR . 'blocks/init.php';
     }
 } // ends Directorist_Base
-
 
 /**
  * The main function for that returns Directorist_Base

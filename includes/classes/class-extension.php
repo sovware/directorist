@@ -3238,13 +3238,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     : '',
             ];
 
-            if (
-                empty( $plan_data['downloads'] )
+            if ( empty( $plan_data['downloads'] )
                 || ! is_array( $plan_data['downloads'] )
                 || ! isset( $plan_data['downloads']['templates'], $plan_data['downloads']['extensions'] )
                 || ! is_array( $plan_data['downloads']['templates'] )
-                || ! is_array( $plan_data['downloads']['extensions'] )
-            ) {
+                || ! is_array( $plan_data['downloads']['extensions'] ) ) {
                 return null;
             }
 
@@ -3747,10 +3745,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
          * @return array
          */
         private function get_dashboard_welcome_data( $extensions_overview, $themes_overview, $is_connected = true ) {
-            $has_entitlements = $is_connected && (
-                ! empty( $extensions_overview['extensions_available_in_subscriptions'] )
-                || ! empty( $themes_overview['themes_available_in_subscriptions'] )
-            );
+            $has_entitlements = $is_connected && ( ! empty( $extensions_overview['extensions_available_in_subscriptions'] )
+                || ! empty( $themes_overview['themes_available_in_subscriptions'] ) );
             $account_summary  = $is_connected ? get_user_meta( get_current_user_id(), '_atbdp_account_summary', true ) : [];
             $account_summary  = is_array( $account_summary ) ? $account_summary : [];
             $connection_method = $is_connected ? get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true ) : '';
@@ -3994,10 +3990,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 wp_send_json_error( [ 'message' => __( 'You are not allowed to load this activity.', 'directorist' ) ], 403 );
             }
 
+            // phpcs:disable WordPress.Security.NonceVerification.Missing -- The request nonce is validated above by is_verified_nonce().
             $page = isset( $_POST['activity_page'] ) ? absint( $_POST['activity_page'] ) : 1;
             $type = isset( $_POST['activity_type'] ) && is_scalar( $_POST['activity_type'] )
                 ? sanitize_key( wp_unslash( $_POST['activity_type'] ) )
                 : 'all';
+            // phpcs:enable WordPress.Security.NonceVerification.Missing
 
             $activity = new ATBDP_Extension_Activity();
 

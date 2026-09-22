@@ -71,10 +71,12 @@ $get_metric_sparkline_points = static function( $series ) {
         }
 
         $y          = 37 - ( 30 * $position );
-        $commands[] = ( 0 === $index ? 'M' : 'L' )
-            . number_format( $x, 1, '.', '' )
-            . ','
-            . number_format( $y, 1, '.', '' );
+        $commands[] = sprintf(
+            '%s%s,%s',
+            0 === $index ? 'M' : 'L',
+            number_format( $x, 1, '.', '' ),
+            number_format( $y, 1, '.', '' )
+        );
     }
 
     return implode( ' ', $commands );
@@ -411,8 +413,7 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                 'attrs' => [ 'data-key' => $extension_base ],
                 'icon'  => 'la la-refresh',
             ]
-            : (
-                $is_active
+            : ( $is_active
                     ? [
                         'label' => __( 'Settings', 'directorist' ),
                         'href'  => $args['settings_url'],
@@ -427,8 +428,7 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                             'data-key'  => $extension_base,
                         ],
                         'icon'  => 'la la-check',
-                    ]
-            );
+                    ] );
 
         $menu = [];
 
@@ -811,8 +811,10 @@ $notification_count = $total_updates + $required_rows;
                     <span class="directorist-te-brand__name"><?php esc_html_e( 'Directorist', 'directorist' ); ?></span>
                 </div>
                 <nav class="directorist-te-nav" aria-label="<?php esc_attr_e( 'Directorist sections', 'directorist' ); ?>">
-                    <button type="button" class="<?php echo esc_attr( 'dashboard' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view" <?php if ( 'dashboard' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
-                    <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Themes and Extensions', 'directorist' ); ?></button>
+                    <button type="button" class="<?php echo esc_attr( 'dashboard' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view" <?php if ( 'dashboard' === $initial_view ) : ?>
+                        aria-current="page"<?php endif; ?>><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
+                    <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>
+                        aria-current="page"<?php endif; ?>><?php esc_html_e( 'Themes and Extensions', 'directorist' ); ?></button>
                 </nav>
                 <?php if ( $is_logged_in ) : ?>
                     <div class="directorist-te-top-right">
@@ -1081,7 +1083,8 @@ $notification_count = $total_updates + $required_rows;
 
             <h1 class="screen-reader-text directorist-te-notice-heading"><?php esc_html_e( 'Directorist dashboard', 'directorist' ); ?></h1>
 
-            <section class="directorist-te-view directorist-te-dashboard <?php echo esc_attr( 'dashboard' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-dashboard-view" data-directorist-te-view="dashboard" <?php if ( 'dashboard' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'dashboard' === $initial_view ? 'false' : 'true' ); ?>">
+            <section class="directorist-te-view directorist-te-dashboard <?php echo esc_attr( 'dashboard' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-dashboard-view" data-directorist-te-view="dashboard" <?php if ( 'dashboard' !== $initial_view ) : ?>
+                hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'dashboard' === $initial_view ? 'false' : 'true' ); ?>">
                     <section class="directorist-te-dashboard-welcome">
                         <div>
                             <h1><?php echo esc_html( $dashboard_welcome['title'] ?? __( 'Welcome back', 'directorist' ) ); ?></h1>
@@ -1621,7 +1624,8 @@ $notification_count = $total_updates + $required_rows;
                     </section>
                 </div>
 
-            <section class="directorist-te-view directorist-te-view--addons <?php echo esc_attr( 'addons' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-addons-view" data-directorist-te-view="addons" <?php if ( 'addons' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'addons' === $initial_view ? 'false' : 'true' ); ?>">
+            <section class="directorist-te-view directorist-te-view--addons <?php echo esc_attr( 'addons' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-addons-view" data-directorist-te-view="addons" <?php if ( 'addons' !== $initial_view ) : ?>
+                hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'addons' === $initial_view ? 'false' : 'true' ); ?>">
 
             <section class="directorist-te-hero">
                 <div>
@@ -1768,7 +1772,8 @@ $notification_count = $total_updates + $required_rows;
                             <?php if ( $required_rows ) : ?>
                                 <button type="button" data-filter-status="required"><?php esc_html_e( 'Required', 'directorist' ); ?> <span class="directorist-te-status-count directorist-te-status-count--required" data-status-count="required"><?php echo esc_html( $required_rows ); ?></span></button>
                             <?php endif; ?>
-                            <button type="button" data-filter-status="update"><?php esc_html_e( 'Updates', 'directorist' ); ?><?php if ( $update_rows ) : ?> <span class="directorist-te-update-count"><?php echo esc_html( $update_rows ); ?></span><?php endif; ?></button>
+                            <button type="button" data-filter-status="update"><?php esc_html_e( 'Updates', 'directorist' ); ?><?php if ( $update_rows ) : ?>
+                                <span class="directorist-te-update-count"><?php echo esc_html( $update_rows ); ?></span><?php endif; ?></button>
                         </div>
                     </div>
                 <?php endif; ?>

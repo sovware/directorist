@@ -44,10 +44,6 @@
   const directoristNonce = () => ajaxConfig().directorist_nonce || nonce();
 
   function syncWordPressSubmenuState() {
-    if (!page.hasClass("directorist-te-page--connected")) {
-      return;
-    }
-
     $("#adminmenu .wp-submenu a").each(function () {
       let linkUrl;
 
@@ -81,10 +77,7 @@
   }
 
   function syncPageStateUrl() {
-    if (
-      !page.hasClass("directorist-te-page--connected") ||
-      !window.history?.replaceState
-    ) {
+    if (!window.history?.replaceState) {
       return;
     }
 
@@ -1159,7 +1152,7 @@
                       item.tone || "blue",
                     )}">
                         <i class="${escapeHtml(
-                          item.icon || "la la-history",
+                          item.icon || "las la-history",
                         )}" aria-hidden="true"></i>
                     </span>
                     <div class="directorist-te-dashboard-activity-copy">
@@ -1798,7 +1791,41 @@
       ringLabel.text(`${percent}%`);
     }
 
+    function updateStepOverflowState() {
+      steps.removeClass("has-overflow");
+
+      steps.each(function () {
+        const step = $(this);
+        const label = step.find(".directorist-te-dashboard-step__label").get(0);
+
+        if (label && label.scrollWidth > label.clientWidth + 1) {
+          step.addClass("has-overflow");
+        }
+      });
+    }
+
+    let overflowResizeFrame;
+    const scheduleStepOverflowUpdate = () => {
+      window.cancelAnimationFrame(overflowResizeFrame);
+      overflowResizeFrame = window.requestAnimationFrame(
+        updateStepOverflowState,
+      );
+    };
+
     paintProgress();
+    updateStepOverflowState();
+
+    if ("ResizeObserver" in window) {
+      const stepResizeObserver = new window.ResizeObserver(
+        scheduleStepOverflowUpdate,
+      );
+
+      stepResizeObserver.observe(
+        dashboard.find(".directorist-te-dashboard-steps").get(0),
+      );
+    } else {
+      $(window).on("resize.directoristTeDashboard", scheduleStepOverflowUpdate);
+    }
 
     dashboard
       .find(".directorist-te-dashboard-nudge__dismiss")
@@ -1813,15 +1840,6 @@
           window.localStorage.setItem(dismissKey, "1");
         } catch (error) {}
       });
-
-    steps.on("click.directoristTeDashboard", function () {
-      if ($(this).hasClass("is-done")) {
-        return;
-      }
-
-      $(this).addClass("is-done");
-      paintProgress();
-    });
   }
 
   const productActionConfig = {

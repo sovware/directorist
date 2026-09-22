@@ -43,11 +43,11 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Until the username-capable License Manager reaches Directorist.com, a username rejected by the older email-only POST route falls back to the legacy licensing endpoint instead of breaking existing connections.
 - Optional account-summary generation is fail-open on Directorist.com; an EDD summary exception returns the established licensing payload with `account_summary: null`.
 - Core accepts the new authentication response only when both theme and extension entitlement arrays have the expected shape, and credential-bearing POST requests do not follow redirects.
-- `View directory` uses the configured Directorist All Listings page and is hidden when no directory type exists.
-- `Add listing` uses the configured frontend Directorist Add Listing page, allowing the existing form to handle one or multiple directory types. With no directory type, it becomes `Create directory` and links to Directory Builder.
+- `View directory` opens the WordPress admin Directory Builder and is hidden when no directory type exists.
+- `Add listing` opens the WordPress admin Add New Listing editor. With no directory type, it becomes `Create directory` and links to Directory Builder.
 - The Dashboard footer uses the runtime `ATBDP_VERSION`, the API-backed account-summary plan name/status with legacy-safe fallbacks, and a filterable official changelog URL. It must not contain a hardcoded plugin version or plan name.
 - Dashboard summary metrics now use current local Directorist data for published listings, listing views, pending listings, upcoming expirations, paid-order revenue, and paid-order count.
-- Fake metric percentages and decorative trend lines were removed because there is no historical analytics contract for those comparisons.
+- Metric cards use the reference sparkline treatment with request-time data: published listings and revenue use daily 30-day series with previous-period comparisons; listing views use Analytics daily data when available and otherwise show a non-historical per-listing distribution without a percentage. Pending review remains chart-free because status history is not stored.
 - Account summary moved into the avatar dropdown so the product list starts closer to the page title/update banner.
 - Avatar dropdown is click-only for opening. Hover and focus alone do not open it.
 - Dropdown closes on outside click, Escape, and focus leaving the menu.
@@ -74,7 +74,7 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - `Email notifications` remains global and opens Directorist Settings at the email notification channel.
 - With one directory the selector is hidden and links are pre-bound. With no directories, the card shows Create directory and Email notifications only.
 - Directory Builder navigation resolves valid layout/submenu hashes before its saved localStorage tab state. Missing or invalid hashes keep the established saved/default fallback behavior.
-- The connected welcome CTA remains the configured frontend Add Listing journey; only the Quick Actions row uses the directory-scoped WordPress admin editor.
+- The connected welcome Add Listing CTA and Quick Actions row use the WordPress admin editor; Quick Actions additionally preserve the selected directory context.
 
 ## Connected View And Product-Type State
 
@@ -214,11 +214,11 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - The recommendation directory chooser mirrors the Quick Actions control: a visible `Directory` label and the same select height, typography, border, radius, focus treatment, and responsive sizing. Previous, next, and pause remain grouped as secondary carousel controls.
 - Known directory profiles render their ordered recommendation candidates three at a time. Unknown/custom directory types use the generic candidate pool three at a time and never expose the complete extension catalog as a recommendation group.
 - Directory mappings are recommendations, not hard dependencies. The `Required` product state remains reserved for extensions declared through the existing theme-required-extension contract.
-- Recommendation cards keep installed products visible:
-  - Active extensions show `Active` with no management CTA.
+- Recommendation cards omit active extensions and keep installed inactive products visible:
   - Installed inactive extensions show `Installed` with the existing Activate action.
   - Entitled uninstalled extensions show `Not installed` with the existing Install action.
   - Unowned catalog products show `Available` with an external View details action.
+- A directory with no remaining recommendations is omitted. If the default directory is omitted, the next directory with available recommendations becomes the default; if every directory is omitted, the entire recommendation section is hidden.
 - Product actions reuse `.plugin-active-btn`, `.file-install-btn`, existing data keys, AJAX actions, and nonce handling.
 - Profile data is filterable through `directorist_extension_recommendation_profiles`; final prepared data is filterable through `directorist_extension_recommendation_data`.
 - Optional per-product API `recommendations` metadata can override local profile placement. Missing metadata preserves fallback placement, an empty array removes that product from all profiles, and malformed non-empty metadata is ignored.

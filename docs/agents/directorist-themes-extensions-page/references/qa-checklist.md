@@ -17,6 +17,9 @@ Use this checklist for Themes & Extensions page work. Current runtime data must 
 - Confirm no old/new UI feature flag or rollout toggle was added unless explicitly requested.
 - Confirm disconnected-view files/selectors/styles were not changed unless the current task explicitly requested disconnected-view changes.
 - Confirm connected Dashboard recommendations show at most three cards, rotate through real directory types, and never expose the full catalog under an unknown/general type.
+- Confirm metric sparklines are generated from current data, contain no hardcoded reference paths/percentages, omit zero-data lines, and keep the listing-view fallback free of a historical comparison when Analytics daily data is unavailable.
+- Confirm active extensions are absent while installed inactive extensions retain their Activate action.
+- Confirm active-only directory groups are skipped, the next directory with available recommendations becomes active, and an all-active result hides the recommendation section.
 - Confirm recommendation autoplay pauses on hover, keyboard focus, hidden browser tabs, and reduced-motion preference without rendering a Pause control.
 - Confirm previous, next, and native directory selection work without triggering product AJAX actions.
 - Confirm Quick Actions re-collect current directory terms and do not rely on stored documentation/runtime snapshots.

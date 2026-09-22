@@ -182,9 +182,9 @@ Compatibility semantics:
 - Priority: integer clamped to `0..100`
 - Reason: optional sanitized plain text; product description remains fallback
 
-Recommendation state labels/actions are resolved locally and are never trusted from profile metadata:
+Recommendation availability and state labels/actions are resolved locally and are never trusted from profile metadata:
 
-- Active: show `Active`, no recommendation CTA
+- Active: omit from recommendation data
 - Installed inactive: show `Installed`, reuse Activate
 - Entitled and uninstalled: show `Not installed`, reuse Install
 - Not entitled: show `Available`, link to product details
@@ -193,6 +193,8 @@ Recommendation state labels/actions are resolved locally and are never trusted f
 Presentation rules:
 
 - Show no more than three recommendation cards at once.
+- Omit directories with no remaining recommendation cards. If none remain, do not render the recommendation section.
+- If the default directory has no remaining recommendations, select the first remaining directory in stable term order.
 - Multiple real directory types rotate in stable term order; do not randomize directory order.
 - A directory with more than three candidates advances through deterministic three-card windows when it returns.
 - Unknown/custom directory types use the generic candidate pool, not the complete catalog.
@@ -265,7 +267,7 @@ The AJAX response is normalized:
         "subject": "Example listing",
         "context": "by Example owner",
         "timestamp": 1780000000,
-        "icon": "la la-plus",
+        "icon": "las la-plus",
         "tone": "blue",
         "action_label": "Edit",
         "action_url": "https://example.test/wp-admin/post.php?post=123&action=edit",
@@ -285,6 +287,16 @@ The AJAX response is normalized:
 
 The example describes shape only. Never store an observed activity item, site URL, count, title, user, amount, or timestamp as documentation truth.
 
+Activity icons and tones are global presentation values based on activity type, matching the approved reference:
+
+- Listing: `las la-plus`, blue
+- Review: `las la-star`, green
+- Payment: `las la-dollar-sign`, violet
+- User: `las la-user-plus`, info
+- Expiring listing: `las la-hourglass-half`, amber
+
+Every item of the same activity type must use the same icon and tone. Listing category metadata must not alter activity presentation.
+
 Connected Dashboard metric values are also collected at request time:
 
 - Published and pending counts: `at_biz_dir` post statuses
@@ -292,7 +304,16 @@ Connected Dashboard metric values are also collected at request time:
 - Upcoming expiration count: finite `_expiry_date` values within the configured display window
 - Revenue and paid-order count: paid modern orders plus completed unmigrated legacy order posts
 
-Modern orders with a `legacy_id` suppress the corresponding legacy post from both activity and metric totals. No trend percentage or sparkline should be presented as real data until a time-series analytics contract exists.
+Modern orders with a `legacy_id` suppress the corresponding legacy post from both activity and metric totals.
+
+Metric sparklines use bounded, request-time data rather than stored dashboard snapshots. Thirty-day calculations are aggregated into at most eight display points to retain the reference design's compact geometry:
+
+- Published listings: current published posts grouped by `post_date` for the last 30 days, compared with the preceding 30 days.
+- Revenue: paid modern orders plus completed unmigrated legacy orders grouped by order date for the same periods.
+- Listing views: `directorist_analytics_daily_stats` when that optional table exists; otherwise current `_atbdp_post_views_count` values are bucketed by published listing as a non-historical distribution, with no trend percentage.
+- Pending review: no sparkline because current post status does not provide truthful status history.
+
+Zero-data series do not render a decorative line. A zero previous period with current activity uses `New` rather than an invented percentage. Final chart data is filterable through `directorist_dashboard_metric_charts`.
 
 Connected Dashboard setup progress is also request-scoped:
 

@@ -550,8 +550,7 @@ if ( ! class_exists( 'ATBDP_Extension_Recommendations' ) ) {
 
             if ( ! empty( $installed ) ) {
                 if ( ! empty( $installed['active'] ) ) {
-                    $status = 'active';
-                    $label  = __( 'Active', 'directorist' );
+                    return [];
                 } else {
                     $status = 'installed';
                     $label  = __( 'Installed', 'directorist' );

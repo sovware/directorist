@@ -13,13 +13,14 @@ $is_logged_in          = ! empty( $args['is_logged_in'] );
 $is_beta               = ! empty( $args['is_beta'] );
 $requested_view        = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] ) ? sanitize_key( wp_unslash( $_GET['te_view'] ) ) : '';
 $requested_type        = isset( $_GET['te_type'] ) && is_scalar( $_GET['te_type'] ) ? sanitize_key( wp_unslash( $_GET['te_type'] ) ) : '';
-$initial_view          = $is_logged_in && in_array( $requested_view, [ 'dashboard', 'addons' ], true ) ? $requested_view : ( $is_logged_in ? 'dashboard' : 'addons' );
-$initial_type          = $is_logged_in && in_array( $requested_type, [ 'all', 'extension', 'theme' ], true ) ? $requested_type : 'all';
+$initial_view          = in_array( $requested_view, [ 'dashboard', 'addons' ], true ) ? $requested_view : 'dashboard';
+$initial_type          = in_array( $requested_type, [ 'all', 'extension', 'theme' ], true ) ? $requested_type : 'all';
 $installed_extensions  = ! empty( $args['installed_extension_list'] ) && is_array( $args['installed_extension_list'] ) ? $args['installed_extension_list'] : [];
 $installed_themes      = ! empty( $args['installed_theme_list'] ) && is_array( $args['installed_theme_list'] ) ? $args['installed_theme_list'] : [];
 $dashboard_welcome     = ! empty( $args['dashboard_welcome'] ) && is_array( $args['dashboard_welcome'] ) ? $args['dashboard_welcome'] : [];
 $dashboard_quick_actions = ! empty( $args['dashboard_quick_actions'] ) && is_array( $args['dashboard_quick_actions'] ) ? $args['dashboard_quick_actions'] : [];
 $dashboard_metrics     = ! empty( $args['dashboard_metrics'] ) && is_array( $args['dashboard_metrics'] ) ? $args['dashboard_metrics'] : [];
+$dashboard_metric_charts = ! empty( $dashboard_metrics['charts'] ) && is_array( $dashboard_metrics['charts'] ) ? $dashboard_metrics['charts'] : [];
 $dashboard_setup       = ! empty( $args['dashboard_setup'] ) && is_array( $args['dashboard_setup'] ) ? $args['dashboard_setup'] : [];
 $dashboard_setup_visible = ! array_key_exists( 'is_visible', $dashboard_setup ) || ! empty( $dashboard_setup['is_visible'] );
 $dashboard_setup_dismiss_key = sprintf( 'directorist_te_dashboard_checklist_dismissed_%d_%d', get_current_blog_id(), get_current_user_id() );
@@ -42,6 +43,42 @@ $connect_description   = $has_local_products
     : __( 'You can browse available products now. Connect your account when you need subscription installs, updates, and license-backed product management.', 'directorist' );
 $rows                  = [];
 $seen_rows             = [];
+
+$get_metric_sparkline_points = static function( $series ) {
+    $series = is_array( $series ) ? array_values( array_filter( $series, 'is_numeric' ) ) : [];
+
+    if ( empty( $series ) ) {
+        return '';
+    }
+
+    if ( 1 === count( $series ) ) {
+        $series[] = $series[0];
+    }
+
+    $series = array_map( 'floatval', $series );
+    $minimum = min( $series );
+    $maximum = max( $series );
+    $range   = $maximum - $minimum;
+    $last    = count( $series ) - 1;
+    $commands = [];
+
+    foreach ( $series as $index => $value ) {
+        $x        = 96 * ( $index / $last );
+        $position = 0.5;
+
+        if ( $range > 0 ) {
+            $position = ( $value - $minimum ) / $range;
+        }
+
+        $y          = 37 - ( 30 * $position );
+        $commands[] = ( 0 === $index ? 'M' : 'L' )
+            . number_format( $x, 1, '.', '' )
+            . ','
+            . number_format( $y, 1, '.', '' );
+    }
+
+    return implode( ' ', $commands );
+};
 
 $get_extension_product = static function( $extension_key ) use ( $extensions, $args ) {
     $extension_key = is_string( $extension_key ) ? $extension_key : '';
@@ -773,11 +810,11 @@ $notification_count = $total_updates + $required_rows;
                     </span>
                     <span class="directorist-te-brand__name"><?php esc_html_e( 'Directorist', 'directorist' ); ?></span>
                 </div>
+                <nav class="directorist-te-nav" aria-label="<?php esc_attr_e( 'Directorist sections', 'directorist' ); ?>">
+                    <button type="button" class="<?php echo esc_attr( 'dashboard' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view" <?php if ( 'dashboard' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
+                    <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Themes and Extensions', 'directorist' ); ?></button>
+                </nav>
                 <?php if ( $is_logged_in ) : ?>
-                    <nav class="directorist-te-nav" aria-label="<?php esc_attr_e( 'Directorist sections', 'directorist' ); ?>">
-                        <button type="button" class="<?php echo esc_attr( 'dashboard' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="dashboard" aria-controls="directorist-te-dashboard-view" <?php if ( 'dashboard' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Dashboard', 'directorist' ); ?></button>
-                        <button type="button" class="<?php echo esc_attr( 'addons' === $initial_view ? 'active' : '' ); ?>" data-directorist-te-view-target="addons" aria-controls="directorist-te-addons-view" <?php if ( 'addons' === $initial_view ) : ?>aria-current="page"<?php endif; ?>><?php esc_html_e( 'Themes and Extensions', 'directorist' ); ?></button>
-                    </nav>
                     <div class="directorist-te-top-right">
                         <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
                             <a href="https://directorist.com/documentation/directorist/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
@@ -1042,19 +1079,20 @@ $notification_count = $total_updates + $required_rows;
                 <?php endif; ?>
             </header>
 
-            <?php if ( $is_logged_in ) : ?>
-                <h1 class="screen-reader-text directorist-te-notice-heading"><?php esc_html_e( 'Directorist dashboard', 'directorist' ); ?></h1>
+            <h1 class="screen-reader-text directorist-te-notice-heading"><?php esc_html_e( 'Directorist dashboard', 'directorist' ); ?></h1>
 
-                <section class="directorist-te-view directorist-te-dashboard <?php echo esc_attr( 'dashboard' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-dashboard-view" data-directorist-te-view="dashboard" <?php if ( 'dashboard' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'dashboard' === $initial_view ? 'false' : 'true' ); ?>">
+            <section class="directorist-te-view directorist-te-dashboard <?php echo esc_attr( 'dashboard' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-dashboard-view" data-directorist-te-view="dashboard" <?php if ( 'dashboard' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'dashboard' === $initial_view ? 'false' : 'true' ); ?>">
                     <section class="directorist-te-dashboard-welcome">
                         <div>
                             <h1><?php echo esc_html( $dashboard_welcome['title'] ?? __( 'Welcome back', 'directorist' ) ); ?></h1>
-                            <p><?php echo esc_html( $dashboard_welcome['description'] ?? __( 'Your Directorist account is connected.', 'directorist' ) ); ?></p>
+                            <?php if ( ! empty( $dashboard_welcome['description'] ) ) : ?>
+                                <p><?php echo esc_html( $dashboard_welcome['description'] ); ?></p>
+                            <?php endif; ?>
                         </div>
                         <div class="directorist-te-dashboard-welcome__actions">
                             <?php if ( ! empty( $dashboard_welcome['has_directories'] ) ) : ?>
-                                <a class="directorist-te-btn directorist-te-btn--secondary" href="<?php echo esc_url( $dashboard_welcome['view_listings_url'] ?? home_url( '/' ) ); ?>" target="_blank" rel="noopener noreferrer">
-                                    <i class="la la-external-link-alt" aria-hidden="true"></i>
+                                <a class="directorist-te-btn directorist-te-btn--secondary" href="<?php echo esc_url( $dashboard_welcome['directory_builder_url'] ?? home_url( '/' ) ); ?>">
+                                    <i class="la la-edit" aria-hidden="true"></i>
                                     <?php esc_html_e( 'View directory', 'directorist' ); ?>
                                 </a>
                             <?php endif; ?>
@@ -1108,12 +1146,17 @@ $notification_count = $total_updates + $required_rows;
                         </div>
                         <div class="directorist-te-dashboard-steps">
                             <?php foreach ( $dashboard_setup_steps as $dashboard_setup_step ) : ?>
+                                <?php $dashboard_setup_step_label = $dashboard_setup_step['label'] ?? ''; ?>
                                 <a
                                     class="directorist-te-dashboard-step <?php echo ! empty( $dashboard_setup_step['complete'] ) ? 'is-done' : ''; ?>"
                                     href="<?php echo esc_url( $dashboard_setup_step['url'] ?? '#' ); ?>"
                                 >
-                                    <span><i class="la la-check" aria-hidden="true"></i></span>
-                                    <?php echo esc_html( $dashboard_setup_step['label'] ?? '' ); ?>
+                                    <span class="directorist-te-dashboard-step__status"><i class="la la-check" aria-hidden="true"></i></span>
+                                    <span class="directorist-te-dashboard-step__label"><?php echo esc_html( $dashboard_setup_step_label ); ?></span>
+                                    <span class="directorist-te-dashboard-step__tooltip-trigger" aria-hidden="true">
+                                        <i class="la la-info-circle"></i>
+                                        <span class="directorist-te-dashboard-step__tooltip"><?php echo esc_html( $dashboard_setup_step_label ); ?></span>
+                                    </span>
                                     <i class="la la-angle-right" aria-hidden="true"></i>
                                 </a>
                             <?php endforeach; ?>
@@ -1127,21 +1170,61 @@ $notification_count = $total_updates + $required_rows;
                         ENT_QUOTES,
                         get_bloginfo( 'charset' )
                     );
+                    $published_chart = ! empty( $dashboard_metric_charts['published_listings'] ) && is_array( $dashboard_metric_charts['published_listings'] )
+                        ? $dashboard_metric_charts['published_listings']
+                        : [];
+                    $views_chart = ! empty( $dashboard_metric_charts['listing_views'] ) && is_array( $dashboard_metric_charts['listing_views'] )
+                        ? $dashboard_metric_charts['listing_views']
+                        : [];
+                    $revenue_chart = ! empty( $dashboard_metric_charts['revenue'] ) && is_array( $dashboard_metric_charts['revenue'] )
+                        ? $dashboard_metric_charts['revenue']
+                        : [];
+                    $published_sparkline = $get_metric_sparkline_points( $published_chart['series'] ?? [] );
+                    $views_sparkline     = $get_metric_sparkline_points( $views_chart['series'] ?? [] );
+                    $revenue_sparkline   = $get_metric_sparkline_points( $revenue_chart['series'] ?? [] );
                     ?>
                     <section class="directorist-te-dashboard-metrics" aria-label="<?php esc_attr_e( 'Directory metrics', 'directorist' ); ?>">
-                        <div class="directorist-te-dashboard-metric">
+                        <div class="directorist-te-dashboard-metric <?php echo $published_sparkline && ! empty( $published_chart['has_data'] ) ? 'has-sparkline' : ''; ?>">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--blue"><i class="la la-th-large" aria-hidden="true"></i></span>
                                 <div><strong><?php echo esc_html( number_format_i18n( (int) ( $dashboard_metrics['published_listings'] ?? 0 ) ) ); ?></strong><span><?php esc_html_e( 'Published listings', 'directorist' ); ?></span></div>
                             </div>
-                            <div class="directorist-te-dashboard-metric__foot"><?php esc_html_e( 'Currently live in your directory', 'directorist' ); ?></div>
+                            <div class="directorist-te-dashboard-metric__foot">
+                                <?php if ( ! empty( $published_chart['has_comparison'] ) ) : ?>
+                                    <?php $published_direction = in_array( $published_chart['direction'] ?? '', [ 'up', 'down', 'flat' ], true ) ? $published_chart['direction'] : 'flat'; ?>
+                                    <span class="directorist-te-dashboard-trend directorist-te-dashboard-trend--<?php echo esc_attr( $published_direction ); ?>">
+                                        <i class="la <?php echo esc_attr( 'up' === $published_direction ? 'la-arrow-up' : ( 'down' === $published_direction ? 'la-arrow-down' : 'la-minus' ) ); ?>" aria-hidden="true"></i>
+                                        <?php echo esc_html( $published_chart['change_label'] ?? '' ); ?>
+                                    </span>
+                                    <span class="directorist-te-dashboard-comparison"><?php esc_html_e( 'vs previous 30 days', 'directorist' ); ?></span>
+                                <?php else : ?>
+                                    <span class="directorist-te-dashboard-comparison"><?php esc_html_e( 'Currently live in your directory', 'directorist' ); ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <?php if ( $published_sparkline && ! empty( $published_chart['has_data'] ) ) : ?>
+                                <svg class="directorist-te-dashboard-metric-spark" viewBox="0 0 96 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="<?php echo esc_attr( $published_sparkline ); ?>" fill="none" stroke="#4f6ef7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+                            <?php endif; ?>
                         </div>
-                        <div class="directorist-te-dashboard-metric">
+                        <div class="directorist-te-dashboard-metric <?php echo $views_sparkline && ! empty( $views_chart['has_data'] ) ? 'has-sparkline' : ''; ?>">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--teal"><i class="la la-eye" aria-hidden="true"></i></span>
                                 <div><strong><?php echo esc_html( number_format_i18n( (int) ( $dashboard_metrics['listing_views'] ?? 0 ) ) ); ?></strong><span><?php esc_html_e( 'Listing views', 'directorist' ); ?></span></div>
                             </div>
-                            <div class="directorist-te-dashboard-metric__foot"><?php esc_html_e( 'Across published listings', 'directorist' ); ?></div>
+                            <div class="directorist-te-dashboard-metric__foot">
+                                <?php if ( ! empty( $views_chart['has_comparison'] ) ) : ?>
+                                    <?php $views_direction = in_array( $views_chart['direction'] ?? '', [ 'up', 'down', 'flat' ], true ) ? $views_chart['direction'] : 'flat'; ?>
+                                    <span class="directorist-te-dashboard-trend directorist-te-dashboard-trend--<?php echo esc_attr( $views_direction ); ?>">
+                                        <i class="la <?php echo esc_attr( 'up' === $views_direction ? 'la-arrow-up' : ( 'down' === $views_direction ? 'la-arrow-down' : 'la-minus' ) ); ?>" aria-hidden="true"></i>
+                                        <?php echo esc_html( $views_chart['change_label'] ?? '' ); ?>
+                                    </span>
+                                    <span class="directorist-te-dashboard-comparison"><?php esc_html_e( 'vs previous 30 days', 'directorist' ); ?></span>
+                                <?php else : ?>
+                                    <span class="directorist-te-dashboard-comparison"><?php esc_html_e( 'Across published listings', 'directorist' ); ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <?php if ( $views_sparkline && ! empty( $views_chart['has_data'] ) ) : ?>
+                                <svg class="directorist-te-dashboard-metric-spark" viewBox="0 0 96 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="<?php echo esc_attr( $views_sparkline ); ?>" fill="none" stroke="#0ea5b7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+                            <?php endif; ?>
                         </div>
                         <div class="directorist-te-dashboard-metric directorist-te-dashboard-metric--attention">
                             <div class="directorist-te-dashboard-metric__top">
@@ -1161,20 +1244,34 @@ $notification_count = $total_updates + $required_rows;
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <div class="directorist-te-dashboard-metric">
+                        <div class="directorist-te-dashboard-metric <?php echo $revenue_sparkline && ! empty( $revenue_chart['has_data'] ) ? 'has-sparkline' : ''; ?>">
                             <div class="directorist-te-dashboard-metric__top">
                                 <span class="directorist-te-dashboard-icon directorist-te-dashboard-icon--violet"><i class="la la-dollar" aria-hidden="true"></i></span>
                                 <div><strong><?php echo esc_html( $revenue_symbol . number_format_i18n( (float) ( $dashboard_metrics['revenue'] ?? 0 ), 2 ) ); ?></strong><span><?php esc_html_e( 'Revenue', 'directorist' ); ?></span></div>
                             </div>
                             <div class="directorist-te-dashboard-metric__foot">
-                                <?php
-                                printf(
-                                    /* translators: %s: Number of paid orders in the last 30 days. */
-                                    esc_html( _n( '%s paid order in the last 30 days', '%s paid orders in the last 30 days', (int) ( $dashboard_metrics['paid_orders'] ?? 0 ), 'directorist' ) ),
-                                    esc_html( number_format_i18n( (int) ( $dashboard_metrics['paid_orders'] ?? 0 ) ) )
-                                );
-                                ?>
+                                <?php if ( ! empty( $revenue_chart['has_comparison'] ) ) : ?>
+                                    <?php $revenue_direction = in_array( $revenue_chart['direction'] ?? '', [ 'up', 'down', 'flat' ], true ) ? $revenue_chart['direction'] : 'flat'; ?>
+                                    <span class="directorist-te-dashboard-trend directorist-te-dashboard-trend--<?php echo esc_attr( $revenue_direction ); ?>">
+                                        <i class="la <?php echo esc_attr( 'up' === $revenue_direction ? 'la-arrow-up' : ( 'down' === $revenue_direction ? 'la-arrow-down' : 'la-minus' ) ); ?>" aria-hidden="true"></i>
+                                        <?php echo esc_html( $revenue_chart['change_label'] ?? '' ); ?>
+                                    </span>
+                                    <span class="directorist-te-dashboard-comparison"><?php esc_html_e( 'vs previous 30 days', 'directorist' ); ?></span>
+                                <?php else : ?>
+                                    <span class="directorist-te-dashboard-comparison">
+                                        <?php
+                                        printf(
+                                            /* translators: %s: Number of paid orders in the last 30 days. */
+                                            esc_html( _n( '%s paid order in the last 30 days', '%s paid orders in the last 30 days', (int) ( $dashboard_metrics['paid_orders'] ?? 0 ), 'directorist' ) ),
+                                            esc_html( number_format_i18n( (int) ( $dashboard_metrics['paid_orders'] ?? 0 ) ) )
+                                        );
+                                        ?>
+                                    </span>
+                                <?php endif; ?>
                             </div>
+                            <?php if ( $revenue_sparkline && ! empty( $revenue_chart['has_data'] ) ) : ?>
+                                <svg class="directorist-te-dashboard-metric-spark" viewBox="0 0 96 42" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="<?php echo esc_attr( $revenue_sparkline ); ?>" fill="none" stroke="#7c5cff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+                            <?php endif; ?>
                         </div>
                     </section>
 
@@ -1284,7 +1381,7 @@ $notification_count = $total_updates + $required_rows;
                                     <?php foreach ( $dashboard_activity_items as $activity_item ) : ?>
                                         <article class="directorist-te-dashboard-activity-item">
                                             <span class="directorist-te-dashboard-activity-icon directorist-te-dashboard-activity-icon--<?php echo esc_attr( $activity_item['tone'] ?? 'blue' ); ?>">
-                                                <i class="<?php echo esc_attr( $activity_item['icon'] ?? 'la la-history' ); ?>" aria-hidden="true"></i>
+                                                <i class="<?php echo esc_attr( $activity_item['icon'] ?? 'las la-history' ); ?>" aria-hidden="true"></i>
                                             </span>
                                             <div class="directorist-te-dashboard-activity-copy">
                                                 <strong><?php echo esc_html( $activity_item['title'] ?? '' ); ?></strong>
@@ -1460,8 +1557,10 @@ $notification_count = $total_updates + $required_rows;
                                 : __( 'Directorist', 'directorist' )
                         );
                         ?>
-                        <span aria-hidden="true">·</span>
-                        <?php echo esc_html( $account_plan_label ); ?>
+                        <?php if ( $is_logged_in && $account_plan_label ) : ?>
+                            <span aria-hidden="true">·</span>
+                            <?php echo esc_html( $account_plan_label ); ?>
+                        <?php endif; ?>
                         <span aria-hidden="true">·</span>
                         <a href="<?php echo esc_url( $whats_new_url ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'What\'s new', 'directorist' ); ?></a>
                     </footer>
@@ -1522,8 +1621,7 @@ $notification_count = $total_updates + $required_rows;
                     </section>
                 </div>
 
-                <section class="directorist-te-view directorist-te-view--addons <?php echo esc_attr( 'addons' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-addons-view" data-directorist-te-view="addons" <?php if ( 'addons' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'addons' === $initial_view ? 'false' : 'true' ); ?>">
-            <?php endif; ?>
+            <section class="directorist-te-view directorist-te-view--addons <?php echo esc_attr( 'addons' === $initial_view ? 'is-active' : '' ); ?>" id="directorist-te-addons-view" data-directorist-te-view="addons" <?php if ( 'addons' !== $initial_view ) : ?>hidden<?php endif; ?> aria-hidden="<?php echo esc_attr( 'addons' === $initial_view ? 'false' : 'true' ); ?>">
 
             <section class="directorist-te-hero">
                 <div>
@@ -1840,9 +1938,7 @@ $notification_count = $total_updates + $required_rows;
                 <?php esc_html_e( 'Need something specific?', 'directorist' ); ?>
                 <a href="https://directorist.com/contact/" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Request an extension', 'directorist' ); ?></a>
             </footer>
-            <?php if ( $is_logged_in ) : ?>
-                </section>
-            <?php endif; ?>
+            </section>
         </div>
     </div>
 </div>

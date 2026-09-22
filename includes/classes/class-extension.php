@@ -2606,22 +2606,17 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
          * It Adds menu item
          */
         public function admin_menu() {
-            $parent_slug  = 'edit.php?post_type=at_biz_dir';
-            $is_connected = (bool) get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
-            $is_addons     = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] ) && 'addons' === sanitize_key( wp_unslash( $_GET['te_view'] ) );
+            $parent_slug = 'edit.php?post_type=at_biz_dir';
+            $is_addons    = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] ) && 'addons' === sanitize_key( wp_unslash( $_GET['te_view'] ) );
 
             add_submenu_page(
                 $parent_slug,
-                $is_connected && ! $is_addons ? __( 'Directorist Dashboard', 'directorist' ) : __( 'Themes & Extensions', 'directorist' ),
-                $is_connected ? __( 'Dashboard', 'directorist' ) : __( 'Themes & Extensions', 'directorist' ),
+                $is_addons ? __( 'Themes & Extensions', 'directorist' ) : __( 'Directorist Dashboard', 'directorist' ),
+                __( 'Dashboard', 'directorist' ),
                 'manage_options',
                 'atbdp-extension',
                 [ $this, 'show_extension_view' ]
             );
-
-            if ( ! $is_connected ) {
-                return;
-            }
 
             global $submenu;
 
@@ -2669,12 +2664,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 return $submenu_file;
             }
 
-            $is_connected = (bool) get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
-            $requested    = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] )
+            $requested = isset( $_GET['te_view'] ) && is_scalar( $_GET['te_view'] )
                 ? sanitize_key( wp_unslash( $_GET['te_view'] ) )
                 : '';
 
-            if ( ! $is_connected || 'addons' !== $requested ) {
+            if ( 'addons' !== $requested ) {
                 return 'atbdp-extension';
             }
 
@@ -3744,24 +3738,38 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         /**
-         * Prepare the connected dashboard welcome section data.
+         * Prepare the dashboard welcome section data.
          *
          * @param array $extensions_overview Extensions overview data.
          * @param array $themes_overview     Themes overview data.
+         * @param bool  $is_connected       Whether a Directorist account is connected.
          *
          * @return array
          */
-        private function get_dashboard_welcome_data( $extensions_overview, $themes_overview ) {
-            $has_entitlements = ! empty( $extensions_overview['extensions_available_in_subscriptions'] )
-                || ! empty( $themes_overview['themes_available_in_subscriptions'] );
-            $account_summary  = get_user_meta( get_current_user_id(), '_atbdp_account_summary', true );
+        private function get_dashboard_welcome_data( $extensions_overview, $themes_overview, $is_connected = true ) {
+            $has_entitlements = $is_connected && (
+                ! empty( $extensions_overview['extensions_available_in_subscriptions'] )
+                || ! empty( $themes_overview['themes_available_in_subscriptions'] )
+            );
+            $account_summary  = $is_connected ? get_user_meta( get_current_user_id(), '_atbdp_account_summary', true ) : [];
             $account_summary  = is_array( $account_summary ) ? $account_summary : [];
-            $connection_method = get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true );
+            $connection_method = $is_connected ? get_user_meta( get_current_user_id(), '_atbdp_subscription_connection_method', true ) : '';
             $connection_method = 'access_key' === $connection_method ? 'access_key' : 'account';
             $account_name     = isset( $account_summary['display_name'] )
                 ? trim( sanitize_text_field( (string) $account_summary['display_name'] ) )
                 : '';
-            $account_login    = trim( (string) get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true ) );
+            $account_login    = $is_connected
+                ? trim( (string) get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true ) )
+                : '';
+
+            if ( ! $is_connected ) {
+                $current_user = wp_get_current_user();
+                $account_name = trim( sanitize_text_field( (string) $current_user->display_name ) );
+
+                if ( ! $account_name ) {
+                    $account_name = trim( sanitize_text_field( (string) $current_user->user_login ) );
+                }
+            }
 
             if ( ! $account_name && $account_login && ! is_email( $account_login ) ) {
                 $account_name = sanitize_user( $account_login );
@@ -3795,7 +3803,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 }
             }
 
-            $description      = $this->get_dashboard_account_description( $account_summary, $has_entitlements );
+            $description      = $is_connected ? $this->get_dashboard_account_description( $account_summary, $has_entitlements ) : '';
             $plugin_version   = defined( 'ATBDP_VERSION' ) ? sanitize_text_field( (string) ATBDP_VERSION ) : '';
             $whats_new_url    = apply_filters(
                 'directorist_themes_extensions_whats_new_url',
@@ -3810,18 +3818,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'title'               => $title,
                 'description'         => $description,
                 'account_name'        => $account_name,
-                'account_avatar_url'  => isset( $account_summary['avatar_url'] ) ? esc_url_raw( (string) $account_summary['avatar_url'] ) : '',
+                'account_avatar_url'  => $is_connected && isset( $account_summary['avatar_url'] ) ? esc_url_raw( (string) $account_summary['avatar_url'] ) : '',
                 'account_initials'    => $initials
                     ? ( function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $initials ) : strtoupper( $initials ) )
                     : 'D',
                 'connection_method'   => $connection_method,
                 'plugin_version'      => $plugin_version,
-                'plan_label'          => $this->get_dashboard_plan_label( $account_summary ),
+                'plan_label'          => $is_connected ? $this->get_dashboard_plan_label( $account_summary ) : '',
                 'whats_new_url'       => esc_url_raw( (string) $whats_new_url ),
                 'has_directories'     => ! empty( $directories ),
-                'view_listings_url'   => ATBDP_Permalink::get_directorist_listings_page_link(),
+                'directory_builder_url' => $this->get_dashboard_builder_url(),
                 'primary_action_url'  => ! empty( $directories )
-                    ? ATBDP_Permalink::get_add_listing_page_link()
+                    ? add_query_arg( 'post_type', ATBDP_POST_TYPE, admin_url( 'post-new.php' ) )
                     : admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new' ),
                 'primary_action_text' => ! empty( $directories )
                     ? __( 'Add listing', 'directorist' )
@@ -4011,8 +4019,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $extensions_overview = $this->get_extensions_overview();
             $themes_overview     = $this->get_themes_overview();
-            $dashboard_activity  = $is_logged_in ? new ATBDP_Extension_Activity() : null;
-            $dashboard_metrics   = $dashboard_activity ? $dashboard_activity->get_dashboard_metrics() : [];
+            $dashboard_activity = new ATBDP_Extension_Activity();
+            $dashboard_metrics  = $dashboard_activity->get_dashboard_metrics();
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
@@ -4044,11 +4052,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'theme_list'                            => $this->themes,
 
                 'settings_url'                          => $settings_url,
-                'dashboard_welcome'                     => $is_logged_in ? $this->get_dashboard_welcome_data( $extensions_overview, $themes_overview ) : [],
-                'dashboard_quick_actions'               => $is_logged_in ? $this->get_dashboard_quick_actions_data() : [],
+                'dashboard_welcome'                     => $this->get_dashboard_welcome_data( $extensions_overview, $themes_overview, $is_logged_in ),
+                'dashboard_quick_actions'               => $this->get_dashboard_quick_actions_data(),
                 'dashboard_metrics'                     => $dashboard_metrics,
-                'dashboard_setup'                       => $dashboard_activity ? $dashboard_activity->get_dashboard_setup( $dashboard_metrics ) : [],
-                'dashboard_activity'                    => $dashboard_activity ? $dashboard_activity->get_page( 1, 5, 'all' ) : [],
+                'dashboard_setup'                       => $dashboard_activity->get_dashboard_setup( $dashboard_metrics ),
+                'dashboard_activity'                    => $dashboard_activity->get_page( 1, 5, 'all' ),
                 'dashboard_recommendations'             => $is_logged_in
                     ? ( new ATBDP_Extension_Recommendations(
                         $this->extensions,

@@ -289,8 +289,8 @@ class Order_Controller extends Abstract_Controller {
             ->set_listing_id( $request->get_param( "listing_id" ) )
             ->set_amount( $request->get_param( "amount" ) )
             ->set_currency( $request->get_param( "currency" ) )
-            ->set_status( $request->get_param( "status" ) )            ;
-        
+            ->set_status( $request->get_param( "status" ) );
+
         $id = directorist_order_repository()->create( $dto );
 
         status_header( 201 );
@@ -322,7 +322,7 @@ class Order_Controller extends Abstract_Controller {
 
     public function update( WP_REST_Request $request ) {
         $dto = ( new OrderDTO )->set_id( $request->get_param( 'id' ) )
-            ->set_user_id(  $request->get_param( 'user_id'  ) )
+            ->set_user_id( $request->get_param( 'user_id' ) )
             ->set_listing_id( $request->get_param( 'listing_id' ) )
             ->set_status( $request->get_param( 'status' ) );
 
@@ -355,13 +355,15 @@ class Order_Controller extends Abstract_Controller {
 
         $dto = $repository->to_dto( $old_item );
 
-        $dto->set_status($request->get_param("status"));
+        $dto->set_status( $request->get_param( "status" ) );
 
         $repository->update( $dto );
 
-        return rest_ensure_response( [
-            'message' => esc_html__("Status updated successfully", 'directorist')
-        ] );
+        return rest_ensure_response(
+            [
+                'message' => esc_html__( "Status updated successfully", 'directorist' )
+            ]
+        );
     }
 
     public function cancel( WP_REST_Request $request ) {

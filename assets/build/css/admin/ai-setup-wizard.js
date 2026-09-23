@@ -15,12 +15,12 @@
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-/*!*******************************************************!*\
-  !*** ./assets/src/js/formgent-integration/index.scss ***!
-  \*******************************************************/
+/*!***********************************************************!*\
+  !*** ./assets/src/scss/layout/admin/ai-setup-wizard.scss ***!
+  \***********************************************************/
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
 /******/ })()
 ;
-//# sourceMappingURL=formgent-integration.js.map
+//# sourceMappingURL=ai-setup-wizard.js.map

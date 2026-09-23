@@ -121,7 +121,7 @@ class Directorist_AI_Setup_Wizard {
             [
                 'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
                 'nonce'     => wp_create_nonce( directorist_get_nonce_key() ),
-                'dashboard' => admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE ),
+                'dashboard' => admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE . '&page=atbdp-extension' ),
                 'actions'   => [
                     'generate'   => 'directorist_ai_setup_wizard_generate',
                     'regenerate' => 'directorist_ai_setup_wizard_regenerate_fields',
@@ -257,7 +257,7 @@ class Directorist_AI_Setup_Wizard {
 
         wp_send_json_success(
             [
-                'url'    => $this->get_builder_url( $directory['id'] ),
+                'url'    => admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE . '&page=atbdp-extension' ),
                 'id'     => $directory['id'],
                 'import' => $import_result,
             ]
@@ -1045,14 +1045,6 @@ class Directorist_AI_Setup_Wizard {
         if ( function_exists( 'update_directorist_option' ) ) {
             update_directorist_option( 'atbdp_default_derectory', $directory_id );
         }
-    }
-
-    private function get_builder_url( $directory_id ) {
-        if ( directorist_is_multi_directory_enabled() ) {
-            return admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE . '&page=atbdp-directory-types&listing_type_id=' . absint( $directory_id ) . '&action=edit' );
-        }
-
-        return admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE . '&page=atbdp-layout-builder' );
     }
 
     private function prepare_form_fields( array $fields ) {

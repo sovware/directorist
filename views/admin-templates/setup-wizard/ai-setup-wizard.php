@@ -5,13 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="directorist-ai-setup__chrome">
-    <div class="directorist-ai-setup__progress-track">
+    <div class="directorist-ai-setup__progress-track" id="directorist-ai-setup-progress-track" role="progressbar" aria-label="<?php esc_attr_e( 'Setup progress', 'directorist' ); ?>" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="directorist-ai-setup__progress-fill" id="directorist-ai-setup-progress"></div>
     </div>
     <div class="directorist-ai-setup__chrome-row">
         <div class="directorist-ai-setup__logo">
-            <span class="directorist-ai-setup__logo-mark">D</span>
-            <span class="directorist-ai-setup__logo-text"><?php esc_html_e( 'Directorist', 'directorist' ); ?></span>
+            <img class="directorist-ai-setup__logo-mark" src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/directorist-logo.svg' ); ?>" alt="<?php esc_attr_e( 'Directorist', 'directorist' ); ?>">
         </div>
         <button class="directorist-ai-setup__close" id="directorist-ai-setup-close" type="button" aria-label="<?php esc_attr_e( 'Close', 'directorist' ); ?>">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -28,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
 
             <div class="directorist-ai-setup__card directorist-ai-setup__input-card">
-                <textarea id="directorist-ai-setup-prompt" class="directorist-ai-setup__textarea" placeholder="<?php esc_attr_e( 'Describe your directory, or tap an example below to start...', 'directorist' ); ?>"></textarea>
+                <textarea id="directorist-ai-setup-prompt" class="directorist-ai-setup__textarea" placeholder="<?php esc_attr_e( 'Describe your directory, or tap an example below to start...', 'directorist' ); ?>" autofocus></textarea>
                 <div class="directorist-ai-setup__input-actions">
                     <button id="directorist-ai-setup-generate" class="directorist-ai-setup__button" type="button" disabled>
                         <?php esc_html_e( 'Generate', 'directorist' ); ?>
@@ -75,7 +74,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </h2>
                 <p class="directorist-ai-setup__summary-sub"><?php esc_html_e( 'Click any field to change it before launching.', 'directorist' ); ?></p>
 
-                <div class="directorist-ai-setup__row">
+                <div class="directorist-ai-setup__row directorist-ai-setup__toggle-group">
                     <p class="directorist-ai-setup__row-label"><?php esc_html_e( 'Directory name', 'directorist' ); ?></p>
                     <div class="directorist-ai-setup__input-with-icon">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -83,18 +82,22 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </div>
                 </div>
 
-                <div class="directorist-ai-setup__row">
+                <div class="directorist-ai-setup__row directorist-ai-setup__toggle-group">
                     <p class="directorist-ai-setup__row-label"><?php esc_html_e( 'Starting categories', 'directorist' ); ?></p>
                     <div class="directorist-ai-setup__tags" id="directorist-ai-setup-categories"></div>
                 </div>
 
-                <div class="directorist-ai-setup__row">
+                <div class="directorist-ai-setup__row directorist-ai-setup__toggle-group">
                     <p class="directorist-ai-setup__row-label"><?php esc_html_e( 'Default Address', 'directorist' ); ?></p>
-                    <div class="directorist-ai-setup__input-with-icon">
+                    <div class="directorist-ai-setup__input-with-icon directorist-ai-setup__location-input">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                        <input type="text" class="directorist-ai-setup__text-input" id="directorist-ai-setup-location" placeholder="<?php esc_attr_e( 'Search for a place or address', 'directorist' ); ?>" />
+                        <input type="text" class="directorist-ai-setup__text-input" id="directorist-ai-setup-location" placeholder="<?php esc_attr_e( 'Search for a place or address', 'directorist' ); ?>" aria-describedby="directorist-ai-setup-location-status directorist-ai-setup-location-info" />
+                        <button class="directorist-ai-setup__location-detect" id="directorist-ai-setup-location-detect" type="button" title="<?php esc_attr_e( 'Use my current location', 'directorist' ); ?>" aria-label="<?php esc_attr_e( 'Use my current location', 'directorist' ); ?>">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                        </button>
                     </div>
-                    <p class="directorist-ai-setup__row-info"><?php esc_html_e( 'This will be saved as the fallback map address in Directorist settings.', 'directorist' ); ?></p>
+                    <p class="directorist-ai-setup__location-status" id="directorist-ai-setup-location-status" role="status" aria-live="polite"></p>
+                    <p class="directorist-ai-setup__row-info" id="directorist-ai-setup-location-info"><?php esc_html_e( 'This will be saved as the fallback map address in Directorist settings.', 'directorist' ); ?></p>
                 </div>
 
                 <div class="directorist-ai-setup__row">

@@ -2917,7 +2917,7 @@ function directorist_redirect_to_admin_setup_wizard() {
     // Delete the redirect transient
     delete_transient( '_directorist_setup_page_redirect' );
 
-    wp_safe_redirect( add_query_arg( [ 'page' => 'directorist-setup' ], admin_url( 'index.php' ) ) );
+    wp_safe_redirect( add_query_arg( [ 'page' => 'directorist-ai-setup' ], admin_url( 'admin.php' ) ) );
     exit;
 }
 

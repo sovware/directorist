@@ -54,6 +54,7 @@ module.exports = {
 		// Admin JS
 		'js/admin/main': './assets/src/js/admin/admin.js',
 		'js/admin/setup-wizard': './assets/src/js/admin/setup-wizard.js',
+		'js/admin/ai-setup-wizard': './assets/src/js/admin/ai-setup-wizard.js',
 		'js/admin/import-export': './assets/src/js/admin/import-export.js',
 		'js/admin/plugins': './assets/src/js/admin/plugins.js',
 		'js/admin/builder-archive': './assets/src/js/admin/multi-directory-archive.js',
@@ -70,6 +71,8 @@ module.exports = {
 
 		// CSS
 		'css/admin/main': './assets/src/scss/layout/admin/admin-style.scss',
+		'css/admin/ai-setup-wizard':
+			'./assets/src/scss/layout/admin/ai-setup-wizard.scss',
 		'css/public/main': './assets/src/scss/layout/public/main-style.scss',
 		'css/public/formgent-integration': './assets/src/js/formgent-integration/index.scss',
 	},

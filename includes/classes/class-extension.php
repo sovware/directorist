@@ -66,6 +66,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             add_action( 'wp_ajax_atbdp_refresh_purchase_status', [ $this, 'handle_refresh_purchase_status_request' ] );
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', [ $this, 'handle_close_subscriptions_sassion_request' ] );
             add_action( 'wp_ajax_directorist_te_get_activity', [ $this, 'get_dashboard_activity' ] );
+            add_action( 'wp_ajax_directorist_te_dismiss_dashboard_checklist', [ $this, 'dismiss_dashboard_checklist' ] );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
@@ -3775,11 +3776,23 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $account_name = '';
             }
 
-            if ( $account_name ) {
-                /* translators: %s: Connected Directorist account owner's display name. */
-                $title = sprintf( __( 'Welcome back, %s', 'directorist' ), $account_name );
+            $current_hour = (int) current_time( 'G' );
+
+            if ( $current_hour >= 5 && $current_hour < 12 ) {
+                $greeting = __( 'Good morning', 'directorist' );
+            } elseif ( $current_hour >= 12 && $current_hour < 17 ) {
+                $greeting = __( 'Good afternoon', 'directorist' );
+            } elseif ( $current_hour >= 17 && $current_hour < 22 ) {
+                $greeting = __( 'Good evening', 'directorist' );
             } else {
-                $title = __( 'Welcome back', 'directorist' );
+                $greeting = __( 'Welcome back', 'directorist' );
+            }
+
+            if ( $account_name ) {
+                /* translators: 1: Time-aware greeting. 2: Connected Directorist account owner's display name. */
+                $title = sprintf( __( '%1$s, %2$s', 'directorist' ), $greeting, $account_name );
+            } else {
+                $title = $greeting;
             }
 
             $name_parts = $account_name ? preg_split( '/\s+/', $account_name ) : [];
@@ -3803,7 +3816,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $plugin_version   = defined( 'ATBDP_VERSION' ) ? sanitize_text_field( (string) ATBDP_VERSION ) : '';
             $whats_new_url    = apply_filters(
                 'directorist_themes_extensions_whats_new_url',
-                'https://directorist.com/changelog/',
+                'https://wordpress.org/plugins/directorist/#developers',
                 $plugin_version
             );
 
@@ -4003,6 +4016,19 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         /**
+         * Persist the connected-dashboard setup checklist dismissal for the current user.
+         */
+        public function dismiss_dashboard_checklist() {
+            if ( ! current_user_can( 'manage_options' ) || ! $this->is_verified_nonce() ) {
+                wp_send_json_error( [ 'message' => __( 'You are not allowed to dismiss these setup steps.', 'directorist' ) ], 403 );
+            }
+
+            update_user_meta( get_current_user_id(), 'directorist_te_dashboard_checklist_dismissed', 1 );
+
+            wp_send_json_success();
+        }
+
+        /**
          * It Loads Extension view
          */
         public function show_extension_view() {
@@ -4019,6 +4045,11 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $themes_overview     = $this->get_themes_overview();
             $dashboard_activity = new ATBDP_Extension_Activity();
             $dashboard_metrics  = $dashboard_activity->get_dashboard_metrics();
+            $dashboard_setup    = $dashboard_activity->get_dashboard_setup( $dashboard_metrics );
+
+            if ( get_user_meta( get_current_user_id(), 'directorist_te_dashboard_checklist_dismissed', true ) ) {
+                $dashboard_setup['is_visible'] = false;
+            }
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
@@ -4053,7 +4084,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 'dashboard_welcome'                     => $this->get_dashboard_welcome_data( $extensions_overview, $themes_overview, $is_logged_in ),
                 'dashboard_quick_actions'               => $this->get_dashboard_quick_actions_data(),
                 'dashboard_metrics'                     => $dashboard_metrics,
-                'dashboard_setup'                       => $dashboard_activity->get_dashboard_setup( $dashboard_metrics ),
+                'dashboard_setup'                       => $dashboard_setup,
                 'dashboard_activity'                    => $dashboard_activity->get_page( 1, 5, 'all' ),
                 'dashboard_recommendations'             => $is_logged_in
                     ? ( new ATBDP_Extension_Recommendations(

@@ -23,7 +23,6 @@ $dashboard_metrics     = ! empty( $args['dashboard_metrics'] ) && is_array( $arg
 $dashboard_metric_charts = ! empty( $dashboard_metrics['charts'] ) && is_array( $dashboard_metrics['charts'] ) ? $dashboard_metrics['charts'] : [];
 $dashboard_setup       = ! empty( $args['dashboard_setup'] ) && is_array( $args['dashboard_setup'] ) ? $args['dashboard_setup'] : [];
 $dashboard_setup_visible = ! array_key_exists( 'is_visible', $dashboard_setup ) || ! empty( $dashboard_setup['is_visible'] );
-$dashboard_setup_dismiss_key = sprintf( 'directorist_te_dashboard_checklist_dismissed_%d_%d', get_current_blog_id(), get_current_user_id() );
 $dashboard_activity    = ! empty( $args['dashboard_activity'] ) && is_array( $args['dashboard_activity'] ) ? $args['dashboard_activity'] : [];
 $dashboard_activity_items = ! empty( $dashboard_activity['items'] ) && is_array( $dashboard_activity['items'] ) ? $dashboard_activity['items'] : [];
 $dashboard_recommendations = ! empty( $args['dashboard_recommendations'] ) && is_array( $args['dashboard_recommendations'] ) ? $args['dashboard_recommendations'] : [];
@@ -33,7 +32,7 @@ $account_initials      = ! empty( $dashboard_welcome['account_initials'] ) ? (st
 $connection_method     = ! empty( $dashboard_welcome['connection_method'] ) && 'access_key' === $dashboard_welcome['connection_method'] ? 'access_key' : 'account';
 $plugin_version        = ! empty( $dashboard_welcome['plugin_version'] ) ? (string) $dashboard_welcome['plugin_version'] : '';
 $account_plan_label    = ! empty( $dashboard_welcome['plan_label'] ) ? (string) $dashboard_welcome['plan_label'] : __( 'Connected account', 'directorist' );
-$whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://directorist.com/changelog/';
+$whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://wordpress.org/plugins/directorist/#developers';
 $has_local_products    = ! empty( $installed_extensions ) || ! empty( $installed_themes );
 $connect_title         = $has_local_products
     ? __( 'Connect to manage installed Directorist products', 'directorist' )
@@ -1113,7 +1112,7 @@ $notification_count = $total_updates + $required_rows;
                         $dashboard_setup_ring_offset = $dashboard_setup_ring_length * ( 1 - ( $dashboard_setup_progress / 100 ) );
                         $dashboard_setup_steps       = ! empty( $dashboard_setup['steps'] ) && is_array( $dashboard_setup['steps'] ) ? $dashboard_setup['steps'] : [];
                         ?>
-                    <section class="directorist-te-dashboard-nudge" id="directorist-te-dashboard-nudge" data-dismiss-key="<?php echo esc_attr( $dashboard_setup_dismiss_key ); ?>">
+                    <section class="directorist-te-dashboard-nudge" id="directorist-te-dashboard-nudge">
                         <div class="directorist-te-dashboard-nudge__top">
                             <div
                                 class="directorist-te-dashboard-ring"

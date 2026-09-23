@@ -1747,21 +1747,11 @@
     const steps = dashboard.find(".directorist-te-dashboard-step");
     const ring = dashboard.find(".directorist-te-dashboard-ring circle").last();
     const ringLabel = dashboard.find(".directorist-te-dashboard-ring span");
-    const dismissKey = String(nudge.attr("data-dismiss-key") || "");
     const radius = 19;
     const circumference = 2 * Math.PI * radius;
 
     if (!dashboard.length || !nudge.length) {
       return;
-    }
-
-    if (dismissKey) {
-      try {
-        if (window.localStorage.getItem(dismissKey) === "1") {
-          nudge.prop("hidden", true).attr("aria-hidden", "true");
-          return;
-        }
-      } catch (error) {}
     }
 
     function paintProgress() {
@@ -1830,15 +1820,18 @@
     dashboard
       .find(".directorist-te-dashboard-nudge__dismiss")
       .on("click.directoristTeDashboard", function () {
+        const dismissButton = $(this);
+
         nudge.prop("hidden", true).attr("aria-hidden", "true");
+        dismissButton.prop("disabled", true);
 
-        if (!dismissKey) {
-          return;
-        }
-
-        try {
-          window.localStorage.setItem(dismissKey, "1");
-        } catch (error) {}
+        $.post(ajaxUrl(), {
+          action: "directorist_te_dismiss_dashboard_checklist",
+          nonce: nonce(),
+        }).fail(function () {
+          nudge.prop("hidden", false).attr("aria-hidden", "false");
+          dismissButton.prop("disabled", false);
+        });
       });
   }
 

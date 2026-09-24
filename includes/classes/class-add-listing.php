@@ -27,6 +27,8 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
 
         protected static $selected_categories = null;
 
+        private $completing_renewal_approval = false;
+
         /**
          * Nonce name.
          *
@@ -1052,11 +1054,11 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
          * Start the new listing lifetime when an administrator publishes a renewal.
          */
         public function complete_renewal_approval( $post_id, $post, $update ) {
-            if ( ATBDP_POST_TYPE !== $post->post_type || ! get_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY, true ) ) {
+            if ( $this->completing_renewal_approval || ATBDP_POST_TYPE !== $post->post_type || ! get_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY, true ) ) {
                 return;
             }
 
-            if ( in_array( $post->post_status, [ 'rejected', 'trash' ], true ) ) {
+            if ( 'trash' === $post->post_status ) {
                 delete_post_meta( $post_id, self::RENEWAL_PENDING_META_KEY );
                 return;
             }
@@ -1065,11 +1067,22 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
                 return;
             }
 
-            $directory_type  = directorist_get_listing_directory( $post_id );
-            $expiration_days = directorist_get_default_expiration( $directory_type );
+            $approval_time    = current_time( 'mysql' );
+            $directory_type   = directorist_get_listing_directory( $post_id );
+            $expiration_days  = directorist_get_default_expiration( $directory_type );
+
+            $this->completing_renewal_approval = true;
+            wp_update_post(
+                [
+                    'ID'            => $post_id,
+                    'post_date'     => $approval_time,
+                    'post_date_gmt' => get_gmt_from_date( $approval_time ),
+                ]
+            );
+            $this->completing_renewal_approval = false;
 
             if ( $expiration_days > 0 ) {
-                update_post_meta( $post_id, '_expiry_date', calc_listing_expiry_date( null, $expiration_days, $directory_type ) );
+                update_post_meta( $post_id, '_expiry_date', calc_listing_expiry_date( $approval_time, $expiration_days, $directory_type ) );
                 delete_post_meta( $post_id, '_never_expire' );
             } else {
                 delete_post_meta( $post_id, '_expiry_date' );

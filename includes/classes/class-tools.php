@@ -1123,19 +1123,21 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                 return new WP_Error( 'invalid_csv_file', 'Invalid file path or file does not exists.' );
             }
 
-            if ( ! wp_check_filetype( $file )['ext'] === 'csv' ) {
-                return new WP_Error( 'invalid_csv_file', 'The file must be a CSV file.' );
-            }
+            $filename = wp_basename( $file );
 
-            $mime_type = mime_content_type( $file );
-            if ( ! in_array( $mime_type, [ 'text/csv','text/plain', 'application/csv' ], true ) ) {
-                return new WP_Error(
-                    'invalid_csv_file',
-                    sprintf(
-                        'Invalid file type. Only text/plain, text/csv, and application/csv are supported, given "%s".',
-                        $mime_type
-                    )
-                );
+            // WordPress appends .txt and may add a numeric suffix to importer uploads.
+            $filename = preg_replace( '/\.csv(?:-\d+)?\.txt$/i', '.csv', $filename );
+
+            $file_type = wp_check_filetype_and_ext(
+                $file,
+                $filename,
+                [
+                    'csv' => 'text/csv',
+                ]
+            );
+
+            if ( 'csv' !== $file_type['ext'] || 'text/csv' !== $file_type['type'] ) {
+                return new WP_Error( 'invalid_csv_file', 'The file must be a valid CSV file.' );
             }
 
             return $file;

@@ -67,6 +67,7 @@ class Directorist_AI_Setup_Wizard {
         add_action( 'admin_init', [ $this, 'render_page' ], 99 );
         add_action( 'wp_ajax_directorist_ai_setup_wizard_generate', [ $this, 'handle_generate' ] );
         add_action( 'wp_ajax_directorist_ai_setup_wizard_regenerate_fields', [ $this, 'handle_regenerate_fields' ] );
+        add_action( 'wp_ajax_directorist_ai_setup_wizard_reverse_geocode', [ $this, 'handle_reverse_geocode' ] );
         add_action( 'wp_ajax_directorist_ai_setup_wizard_launch', [ $this, 'handle_launch' ] );
     }
 
@@ -122,9 +123,18 @@ class Directorist_AI_Setup_Wizard {
                 'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
                 'nonce'     => wp_create_nonce( directorist_get_nonce_key() ),
                 'dashboard' => admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE . '&page=atbdp-extension' ),
+                'storage'   => [
+                    'key' => sprintf(
+                        'directorist-ai-setup-wizard-%d-%d-v1',
+                        get_current_blog_id(),
+                        get_current_user_id()
+                    ),
+                    'ttl' => DAY_IN_SECONDS,
+                ],
                 'actions'   => [
                     'generate'   => 'directorist_ai_setup_wizard_generate',
                     'regenerate' => 'directorist_ai_setup_wizard_regenerate_fields',
+                    'geocode'    => 'directorist_ai_setup_wizard_reverse_geocode',
                     'launch'     => 'directorist_ai_setup_wizard_launch',
                 ],
                 'i18n'      => [
@@ -132,17 +142,29 @@ class Directorist_AI_Setup_Wizard {
                     'fallbackNotice'     => __( 'AI is taking longer than expected, so we prepared a starter setup. You can edit it before launch.', 'directorist' ),
                     'launchError'        => __( 'Could not launch your directory. Please try again.', 'directorist' ),
                     'categoryName'       => __( 'Category name', 'directorist' ),
-                    'exitConfirm'        => __( 'Exit setup and go to the dashboard? Your progress will not be saved.', 'directorist' ),
+                    'exitConfirm'        => __( 'Exit setup and go to the dashboard? Your progress will stay available in this browser tab.', 'directorist' ),
+                    'requestInterrupted' => __( 'The request was interrupted by the reload. Your saved progress has been restored.', 'directorist' ),
+                    'launchInterrupted'  => __( 'The launch was interrupted by the reload. Check your listings before trying again.', 'directorist' ),
                     'fieldCount'         => __( '%d fields selected', 'directorist' ),
                     'noFields'           => __( 'No fields selected yet.', 'directorist' ),
                     'addCategory'        => __( '+ Add category', 'directorist' ),
-                    'addCategoryPrompt'  => __( 'Category name', 'directorist' ),
+                    'categoryRequired'   => __( 'Enter a category name.', 'directorist' ),
+                    'categoryExists'     => __( 'This category has already been added.', 'directorist' ),
                     'regenerate'         => __( 'Regenerate', 'directorist' ),
                     'regenerating'       => __( 'Regenerating...', 'directorist' ),
                     'regenerateNote'     => __( 'You can regenerate fields %d more times.', 'directorist' ),
                     'regenerateDone'     => __( 'Regeneration limit reached.', 'directorist' ),
                     'launch'             => __( 'Launch my directory', 'directorist' ),
                     'launching'          => __( 'Launching...', 'directorist' ),
+                    'detectLocation'     => __( 'Use my current location', 'directorist' ),
+                    'detectingLocation'  => __( 'Detecting your current location...', 'directorist' ),
+                    'locationDetected'   => __( 'Current address detected.', 'directorist' ),
+                    'locationFallback'   => __( 'Location detected, but the exact address could not be found. Coordinates were added instead.', 'directorist' ),
+                    'locationInsecure'   => __( 'Location detection needs HTTPS or localhost. Open this admin page over HTTPS and try again.', 'directorist' ),
+                    'locationBlocked'    => __( 'Location access is blocked. Allow it from your browser address bar, then try again.', 'directorist' ),
+                    'locationUnavailable' => __( 'Your current location is unavailable. Please try again.', 'directorist' ),
+                    'locationTimeout'     => __( 'Location detection timed out. Please try again.', 'directorist' ),
+                    'locationUnsupported' => __( 'Your browser does not support location detection.', 'directorist' ),
                 ],
             ]
         );
@@ -217,6 +239,55 @@ class Directorist_AI_Setup_Wizard {
         $payload['fields'] = $this->remove_unselected_locked_regenerated_fields( $payload['fields'], $fields, $selected );
         $payload['fields'] = $this->preserve_regenerated_selected_field_context( $payload['fields'], $fields, $selected );
         wp_send_json_success( [ 'fields' => $payload['fields'] ] );
+    }
+
+    public function handle_reverse_geocode() {
+        $this->verify_ajax_request();
+
+        $coordinates = $this->normalize_coordinates(
+            [
+                'lat' => isset( $_POST['latitude'] ) ? sanitize_text_field( wp_unslash( $_POST['latitude'] ) ) : null,
+                'lng' => isset( $_POST['longitude'] ) ? sanitize_text_field( wp_unslash( $_POST['longitude'] ) ) : null,
+            ]
+        );
+
+        if ( ! $coordinates ) {
+            wp_send_json_error( [ 'message' => __( 'Invalid location coordinates.', 'directorist' ) ], 400 );
+        }
+
+        $response = wp_remote_get(
+            add_query_arg(
+                [
+                    'format'         => 'jsonv2',
+                    'lat'            => $coordinates['lat'],
+                    'lon'            => $coordinates['lng'],
+                    'zoom'           => 18,
+                    'addressdetails' => 0,
+                    'accept-language' => str_replace( '_', '-', get_user_locale() ),
+                ],
+                'https://nominatim.openstreetmap.org/reverse'
+            ),
+            [
+                'timeout' => 8,
+                'headers' => [
+                    'Accept'     => 'application/json',
+                    'User-Agent' => 'Directorist AI Setup Wizard/' . ATBDP_VERSION . '; ' . home_url( '/' ),
+                ],
+            ]
+        );
+
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+            wp_send_json_error( [ 'message' => __( 'The address could not be resolved.', 'directorist' ) ], 502 );
+        }
+
+        $result  = json_decode( wp_remote_retrieve_body( $response ), true );
+        $address = isset( $result['display_name'] ) ? sanitize_text_field( $result['display_name'] ) : '';
+
+        if ( '' === $address ) {
+            wp_send_json_error( [ 'message' => __( 'No address was found for this location.', 'directorist' ) ], 404 );
+        }
+
+        wp_send_json_success( [ 'address' => $address ] );
     }
 
     public function handle_launch() {

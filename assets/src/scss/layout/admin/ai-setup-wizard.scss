@@ -49,10 +49,10 @@
 }
 
 .directorist-ai-setup__progress-fill {
-    width: 33%;
+    width: 0;
     height: 100%;
     background: var(--directorist-ai-accent);
-    transition: width .4s ease;
+    will-change: width;
 }
 
 .directorist-ai-setup__chrome-row {
@@ -65,26 +65,12 @@
 .directorist-ai-setup__logo {
     display: flex;
     align-items: center;
-    gap: 10px;
 }
 
-.directorist-ai-setup__logo-mark {
-    display: inline-flex;
-    width: 28px;
-    height: 28px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    background: var(--directorist-ai-accent);
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.directorist-ai-setup__logo-text {
-    color: var(--directorist-ai-text);
-    font-size: 15px;
-    font-weight: 600;
+.directorist-ai-setup__brand-logo {
+    display: block;
+    width: 140px;
+    height: auto;
 }
 
 .directorist-ai-setup__close,
@@ -442,6 +428,93 @@
     padding-left: 36px;
 }
 
+.directorist-ai-setup__location-input .directorist-ai-setup__text-input {
+    padding-right: 44px;
+}
+
+.directorist-ai-setup__location-detect {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    outline: 0;
+    background: transparent;
+    color: var(--directorist-ai-muted);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+        background-color .15s,
+        color .15s;
+}
+
+.directorist-ai-setup__location-detect:hover:not(:disabled) {
+    background: var(--directorist-ai-tag);
+    color: var(--directorist-ai-accent);
+}
+
+.directorist-ai-setup__location-detect:focus-visible {
+    box-shadow: var(--directorist-ai-shadow-focus);
+    color: var(--directorist-ai-accent);
+}
+
+.directorist-ai-setup__location-detect:disabled {
+    cursor: wait;
+    opacity: .7;
+}
+
+.directorist-ai-setup__location-detect svg {
+    position: static;
+    color: currentColor;
+    pointer-events: none;
+    transform: none;
+}
+
+.directorist-ai-setup__location-detect.is-loading svg {
+    display: none;
+}
+
+.directorist-ai-setup__location-detect.is-loading:before {
+    width: 13px;
+    height: 13px;
+    border: 2px solid var(--directorist-ai-border);
+    border-top-color: var(--directorist-ai-accent);
+    border-radius: 50%;
+    content: "";
+    animation: directoristAiSpin .7s linear infinite;
+}
+
+@keyframes directoristAiSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.directorist-ai-setup__location-status {
+    margin: 6px 0 0;
+    color: var(--directorist-ai-muted);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.directorist-ai-setup__location-status:empty {
+    display: none;
+}
+
+.directorist-ai-setup__location-status.is-success {
+    color: var(--directorist-ai-success);
+}
+
+.directorist-ai-setup__location-status.is-warning {
+    color: #b54708;
+}
+
 .directorist-ai-setup__tags {
     display: flex;
     flex-wrap: wrap;
@@ -504,6 +577,69 @@
     border-color: var(--directorist-ai-accent);
     border-style: solid;
     color: var(--directorist-ai-accent);
+}
+
+.directorist-ai-setup__tag-add:focus-visible {
+    border-color: var(--directorist-ai-accent);
+    border-style: solid;
+    color: var(--directorist-ai-accent);
+    outline: 0;
+    box-shadow: var(--directorist-ai-shadow-focus);
+}
+
+.directorist-ai-setup__tag-entry {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+}
+
+.directorist-ai-setup__tag-input {
+    width: 174px;
+    max-width: 100%;
+    min-height: 28px;
+    padding: 3px 12px;
+    border: 1px solid var(--directorist-ai-accent);
+    border-radius: var(--directorist-ai-radius-pill);
+    outline: 0;
+    background: var(--directorist-ai-card);
+    color: var(--directorist-ai-text);
+    box-shadow: var(--directorist-ai-shadow-focus);
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 20px;
+    transition:
+        border-color .15s,
+        box-shadow .15s;
+}
+
+.directorist-ai-setup__tag-input::placeholder {
+    color: var(--directorist-ai-muted-soft);
+}
+
+.directorist-ai-setup__tag-input.is-invalid {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, .12);
+}
+
+.directorist-ai-setup__tag-feedback {
+    position: absolute;
+    z-index: 2;
+    top: calc(100% + 5px);
+    left: 8px;
+    display: block;
+    padding: 4px 7px;
+    border: 1px solid #fecaca;
+    border-radius: 5px;
+    background: #fff;
+    color: #991b1b;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, .1);
+    font-size: 11px;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.directorist-ai-setup__tag-feedback:empty {
+    display: none;
 }
 
 .directorist-ai-setup__fields-summary {
@@ -615,6 +751,7 @@
     border: 1px solid transparent;
     border-radius: var(--directorist-ai-radius-input);
     outline: 0;
+    background: transparent;
     color: var(--directorist-ai-text);
     font-size: 13px;
     transition: all .15s;
@@ -646,7 +783,9 @@
 .directorist-ai-setup__field-remove {
     width: 22px;
     height: 22px;
+    padding: 0;
     font-size: 15px;
+    line-height: 1;
 }
 
 .directorist-ai-setup__fields-done {
@@ -655,9 +794,13 @@
     font-size: 13px;
 }
 
+.directorist-ai-setup__toggle-group {
+    padding: 14px 0;
+}
+
 .directorist-ai-setup__toggle-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 12px;
 }
@@ -671,13 +814,16 @@
     margin-top: 2px;
 }
 
+.directorist-ai-setup__toggle-row .directorist-ai-setup__row-label {
+    margin-bottom: 4px;
+}
+
 .directorist-ai-setup__toggle {
     position: relative;
     display: inline-block;
     width: 40px;
     height: 22px;
     flex-shrink: 0;
-    margin-top: 2px;
 }
 
 .directorist-ai-setup__toggle input {
@@ -766,6 +912,12 @@
 .directorist-ai-setup__exit-wrap {
     padding: 24px 24px 40px;
     text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .directorist-ai-setup__location-detect.is-loading:before {
+        animation: none;
+    }
 }
 
 @media (max-width: 540px) {

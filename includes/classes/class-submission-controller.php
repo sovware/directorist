@@ -515,13 +515,17 @@ class SubmissionController {
         );
     }
 
-    protected static function reset_listing_taxonomy( $listing_id, $taxonomy_data = array() ) {
+    protected static function set_listing_taxonomy( $listing_id, $taxonomy_data = array() ) {
         $taxonomies = array( ATBDP_LOCATION, ATBDP_CATEGORY, ATBDP_TAGS );
 
         foreach ( $taxonomies as $taxonomy ) {
-            if ( isset( $taxonomy_data[ $taxonomy ] ) && empty( $taxonomy_data[ $taxonomy ] ) ) {
-                wp_set_object_terms( $listing_id, '', $taxonomy );
+            if ( ! array_key_exists( $taxonomy, $taxonomy_data ) ) {
+                continue;
             }
+
+            $term_ids = array_map( 'intval', (array) $taxonomy_data[ $taxonomy ] );
+
+            wp_set_object_terms( $listing_id, $term_ids, $taxonomy );
         }
     }
 
@@ -772,7 +776,7 @@ class SubmissionController {
                 return $listing_id;
             }
 
-            self::reset_listing_taxonomy( $listing_id, $tax_data );
+            self::set_listing_taxonomy( $listing_id, $tax_data );
             directorist_set_listing_directory( $listing_id, $directory_id );
 
             // Clean empty meta data.
@@ -788,6 +792,7 @@ class SubmissionController {
                 return $listing_id;
             }
 
+            self::set_listing_taxonomy( $listing_id, $tax_data );
             directorist_set_listing_directory( $listing_id, $directory_id );
 
             do_action( 'atbdp_listing_inserted', $listing_id ); // for sending email notification

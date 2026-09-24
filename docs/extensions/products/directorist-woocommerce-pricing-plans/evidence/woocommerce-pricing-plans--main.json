@@ -1,0 +1,7229 @@
+{
+  "snapshot": {
+    "key": "woocommerce-pricing-plans--main",
+    "repo": "directorist-woocommerce-pricing-plans",
+    "branch": "main",
+    "commit": "922d5c0e7c7b2a917b58f46367e588bcde93be38",
+    "date": "2026-08-09T06:03:34Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans",
+    "kind": "remote"
+  },
+  "files": {
+    ".DS_Store": {
+      "sha256": "cd4fb61b8e98e7a041a5974f44be8de1fcdc4b680f0a7ea20146dfda3e00b718",
+      "bytes": 8196,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "3cdfa855ef67955541a5aa7529a19d75f65e2ba882704e7d4ed365e3e677cf7f",
+      "bytes": 15,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "389c3bec6c1f552a477f0507da420f06bd97a1d43b7c101220e8467b77c80389",
+      "bytes": 1203,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config.php": {
+      "sha256": "60663648e8dcc0a40fadc9c04d32d951a87f7cc05331ee1f169fd66c3bd7ccbf",
+      "bytes": 1729,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DWPP_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'DWPP_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DWPP_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'DWPP_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DWPP_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'DWPP_CLASSES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DWPP_VIEWS_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'DWPP_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DWPP_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'DWPP_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'ATBDP_ORDER_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 25,
+          "args": [
+            "'DWPP_Pricing_Plans_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 31,
+          "args": [
+            "'ATBDP_WOO_PRICING_PLAN_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "const-helper.php": {
+      "sha256": "2aacd16d96ba21f23016eafe54b9fcf1adc98b8e0ac0073a514d5da451427887",
+      "bytes": 714,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dwpp_get_version_from_content",
+          "line": 4,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_get_version_from_file_content",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 3,
+          "args": [
+            "'dwpp_get_version_from_content'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 15,
+          "args": [
+            "'dwpp_get_version_from_file_content'"
+          ]
+        }
+      ]
+    },
+    "directorist-woocommerce-pricing-plans.php": {
+      "sha256": "9ffababf65d55fb10a561f7e19b3745118b4352d2a6e8158ecb6b47da93a95da",
+      "bytes": 13160,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Pricing_Plans",
+          "line": 21,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_edited_listings_status",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enforce_pending_status_after_preview",
+          "line": 112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 152,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 164,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 174,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 185,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 216,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 230,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "DWPP_Pricing_Plans",
+          "line": 257,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_register_woocommerce_product_type",
+          "line": 267,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "DWPP_Product_Listings_Package",
+          "line": 276,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 278,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 20,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 20,
+          "args": [
+            "'DWPP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 62,
+          "args": [
+            "'atbdp_reviewed_listing_status_controller_argument'",
+            "[self::$instance, 'update_edited_listings_status']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 63,
+          "args": [
+            "'directorist_listing_update_args_after_preview'",
+            "[ self::$instance, 'enforce_pending_status_after_preview' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 64,
+          "args": [
+            "'directorist_is_featured_listing_enabled'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 66,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 74,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 92,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 98,
+          "args": [
+            "$plan_id",
+            "'_regular_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 119,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 126,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 128,
+          "args": [
+            "'wc_get_order'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 203,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 217,
+          "args": [
+            "'DWPP_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 223,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 225,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 229,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 235,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 275,
+          "args": [
+            "'WooCommerce'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 287,
+          "args": [
+            "'plugins_loaded'",
+            "function() { if ( ! class_exists( 'Directorist_Base' ) ) { return; } $required_version = '8.8.0'; $current_version = defined( 'ATBDP_VERSION' ) ? ATBDP_VERSION : '0'; if ( version_compare( $current_version, $required_version, '<' ) ) { add_"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 289,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 294,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 297,
+          "args": [
+            "'admin_notices'",
+            "function() use ( $required_version, $current_version ) { printf( '<div class=\"notice notice-error\"><p>%s</p></div>', wp_kses_post( sprintf( __( '<strong>Directorist WooCommerce Pricing Plans</strong> requires Directorist version <strong>%1$"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "5a6ba8768251ac631b711ef52d527fb3959c957c3618c15cc5205f9f4d248fc1",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main-rtl.css": {
+      "sha256": "e92b47b7b849e95e8011d80405b948489e15ac31abfc72fc48ed78a83f400690",
+      "bytes": 35837,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "cfc5564e6562b4a3e8697e324dabf868ae226e13786bb98e54ec75c4012e9e24",
+      "bytes": 38160,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "b3183cd21fe53d56014aaf39b93613a23934d5b85095524d28a874029e3974ce",
+      "bytes": 23509,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directory_type",
+          "kind": "JS",
+          "line": 141
+        },
+        {
+          "name": "admin_listing_form",
+          "kind": "JS",
+          "line": 150
+        },
+        {
+          "name": "checkTextareaLimit",
+          "kind": "JS",
+          "line": 323
+        },
+        {
+          "name": "getStats",
+          "kind": "JS",
+          "line": 352
+        },
+        {
+          "name": "appendAlert",
+          "kind": "JS",
+          "line": 365
+        },
+        {
+          "name": "letterCountWithAlert",
+          "kind": "JS",
+          "line": 445
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/new-validitor-admin.js": {
+      "sha256": "a8f8552b3d9628074e54594d225f67d8f1b0cbadf064bebf4b98644dbb92f231",
+      "bytes": 1052,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/plan-validator.js": {
+      "sha256": "9ce7dc82316d2465a8eb29603c1b7d4c3a8e38a3b0ffc2d518bef52ec6840d1a",
+      "bytes": 14889,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "to_top",
+          "kind": "JS",
+          "line": 2
+        },
+        {
+          "name": "qs",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "b",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "p",
+          "kind": "JS",
+          "line": 12
+        },
+        {
+          "name": "reset_form",
+          "kind": "JS",
+          "line": 29
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/plan-validitor-admin.js": {
+      "sha256": "975be981d898c5274bb0e079c1d5163f9e0fb7fd545d06fc6658e4e4a2cedbe7",
+      "bytes": 4992,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "plan_id",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "get_allowances",
+          "kind": "JS",
+          "line": 23
+        }
+      ],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "3c0f710e8987fe417c5cf6f8b9692112d118bf7beea19b17a68e61c767a5dfc0",
+      "bytes": 17771,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/class-db.php": {
+      "sha256": "186c37b12844e6fe18b1b4b9fd83788c4b9d3e9acc2b9a68782b550dbd0442fe",
+      "bytes": 9,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/class-woo-admin.php": {
+      "sha256": "a4a2bce310bce533dbf5c1acbc30737ea276bec838d6c0ced6b68f3abaa95c21",
+      "bytes": 1031,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_WooCommerce_Admin",
+          "line": 21,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "product_type_selector",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "968b34c82ff9ef161a647a88011e692fc0810e37cf1d755d38da9dbe306ef845",
+      "bytes": 84192,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "swbd_pricing_plan__include_additional_submission_fields",
+          "line": 6,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_rules",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_get_option",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sanitize_array",
+          "line": 109,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directoria_active",
+          "line": 136,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_business_hours",
+          "line": 146,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_video",
+          "line": 166,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_owner_contact_widget",
+          "line": 179,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_email",
+          "line": 192,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_phone",
+          "line": 205,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_webLink",
+          "line": 218,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_social_networks",
+          "line": 231,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_review",
+          "line": 244,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_faqs",
+          "line": 256,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_category",
+          "line": 269,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_custom_fields",
+          "line": 282,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_average_price_range",
+          "line": 295,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_listing_gallery",
+          "line": 308,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_featured_listing",
+          "line": 321,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "selected_plan_id",
+          "line": 334,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "selected_plan_meta",
+          "line": 359,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "package_or_PPL",
+          "line": 371,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "PPL_with_featured",
+          "line": 383,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_get_expaire_status",
+          "line": 391,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_plan_expaire_status",
+          "line": 426,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "subscribed_package_or_PPL_plans",
+          "line": 455,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbd_get_listing_wc_payment_status",
+          "line": 565,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbd_get_listing_plan_order_status",
+          "line": 575,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbd_get_listings_wc_order_id",
+          "line": 584,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "package_or_PPL_with_listing",
+          "line": 645,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listings_data_with_plan",
+          "line": 692,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_slider_limit",
+          "line": 756,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_price",
+          "line": 769,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_tag",
+          "line": 782,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_slider_unlimited",
+          "line": 794,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_tag_limit",
+          "line": 806,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_price_limit",
+          "line": 818,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_tag_unlimited",
+          "line": 830,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_price_unlimited",
+          "line": 842,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_plan_allowed_slider",
+          "line": 855,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_woocommerce_multiselect",
+          "line": 870,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_get_listing_directory_type",
+          "line": 901,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_get_listing_status_from_directory",
+          "line": 938,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_approved_order_statuses",
+          "line": 949,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_is_approved_order_status",
+          "line": 955,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_is_approved_order",
+          "line": 963,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_attach_listing_to_order",
+          "line": 973,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_get_listing_plan_order_id",
+          "line": 1011,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_validate_plan",
+          "line": 1102,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_need_to_charge_with_plan",
+          "line": 1413,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_need_listing_to_refresh",
+          "line": 1549,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_get_used_free_plan",
+          "line": 1607,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_create_required_pages",
+          "line": 1628,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_plan",
+          "line": 1661,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plans_remaining",
+          "line": 1681,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "public_plans",
+          "line": 1739,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_get_template",
+          "line": 1781,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_add_listing_page_link_with_plan",
+          "line": 1802,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_direct_purchase",
+          "line": 1898,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_plans_dashboard_data",
+          "line": 1903,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_plan_allows_booking",
+          "line": 1972,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_active_orders_without_listing",
+          "line": 1984,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_plan_lifetime",
+          "line": 2030,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directoirst_wc_plan_auto_renewal",
+          "line": 2065,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_active_orders",
+          "line": 2077,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_wc_checkout_url",
+          "line": 2116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_valid_order",
+          "line": 2140,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_validate_date",
+          "line": 2161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_recurring_plans",
+          "line": 2181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_plan_features",
+          "line": 2213,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 5,
+          "args": [
+            "'swbd_pricing_plan__include_additional_submission_fields'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 40,
+          "args": [
+            "'atbdp_get_option'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 46,
+          "args": [
+            "'dgrc_default_user_roles'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 90,
+          "args": [
+            "$group"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 103,
+          "args": [
+            "'atbdp_sanitize_array'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 131,
+          "args": [
+            "'is_directoria_active'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 141,
+          "args": [
+            "'is_plan_allowed_business_hours'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 149,
+          "args": [
+            "'BD_Business_Hour'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 161,
+          "args": [
+            "'is_plan_allowed_listing_video'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 174,
+          "args": [
+            "'is_plan_allowed_owner_contact_widget'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 187,
+          "args": [
+            "'is_plan_allowed_listing_email'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 200,
+          "args": [
+            "'is_plan_allowed_listing_phone'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 213,
+          "args": [
+            "'is_plan_allowed_listing_webLink'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 226,
+          "args": [
+            "'is_plan_allowed_listing_social_networks'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 239,
+          "args": [
+            "'is_plan_allowed_listing_review'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 251,
+          "args": [
+            "'is_plan_allowed_listing_faqs'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 264,
+          "args": [
+            "'is_plan_allowed_category'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 277,
+          "args": [
+            "'is_plan_allowed_custom_fields'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 290,
+          "args": [
+            "'is_plan_allowed_average_price_range'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 303,
+          "args": [
+            "'is_plan_allowed_listing_gallery'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 316,
+          "args": [
+            "'is_plan_allowed_featured_listing'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 329,
+          "args": [
+            "'selected_plan_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 354,
+          "args": [
+            "'selected_plan_meta'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 361,
+          "args": [
+            "$plan_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 366,
+          "args": [
+            "'package_or_PPL'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 378,
+          "args": [
+            "'PPL_with_featured'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 390,
+          "args": [
+            "'atbdp_get_expaire_status'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 425,
+          "args": [
+            "'atbdp_plan_expaire_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 430,
+          "args": [
+            "$plan_id"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 447,
+          "args": [
+            "'subscribed_package_or_PPL_plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 463,
+          "args": [
+            "'wcs_get_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 520,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 548,
+          "args": [
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 550,
+          "args": [
+            "'wcs_get_subscription'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 564,
+          "args": [
+            "'swbd_get_listing_wc_payment_status'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 574,
+          "args": [
+            "'swbd_get_listing_plan_order_status'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 583,
+          "args": [
+            "'swbd_get_listings_wc_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 585,
+          "args": [
+            "$listing_id",
+            "'_listing_wc_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 630,
+          "args": [
+            "$listing_id",
+            "'_listing_wc_order_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 637,
+          "args": [
+            "'package_or_PPL_with_listing'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 684,
+          "args": [
+            "'listings_data_with_plan'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 751,
+          "args": [
+            "'is_plan_slider_limit'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 764,
+          "args": [
+            "'is_plan_allowed_price'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 777,
+          "args": [
+            "'is_plan_allowed_tag'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 789,
+          "args": [
+            "'is_plan_slider_unlimited'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 801,
+          "args": [
+            "'is_plan_tag_limit'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 813,
+          "args": [
+            "'is_plan_price_limit'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 825,
+          "args": [
+            "'is_plan_tag_unlimited'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 837,
+          "args": [
+            "'is_plan_price_unlimited'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 850,
+          "args": [
+            "'is_plan_allowed_slider'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 878,
+          "args": [
+            "$thepostid",
+            "$field['id']"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 878,
+          "args": [
+            "$thepostid",
+            "$field['id']"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 900,
+          "args": [
+            "'dwpp_get_listing_directory_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 908,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 918,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 928,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 937,
+          "args": [
+            "'dwpp_get_listing_status_from_directory'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 941,
+          "args": [
+            "$directory_type",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 944,
+          "args": [
+            "'dwpp_listing_status_from_directory'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 948,
+          "args": [
+            "'dwpp_approved_order_statuses'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 950,
+          "args": [
+            "'dwpp_approved_order_statuses'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 954,
+          "args": [
+            "'dwpp_is_approved_order_status'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 962,
+          "args": [
+            "'dwpp_is_approved_order'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 972,
+          "args": [
+            "'dwpp_attach_listing_to_order'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 982,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 982,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 987,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 988,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 989,
+          "args": [
+            "$listing_id",
+            "'_listing_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 992,
+          "args": [
+            "$order_id",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 993,
+          "args": [
+            "$order_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 994,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "save",
+          "line": 1005,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1010,
+          "args": [
+            "'dwpp_get_listing_plan_order_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1016,
+          "args": [
+            "'wc_get_order'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 1040,
+          "args": [
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 1040,
+          "args": [
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 1044,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1052,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1053,
+          "args": [
+            "$listing_id",
+            "'_listing_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1054,
+          "args": [
+            "$listing_id",
+            "'_listing_wc_order_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1101,
+          "args": [
+            "'directorist_validate_plan'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1158,
+          "args": [
+            "$order_id",
+            "'_order_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1188,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1192,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1208,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1209,
+          "args": [
+            "$listing_id",
+            "'_listing_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1210,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1230,
+          "args": [
+            "'directorist_active_orders_without_listing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1326,
+          "args": [
+            "$listing_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1328,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1330,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1332,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1333,
+          "args": [
+            "$listing_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1337,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1339,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1342,
+          "args": [
+            "$listing_id",
+            "'_need_to_refresh'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 1344,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1347,
+          "args": [
+            "$plan_id",
+            "'_fm_claim'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1349,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1355,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1412,
+          "args": [
+            "'dwpp_need_to_charge_with_plan'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1430,
+          "args": [
+            "$plan_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1431,
+          "args": [
+            "$plan_id",
+            "'num_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1432,
+          "args": [
+            "$plan_id",
+            "'is_featured_listing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1439,
+          "args": [
+            "$post_id",
+            "'_need_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1441,
+          "args": [
+            "$post_id",
+            "'_need_to_refresh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1446,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1452,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1453,
+          "args": [
+            "$plan_id",
+            "'num_regular_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1454,
+          "args": [
+            "$plan_id",
+            "'num_featured_unl'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1466,
+          "args": [
+            "'woocommerce'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1474,
+          "args": [
+            "$plan_id"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1487,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1495,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1502,
+          "args": [
+            "'new_listing_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1508,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1509,
+          "args": [
+            "$post_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1510,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1511,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1519,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1521,
+          "args": [
+            "$post_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1523,
+          "args": [
+            "$post_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1530,
+          "args": [
+            "$post_id",
+            "'_need_to_refresh'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1532,
+          "args": [
+            "$post_id",
+            "'_need_featured'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1548,
+          "args": [
+            "'dwpp_need_listing_to_refresh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1552,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1558,
+          "args": [
+            "$order_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1562,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1563,
+          "args": [
+            "$order_id",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1564,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1567,
+          "args": [
+            "$listing_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1568,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1576,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1578,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1580,
+          "args": [
+            "$listing_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1584,
+          "args": [
+            "'dwpp_renewed_listing_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1592,
+          "args": [
+            "$listing_id",
+            "'_refresh_renewal_token'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1594,
+          "args": [
+            "$listing_id",
+            "'_refresh_renewal_token'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1595,
+          "args": [
+            "$listing_id",
+            "'_renewal_token'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1598,
+          "args": [
+            "$listing_id",
+            "'_need_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1600,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1606,
+          "args": [
+            "'dwpp_get_used_free_plan'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 1612,
+          "args": [
+            "get_current_user_id()",
+            "'_used_free_plan'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1629,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1630,
+          "args": [
+            "'atbdp_plan_page_create'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 1648,
+          "args": [
+            "'atbdp_plan_page_create'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 1650,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1660,
+          "args": [
+            "'has_plan'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1662,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1672,
+          "args": [
+            "'plans_remaining'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1691,
+          "args": [
+            "$plan_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1692,
+          "args": [
+            "$plan_id",
+            "'num_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1693,
+          "args": [
+            "$plan_id",
+            "'num_featured_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1694,
+          "args": [
+            "$plan_id",
+            "'num_regular_unl'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1734,
+          "args": [
+            "'directorist_plan_remaining'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1738,
+          "args": [
+            "'public_plans'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1766,
+          "args": [
+            "'atbdp_plan_meta_query'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1845,
+          "args": [
+            "'wcs_get_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1862,
+          "args": [
+            "'add_listing_page'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1895,
+          "args": [
+            "'atbdp_add_listing_page_url'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1899,
+          "args": [
+            "'plan_direct_purchase'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1900,
+          "args": [
+            "'directorist_direct_purchase'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1905,
+          "args": [
+            "'WooCommerce'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1952,
+          "args": [
+            "$subscribed_package_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1967,
+          "args": [
+            "'atbdp_plan_allows_booking'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1974,
+          "args": [
+            "'Directorist_Booking'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 2029,
+          "args": [
+            "'directorist_plan_lifetime'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 2032,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 2036,
+          "args": [
+            "$subscription_plan",
+            "'_subscription_period_interval'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 2037,
+          "args": [
+            "$subscription_plan",
+            "'_subscription_period'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 2066,
+          "args": [
+            "$plan_id",
+            "'_enable_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 2067,
+          "args": [
+            "$plan_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2076,
+          "args": [
+            "'directorist_active_orders'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 2101,
+          "args": [
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2114,
+          "args": [
+            "'directorist_wc_checkout_url'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2138,
+          "args": [
+            "'directorist_valid_order'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2159,
+          "args": [
+            "'directorist_validate_date'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2180,
+          "args": [
+            "'directorist_recurring_plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2212,
+          "args": [
+            "'directorist_plan_features'"
+          ]
+        }
+      ]
+    },
+    "inc/init.php": {
+      "sha256": "d5a1cbf4873c493036ab4373dc78432f3c2c9b3302d7810d0796c5a4cff7dc59",
+      "bytes": 1903,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Init",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "declare_woocommerce_feature_compatibility",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_custom_page",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'DWPP_Init'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 13,
+          "args": [
+            "'atbdp_plan_page_create'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'wp_loaded'",
+            "array($this, 'add_custom_page')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'plugins_loaded'",
+            "array($this, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'before_woocommerce_init'",
+            "[ $this, 'declare_woocommerce_feature_compatibility' ]"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 21,
+          "args": [
+            "\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil::class"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 29,
+          "args": [
+            "'atbdp_create_required_pages'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 43,
+          "args": [
+            "'plugin_locale'"
+          ]
+        }
+      ]
+    },
+    "inc/validator.php": {
+      "sha256": "c095b7430b98088d8d3869127ec3473728716ce4f464d76d8f113f82056da582",
+      "bytes": 3663,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Validator",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_add_listing_after_price",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_add_listing_after_tag",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 4,
+          "args": [
+            "'DWPP_Validator'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'atbdp_add_listing_after_tag_field'",
+            "array($this, 'atpp_add_listing_after_tag')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "'atbdp_add_listing_after_price_field'",
+            "array($this, 'atpp_add_listing_after_price')"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 18,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 20,
+          "args": [
+            "'display_price_for'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 21,
+          "args": [
+            "'display_pricing_field'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 46,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 49,
+          "args": [
+            "'display_tag_for'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-admin-notices.php": {
+      "sha256": "00d969ee6a60818f4bf6cb18dcca870b43b15a9feb0463661eddaf4a10fcb739",
+      "bytes": 4034,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Admin_Notices",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_load_classes",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_hpos_disabled",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "need_directorist",
+          "line": 56,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "need_woocommerce",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "hpos_disabled_notice",
+          "line": 88,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'DWPP_Admin_Notices'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'init'",
+            "array($this, 'dwpp_load_classes')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 20,
+          "args": [
+            "'WooCommerce'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'admin_notices'",
+            "array($this, 'need_woocommerce')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 24,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'admin_notices'",
+            "array($this, 'need_directorist')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 30,
+          "args": [
+            "'WooCommerce'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'admin_notices'",
+            "array($this, 'hpos_disabled_notice')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 42,
+          "args": [
+            "'\\Automattic\\WooCommerce\\Utilities\\OrderUtil'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-ajax-handler.php": {
+      "sha256": "b3209e36386efc9b119c7471c14b826b1f96158603fa1b18c0ce964d0cbcba54",
+      "bytes": 44486,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Ajax_Handler",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plan_direct_purchase",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "guest_customer",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "select_active_order",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_dynamic_plan",
+          "line": 158,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dynamic_plans",
+          "line": 197,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_changing_plan",
+          "line": 240,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_plan_dynamic_fields",
+          "line": 386,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dynamic_admin_listing_form_and_allowances",
+          "line": 404,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_gifting_plan",
+          "line": 526,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plan_allowances_on_user_selection",
+          "line": 581,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plan_allowances",
+          "line": 631,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_submit_changing_plan",
+          "line": 760,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'DWPP_Ajax_Handler'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'wp_ajax_dwpp_submit_changing_plan'",
+            "array($this, 'dwpp_submit_changing_plan')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'wp_ajax_nopriv_dwpp_submit_changing_plan'",
+            "array($this, 'dwpp_submit_changing_plan')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'wp_ajax_plan_allowances'",
+            "array($this, 'plan_allowances')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'wp_ajax_nopriv_plan_allowances'",
+            "array($this, 'plan_allowances')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'wp_ajax_plan_allowances_on_user_selection'",
+            "array($this, 'plan_allowances_on_user_selection')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'wp_ajax_dynamic_admin_listing_form_and_allowances'",
+            "array($this, 'dynamic_admin_listing_form_and_allowances')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_ajax_atpp_gifting_plan'",
+            "array($this, 'atpp_gifting_plan')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'wp_ajax_directorist_plan_dynamic_fields'",
+            "array( $this, 'directorist_plan_dynamic_fields' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'wp_ajax_dwpp_changing_plan'",
+            "array( $this, 'dwpp_changing_plan' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'wp_ajax_atbdp_dynamic_plan'",
+            "array( $this, 'atbdp_dynamic_plan' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'wp_ajax_select_active_order'",
+            "array( $this, 'select_active_order' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_ajax_nopriv_select_active_order'",
+            "array( $this, 'select_active_order' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'wp_ajax_guest_customer'",
+            "array( $this, 'guest_customer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'wp_ajax_nopriv_guest_customer'",
+            "array( $this, 'guest_customer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'wp_ajax_plan_direct_purchase'",
+            "array( $this, 'plan_direct_purchase' )"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 99,
+          "args": [
+            "$order_id",
+            "'_order_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 162,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 183,
+          "args": [
+            "'atbdp_plan_meta_query'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 211,
+          "args": [
+            "'atbdp_admin_plan_select_option_class'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 213,
+          "args": [
+            "$value->ID"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 242,
+          "args": [
+            "$listingID",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 279,
+          "args": [
+            "'atbdp_plan_meta_query'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 297,
+          "args": [
+            "$listingID",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 300,
+          "args": [
+            "$plan_id",
+            "'_enable_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 301,
+          "args": [
+            "$plan_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 302,
+          "args": [
+            "$plan_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 303,
+          "args": [
+            "$plan_id",
+            "'_sale_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 304,
+          "args": [
+            "$plan_id",
+            "'_regular_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 306,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 307,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 308,
+          "args": [
+            "$plan_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 309,
+          "args": [
+            "$plan_id",
+            "'num_regular_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 310,
+          "args": [
+            "$plan_id",
+            "'num_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 311,
+          "args": [
+            "$plan_id",
+            "'num_featured_unl'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 325,
+          "args": [
+            "'WC_Subscriptions_Product'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 327,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_period_interval'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 328,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_period'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 348,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 349,
+          "args": [
+            "$linked_subscription",
+            "'_sale_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 351,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 412,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 414,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 456,
+          "args": [
+            "$order",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 537,
+          "args": [
+            "$post_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 546,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 562,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 563,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 564,
+          "args": [
+            "$order_id",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 573,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 587,
+          "args": [
+            "$post_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 613,
+          "args": [
+            "'atbdp_plan_meta_query'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 636,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 637,
+          "args": [
+            "$order_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 684,
+          "args": [
+            "$order",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 769,
+          "args": [
+            "$post_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 770,
+          "args": [
+            "$post_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 774,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 777,
+          "args": [
+            "$plan_id",
+            "'_regular_price'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 784,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 800,
+          "args": [
+            "$post_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 820,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-data-controller.php": {
+      "sha256": "87c9d3738d518bb1290d4df10a14c2e2432b8f1ddcb97f804de0741abcc91951",
+      "bytes": 28013,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Controller",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_before_featured_expire_metabox",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_order_created",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_meta_user_submission",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sortable_custom_post_type",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_before_renewal",
+          "line": 68,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_add_new_listing_column_content",
+          "line": 76,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_add_new_listing_column",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_listing_meta",
+          "line": 115,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_save_metabox",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_admin_metabox",
+          "line": 201,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_admin_plan",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "validate_submission",
+          "line": 283,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_process_the_selected_plans",
+          "line": 376,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'DWPP_Controller'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_listing_form_submission_info'",
+            "[$this, 'atpp_process_the_selected_plans']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'atbdp_before_processing_submitted_listing_frontend'",
+            "[$this, 'validate_submission']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'add_meta_boxes'",
+            "[$this, 'dwpp_admin_metabox']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'save_post'",
+            "[$this, 'dwpp_save_metabox']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'atbdp_add_new_listing_column'",
+            "[$this, 'dwpp_add_new_listing_column']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'atbdp_add_new_listing_column_content'",
+            "[$this, 'dwpp_add_new_listing_column_content']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'atbdp_before_renewal'",
+            "[$this, 'dwpp_before_renewal']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'atbdp_sortable_custom_post_type'",
+            "[$this, 'atbdp_sortable_custom_post_type']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'atbdp_listing_meta_user_submission'",
+            "[$this, 'listing_meta_user_submission']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 25,
+          "args": [
+            "'atbdp_order_created'",
+            "[$this, 'atbdp_order_created']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 27,
+          "args": [
+            "'directorist_before_featured_expire_metabox'",
+            "[$this, 'directorist_before_featured_expire_metabox']"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 38,
+          "args": [
+            "$post->ID",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 48,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 49,
+          "args": [
+            "$listing_id",
+            "'_listing_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 69,
+          "args": [
+            "$listing_id",
+            "'_refresh_renewal_token'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 70,
+          "args": [
+            "$listing_id",
+            "'_renew_with_plan'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 80,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 81,
+          "args": [
+            "$listing_id",
+            "'_fm_plans_by_admin'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 82,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 118,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 119,
+          "args": [
+            "$directory",
+            "'default_expiration'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 133,
+          "args": [
+            "$post_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 148,
+          "args": [
+            "'DOING_AUTOSAVE'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 168,
+          "args": [
+            "$post_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 172,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 174,
+          "args": [
+            "$post_id",
+            "'_fm_plans_by_admin'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 187,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 189,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 202,
+          "args": [
+            "'woo_pricing_plans_enable'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 220,
+          "args": [
+            "$post->ID",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 248,
+          "args": [
+            "'atbdp_admin_plan_select_option_class'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 250,
+          "args": [
+            "$value->ID"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 339,
+          "args": [
+            "$order_id",
+            "'_order_status'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 382,
+          "args": [
+            "'woo_pricing_plans_enable'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 389,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 429,
+          "args": [
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 429,
+          "args": [
+            "$order_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 430,
+          "args": [
+            "$plan_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 432,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 432,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 466,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 480,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 484,
+          "args": [
+            "$subscription",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 488,
+          "args": [
+            "$listing_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 489,
+          "args": [
+            "$subscription",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 518,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 521,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 523,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 524,
+          "args": [
+            "$listing_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 527,
+          "args": [
+            "$listing_id",
+            "'_need_to_refresh'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 529,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 532,
+          "args": [
+            "$plan_id",
+            "'_fm_claim'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 534,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 546,
+          "args": [
+            "'submission_confirmation'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 557,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-direct-purchase.php": {
+      "sha256": "1373389ddd29735027b3bc6d042fe3092ac4ca308a12f9ce0951e041dd52a736",
+      "bytes": 765,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Direct_Purchase",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_direct_purchase",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'Directorist_Direct_Purchase'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'template_redirect'",
+            "array($this, 'process_direct_purchase')"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-enqueuer.php": {
+      "sha256": "edde200695f7e9af5a5373553c4f484ce7e7dec21b3d804d6a52eb7af786cb29",
+      "bytes": 6952,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Enqueuer",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "front_end_enqueue_scripts",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_register_necessary_scripts",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_necessary_scripts",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'DWPP_Enqueuer'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array($this, 'register_necessary_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array($this, 'admin_register_necessary_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'template_redirect'",
+            "array($this, 'front_end_enqueue_scripts')"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 59,
+          "args": [
+            "'directorist_load_inline_style'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 91,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-listing_type_manager.php": {
+      "sha256": "130f179b8d498af87580dd3766fd4c11972e239c2acf6646d63b560b589bc497",
+      "bytes": 19117,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Post_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_builder_widgets",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_bulk_plan_update",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plans_page",
+          "line": 191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 222,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_section_template",
+          "line": 248,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_section_template",
+          "line": 272,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_form_field_data",
+          "line": 303,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_load_gallery_template",
+          "line": 335,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_field_template",
+          "line": 353,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_slider_template",
+          "line": 382,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "submission_field_module",
+          "line": 398,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_add_listing_form_validation_logic",
+          "line": 414,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'DWPP_Post_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array($this, 'atbdp_form_builder_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_add_listing_page_template'",
+            "array( $this, 'plans_page' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'directorist_field_template'",
+            "array( $this, 'directorist_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_single_slider_template'",
+            "array( $this, 'directorist_single_slider_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_load_gallery_template'",
+            "array( $this, 'directorist_load_gallery_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'directorist_submission_field_module'",
+            "array( $this, 'submission_field_module' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'directorist_form_field_data'",
+            "array( $this, 'directorist_form_field_data' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'directorist_section_template'",
+            "array( $this, 'directorist_section_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( $this, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'directorist_single_section_template'",
+            "array( $this, 'directorist_single_section_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'atbdp_add_listing_form_validation_logic'",
+            "array( $this, 'atbdp_add_listing_form_validation_logic' )"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 21,
+          "args": [
+            "'directory_type_update_in_plan'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'template_redirect'",
+            "array( $this, 'directorist_bulk_plan_update' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 93,
+          "args": [
+            "$post_id",
+            "'_need_post'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 95,
+          "args": [
+            "$post_id",
+            "'_assign_to_directory'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 97,
+          "args": [
+            "$post_id",
+            "'_assign_to_directory'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 99,
+          "args": [
+            "$post_id",
+            "'_listing_title'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 100,
+          "args": [
+            "$post_id",
+            "'_listing_content'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 101,
+          "args": [
+            "$post_id",
+            "'_map'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 102,
+          "args": [
+            "$post_id",
+            "'_zip'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 103,
+          "args": [
+            "$post_id",
+            "'_phone2'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 104,
+          "args": [
+            "$post_id",
+            "'_fax'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 105,
+          "args": [
+            "$post_id",
+            "'_address'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 109,
+          "args": [
+            "$post_id",
+            "'fm_allow_price'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 110,
+          "args": [
+            "$post_id",
+            "'_pricing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 112,
+          "args": [
+            "$post_id",
+            "'price_range'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 114,
+          "args": [
+            "$post_id",
+            "'_max_pricing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 118,
+          "args": [
+            "$post_id",
+            "'fm_allow_slider'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 119,
+          "args": [
+            "$post_id",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 121,
+          "args": [
+            "$post_id",
+            "'num_image'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 123,
+          "args": [
+            "$post_id",
+            "'_max_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 127,
+          "args": [
+            "$post_id",
+            "'fm_allow_tag'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 128,
+          "args": [
+            "$post_id",
+            "'_tag'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 130,
+          "args": [
+            "$post_id",
+            "'fm_tag_limit'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 132,
+          "args": [
+            "$post_id",
+            "'_max_tag'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 136,
+          "args": [
+            "$post_id",
+            "'fm_allow_category'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 137,
+          "args": [
+            "$post_id",
+            "'_category'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 139,
+          "args": [
+            "$post_id",
+            "'fm_category_limit'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 141,
+          "args": [
+            "$post_id",
+            "'_max_category'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 145,
+          "args": [
+            "$post_id",
+            "'l_video'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 146,
+          "args": [
+            "$post_id",
+            "'_videourl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 148,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_video'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 149,
+          "args": [
+            "$post_id",
+            "'_hide_videourl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 153,
+          "args": [
+            "$post_id",
+            "'fm_email'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 154,
+          "args": [
+            "$post_id",
+            "'_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 156,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_email'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 157,
+          "args": [
+            "$post_id",
+            "'_hide_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 161,
+          "args": [
+            "$post_id",
+            "'fm_phone'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 162,
+          "args": [
+            "$post_id",
+            "'_phone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 164,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_phone'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 165,
+          "args": [
+            "$post_id",
+            "'_hide_phone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 169,
+          "args": [
+            "$post_id",
+            "'fm_web_link'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 170,
+          "args": [
+            "$post_id",
+            "'_website'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 172,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_web_link'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 173,
+          "args": [
+            "$post_id",
+            "'_hide_website'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 177,
+          "args": [
+            "$post_id",
+            "'fm_social_network'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 178,
+          "args": [
+            "$post_id",
+            "'_social'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 180,
+          "args": [
+            "$post_id",
+            "'hide_Snetwork'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 181,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_sm_link'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 188,
+          "args": [
+            "'directory_type_update_in_plan'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 195,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 212,
+          "args": [
+            "'directorist_before_pricing_plan_page'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 226,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 231,
+          "args": [
+            "$plan_id",
+            "'fm_cs_review'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 237,
+          "args": [
+            "$plan_id",
+            "'cf_owner'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 251,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 255,
+          "args": [
+            "$plan_id",
+            "'fm_cs_review'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 261,
+          "args": [
+            "$plan_id",
+            "'cf_owner'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 278,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 287,
+          "args": [
+            "$plan_id",
+            "'_'. $field_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 288,
+          "args": [
+            "'directorist_plan_allowed_field'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 305,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 312,
+          "args": [
+            "$plan_id",
+            "'_max_'. $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 313,
+          "args": [
+            "$plan_id",
+            "'_unlimited_'. $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 341,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 344,
+          "args": [
+            "$plan_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 363,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 371,
+          "args": [
+            "$plan_id",
+            "'_'. $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 387,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 388,
+          "args": [
+            "$plan_id",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 404,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 407,
+          "args": [
+            "$plan_id",
+            "'_'. $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 427,
+          "args": [
+            "$plan_id",
+            "'_'. $field_key"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-restrictions.php": {
+      "sha256": "2066ca3a2050e9e0340318ead1ace9a76fc6ab64de440452a4cd634692d248ee",
+      "bytes": 3907,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Plan_Restrictions",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_email_published",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "template_restriction",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form_hours_restriction",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_widget_hours_restriction",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_hours_restriction",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_faqs_restriction",
+          "line": 92,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form_faqs_restriction",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "booking_restriction",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'Directorist_Plan_Restrictions'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'atbdp_booking_is_restricted'",
+            "[$this, 'booking_restriction']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'directorist_faqs_form_field_templete_on_demand'",
+            "[$this, 'form_faqs_restriction']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'directorist_faqs_single_field_templete_on_demand'",
+            "[$this, 'single_faqs_restriction']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'directorist_hours_form_field_templete_on_demand'",
+            "[$this, 'form_hours_restriction']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'directorist_hours_single_field_templete_on_demand'",
+            "[$this, 'single_hours_restriction']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'atbdp_allow_business_hour'",
+            "[$this, 'single_widget_hours_restriction']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'directorist_template'",
+            "[$this, 'template_restriction' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 26,
+          "args": [
+            "'directorist_notify_admin_listing_published'",
+            "array( $this, 'update_email_published' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 28,
+          "args": [
+            "'directorist_notify_owner_listing_published'",
+            "array( $this, 'update_email_published' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 44,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 62,
+          "args": [
+            "$plan_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 72,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 73,
+          "args": [
+            "$plan_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 83,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 84,
+          "args": [
+            "$plan_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 94,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 95,
+          "args": [
+            "$plan_id",
+            "'_faqs'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 111,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 113,
+          "args": [
+            "$plan_id",
+            "'_faqs'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 122,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-settings.php": {
+      "sha256": "6042e7f603aace3a03b3a98c097c82ee3d1385127193c43844e07f3c8616b375",
+      "bytes": 8254,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Settings",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_settings_monetization_general_sections",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_pages_settings_fields",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_settings_to_ext_general_fields",
+          "line": 99,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_license_settings_controls",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_pages_vl_arrays",
+          "line": 167,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'DWPP_Settings'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array($this, 'dwpp_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_dashboard_field_setting'",
+            "array($this, 'dwpp_settings_to_ext_general_fields')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( $this, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_pages_settings_fields'",
+            "array( $this, 'atbdp_pages_settings_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( $this, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'atbdp_monetization_settings_submenu'",
+            "array( $this, 'atbdp_listing_settings_monetization_general_sections' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 59,
+          "args": [
+            "'atbdp_woo_pricing_plan_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 73,
+          "args": [
+            "'enable_featured_listing'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 75,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 78,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 128,
+          "args": [
+            "'directorist_woo_pricing_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 144,
+          "args": [
+            "'atbdp_woo_pricing_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 148,
+          "args": [
+            "'atbdp_woo_pricing_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 159,
+          "args": [
+            "'atbdp_licence_menu_for_woo_pricing_plans'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-subscription.php": {
+      "sha256": "bd21c788076a42d981bfd62d2019ea8f1858fbd825ab1f89160f48046e6ee94e",
+      "bytes": 5358,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Subscription",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_expired_listings",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "woocommerce_scheduled_subscription_trial_end",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "woocommerce_subscription_status_changed",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "woocommerce_checkout_subscription_created",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "failed",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "paid",
+          "line": 97,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'Directorist_Subscription'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'woocommerce_checkout_subscription_created'",
+            "[ $this, 'woocommerce_checkout_subscription_created' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'woocommerce_subscription_status_changed'",
+            "[ $this, 'woocommerce_subscription_status_changed' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'woocommerce_scheduled_subscription_trial_end'",
+            "[ $this, 'woocommerce_scheduled_subscription_trial_end' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'directorist_update_listings_expired_status_query_arguments'",
+            "[ $this, 'update_expired_listings']"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 37,
+          "args": [
+            "'wcs_get_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 38,
+          "args": [
+            "$subscription_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 50,
+          "args": [
+            "$id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 67,
+          "args": [
+            "$parent_order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 75,
+          "args": [
+            "$product_id",
+            "'_linked_pricing_plan'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 76,
+          "args": [
+            "$parent_order_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 77,
+          "args": [
+            "$subscription_id",
+            "'_linked_pricing_plan'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 78,
+          "args": [
+            "$subscription_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 87,
+          "args": [
+            "$listing_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 91,
+          "args": [
+            "'directorist_auto_renewed_failed_listing_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 101,
+          "args": [
+            "$listing_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 103,
+          "args": [
+            "$listing_id",
+            "'_renewal_reminder_sent'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 105,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 113,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 116,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 118,
+          "args": [
+            "$listing_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 123,
+          "args": [
+            "'directorist_auto_renewed_success_listing_status'"
+          ]
+        }
+      ]
+    },
+    "inc/classes/class-wc-controller.php": {
+      "sha256": "d183798f23a23c28e6f7690aebb1cf278dcc0bb0f95a9ae4a9de8cbc2527dc00",
+      "bytes": 37738,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_WC_Controller",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "custom_checkout_field_save",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "custom_checkout_field",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "status_changed",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "debug",
+          "line": 165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "checkout_field",
+          "line": 190,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_checkout_field",
+          "line": 258,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_checkout_field_to_order",
+          "line": 274,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_change_product_price_display",
+          "line": 308,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_single_product_summary",
+          "line": 335,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_order_status_completed",
+          "line": 451,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "product_type_options",
+          "line": 486,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_woocommerce_product_data_tabs",
+          "line": 492,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_app_configuration_panel",
+          "line": 515,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_woocommerce_process_product_meta",
+          "line": 534,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_app_configurations_meta",
+          "line": 661,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directory_types",
+          "line": 687,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_display_custom_fields",
+          "line": 703,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_woocommerce_product_class",
+          "line": 758,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dynamic_plan_fields",
+          "line": 766,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_register_product_type",
+          "line": 775,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'DWPP_WC_Controller'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'product_type_selector'",
+            "array($this, 'dwpp_register_product_type')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'woocommerce_product_class'",
+            "array($this, 'dwpp_woocommerce_product_class')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'woocommerce_product_options_general_product_data'",
+            "array($this, 'dwpp_display_custom_fields')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'woocommerce_process_product_meta'",
+            "array($this, 'dwpp_woocommerce_process_product_meta')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'woocommerce_product_data_tabs'",
+            "array($this, 'dwpp_woocommerce_product_data_tabs')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'product_type_options'",
+            "array($this, 'product_type_options')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'woocommerce_product_data_panels'",
+            "array($this, 'dwpp_app_configuration_panel')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'woocommerce_get_price_html'",
+            "array($this, 'dwpp_change_product_price_display')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'woocommerce_after_checkout_billing_form'",
+            "array($this, 'checkout_field')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'woocommerce_checkout_after_customer_details'",
+            "array($this, 'checkout_field')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'woocommerce_checkout_before_order_review'",
+            "array($this, 'checkout_field')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'woocommerce_checkout_order_review'",
+            "array($this, 'checkout_field')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'woocommerce_init'",
+            "array($this, 'custom_checkout_field')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 31,
+          "args": [
+            "'woocommerce_get_default_value_for_directorist/listing-id'",
+            "array($this, 'custom_checkout_field_save')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'woocommerce_checkout_create_order'",
+            "array($this, 'save_checkout_field_to_order')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'woocommerce_checkout_process'",
+            "array($this, 'process_checkout_field')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 37,
+          "args": [
+            "'woocommerce_order_status_completed'",
+            "array($this, 'dwpp_order_status_completed')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'woocommerce_order_status_changed'",
+            "array($this, 'status_changed')"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 120,
+          "args": [
+            "'_wc_other/directorist/listing-id'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 121,
+          "args": [
+            "'_wc_other/directorist/listing-id'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 124,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 125,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "save",
+          "line": 140,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 296,
+          "args": [
+            "'_wc_other/directorist/listing-id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 313,
+          "args": [
+            "$plan_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 314,
+          "args": [
+            "$plan_id",
+            "'_enable_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 315,
+          "args": [
+            "$plan_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 318,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 319,
+          "args": [
+            "$linked_subscription",
+            "'_sale_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 341,
+          "args": [
+            "$plan_id"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 436,
+          "args": [
+            "'atfm_fee_plan_after_custom_field'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 459,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 479,
+          "args": [
+            "'atpp_reviewed_listing_status_controller_argument'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 543,
+          "args": [
+            "$post_id",
+            "'_assign_to_directory'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 551,
+          "args": [
+            "$post_id",
+            "'_linked_subscription'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 552,
+          "args": [
+            "$post_id",
+            "'_enable_subscription'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 553,
+          "args": [
+            "$post_id",
+            "'_hide_subscription'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 556,
+          "args": [
+            "$linked_subscription",
+            "'_linked_pricing_plan'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 561,
+          "args": [
+            "$post_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 566,
+          "args": [
+            "$post_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 567,
+          "args": [
+            "$post_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 573,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_listings'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 574,
+          "args": [
+            "$post_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 575,
+          "args": [
+            "$post_id",
+            "'num_regular_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 581,
+          "args": [
+            "$post_id",
+            "'num_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 582,
+          "args": [
+            "$post_id",
+            "'num_featured_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 583,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 588,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_listing_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 589,
+          "args": [
+            "$post_id",
+            "'is_featured_listing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 594,
+          "args": [
+            "$post_id",
+            "'cf_owner'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 595,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_cl_owner'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 600,
+          "args": [
+            "$post_id",
+            "'fm_cs_review'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 601,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_customer_review'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 606,
+          "args": [
+            "$post_id",
+            "'_fm_claim'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 607,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_claim'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 613,
+          "args": [
+            "$post_id",
+            "'exclude_cat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 615,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_category'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 619,
+          "args": [
+            "$post_id",
+            "'default_pln'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 623,
+          "args": [
+            "$post_id",
+            "'_hide_from_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 628,
+          "args": [
+            "$post_id",
+            "'_fm_booking'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 629,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_booking'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 634,
+          "args": [
+            "$post_id",
+            "'_fm_live_chat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 635,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_live_chat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 640,
+          "args": [
+            "$post_id",
+            "'_fm_mark_as_sold'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 641,
+          "args": [
+            "$post_id",
+            "'_dwpp_hide_mark_as_sold'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 649,
+          "args": [
+            "$post_id",
+            "'_' . $key"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 663,
+          "args": [
+            "$post_id",
+            "'_dpp_playstore_product_id'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 665,
+          "args": [
+            "$post_id",
+            "'_dpp_playstore_product_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 669,
+          "args": [
+            "$post_id",
+            "'_dpp_playstore_product_price'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 671,
+          "args": [
+            "$post_id",
+            "'_dpp_playstore_product_price'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 675,
+          "args": [
+            "$post_id",
+            "'_dpp_appstore_product_id'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 677,
+          "args": [
+            "$post_id",
+            "'_dpp_appstore_product_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 681,
+          "args": [
+            "$post_id",
+            "'_dpp_appstore_product_price'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 683,
+          "args": [
+            "$post_id",
+            "'_dpp_appstore_product_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 706,
+          "args": [
+            "$post->ID"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 710,
+          "args": [
+            "$post->ID",
+            "'exclude_cat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 710,
+          "args": [
+            "$post->ID",
+            "'exclude_cat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 713,
+          "args": [
+            "'enable_multi_directory'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 715,
+          "args": [
+            "$post->ID",
+            "'_assign_to_directory'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 724,
+          "args": [
+            "$post->ID"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 729,
+          "args": [
+            "'WC_Subscriptions'"
+          ]
+        }
+      ]
+    },
+    "inc/views/html-views.php": {
+      "sha256": "40b0296251d0776a1c6d8216c0352997941a974433b708f4f7fcb4e8655cba66",
+      "bytes": 36920,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DWPP_Views",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_dashboard_tabs",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_dashboard_listing_action_items_end",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_dashboard_listing_action_items",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_dashboard_listing_th_6",
+          "line": 99,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_dashboard_listing_td_6",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dashboard_package_content",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dashboard_order_history",
+          "line": 227,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_tab_content_after_favorite",
+          "line": 334,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_tab_after_favorite_listings",
+          "line": 339,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_add_listing_page_url",
+          "line": 366,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_tab_after_favorite_listings",
+          "line": 471,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_tab_content_after_favorite",
+          "line": 502,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_plan_change_modal",
+          "line": 509,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_plan_change",
+          "line": 617,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dwpp_type_of_listing",
+          "line": 630,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_fee_plane_page",
+          "line": 697,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'DWPP_Views'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'atbdp_listing_form_after_add_listing_title'",
+            "array($this, 'dwpp_type_of_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'atbdp_user_dashboard_listings_before_expiration'",
+            "array($this, 'dwpp_plan_change')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'wp_footer'",
+            "array($this, 'dwpp_plan_change_modal')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'atbdp_tab_after_favorite_listings'",
+            "array($this, 'dwpp_tab_after_favorite_listings')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'atbdp_tab_content_after_favorite'",
+            "array($this, 'dwpp_tab_content_after_favorite')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'directorist_dashboard_tabs'",
+            "array($this, 'directorist_dashboard_tabs')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'directorist_before_pricing_plan_page'",
+            "array($this, 'atbdp_add_listing_page_url')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_dashboard_listing_th_6'",
+            "array( $this, 'directorist_dashboard_listing_th_6' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_dashboard_listing_td_6'",
+            "array( $this, 'directorist_dashboard_listing_td_6' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'directorist_dashboard_listing_action_items'",
+            "array( $this, 'directorist_dashboard_listing_action_items' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 25,
+          "args": [
+            "'directorist_dashboard_listing_action_items_end'",
+            "array( $this, 'directorist_dashboard_listing_action_items_end' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 30,
+          "args": [
+            "'user_order_history'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 31,
+          "args": [
+            "'user_active_package'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 33,
+          "args": [
+            "$user_id",
+            "'_user_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 58,
+          "args": [
+            "'restrict_listing_deletion'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 59,
+          "args": [
+            "$post->ID",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 60,
+          "args": [
+            "'atbdp_pricing_plan_change_modal_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 82,
+          "args": [
+            "$post->ID",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 83,
+          "args": [
+            "'change_plan'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 84,
+          "args": [
+            "'atbdp_pricing_plan_change_modal_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 104,
+          "args": [
+            "'directorist_dashboard_listing_plan_th'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 109,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 129,
+          "args": [
+            "'atbdp_dashboard_package_content_div_attributes'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 134,
+          "args": [
+            "'atbdp_before_package_table'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 166,
+          "args": [
+            "$product_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 170,
+          "args": [
+            "$product_id",
+            "'_linked_pricing_plan'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 171,
+          "args": [
+            "'WC_Subscriptions_Product'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 172,
+          "args": [
+            "$product_id",
+            "'_linked_pricing_plan'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 212,
+          "args": [
+            "'atbdp_no_package_found_text'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 220,
+          "args": [
+            "'atbdp_after_package_table'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 240,
+          "args": [
+            "'atbdp_dashboard_orderHistory_content_div_attributes'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 245,
+          "args": [
+            "'atbdp_before_order_table'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 320,
+          "args": [
+            "'atbdp_no_order_found_text'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 328,
+          "args": [
+            "'atbdp_after_order_table'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 341,
+          "args": [
+            "'user_active_package'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 342,
+          "args": [
+            "'user_order_history'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 350,
+          "args": [
+            "'atbdp_package_tab'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 359,
+          "args": [
+            "'atbdp_order_history_tab'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 374,
+          "args": [
+            "'skip_plan_page'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 399,
+          "args": [
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 408,
+          "args": [
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_meta",
+          "line": 410,
+          "args": [
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 416,
+          "args": [
+            "$plan_id",
+            "'_linked_pricing_plan'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 417,
+          "args": [
+            "'WC_Subscriptions_Product'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 420,
+          "args": [
+            "$plan_id",
+            "'_assign_to_directory'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 473,
+          "args": [
+            "'user_order_history'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 474,
+          "args": [
+            "'user_active_package'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 483,
+          "args": [
+            "'atbdp_package_tab'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 492,
+          "args": [
+            "'atbdp_order_history_tab'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 496,
+          "args": [
+            "'atbdp_attribute_in_dashboard_subscription_tab'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 496,
+          "args": [
+            "'atbdp_subscription_tab_text_in_dashboard'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 511,
+          "args": [
+            "'user_dashboard'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 559,
+          "args": [
+            "'atbdp_plan_meta_query'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 575,
+          "args": [
+            "$plan_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 576,
+          "args": [
+            "$plan_id",
+            "'_sale_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 577,
+          "args": [
+            "$plan_id",
+            "'_regular_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 578,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 579,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 580,
+          "args": [
+            "$plan_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 581,
+          "args": [
+            "$plan_id",
+            "'num_regular_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 582,
+          "args": [
+            "$plan_id",
+            "'num_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 583,
+          "args": [
+            "$plan_id",
+            "'num_featured_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 619,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 620,
+          "args": [
+            "'change_plan'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 623,
+          "args": [
+            "'atbdp_pricing_plan_change_modal_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 624,
+          "args": [
+            "'atbdp_plan_change_link_in_user_dashboard'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 636,
+          "args": [
+            "'directorist_active_orders'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-woocommerce-pricing-plans.pot": {
+      "sha256": "9b9b97315871ce10e9ec33b63e16dcdf7832043439f8400976fe1ee9a72a0b3b",
+      "bytes": 19078,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/admin-meta-app-configuration-fields.php": {
+      "sha256": "163ba181a27cf6c9b26b155c723c619e46355d8faafb3638cd08213b3c7aee27",
+      "bytes": 3254,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 5,
+          "args": [
+            "$post->ID",
+            "'_dpp_playstore_product_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 6,
+          "args": [
+            "$post->ID",
+            "'_dpp_playstore_product_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 7,
+          "args": [
+            "$post->ID",
+            "'_dpp_appstore_product_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 8,
+          "args": [
+            "$post->ID",
+            "'_dpp_appstore_product_price'"
+          ]
+        }
+      ]
+    },
+    "templates/admin-meta-form-fields.php": {
+      "sha256": "bdcafa4729d2628a589eb9d2c2b7d2c5dcb6d9945048629da37d6f5cf2056f4c",
+      "bytes": 10623,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 11,
+          "args": [
+            "$default_type",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 31,
+          "args": [
+            "$post->ID",
+            "'_' . $field_key"
+          ]
+        }
+      ]
+    },
+    "templates/directory_types.php": {
+      "sha256": "56d469b7cb7411ab6a184a3c4983d9b6720b2fafa8beacb4800b5fca6a204e08",
+      "bytes": 1096,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 24,
+          "args": [
+            "$term->term_id",
+            "'general_config'"
+          ]
+        }
+      ]
+    },
+    "templates/fee-plans.php": {
+      "sha256": "ca0765062f65474b0c3753e2115fa7cb7a2c96317c15fc59a321be1d14949598",
+      "bytes": 29552,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 17,
+          "args": [
+            "'atbdp_before_plan_page_loaded'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 38,
+          "args": [
+            "'woocommerce_pricing_plans_plan_order'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 48,
+          "args": [
+            "$term->term_id",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 53,
+          "args": [
+            "'atbdp_plans_container_div_attribute'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 100,
+          "args": [
+            "'atbdp_plan_meta_query'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 118,
+          "args": [
+            "$plan_id"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 137,
+          "args": [
+            "'WC_Subscriptions_Product'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 139,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_period_interval'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 140,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_period'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 141,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_trial_period'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 162,
+          "args": [
+            "$linked_subscription",
+            "'_sale_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 163,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 164,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_sign_up_fee'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 165,
+          "args": [
+            "$linked_subscription",
+            "'_subscription_length'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 228,
+          "args": [
+            "'woocommerce_currency_pos'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 254,
+          "args": [
+            "'atbdp_after_start_plans_loop'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 325,
+          "args": [
+            "'atbdp_plan_featured_compare'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 334,
+          "args": [
+            "'atbdp_plan_featured_compare'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 366,
+          "args": [
+            "$plan_id",
+            "'_' . $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 367,
+          "args": [
+            "$plan_id",
+            "'_hide_' . $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 368,
+          "args": [
+            "$plan_id",
+            "'_max_' . $field_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 369,
+          "args": [
+            "$plan_id",
+            "'_unlimited_' . $field_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 392,
+          "args": [
+            "'atbdp_plan_contact_owner_compare'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 398,
+          "args": [
+            "'atbdp_plan_review_compare'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 409,
+          "args": [
+            "'atbdp_plan_claim_compare'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 415,
+          "args": [
+            "'atbdp_plan_booking_compare'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 422,
+          "args": [
+            "'atbdp_plan_live_chat_compare'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 429,
+          "args": [
+            "'atbdp_plan_mark_as_sold_compare'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 440,
+          "args": [
+            "'atpp_after_pricing_plans_compare_fields'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 451,
+          "args": [
+            "'atbdp_pricing_plan_to_checkout_url'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 463,
+          "args": [
+            "'guest_listings'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 465,
+          "args": [
+            "'guest_listings'"
+          ]
+        }
+      ]
+    },
+    "templates/listing_type.php": {
+      "sha256": "f35e939d93aa32b60e0691379a685b5a35e030e10cde984975c7341b1c87c527",
+      "bytes": 5242,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "get_post_meta",
+          "line": 37,
+          "args": [
+            "$order",
+            "'_fm_plan_ordered'"
+          ]
+        }
+      ]
+    },
+    "templates/no-plan-assigned.php": {
+      "sha256": "c0fc01244922089ab86cbdad89970fc7f38e185d434b7ffa0a71c62a3b97bf58",
+      "bytes": 407,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/user-dashboard-data.php": {
+      "sha256": "c4356e7b3130a403ff288dceb99872d5a5ceb7aa8b0b7b71497caf36a7319c28",
+      "bytes": 11756,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 3,
+          "args": [
+            "'WooCommerce'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 35,
+          "args": [
+            "$subscribed_package_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 42,
+          "args": [
+            "'atbdp_dashboard_package_content_div_attributes'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 47,
+          "args": [
+            "'atbdp_before_package_table'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 74,
+          "args": [
+            "$subscribed_package_id",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 81,
+          "args": [
+            "$subscribed_package_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 82,
+          "args": [
+            "$subscribed_package_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 83,
+          "args": [
+            "$subscribed_package_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 84,
+          "args": [
+            "$subscribed_package_id",
+            "'fm_tag_limit'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 85,
+          "args": [
+            "$subscribed_package_id",
+            "'fm_tag_limit_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 88,
+          "args": [
+            "$subscribed_package_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 94,
+          "args": [
+            "$subscribed_package_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 95,
+          "args": [
+            "$subscribed_package_id",
+            "'num_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 96,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 97,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 154,
+          "args": [
+            "'atbdp_no_package_found_text'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 162,
+          "args": [
+            "'atbdp_after_package_table'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 166,
+          "args": [
+            "'atbdp_dashboard_orderHistory_content_div_attributes'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 171,
+          "args": [
+            "'atbdp_before_order_table'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 242,
+          "args": [
+            "'atbdp_no_order_found_text'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 250,
+          "args": [
+            "'atbdp_after_order_table'"
+          ]
+        }
+      ]
+    },
+    "templates/woo-custom-fields.php": {
+      "sha256": "13d38f526b06a6fe9d4ed7a631722c0f05d6c6dc852be8cce5c68365db8bc949",
+      "bytes": 27836,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 11,
+          "args": [
+            "'atbdp_field_before_plan_type_select'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 18,
+          "args": [
+            "'Directorist_Booking'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 21,
+          "args": [
+            "'Directorist_Live_Chat'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 24,
+          "args": [
+            "'Directorist_Mark_as_Sold'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 26,
+          "args": [
+            "'DCL_Base'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 60,
+          "args": [
+            "'WC_Subscriptions'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 97,
+          "args": [
+            "$product",
+            "'_linked_pricing_plan'"
+          ]
+        }
+      ]
+    }
+  }
+}

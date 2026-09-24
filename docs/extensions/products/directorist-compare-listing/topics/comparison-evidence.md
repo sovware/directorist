@@ -1,0 +1,96 @@
+# Compare Listings: comparison
+
+[Identity and topic index](../README.md) · [Focused issue workflow](../../../WORKFLOW.md)
+
+## Behavior and limits
+
+Comparison page/shortcode and directory field configuration determine which fields display.
+
+This is a source-derived investigation contract. Check the branches and file references below before treating it as behavior of an installed site.
+
+## Reproduction and browser regression recipe
+
+Compare listings with missing and populated custom fields from one/two directories; check page setup, values, image output and mobile horizontal overflow.
+
+Record exact inputs, expected/actual result, user role, listing/directory IDs, installed source fingerprint and environment. Use browser interactions for rendered/interactive claims; state inspection alone does not prove rendering. Restore disposable fixtures and capture errors without secrets.
+
+## Entry points and feature coverage
+
+Read the canonical snapshot rows first. Local/default/development rows are available for variant comparison only. Every matching source file is listed with declarations; supporting styles/configuration may have no symbols.
+
+| Snapshot / source | Functions or classes |
+| --- | --- |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:1](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L1) | `Activate` (L10), `register` (L16), `directorist_single_item_template` (L29), `atbdp_all_listings_badge_template` (L40), `badge_html` (L48), `atbdp_listing_type_settings_field_list` (L73), `load_plugin_textdomain` (L164), `atdlc_compare_page_auto_create` (L176) |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:1](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L1) | `ExtensionSettings` (L10), `register` (L16), `atbdp_extension_fields` (L33), `atbdp_listing_type_settings_field_list` (L38), `atbdp_extension_settings_submenus` (L100), `compare_listings_license_settings_controls` (L123), `add_to_directorist_pages_settings_menu` (L169), `remove_listing_compare_settings_hook` (L180), `get_pages_vl_arrays` (L193) |
+| compare-listing--alpha / [Inc/Controller/Shortcodes/ShortcodeListingCompare.php:1](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Shortcodes/ShortcodeListingCompare.php#L1) | `ShortcodeListingCompare` (L10), `register` (L16), `directorist_listing_compare_shortcode` (L32), `remove_directorist_listing_compare_shortcode` (L72) |
+| compare-listing--alpha / [Inc/View/compare-page.php:1](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L1) | template / configuration / styling; inspect file |
+| compare-listing--alpha / [directorist-compare-listing.php:1](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L1) | `ATDListingCompare` (L34), `instance` (L49), `update_controller` (L63), `define_constant` (L81), `get_version_from_file_content` (L108), `get_version_from_content` (L126), `instance_plugin_classes` (L141), `ATDListingCompare` (L177), `atd_listing_compare_plugin_activate` (L188), `atd_listing_compare_plugin_deactivate` (L214), `directorist_is_plugin_active` (L221), `directorist_is_plugin_active_for_network` (L227) |
+
+## Data readers, writers and lifecycle
+
+Keys/callback expressions below are extracted without stored values. `get` reads; `update/add/delete` writes; scheduled/remote calls are side effects. ORM repositories and schema definitions are linked as source even where literal-key extraction cannot resolve them.
+
+| Snapshot / source | Operation and key |
+| --- | --- |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:19](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L19) | `add_action('plugins_loaded', array( $this, 'load_plugin_textdomain' ))` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:20](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L20) | `add_filter('atbdp_listing_type_settings_field_list', array( $this, 'atbdp_listing_type_settings_field_list' ))` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:21](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L21) | `add_action('atbdp_all_listings_badge_template', array($this, 'atbdp_all_listings_badge_template'))` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:22](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L22) | `add_filter('directorist_single_item_template', array( $this, 'directorist_single_item_template' ))` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:178](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L178) | `get_option('atdlc_compare_page_create')` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:179](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L179) | `apply_filters('atbdp_create_required_pages')` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:181](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L181) | `get_option('atbdp_option')` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:194](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L194) | `update_option('atdlc_compare_page_create')` |
+| compare-listing--alpha / [Inc/Controller/Base/Activate.php:196](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/Activate.php#L196) | `update_option('atbdp_option')` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:19](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L19) | `add_filter('atbdp_listing_type_settings_field_list', array( $this, 'atbdp_listing_type_settings_field_list' ))` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:20](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L20) | `add_filter('atbdp_extension_fields', array( $this, 'atbdp_extension_fields' ))` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:21](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L21) | `add_filter('atbdp_extension_settings_submenu', array( $this, 'atbdp_extension_settings_submenus' ))` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:24](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L24) | `add_filter('atbdp_pages_settings_fields', array($this, 'add_to_directorist_pages_settings_menu'))` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:26](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L26) | `add_filter('atbdp_license_settings_controls', array($this, 'compare_listings_license_settings_controls'))` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:29](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L29) | `add_action('plugins_loaded', array($this, 'remove_listing_compare_settings_hook'))` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:104](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L104) | `apply_filters('atbdp_compare_settings_controls')` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:125](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L125) | `get_option('directorist_compare_listings_license_status')` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:141](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L141) | `apply_filters('atbdp_compare_listings_license_controls')` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:145](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L145) | `apply_filters('atbdp_compare_listings_license_settings_field')` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:156](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L156) | `apply_filters('atbdp_licence_menu_for_rank_featured')` |
+| compare-listing--alpha / [Inc/Controller/Base/ExtensionSettings.php:183](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Base/ExtensionSettings.php#L183) | `get_directorist_option('atd_lg_compare_is_enable')` |
+| compare-listing--alpha / [Inc/Controller/Shortcodes/ShortcodeListingCompare.php:22](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Shortcodes/ShortcodeListingCompare.php#L22) | `add_action('plugins_loaded', array( $this, 'remove_directorist_listing_compare_shortcode' ))` |
+| compare-listing--alpha / [Inc/Controller/Shortcodes/ShortcodeListingCompare.php:37](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Shortcodes/ShortcodeListingCompare.php#L37) | `get_directorist_option('atd_lg_select_limit')` |
+| compare-listing--alpha / [Inc/Controller/Shortcodes/ShortcodeListingCompare.php:75](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/Controller/Shortcodes/ShortcodeListingCompare.php#L75) | `get_directorist_option('atd_lg_compare_is_enable')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:39](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L39) | `get_post_meta($cfp_id, 'associate')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:42](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L42) | `get_post_meta($cfp_id, 'category_pass')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:44](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L44) | `get_post_meta($listing_id, $custom_fields_post->ID)` |
+| compare-listing--alpha / [Inc/View/compare-page.php:51](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L51) | `get_post_meta($listing_id, $custom_fields_post->ID)` |
+| compare-listing--alpha / [Inc/View/compare-page.php:60](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L60) | `join($has_field_value)` |
+| compare-listing--alpha / [Inc/View/compare-page.php:61](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L61) | `apply_filters('atbdp_single_listing_custom_field')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:64](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L64) | `get_post_meta($listing_id, $field_id)` |
+| compare-listing--alpha / [Inc/View/compare-page.php:67](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L67) | `get_post_meta($field_id, 'type')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:102](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L102) | `get_directorist_option('default_preview_image')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:105](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L105) | `get_post_meta($listing_id, '_listing_prv_img')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:146](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L146) | `get_directorist_option('enable_multi_directory')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:195](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L195) | `get_post_meta($listing_id, '_price')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:200](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L200) | `get_post_meta(get_the_ID(), '_atbd_listing_pricing')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:203](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L203) | `get_post_meta(get_the_ID(), '_price_range')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:204](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L204) | `get_post_meta(get_the_ID(), '_price')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:212](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L212) | `apply_filters('atbdp_listing_card_price')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:215](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L215) | `apply_filters('atbdp_listing_card_price')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:299](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L299) | `get_term_meta($listing_type, 'submission_form_fields')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:314](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L314) | `get_post_meta($listing_id, '_' . $value['field_key'])` |
+| compare-listing--alpha / [Inc/View/compare-page.php:341](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L341) | `join(",")` |
+| compare-listing--alpha / [Inc/View/compare-page.php:350](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L350) | `join(',')` |
+| compare-listing--alpha / [Inc/View/compare-page.php:393](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/Inc/View/compare-page.php#L393) | `do_action('directorist_compare_listing_table_after_rows')` |
+| compare-listing--alpha / [directorist-compare-listing.php:57](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L57) | `add_action('admin_init', [ self::$instance, 'update_controller' ])` |
+| compare-listing--alpha / [directorist-compare-listing.php:64](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L64) | `get_user_meta(get_current_user_id(), '_plugins_available_in_subscriptions')` |
+| compare-listing--alpha / [directorist-compare-listing.php:191](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L191) | `get_option('active_plugins')` |
+| compare-listing--alpha / [directorist-compare-listing.php:194](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L194) | `get_option('atd_listing_compare_installed')` |
+| compare-listing--alpha / [directorist-compare-listing.php:196](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L196) | `update_option('atd_listing_compare_installed')` |
+| compare-listing--alpha / [directorist-compare-listing.php:199](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L199) | `update_option('atd_listing_compare_version')` |
+| compare-listing--alpha / [directorist-compare-listing.php:205](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L205) | `register_activation_hook(__FILE__)` |
+| compare-listing--alpha / [directorist-compare-listing.php:218](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L218) | `register_deactivation_hook(__FILE__)` |
+| compare-listing--alpha / [directorist-compare-listing.php:222](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L222) | `get_option('active_plugins')` |
+| compare-listing--alpha / [directorist-compare-listing.php:232](https://github.com/sovware/directorist-compare-listing/blob/b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2/directorist-compare-listing.php#L232) | `get_site_option('active_sitewide_plugins')` |
+
+## Core and integration context
+
+Load [Core listing/form/query contracts](../../../core/listings.md) for a form/data/query issue, [rendering and builders](../../../core/rendering.md) for display, or [payment lifecycle](../../../core/payments.md) for orders. Do not load all three automatically.
+
+For exact cross-repository hook matches, use `python3 docs/extensions/scripts/query.py hooks HOOK_NAME`; a same-name hook is only a candidate edge. For dynamic calls, inspect the referenced source and actual active callback list.

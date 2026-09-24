@@ -1,0 +1,546 @@
+{
+  "snapshot": {
+    "key": "mailchimp--master",
+    "repo": "directorist-mailchimp",
+    "branch": "master",
+    "commit": "00943169669bf9caa01ae6ebb1c2a34fb62098ca",
+    "date": "2025-03-27T02:47:36Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mailchimp",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "c2f74a0bb6a05a7fe9ea97bfb214cb7b0b746e3b0dd9ddb0694852c26dd71bef",
+      "bytes": 94,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "86877854aa24b60c5aa962c58043c3e735e56a7c30b17e6f8baaa0a8a3067d39",
+      "bytes": 36,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "396ce6cb1107b8ba1c01eca9a59506e4eac5cdb141aab098921a1268f032911b",
+      "bytes": 65,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "92aa9238a6cb0c4ee648045c953ab2491bc9e9b842cbdc5b28df6d6300804123",
+      "bytes": 20330,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-mailchimp-integration.php": {
+      "sha256": "1d77005b36a6deb39f8c39a3b055503fa9bfa759747f5dd6ad4b4952bb300f1e",
+      "bytes": 4727,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Mailchimp_Integration",
+          "line": 19,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 62,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 97,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Mailchimp_Integration",
+          "line": 125,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 17,
+          "args": [
+            "'Directorist_Mailchimp_Integration'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 40,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'load_textdomain' )"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 50,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 74,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 83,
+          "args": [
+            "'DM_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 87,
+          "args": [
+            "'DM_POST_ID'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 92,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 130,
+          "args": [
+            "'active_plugins'"
+          ]
+        }
+      ]
+    },
+    "gulpfile.js": {
+      "sha256": "a0bbb7619ca5106284eee5394d7bbb006ac4dd3bafb8a09b820f40bb5c4b28f6",
+      "bytes": 1014,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "7da4ad55e2646a404683be17434f8cc76f8fb595414f4282c1be63dd3a164629",
+      "bytes": 260,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/class-helper.php": {
+      "sha256": "9a13783beb8a9cce6c18c423286ac597f01495e2dd6d6b7481bbb1b9028d0f46",
+      "bytes": 1751,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Helper",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_file_uri",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_file_dir",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_template_part",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_option",
+          "line": 47,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 52,
+          "args": [
+            "'directorist_option'"
+          ]
+        }
+      ]
+    },
+    "includes/class-mailchimp.php": {
+      "sha256": "f56e172248544c3dd0ce40bf858f277b103ba1287e03bbde2c52ab1f31e7bcb5",
+      "bytes": 521,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Mailchimp",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_config",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "includes/class-settings-manager.php": {
+      "sha256": "e989b2e1ae8c1d9932320ddd894364db1a475f9e81153f3c4f99e57a9f9f8fb0",
+      "bytes": 6478,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings_Manager",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenu",
+          "line": 132,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( $this, 'atbdp_extension_settings_submenu' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-subscribe-after-listing-contact.php": {
+      "sha256": "5b0834acdf425dcb570ea4af974f30f2e1ed8f11b55f6884ce6a40ba00821609",
+      "bytes": 2565,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Subscribe_After_Listing_Contact",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "hooks",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_contact_owner_submitted",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_member_to_list",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 21,
+          "args": [
+            "'enalbe_mailchimp_for_directorist'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 22,
+          "args": [
+            "'mailchmp_for_directorist_enable_subscribe_listing_contact'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'atbdp_listing_contact_owner_submitted'",
+            "array( $this, 'atbdp_listing_contact_owner_submitted' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 42,
+          "args": [
+            "'mailchmp_for_directorist_enable_subscribe_listing_contact_double_opt_in'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 59,
+          "args": [
+            "'enalbe_mailchimp_for_directorist'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 60,
+          "args": [
+            "'mailchmp_for_directorist_api_key'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 61,
+          "args": [
+            "'mailchmp_for_directorist_server'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 62,
+          "args": [
+            "'mailchmp_for_directorist_list_id'"
+          ]
+        }
+      ]
+    },
+    "includes/class-subscribe-after-registration.php": {
+      "sha256": "9b17cecfa7f874382ccf7ef9965aa0e6fa8a1e07e0dc2659013b1858aa9617d1",
+      "bytes": 3218,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Subscribe_After_Registration",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "hooks",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_checkbox_before_user_registration_submit",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "check_if_user_agree",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_member_to_list",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 21,
+          "args": [
+            "'enalbe_mailchimp_for_directorist'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 22,
+          "args": [
+            "'mailchmp_for_directorist_enable_subscribe_after_registration'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'atbdp_before_user_registration_submit'",
+            "array( $this, 'add_checkbox_before_user_registration_submit' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'atbdp_before_processing_submitted_user_registration'",
+            "array( $this, 'check_if_user_agree' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 33,
+          "args": [
+            "'mailchmp_for_directorist_ask_user_to_subscribe_checkbox_before_submit_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 34,
+          "args": [
+            "'mailchmp_for_directorist_registation_button_before_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 45,
+          "args": [
+            "'mailchmp_for_directorist_ask_user_to_subscribe_checkbox_before_submit_button'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'atbdp_user_registration_completed'",
+            "array( $this, 'add_member_to_list' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 62,
+          "args": [
+            "'enalbe_mailchimp_for_directorist'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 63,
+          "args": [
+            "'mailchmp_for_directorist_api_key'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 64,
+          "args": [
+            "'mailchmp_for_directorist_server'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 65,
+          "args": [
+            "'mailchmp_for_directorist_list_id'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-mailchimp-integration.pot": {
+      "sha256": "8adcf614b4e41a1d3b3588f4ef80ca088cf62eff747f523516d77d0fa0b57e9b",
+      "bytes": 2706,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/before-registration-checkbox.php": {
+      "sha256": "fd9848fca61ed3076ac76214c2a2fa5fc4574c3cfa23b2461c70e872b4ed51e3",
+      "bytes": 304,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

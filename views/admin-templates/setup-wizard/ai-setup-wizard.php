@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
     <div class="directorist-ai-setup__chrome-row">
         <div class="directorist-ai-setup__logo">
-            <img class="directorist-ai-setup__logo-mark" src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/directorist-logo.svg' ); ?>" alt="<?php esc_attr_e( 'Directorist', 'directorist' ); ?>">
+            <img class="directorist-ai-setup__brand-logo" src="<?php echo esc_url( DIRECTORIST_ASSETS . 'images/directorist-logo.svg' ); ?>" width="140" height="42" alt="<?php esc_attr_e( 'Directorist', 'directorist' ); ?>">
         </div>
         <button class="directorist-ai-setup__close" id="directorist-ai-setup-close" type="button" aria-label="<?php esc_attr_e( 'Close', 'directorist' ); ?>">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>

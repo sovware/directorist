@@ -2620,7 +2620,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const getFieldValueFn = (fieldKey) =>
-				getFieldValueBase(fieldKey, jQuery);
+				getFieldValueBase(fieldKey, jQuery, getSearchFormWrapper());
 			const evaluateConditionalLogicFn = (conditionalLogic) =>
 				evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
 			const applyConditionalLogicFn = ($fieldWrapper) =>

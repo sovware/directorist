@@ -18,9 +18,14 @@ import {
  * Get field value from form by field key.
  * @param {string} fieldKey - Field key (e.g. 'category', 'custom-select')
  * @param {jQuery} $ - jQuery
+ * @param {string} scopeSelector - Form wrapper used to isolate shared field names
  * @returns {*} Value, array, 'uploaded', or null
  */
-export function getFieldValue(fieldKey, $) {
+export function getFieldValue(fieldKey, $, scopeSelector = '') {
+	const $scope = scopeSelector ? $(scopeSelector) : $();
+	const findField = (selector) =>
+		$scope.length ? $scope.find(selector) : $(selector);
+
 	// Special handling for privacy_policy field (checkbox field)
 	if (fieldKey === 'privacy_policy') {
 		const $privacyCheckbox = $(
@@ -85,9 +90,11 @@ export function getFieldValue(fieldKey, $) {
 		fieldKey === 'admin_category_select[]' ||
 		fieldKey === 'in_cat'
 	) {
-		$field = $(SELECTORS.CATEGORY_SELECT).first();
+		$field = findField(SELECTORS.CATEGORY_SELECT).first();
 		if (!$field.length) {
-			const $checkboxes = $(SELECTORS.CATEGORY_CHECKLIST_CHECKED);
+			const $checkboxes = findField(
+				SELECTORS.CATEGORY_CHECKLIST_CHECKED
+			);
 			if ($checkboxes.length) {
 				return $checkboxes
 					.map(function () {

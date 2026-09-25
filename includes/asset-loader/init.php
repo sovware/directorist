@@ -212,6 +212,7 @@ class Asset_Loader {
 
             case 'listing-form/fields/address':
                 wp_enqueue_script( 'directorist-geolocation' );
+                self::enqueue_map_scripts();
                 break;
 
             case 'listing-form/fields/image_upload':

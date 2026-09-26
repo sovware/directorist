@@ -18,8 +18,8 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
 ?>
 <div id="directorist" class="atbd_wrapper directorist-w-100">
     <div class="<?php Helper::directorist_container_fluid(); ?>">
-    <div class="atbdp atbdp-categories atbdp-text-list directorist-location">
-        <div class="<?php Helper::directorist_row(); ?> atbdp-no-margin">
+    <div class="atbdp atbdp-categories atbdp-text-list directorist-location" data-attrs="<?php echo esc_attr( wp_json_encode( $taxonomy->atts ) ); ?>">
+        <div class="<?php Helper::directorist_row(); ?> atbdp-no-margin taxonomy-location-wrapper">
             <div class="directorist-col-12">
                 <?php
                     /**

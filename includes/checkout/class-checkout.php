@@ -112,6 +112,7 @@ class ATBDP_Checkout {
         // Booking and claim extensions still submit their checkout context through the
         // classic listing URL. Keep their native gateway flow available alongside
         // external payment options until those extensions use typed checkout routes.
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- This selects a display path; it does not process a payment.
         if ( isset( $_POST['confirmed'] ) || isset( $_GET['claimed'] ) ) {
             return $this->old_display_checkout_content();
         }

@@ -121,11 +121,12 @@ use \Directorist\Helper;
 
 
             <?php if ( $subtotal > 0 ) : ?>
-            <?php
-            $legacy_checkout_type = ! empty( $_POST['confirmed'] ) ? 'booking' : ( ! empty( $_GET['claimed'] ) ? 'claim' : 'featured_listing' );
-            $legacy_context       = [ 'listing_id' => $listing_id, 'form_data' => $form_data, 'legacy' => true ];
-            $external_options     = apply_filters( 'directorist_checkout_external_payment_options', [], $legacy_checkout_type, $legacy_context, $subtotal );
-            ?>
+                <?php
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Checkout context only selects which payment tab to display.
+                $legacy_checkout_type = ! empty( $_POST['confirmed'] ) ? 'booking' : ( ! empty( $_GET['claimed'] ) ? 'claim' : 'featured_listing' );
+                $legacy_context       = [ 'listing_id' => $listing_id, 'form_data' => $form_data, 'legacy' => true ];
+                $external_options     = apply_filters( 'directorist_checkout_external_payment_options', [], $legacy_checkout_type, $legacy_context, $subtotal );
+                ?>
             <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                 <div class="directorist-card__header">
                     <h3 class="directorist-card__header__title"><?php esc_html_e( 'Choose a payment method', 'directorist' ); ?></h3>

@@ -51,15 +51,33 @@ use \Directorist\Helper;
                     <?php
                     $show_payment_gateways = apply_filters( 'directorist_checkout_show_payment_gateways', $subtotal > 0, $checkout_type, $subtotal, $request );
                     if ( $show_payment_gateways ) : ?>
-                    <?php $active_gateways = apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ); ?>
+                        <?php $active_gateways = apply_filters( 'directorist_checkout_active_gateways', ATBDP_Gateway::get_active_gateways(), $checkout_type, $request ); ?>
+                        <?php $external_options = apply_filters( 'directorist_checkout_external_payment_options', [], $checkout_type, $request, $total ); ?>
                     <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                         <div class="directorist-card__header">
                             <h3 class="directorist-card__header__title"><?php esc_html_e( 'Choose a payment method', 'directorist' ); ?></h3>
                         </div>
 
                         <div class="directorist-card__body">
+                            <?php if ( ! empty( $external_options ) ) : ?>
+                                <div class="directorist-checkout-payment-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Payment options', 'directorist' ); ?>">
+                                    <button type="button" role="tab" id="directorist-payment-tab" aria-selected="true" aria-controls="directorist-payment-panel"><?php esc_html_e( 'Directorist', 'directorist' ); ?></button>
+                                    <?php foreach ( $external_options as $option ) : ?>
+                                        <button type="button" role="tab" id="directorist-payment-tab-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>" aria-selected="false" aria-controls="directorist-payment-panel-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>"><?php echo esc_html( $option['label'] ); ?></button>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div role="tabpanel" id="directorist-payment-panel" aria-labelledby="directorist-payment-tab">
+                            <?php endif; ?>
                             <?php echo directorist_kses( ATBDP_Gateway::gateways_markup( $active_gateways ), 'all' ); ?>
                             <?php do_action( 'directorist_checkout_payment_gateways_after', $checkout_type, $request, $active_gateways ); ?>
+                            <?php if ( ! empty( $external_options ) ) : ?>
+                                </div>
+                                <?php foreach ( $external_options as $option ) : ?>
+                                    <div role="tabpanel" id="directorist-payment-panel-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>" aria-labelledby="directorist-payment-tab-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>" hidden>
+                                        <?php do_action( 'directorist_checkout_payment_option_content', $option['id'], $checkout_type, $request ); ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php endif;
@@ -72,7 +90,7 @@ use \Directorist\Helper;
                     <p id="atbdp_checkout_errors" class="text-danger"></p>
 
                     <div class="directorist-payment-action directorist-flex directorist-justify-content-between" id="atbdp_pay_notpay_btn">
-                        <a href="<?php echo $dashboard_page_link; ?>" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php echo esc_html( $cancel_button_label ); ?></a>
+                        <a href="<?php echo esc_url( $dashboard_page_link ); ?>" class="directorist-btn directorist-btn-lg directorist-btn-light atbdp_not_now_button"><?php echo esc_html( $cancel_button_label ); ?></a>
                         <button type="submit" id="atbdp_checkout_submit_btn" class="directorist-btn directorist-btn-lg directorist-btn-payment-submit" data-loading-text="<?php esc_html_e( 'Processing...', 'directorist' ); ?>">
                             <span class="directorist-btn-text"><?php echo esc_html( $submit_button_label ); ?></span>
                             <span class="directorist-btn-spinner" style="display: none;">

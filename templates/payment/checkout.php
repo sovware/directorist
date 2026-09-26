@@ -121,13 +121,36 @@ use \Directorist\Helper;
 
 
             <?php if ( $subtotal > 0 ) : ?>
+                <?php
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Checkout context only selects which payment tab to display.
+                $legacy_checkout_type = ! empty( $_POST['confirmed'] ) ? 'booking' : ( ! empty( $_GET['claimed'] ) ? 'claim' : 'featured_listing' );
+                $legacy_context       = [ 'listing_id' => $listing_id, 'form_data' => $form_data, 'legacy' => true ];
+                $external_options     = apply_filters( 'directorist_checkout_external_payment_options', [], $legacy_checkout_type, $legacy_context, $subtotal );
+                ?>
             <div class="directorist-card directorist-mt-30 directorist-payment-gateways directorist-mb-15 directorist-checkout-card directorist-checkout-payment" id="directorist_payment_gateways">
                 <div class="directorist-card__header">
                     <h3 class="directorist-card__header__title"><?php esc_html_e( 'Choose a payment method', 'directorist' ); ?></h3>
                 </div>
 
                 <div class="directorist-card__body">
+                    <?php if ( ! empty( $external_options ) ) : ?>
+                        <div class="directorist-checkout-payment-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Payment options', 'directorist' ); ?>">
+                            <button type="button" role="tab" id="directorist-payment-tab" aria-selected="true" aria-controls="directorist-payment-panel"><?php esc_html_e( 'Directorist', 'directorist' ); ?></button>
+                            <?php foreach ( $external_options as $option ) : ?>
+                                <button type="button" role="tab" id="directorist-payment-tab-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>" aria-selected="false" aria-controls="directorist-payment-panel-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>"><?php echo esc_html( $option['label'] ); ?></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <div role="tabpanel" id="directorist-payment-panel" aria-labelledby="directorist-payment-tab">
+                    <?php endif; ?>
                     <?php echo directorist_kses( ATBDP_Gateway::gateways_markup(), 'all' ); ?>
+                    <?php if ( ! empty( $external_options ) ) : ?>
+                        </div>
+                        <?php foreach ( $external_options as $option ) : ?>
+                            <div role="tabpanel" id="directorist-payment-panel-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>" aria-labelledby="directorist-payment-tab-<?php echo esc_attr( sanitize_key( $option['id'] ) ); ?>" hidden>
+                                <?php do_action( 'directorist_checkout_payment_option_content', $option['id'], $legacy_checkout_type, $legacy_context ); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>

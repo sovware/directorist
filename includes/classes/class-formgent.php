@@ -11,6 +11,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
     class ATBDP_Formgent
     {
         protected static $hooks_registered = false;
+
         public function __construct() {
             if ( self::$hooks_registered ) {
                 return;
@@ -261,7 +262,7 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 return rest_ensure_response( [ 'success' => false, 'message' => __( 'Response not found.', 'directorist' ) ] );
             }
 
-            $response = $this->get_responses_query()->where( 'response.id', $response_id )->first();
+            $response = $this->get_responses_query( $this->get_response_box( $request ) )->where( 'response.id', $response_id )->first();
 
             if ( empty( $response ) ) {
                 return rest_ensure_response( [ 'success' => false, 'message' => __( 'Response not found.', 'directorist' ) ] );
@@ -330,26 +331,55 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
                 );
             }
 
+            $response = $this->get_responses_query()->where( 'response.id', $response_id )->first();
+
+            if ( empty( $response ) ) {
+                return rest_ensure_response( [ 'success' => false, 'message' => __( 'Response not found.', 'directorist' ) ] );
+            }
+
             $this->get_responses_query()->where( 'response.id', $response_id )->delete();
 
             return rest_ensure_response( [ 'success' => true, 'message' => __( 'Response has been deleted successfully.', 'directorist' ) ] );
         }
 
         public function get_responses( $request ) {
-            $page = absint( $request->get_param( 'page' ) );
-            $per_page = absint( $request->get_param( 'per_page' ) );
+            $page     = max( 1, absint( $request->get_param( 'page' ) ) );
+            $per_page = $request->has_param( 'per_page' ) ? absint( $request->get_param( 'per_page' ) ) : 10;
+            $per_page = min( 100, max( 1, $per_page ) );
+            $search   = sanitize_text_field( (string) $request->get_param( 'search' ) );
+            $box      = $this->get_response_box( $request );
 
-            $query = $this->get_responses_query();
+            $query = $this->get_responses_query( $box );
+
+            if ( '' !== $search ) {
+                global $wpdb;
+                $like = '%' . $wpdb->esc_like( $search ) . '%';
+                $participant_column = 'send' === $box ? 'post.post_author' : 'response.created_by';
+                $query->where_raw(
+                    $wpdb->prepare(
+                        "(post.post_title LIKE %s OR EXISTS (SELECT 1 FROM {$wpdb->users} AS participant WHERE participant.ID = {$participant_column} AND (participant.display_name LIKE %s OR participant.user_email LIKE %s)))",
+                        $like,
+                        $like,
+                        $like
+                    )
+                );
+            }
+
             $count_query = clone $query;
 
-            $responses = $query->select( 'response.*', 'post.post_title as listing_title', 'post.post_author as listing_owner' )->with(
+            $responses = $query->select( 'response.*', 'post.post_title as listing_title', 'post.post_author as listing_owner' )->order_by_desc( 'response.created_at' )->order_by_desc( 'response.id' )->with(
                 'user', function( $query ) {
                     $query->select( 'ID', 'user_email', 'display_name' );
                 }
-            )->pagination( $page, $per_page );
+            )->limit( $per_page )->offset( ( $page - 1 ) * $per_page )->get();
 
             $responses = array_map(
                 function( $response ) {
+                    $listing_owner = get_userdata( absint( $response->listing_owner ) );
+                    $response->recipient = (object) [
+                        'display_name' => $listing_owner ? $listing_owner->display_name : __( 'Unknown User', 'directorist' ),
+                        'profile_url' => $listing_owner ? get_avatar_url( $listing_owner->ID ) : '',
+                    ];
                     // Handle cases where user might be null (non-logged-in submissions)
                     if ( isset( $response->user ) && is_object( $response->user ) && isset( $response->user->user_email ) ) {
                         $response->user->profile_url = get_avatar_url( $response->user->user_email );
@@ -372,8 +402,8 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             ];
         }
 
-        public function get_kpis() {
-            $query = $this->get_responses_query();
+        public function get_kpis( $request = null ) {
+            $query = $this->get_responses_query( $this->get_response_box( $request ) );
             $count_query = clone $query;
             $this_week_query = clone $query;
             $un_read_query = clone $query;
@@ -509,29 +539,33 @@ if ( ! class_exists( 'ATBDP_Formgent' ) ) {
             return $sanitized_options;
         }
 
-        protected function get_responses_query() {
+        protected function get_response_box( $request ) {
+            return $request && 'send' === $request->get_param( 'box' ) ? 'send' : 'receive';
+        }
+
+        protected function get_responses_query( $box = 'receive' ) {
             $user_id = get_current_user_id();
 
-            if ( empty( $user_id ) ) {
-                return Response::query( 'response' )->where( 'response.id', 0 );
-            }
-
-            return Response::query( 'response' )
+            $query = Response::query( 'response' )
                 ->join(
                     ResponseMeta::get_table_name() . ' as response_meta', function( $join ) {
                         $join->on_column( 'response_meta.response_id', 'response.id' )
                              ->on( 'response_meta.meta_key', 'listing_id' );
                     }
                 )
-                ->left_join(
+                ->join(
                     Post::get_table_name() . ' as post', function( $join ) {
                         $join->on_raw( 'post.ID = CAST(response_meta.meta_value AS UNSIGNED)' );
                     }
                 )
-                ->where_not_null( 'post.post_author' )
-                ->where( 'post.post_author', $user_id )
-                ->where( 'post.post_status', 'publish' )
+                ->where( 'post.post_type', ATBDP_POST_TYPE )
+                ->where( 'post.post_status', '!=', 'trash' )
+                ->where( 'response.status', 'publish' )
                 ->where( 'response.is_completed', 1 );
+
+            return empty( $user_id )
+                ? $query->where( 'response.id', 0 )
+                : $query->where( 'send' === $box ? 'response.created_by' : 'post.post_author', $user_id );
         }
     }
 }

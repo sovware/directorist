@@ -6,9 +6,6 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
      */
     class ATBDP_Email {
 
-        /*@todo; later make all admin email template customization by setting page just like user email templates*/
-
-
         public function __construct() {
             /*Fire up emails when a listing is inserted in the front end*/
             add_action( 'atbdp_listing_inserted', [ $this, 'notify_admin_listing_submitted' ] );
@@ -678,10 +675,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            $s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist' );
+            $s = get_directorist_option( 'email_sub_pub_listing_admin', __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist' ) );
             $subject = $this->replace_in_content( $s, null, $listing_id );
 
-            $body = $this->get_listing_published_admin_tmpl();
+            $body = get_directorist_option( 'email_tmpl_pub_listing_admin', $this->get_listing_published_admin_tmpl() );
             $body = $this->replace_in_content( $body, null, $listing_id );
             $message = atbdp_email_html( $subject, $body );
             $to = $this->get_admin_email_list();
@@ -1017,9 +1014,9 @@ This email is sent automatically for information purpose only. Please do not res
                 return false; // vail if order created notification to admin off
             }
 
-            $s = __( '[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', 'directorist' );
+            $s = get_directorist_option( 'email_sub_deleted_listing_admin', __( '[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', 'directorist' ) );
             $sub = $this->replace_in_content( $s, null, $listing_id );
-            $body = $this->replace_in_content( $this->get_listing_deleted_admin_tmpl(), null, $listing_id );
+            $body = $this->replace_in_content( get_directorist_option( 'email_tmpl_deleted_listing_admin', $this->get_listing_deleted_admin_tmpl() ), null, $listing_id );
             $body = atbdp_email_html( $sub, $body );
             return $this->send_mail( $this->get_admin_email_list(), $sub, $body, $this->get_email_headers() );
         }
@@ -1079,10 +1076,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false; // vail if order created notification to admin off
             }
 
-            $s = __( '[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist' );
+            $s = get_directorist_option( 'email_sub_new_order_admin', __( '[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist' ) );
             $subject = $this->replace_in_content( $s, $order_id );
 
-            $t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
+            $t = get_directorist_option( 'email_tmpl_new_order_admin', $this->get_order_created_admin_tmpl() ); // get the email template & replace order_receipt placeholder in it
             $body = str_replace( '==ORDER_RECEIPT_URL==', admin_url( 'edit.php?post_type=atbdp_orders' ), $t ); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
             $body = $this->replace_in_content( $body, $order_id, $listing_id );
             $message = atbdp_email_html( $subject, $body );
@@ -1124,10 +1121,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            $s = __( '[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist' );
+            $s = get_directorist_option( 'email_sub_completed_order_admin', __( '[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist' ) );
             $subject = $this->replace_in_content( $s, $order_id, $listing_id, null, null, 0, $order );
 
-            $t = $this->get_order_completed_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
+            $t = get_directorist_option( 'email_tmpl_completed_order_admin', $this->get_order_completed_admin_tmpl() ); // get the email template & replace order_receipt placeholder in it
             $body = str_replace( '==ORDER_RECEIPT_URL==', $this->get_admin_order_receipt_url( $order_id, $order ), $t );
             $body = $this->replace_in_content( $body, $order_id, $listing_id, null, null, 0, $order );
             $message = atbdp_email_html( $subject, $body );
@@ -1166,12 +1163,12 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            $s = __( '[==SITE_NAME==] A new listing has been submitted on your website', 'directorist' );
-            $subject = str_replace( '==SITE_NAME==', get_option( 'blogname' ), $s );
+            $s = get_directorist_option( 'email_sub_new_listing_admin', __( '[==SITE_NAME==] A new listing has been submitted on your website', 'directorist' ) );
+            $subject = $this->replace_in_content( $s, null, $listing_id );
             $to = $this->get_admin_email_list();
             $headers = $this->get_email_headers();
 
-            $body = $this->get_listing_submitted_admin_tmpl();
+            $body = get_directorist_option( 'email_tmpl_new_listing_admin', $this->get_listing_submitted_admin_tmpl() );
             $message = $this->replace_in_content( $body, null, $listing_id );
             $body = atbdp_email_html( $subject, $message );
 
@@ -1231,10 +1228,10 @@ This email is sent automatically for information purpose only. Please do not res
                 return false;
             }
 
-            $s = __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist' );
+            $s = get_directorist_option( 'email_sub_edit_listing_admin', __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist' ) );
             $subject = $this->replace_in_content( $s, null, $listing_id );
             $to = $this->get_admin_email_list();
-            $body = $this->get_listing_edited_admin_tmpl();
+            $body = get_directorist_option( 'email_tmpl_edit_listing_admin', $this->get_listing_edited_admin_tmpl() );
             $body = $this->replace_in_content( $body, null, $listing_id );
             $message = atbdp_email_html( $subject, $body );
             $headers = $this->get_email_headers();

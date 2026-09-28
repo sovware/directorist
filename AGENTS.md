@@ -326,6 +326,7 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 **Lifecycle:** Authentication → download → install → activate (via AJAX)
 **Key AJAX actions:** `atbdp_authenticate_the_customer`, `atbdp_download_file`, `atbdp_install_file_from_subscriptions`
 **Filters:** `directorist_extensions_aliases` (deprecated name mapping), `directorist_required_extensions`
+**Themes & Extensions page agent:** Before redesigning, auditing, adding no-reload interactions, or changing product/account flows on `edit.php?post_type=at_biz_dir&page=atbdp-extension`, load `docs/agents/directorist-themes-extensions-page/SKILL.md`. Re-collect dynamic product/account state every time and do not store runtime snapshots as docs truth.
 
 ## Notes
 

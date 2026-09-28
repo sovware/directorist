@@ -326,6 +326,8 @@ class Directorist_AI_Setup_Wizard {
         update_option( 'directorist_setup_wizard_completed', true );
         do_action( 'directorist_setup_wizard_completed' );
 
+        $this->delete_starter_general_directory( $directory['id'] );
+
         wp_send_json_success(
             [
                 'url'    => admin_url( 'edit.php?post_type=' . ATBDP_POST_TYPE . '&page=atbdp-extension' ),
@@ -1116,6 +1118,27 @@ class Directorist_AI_Setup_Wizard {
         if ( function_exists( 'update_directorist_option' ) ) {
             update_directorist_option( 'atbdp_default_derectory', $directory_id );
         }
+    }
+
+    private function delete_starter_general_directory( $directory_id ) {
+        $directory_id = absint( $directory_id );
+        $general      = get_term_by( 'slug', 'general', ATBDP_TYPE );
+
+        if ( ! $general || is_wp_error( $general ) ) {
+            return;
+        }
+
+        if ( (int) $general->term_id === $directory_id || ! empty( $general->count ) ) {
+            return;
+        }
+
+        $listing_ids = get_objects_in_term( $general->term_id, ATBDP_TYPE );
+
+        if ( is_wp_error( $listing_ids ) || ! empty( $listing_ids ) ) {
+            return;
+        }
+
+        wp_delete_term( $general->term_id, ATBDP_TYPE );
     }
 
     private function prepare_form_fields( array $fields ) {

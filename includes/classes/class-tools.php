@@ -392,13 +392,8 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                         $multiple = count( $terms ) > 0;
 
                         foreach ( $terms as $term ) {
-                            $term = trim( $term );
-
-                            if ( isset( $terms_cache[ $term ] ) ) {
-                                $term_id = $terms_cache[ $term ];
-                            } else {
-                                $term_id = $this->maybe_create_term( $term, $taxonomy );
-                            }
+                            $term    = trim( $term );
+                            $term_id = $this->get_cached_term_id( $term, $taxonomy, $terms_cache );
 
                             if ( empty( $term_id ) ) {
                                 continue;
@@ -409,7 +404,6 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                             }
 
                             $term_ids[] = $term_id;
-                            $terms_cache[ $term ] = $term_id;
                         }
 
                         wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
@@ -511,6 +505,32 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             $data['redirect_url'] = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
 
             wp_send_json( $data );
+        }
+
+        /**
+         * Get a taxonomy-specific term ID from the import cache.
+         *
+         * The same term name can exist in multiple taxonomies. Keeping each
+         * taxonomy in a separate cache prevents a tag ID from being reused as
+         * a category or location ID during the same import batch.
+         *
+         * @param string $term        Term name.
+         * @param string $taxonomy    Taxonomy name.
+         * @param array  $terms_cache Cached term IDs grouped by taxonomy.
+         * @return int|null Term ID.
+         */
+        public function get_cached_term_id( $term, $taxonomy, &$terms_cache ) {
+            if ( isset( $terms_cache[ $taxonomy ][ $term ] ) ) {
+                return $terms_cache[ $taxonomy ][ $term ];
+            }
+
+            $term_id = $this->maybe_create_term( $term, $taxonomy );
+
+            if ( ! empty( $term_id ) ) {
+                $terms_cache[ $taxonomy ][ $term ] = $term_id;
+            }
+
+            return $term_id;
         }
 
         /**

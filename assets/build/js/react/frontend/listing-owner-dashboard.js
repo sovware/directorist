@@ -10557,7 +10557,7 @@ var orderStoreName = 'directorist/orders';
 var orderStorePath = '/directorist/v2/orders';
 var baseColumns = [{
   id: 'id',
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Order ID', 'directorist'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Order Id', 'directorist'),
   render: function render(_ref) {
     var item = _ref.item;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.Fragment, {
@@ -10731,7 +10731,7 @@ function App() {
   }]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsxs)(_style__WEBPACK_IMPORTED_MODULE_15__.OrderTableContainer, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_16__.jsx)(_shamim_ahmed_dashboard__WEBPACK_IMPORTED_MODULE_9__.Table, {
-      heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Orders', 'directorist'),
+      heading: "Orders",
       storeName: orderStoreName,
       path: orderStorePath,
       columns: columns,
@@ -103291,18 +103291,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app */ "./assets/src/js/react/frontend/listing-owner-dashboard/app.tsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app */ "./assets/src/js/react/frontend/listing-owner-dashboard/app.tsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 /**
  * WordPress dependencies
  */
-
-
 
 
 
@@ -103316,16 +103310,8 @@ _wordpress_dom_ready__WEBPACK_IMPORTED_MODULE_0___default()(function () {
   if (!container) {
     return;
   }
-
-  // DataViews uses the default domain for its empty state.
-  ;(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_2__.addFilter)('i18n.gettext_default', 'directorist/dashboard-empty-state', function (translation, text) {
-    if (text === 'No results' && translation === text) {
-      return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('No results', 'directorist');
-    }
-    return translation;
-  });
   var root = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
-  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_app__WEBPACK_IMPORTED_MODULE_4__["default"], {}));
+  root.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_app__WEBPACK_IMPORTED_MODULE_2__["default"], {}));
 });
 }();
 /******/ })()

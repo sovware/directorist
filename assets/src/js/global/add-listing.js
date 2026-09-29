@@ -1543,6 +1543,9 @@ function updateLocalNonce() {
 			if (response.success) {
 				window.directorist.directorist_nonce =
 					response.data.directorist_nonce;
+				if (response.data.rest_nonce) {
+					window.directorist.rest_nonce = response.data.rest_nonce;
+				}
 			}
 		},
 	});
@@ -1555,7 +1558,8 @@ function updateLocalNonce() {
 	'use strict';
 
 	// Set up conditional logic functions with dependencies
-	const getFieldValueFn = (fieldKey) => getFieldValueBase(fieldKey, $);
+	const getFieldValueFn = (fieldKey) =>
+		getFieldValueBase(fieldKey, $, getWrapper());
 	const evaluateConditionalLogicFn = (conditionalLogic) =>
 		evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
 	const applyConditionalLogicFn = ($fieldWrapper) =>

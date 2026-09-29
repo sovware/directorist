@@ -16,8 +16,46 @@
 	"attributes": {
 		"styleDisplay": {
 			"type": "string",
-			"enum": [ "icon", "text", "icon_and_text" ],
+			"enum": ["icon", "text", "icon_and_text"],
 			"default": "icon"
+		},
+		"iconSource": {
+			"type": "string",
+			"enum": ["library", "image"],
+			"default": "library"
+		},
+		"iconClass": {
+			"type": "string",
+			"default": "fas fa-search"
+		},
+		"iconId": {
+			"type": "number",
+			"default": 0
+		},
+		"iconUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"iconSize": {
+			"type": "number",
+			"default": 24
+		},
+		"iconColor": {
+			"type": "string",
+			"default": ""
+		},
+		"iconPosition": {
+			"type": "string",
+			"enum": ["before", "after"],
+			"default": "before"
+		},
+		"iconGap": {
+			"type": "number",
+			"default": 8
+		},
+		"accessibleLabel": {
+			"type": "string",
+			"default": "Search listings"
 		},
 		"textAlign": {
 			"type": "string"
@@ -104,7 +142,7 @@
 		},
 		"spacing": {
 			"__experimentalSkipSerialization": true,
-			"padding": [ "horizontal", "vertical" ],
+			"padding": ["horizontal", "vertical"],
 			"__experimentalDefaultControls": {
 				"padding": true
 			}
@@ -131,7 +169,7 @@
 		{ "name": "fill", "label": "Fill", "isDefault": true },
 		{ "name": "outline", "label": "Outline" }
 	],
-	"textdomain": "directorist-account-block",
+	"textdomain": "directorist",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style-index.css",

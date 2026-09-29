@@ -175,9 +175,7 @@ class Bootstrap {
     }
 
     /**
-     * Map meta capabilities for comment or review author.
-     *
-     * Since subscriber cannot edit their own comment so meta cap remapping is necessary.
+     * Separate review content editing from WordPress comment moderation.
      *
      * @param array $caps
      * @param string $cap
@@ -187,18 +185,30 @@ class Bootstrap {
      * @return array
      */
     public static function map_meta_cap_for_review_author( $caps, $cap, $user_id, $args ) {
-        if ( $cap !== 'edit_comment' ) {
+        if ( ! in_array( $cap, [ 'edit_comment', 'edit_directorist_review' ], true ) ) {
             return $caps;
         }
 
         $comment_id = current( $args );
         if ( ! $comment_id ) {
-            return $caps;
+            return 'edit_directorist_review' === $cap ? [ 'do_not_allow' ] : $caps;
         }
 
         $comment = get_comment( $comment_id );
-        if ( ! $comment || ! $user_id || $user_id !== intval( $comment->user_id ) || get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
+        if ( ! $comment || get_post_type( $comment->comment_post_ID ) !== ATBDP_POST_TYPE ) {
+            return 'edit_directorist_review' === $cap ? [ 'do_not_allow' ] : $caps;
+        }
+
+        // WordPress uses edit_comment for spam, trash, approval and admin editing.
+        // Editing a listing must not implicitly grant moderation of its reviews.
+        if ( 'edit_comment' === $cap ) {
+            $caps[] = 'moderate_comments';
             return $caps;
+        }
+
+        // The frontend content-only form still allows authors to edit their own text.
+        if ( ! $user_id || $user_id !== intval( $comment->user_id ) ) {
+            return map_meta_cap( 'edit_comment', $user_id, $comment_id );
         }
 
         $post_type = get_post_type_object( ATBDP_POST_TYPE );

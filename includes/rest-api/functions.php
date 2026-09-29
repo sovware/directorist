@@ -103,6 +103,10 @@ function directorist_rest_upload_image_from_url( $image_url ) {
     // Ensure url is valid.
     $image_url = esc_url_raw( $image_url );
 
+    if ( ! directorist_rest_validate_remote_image_url( $image_url ) ) {
+        return new WP_Error( 'directorist_rest_invalid_image_url', sprintf( __( 'Invalid URL %s.', 'directorist' ), $image_url ), array( 'status' => 400 ) );
+    }
+
     // download_url function is part of wp-admin.
     if ( ! function_exists( 'download_url' ) ) {
         include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -112,7 +116,9 @@ function directorist_rest_upload_image_from_url( $image_url ) {
     $file_array['name'] = basename( current( explode( '?', $image_url ) ) );
 
     // Download file to temp location.
+    add_filter( 'http_request_args', 'directorist_rest_reject_unsafe_remote_image_urls', 10, 2 );
     $file_array['tmp_name'] = download_url( $image_url );
+    remove_filter( 'http_request_args', 'directorist_rest_reject_unsafe_remote_image_urls', 10 );
 
     // If error storing temporarily, return the error.
     if ( is_wp_error( $file_array['tmp_name'] ) ) {
@@ -177,6 +183,56 @@ function directorist_rest_upload_image_from_url( $image_url ) {
     do_action( 'directorist_rest_api_uploaded_image_from_url', $file, $image_url );
 
     return $file;
+}
+
+/**
+ * Reject unsafe remote image destinations before server-side fetching.
+ *
+ * @param string $image_url Image URL.
+ * @return bool
+ */
+function directorist_rest_validate_remote_image_url( $image_url ) {
+    if ( ! function_exists( 'wp_http_validate_url' ) || ! wp_http_validate_url( $image_url ) ) {
+        return false;
+    }
+
+    $parsed_url = wp_parse_url( $image_url );
+    if ( empty( $parsed_url['scheme'] ) || empty( $parsed_url['host'] ) ) {
+        return false;
+    }
+
+    if ( ! in_array( strtolower( $parsed_url['scheme'] ), array( 'http', 'https' ), true ) ) {
+        return false;
+    }
+
+    $host = strtolower( trim( $parsed_url['host'], " \t\n\r\0\x0B[]" ) );
+    if ( in_array( $host, array( 'localhost', 'localhost.localdomain' ), true ) || preg_match( '/(^|\.)localhost$/', $host ) ) {
+        return false;
+    }
+
+    $ip = filter_var( $host, FILTER_VALIDATE_IP ) ? $host : gethostbyname( $host );
+    if ( ! $ip || $ip === $host && ! filter_var( $host, FILTER_VALIDATE_IP ) ) {
+        return false;
+    }
+
+    return (bool) filter_var(
+        $ip,
+        FILTER_VALIDATE_IP,
+        FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+    );
+}
+
+/**
+ * Force WordPress HTTP API URL safety checks while downloading remote images.
+ *
+ * @param array  $args HTTP request arguments.
+ * @param string $url  Request URL.
+ * @return array
+ */
+function directorist_rest_reject_unsafe_remote_image_urls( $args, $url ) {
+    $args['reject_unsafe_urls'] = true;
+
+    return $args;
 }
 
 /**

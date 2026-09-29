@@ -830,7 +830,10 @@ class Directorist_Listing_Search_Form {
     }
 
     public function top_categories() {
-        $top_categories = [];
+        $directory_id = (string) absint( $this->listing_type );
+        // Walk complete serialized key/value pairs so array indexes cannot match a directory ID.
+        // Legacy metadata can contain either integer IDs or numeric string IDs.
+        $legacy_directory_pattern = '^a:[0-9]+:[{](i:[0-9]+;(i:[0-9]+;|s:[0-9]+:"[0-9]+";))*i:[0-9]+;(i:' . $directory_id . ';|s:' . strlen( $directory_id ) . ':"' . $directory_id . '";)';
 
         $args = [
             'type'                                  => ATBDP_POST_TYPE,
@@ -850,8 +853,8 @@ class Directorist_Listing_Search_Form {
                 ],
                 [
                     'key'     => '_directory_type',
-                    'value'   => 'i:' . absint( $this->listing_type ) . ';',
-                    'compare' => 'LIKE',
+                    'value'   => $legacy_directory_pattern,
+                    'compare' => 'REGEXP',
                 ],
             ],
         ];

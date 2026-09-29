@@ -392,13 +392,8 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                         $multiple = count( $terms ) > 0;
 
                         foreach ( $terms as $term ) {
-                            $term = trim( $term );
-
-                            if ( isset( $terms_cache[ $term ] ) ) {
-                                $term_id = $terms_cache[ $term ];
-                            } else {
-                                $term_id = $this->maybe_create_term( $term, $taxonomy );
-                            }
+                            $term    = trim( $term );
+                            $term_id = $this->get_cached_term_id( $term, $taxonomy, $terms_cache );
 
                             if ( empty( $term_id ) ) {
                                 continue;
@@ -409,7 +404,6 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                             }
 
                             $term_ids[] = $term_id;
-                            $terms_cache[ $term ] = $term_id;
                         }
 
                         wp_set_object_terms( $post_id, $term_ids, $taxonomy, $multiple );
@@ -417,7 +411,7 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                 }
 
                 foreach ( $metas as $index => $value ) {
-                    $meta_value = $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
+                    $meta_value = isset( $post[ $value ] ) && $post[ $value ] ? self::unescape_data( $post[ $value ] ) : '';
                     $meta_value = $this->maybe_unserialize_csv_string( $meta_value );
 
                     if ( $meta_value ) {
@@ -511,6 +505,32 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
             $data['redirect_url'] = esc_url( admin_url( 'edit.php?post_type=at_biz_dir&page=tools&step=3' ) );
 
             wp_send_json( $data );
+        }
+
+        /**
+         * Get a taxonomy-specific term ID from the import cache.
+         *
+         * The same term name can exist in multiple taxonomies. Keeping each
+         * taxonomy in a separate cache prevents a tag ID from being reused as
+         * a category or location ID during the same import batch.
+         *
+         * @param string $term        Term name.
+         * @param string $taxonomy    Taxonomy name.
+         * @param array  $terms_cache Cached term IDs grouped by taxonomy.
+         * @return int|null Term ID.
+         */
+        public function get_cached_term_id( $term, $taxonomy, &$terms_cache ) {
+            if ( isset( $terms_cache[ $taxonomy ][ $term ] ) ) {
+                return $terms_cache[ $taxonomy ][ $term ];
+            }
+
+            $term_id = $this->maybe_create_term( $term, $taxonomy );
+
+            if ( ! empty( $term_id ) ) {
+                $terms_cache[ $taxonomy ][ $term ] = $term_id;
+            }
+
+            return $term_id;
         }
 
         /**
@@ -1123,19 +1143,21 @@ if ( ! class_exists( 'ATBDP_Tools' ) ) :
                 return new WP_Error( 'invalid_csv_file', 'Invalid file path or file does not exists.' );
             }
 
-            if ( ! wp_check_filetype( $file )['ext'] === 'csv' ) {
-                return new WP_Error( 'invalid_csv_file', 'The file must be a CSV file.' );
-            }
+            $filename = wp_basename( $file );
 
-            $mime_type = mime_content_type( $file );
-            if ( ! in_array( $mime_type, [ 'text/csv','text/plain', 'application/csv' ], true ) ) {
-                return new WP_Error(
-                    'invalid_csv_file',
-                    sprintf(
-                        'Invalid file type. Only text/plain, text/csv, and application/csv are supported, given "%s".',
-                        $mime_type
-                    )
-                );
+            // WordPress appends .txt and may add a numeric suffix to importer uploads.
+            $filename = preg_replace( '/\.csv(?:-\d+)?\.txt$/i', '.csv', $filename );
+
+            $file_type = wp_check_filetype_and_ext(
+                $file,
+                $filename,
+                [
+                    'csv' => 'text/csv',
+                ]
+            );
+
+            if ( 'csv' !== $file_type['ext'] || 'text/csv' !== $file_type['type'] ) {
+                return new WP_Error( 'invalid_csv_file', 'The file must be a valid CSV file.' );
             }
 
             return $file;

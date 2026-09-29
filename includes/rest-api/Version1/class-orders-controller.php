@@ -81,7 +81,11 @@ class Orders_Controller extends Abstract_Controller {
     }
 
     public function create_item_permissions_check( $request ) {
-        return is_user_logged_in();
+        if ( ! $this->admin_permissions_check() ) {
+            return new WP_Error( 'directorist_rest_cannot_create_order', __( 'Sorry, you are not allowed to create orders.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
+        }
+
+        return true;
     }
 
     public function create_item( $request ) {

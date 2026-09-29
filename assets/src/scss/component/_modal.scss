@@ -875,13 +875,18 @@
 			display: flex;
 			flex-wrap: wrap;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: flex-start;
 			position: relative;
 			padding: 0;
 			width: 100%;
 			max-width: unset;
-			height: 40px;
-			line-height: 40px;
+			box-sizing: border-box;
+			min-height: 40px;
+			height: auto;
+			line-height: 1.5;
+			padding-block: 8px;
+			padding-inline-end: 45px;
+			overflow-wrap: anywhere;
 			font-size: 14px;
 			font-weight: 500;
 			cursor: pointer;
@@ -905,8 +910,10 @@
 			}
 			i {
 				display: flex;
-				flex: 1;
-				justify-content: flex-end;
+				position: absolute;
+				inset-inline-end: 0;
+				top: 50%;
+				transform: translateY(-50%);
 				&:after {
 					width: 12px;
 					height: 12px;

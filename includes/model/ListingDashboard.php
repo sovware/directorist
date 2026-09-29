@@ -495,7 +495,7 @@ class Directorist_Listing_Dashboard {
 
         if ( $user_order_history ) {
             $dashboard_tabs[ 'order_history' ] = array(
-                'title'     => __( 'Order History', 'directorist-pricing-plans' ),
+                'title'     => __( 'Order History', 'directorist' ),
                 'content'   => Helper::get_template_contents( 'dashboard/tab-orders', [ 'dashboard' => $this ] ),
                 'icon'      => 'las la-clock',
             );
@@ -521,14 +521,16 @@ class Directorist_Listing_Dashboard {
         if ( isset( $_GET['renew'] ) ) {
             $renew_token_expired = $_GET['renew'] == 'token_expired' ? true : false;
             $renew_succeed = $_GET['renew'] == 'success' ? true : false;
+            $renew_pending = $_GET['renew'] == 'pending' ? true : false;
         } else {
-            $renew_token_expired = $renew_succeed = false;
+            $renew_token_expired = $renew_succeed = $renew_pending = false;
         }
 
         $args = [
             'dashboard' => $this,
             'renew_token_expired' => $renew_token_expired,
             'renew_succeed' => $renew_succeed,
+            'renew_pending' => $renew_pending,
         ];
 
         Helper::get_template( 'dashboard/notice', $args );
@@ -673,10 +675,6 @@ class Directorist_Listing_Dashboard {
     }
 
     public function get_renewal_link( $listing_id ) {
-        if ( directorist_is_monetization_enabled() && directorist_is_featured_listing_enabled() ) {
-            return ATBDP_Permalink::get_fee_renewal_checkout_page_link( $listing_id );
-        }
-
         return ATBDP_Permalink::get_renewal_page_link( $listing_id );
     }
 

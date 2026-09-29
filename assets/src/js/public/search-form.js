@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					$(dropdown)
 						.siblings('.directorist-search-basic-dropdown-label')
 						.find(
-							'.directorist-search-basic-dropdown-selected-prefix'
+							'.directorist-search-basic-dropdown-selected-prefix, .directorist-search-basic-dropdown-selected-item'
 						)
 						.text('');
 
@@ -2620,7 +2620,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 
 			const getFieldValueFn = (fieldKey) =>
-				getFieldValueBase(fieldKey, jQuery);
+				getFieldValueBase(fieldKey, jQuery, getSearchFormWrapper());
 			const evaluateConditionalLogicFn = (conditionalLogic) =>
 				evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
 			const applyConditionalLogicFn = ($fieldWrapper) =>

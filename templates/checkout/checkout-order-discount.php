@@ -8,18 +8,18 @@
 <tr class="atbdp_ch_subtotal directorist-checkout-discount directorist-row--order-discount" data-order-discount-type="<?php echo esc_attr( $type ); ?>" data-order-discount-rate="<?php echo esc_attr( $rate ); ?>" data-order-discount-amount="<?php echo esc_attr( $amount ); ?>">
     <td colspan="2" class="">
         <span class="directorist-summery-label directorist-row-label--order-discount-rate">
-            <?php esc_html_e( 'Discount', 'directorist-pricing-plans' ); ?>
+            <?php esc_html_e( 'Discount', 'directorist' ); ?>
             <?php
                 if ( DiscountType::PERCENT === $type ) {
                     echo sprintf(
                         /* translators: %s: discount rate percentage */
-                        esc_html__( '( %s%% )', 'directorist-pricing-plans' ),
+                        esc_html__( '( %s%% )', 'directorist' ),
                         esc_html( $rate )
                     );
                 } else {
                     echo sprintf(
                         /* translators: %s: formatted discount amount */
-                        esc_html__( '( %s )', 'directorist-pricing-plans' ),
+                        esc_html__( '( %s )', 'directorist' ),
                         directorist_price( $rate )
                     );
                 }

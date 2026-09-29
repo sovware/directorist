@@ -1050,7 +1050,7 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
                 }
 
                 if ( empty( $status['url'] ) ) {
-                    throw new \Exception( __( 'Could not upload your file, please try again.' ), 400 );
+                    throw new \Exception( __( 'Could not upload your file, please try again.', 'directorist' ), 400 );
                 }
 
                 // Update the meta when post id is available.
@@ -1946,7 +1946,8 @@ if ( ! class_exists( 'ATBDP_Ajax_Handler' ) ) :
 
             wp_send_json_success(
                 [
-                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() )
+                    'directorist_nonce' => wp_create_nonce( directorist_get_nonce_key() ),
+                    'rest_nonce'        => wp_create_nonce( 'wp_rest' ),
                 ]
             );
         }

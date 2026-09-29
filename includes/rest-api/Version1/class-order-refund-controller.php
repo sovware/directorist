@@ -47,7 +47,7 @@ class Order_Refund_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => [
                         'id'     => [
-                            'description'       => __( 'The order ID.' ),
+                            'description'       => __( 'The order ID.', 'directorist' ),
                             'type'              => 'integer',
                             'required'          => true,
                         ],
@@ -61,7 +61,7 @@ class Order_Refund_Controller extends Abstract_Controller {
                         $this->store_args(), 
                         [
                             'id'     => [
-                                'description'       => __( 'The order ID.' ),
+                                'description'       => __( 'The order ID.', 'directorist' ),
                                 'type'              => 'integer',
                                 'required'          => true,
                             ],
@@ -74,7 +74,7 @@ class Order_Refund_Controller extends Abstract_Controller {
                     'permission_callback' => [ $this, 'admin_permissions_check' ],
                     'args'                => [
                         'id'     => [
-                            'description'       => __( 'The order ID.' ),
+                            'description'       => __( 'The order ID.', 'directorist' ),
                             'type'              => 'integer',
                             'required'          => true,
                         ],
@@ -113,7 +113,7 @@ class Order_Refund_Controller extends Abstract_Controller {
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Refund was created successfully" ),
+                "message" => esc_html__( "Refund was created successfully", 'directorist' ),
                 "data"    => [
                     "id" => $id
                 ]
@@ -126,7 +126,7 @@ class Order_Refund_Controller extends Abstract_Controller {
         $refund     = $repository->get_by_id( $request->get_param( "id" ) );
 
         if ( ! $refund ) {
-            return new WP_Error( 'rest_not_found', __( 'The refund was not found' ) );
+            return new WP_Error( 'rest_not_found', __( 'The refund was not found', 'directorist' ) );
         }
 
         return rest_ensure_response(
@@ -148,7 +148,7 @@ class Order_Refund_Controller extends Abstract_Controller {
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Refund was updated successfully" )
+                "message" => esc_html__( "Refund was updated successfully", 'directorist' )
             ]
         );
     }
@@ -159,7 +159,7 @@ class Order_Refund_Controller extends Abstract_Controller {
 
         return rest_ensure_response(
             [
-                "message" => esc_html__( "Refund was deleted successfully" )
+                "message" => esc_html__( "Refund was deleted successfully", 'directorist' )
             ]
         );
     }
@@ -169,7 +169,7 @@ class Order_Refund_Controller extends Abstract_Controller {
         $old_item   = $repository->get_by_id( $request->get_param( "id" ) );
 
         if ( ! $old_item ) {
-            return new WP_Error( 'rest_not_found', __( 'The order was not found' ) );
+            return new WP_Error( 'rest_not_found', __( 'The order was not found', 'directorist' ) );
         }
 
         $dto = $repository->to_dto( $old_item );
@@ -179,31 +179,31 @@ class Order_Refund_Controller extends Abstract_Controller {
         $repository->update( $dto );
 
         return rest_ensure_response( [
-            'message' => esc_html__("Status updated successfully")
+            'message' => esc_html__("Status updated successfully", 'directorist')
         ] );
     }
 
     protected function store_args(): array {
         return [
             'order_id' => [
-                'description' => __( 'The order ID.' ),
+                'description' => __( 'The order ID.', 'directorist' ),
                 'type'        => 'integer',
                 'required'    => true,
             ],
             'amount' => [
-                'description' => __( 'The listing ID.' ),
+                'description' => __( 'The listing ID.', 'directorist' ),
                 'type'        => 'integer',
                 'required'    => true,
                 'minimum'     => 1,
             ],
             'status' => [
-                'description' => __( 'The status of the order.' ),
+                'description' => __( 'The status of the order.', 'directorist' ),
                 'type'        => 'string',
                 'required'    => true,
                 'enum'        => RefundStatus::all(),
             ],
             'reason' => [
-                'description' => __( 'The reason for the refund.' ),
+                'description' => __( 'The reason for the refund.', 'directorist' ),
                 'type'        => 'string',
                 'required'    => false,
             ],
@@ -213,27 +213,27 @@ class Order_Refund_Controller extends Abstract_Controller {
     protected function index_args(): array {
         return [
             'page'     => [
-                'description'       => __( 'The page number.' ),
+                'description'       => __( 'The page number.', 'directorist' ),
                 'type'              => 'integer',
                 'sanitize_callback' => 'absint',
                 'default'           => 1,
                 'required'          => false,
             ],
             'per_page'     => [
-                'description'       => __( 'The number of items per page.' ),
+                'description'       => __( 'The number of items per page.', 'directorist' ),
                 'type'              => 'integer',
                 'sanitize_callback' => 'absint',
                 'default'           => 10,
                 'required'          => false,
             ],
             'search'     => [
-                'description'       => __( 'The search query.' ),
+                'description'       => __( 'The search query.', 'directorist' ),
                 'type'              => 'string',
                 'sanitize_callback' => 'sanitize_text_field',
                 'required'          => false,
             ],
             'order_id'     => [
-                'description'       => __( 'The order ID.' ),
+                'description'       => __( 'The order ID.', 'directorist' ),
                 'type'              => 'integer',
                 'sanitize_callback' => 'absint',
                 'required'          => false,

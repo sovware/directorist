@@ -128,7 +128,11 @@ class User_Favorites_Controller extends Abstract_Controller {
                 return new WP_Error( 'directorist_rest_user_invalid', __( 'Resource does not exist.', 'directorist' ), array( 'status' => 404 ) );
             }
 
-            return directorist_rest_check_user_favorite_permissions( $context, $user->ID );
+            if ( get_current_user_id() === $user->ID || current_user_can( 'edit_user', $user->ID ) ) {
+                return true;
+            }
+
+            return false;
         }
 
         return directorist_rest_check_user_favorite_permissions( $context );

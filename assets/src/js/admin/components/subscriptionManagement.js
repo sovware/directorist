@@ -16,6 +16,9 @@ window.addEventListener('load', () => {
 
 		const form_data = {
 			action: 'atbdp_authenticate_the_customer',
+			auth_method:
+				form.find('input[name="auth_method"]').val() || 'account',
+			access_key: form.find('input[name="access_key"]').val() || '',
 			username: form.find('input[name="username"]').val(),
 			password: form.find('input[name="password"]').val(),
 			nonce: directorist_admin.nonce,

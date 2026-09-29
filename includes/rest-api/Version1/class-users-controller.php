@@ -584,9 +584,10 @@ class Users_Controller extends Abstract_Controller {
      * @return WP_REST_Response Response object.
      */
     public function prepare_item_for_response( $user, $request ) {
-        $id     = $user->ID;
-        $schema = $this->get_item_schema();
-        $data   = array(
+        $id               = $user->ID;
+        $schema           = $this->get_item_schema();
+        $can_view_private = get_current_user_id() === $id || current_user_can( 'edit_user', $id );
+        $data             = array(
             'id'             => $id,
             'date_created'   => directorist_rest_prepare_date_response( $user->user_registered ),
             'name'           => $user->display_name,
@@ -595,10 +596,10 @@ class Users_Controller extends Abstract_Controller {
             'first_name'     => $user->first_name,
             'last_name'      => $user->last_name,
             'description'    => $user->description,
-            'email'          => is_user_logged_in() ? $user->user_email : null,
+            'email'          => $can_view_private ? $user->user_email : null,
             'url'            => $user->user_url,
-            'phone'          => get_user_meta( $id, 'atbdp_phone', true ),
-            'address'        => get_user_meta( $id, 'address', true ),
+            'phone'          => $can_view_private ? get_user_meta( $id, 'atbdp_phone', true ) : null,
+            'address'        => $can_view_private ? get_user_meta( $id, 'address', true ) : null,
             'avater'         => null,
             'avatar'         => null,
             'social_links'   => null,
@@ -629,7 +630,7 @@ class Users_Controller extends Abstract_Controller {
         }
 
         // User favorite.
-        $favorites = directorist_get_user_favorites( $id );
+        $favorites = $can_view_private ? directorist_get_user_favorites( $id ) : array();
         if ( ! empty( $favorites ) ) {
             $data['favorite'] = $favorites;
         }

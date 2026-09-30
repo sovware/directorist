@@ -3290,8 +3290,8 @@ var FIELD_GROUPS = {
     key: 'notification_events',
     title: 'Notification events',
     description: 'Toggle a channel per event. Click Edit to customize subject, body, and push wording.',
-    fields: ['notify_admin', 'notify_user', 'email_note', 'email_sub_new_listing', 'email_tmpl_new_listing', 'email_sub_pub_listing', 'email_tmpl_pub_listing', 'email_sub_rejected_listing', 'email_tmpl_rejected_listing', 'email_sub_edit_listing', 'email_tmpl_edit_listing', 'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing', 'email_sub_expired_listing', 'email_tmpl_expired_listing', 'email_sub_to_renewal_listing', 'email_tmpl_to_renewal_listing', 'email_sub_renewed_listing', 'email_tmpl_renewed_listing', 'email_sub_deleted_listing', 'email_tmpl_deleted_listing', 'email_sub_new_order', 'email_tmpl_new_order', 'email_sub_offline_new_order', 'email_tmpl_offline_new_order', 'email_sub_completed_order', 'email_tmpl_completed_order', 'email_sub_listing_contact_email', 'email_tmpl_listing_contact_email', 'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation', 'email_sub_email_verification', 'email_tmpl_email_verification'].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(WEB_PUSH_TEMPLATE_FIELDS), ['email_to_expire_day', 'email_renewal_day']),
-    hiddenFields: ['notify_admin', 'notify_user', 'email_note', 'email_sub_new_listing', 'email_tmpl_new_listing', 'email_sub_pub_listing', 'email_tmpl_pub_listing', 'email_sub_rejected_listing', 'email_tmpl_rejected_listing', 'email_sub_edit_listing', 'email_tmpl_edit_listing', 'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing', 'email_sub_expired_listing', 'email_tmpl_expired_listing', 'email_sub_to_renewal_listing', 'email_tmpl_to_renewal_listing', 'email_sub_renewed_listing', 'email_tmpl_renewed_listing', 'email_sub_deleted_listing', 'email_tmpl_deleted_listing', 'email_sub_new_order', 'email_tmpl_new_order', 'email_sub_offline_new_order', 'email_tmpl_offline_new_order', 'email_sub_completed_order', 'email_tmpl_completed_order', 'email_sub_listing_contact_email', 'email_tmpl_listing_contact_email', 'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation', 'email_sub_email_verification', 'email_tmpl_email_verification'].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(WEB_PUSH_TEMPLATE_FIELDS)),
+    fields: ['notify_admin', 'notify_user', 'email_note', 'email_sub_new_listing', 'email_tmpl_new_listing', 'email_sub_pub_listing', 'email_tmpl_pub_listing', 'email_sub_new_listing_admin', 'email_tmpl_new_listing_admin', 'email_sub_pub_listing_admin', 'email_tmpl_pub_listing_admin', 'email_sub_edit_listing_admin', 'email_tmpl_edit_listing_admin', 'email_sub_deleted_listing_admin', 'email_tmpl_deleted_listing_admin', 'email_sub_new_order_admin', 'email_tmpl_new_order_admin', 'email_sub_completed_order_admin', 'email_tmpl_completed_order_admin', 'email_sub_rejected_listing', 'email_tmpl_rejected_listing', 'email_sub_edit_listing', 'email_tmpl_edit_listing', 'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing', 'email_sub_expired_listing', 'email_tmpl_expired_listing', 'email_sub_to_renewal_listing', 'email_tmpl_to_renewal_listing', 'email_sub_renewed_listing', 'email_tmpl_renewed_listing', 'email_sub_deleted_listing', 'email_tmpl_deleted_listing', 'email_sub_new_order', 'email_tmpl_new_order', 'email_sub_offline_new_order', 'email_tmpl_offline_new_order', 'email_sub_completed_order', 'email_tmpl_completed_order', 'email_sub_listing_contact_email', 'email_tmpl_listing_contact_email', 'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation', 'email_sub_email_verification', 'email_tmpl_email_verification'].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(WEB_PUSH_TEMPLATE_FIELDS), ['email_to_expire_day', 'email_renewal_day']),
+    hiddenFields: ['notify_admin', 'notify_user', 'email_note', 'email_sub_new_listing', 'email_tmpl_new_listing', 'email_sub_pub_listing', 'email_tmpl_pub_listing', 'email_sub_new_listing_admin', 'email_tmpl_new_listing_admin', 'email_sub_pub_listing_admin', 'email_tmpl_pub_listing_admin', 'email_sub_edit_listing_admin', 'email_tmpl_edit_listing_admin', 'email_sub_deleted_listing_admin', 'email_tmpl_deleted_listing_admin', 'email_sub_new_order_admin', 'email_tmpl_new_order_admin', 'email_sub_completed_order_admin', 'email_tmpl_completed_order_admin', 'email_sub_rejected_listing', 'email_tmpl_rejected_listing', 'email_sub_edit_listing', 'email_tmpl_edit_listing', 'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing', 'email_sub_expired_listing', 'email_tmpl_expired_listing', 'email_sub_to_renewal_listing', 'email_tmpl_to_renewal_listing', 'email_sub_renewed_listing', 'email_tmpl_renewed_listing', 'email_sub_deleted_listing', 'email_tmpl_deleted_listing', 'email_sub_new_order', 'email_tmpl_new_order', 'email_sub_offline_new_order', 'email_tmpl_offline_new_order', 'email_sub_completed_order', 'email_tmpl_completed_order', 'email_sub_listing_contact_email', 'email_tmpl_listing_contact_email', 'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation', 'email_sub_email_verification', 'email_tmpl_email_verification'].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(WEB_PUSH_TEMPLATE_FIELDS)),
     notificationEvents: {
       beforeField: 'notify_admin'
     },
@@ -14778,6 +14778,32 @@ var EVENT_TEMPLATE_MAP = {
     body: "email_tmpl_listing_contact_email"
   }
 };
+var ADMIN_EVENT_TEMPLATE_MAP = {
+  listing_submitted: {
+    subject: "email_sub_new_listing_admin",
+    body: "email_tmpl_new_listing_admin"
+  },
+  listing_published: {
+    subject: "email_sub_pub_listing_admin",
+    body: "email_tmpl_pub_listing_admin"
+  },
+  listing_edited: {
+    subject: "email_sub_edit_listing_admin",
+    body: "email_tmpl_edit_listing_admin"
+  },
+  listing_deleted: {
+    subject: "email_sub_deleted_listing_admin",
+    body: "email_tmpl_deleted_listing_admin"
+  },
+  order_created: {
+    subject: "email_sub_new_order_admin",
+    body: "email_tmpl_new_order_admin"
+  },
+  order_completed: {
+    subject: "email_sub_completed_order_admin",
+    body: "email_tmpl_completed_order_admin"
+  }
+};
 var ADMIN_EVENTS = [["order_created", "Order created", "A new order has been placed"], ["order_completed", "Order completed", "An order has been fulfilled"], ["payment_received", "Payment received", "A payment has been confirmed"], ["listing_submitted", "New listing submitted", "A listing is waiting for review"], ["listing_published", "Listing approved or published", "A listing has gone live"], ["listing_edited", "Listing edited", "A listing was updated by its owner"], ["listing_deleted", "Listing deleted", "A listing has been removed"], ["listing_renewed", "Listing renewed", "A listing plan has been renewed"], ["listing_contact_form", "Listing contact form", "A visitor messaged via a listing"], ["listing_review", "Listing review", "A new review has been posted"]];
 var USER_EVENTS = [["listing_submitted", "Listing submitted", "Confirmation their listing was received"], ["listing_published", "Listing approved or published", "Their listing is now live"], ["listing_rejected", "Listing rejected", "Their listing was not approved"], ["listing_edited", "Listing edited", "Confirmation their edit was saved"], ["listing_deleted", "Listing deleted", "Their listing has been removed"], ["listing_to_expire", "Listing nearly expired", "Their listing expires soon"], ["listing_expired", "Listing expired", "Their listing plan has ended"], ["remind_to_renew", "Remind to renew", "Renewal reminder after expiry"], ["listing_renewed", "Listing renewed", "Confirmation their listing was renewed"], ["order_created", "Order created", "Confirmation their order was placed"], ["order_completed", "Order completed", "Their order has been fulfilled"], ["payment_received", "Payment received", "Confirmation of a successful payment"], ["listing_contact_form", "Listing contact form", "A visitor messaged via their listing"], ["listing_review", "Listing review", "Someone reviewed their listing"]];
 var ACCOUNT_EVENTS = [["registration_confirmation", "Registration confirmation", "Welcome email sent after a new account is created", {
@@ -15009,8 +15035,8 @@ var ACCOUNT_EVENTS = [["registration_confirmation", "Registration confirmation",
       var disabledDisplayValue = this.disabledDisplayValueForField(fieldKey);
       return disabledDisplayValue.length ? disabledDisplayValue : this.backupValueForField(fieldKey);
     },
-    templateForEvent: function templateForEvent(eventKey) {
-      var template = EVENT_TEMPLATE_MAP[eventKey];
+    templateForEvent: function templateForEvent(eventKey, recipient) {
+      var template = recipient === "admin" ? ADMIN_EVENT_TEMPLATE_MAP[eventKey] || EVENT_TEMPLATE_MAP[eventKey] : EVENT_TEMPLATE_MAP[eventKey];
       if (!template || !this.templateExists(template)) {
         return null;
       }
@@ -15145,7 +15171,7 @@ var ACCOUNT_EVENTS = [["registration_confirmation", "Registration confirmation",
           webPushFieldKey: hasWebPush ? webPushFieldKey : "",
           label: label,
           description: description,
-          template: _this5.templateForEvent(value),
+          template: _this5.templateForEvent(value, recipient),
           webPushTemplate: hasWebPush ? _this5.webPushTemplateForEvent(value, recipient) : null,
           alwaysOn: false,
           templateOnly: false

@@ -268,6 +268,13 @@ Redesigned UI note: Notifications renders as `Channels` plus merged `Events & Te
 - `email_note`: placeholder note shown in template settings.
 - `email_sub_new_listing`, `email_tmpl_new_listing`: new listing email subject/body.
 - `email_sub_pub_listing`, `email_tmpl_pub_listing`: approved/published listing subject/body.
+- `email_sub_new_listing_admin`, `email_tmpl_new_listing_admin`: admin listing-submitted subject/body; default to the legacy admin email. Read by `ATBDP_Email::notify_admin_listing_submitted()`.
+- `email_sub_pub_listing_admin`, `email_tmpl_pub_listing_admin`: admin listing-published subject/body; default to the legacy admin email. Read by `ATBDP_Email::notify_admin_listing_published()`.
+- `email_sub_edit_listing_admin`, `email_tmpl_edit_listing_admin`: admin listing-edited subject/body; default to the legacy admin email. Read by `ATBDP_Email::notify_admin_listing_edited()`.
+- `email_sub_deleted_listing_admin`, `email_tmpl_deleted_listing_admin`: admin listing-deleted subject/body; default to the legacy admin email. Read by `ATBDP_Email::notify_admin_listing_deleted()`.
+- `email_sub_new_order_admin`, `email_tmpl_new_order_admin`: admin order-created subject/body; default to the legacy admin email. Read by `ATBDP_Email::notify_admin_order_created()`.
+- `email_sub_completed_order_admin`, `email_tmpl_completed_order_admin`: admin order-completed subject/body; default to the legacy admin email. Read by `ATBDP_Email::notify_admin_order_completed()`.
+  These admin values are stored in `atbdp_option` through the existing settings save handler and use its existing text-field sanitization. The listing-owner option keys remain independent; existing owner values are not copied into the new admin fields.
 - `email_sub_rejected_listing`, `email_tmpl_rejected_listing`: rejected listing subject/body.
 - `email_sub_edit_listing`, `email_tmpl_edit_listing`: edited listing subject/body.
 - `email_sub_to_expire_listing`, `email_tmpl_to_expire_listing`: about-to-expire listing subject/body.

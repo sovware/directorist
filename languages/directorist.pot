@@ -1160,6 +1160,7 @@ msgid "Sender"
 msgstr ""
 
 #: ../includes/asset-loader/localized_data.php:425, ../includes/classes/class-custom-post.php:776, ../includes/classes/class-upgrade.php:822, ../templates/dashboard/tab-my-listings.php:63
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10579
 msgid "Status"
 msgstr ""
 
@@ -6654,6 +6655,7 @@ msgid "All orders"
 msgstr ""
 
 #: ../includes/payments/class-order.php:417, ../templates/checkout/receipt.php:41, ../templates/payment/payment-receipt.php:34
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10560
 msgid "Order ID"
 msgstr ""
 
@@ -10135,6 +10137,7 @@ msgid "Thank you for your order!"
 msgstr ""
 
 #: ../templates/checkout/receipt.php:54, ../templates/payment/payment-receipt.php:46
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10611
 msgid "Payment Method"
 msgstr ""
 
@@ -10967,4 +10970,29 @@ msgstr ""
 
 #: ../views/admin-templates/theme-extensions/statistics/statistics.php:57
 msgid "Theme updates Available"
+msgstr ""
+
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10590
+msgid "Total Amount"
+msgstr ""
+
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10600
+msgid "Order Type"
+msgstr ""
+
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10621
+msgid "Order Date"
+msgstr ""
+
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10698
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10722
+msgid "Actions"
+msgstr ""
+
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:10734
+msgid "Orders"
+msgstr ""
+
+#: assets/build/js/react/frontend/listing-owner-dashboard.js:103323
+msgid "No results"
 msgstr ""

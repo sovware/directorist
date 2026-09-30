@@ -1171,11 +1171,8 @@ class Directorist_Listings {
                 'units'     => $this->radius_search_unit
             ];
         } elseif ( ! empty( $_REQUEST['address'] ) ) {
-            $meta_queries['_address'] = [
-                'key'     => '_address',
-                'value'   => sanitize_text_field( wp_unslash( $_REQUEST['address'] ) ),
-                'compare' => 'LIKE'
-            ];
+            $address                  = sanitize_text_field( wp_unslash( $_REQUEST['address'] ) );
+            $meta_queries['_address'] = $this->get_address_meta_query( $address );
         }
 
         if ( 'zip' == $this->radius_search_based_on && ! empty( $_REQUEST['miles'] ) && ! empty( $_REQUEST['zip_cityLat'] ) && ! empty( $_REQUEST['zip_cityLng'] ) ) {
@@ -1222,6 +1219,57 @@ class Directorist_Listings {
         }
 
         return apply_filters( 'atbdp_listing_search_query_argument', $args );
+    }
+
+    /**
+     * Build the address fallback meta query.
+     *
+     * Map APIs can return a locality and postal code in a different order than
+     * the saved listing address. Match each term when a postal code is present
+     * so searches such as "Nègrepelisse 82800" can find an address containing
+     * "82800 Nègrepelisse".
+     *
+     * @param string $address Address submitted by the search form.
+     * @return array
+     */
+    private function get_address_meta_query( $address ) {
+        $address_query = [
+            'key'     => '_address',
+            'value'   => $address,
+            'compare' => 'LIKE',
+        ];
+
+        $terms = preg_split( '/[^\p{L}\p{N}]+/u', $address, -1, PREG_SPLIT_NO_EMPTY );
+
+        if ( empty( $terms ) || count( $terms ) < 2 ) {
+            return $address_query;
+        }
+
+        $has_postal_code = false;
+
+        foreach ( $terms as $term ) {
+            if ( preg_match( '/^\d{4,10}$/', $term ) ) {
+                $has_postal_code = true;
+                break;
+            }
+        }
+
+        if ( ! $has_postal_code ) {
+            return $address_query;
+        }
+
+        $terms         = array_values( array_unique( $terms ) );
+        $address_query = [ 'relation' => 'AND' ];
+
+        foreach ( $terms as $term ) {
+            $address_query[] = [
+                'key'     => '_address',
+                'value'   => $term,
+                'compare' => 'LIKE',
+            ];
+        }
+
+        return $address_query;
     }
 
     public function archive_view_template() {

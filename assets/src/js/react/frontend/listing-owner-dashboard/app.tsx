@@ -32,7 +32,7 @@ const orderStorePath = '/directorist/v2/orders';
 const baseColumns: Column[] = [
 	{
 		id: 'id',
-		label: __('Order Id', 'directorist'),
+		label: __('Order ID', 'directorist'),
 		render: ({ item }) => {
 			return (
 				<>
@@ -182,7 +182,7 @@ export default function App() {
 	return (
 		<OrderTableContainer>
 			<Table
-				heading="Orders"
+				heading={__('Orders', 'directorist')}
 				storeName={orderStoreName}
 				path={orderStorePath}
 				columns={columns}

@@ -300,7 +300,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.10 - Sep 30, 2026 =
+= 8.10 - Oct 1, 2026 =
 
 **Added**
 - Introduced a new admin dashboard for Themes & Extensions with account licensing overview, setup progress, activity insights, quick actions, and extension recommendations. (#2932)
@@ -321,6 +321,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 - Map address search not matching reordered postal codes. (#3007)
 - Blank FormGent enquiries dashboard on WordPress 7.1. (#3005)
 - CSV import validation for WordPress temporary upload filenames. (#3004)
+- Preserved the selected directory type context for listing cards on author profile pages. (#3052)
 
 = 8.9.6 - Sep 20, 2026 =
 

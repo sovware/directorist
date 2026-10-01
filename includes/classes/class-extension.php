@@ -108,6 +108,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                     'directorist-mailchimp'                => 'directorist-mailchimp-integration',
                     'directorist-mailchimp-integration'    => 'directorist-mailchimp',
+
+                    'directorist-mpesa-payment-gateway'    => 'm-pesa-payment-gateway',
+                    'm-pesa-payment-gateway'               => 'directorist-mpesa-payment-gateway',
                 ]
             );
         }

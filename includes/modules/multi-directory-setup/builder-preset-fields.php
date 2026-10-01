@@ -907,6 +907,12 @@ return apply_filters(
                     'label' => __( 'Total Upload Size in MB', 'directorist' ),
                     'value' => 2,
                 ],
+                'enable_image_focus' => [
+                    'type'        => 'toggle',
+                    'label'       => __( 'Image Focal Point', 'directorist' ),
+                    'description' => __( 'Allow listing owners to choose which part of the preview image remains visible when it is cropped.', 'directorist' ),
+                    'value'       => true,
+                ],
                 'required' => [
                     'type'  => 'toggle',
                     'label' => __( 'Required', 'directorist' ),

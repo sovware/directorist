@@ -3555,6 +3555,66 @@ Please remember that your order may be canceled if you do not make your payment 
                     ", 'directorist'
                         ),
                     ],
+                    'email_sub_new_listing_admin' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Admin Email Subject', 'directorist' ),
+                        'value'       => __( '[==SITE_NAME==] A new listing has been submitted on your website', 'directorist' ),
+                    ],
+                    'email_tmpl_new_listing_admin' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Admin Email Body', 'directorist' ),
+                        'value'       => ATBDP()->email->get_listing_submitted_admin_tmpl(),
+                    ],
+                    'email_sub_pub_listing_admin' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Admin Email Subject', 'directorist' ),
+                        'value'       => __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your website', 'directorist' ),
+                    ],
+                    'email_tmpl_pub_listing_admin' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Admin Email Body', 'directorist' ),
+                        'value'       => ATBDP()->email->get_listing_published_admin_tmpl(),
+                    ],
+                    'email_sub_edit_listing_admin' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Admin Email Subject', 'directorist' ),
+                        'value'       => __( '[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your website', 'directorist' ),
+                    ],
+                    'email_tmpl_edit_listing_admin' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Admin Email Body', 'directorist' ),
+                        'value'       => ATBDP()->email->get_listing_edited_admin_tmpl(),
+                    ],
+                    'email_sub_deleted_listing_admin' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Admin Email Subject', 'directorist' ),
+                        'value'       => __( '[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on your website', 'directorist' ),
+                    ],
+                    'email_tmpl_deleted_listing_admin' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Admin Email Body', 'directorist' ),
+                        'value'       => ATBDP()->email->get_listing_deleted_admin_tmpl(),
+                    ],
+                    'email_sub_new_order_admin' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Admin Email Subject', 'directorist' ),
+                        'value'       => __( '[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist' ),
+                    ],
+                    'email_tmpl_new_order_admin' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Admin Email Body', 'directorist' ),
+                        'value'       => ATBDP()->email->get_order_created_admin_tmpl(),
+                    ],
+                    'email_sub_completed_order_admin' => [
+                        'type'        => 'text',
+                        'label'       => __( 'Admin Email Subject', 'directorist' ),
+                        'value'       => __( '[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed', 'directorist' ),
+                    ],
+                    'email_tmpl_completed_order_admin' => [
+                        'type'        => 'textarea',
+                        'label'       => __( 'Admin Email Body', 'directorist' ),
+                        'value'       => ATBDP()->email->get_order_completed_admin_tmpl(),
+                    ],
                     'email_sub_rejected_listing' => [
                         'type'        => 'text',
                         'label'       => __( 'Email Subject', 'directorist' ),

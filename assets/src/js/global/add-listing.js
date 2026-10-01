@@ -1558,7 +1558,8 @@ function updateLocalNonce() {
 	'use strict';
 
 	// Set up conditional logic functions with dependencies
-	const getFieldValueFn = (fieldKey) => getFieldValueBase(fieldKey, $);
+	const getFieldValueFn = (fieldKey) =>
+		getFieldValueBase(fieldKey, $, getWrapper());
 	const evaluateConditionalLogicFn = (conditionalLogic) =>
 		evaluateConditionalLogicBase(conditionalLogic, getFieldValueFn);
 	const applyConditionalLogicFn = ($fieldWrapper) =>

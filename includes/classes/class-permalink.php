@@ -757,7 +757,7 @@ if ( ! class_exists( 'ATBDP_Permalink' ) ) :
                 if ( get_option( 'permalink_structure' ) !== '' ) {
                     $url = user_trailingslashit( trailingslashit( $url ) . 'renew/' . $listing_id );
                 } else {
-                    $url = add_query_arg( [ 'atbdp_action' => 'renew', 'atbdp_listing_id ' => $listing_id ], $url );
+                    $url = add_query_arg( [ 'atbdp_action' => 'renew', 'atbdp_listing_id' => $listing_id ], $url );
                 }
             }
 

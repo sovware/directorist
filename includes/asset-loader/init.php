@@ -139,6 +139,7 @@ class Asset_Loader {
                 wp_enqueue_style( 'directorist-formgent-integration-style' );
                 Enqueue::style( 'directorist/frontend', 'build/css/public/app', ['wp-components'] );
                 Enqueue::script( 'directorist-listing-owner-dashboard', 'build/js/react/frontend/listing-owner-dashboard' );
+                wp_set_script_translations( 'directorist-listing-owner-dashboard', 'directorist', ATBDP_DIR . 'languages' );
 
                 $currency = directorist_get_currency();
 
@@ -282,7 +283,9 @@ class Asset_Loader {
             wp_enqueue_media();
         } elseif ( Helper::is_admin_page( 'extensions' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );
+            wp_enqueue_style( 'directorist-themes-extensions', DIRECTORIST_ASSETS . 'css/directorist-themes-extensions.css', [ 'directorist-admin-style' ], ATBDP_VERSION );
             wp_enqueue_script( 'directorist-admin-script' );
+            wp_enqueue_script( 'directorist-themes-extensions', DIRECTORIST_ASSETS . 'js/directorist-themes-extensions.js', [ 'jquery', 'directorist-admin-script' ], ATBDP_VERSION, true );
             wp_enqueue_script( 'directorist-tooltip' );
 
             // Inline styles

@@ -314,6 +314,33 @@ const EVENT_TEMPLATE_MAP = {
   },
 };
 
+const ADMIN_EVENT_TEMPLATE_MAP = {
+  listing_submitted: {
+    subject: "email_sub_new_listing_admin",
+    body: "email_tmpl_new_listing_admin",
+  },
+  listing_published: {
+    subject: "email_sub_pub_listing_admin",
+    body: "email_tmpl_pub_listing_admin",
+  },
+  listing_edited: {
+    subject: "email_sub_edit_listing_admin",
+    body: "email_tmpl_edit_listing_admin",
+  },
+  listing_deleted: {
+    subject: "email_sub_deleted_listing_admin",
+    body: "email_tmpl_deleted_listing_admin",
+  },
+  order_created: {
+    subject: "email_sub_new_order_admin",
+    body: "email_tmpl_new_order_admin",
+  },
+  order_completed: {
+    subject: "email_sub_completed_order_admin",
+    body: "email_tmpl_completed_order_admin",
+  },
+};
+
 const ADMIN_EVENTS = [
   ["order_created", "Order created", "A new order has been placed"],
   ["order_completed", "Order completed", "An order has been fulfilled"],
@@ -681,8 +708,11 @@ export default {
         : this.backupValueForField(fieldKey);
     },
 
-    templateForEvent(eventKey) {
-      const template = EVENT_TEMPLATE_MAP[eventKey];
+    templateForEvent(eventKey, recipient) {
+      const template =
+        recipient === "admin"
+          ? ADMIN_EVENT_TEMPLATE_MAP[eventKey] || EVENT_TEMPLATE_MAP[eventKey]
+          : EVENT_TEMPLATE_MAP[eventKey];
 
       if (!template || !this.templateExists(template)) {
         return null;
@@ -873,7 +903,7 @@ export default {
             webPushFieldKey: hasWebPush ? webPushFieldKey : "",
             label,
             description,
-            template: this.templateForEvent(value),
+            template: this.templateForEvent(value, recipient),
             webPushTemplate: hasWebPush
               ? this.webPushTemplateForEvent(value, recipient)
               : null,

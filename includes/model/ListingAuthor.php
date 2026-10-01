@@ -326,8 +326,15 @@ class Directorist_Listing_Author {
     }
 
     public function get_listings() {
-        $query    = $this->author_listings_query();
-        $listings = new Directorist_Listings( NULL, NULL, $query, ['cache' => false] );
+        $query = $this->author_listings_query();
+
+        $listings = new Directorist_Listings(
+            [ 'default_directory_type' => $this->current_listing_type ],
+            'listing',
+            $query,
+            [ 'cache' => false ]
+        );
+
         return $listings;
     }
 

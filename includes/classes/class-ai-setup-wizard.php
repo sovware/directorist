@@ -2597,6 +2597,10 @@ class Directorist_AI_Setup_Wizard {
         $options['enable_monetization'] = ! empty( $setup['monetization'] ) ? 1 : false;
         $options['enable_featured_listing'] = ! empty( $setup['monetization'] ) ? 1 : '';
 
+        if ( ! empty( $setup['monetization'] ) && empty( $options['featured_listing_price'] ) ) {
+            $options['featured_listing_price'] = 19.99;
+        }
+
         if ( ! empty( $setup['default_address'] ) ) {
             $options['default_address'] = $setup['default_address'];
 

@@ -5052,6 +5052,46 @@ function directorist_listing_archive_fields( int $directory_type_id, array $data
     $card_fields = get_term_meta( $directory_type_id, 'listings_card_grid_view', true );
     $list_fields = get_term_meta( $directory_type_id, 'listings_card_list_view', true );
 
+    $is_valid_layout = static function ( $layout, $view ) {
+        if ( ! is_array( $layout ) || empty( $layout['active_template'] ) || empty( $layout['template_data'] ) || ! is_array( $layout['template_data'] ) ) {
+            return false;
+        }
+
+        $template          = $layout['active_template'];
+        $allowed_templates = [
+            'grid' => [ 'grid_view_with_thumbnail', 'grid_view_without_thumbnail' ],
+            'list' => [ 'list_view_with_thumbnail', 'list_view_without_thumbnail' ],
+        ];
+
+        return isset( $allowed_templates[ $view ] )
+            && in_array( $template, $allowed_templates[ $view ], true )
+            && isset( $layout['template_data'][ $template ] )
+            && is_array( $layout['template_data'][ $template ] );
+    };
+
+    if ( ! $is_valid_layout( $card_fields, 'grid' ) || ! $is_valid_layout( $list_fields, 'list' ) ) {
+        static $default_archive_fields = null;
+
+        if ( null === $default_archive_fields && class_exists( '\\Directorist\\Multi_Directory\\Multi_Directory_Migration' ) ) {
+            $migration = new \Directorist\Multi_Directory\Multi_Directory_Migration();
+            $widgets   = $migration->get_listings_card_wedgets_data();
+            $args      = [ 'listings_card_wedgets' => $widgets ];
+
+            $default_archive_fields = [
+                'card_fields' => $migration->get_listings_card_grid_view_data( $args ),
+                'list_fields' => $migration->get_listings_card_list_view_data( $args ),
+            ];
+        }
+
+        if ( ! $is_valid_layout( $card_fields, 'grid' ) && ! empty( $default_archive_fields['card_fields'] ) ) {
+            $card_fields = $default_archive_fields['card_fields'];
+        }
+
+        if ( ! $is_valid_layout( $list_fields, 'list' ) && ! empty( $default_archive_fields['list_fields'] ) ) {
+            $list_fields = $default_archive_fields['list_fields'];
+        }
+    }
+
     $data['directory_type_id'] = $directory_type_id;
 
     return apply_filters(

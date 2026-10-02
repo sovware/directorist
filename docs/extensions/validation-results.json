@@ -1,0 +1,10 @@
+{
+  "products": 40,
+  "skills": 41,
+  "topics": 88,
+  "snapshots": 89,
+  "markdown_links_checked": 55199,
+  "source_files_line_checked": 8056,
+  "errors": [],
+  "scope": "Local docs and inspected source targets checked; no remote HTTP or runtime compatibility assertion."
+}

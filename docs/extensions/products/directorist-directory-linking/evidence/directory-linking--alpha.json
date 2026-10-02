@@ -1,0 +1,685 @@
+{
+  "snapshot": {
+    "key": "directory-linking--alpha",
+    "repo": "directorist-directory-linking",
+    "branch": "alpha",
+    "commit": "ade10cf1e0303510a7c9ad18a925f0799932ce46",
+    "date": "2026-08-03T10:32:23Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-directory-linking",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "6347bd5bf39f83561ba57a6d6e5aa50d40844adabf8eef22832116a50beaa3a0",
+      "bytes": 94,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "2a6c1b6ddc4244e5c3a9cf90ada613ffd140d914217504a313c77bbd20599726",
+      "bytes": 645,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "fe860c327f036a0243e92f159867a9c7dcb79267a5713736929fed7030c1b8d4",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "const.php": {
+      "sha256": "d57e91796c544883ac72701bc3300d277b52d5e82e4979eb4d6a796ca1bb2cc3",
+      "bytes": 963,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'SWBDP_DIRLINK_LANG_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "'SWBDP_DIRLINK_PLUGIN_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'SWBDP_DIRLINK_PLUGIN_DIR_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'SWBDP_DIRLINK_ASSET_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'SWBDP_DIRLINK_CSS_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'SWBDP_DIRLINK_JS_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'SWBDP_DIRLINK_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'SWBDP_DIRLINK_VERSION'"
+          ]
+        }
+      ]
+    },
+    "directorist-directory-linking.php": {
+      "sha256": "b7479e8d0fd10df4485a0a74bd2b059e27899412b2c8ba62ffad1bbaeb4aa7fb",
+      "bytes": 2579,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Directory_Linking_update_controller",
+          "line": 62,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 25,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'SWBDP_DIRLINK_PLUGIN_FILE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 33,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 38,
+          "args": [
+            "'ATBDP_DIR_DIRLINK_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 51,
+          "args": [
+            "'Directorist_Directory_Linking'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 55,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 60,
+          "args": [
+            "'admin_init'",
+            "'Directorist_Directory_Linking_update_controller'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 63,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "b4b4a073f444100bd316c8fc76ab54aeb5014526bdd88bc00dc2cccdc453a733",
+      "bytes": 678,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "3e866b4920ac4341344a73e04e056d2d800d9da578dda9ea41a341a6a4ff1718",
+      "bytes": 2547,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/css/style.css": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/js/admin.js": {
+      "sha256": "de0a1e62b9bd40957e190ab47a3adbdaa675c1299d9a5c47e93595d6eb46e74c",
+      "bytes": 3286,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "app/base.php": {
+      "sha256": "1aea5f5a7f3dc1892d765fd7ee7a7ae7ee8b13b0c2df897c8d116ada87f89ad7",
+      "bytes": 2962,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Directory_Linking",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_query_argument",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_services",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Enqueue",
+          "line": 93,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Builder",
+          "line": 94,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register_services",
+          "line": 95,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register_services",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Directory_Linking",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 132,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'plugins_loaded'",
+            "array( self::$instance, 'load_textdomain' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 30,
+          "args": [
+            "'atbdp_listing_search_query_argument'",
+            "array( self::$instance, 'search_query_argument')"
+          ]
+        },
+        {
+          "name": "register_services",
+          "line": 62,
+          "args": [
+            ""
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 111,
+          "args": [
+            "$class_name"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 125,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 127,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 131,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 137,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "app/Builder/Builder.php": {
+      "sha256": "b215d2a2c4e22d7c9bd68629449e063e024b7b2f6b322226d3d626e70806d58e",
+      "bytes": 12134,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Builder",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dirlink_searching_type",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_preview_img",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "parse_selected_listing_ids",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_review_data",
+          "line": 106,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "preset_widgets",
+          "line": 145,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_listing_content_widgets",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_field_template",
+          "line": 285,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 334,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array( $this, 'preset_widgets' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'atbdp_single_listing_content_widgets'",
+            "array( $this, 'single_listing_content_widgets' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_field_template'",
+            "array( $this, 'directorist_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( $this, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'wp_ajax_dirlink_searching_type'",
+            "array( $this, 'dirlink_searching_type' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'wp_ajax_nopriv_dirlink_searching_type'",
+            "array( $this, 'dirlink_searching_type' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 67,
+          "args": [
+            "'preview_image_quality'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 68,
+          "args": [
+            "$id",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 69,
+          "args": [
+            "$id",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 149,
+          "args": [
+            "'enable_multi_directory'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 222,
+          "args": [
+            "'enable_linking_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 288,
+          "args": [
+            "'enable_linking_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 337,
+          "args": [
+            "'enable_linking_type'"
+          ]
+        }
+      ]
+    },
+    "app/Setup/Enqueue.php": {
+      "sha256": "c13f4ff08a49618ed26269861db704f5c897fa0aa05551b401439acc2939f8b9",
+      "bytes": 2491,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Enqueue",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_frontend_scripts",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_admin_scripts",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_scripts",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'load_frontend_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'load_admin_scripts' )"
+          ]
+        }
+      ]
+    },
+    "app/Setup/Settings.php": {
+      "sha256": "5e8d8060f949670c405cf887c019db718731341484cd77b822cf25071c7588ca",
+      "bytes": 1066,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 6,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 8,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( $this, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 9,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        }
+      ]
+    },
+    "assets/css/slick.css": {
+      "sha256": "58023f0aaa39c2e92e4c00e18b1225d85ea70edc0ce1d413c4e8ca7c1411ba14",
+      "bytes": 1775,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style.css": {
+      "sha256": "d12be9bd5192943031a3d2c55e999fd64be21de4c95f296cab36aa932ca4bd17",
+      "bytes": 2592,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "bc74bf32161b11e80f3875b0ddc7330edb420c26fcf9d6027b9b186ba854888f",
+      "bytes": 994,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/slick.min.js": {
+      "sha256": "27bebe78e3b6a4b1664dd4fa83a8cd0187f051631a06248fefa3ef3991a5a92a",
+      "bytes": 42862,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/scss/style.scss": {
+      "sha256": "e9ca85ff5a2a5acadb8fa9b567b7731b15477dee9b83b8952f43ddda4ef55818",
+      "bytes": 2573,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "helpers/helpers.php": {
+      "sha256": "8c9f90b3339195838793ba15ccce02608f5d76aa781ede75b7054028945cfada",
+      "bytes": 733,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "swbdp_dirlink_load_template",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/add-listing.php": {
+      "sha256": "ac348bcfd15ca448b74c1049272cef41f8047e91e0b3ae5b7e867c07f9fa75a3",
+      "bytes": 1594,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/single-listing.php": {
+      "sha256": "4a5f40ed28c27e78ee95b52a534569e1c17b75e98b9d656759dfdb64f3c86c9a",
+      "bytes": 4108,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    }
+  }
+}

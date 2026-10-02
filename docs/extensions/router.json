@@ -1,0 +1,980 @@
+[
+  {
+    "id": "directorist-mpesa-payment-gateway",
+    "name": "M-Pesa Payment Gateway",
+    "skill": "directorist-ext-mpesa-payment-gateway",
+    "aliases": [
+      "M-Pesa Payment Gateway",
+      "directorist-mpesa-payment-gateway",
+      "Directorist - M-Pesa Payment Gateway",
+      "directorist-mpesa.php"
+    ],
+    "topics": [
+      {
+        "id": "checkout",
+        "symptoms": "mpesa|m-pesa|stk push|kenyan phone|kes"
+      },
+      {
+        "id": "callback-recurring",
+        "symptoms": "ratiba|mpesa callback|mpesa renewal"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans"
+    ]
+  },
+  {
+    "id": "directorist-notifications-pro",
+    "name": "Directorist Notifications Pro",
+    "skill": "directorist-ext-notifications-pro",
+    "aliases": [
+      "Directorist Notifications Pro",
+      "directorist-notifications-pro",
+      "directorist-notifications-pro.php"
+    ],
+    "topics": [
+      {
+        "id": "subscription",
+        "symptoms": "push notification|browser permission|service worker|vapid"
+      },
+      {
+        "id": "events-delivery",
+        "symptoms": "push duplicate|push missing|notification log"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-divi-integration",
+    "name": "Directorist Divi Integration",
+    "skill": "directorist-ext-divi-integration",
+    "aliases": [
+      "Directorist Divi Integration",
+      "directorist-divi-integration",
+      "Directorist - Divi Builder Integration",
+      "directorist-divi-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "search-archive",
+        "symptoms": "divi search|divi listings|divi filter|divi pagination"
+      },
+      {
+        "id": "single-modules",
+        "symptoms": "divi|divi business hours|divi badge|divi field"
+      },
+      {
+        "id": "templates-import",
+        "symptoms": "divi template|divi import|divi conditions|author profile"
+      },
+      {
+        "id": "taxonomy-pricing-author",
+        "symptoms": "divi categories|divi locations|divi pricing plans|divi author profile"
+      }
+    ],
+    "dependencies": [
+      "directorist-business-hours",
+      "directorist-claim-listing",
+      "directorist-faqs",
+      "directorist-gallery",
+      "directorist-booking",
+      "directorist-universal-search",
+      "directorist-pricing-plans"
+    ]
+  },
+  {
+    "id": "directorist-ai-search",
+    "name": "Directorist AI Search",
+    "skill": "directorist-ext-ai-search",
+    "aliases": [
+      "Directorist AI Search",
+      "directorist-ai-search",
+      "Directorist - AI Search",
+      "directorist-ai-search.php"
+    ],
+    "topics": [
+      {
+        "id": "indexing",
+        "symptoms": "ai search|semantic|indexing|api key|embedding"
+      },
+      {
+        "id": "ranked-results",
+        "symptoms": "irrelevant results|semantic ranking|ai fallback|ai autocomplete"
+      }
+    ],
+    "dependencies": [
+      "directorist-universal-search"
+    ]
+  },
+  {
+    "id": "directorist-listing-import",
+    "name": "Directorist Listing Importer",
+    "skill": "directorist-ext-listing-import",
+    "aliases": [
+      "Directorist Listing Importer",
+      "directorist-listing-import",
+      "Listing Importer",
+      "directorist-listing-import.php"
+    ],
+    "topics": [
+      {
+        "id": "google-import",
+        "symptoms": "google import|listing importer|place id|field mapping|import hours"
+      },
+      {
+        "id": "feed-import",
+        "symptoms": "rss import|feed import|scheduled import|duplicate feed"
+      }
+    ],
+    "dependencies": [
+      "directorist-business-hours",
+      "directorist-gallery",
+      "directorist-advanced-review"
+    ]
+  },
+  {
+    "id": "directorist-analytics",
+    "name": "Directorist Analytics",
+    "skill": "directorist-ext-analytics",
+    "aliases": [
+      "Directorist Analytics",
+      "directorist-analytics",
+      "directorist-analytics.php"
+    ],
+    "topics": [
+      {
+        "id": "tracking-reports",
+        "symptoms": "analytics|weekly report|monthly report|duplicate last listing|view tracking"
+      },
+      {
+        "id": "dashboard",
+        "symptoms": "analytics dashboard|chart|click count|report filter"
+      },
+      {
+        "id": "privacy-export",
+        "symptoms": "analytics privacy|do not track|dnt|anonymize ip|analytics export|raw logs"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-advanced-review",
+    "name": "Directorist Advanced Review",
+    "skill": "directorist-ext-advanced-review",
+    "aliases": [
+      "Directorist Advanced Review",
+      "directorist-advanced-review",
+      "Directorist - Advanced Review",
+      "directorist-advanced-review.php"
+    ],
+    "topics": [
+      {
+        "id": "review-data",
+        "symptoms": "advanced review|review criteria|rating average|review translation"
+      },
+      {
+        "id": "moderation-media",
+        "symptoms": "review reply|review attachment|review reaction|report review"
+      },
+      {
+        "id": "builder-migration",
+        "symptoms": "review migration|review activation|review layout"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-universal-search",
+    "name": "Directorist Universal Search",
+    "skill": "directorist-ext-universal-search",
+    "aliases": [
+      "Directorist Universal Search",
+      "directorist-universal-search",
+      "Directorist - Universal Search",
+      "directorist-universal-search.php"
+    ],
+    "topics": [
+      {
+        "id": "cross-directory",
+        "symptoms": "universal search|all directories|cross directory search"
+      },
+      {
+        "id": "builder-render",
+        "symptoms": "universal form missing|universal results|search preview"
+      }
+    ],
+    "dependencies": [
+      "directorist-ai-search",
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-search-alert",
+    "name": "Directorist Search Alert",
+    "skill": "directorist-ext-search-alert",
+    "aliases": [
+      "Directorist Search Alert",
+      "directorist-search-alert",
+      "Directorist - Search Alert",
+      "directorist-search-alert.php"
+    ],
+    "topics": [
+      {
+        "id": "saved-search",
+        "symptoms": "search alert|saved search|alert preferences"
+      },
+      {
+        "id": "alert-delivery",
+        "symptoms": "search alert email|daily alert|weekly alert|monthly alert"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-announcement",
+    "name": "Directorist Announcement",
+    "skill": "directorist-ext-announcement",
+    "aliases": [
+      "Directorist Announcement",
+      "directorist-announcement",
+      "directorist-announcement.php"
+    ],
+    "topics": [
+      {
+        "id": "publish-target",
+        "symptoms": "announcement|target users|announcement email"
+      },
+      {
+        "id": "read-state",
+        "symptoms": "unread announcement|announcement badge|dismiss announcement"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "addonskit-for-bricks",
+    "name": "AddonsKit for Bricks",
+    "skill": "directorist-ext-addonskit-for-bricks",
+    "aliases": [
+      "AddonsKit for Bricks",
+      "addonskit-for-bricks",
+      "Directorist Addonskit for Bricks",
+      "addonskit-for-bricks.php"
+    ],
+    "topics": [
+      {
+        "id": "elements",
+        "symptoms": "bricks|addonskit for bricks|bricks search"
+      },
+      {
+        "id": "dynamic-tags",
+        "symptoms": "bricks dynamic|bricks field|bricks category image"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-helpgent-integration",
+    "name": "HelpGent Integration",
+    "skill": "directorist-ext-helpgent-integration",
+    "aliases": [
+      "HelpGent Integration",
+      "directorist-helpgent-integration",
+      "Directorist - HelpGent Integration",
+      "directorist-helpgent-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "forms-responses",
+        "symptoms": "helpgent|video message|audio message|lead form|response access"
+      },
+      {
+        "id": "contacts-notifications",
+        "symptoms": "helpgent contact|helpgent email|response notification"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-wpml-integration",
+    "name": "WPML Integration",
+    "skill": "directorist-ext-wpml-integration",
+    "aliases": [
+      "WPML Integration",
+      "directorist-wpml-integration",
+      "Directorist WPML Integration",
+      "directorist-wpml-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "translation",
+        "symptoms": "wpml|translation|multilingual|language switch"
+      },
+      {
+        "id": "queries-links",
+        "symptoms": "translated listing missing|wpml search|wpml url|wpml page"
+      },
+      {
+        "id": "string-packages",
+        "symptoms": "wpml labels|wpml builder|wpml settings|ate|string translation|translated shortcode"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-digital-marketplace",
+    "name": "Digital Marketplace",
+    "skill": "directorist-ext-digital-marketplace",
+    "aliases": [
+      "Digital Marketplace",
+      "directorist-digital-marketplace",
+      "Directorist - Digital Marketplace",
+      "directorist-digital-marketplace.php"
+    ],
+    "topics": [
+      {
+        "id": "purchase-download",
+        "symptoms": "digital marketplace|download file|price tier|buy file"
+      },
+      {
+        "id": "vendor-wallet",
+        "symptoms": "vendor commission|digital payout|vendor balance"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-job-manager",
+    "name": "Job Manager",
+    "skill": "directorist-ext-job-manager",
+    "aliases": [
+      "Job Manager",
+      "directorist-job-manager",
+      "Directorist - Job Manager",
+      "directorist-job-manager.php"
+    ],
+    "topics": [
+      {
+        "id": "job-fields",
+        "symptoms": "job manager|job salary|job deadline|open position"
+      },
+      {
+        "id": "applications",
+        "symptoms": "job application|resume upload|apply now"
+      }
+    ],
+    "dependencies": [
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-booking",
+    "name": "Booking (Reservation & Appointment)",
+    "skill": "directorist-ext-booking",
+    "aliases": [
+      "Booking (Reservation & Appointment)",
+      "directorist-booking",
+      "Directorist - Booking",
+      "directorist-booking.php"
+    ],
+    "topics": [
+      {
+        "id": "availability",
+        "symptoms": "booking|reservation|appointment|time slots|guest confirmation|calendar"
+      },
+      {
+        "id": "booking-payments",
+        "symptoms": "booking payment|booking refund|booking commission|wallet payout"
+      },
+      {
+        "id": "calendar-dashboard",
+        "symptoms": "google calendar|booking oauth|calendar conflict|booking dashboard"
+      }
+    ],
+    "dependencies": [
+      "directorist-woocommerce-pricing-plans",
+      "directorist-pricing-plans"
+    ]
+  },
+  {
+    "id": "directorist-listings-with-map",
+    "name": "Listings with Map",
+    "skill": "directorist-ext-listings-with-map",
+    "aliases": [
+      "Listings with Map",
+      "directorist-listings-with-map",
+      "Directorist - Listings with Map",
+      "directorist-listings-map.php"
+    ],
+    "topics": [
+      {
+        "id": "map-query",
+        "symptoms": "listings with map|map pins|map sync|map pagination"
+      },
+      {
+        "id": "map-render",
+        "symptoms": "map blank|map layout|map clustering"
+      }
+    ],
+    "dependencies": [
+      "directorist-business-hours"
+    ]
+  },
+  {
+    "id": "directorist-business-hours",
+    "name": "Business Hours",
+    "skill": "directorist-ext-business-hours",
+    "aliases": [
+      "Business Hours",
+      "directorist-business-hours",
+      "Directorist - Business Hour",
+      "bd-business-hour.php"
+    ],
+    "topics": [
+      {
+        "id": "schedule",
+        "symptoms": "hours saving|overnight|timezone|open now|closed now|24 hours|business hour"
+      },
+      {
+        "id": "display-import",
+        "symptoms": "hours empty|hours not showing|hours missing|hours csv|hours badge|schedule import"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-woocommerce-pricing-plans",
+    "name": "WooCommerce Pricing Plans",
+    "skill": "directorist-ext-woocommerce-pricing-plans",
+    "aliases": [
+      "WooCommerce Pricing Plans",
+      "directorist-woocommerce-pricing-plans",
+      "Directorist - WooCommerce Pricing Plans",
+      "directorist-woocommerce-pricing-plans.php"
+    ],
+    "topics": [
+      {
+        "id": "products-entitlements",
+        "symptoms": "woocommerce plan|wc plan|product plan|wc quota"
+      },
+      {
+        "id": "orders-subscriptions",
+        "symptoms": "woocommerce renewal|wc subscription|hpos|woocommerce checkout"
+      }
+    ],
+    "dependencies": [
+      "directorist-claim-listing"
+    ]
+  },
+  {
+    "id": "directorist-paypal",
+    "name": "PayPal Payment Gateway",
+    "skill": "directorist-ext-paypal",
+    "aliases": [
+      "PayPal Payment Gateway",
+      "directorist-paypal",
+      "Directorist - Paypal Payment Gateway",
+      "directorist-paypal.php",
+      "directorist-paypal-new"
+    ],
+    "topics": [
+      {
+        "id": "checkout",
+        "symptoms": "paypal|paypal checkout|paypal sandbox"
+      },
+      {
+        "id": "confirmation",
+        "symptoms": "paypal ipn|paypal webhook|paypal pending"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans"
+    ]
+  },
+  {
+    "id": "directorist-pricing-plans",
+    "name": "Pricing Plans",
+    "skill": "directorist-ext-pricing-plans",
+    "aliases": [
+      "Pricing Plans",
+      "directorist-pricing-plans",
+      "Directorist - Pricing Plans",
+      "directorist-pricing-plans.php",
+      "directorist-pricing-plans-new"
+    ],
+    "topics": [
+      {
+        "id": "entitlements",
+        "symptoms": "no plan|missing fields|plan allowance|quota|plan assignment|pricing plans"
+      },
+      {
+        "id": "checkout-renewal",
+        "symptoms": "renewal|expired listing|subscription|proration|cancel|trial|paid plan|package"
+      },
+      {
+        "id": "migration-admin",
+        "symptoms": "plan migration|legacy plan|plan sorting|missing package|pricing admin"
+      },
+      {
+        "id": "plan-presentation",
+        "symptoms": "pricing table|plan card|plan tabs|plan button|plan display"
+      }
+    ],
+    "dependencies": [
+      "directorist-stripe",
+      "directorist-paypal",
+      "directorist-authorize-net",
+      "directorist-coupon",
+      "directorist-claim-listing"
+    ]
+  },
+  {
+    "id": "directorist-gamipress-integration",
+    "name": "Gamipress Integration",
+    "skill": "directorist-ext-gamipress-integration",
+    "aliases": [
+      "Gamipress Integration",
+      "directorist-gamipress-integration",
+      "Directorist - GamiPress Integration",
+      "directorist-gamipress-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "points",
+        "symptoms": "gamipress|points|achievement|reward"
+      },
+      {
+        "id": "redeem-coupon",
+        "symptoms": "redeem points|gamipress coupon"
+      }
+    ],
+    "dependencies": [
+      "directorist-coupon"
+    ]
+  },
+  {
+    "id": "directorist-mailchimp",
+    "name": "Mailchimp Integration",
+    "skill": "directorist-ext-mailchimp",
+    "aliases": [
+      "Mailchimp Integration",
+      "directorist-mailchimp",
+      "Directorist - Mailchimp Integration",
+      "directorist-mailchimp-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "registration",
+        "symptoms": "mailchimp|newsletter signup|audience"
+      },
+      {
+        "id": "contact-subscription",
+        "symptoms": "mailchimp contact|contact newsletter"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-directory-linking",
+    "name": "Multi Directory Linking",
+    "skill": "directorist-ext-directory-linking",
+    "aliases": [
+      "Multi Directory Linking",
+      "directorist-directory-linking",
+      "Directorist - Directory Linking",
+      "directorist-directory-linking.php"
+    ],
+    "topics": [
+      {
+        "id": "link-selection",
+        "symptoms": "directory linking|linked listing|multi directory linking"
+      },
+      {
+        "id": "link-search",
+        "symptoms": "linked directory search|linked listing missing"
+      }
+    ],
+    "dependencies": [
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-buddypress-integration",
+    "name": "BuddyPress Integration",
+    "skill": "directorist-ext-buddypress-integration",
+    "aliases": [
+      "BuddyPress Integration",
+      "directorist-buddypress-integration",
+      "Directorist - BuddyPress Integration",
+      "directorist-buddypress-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "profile-groups",
+        "symptoms": "buddypress|profile listings|group listings"
+      },
+      {
+        "id": "activity",
+        "symptoms": "buddypress activity|share listing|listing timeline"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-buddyboss-integration",
+    "name": "BuddyBoss Integration",
+    "skill": "directorist-ext-buddyboss-integration",
+    "aliases": [
+      "BuddyBoss Integration",
+      "directorist-buddyboss-integration",
+      "Directorist - BuddyBoss Integration",
+      "directorist-buddyboss-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "profile-groups",
+        "symptoms": "buddyboss|profile listings|group listings"
+      },
+      {
+        "id": "activity",
+        "symptoms": "buddyboss activity|share listing|listing timeline"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-oxygen-integration",
+    "name": "Oxygen Builder Integration",
+    "skill": "directorist-ext-oxygen-integration",
+    "aliases": [
+      "Oxygen Builder Integration",
+      "directorist-oxygen-integration",
+      "Directorist - Oxygen Integration",
+      "directorist-oxygen-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "elements",
+        "symptoms": "oxygen|oxygen 6|oxygen element"
+      },
+      {
+        "id": "render-assets",
+        "symptoms": "oxygen blank|oxygen shortcode|oxygen scripts"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-authorize-net",
+    "name": "Authorize.net Payment Gateway",
+    "skill": "directorist-ext-authorize-net",
+    "aliases": [
+      "Authorize.net Payment Gateway",
+      "directorist-authorize-net",
+      "Directorist - Authorize.net",
+      "directorist-authorize-net.php",
+      "directorist-authorize-net-new"
+    ],
+    "topics": [
+      {
+        "id": "hosted-checkout",
+        "symptoms": "authorize.net|authorize net|hosted payment|accept hosted"
+      },
+      {
+        "id": "recurring-webhook",
+        "symptoms": "authorize webhook|authorize subscription"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans"
+    ]
+  },
+  {
+    "id": "directorist-coupon",
+    "name": "Directorist Coupon",
+    "skill": "directorist-ext-coupon",
+    "aliases": [
+      "Directorist Coupon",
+      "directorist-coupon",
+      "Directorist - Coupon",
+      "directorist-coupon.php"
+    ],
+    "topics": [
+      {
+        "id": "discount-rules",
+        "symptoms": "coupon|discount code|coupon expired|coupon limit"
+      },
+      {
+        "id": "gateway-usage",
+        "symptoms": "stripe discount|coupon renewal|coupon uses"
+      }
+    ],
+    "dependencies": [
+      "directorist-stripe",
+      "directorist-pricing-plans",
+      "directorist-gamipress-integration"
+    ]
+  },
+  {
+    "id": "directorist-adverts-manager",
+    "name": "Directorist Ads Manager",
+    "skill": "directorist-ext-adverts-manager",
+    "aliases": [
+      "Directorist Ads Manager",
+      "directorist-adverts-manager",
+      "Directorist - Ads Manager",
+      "directorist-adverts-manager.php"
+    ],
+    "topics": [
+      {
+        "id": "ad-placement",
+        "symptoms": "ads manager|advertisement|ad placement"
+      },
+      {
+        "id": "ad-shortcode",
+        "symptoms": "ad shortcode|ad widget|ad styling"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-compare-listing",
+    "name": "Compare Listings",
+    "skill": "directorist-ext-compare-listing",
+    "aliases": [
+      "Compare Listings",
+      "directorist-compare-listing",
+      "Directorist - Compare Listing",
+      "directorist-compare-listing.php"
+    ],
+    "topics": [
+      {
+        "id": "selection",
+        "symptoms": "compare listings|compare button|compare sidebar"
+      },
+      {
+        "id": "comparison",
+        "symptoms": "comparison table|compare page"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-live-chat",
+    "name": "Live Chat",
+    "skill": "directorist-ext-live-chat",
+    "aliases": [
+      "Live Chat",
+      "directorist-live-chat",
+      "Directorist - Live Chat",
+      "directorist-live-chat.php"
+    ],
+    "topics": [
+      {
+        "id": "conversation",
+        "symptoms": "live chat|chat history|message owner"
+      },
+      {
+        "id": "socket-delivery",
+        "symptoms": "io is not defined|socket|chat messages not sending"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-mark-as-sold",
+    "name": "Mark as Sold",
+    "skill": "directorist-ext-mark-as-sold",
+    "aliases": [
+      "Mark as Sold",
+      "directorist-mark-as-sold",
+      "Directorist - Mark as Sold",
+      "directorist-mark-as-sold.php"
+    ],
+    "topics": [
+      {
+        "id": "sold-state",
+        "symptoms": "mark as sold|sold button|sold badge"
+      },
+      {
+        "id": "sold-display",
+        "symptoms": "sold price|sold contact|hide sold"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-social-login",
+    "name": "Social Login",
+    "skill": "directorist-ext-social-login",
+    "aliases": [
+      "Social Login",
+      "directorist-social-login",
+      "Directorist - Social Login",
+      "directorist-social-login.php"
+    ],
+    "topics": [
+      {
+        "id": "provider-auth",
+        "symptoms": "social login|google login|facebook login|oauth"
+      },
+      {
+        "id": "login-ui",
+        "symptoms": "social button|google button missing|facebook button"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-gallery",
+    "name": "Image Gallery",
+    "skill": "directorist-ext-gallery",
+    "aliases": [
+      "Image Gallery",
+      "directorist-gallery",
+      "Directorist Gallery",
+      "bd-directorist-gallery.php"
+    ],
+    "topics": [
+      {
+        "id": "gallery-edit",
+        "symptoms": "image gallery|gallery upload|gallery saving"
+      },
+      {
+        "id": "gallery-import",
+        "symptoms": "gallery cron|gallery import|gallery slider"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-faqs",
+    "name": "Listing FAQs",
+    "skill": "directorist-ext-faqs",
+    "aliases": [
+      "Listing FAQs",
+      "directorist-faqs",
+      "Directorist - Listings FAQs",
+      "directorist-faqs.php"
+    ],
+    "topics": [
+      {
+        "id": "faq-edit",
+        "symptoms": "faq|question answer|faq saving"
+      },
+      {
+        "id": "faq-render",
+        "symptoms": "faq accordion|faq missing|faq widget"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-slider-carousel",
+    "name": "Listings Slider & Carousel",
+    "skill": "directorist-ext-slider-carousel",
+    "aliases": [
+      "Listings Slider & Carousel",
+      "directorist-slider-carousel",
+      "Directorist Listings Slider & Carousel",
+      "bd-directorist-slider.php"
+    ],
+    "topics": [
+      {
+        "id": "slider-query",
+        "symptoms": "listings slider|carousel|slider listings|slider order"
+      },
+      {
+        "id": "slider-motion",
+        "symptoms": "carousel arrows|slider responsive|autoplay"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-google-recaptcha",
+    "name": "Google reCAPTCHA",
+    "skill": "directorist-ext-google-recaptcha",
+    "aliases": [
+      "Google reCAPTCHA",
+      "directorist-google-recaptcha",
+      "Directorist Google reCAPTCHA",
+      "directorist-google-recaptcha.php"
+    ],
+    "topics": [
+      {
+        "id": "verification",
+        "symptoms": "recaptcha|captcha|spam protection|v3 score"
+      },
+      {
+        "id": "captcha-render",
+        "symptoms": "captcha missing|captcha badge|captcha key"
+      }
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "directorist-claim-listing",
+    "name": "Claim Listing",
+    "skill": "directorist-ext-claim-listing",
+    "aliases": [
+      "Claim Listing",
+      "directorist-claim-listing",
+      "Directorist - Claim Listing",
+      "directorist-claim-listing.php"
+    ],
+    "topics": [
+      {
+        "id": "claim-approval",
+        "symptoms": "claim listing|claim button|ownership|duplicate claim|claim approval"
+      },
+      {
+        "id": "paid-claim-badge",
+        "symptoms": "paid claim|claimed badge|verified badge|claim tooltip"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-woocommerce-pricing-plans",
+      "directorist-divi-integration"
+    ]
+  },
+  {
+    "id": "directorist-stripe",
+    "name": "Stripe Payment Gateway",
+    "skill": "directorist-ext-stripe",
+    "aliases": [
+      "Stripe Payment Gateway",
+      "directorist-stripe",
+      "Directorist - Stripe Payment Gateway",
+      "directorist-stripe.php",
+      "directorist-stripe-new"
+    ],
+    "topics": [
+      {
+        "id": "checkout-tax",
+        "symptoms": "stripe|card payment|sepa|stripe tax|stripe coupon"
+      },
+      {
+        "id": "webhooks",
+        "symptoms": "stripe webhook|stripe renewal|stripe cancellation"
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-coupon"
+    ]
+  }
+]

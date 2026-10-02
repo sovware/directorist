@@ -1,0 +1,3071 @@
+{
+  "snapshot": {
+    "key": "stripe--alpha",
+    "repo": "directorist-stripe",
+    "branch": "alpha",
+    "commit": "6621828d9236c4dc458393ed17fedbdce4056f66",
+    "date": "2026-03-08T06:31:26Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe",
+    "kind": "remote"
+  },
+  "files": {
+    ".DS_Store": {
+      "sha256": "246b821a810cc934e474ed54c8e3b0c14267d7b52ac419c4d6f681ae93019cc4",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "cc11ebc52b8129ad39796fd2d7ba51c21d8aec4fbe991aed6f43249499ac1fef",
+      "bytes": 634,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "a8df6e449a396989e192097ea49730c37101740672276e9987ef995c2264e273",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "const-helper.php": {
+      "sha256": "565874b6813f3f334ee8dc82f13348a0f2fbf680b7b32aa2de767def9bda1328",
+      "bytes": 784,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_stripe_get_version_from_content",
+          "line": 4,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_stripe_get_version_from_file_content",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 3,
+          "args": [
+            "'directorist_stripe_get_version_from_content'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 15,
+          "args": [
+            "'directorist_stripe_get_version_from_file_content'"
+          ]
+        }
+      ]
+    },
+    "constants.php": {
+      "sha256": "ba4d256b16af7e6110fd11757afd12be5c8af284214b847d5ba40832bbcf0f8a",
+      "bytes": 1184,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DT_STRIPE_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'DT_STRIPE_API_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DT_STRIPE_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'DT_STRIPE_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DT_STRIPE_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'DT_STRIPE_LIB_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DT_STRIPE_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 22,
+          "args": [
+            "'ATBDP_STRIPE_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "directorist-stripe.php": {
+      "sha256": "4dba4cd41cf7638a234a7f1e20120915bff70e7fed33819775b37d205588b8ac",
+      "bytes": 58480,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Stripe_Gateway",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_stripe_webhooks",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_stripe_library",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_webhook",
+          "line": 237,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_stripe_gateway_total",
+          "line": 262,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_stripe_total_tax",
+          "line": 272,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "tax_rate",
+          "line": 286,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_order_amount",
+          "line": 291,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_payment_receipt_data",
+          "line": 301,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_checkout_form_data",
+          "line": 314,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_plan_tax",
+          "line": 330,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_active_gateways",
+          "line": 346,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 355,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_monetization_settings_submenu",
+          "line": 421,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_stripe_license_deactivation",
+          "line": 438,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_stripe_license_activation",
+          "line": 531,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_payment",
+          "line": 627,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "stripe_checkout_session_response",
+          "line": 857,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_stripe_payment_success",
+          "line": 910,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 933,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 947,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts_admin",
+          "line": 966,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 979,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "license_settings_controls",
+          "line": 984,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_stripe_gateway_settings_fields",
+          "line": 1029,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "complete_order",
+          "line": 1112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_styles_scripts",
+          "line": 1176,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_styles_scripts",
+          "line": 1188,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 1212,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 1219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Stripe",
+          "line": 1238,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 17,
+          "args": [
+            "'Directorist_Stripe_Gateway'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 51,
+          "args": [
+            "'tex_rate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 52,
+          "args": [
+            "'stripe_gateway_test_mode'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'register_styles_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts_admin')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 59,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 61,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array(self::$instance, 'atbdp_listing_type_settings_field_list')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 62,
+          "args": [
+            "'atbdp_monetization_settings_submenu'",
+            "array(self::$instance, 'atbdp_monetization_settings_submenu')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 64,
+          "args": [
+            "'directorist_active_gateways'",
+            "array(self::$instance, 'default_active_gateways')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 65,
+          "args": [
+            "'atbdp_default_gateways'",
+            "array(self::$instance, 'default_active_gateways')"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 67,
+          "args": [
+            "'active_gateways'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'atbdp_process_stripe_gateway_payment'",
+            "array(self::$instance, 'process_payment')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 75,
+          "args": [
+            "'atbdp_before_checkout_form_start'",
+            "array(self::$instance, 'enqueue_styles_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 77,
+          "args": [
+            "'wp_ajax_atbdp_stripe_payment_success'",
+            "array(self::$instance, 'atbdp_stripe_payment_success')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_stripe_payment_success'",
+            "array(self::$instance, 'atbdp_stripe_payment_success')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 84,
+          "args": [
+            "'wp_ajax_atbdp_stripe_license_activation'",
+            "array(self::$instance, 'atbdp_stripe_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 86,
+          "args": [
+            "'wp_ajax_atbdp_stripe_license_deactivation'",
+            "array(self::$instance, 'atbdp_stripe_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 88,
+          "args": [
+            "'template_redirect'",
+            "[self::$instance, 'stripe_checkout_session_response']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 91,
+          "args": [
+            "'directorist_plan_tax'",
+            "array(self::$instance, 'directorist_plan_tax')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 92,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 93,
+          "args": [
+            "'atbdp_checkout_form_final_data'",
+            "array(self::$instance, 'atpp_checkout_form_data')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 94,
+          "args": [
+            "'directorist_payment_receipt_data'",
+            "array(self::$instance, 'directorist_payment_receipt_data')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 95,
+          "args": [
+            "'SWBDPCoupon'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 96,
+          "args": [
+            "'atbdp_order_amount'",
+            "array(self::$instance, 'atbdp_order_amount')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 97,
+          "args": [
+            "'directorist_stripe_gateway_total'",
+            "array(self::$instance, 'directorist_stripe_gateway_total')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 101,
+          "args": [
+            "'init'",
+            "[self::$instance, 'directorist_stripe_webhooks']"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 112,
+          "args": [
+            "'stripe_test_sk'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 116,
+          "args": [
+            "'directorist_stripe_webhooks'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 120,
+          "args": [
+            "'directorist_stripe_webhooks'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 124,
+          "args": [
+            "'stripe_live_sk'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 126,
+          "args": [
+            "'directorist_stripe_live_webhooks'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 130,
+          "args": [
+            "'directorist_stripe_live_webhooks'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 143,
+          "args": [
+            "'\\Stripe\\Stripe'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 148,
+          "args": [
+            "'DT_STRIPE_LIB_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 156,
+          "args": [
+            "'DT_STRIPE_FILE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 166,
+          "args": [
+            "'DT_STRIPE_LIB_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 167,
+          "args": [
+            "'DT_STRIPE_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 175,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 185,
+          "args": [
+            "'stripe_repeated_lib'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 186,
+          "args": [
+            "'WPJobster_Stripe_Loader'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 186,
+          "args": [
+            "'\\Stripe\\Stripe'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 195,
+          "args": [
+            "'DT_STRIPE_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 200,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 206,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 216,
+          "args": [
+            "'\\Stripe\\Stripe'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 217,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 224,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 230,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 240,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 249,
+          "args": [
+            "write keys: url, enabled_events (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 274,
+          "args": [
+            "'featured_listing_price'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 275,
+          "args": [
+            "'tex_rate'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 283,
+          "args": [
+            "'directorist_stripe_total_tax'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 332,
+          "args": [
+            "$plan_id",
+            "'fm_tax'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 333,
+          "args": [
+            "$plan_id",
+            "'fm_price'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 426,
+          "args": [
+            "'atbdp_stripe_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 441,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 443,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 444,
+          "args": [
+            "'directorist_stripe_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 455,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 457,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 462,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 471,
+          "args": [
+            "'directorist_stripe_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 478,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 534,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 536,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 537,
+          "args": [
+            "'directorist_stripe_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 548,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 550,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 556,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 563,
+          "args": [
+            "'directorist_stripe_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 569,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 629,
+          "args": [
+            "'active_gateways'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 630,
+          "args": [
+            "'payment_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 630,
+          "args": [
+            "'g_currency'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 631,
+          "args": [
+            "'directorist_stripe_gateway_tax_rate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 631,
+          "args": [
+            "'tex_rate'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 633,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 634,
+          "args": [
+            "$order_id",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 635,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 638,
+          "args": [
+            "$plan",
+            "'_atpp_recurring'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 640,
+          "args": [
+            "'directorist_stripe_gateway_total'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 640,
+          "args": [
+            "$order_id",
+            "'_amount'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 648,
+          "args": [
+            "'payment_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 648,
+          "args": [
+            "'g_currency'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 651,
+          "args": [
+            "$order_id",
+            "'_recurring'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 652,
+          "args": [
+            "get_current_user_id()",
+            "'_stripe_customer_key'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 653,
+          "args": [
+            "$plan",
+            "'_recurrence_period_term'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 654,
+          "args": [
+            "$plan",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 658,
+          "args": [
+            "'stripe_test_pk'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 659,
+          "args": [
+            "'stripe_test_sk'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 661,
+          "args": [
+            "'stripe_live_pk'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 662,
+          "args": [
+            "'stripe_live_sk'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 667,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 699,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 724,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 724,
+          "args": [
+            "'directorist_stripe_price_args'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 738,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "delete_user_meta",
+          "line": 747,
+          "args": [
+            "get_current_user_id()",
+            "'_stripe_customer_key'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 763,
+          "args": [
+            "get_current_user_id()",
+            "'atbdp_phone'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 769,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 770,
+          "args": [
+            "get_current_user_id()",
+            "'_stripe_customer_key'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 772,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 782,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 820,
+          "args": [
+            "write keys: display_name, percentage, inclusive (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 820,
+          "args": [
+            "'directorist_stripe_tax_rate_arguments'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 843,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 843,
+          "args": [
+            "'directorist_stripe_checkout_session_args'"
+          ]
+        },
+        {
+          "name": "register_styles_scripts",
+          "line": 848,
+          "args": [
+            ""
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 867,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 875,
+          "args": [
+            "'stripe_test_sk'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 877,
+          "args": [
+            "'stripe_live_sk'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 935,
+          "args": [
+            "'DT_STRIPE_FILE'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 951,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 955,
+          "args": [
+            "'directorist_stripe_license'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 986,
+          "args": [
+            "'directorist_stripe_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1002,
+          "args": [
+            "'atbdp_stripe_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1006,
+          "args": [
+            "'atbdp_stripe_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1017,
+          "args": [
+            "'atbdp_licence_menu_for_stripe'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1034,
+          "args": [
+            "'atbdp_stripe_gateway_settings_fields'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1115,
+          "args": [
+            "$order_data['ID']",
+            "'_payment_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1116,
+          "args": [
+            "$order_data['ID']",
+            "'_transaction_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1118,
+          "args": [
+            "$order_data['ID']",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1120,
+          "args": [
+            "$order_data['ID']",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1124,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_type_option",
+          "line": 1125,
+          "args": [
+            "$directory_type"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1127,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1130,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1131,
+          "args": [
+            "$plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1132,
+          "args": [
+            "$plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1141,
+          "args": [
+            "$listing_id",
+            "'_renew_with_plan'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1155,
+          "args": [
+            "$listing_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1158,
+          "args": [
+            "$listing_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 1160,
+          "args": [
+            "$listing_id",
+            "'_listing_status'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 1169,
+          "args": [
+            "'atbdp_order_completed'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1190,
+          "args": [
+            "'active_gateways'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1197,
+          "args": [
+            "'stripe_test_pk'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1199,
+          "args": [
+            "'stripe_live_pk'"
+          ]
+        },
+        {
+          "name": "register_styles_scripts",
+          "line": 1202,
+          "args": [
+            ""
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1211,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1214,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1218,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 1225,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "helper.php": {
+      "sha256": "e4e697e74552e9411f51c2a0a79097f82c7c0e89b5a13028c714e88d60972084",
+      "bytes": 2346,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "get_directorist_option",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_stripe_total_tax",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 2,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 18,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 31,
+          "args": [
+            "'directorist_stripe_total_tax'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 34,
+          "args": [
+            "'featured_listing_price'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 35,
+          "args": [
+            "'tex_rate'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 43,
+          "args": [
+            "'directorist_stripe_total_tax'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "a91ca76ab4c09e51cc5aa9139d7ba5e9b821011258dbeb919aeacadfffd7a7bb",
+      "bytes": 60,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main-rtl.css": {
+      "sha256": "2b7cbd9ff2e33502313774f0a1f2e6ecd6095368039c686809d3fcc58f9b407b",
+      "bytes": 1061,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.css": {
+      "sha256": "0efe51a3689b6b7045772c5333b050937849e99af0fc695dfcde742c75220c70",
+      "bytes": 1057,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.js": {
+      "sha256": "5ab4c3164fd69231e067fd2049184cf045036a0e26b49e3c3851f0a16026ec7f",
+      "bytes": 2664,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/directorist-stripe-rtl.css": {
+      "sha256": "97790b4241b273e9bc92af1d3810ef8d78ea773c75a3a9bfd8ad041038082df1",
+      "bytes": 9243,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/directorist-stripe.css": {
+      "sha256": "d023ac88f3d35a3c6c2127f72d10221a0ddaa0cd633f89e79363147329896738",
+      "bytes": 8818,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/common.js": {
+      "sha256": "c717b54b5a9e2ed4de295f9bc11f30bd742a3eb0dbc001eb9ea0d0bf478aa473",
+      "bytes": 1311,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "update_payment_button",
+          "kind": "JS",
+          "line": 13
+        },
+        {
+          "name": "setup_stripe_payment_button",
+          "kind": "JS",
+          "line": 23
+        },
+        {
+          "name": "reset_payment_button",
+          "kind": "JS",
+          "line": 31
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/directorist-stripe.js": {
+      "sha256": "7aec102147e6c699659ed4088fc4e0bbb1147608ff3f01204d448504e84fc660",
+      "bytes": 411,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "bd6d701d1953c7435890195735682f42f2be86d766ebea3ee8432e6071b58b3f",
+      "bytes": 17743,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-stripe.pot": {
+      "sha256": "33cba711e0f1c3cfa530f05437f0d6fcbe1ce9d0f75c8221cc36f4fdff2796a8",
+      "bytes": 6265,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/index.php": {
+      "sha256": "dd52aa01b66e10e34eb50df2e3350bd0d4e26312eeae01dbac5c96e33f72ff38",
+      "bytes": 24,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/.editorconfig": {
+      "sha256": "024021834d2e76067b6784046a4c3a827ed1bb05b4bf8c1ff5afcb2b0cb11cec",
+      "bytes": 268,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/CHANGELOG.md": {
+      "sha256": "a8af6426ae4992a4899a7c8540ba009bf4ef16236b8e67c68b3d9dc4d6fb2130",
+      "bytes": 47915,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/LICENSE": {
+      "sha256": "94f42d92c166f90b1af271f69eb2202f7be24f9aa32944d777ab0ff2beee84a0",
+      "bytes": 1099,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/README.md": {
+      "sha256": "ced8f3114f8eed164803df5757ba456c0ca73d8bd8ffb5a9883d55ac7be51267",
+      "bytes": 10737,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/VERSION": {
+      "sha256": "1dc32a253c277321849b8747393ee38a013367279ff111259d524f56070e1e79",
+      "bytes": 7,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/build.php": {
+      "sha256": "31e5000ff2d02cb5cd2009b6dfda07bb8cfb964f23ff1ef31627effc31d78557",
+      "bytes": 640,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/composer.json": {
+      "sha256": "3696567c5f424c83cf774f31a90a7c173a44a89bd154a2f82c8a834f40aa2510",
+      "bytes": 923,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/init.php": {
+      "sha256": "218578b57537cb3a8cb091116ceee7d177ee221e7f2f8f18b03bd438fd1f16d7",
+      "bytes": 11019,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/update_certs.php": {
+      "sha256": "eb783b5b8ff8e106a5f01383daabef8676df436f780cbf6e310b6e0b79387163",
+      "bytes": 392,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/data/ca-certificates.crt": {
+      "sha256": "38b6230aa4bee062cd34ee0ff6da173250899642b1937fc130896290b6bd91e3",
+      "bytes": 224085,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Account.php": {
+      "sha256": "33eb66062e364685ea731b306a5f67898696cac80a9cd2154c9a96370823e2dc",
+      "bytes": 16258,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/AccountLink.php": {
+      "sha256": "8d0395441e6f00eeeca8908de25f1ebfc5badbea0f564d6d0955caf2d349a3f3",
+      "bytes": 830,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/AlipayAccount.php": {
+      "sha256": "7bba07e943cce9228363ce7342118c8397a9a8f1593efbc2d4f46a546ab07629",
+      "bytes": 2386,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiRequestor.php": {
+      "sha256": "8f9b3050cc0039d1d2045bb6f8485baa16fa269dfcef253f34f29610c08ebc9a",
+      "bytes": 16290,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiResource.php": {
+      "sha256": "39e04872788b48c08dc078973abd12307570f63222ef4834725f57bafcaccc9a",
+      "bytes": 3448,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiResponse.php": {
+      "sha256": "1825fa7eda6050c18a3457c3e7f8fbcdf7df1dc42071c3fad2b7ba08889404ae",
+      "bytes": 712,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApplePayDomain.php": {
+      "sha256": "c58da96eb20cf2ebc30429d61b8e03cebca5fb588f741d865f5cbabe265f49e1",
+      "bytes": 1016,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApplicationFee.php": {
+      "sha256": "25848d9b92fb18f1434b1a0fab9e5dd37047d73b2c35f4ba76fc1a63d9936951",
+      "bytes": 4203,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApplicationFeeRefund.php": {
+      "sha256": "309d9bac1e06c97336ae5ce79e7b500d609dd6ec6975a68097d6e84eb7457287",
+      "bytes": 2503,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Balance.php": {
+      "sha256": "4294944fe392a84bb6a1e83ccf418aeddc33b89c8777f3cb31af029bbc0af83f",
+      "bytes": 2362,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/BalanceTransaction.php": {
+      "sha256": "bfa5d8d4b93676dc1c1f674392c84d4c23b27013c6aa0b2f69784362b0b57d1c",
+      "bytes": 5674,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/BankAccount.php": {
+      "sha256": "35b99e9b52d2ec357745487161a3e440a1a08e4123fc03022d23b9255e6ff752",
+      "bytes": 7086,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/BaseStripeClient.php": {
+      "sha256": "ee148a0c4d7d4949824a10ca6ad4c484fe945f58358cc54b9f790a61fb4611cc",
+      "bytes": 9386,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/BitcoinReceiver.php": {
+      "sha256": "88828fa0eb29b345f5a83bb1aa3818c7116d8bbc299dea0f9e720513e607ed69",
+      "bytes": 4235,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/BitcoinTransaction.php": {
+      "sha256": "d617872fe47df0e80fd267562b0ac39d9ecf22e3c06c5cd91065ccdf459fb6ca",
+      "bytes": 885,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Capability.php": {
+      "sha256": "2bbcaed0d46556d28174ee7eb5e5c0054c16f5f4a19dcb92fc2e0262c01e59f6",
+      "bytes": 2937,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Card.php": {
+      "sha256": "b0b859e2edaecd54bea29afe9bdd672b1f0b32ae6e5e4279496685a7614886b7",
+      "bytes": 8320,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Charge.php": {
+      "sha256": "c0fa1dae0e8431f660d2d7c4739033629e0cd08ed55cdac60f5681363f856a03",
+      "bytes": 12554,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Collection.php": {
+      "sha256": "5e90f986855cff48cc16066fc4a6cb3f626b0827ef1badf8048d473f30283ce8",
+      "bytes": 7713,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/CountrySpec.php": {
+      "sha256": "ecbd7f7f206fe6121282d4898346150936d04551f050c334d2ad27d5adc6e6ee",
+      "bytes": 1784,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Coupon.php": {
+      "sha256": "fc601e7e5bcb15a0945ea099a78607eb100ddb5d58a5097465a3a4f6269a7650",
+      "bytes": 2984,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/CreditNote.php": {
+      "sha256": "be11a72edf493971590a24b49e14c6b2fc882a413c12712fc67a7c72a915a243",
+      "bytes": 5765,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/CreditNoteLineItem.php": {
+      "sha256": "d68d5cdf6a04ab70ed9da7bbc3e367d20299fb7ed3c49f5fc73dafad972138ec",
+      "bytes": 1897,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Customer.php": {
+      "sha256": "aa8bf6a4fa7327577bb1cdaf339a016113a61237dc66fc030a9809df7023a35f",
+      "bytes": 12780,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/CustomerBalanceTransaction.php": {
+      "sha256": "dd785fb60098e26de9f5ee7db826705d5707efe3cb26fdbf9e99fec8c16fd3fb",
+      "bytes": 5336,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Discount.php": {
+      "sha256": "c84254b0eb427b91c479fcd369851f0651c3cd07487aeb9cf7c0d1c7226748a0",
+      "bytes": 298,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Dispute.php": {
+      "sha256": "e8ceb1d4b9cf49a18fb65ee230135a3ee8b67ad3f3f2be954c44862f2a172cd8",
+      "bytes": 5195,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/EphemeralKey.php": {
+      "sha256": "7c7195d7072bcd6b744cfcda8bd6e042d05c5422c8480df88edf4e3484f4d2e8",
+      "bytes": 1586,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ErrorObject.php": {
+      "sha256": "eedc324143ea825129bce3c68d62d0e5a93d694b806468911a32ed9133984484",
+      "bytes": 8871,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Event.php": {
+      "sha256": "8cba37adf237707f64e5888307f3ede2a810a68a09113afaa66c51f2959354e7",
+      "bytes": 13532,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ExchangeRate.php": {
+      "sha256": "45d0cb2321117f86632c876970629bd90f709cf1ae48e06a55736fa5979b99a0",
+      "bytes": 1446,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/File.php": {
+      "sha256": "4d0ef5c185e6f07ed7a4e43c0d68f5105e4b5e1a45f118043d72a329f47b28d5",
+      "bytes": 3471,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/FileLink.php": {
+      "sha256": "3461bcdea4c1f15b6ddc116558439c13e8f1ae43f3d08ced5d5a56d7c40d4f65",
+      "bytes": 1486,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Invoice.php": {
+      "sha256": "2e395a15775f420d3ae143072c77af1ae15153b75fa34315a8b6726caa761379",
+      "bytes": 18956,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/InvoiceItem.php": {
+      "sha256": "263529d47f8ada617c3ca978922fdb1e445c6f68bc5de6bbed10a7fc18705b6a",
+      "bytes": 3758,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/InvoiceLineItem.php": {
+      "sha256": "ba641471a9846c04364b780ce9b4833d25d3781f5d891a05f2b9805b3136dd6d",
+      "bytes": 2909,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/LineItem.php": {
+      "sha256": "4f1e9dc8eca727e5b1d85ed46aa8f5d8c259ca0091c5d592cdd9fd76c07e6c26",
+      "bytes": 2075,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/LoginLink.php": {
+      "sha256": "31b848a9cf2ae89f03e73de156e32740d7784abab51e1d41117a855187eb206b",
+      "bytes": 426,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Mandate.php": {
+      "sha256": "4059e047fe801140cf201fcd370bc53e4a81d3ba7ded554dda93adf3491bb126",
+      "bytes": 1104,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/OAuth.php": {
+      "sha256": "7b366f084dde305e7ae2af3ec2ad920fc7e10f226d4f11cdbbd421c5ad6eb0f5",
+      "bytes": 3393,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/OAuthErrorObject.php": {
+      "sha256": "fe54e3b950db8d3b5424f4f5931a89e055f070f01c0e0e22bea91ba5cf03b966",
+      "bytes": 861,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Order.php": {
+      "sha256": "31bc2c57f3e941088560db0e7eb296cac429bc33326d537ddb9112f06d956599",
+      "bytes": 5224,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/OrderItem.php": {
+      "sha256": "4a0602ff4cf3a8fb38dd074c73ddeb16f8c727b07896d8b991c350541a175771",
+      "bytes": 333,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/OrderReturn.php": {
+      "sha256": "367a3a7ebf88b8ad5295e2453377a64e2a3d8d03b9dabce63b36bbfee4a8f05e",
+      "bytes": 1689,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/PaymentIntent.php": {
+      "sha256": "4703da1c4f444b0727faa46586d5b6d16a3cf23c46a0ab11cc8746b93b316f53",
+      "bytes": 11516,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/PaymentMethod.php": {
+      "sha256": "29d0a0bbaaae11ec66273bb99515b332c9e8aa2c09c88eae096d3caeb60b196e",
+      "bytes": 3610,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Payout.php": {
+      "sha256": "1581a37b0bb4107f31edbb8915195eb976c0559fe1fff25cea9c8c30b28205d8",
+      "bytes": 6831,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Person.php": {
+      "sha256": "7ec72571c77eeccccf70da565ecd2803dbc54f804ea98652286f152f8c2963dd",
+      "bytes": 4953,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Plan.php": {
+      "sha256": "15c49d602162490f6abfadb4586fddbf58d8fa65b6b115bd1ffd695bd09b65d7",
+      "bytes": 5585,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Price.php": {
+      "sha256": "6dfb1309d4ffe7fe9456327f2c5b8c1b3d948085e9ea5b1e0498c3450b59b4b5",
+      "bytes": 4703,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Product.php": {
+      "sha256": "927171ab14cf3c83a36f77c24efae93782c8416333eaaa02880e54d1c41489c0",
+      "bytes": 4259,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/PromotionCode.php": {
+      "sha256": "b4640210c79e24fd5845e87786c3441144ad93735c3c59430dca89f4d5de15df",
+      "bytes": 2246,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Recipient.php": {
+      "sha256": "51fb3069400883978de14927b5be731e5958851f95213484cad7ece091072a38",
+      "bytes": 2759,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/RecipientTransfer.php": {
+      "sha256": "c6b902954a5541348e8e169bab07d679658497502754750067a79f9d8d3246dc",
+      "bytes": 918,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Refund.php": {
+      "sha256": "dea266da29df7aa94c56d5626dc8c6acf04fc7712bfdac7c37376c493306374f",
+      "bytes": 4139,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/RequestTelemetry.php": {
+      "sha256": "bf06384cdee00f8772eee133a62e1774b115b3b55d1f63ef0645e7458b51a45e",
+      "bytes": 539,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Review.php": {
+      "sha256": "02cd6f84b315ff6a323087a8a25136791b3c59bf746726527d9141dc81acc02d",
+      "bytes": 3371,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SKU.php": {
+      "sha256": "77efa6a7c734af33fbeb0dac58d0a6389b315e306d04bb79de39663c6a4e2101",
+      "bytes": 2885,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SetupAttempt.php": {
+      "sha256": "46be8a04bccce065a84c36c634d05c62accae9819d95b83add03f4c6cc4b2fd4",
+      "bytes": 2449,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SetupIntent.php": {
+      "sha256": "7bc16e32a1459413d21aa9ac11d2d1348008247c7b05ede1a1fa0a90f50f7ad8",
+      "bytes": 7202,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SingletonApiResource.php": {
+      "sha256": "7a8fba797b80a682a5b0f4263958ae059827f5ea514c4ff52c6f3cada8d2a838",
+      "bytes": 917,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Source.php": {
+      "sha256": "dd6184e3c464c722376fbe367b999946bee17b8e805f574bd3263303ec10872e",
+      "bytes": 8565,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SourceTransaction.php": {
+      "sha256": "1c84e78b09ea0154593f65c4359f008e3ba101d26584f61770bde498ef248a66",
+      "bytes": 408,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Stripe.php": {
+      "sha256": "38ed022ef56c67f36e622b2d29e1de02fde03689a34f53ecba92fd3d3c8baea7",
+      "bytes": 7224,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/StripeClient.php": {
+      "sha256": "e4d6ce9529ac4d47d9c43417f0c4fa6dbaf1482d82ef117a63fc8c69efa7fbad",
+      "bytes": 3571,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/StripeClientInterface.php": {
+      "sha256": "03b18fc1465cfca04be3d5bd89ff7c8e58120eeed49032733403fa77a8d17e3e",
+      "bytes": 1435,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/StripeObject.php": {
+      "sha256": "749fbebfbd38e67e270f62971bbb73387d22ea125440c70a41c8e9ec51ddb83e",
+      "bytes": 18817,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Subscription.php": {
+      "sha256": "aece06986731ad481113446dee0480e3dcb22cc1305fb89187e3d69f46cde866",
+      "bytes": 11162,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SubscriptionItem.php": {
+      "sha256": "bfddeee09c80ec79e1d6f7f061a4f7e79c404a1280c529da033e43448b511a9f",
+      "bytes": 5605,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/SubscriptionSchedule.php": {
+      "sha256": "e3ef7bff2108525917bb982285fb321f074d69e8694bc0cdda750b34155e33a5",
+      "bytes": 3907,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/TaxId.php": {
+      "sha256": "91186ac8259d867e1bfed4928b47865e6d9e25d0d46c9e18856fabccc780e3e6",
+      "bytes": 4477,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/TaxRate.php": {
+      "sha256": "f904c9ccb19e704698eb472061a8c7cc8b463133eb556635d7b785b7df1a0a2c",
+      "bytes": 2284,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ThreeDSecure.php": {
+      "sha256": "eeecb9ed069da0782936d40889cb15198c94149104e570fde504d68ca3e87cc3",
+      "bytes": 2606,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Token.php": {
+      "sha256": "8f71798dd5f223a048d1f69ce6630832397ca536d2f411a6c7bc78c9d3cc8da9",
+      "bytes": 3624,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Topup.php": {
+      "sha256": "31165b8692cbe38e57f81975296f6a4a1c0384db09e4ef262eef8d25bf2cf245",
+      "bytes": 3995,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Transfer.php": {
+      "sha256": "a5ab45e3299f67b5a74491d38d801cf977a4d6f81c000e35498575eead14c6ed",
+      "bytes": 6321,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/TransferReversal.php": {
+      "sha256": "c18df46e25569e5c18ad81633fa4557f0789c7cdabbb76ca4577e66ff091afba",
+      "bytes": 3323,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/UsageRecord.php": {
+      "sha256": "73c72ca91ab744dc3aecd4097f81846436e1eb90f5518f8bfd773822a7be5ebd",
+      "bytes": 980,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/UsageRecordSummary.php": {
+      "sha256": "f23c6a20919a1ce0d1122c6bfe383a0c2bfba69ebd4f4f7ed92adbde77861426",
+      "bytes": 812,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Webhook.php": {
+      "sha256": "9200240c0bfa988f9a52f9d6547b09abbcdb69bde9198f7f1b39c1aa077fcc39",
+      "bytes": 1515,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/WebhookEndpoint.php": {
+      "sha256": "f0ee88f2ca16241b94565ff49d84c73af45f1eae286636ea494d6a687fef3082",
+      "bytes": 2311,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/WebhookSignature.php": {
+      "sha256": "b7fdf7f5be15813be7b7fcf4e93f56e3ee10d96c0c41d68f46933c0bc3ddd0c9",
+      "bytes": 4387,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/All.php": {
+      "sha256": "e6fc524b2cc2ebd96f4df553c6b56b16a024ef640d9f90778b0a0f05b9461a6b",
+      "bytes": 1109,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/Create.php": {
+      "sha256": "db81d35095fcb5d8b2955774ccc0765cea70513bd4b06e1aa5a2d45544466050",
+      "bytes": 836,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/Delete.php": {
+      "sha256": "03d3dc66be66be215ab26715493662b0f1ffc14cac4eb595d31396a33a042bcf",
+      "bytes": 734,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/NestedResource.php": {
+      "sha256": "35cb24eacab322ec65150843b000b96c137777253b269fbc645d5d961a304e1b",
+      "bytes": 3994,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/Request.php": {
+      "sha256": "6ac28271c4fb13bd30b29659f196e445c888baef0c7e746d954c2c60621448b3",
+      "bytes": 2467,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/Retrieve.php": {
+      "sha256": "5ade193e9f6ce18ed2eff19a40e90795e35e481984e84c560ff42441b968a996",
+      "bytes": 750,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/ApiOperations/Update.php": {
+      "sha256": "f65b68979c76dbb6d44e361ac2b3800168e5e5e1e37042de68a670adf1f92f00",
+      "bytes": 1446,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/BillingPortal/Session.php": {
+      "sha256": "de69434c72427eed9a543633b83457b97555f3812694bf935889445fc985df05",
+      "bytes": 1526,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Checkout/Session.php": {
+      "sha256": "847f71ecd32f49257d1b092f4526e56659b658e1e4c67f4750f954bba0e41a85",
+      "bytes": 6405,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/ApiConnectionException.php": {
+      "sha256": "7e4e280e6f3276ca295f954f5765a13ff77eccb2d0abbf051722b08529df4dc9",
+      "bytes": 292,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/ApiErrorException.php": {
+      "sha256": "f5e83d2e1d0c453c39fff92c3f28d7898d6d27cd18c5937613ea9a2c199a1738",
+      "bytes": 5012,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/AuthenticationException.php": {
+      "sha256": "b5c334417c9f96d30a63e9844aedcea78d3a4b024edf1b132250bb956c37fcd8",
+      "bytes": 210,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/BadMethodCallException.php": {
+      "sha256": "96cfef2484fc96c9d4e8a9acaf5f3da2195facabb22bcfbc5d77f622f952270a",
+      "bytes": 131,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/CardException.php": {
+      "sha256": "9d6770e85dbe3c9295a6c105ce0215443c8cd12452f4b48182a0ac6e0b9442b1",
+      "bytes": 2124,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/ExceptionInterface.php": {
+      "sha256": "775757eccd2f3e35c17b73de9b9d67876148aa3ccf5d8167a590877463c455df",
+      "bytes": 490,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/IdempotencyException.php": {
+      "sha256": "3778aa3be5b48fa992a3927c8903e6c279722d89d650036b42ed8a49036d8d20",
+      "bytes": 193,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/InvalidArgumentException.php": {
+      "sha256": "f5833bd33b94dbf0fc0894fd1236cc1dced7b40fa2454f24521566b9d0c8d65f",
+      "bytes": 135,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/InvalidRequestException.php": {
+      "sha256": "41d9e55fc93f7f1f0bc4798f04a58e3e0ddd0cd354be974003e907f2afd6e967",
+      "bytes": 1628,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/PermissionException.php": {
+      "sha256": "d495f66cc663bc6d101de7501824c41f893c7edddf4ebd2a5f1dab25fd9369a1",
+      "bytes": 207,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/RateLimitException.php": {
+      "sha256": "f7d3bab2090bc0ccc39870b66e7efd5ff8587b7565e07c6fd6557b8bb4cea038",
+      "bytes": 294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/SignatureVerificationException.php": {
+      "sha256": "b336f904d4747b3c948385d2a588cb6985cef265061a0f725835ad7d11d3630a",
+      "bytes": 1631,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/UnexpectedValueException.php": {
+      "sha256": "0ccf692b7420371922be00b829266d4d854f91242e9ab54e7b1045afc536f6d1",
+      "bytes": 135,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/UnknownApiErrorException.php": {
+      "sha256": "dde678c1b90d06cd58903e8e28c912de49a075198b59c160b4726e490da3d012",
+      "bytes": 323,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/ExceptionInterface.php": {
+      "sha256": "24bbc43871073734d76e422439cff3adcc0d515c45a6e61ae2b72722f500acbf",
+      "bytes": 183,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/InvalidClientException.php": {
+      "sha256": "6dcb36d953b74d0ca9909be4c2be7ee95db0b5db0e30434485fd01fe65517450",
+      "bytes": 346,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/InvalidGrantException.php": {
+      "sha256": "824e8d2038a7eff1b289dacfa7158670a5a6112a22d7076b300b9940893899b6",
+      "bytes": 391,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/InvalidRequestException.php": {
+      "sha256": "0a99b7fb0103483e25b73c0eabeec2febdf919975cd64e0ae31742a7b125885a",
+      "bytes": 239,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/InvalidScopeException.php": {
+      "sha256": "2c894e5fdaa0cce1779504b74c2dce917ea2a2a7a70dea56e89364dcab6c9129",
+      "bytes": 190,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/OAuthErrorException.php": {
+      "sha256": "190192a089dd44b7f1d02495412a90e634f7663e84846e283e481e1c45009423",
+      "bytes": 429,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/UnknownOAuthErrorException.php": {
+      "sha256": "a0c67fa9125170cb220758a669a8d64831fb73acbcb43dd6e1b71389d20dc692",
+      "bytes": 339,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/UnsupportedGrantTypeException.php": {
+      "sha256": "81b519c96c7792d25f0b1e84ec0e7d43c3985c8f87106fcd07dfd8f5c58b964c",
+      "bytes": 219,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Exception/OAuth/UnsupportedResponseTypeException.php": {
+      "sha256": "2c79d1746ce8b63ebe36fd67e9e3cee7389da23481af062f487a5c0614f34403",
+      "bytes": 228,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/HttpClient/ClientInterface.php": {
+      "sha256": "cce19ef762040b182a7f74724857dfddc87b9464bc9ba7c1d5cb8f22c6a506a3",
+      "bytes": 886,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/HttpClient/CurlClient.php": {
+      "sha256": "1fdd86be23c9f9367c3666ac9820512e84d1c3d744274fbda638ecf27e97539f",
+      "bytes": 17874,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Issuing/Authorization.php": {
+      "sha256": "6f86bec1bdcbcb5f0fdf09710e893976458712c5c34d42deb56660327960bfba",
+      "bytes": 5391,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Issuing/Card.php": {
+      "sha256": "627ea4ede7e05e14c80e6fd1f0c76589d6499522ccc00e8a9f9cb1b817c8a446",
+      "bytes": 4135,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Issuing/CardDetails.php": {
+      "sha256": "79cc64cd2b4a6e6675f33a500a7c88cf474c359c00aa25a5eda22483a0267714",
+      "bytes": 349,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Issuing/Cardholder.php": {
+      "sha256": "35dcd74c372fd8e45bfcb462fac42d151d76067d39bce8f75928f757a5a3f4a8",
+      "bytes": 2270,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Issuing/Dispute.php": {
+      "sha256": "8460d00214ac8be76fa571cfc059245a1c7d4dcace37b2ef10ae34cb68769bc0",
+      "bytes": 2386,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Issuing/Transaction.php": {
+      "sha256": "4af4865661a8faaf388b7660e9fd59ed0530121be64ceefef801f2eda96f3fff",
+      "bytes": 3354,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Radar/EarlyFraudWarning.php": {
+      "sha256": "ba355735467f77d0d1e4f8a49dd2fb7f507f994839528efb2db19d7f0caaeeda",
+      "bytes": 2089,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Radar/ValueList.php": {
+      "sha256": "68991205fe26ee8a835b0048e86c94495d9e27c679a07689fbf090a1de30bc6c",
+      "bytes": 1836,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Radar/ValueListItem.php": {
+      "sha256": "328e62abbdf53e0a05a0deb72f32e8145e4abc6b2347c9bae8336c21129b3724",
+      "bytes": 1258,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Reporting/ReportRun.php": {
+      "sha256": "78588a1349fc37e9b96c44409011bc8bc8c4d4c0270f6996849d596ebbe29eb4",
+      "bytes": 2380,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Reporting/ReportType.php": {
+      "sha256": "ea3166f6048768f6ccfc4d306eb734a3047c061f9fa82f4ed7fb5cf999854843",
+      "bytes": 2060,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/AbstractService.php": {
+      "sha256": "4a6c5e7abd446883d25b5f9c68fa67500863389f3ffafb04e0c1c5d8c3f8aa26",
+      "bytes": 1980,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/AbstractServiceFactory.php": {
+      "sha256": "84be2d97005b965f899900015d551c54f0b81d301bbb7d24bbdf3a6f038fa153",
+      "bytes": 1476,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/AccountLinkService.php": {
+      "sha256": "99715c6e7babe98236ed52ee0ec302199cab7bea961ddb81e8361544c824dbf1",
+      "bytes": 718,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/AccountService.php": {
+      "sha256": "c9c831a282f7b3dde33a4011daded63717cac07f746ba1655891f21a31dd0c40",
+      "bytes": 13496,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/ApplePayDomainService.php": {
+      "sha256": "e27e80c8465024e102802d3cf690827f2370cc9ca65e3a632a3e55f65edb561f",
+      "bytes": 1957,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/ApplicationFeeService.php": {
+      "sha256": "a6c6b4e3b461f891026e8cd86dec41f94b2250ef8e4b4c4f5e52d68fb92c2f87",
+      "bytes": 4724,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/BalanceService.php": {
+      "sha256": "c62f438963ef57e6fbc12d1549e46802e4a9284d1256ef10a1bfd1c9d3452ba2",
+      "bytes": 781,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/BalanceTransactionService.php": {
+      "sha256": "c292c49f7a4c26f4677d155b77de031dedbcf21868ce0b362feab587d27fd347",
+      "bytes": 1550,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/ChargeService.php": {
+      "sha256": "600684e070581e05398bee734eb70fdac3b7b29eec7d2ff142bc8ff49172a410",
+      "bytes": 3579,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/CoreServiceFactory.php": {
+      "sha256": "cc4be6c589ad1db63ebd73de08bdb08118839d9aa8a45fc507e66cf2de0ded09",
+      "bytes": 5292,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/CountrySpecService.php": {
+      "sha256": "00c6a555f53db84edc1bbbc1bde974e8a846d49c2c963d0078935a2ec6e4057f",
+      "bytes": 1085,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/CouponService.php": {
+      "sha256": "40a81485462c4d8a5298f43e7c6fb2ceb1a2e938beac28ff63553c0df7105682",
+      "bytes": 3676,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/CreditNoteService.php": {
+      "sha256": "b2f4c1882fdd0db9b674fa541b46fd93d4ba394c48cdcb4b2af7b7ee1d89e0b8",
+      "bytes": 5593,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/CustomerService.php": {
+      "sha256": "27db087d92a185a31e611cc6459a10b3c73f781b1c0727ec709ec01a56e3521d",
+      "bytes": 12876,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/DisputeService.php": {
+      "sha256": "c521477a15eefc28a8320ec4e478fe443174472f377b41478bc62ceff31ed25e",
+      "bytes": 2864,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/EphemeralKeyService.php": {
+      "sha256": "8a354917b45632d770d1b46b75f4ff122361100c7503ed02b7915245e45633db",
+      "bytes": 1289,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/EventService.php": {
+      "sha256": "29a95e99d6dd14e86929be4c60990f27874b23d1ef59f39edfa74daf06c3e4d5",
+      "bytes": 1424,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/ExchangeRateService.php": {
+      "sha256": "63a62ab8a3b090ad3b56218b2b150b5e83c41475a57d2e2a15b4d0aa236817c8",
+      "bytes": 1243,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/FileLinkService.php": {
+      "sha256": "b257ab4f96786afc4d39269f3c23b7eed6278a20d24eef7fe003be2fced46ee7",
+      "bytes": 1976,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/FileService.php": {
+      "sha256": "bddbdc21e6227b249700d2fdd977e90d141a5b80a1253d90669c52369139f8da",
+      "bytes": 2091,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/InvoiceItemService.php": {
+      "sha256": "12ffbfaded3e010fb44572bc340fe59cfbfa7451dc3e4747829e9d47e94ab34c",
+      "bytes": 3030,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/InvoiceService.php": {
+      "sha256": "12b7e5de23b0f3f3c2ef79ec340916449376cb6689d04f87e4f52ccdac1cb48b",
+      "bytes": 10696,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/MandateService.php": {
+      "sha256": "93e514110a97ff73fc0e5aa017c004fe35a5bcb2d03e692be47965ea64381213",
+      "bytes": 604,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/OAuthService.php": {
+      "sha256": "bedcf82a884cad713538b5672ee845181a07ac3d675341bd9447cda93ddd59d0",
+      "bytes": 4859,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/OrderReturnService.php": {
+      "sha256": "4466919fd5767a17c9c0f83aa005131b48641851cb9c0fbb174fc4b1be371a73",
+      "bytes": 1356,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/OrderService.php": {
+      "sha256": "b0a2df16327d7e984481ba2e3c44e2ffb623fb807567cd63ad064e75c1587d73",
+      "bytes": 3526,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/PaymentIntentService.php": {
+      "sha256": "1c705c1b04224628959b03f978acdef46909f4ca728012225e96c5db60067078",
+      "bytes": 7465,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/PaymentMethodService.php": {
+      "sha256": "b49f74a6872c1e8fd47e0ed64718d7d3cbb7da0dcf7a444ad89d337aa0972635",
+      "bytes": 4301,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/PayoutService.php": {
+      "sha256": "faa0d99dcc5b64cd5afa72c0bc62c374509d858bcc14fcfe9d1242dec758f1b1",
+      "bytes": 4674,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/PlanService.php": {
+      "sha256": "2547cfd2c84593a8081720cfbe5bc3975a8128cb182aaf3c1ea483add36758cf",
+      "bytes": 2762,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/PriceService.php": {
+      "sha256": "42a088ec43f9adf2ca194717cf81e5bb5eabebeea29dc03a4b1cdc7deb4f4d88",
+      "bytes": 2058,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/ProductService.php": {
+      "sha256": "13263b7d608efad261d6fbba92dec5fd6f7231ea0ba6081366546947875a7c36",
+      "bytes": 2968,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/PromotionCodeService.php": {
+      "sha256": "bbeda3e1c31384237b598cae6f19edd980caeeaf03d70e8516a26510573f877d",
+      "bytes": 2199,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/RefundService.php": {
+      "sha256": "f3e0350e9bc41e672d4b68a8c43da29ce23ba4f538c0143e3a6c242c568d05c3",
+      "bytes": 2315,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/ReviewService.php": {
+      "sha256": "e8fd7e70d711fcf08bf084a94d13238774edca0492980c12a38844c84e7fc9e6",
+      "bytes": 1773,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SetupAttemptService.php": {
+      "sha256": "835b3f5b63129d5c6706ec4f35ebb94aa932a9bb39356e09948df0dd46a71dfc",
+      "bytes": 611,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SetupIntentService.php": {
+      "sha256": "6ca579a1f9e026af61c1c7dbd14565d33ed0040e16284f2794c7f8595fa64f97",
+      "bytes": 4460,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SkuService.php": {
+      "sha256": "1e6db5a3ea2a1be54e05baa8bf92ab2e19efdf6e9cf452d83dfa5a7ce42f82de",
+      "bytes": 2981,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SourceService.php": {
+      "sha256": "2e9f03441af96923c63b4b2736a5eacbd687b466688a641e4a851fc0614b00a1",
+      "bytes": 3493,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SubscriptionItemService.php": {
+      "sha256": "16adc0d20f434a460380eb6aac2fe58dd9ebfa10a52219f36fecc2ebc99c928f",
+      "bytes": 5822,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SubscriptionScheduleService.php": {
+      "sha256": "eb1fe18d992aecb76e883ff32493dd81129283df79c895846e864d032bdddb59",
+      "bytes": 3999,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/SubscriptionService.php": {
+      "sha256": "b91cc8b7c814748fcf5373dea2fdb2c5ae376813bdc9c04eff20a19c71241a0e",
+      "bytes": 4583,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/TaxRateService.php": {
+      "sha256": "df8520576062d624c383bedc2c063a7e1d7a1134d018fc03920f6050c09520a7",
+      "bytes": 2026,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/TokenService.php": {
+      "sha256": "0544403d2b81b0fd290ece68c6edfff6d1d93f320c2265fad2b0e6886b2d386b",
+      "bytes": 1254,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/TopupService.php": {
+      "sha256": "9483db50b6b9642c43023971f632dd19a7b0c59999d35656ac787b0a71f07a82",
+      "bytes": 2628,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/TransferService.php": {
+      "sha256": "d97b4b9c6e6fef6401d0daada1f8024d9426a6bdcf464a4f5f739a964421ca70",
+      "bytes": 6338,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/WebhookEndpointService.php": {
+      "sha256": "b29e5d7ceb8ffae62b8b837ad93c4941dc70ac75df2e911b589e93aea682b22c",
+      "bytes": 3364,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/BillingPortal/BillingPortalServiceFactory.php": {
+      "sha256": "a93ee9222755701bd1c88e80de595aa3b967eff5a09ce7048f7cec5a86942c33",
+      "bytes": 582,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/BillingPortal/SessionService.php": {
+      "sha256": "4f77bb078c250b013adb3dd3ccdab605feb3171f4a6955307cf986cb8985b1da",
+      "bytes": 604,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Checkout/CheckoutServiceFactory.php": {
+      "sha256": "de2d973bd7c7912fa36a46d5d85e2a1c90fa620203c8cc672ef6766b8a4cc748",
+      "bytes": 567,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Checkout/SessionService.php": {
+      "sha256": "b589f2ae32352b1727ee76fb91aae52b6f6a9cc0d655ee5850e2f8a6b92ad282",
+      "bytes": 2228,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Issuing/AuthorizationService.php": {
+      "sha256": "3c7b44f8a964baf5940ee6e34f9607067e66977da786d38fcc16897daafe1ae2",
+      "bytes": 3329,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Issuing/CardService.php": {
+      "sha256": "8e696806e9e3a4e34fb109ddfed6f394d79967341c245282d82e814930b39e98",
+      "bytes": 2258,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Issuing/CardholderService.php": {
+      "sha256": "3297bfde4fd8e2dfb5d0d860816ffa9a7d7d3ffdddaf3b5abfdec19b580b4b5e",
+      "bytes": 2365,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Issuing/DisputeService.php": {
+      "sha256": "ae0d64ddb01998e6958bf6322f92ac14fa1eb34e0d7c47b6e13fe246fc94ec1e",
+      "bytes": 3527,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Issuing/IssuingServiceFactory.php": {
+      "sha256": "ce0f50cb60c958f8d3bf89a94d9118bac4fbd342822f73916fa76cd2769c2fef",
+      "bytes": 936,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Issuing/TransactionService.php": {
+      "sha256": "47c1ee0a0fa5104d9c62b62f64eeea991357e832b2a0b60a25649c93aebfe5f9",
+      "bytes": 1893,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Radar/EarlyFraudWarningService.php": {
+      "sha256": "d36c89b2d43905048b2b1402428da36c7e0dab1fe639b1fbb5a1f9d9f31f1b0c",
+      "bytes": 1300,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Radar/RadarServiceFactory.php": {
+      "sha256": "f4d41c0bf7a9c2877e756aeab9f7790f6ab848e9f08b4461d53509506de7aa4f",
+      "bytes": 796,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Radar/ValueListItemService.php": {
+      "sha256": "e71f94ec2b06c4cfdeeeb09091e0a0f14a79505093fc37145811ee8155b563d8",
+      "bytes": 2317,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Radar/ValueListService.php": {
+      "sha256": "e825b05b1b1bde2d7aeb103ca9e41358e8cd4423e17c2016dd5fd1e3ddab28f5",
+      "bytes": 2996,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Reporting/ReportRunService.php": {
+      "sha256": "724ff0dadb39afca2585eb531ca63be6d8f3658b8212dcb9de6531e1bb27f772",
+      "bytes": 1886,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Reporting/ReportTypeService.php": {
+      "sha256": "48e7bf9993b8c4af0435a8a8f85d68cb711401d324d89a10f5ab5ddcd559bd68",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Reporting/ReportingServiceFactory.php": {
+      "sha256": "128ca7b5a92b86ad76bb3ae7f486758cb06305b25cca8b9cbb24d7e0a1dd73b2",
+      "bytes": 673,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Sigma/ScheduledQueryRunService.php": {
+      "sha256": "082b0d82660023958274dc071fa401ddaaa311e63e09c3d1209cbcd690fb2d7b",
+      "bytes": 1122,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Sigma/SigmaServiceFactory.php": {
+      "sha256": "6efcfa2dfab880317b169271fc94eb08587460091f6d87acbbcad461ce06d145",
+      "bytes": 598,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Terminal/ConnectionTokenService.php": {
+      "sha256": "3433ea2d0f129d100fea07f4d0359a6f8d61295c0072063a9a85c96ffda4feee",
+      "bytes": 801,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Terminal/LocationService.php": {
+      "sha256": "28e2e6309f811e4db2123c624994ba522613ca93944b6a75168d6cccbbb8d8ec",
+      "bytes": 2640,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Terminal/ReaderService.php": {
+      "sha256": "5143874346db869319a73c11fa599bbde203fc5c11ec2db925c68dc8713eac33",
+      "bytes": 2610,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Service/Terminal/TerminalServiceFactory.php": {
+      "sha256": "ad45b906a41202ea238b9717167515e7eeef1e0795449b432fef78b5285f3ef0",
+      "bytes": 765,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Sigma/ScheduledQueryRun.php": {
+      "sha256": "84ed0f325915180abd160adf6d75839f3ab03cbfeee464b4a3eac0ba596dd7be",
+      "bytes": 1783,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Terminal/ConnectionToken.php": {
+      "sha256": "72719eafbb3a1798c74141731b549cd3d7488826edf98013f01fc69b96834437",
+      "bytes": 742,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Terminal/Location.php": {
+      "sha256": "94fab60facee1a1ed0b5b775f1fd28540d944db412c6d2e89d060480d7e62870",
+      "bytes": 1232,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Terminal/Reader.php": {
+      "sha256": "4eb0f904fa1c1e5c9c89daeb5c375be5b5905576c5978b5f39ece0a876bd65f6",
+      "bytes": 1706,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/CaseInsensitiveArray.php": {
+      "sha256": "f87da15434f2ec5f61f851101e71b18d9ede4a2cedacd9b9fa013ef487b1a640",
+      "bytes": 1856,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/DefaultLogger.php": {
+      "sha256": "29bb6cdc1efe5d5dda6a4b33e90ba009ad6eba29062449fef96e6b9234920926",
+      "bytes": 793,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/LoggerInterface.php": {
+      "sha256": "7f040015e109b2be4d7a9214f5d07cb915714d9a4785e58057d61b822ce634d4",
+      "bytes": 1124,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/ObjectTypes.php": {
+      "sha256": "c06b3d10d40b7107aab731539eb2128bfcfad9ab00c8f20193a0011db61dda69",
+      "bytes": 6495,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/RandomGenerator.php": {
+      "sha256": "d5961ac8a201cb01925a3694c32b671e9f7eed8b4f2a34130cbb8bef004be59f",
+      "bytes": 814,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/RequestOptions.php": {
+      "sha256": "f4b6db736c2415bdd1cab1efe9ef4220623ef04a3253ddba3a5eb49628f6cf06",
+      "bytes": 5227,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/Set.php": {
+      "sha256": "d36f569ac5de3b7eb2985cbfeefd058f6cd0fbbcc52e2ae4b4097ea4f5890ad8",
+      "bytes": 746,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "stripe-php-sdk/lib/Util/Util.php": {
+      "sha256": "45cb9ba9447e32efd7803c731f73bad99801d3d982560bb0ae1376a51e2e2401",
+      "bytes": 7548,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

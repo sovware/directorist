@@ -1,0 +1,1080 @@
+{
+  "snapshot": {
+    "key": "faqs--development",
+    "repo": "directorist-faqs",
+    "branch": "development",
+    "commit": "cdcc5031f77ca1333fa39d1ee45dca4ca9937c70",
+    "date": "2026-06-28T11:15:38Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-faqs__development",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "34e21cd8754e029c6e19b97e7c5b8bb60d8b5b457eda4576e1ad6d29181a666f",
+      "bytes": 632,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "efcbed635e89baac41907efbf970eeadf63e094dce24bdeedd835220a243a766",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config.php": {
+      "sha256": "9cd09b7749b0d52c139f6d626447b6596428885ca8135fedacdf3e6441705db7",
+      "bytes": 1225,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'FAQS_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'FAQS_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'FAQS_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'FAQS_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'FAQS_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'FAQS_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'FAQS_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'FAQS_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'FAQS_NAME'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 22,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 26,
+          "args": [
+            "'ATBDP_FAQS_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "directorist-faqs.php": {
+      "sha256": "27ba5bb038216293ece9a929bf4e291f78ab75d785ed1992ab40f89d3632bfeb",
+      "bytes": 26608,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Listings_fAQs",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 85,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 147,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 160,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 166,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_faqs_license_deactivation",
+          "line": 180,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_faqs_license_activation",
+          "line": 274,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_show_faqs",
+          "line": 368,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_shortcode_faqa",
+          "line": 383,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_new_metabox",
+          "line": 403,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_new_faq_admin",
+          "line": 413,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_faqs_ajax_handler",
+          "line": 428,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 435,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts_admin",
+          "line": 452,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_widget",
+          "line": 495,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 506,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 514,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 531,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 544,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 557,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 575,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 585,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 591,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Listings_fAQs",
+          "line": 619,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 16,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 17,
+          "args": [
+            "'Listings_fAQs'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts_admin')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'widgets_init'",
+            "array(self::$instance, 'register_widget')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 66,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 67,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( self::$instance, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 68,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 70,
+          "args": [
+            "'atbdp_after_video_metabox_backend_add_listing'",
+            "array(self::$instance, 'atbdp_new_metabox')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 71,
+          "args": [
+            "'wp_ajax_atbdp_faqs_handler'",
+            "array(self::$instance, 'atbdp_faqs_ajax_handler')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_faqs_handler'",
+            "array(self::$instance, 'atbdp_faqs_ajax_handler')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 73,
+          "args": [
+            "'atbdp_listing_faqs'",
+            "array(self::$instance, 'atbdp_show_faqs')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "'wp_ajax_atbdp_faqs_license_activation'",
+            "array(self::$instance, 'atbdp_faqs_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 80,
+          "args": [
+            "'wp_ajax_atbdp_faqs_license_deactivation'",
+            "array(self::$instance, 'atbdp_faqs_license_deactivation')"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 126,
+          "args": [
+            "'atbdp_faq_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 167,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 183,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 185,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 186,
+          "args": [
+            "'directorist_faqs_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 197,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 199,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 206,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 213,
+          "args": [
+            "'directorist_faqs_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 219,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 277,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 279,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 280,
+          "args": [
+            "'directorist_faqs_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 291,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 293,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 300,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 307,
+          "args": [
+            "'directorist_faqs_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 313,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 372,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 386,
+          "args": [
+            "$post->ID",
+            "'_faqs'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 392,
+          "args": [
+            "$post->ID",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 396,
+          "args": [
+            "'atbdp_listing_faqs'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 415,
+          "args": [
+            "'enable_faqs'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 419,
+          "args": [
+            "$post->ID",
+            "'_faqs'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 443,
+          "args": [
+            "'faqs_ans_box'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 486,
+          "args": [
+            "'faqs_ans_box'"
+          ]
+        },
+        {
+          "name": "register_widget",
+          "line": 498,
+          "args": [
+            "'FAQs_Widget'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 519,
+          "args": [
+            "'plugin_locale'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 533,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 577,
+          "args": [
+            "'FAQS_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 584,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 586,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 590,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 596,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "5a6ba8768251ac631b711ef52d527fb3959c957c3618c15cc5205f9f4d248fc1",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "readme.txt": {
+      "sha256": "fb2b4aa8d104c23cd155bc1ce60aec5fb224d751c05e204559509437a9177e31",
+      "bytes": 3963,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/daterangepicker.css": {
+      "sha256": "fd69c2a932067e5697ca16542107bf3b883068c44db4ddfdac730a21e29b3777",
+      "bytes": 8402,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main-rtl.css": {
+      "sha256": "117b7538496f1456c5f3907c6f53f26109c4e6944b3f1c6bfe1eb9583c83d5ca",
+      "bytes": 1626,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "ebd99d5dc4ac71104ddfc58cb5b4c716e0fd99e773ef3a352c924aa8f2c0f236",
+      "bytes": 2153,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/map/bh-main.css.map": {
+      "sha256": "875f77a0f6f45b3653f453ded043e0f3d67e2bfbfe4bf94e6bdeb69989b059ba",
+      "bytes": 79736,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/map/style.css.map": {
+      "sha256": "9fb7e6c68685ab813eab56a47f7073be084b61e926a661a7ce3309bca9ad8162",
+      "bytes": 77704,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/admin-main.js": {
+      "sha256": "4ac97e7a6da0c10078381b87be5d8c32729c156d2ddba4d7f9318502bee4fad6",
+      "bytes": 5505,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "handles",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "atbdp_do_ajax",
+          "kind": "JS",
+          "line": 4
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/daterangepicker.js": {
+      "sha256": "689f8458bca182712dc78d71d8178519d6d03e5d5eb14b9f7f8b77739118455d",
+      "bytes": 63906,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "70130936f6b45b67770807653a36f47f9f9cf016a9e7f2ef09f0538dd628b184",
+      "bytes": 5560,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "handles",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "atbdp_do_ajax",
+          "kind": "JS",
+          "line": 4
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/moment.min.js": {
+      "sha256": "2f74b7103124df51dc2c0e42e93da8bc7bce703f34f9f82a6820edd81022f76a",
+      "bytes": 51638,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/directory_type.php": {
+      "sha256": "2e3dc71625042dc6f3edbbcae675a542955651ea56ff912e58f3b7acf0b281e9",
+      "bytes": 3662,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FAQS_Post_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_field_template",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_single_listing_content_widgets",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_builder_widgets",
+          "line": 72,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'FAQS_Post_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array($this, 'atbdp_form_builder_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_single_listing_content_widgets'",
+            "array($this, 'atbdp_single_listing_content_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_field_template'",
+            "array( $this, 'directorist_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( $this, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_ultimate_listing_meta_user_submission'",
+            "array( $this, 'save' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 35,
+          "args": [
+            "'directorist_faqs_single_field_templete_on_demand'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 50,
+          "args": [
+            "'directorist_faqs_form_field_templete_on_demand'"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "2ff43de7cd082ac321347955888aa81bf71b6039e2c857ed5254ad3eadc5f2c4",
+      "bytes": 2763,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "atbdp_get_option",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sanitize_array",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dfaqs_get_template",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 5,
+          "args": [
+            "'atbdp_get_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 23,
+          "args": [
+            "$group"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 36,
+          "args": [
+            "'atbdp_sanitize_array'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-faqs.pot": {
+      "sha256": "1b75f8dbaae31cbde6069caf52149dee296fda224f09e246738152c6eafd7d65",
+      "bytes": 5190,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/index.php": {
+      "sha256": "dd52aa01b66e10e34eb50df2e3350bd0d4e26312eeae01dbac5c96e33f72ff38",
+      "bytes": 24,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/add-faq.php": {
+      "sha256": "d89ce13b245b412f6dc40032bf14aa6a05f80eca7c63061d63e3eb8a58e30d01",
+      "bytes": 5121,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 25,
+          "args": [
+            "'faqs_ans_box'"
+          ]
+        }
+      ]
+    },
+    "templates/faqs.php": {
+      "sha256": "d18dfd4389bb9cec8b4598d970a1fc336f86c803cad7a2499227c6e618e87917",
+      "bytes": 589,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 12,
+          "args": [
+            "'enable_faqs'"
+          ]
+        }
+      ]
+    },
+    "templates/view-faqs.php": {
+      "sha256": "7204c1cd6022e704a709790ef66472dee0e6a9468b118bff406cf9ea01b6aee5",
+      "bytes": 843,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/ajax/faqs-ajax.php": {
+      "sha256": "dcbc85ccf6e54114c31fd1d372dae9fe21336c5fcfd79204ff34eef2db7b318e",
+      "bytes": 2236,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 19,
+          "args": [
+            "'faqs_ans_box'"
+          ]
+        }
+      ]
+    },
+    "widgets/class-widget.php": {
+      "sha256": "d9e06caac72cedfc18a2146d05cfa1e9be737764342be79721142875b6a9c740",
+      "bytes": 4448,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FAQs_Widget",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "widget",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form",
+          "line": 83,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 37,
+          "args": [
+            "'ATBDP_Fee_Manager'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 38,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 40,
+          "args": [
+            "'directorist_is_listing_feature_available'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 51,
+          "args": [
+            "'widget_title'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 57,
+          "args": [
+            "$listing_id",
+            "'_faqs'"
+          ]
+        }
+      ]
+    }
+  }
+}

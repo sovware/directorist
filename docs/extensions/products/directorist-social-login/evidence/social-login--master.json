@@ -1,0 +1,932 @@
+{
+  "snapshot": {
+    "key": "social-login--master",
+    "repo": "directorist-social-login",
+    "branch": "master",
+    "commit": "94b2eacbd6be5dc019141202abd1a32bf14bf515",
+    "date": "2026-08-20T04:30:45Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-social-login",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "42d036d20db58c071a8165b0c75effc9f123fd1721185ad850e71f5ecad4a5dd",
+      "bytes": 95,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "526e95a7e46943c5b57f5d636201af5ea3ed1044bc3f62240e798053d4194c2b",
+      "bytes": 943,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "e8029daefc0f68b120d03b083ebf6d35aa159c0b5a1ed39200b90ec724d73947",
+      "bytes": 62851,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config-helper.php": {
+      "sha256": "efbe9bf6076a9134d30c005275355ab60d0689a9a55235b0c5e3744e4358e324",
+      "bytes": 814,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_social_login_get_version_from_content",
+          "line": 4,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_social_login_get_version_from_file_content",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 3,
+          "args": [
+            "'directorist_social_login_get_version_from_content'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 15,
+          "args": [
+            "'directorist_social_login_get_version_from_file_content'"
+          ]
+        }
+      ]
+    },
+    "config.php": {
+      "sha256": "14a643ce825d06c5f1c005c8a34bb388ba3054af74b5286f58f189efaea11685",
+      "bytes": 1489,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'SOCIAL_LOGIN_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'DEB_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DEB_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'DEB_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DEB_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'DEB_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'DEB_PUBLIC_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DEB_ADMIN_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'DEB_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DEB_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'DEB_NAME'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'ATBDP_SOCIAL_LOGIN_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "directorist-social-login.php": {
+      "sha256": "020186653a070070e46e73e1b86d3a108e73471633054cc4ab35c324d003250d",
+      "bytes": 42155,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Social_Login",
+          "line": 19,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "google_signin",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "g_register_user",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "g_login_user",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_social_login_license_deactivation",
+          "line": 229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_social_login_license_activation",
+          "line": 322,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts_admin",
+          "line": 415,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "social_login",
+          "line": 425,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "verify_facebook_token",
+          "line": 478,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_user",
+          "line": 509,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "login_user",
+          "line": 544,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "genarate_username",
+          "line": 560,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_random_string",
+          "line": 576,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 595,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 608,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_social_login_html",
+          "line": 614,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_cnd_for_media",
+          "line": 654,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts_public",
+          "line": 660,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_settings_fields_for_social_submenu",
+          "line": 686,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_settings_for_social_submenu",
+          "line": 711,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_settings_for_social_submenue",
+          "line": 740,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_settings_to_ext_general_fields",
+          "line": 791,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 811,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "license_settings_controls",
+          "line": 817,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 860,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 877,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 912,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 922,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 928,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Social_Login",
+          "line": 955,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 16,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 18,
+          "args": [
+            "'Directorist_Social_Login'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 56,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts_public')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 58,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts_admin')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'wp_footer'",
+            "array(self::$instance, 'load_cnd_for_media')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 61,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array(self::$instance, 'add_settings_fields_for_social_submenu')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 62,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array(self::$instance, 'add_settings_for_social_submenu')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 64,
+          "args": [
+            "'atbdp_extension_settings_fields'",
+            "array(self::$instance, 'add_settings_to_ext_general_fields')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 65,
+          "args": [
+            "'atbdp_extension_settings_submenus'",
+            "array(self::$instance, 'add_settings_for_social_submenue')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'atbdp_before_login_form_end'",
+            "array(self::$instance, 'atbdp_social_login_html')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 69,
+          "args": [
+            "'wp_ajax_atbdp_social_login'",
+            "array(self::$instance, 'social_login')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 70,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_social_login'",
+            "array(self::$instance, 'social_login')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 74,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'google_signin')"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 115,
+          "args": [
+            "'google_api'"
+          ]
+        },
+        {
+          "name": "register_new_user",
+          "line": 176,
+          "args": [
+            "sanitize_user($username)"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 217,
+          "args": [
+            "$id",
+            "'nickname'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 231,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 233,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 234,
+          "args": [
+            "'directorist_social_login_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 245,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 247,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 254,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 261,
+          "args": [
+            "'directorist_social_login_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 267,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 324,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 326,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 327,
+          "args": [
+            "'directorist_social_login_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 338,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 340,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 347,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 354,
+          "args": [
+            "'directorist_social_login_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 360,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 460,
+          "args": [
+            "$wp_user->ID",
+            "'_atbdp_social_id'"
+          ]
+        },
+        {
+          "name": "register_user",
+          "line": 470,
+          "args": [
+            "$user_meta"
+          ]
+        },
+        {
+          "name": "wp_remote_get",
+          "line": 487,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 489,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 493,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 527,
+          "args": [
+            "$user_id",
+            "'_atbdp_generated_password'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 528,
+          "args": [
+            "$user_id",
+            "'_atbdp_social_id'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 615,
+          "args": [
+            "'enable_social_login'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 621,
+          "args": [
+            "'google_api'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 663,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 663,
+          "args": [
+            "'atbdp_fb_app_id'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 664,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 664,
+          "args": [
+            "'google_api'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 665,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 665,
+          "args": [
+            "'atbdp_social_login_debug'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 819,
+          "args": [
+            "'directorist_social_login_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 835,
+          "args": [
+            "'atbdp_social_login_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 839,
+          "args": [
+            "'atbdp_social_login_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 850,
+          "args": [
+            "'atbdp_licence_menu_for_social_login'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 865,
+          "args": [
+            "'plugin_locale'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 883,
+          "args": [
+            "'Directorist_Social_Login_Compatibility'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 888,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 893,
+          "args": [
+            "'directorist_social_login_license'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 914,
+          "args": [
+            "'DEB_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 921,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 923,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 927,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 933,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "5a6ba8768251ac631b711ef52d527fb3959c957c3618c15cc5205f9f4d248fc1",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.css": {
+      "sha256": "37c74ae0dabc1a1008d6a3e37b87ab26be496169e35fbd930bc92fa972e56318",
+      "bytes": 1106,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.js": {
+      "sha256": "cc00ffc2d04fd62382a2908e6403e51a239cdd7e11bc867ec72073be9f029274",
+      "bytes": 2784,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/css/main-rtl.css": {
+      "sha256": "c8734347f6a860da39f7dce1cd1245baa1962e09e5269d04f22a8d5ef93a9e9a",
+      "bytes": 3398,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/css/main.css": {
+      "sha256": "785ecabec14068b6c0624bf395705624c80f7fdc6b532ed6a8690e7688418a54",
+      "bytes": 3377,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/images/facebook-icon.png": {
+      "sha256": "4ce33131cc4994b145c9e2ee921437735d2af2121dcbf79d658c96fccd887b22",
+      "bytes": 624,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/images/sign_in_btn_google.png": {
+      "sha256": "1811e95030cddcf518b8c2e94f9af62cc21d839bf7f347c99b6989e3cf589324",
+      "bytes": 8055,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/js/social-login.js": {
+      "sha256": "13fb5d43c7f3d6713c96c6ad971926d6d323c3336511c8f5e9188faf0e203133",
+      "bytes": 6221,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initGAPI",
+          "kind": "JS",
+          "line": 246
+        }
+      ],
+      "calls": []
+    },
+    "dev-tools/build.php": {
+      "sha256": "0c93a0ee8b42e18d3a6780b15f071712c2441ca8658d6f9374bdbf031d54da16",
+      "bytes": 5930,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "ed7bae4f16dd66b0693025cf1419b401fb59b5d1edbe18d8f6d817b67f97827d",
+      "bytes": 21653,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/class-compatibility.php": {
+      "sha256": "4b5431d34ccf5bf25d47e430b0b989e55c2e0d870bc793ceb5b836aed8e5abca",
+      "bytes": 276,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Social_Login_Compatibility",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 4,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'wordfence_ls_require_captcha'",
+            "'__return_false'"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "54f746bc5feb68624c9ae69c39511407283ad5b84a91b5996e68e2947615dbb3",
+      "bytes": 109,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-social-login.pot": {
+      "sha256": "ba4869896966d69ac7171604736e861b798f67a67c3bd3382e1cee378e8fad20",
+      "bytes": 2741,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/index.php": {
+      "sha256": "dd52aa01b66e10e34eb50df2e3350bd0d4e26312eeae01dbac5c96e33f72ff38",
+      "bytes": 24,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

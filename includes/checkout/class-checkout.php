@@ -109,6 +109,14 @@ class ATBDP_Checkout {
             return null;
         }
 
+        // Booking and claim extensions still submit their checkout context through the
+        // classic listing URL. Keep their native gateway flow available alongside
+        // external payment options until those extensions use typed checkout routes.
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- This selects a display path; it does not process a payment.
+        if ( isset( $_POST['confirmed'] ) || isset( $_GET['claimed'] ) ) {
+            return $this->old_display_checkout_content();
+        }
+
         $request   = Helpers::request();
         $validator = new Validator( $request, new Mime );
 
@@ -210,13 +218,14 @@ class ATBDP_Checkout {
                     'price' => $price,
                 ];
             }
-            // if data is empty then vail,
+            // Extensions can add the first checkout item through the final-data hook.
+            $form_data = apply_filters( 'atbdp_checkout_form_final_data', $form_data, $listing_id );
             if ( empty( $form_data ) ) {
                 return __( 'Sorry, Nothing is available to buy. Please try again.', 'directorist' );
             }
             // pass the data using a data var, so that we can add to it more item later.
             $data = [
-                'form_data' => apply_filters( 'atbdp_checkout_form_final_data', $form_data, $listing_id ),
+                'form_data' => $form_data,
                 'listing_id' => $listing_id,
             ];
             // prepare all the variables required by the checkout page.

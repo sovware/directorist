@@ -47,7 +47,7 @@ abstract class Posts_Controller extends Abstract_Controller {
              * @param array $private_query_vars Array of allowed query vars for authorized users.
              *
              */
-            $private = apply_filters( 'directorist_rest_private_query_vars', $wp->private_query_vars );
+            $private    = apply_filters( 'directorist_rest_private_query_vars', $wp->private_query_vars );
             $valid_vars = array_merge( $valid_vars, $private );
         }
         // Define our own in addition to WP's normal vars.
@@ -161,6 +161,10 @@ abstract class Posts_Controller extends Abstract_Controller {
      */
     public function get_item_permissions_check( $request ) {
         $post = get_post( (int) $request['id'] );
+
+        if ( $post && 'edit' === $request['context'] && ! $this->check_post_permissions( $this->post_type, 'edit', $post->ID ) ) {
+            return new WP_Error( 'directorist_rest_cannot_edit', __( 'Sorry, you are not allowed to edit this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );
+        }
 
         if ( $post && ! $this->check_post_permissions( $this->post_type, 'read', $post->ID ) ) {
             return new WP_Error( 'directorist_rest_cannot_view', __( 'Sorry, you cannot view this resource.', 'directorist' ), array( 'status' => rest_authorization_required_code() ) );

@@ -4243,6 +4243,34 @@ function directorist_sanitize_term_item( $item ) {
 }
 
 /**
+ * Check submitted tag names for markup, including nested HTML entities.
+ *
+ * Decode only for validation so legitimate term names are not renamed.
+ *
+ * @param string|int|float $name Tag name or term ID.
+ * @return bool Whether the name contains only text.
+ */
+function directorist_is_valid_tag_name( $name ) {
+    if ( ! is_scalar( $name ) ) {
+        return false;
+    }
+
+    $name = (string) $name;
+
+    // Bound decoding work for excessively nested, untrusted entity sequences.
+    for ( $depth = 0; $depth < 5; ++$depth ) {
+        $previous = $name;
+        $name     = html_entity_decode( $name, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+        if ( $name === $previous ) {
+            return wp_strip_all_tags( $name ) === trim( $name );
+        }
+    }
+
+    return false;
+}
+
+/**
  * @param mixed $item
  * @return mixed item
  */

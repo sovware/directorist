@@ -1,0 +1,14 @@
+# Core listing, form and query context
+
+Read only for listing data, directory configuration, fields or queries. Baseline Core commit is recorded in [selection](../selection.json); verify actual source before use.
+
+- [includes/fields/class-directorist-fields.php](../../../includes/fields/class-directorist-fields.php): `Fields::register/create/translate_key_to_field` owns field construction and `directorist_listing_form_fields_class_map` compatibility mapping. An extension field can require both registration and builder placement.
+- [includes/model/ListingForm.php](../../../includes/model/ListingForm.php): `build_form_data`, `field_template`, `get_field_value`, `get_current_listing_type`; `directorist_form_field_data`, `directorist_field_template`, `directorist_field_admin_template`, `directorist_section_template` connect form values and templates. Plan callbacks can remove a field before it renders.
+- [includes/classes/class-add-listing.php](../../../includes/classes/class-add-listing.php) and [includes/classes/class-metabox.php](../../../includes/classes/class-metabox.php): inspect actual frontend/admin submission hooks and validation at the cited call sites. They are not interchangeable write paths. Post-author permissions and nonce checks belong to the concrete handler.
+- [includes/model/Listings.php](../../../includes/model/Listings.php) / `SearchForm.php`: query arguments, taxonomy/meta filters, directory state, sorting, pagination and search-field construction. A template-only symptom may originate in excluded query rows.
+- [includes/model/SingleListing.php](../../../includes/model/SingleListing.php): single-listing context and content-widget construction. Confirm queried listing ID instead of trusting global `$post` inside a builder layout.
+- `includes/helper-functions.php::get_directorist_option` (L590 in baseline): reads the `atbdp_option` array and applies the `directorist_option` filter. A missing option, default and filtered value can differ. Per-directory type settings also come through directory configuration APIs; do not assume every extension setting is an independent `wp_options` row.
+
+Listing post type is `at_biz_dir`; directory type taxonomy is `atbdp_listing_types`. Common listing metadata includes `_directory_type`, `_price`, `_featured`, `_listing_status`, `_expiry_date`, `_never_expire`. Taxonomy term metadata and builder layout state can suppress extension features independently of those values. Read actual keys from the extension topic's data ledger rather than writing guessed keys.
+
+Use [exact source/call query](../README.md) to find a hook emitter and extension subscribers. Literal matches are candidate edges only; priority, active plugins, conditional registration, return shape and dynamic hook suffixes must be checked in source/runtime.

@@ -1,0 +1,1984 @@
+{
+  "snapshot": {
+    "key": "notifications-pro--main",
+    "repo": "directorist-notifications-pro",
+    "branch": "main",
+    "commit": "b9b5c721c27d55082f25cf0ea00b74c44008020a",
+    "date": "2026-07-13T12:03:07Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-notifications-pro",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "e0ed9f6d731027ced9961a62b7c07d7342e60d3b52efdbb79033c60e51977467",
+      "bytes": 95,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "3cb428ce764a419b64e3d52cf67059b6ec541e1edfb215e856d2a09d6044d0ae",
+      "bytes": 397,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "9bbbed9e932f0b52f260892584d33b82aca6412eee1691e0d857ca5071e5ff8e",
+      "bytes": 45250,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-notifications-pro.php": {
+      "sha256": "f0b20ce7085f5dec7429ff40688b3a9aa70ca5530fc4652e919e933e92cccf03",
+      "bytes": 4849,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro",
+          "line": 54,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "check_dependency",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_web_push",
+          "line": 150,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "activate",
+          "line": 161,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 16,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'DIRECTORIST_NOTIFICATIONS_PRO_FILE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 22,
+          "args": [
+            "'DIRECTORIST_NOTIFICATIONS_PRO_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 33,
+          "args": [
+            "'DIRECTORIST_NOTIFICATIONS_PRO_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 37,
+          "args": [
+            "'DIRECTORIST_NOTIFICATIONS_PRO_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 41,
+          "args": [
+            "'DIRECTORIST_NOTIFICATIONS_PRO_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 45,
+          "args": [
+            "'DIRECTORIST_NOTIFICATIONS_PRO_ITEM_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 49,
+          "args": [
+            "'Directorist_Notifications_Pro'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 82,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'load_textdomain' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 83,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'check_dependency' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 84,
+          "args": [
+            "'directorist_loaded'",
+            "array( $this, 'includes' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 85,
+          "args": [
+            "'directorist_installed'",
+            "array( $this, 'setup_web_push' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 86,
+          "args": [
+            "'directorist_updated'",
+            "array( $this, 'setup_web_push' )"
+          ]
+        },
+        {
+          "name": "is_plugin_active",
+          "line": 110,
+          "args": [
+            "'directorist/directorist-base.php'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 110,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 170,
+          "args": [
+            "__FILE__"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "a089b0f683f0b78566d62bd8f1a1ea010e52ed3383c0aca9c0eedf78072dc4b9",
+      "bytes": 81,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/frontend-web-push.css": {
+      "sha256": "a0f5349b6fccff5ed364870ad3e28cb44c24a14ebe5f20c6b0be71460ed4d44e",
+      "bytes": 4304,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/frontend-web-push.js": {
+      "sha256": "17533e582bc9b2495f8fbf70e4c44b239a55e37c69c4d7e28578bdea1f3d9e53",
+      "bytes": 18839,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "isSupported",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "getStoredValue",
+          "kind": "JS",
+          "line": 19
+        },
+        {
+          "name": "setStoredValue",
+          "kind": "JS",
+          "line": 27
+        },
+        {
+          "name": "urlBase64ToUint8Array",
+          "kind": "JS",
+          "line": 33
+        },
+        {
+          "name": "arraysMatch",
+          "kind": "JS",
+          "line": 47
+        },
+        {
+          "name": "subscriptionUsesCurrentKey",
+          "kind": "JS",
+          "line": 63
+        },
+        {
+          "name": "requestTo",
+          "kind": "JS",
+          "line": 75
+        },
+        {
+          "name": "request",
+          "kind": "JS",
+          "line": 87
+        },
+        {
+          "name": "preferenceRequest",
+          "kind": "JS",
+          "line": 91
+        },
+        {
+          "name": "saveSubscription",
+          "kind": "JS",
+          "line": 95
+        },
+        {
+          "name": "deleteSubscription",
+          "kind": "JS",
+          "line": 99
+        },
+        {
+          "name": "savePreference",
+          "kind": "JS",
+          "line": 113
+        },
+        {
+          "name": "getElements",
+          "kind": "JS",
+          "line": 131
+        },
+        {
+          "name": "cleanupLegacyServiceWorker",
+          "kind": "JS",
+          "line": 139
+        },
+        {
+          "name": "registerServiceWorker",
+          "kind": "JS",
+          "line": 157
+        },
+        {
+          "name": "getCurrentRegistration",
+          "kind": "JS",
+          "line": 165
+        },
+        {
+          "name": "getCurrentSubscription",
+          "kind": "JS",
+          "line": 173
+        },
+        {
+          "name": "subscribe",
+          "kind": "JS",
+          "line": 183
+        },
+        {
+          "name": "removePrompt",
+          "kind": "JS",
+          "line": 219
+        },
+        {
+          "name": "createButton",
+          "kind": "JS",
+          "line": 227
+        },
+        {
+          "name": "showBlockedNotice",
+          "kind": "JS",
+          "line": 237
+        },
+        {
+          "name": "renderPrompt",
+          "kind": "JS",
+          "line": 253
+        },
+        {
+          "name": "showPermissionPrompt",
+          "kind": "JS",
+          "line": 295
+        },
+        {
+          "name": "setPreferenceStatus",
+          "kind": "JS",
+          "line": 336
+        },
+        {
+          "name": "setPreferenceButtonsDisabled",
+          "kind": "JS",
+          "line": 343
+        },
+        {
+          "name": "setPreferenceButtonAction",
+          "kind": "JS",
+          "line": 349
+        },
+        {
+          "name": "updatePreferenceControls",
+          "kind": "JS",
+          "line": 356
+        },
+        {
+          "name": "refreshPreferenceControls",
+          "kind": "JS",
+          "line": 379
+        },
+        {
+          "name": "enablePreferenceNotifications",
+          "kind": "JS",
+          "line": 405
+        },
+        {
+          "name": "disablePreferenceNotifications",
+          "kind": "JS",
+          "line": 450
+        },
+        {
+          "name": "initPreferenceControls",
+          "kind": "JS",
+          "line": 484
+        },
+        {
+          "name": "setAdminStatus",
+          "kind": "JS",
+          "line": 511
+        },
+        {
+          "name": "setAdminButtonsDisabled",
+          "kind": "JS",
+          "line": 518
+        },
+        {
+          "name": "setAdminButtonAction",
+          "kind": "JS",
+          "line": 524
+        },
+        {
+          "name": "updateAdminControls",
+          "kind": "JS",
+          "line": 531
+        },
+        {
+          "name": "refreshAdminControls",
+          "kind": "JS",
+          "line": 547
+        },
+        {
+          "name": "enableAdminNotifications",
+          "kind": "JS",
+          "line": 567
+        },
+        {
+          "name": "disableAdminNotifications",
+          "kind": "JS",
+          "line": 615
+        },
+        {
+          "name": "initAdminPrompt",
+          "kind": "JS",
+          "line": 649
+        },
+        {
+          "name": "init",
+          "kind": "JS",
+          "line": 688
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/service-worker.js": {
+      "sha256": "cccbdf547761926a95469789325e93d85ac32cf166d59593433b1aebc986ec83",
+      "bytes": 1703,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "getPayload",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "getUrl",
+          "kind": "JS",
+          "line": 23
+        }
+      ],
+      "calls": []
+    },
+    "dev-tools/build.php": {
+      "sha256": "7ccff37c79437fcee3ca36cdf81fa8126010e4b610c885aa880b2614cc7ed83b",
+      "bytes": 4464,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/class-admin-log.php": {
+      "sha256": "6f6aab192e884ad42c317e1651990f56f3220e6fc0312ed10c7225c57a624425",
+      "bytes": 10645,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_Admin_Log",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_page_url",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_menu_page",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "hide_menu_page",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_page",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_logs",
+          "line": 160,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_notice",
+          "line": 188,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_delete_logs_form",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_page",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_total_logs",
+          "line": 235,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_pagination",
+          "line": 250,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_logs",
+          "line": 295,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_date",
+          "line": 321,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_event_label",
+          "line": 336,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_label",
+          "line": 350,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_recipient",
+          "line": 364,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_Admin_Log'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'admin_menu'",
+            "array( $this, 'add_menu_page' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 46,
+          "args": [
+            "'admin_head'",
+            "array( $this, 'hide_menu_page' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 47,
+          "args": [
+            "'admin_post_directorist_notifications_pro_delete_logs'",
+            "array( $this, 'delete_logs' )"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 326,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 326,
+          "args": [
+            "'time_format'"
+          ]
+        }
+      ]
+    },
+    "inc/class-event-integration.php": {
+      "sha256": "9fd993549237120c43f9c1d7a4bb2f5139a1534f74d6d15ab3925be3084e370d",
+      "bytes": 18452,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_Event_Integration",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_order_created",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_directorist_order_created",
+          "line": 93,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_order_completed",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_order_status_changed",
+          "line": 129,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_directorist_order_updated",
+          "line": 145,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "notify_order_completed_once",
+          "line": 167,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_submitted",
+          "line": 191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_published",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_edited",
+          "line": 213,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_deleted",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_renewed",
+          "line": 235,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_to_expire",
+          "line": 246,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_expired",
+          "line": 257,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_remind_to_renew",
+          "line": 268,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_owner_contact_form",
+          "line": 279,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_admin_contact_form",
+          "line": 310,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_listing_review",
+          "line": 325,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "notify_order_event",
+          "line": 347,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "notify_listing_participants",
+          "line": 364,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "notify_listing_owner",
+          "line": 384,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listing_context",
+          "line": 407,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_context",
+          "line": 426,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_contact_context",
+          "line": 445,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listing_owner_id",
+          "line": 468,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_listing_id",
+          "line": 485,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_id_from_value",
+          "line": 516,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_listing_id_from_value",
+          "line": 547,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_status_from_value",
+          "line": 574,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_object_property_initialized",
+          "line": 606,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_paid_order_status",
+          "line": 631,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_url",
+          "line": 643,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_comment_url",
+          "line": 667,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_Event_Integration'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 47,
+          "args": [
+            "'atbdp_order_created'",
+            "array( $this, 'handle_order_created' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 48,
+          "args": [
+            "'atbdp_order_completed'",
+            "array( $this, 'handle_order_completed' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 49,
+          "args": [
+            "'atbdp_order_status_changed'",
+            "array( $this, 'handle_order_status_changed' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "'directorist_after_order_create'",
+            "array( $this, 'handle_directorist_order_created' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'directorist_after_order_update'",
+            "array( $this, 'handle_directorist_order_updated' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'atbdp_listing_inserted'",
+            "array( $this, 'handle_listing_submitted' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'atbdp_listing_updated'",
+            "array( $this, 'handle_listing_edited' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'atbdp_listing_published'",
+            "array( $this, 'handle_listing_published' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'directorist_listing_deleted'",
+            "array( $this, 'handle_listing_deleted' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'atbdp_after_renewal'",
+            "array( $this, 'handle_listing_renewed' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'atbdp_status_updated_to_renewal'",
+            "array( $this, 'handle_listing_to_expire' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 58,
+          "args": [
+            "'atbdp_listing_expired'",
+            "array( $this, 'handle_listing_expired' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'atbdp_send_renewal_reminder'",
+            "array( $this, 'handle_remind_to_renew' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 60,
+          "args": [
+            "'directorist_email_on_send_contact_message_to_listing_owner'",
+            "array( $this, 'handle_owner_contact_form' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 61,
+          "args": [
+            "'directorist_email_on_send_contact_message_to_admin'",
+            "array( $this, 'handle_admin_contact_form' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 62,
+          "args": [
+            "'directorist_review_updated'",
+            "array( $this, 'handle_listing_review' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 76,
+          "args": [
+            "absint( $order_id )",
+            "'_payment_status'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 492,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 498,
+          "args": [
+            "'directorist_get_order_by_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 670,
+          "args": [
+            "'get_comment_link'"
+          ]
+        }
+      ]
+    },
+    "inc/class-frontend.php": {
+      "sha256": "f28162fc904bd1f702c96b01ebb0aeba1bff8857db123b13c150ff90bb3ce791",
+      "bytes": 14441,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_Frontend",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_assets",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_admin_assets",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_web_push_assets",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "serve_service_worker",
+          "line": 157,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_enqueue",
+          "line": 183,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_enqueue_admin",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_admin_subscription_control_markup",
+          "line": 225,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_dashboard_preference_control",
+          "line": 261,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_dashboard_preference_markup",
+          "line": 280,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_active_subscription",
+          "line": 321,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_show_prompt_to_user",
+          "line": 330,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_Frontend'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 40,
+          "args": [
+            "'template_redirect'",
+            "array( $this, 'serve_service_worker' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 41,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'enqueue_assets' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 42,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'enqueue_admin_assets' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 43,
+          "args": [
+            "'directorist_dashboard_tabs'",
+            "array( $this, 'add_dashboard_preference_control' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 194,
+          "args": [
+            "'directorist_notifications_pro_should_enqueue_prompt'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 332,
+          "args": [
+            "$user_id",
+            "'_user_type'"
+          ]
+        }
+      ]
+    },
+    "inc/class-license.php": {
+      "sha256": "f64cc3b67e16ff1d814057f4b9d7387d84b3435778b9f26cb95e5ecec17b43e4",
+      "bytes": 4237,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_License",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enable_license_settings",
+          "line": 62,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "license_settings_controls",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_updater",
+          "line": 137,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_item_id",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_subscription_license_key",
+          "line": 163,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_License'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 50,
+          "args": [
+            "'atbdp_extension_license_settings_init'",
+            "array( $this, 'enable_license_settings' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 51,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array( $this, 'license_settings_controls' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'admin_init'",
+            "array( $this, 'update_controller' )"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 78,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 104,
+          "args": [
+            "'atbdp_notifications_pro_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 110,
+          "args": [
+            "'atbdp_notifications_pro_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 125,
+          "args": [
+            "'atbdp_licence_menu_for_notifications_pro'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 138,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 164,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        }
+      ]
+    },
+    "inc/class-rest-api.php": {
+      "sha256": "b5aeedd49b0e4062059e192af36bc255a76a98577410d3dd1e89db226afd7b28",
+      "bytes": 5608,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_REST_API",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_routes",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "permission_callback",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_subscription",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_subscription",
+          "line": 137,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_preference",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_preference",
+          "line": 179,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_subscription_from_request",
+          "line": 204,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_REST_API'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'rest_api_init'",
+            "array( $this, 'register_routes' )"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 54,
+          "args": [
+            "self::REST_NAMESPACE",
+            "'/push/subscription'"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 71,
+          "args": [
+            "self::REST_NAMESPACE",
+            "'/push/preference'"
+          ]
+        }
+      ]
+    },
+    "inc/class-sender.php": {
+      "sha256": "227c507707650e33f3f7f87f7f50b9b82a89dc43b5ee8c9e885bd450898f4cce",
+      "bytes": 12358,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_Sender",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_to_admins",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_to_listing_owner",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_to_users",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_to_subscription",
+          "line": 143,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_subscription_auth_failure",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_event_enabled",
+          "line": 218,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_payload",
+          "line": 244,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_notification_tag",
+          "line": 269,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_template",
+          "line": 294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "replace_placeholders",
+          "line": 319,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "error_reports",
+          "line": 346,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_report",
+          "line": 369,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_Sender'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 89,
+          "args": [
+            "'Minishlink\\\\WebPush\\\\WebPush'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 89,
+          "args": [
+            "'Minishlink\\\\WebPush\\\\Subscription'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 145,
+          "args": [
+            "write keys: endpoint, publicKey, authToken, contentEncoding (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 223,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 224,
+          "args": [
+            "$option_key"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 298,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 299,
+          "args": [
+            "$title_key"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 301,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 302,
+          "args": [
+            "$message_key"
+          ]
+        }
+      ]
+    },
+    "inc/class-settings.php": {
+      "sha256": "09a7d0aa5164ddfc99ed843369b74c7d34a33a80669db0ad00bdca34096e59bb",
+      "bytes": 17949,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_Settings",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_setting_fields",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_settings_layout",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "web_push_events_to_notify_admin",
+          "line": 182,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "web_push_events_to_notify_user",
+          "line": 235,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_web_push_events_to_notify_admin",
+          "line": 300,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_web_push_events_to_notify_user",
+          "line": 317,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_web_push_template_fields",
+          "line": 339,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "web_push_template_sections",
+          "line": 378,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "web_push_template_field_key",
+          "line": 419,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "web_push_template_events",
+          "line": 430,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_web_push_title",
+          "line": 452,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_web_push_message",
+          "line": 488,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_Settings'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 40,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'register_setting_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 41,
+          "args": [
+            "'atbdp_listing_type_settings_layout'",
+            "array( $this, 'register_settings_layout' )"
+          ]
+        },
+        {
+          "name": "register_web_push_template_fields",
+          "line": 118,
+          "args": [
+            "$fields"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 183,
+          "args": [
+            "'directorist_web_push_events_to_notify_admin'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 236,
+          "args": [
+            "'directorist_web_push_events_to_notify_user'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 301,
+          "args": [
+            "'directorist_default_web_push_events_to_notify_admin'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 318,
+          "args": [
+            "'directorist_default_web_push_events_to_notify_user'"
+          ]
+        }
+      ]
+    },
+    "inc/class-web-push.php": {
+      "sha256": "9f2dd383d8be179d4f5da20ad566b89818e9de6d7affa40dd24ca77ee5247b88",
+      "bytes": 18975,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Notifications_Pro_Web_Push",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "setup",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_tables",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_subscriptions_table_name",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_log_table_name",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_subscription",
+          "line": 135,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "deactivate_subscription",
+          "line": 237,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_endpoint_hash",
+          "line": 289,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_active_subscriptions_for_user",
+          "line": 300,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_user_preference",
+          "line": 326,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_user_preference",
+          "line": 341,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "deactivate_user_subscriptions",
+          "line": 381,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_subscription_status",
+          "line": 423,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_notification",
+          "line": 452,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_log_enabled",
+          "line": 507,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ensure_vapid_keys",
+          "line": 520,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_vapid_public_key",
+          "line": 545,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_vapid_private_key",
+          "line": 556,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "generate_vapid_keys",
+          "line": 567,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_option",
+          "line": 606,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_subscription_data",
+          "line": 622,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sanitize_endpoint",
+          "line": 668,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sanitize_key",
+          "line": 686,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "database_error",
+          "line": 701,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pad_key_part",
+          "line": 716,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "base64_url_encode",
+          "line": 731,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Notifications_Pro_Web_Push'"
+          ]
+        },
+        {
+          "name": "dbDelta",
+          "line": 60,
+          "args": [
+            "\"CREATE TABLE {$subscriptions_table"
+          ]
+        },
+        {
+          "name": "dbDelta",
+          "line": 82,
+          "args": [
+            "\"CREATE TABLE {$log_table"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 187,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 199,
+          "args": [
+            "$user_id",
+            "self::USER_PREFERENCE_META_KEY"
+          ]
+        },
+        {
+          "name": "insert",
+          "line": 207,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 213,
+          "args": [
+            "$user_id",
+            "self::USER_PREFERENCE_META_KEY"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 261,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 328,
+          "args": [
+            "$user_id",
+            "self::USER_PREFERENCE_META_KEY"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 361,
+          "args": [
+            "$user_id",
+            "self::USER_PREFERENCE_META_KEY"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 394,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 433,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "insert",
+          "line": 473,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 508,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 509,
+          "args": [
+            "self::LOG_ENABLED_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 521,
+          "args": [
+            "self::VAPID_PUBLIC_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 522,
+          "args": [
+            "self::VAPID_PRIVATE_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 534,
+          "args": [
+            "self::VAPID_PUBLIC_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 535,
+          "args": [
+            "self::VAPID_PRIVATE_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 548,
+          "args": [
+            "self::VAPID_PUBLIC_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 559,
+          "args": [
+            "self::VAPID_PRIVATE_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 568,
+          "args": [
+            "'openssl_pkey_new'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 568,
+          "args": [
+            "'OPENSSL_KEYTYPE_EC'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 607,
+          "args": [
+            "$option"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 608,
+          "args": [
+            "$option"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 612,
+          "args": [
+            "$option"
+          ]
+        }
+      ]
+    },
+    "inc/index.php": {
+      "sha256": "a089b0f683f0b78566d62bd8f1a1ea010e52ed3383c0aca9c0eedf78072dc4b9",
+      "bytes": 81,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/index.php": {
+      "sha256": "a089b0f683f0b78566d62bd8f1a1ea010e52ed3383c0aca9c0eedf78072dc4b9",
+      "bytes": 81,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

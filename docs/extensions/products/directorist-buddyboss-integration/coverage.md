@@ -1,0 +1,40 @@
+# Feature and infrastructure coverage
+
+Canonical snapshot: `buddyboss-integration--master`.
+
+Feature-linked means declarations/file boundaries are connected to an authored user workflow/topic. It does not prove every conditional path was manually audited. Infrastructure is explicitly accounted for rather than presented as another supported feature. Support/generated/vendor-library files are not runtime proof.
+
+Counts: feature-linked=19, infrastructure=3, support-or-generated=6.
+
+Unresolved feature candidates: 0.
+
+| Source | Classification | Topic or reason |
+| --- | --- | --- |
+| [.distignore:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/.distignore#L1) | support-or-generated | Fingerprint only; build/library/tooling/assets are not declared first-party runtime features. |
+| [.gitignore:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/.gitignore#L1) | support-or-generated | Fingerprint only; build/library/tooling/assets are not declared first-party runtime features. |
+| [changelog.txt:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/changelog.txt#L1) | support-or-generated | Fingerprint only; build/library/tooling/assets are not declared first-party runtime features. |
+| [directorist-buddyboss-integration.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/directorist-buddyboss-integration.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [package-lock.json:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/package-lock.json#L1) | infrastructure | Declarative configuration or shared presentation asset; no independent runtime feature inferred from file existence. |
+| [package.json:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/package.json#L1) | infrastructure | Declarative configuration or shared presentation asset; no independent runtime feature inferred from file existence. |
+| [pot.js:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/pot.js#L1) | support-or-generated | Fingerprint only; build/library/tooling/assets are not declared first-party runtime features. |
+| [assets/css/main.css:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/assets/css/main.css#L1) | infrastructure | Declarative configuration or shared presentation asset; no independent runtime feature inferred from file existence. |
+| [assets/js/main.js:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/assets/js/main.js#L1) | feature-linked | [activity](topics/activity.md) |
+| [inc/EDD_SL_Plugin_Updater.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/inc/EDD_SL_Plugin_Updater.php#L1) | support-or-generated | Fingerprint only; build/library/tooling/assets are not declared first-party runtime features. |
+| [includes/bp-listings-actions.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/bp-listings-actions.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/bp-listings-activity.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/bp-listings-activity.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/bp-listings-functions.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/bp-listings-functions.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md), [activity](topics/activity.md) |
+| [includes/bp-listings-screens.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/bp-listings-screens.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md) |
+| [includes/bp-listings-template.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/bp-listings-template.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md), [activity](topics/activity.md) |
+| [includes/class-bp-listings-component.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/class-bp-listings-component.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md), [activity](topics/activity.md) |
+| [includes/class-bp-listings-loader.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/class-bp-listings-loader.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md) |
+| [includes/class-builder.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/class-builder.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/class-group-listings-extension.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/class-group-listings-extension.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md), [activity](topics/activity.md) |
+| [includes/class-settings.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/class-settings.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md), [activity](topics/activity.md) |
+| [includes/class-template.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/class-template.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/listings-common-functions.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/listings-common-functions.php#L1) | feature-linked | [profile-groups](topics/profile-groups.md) |
+| [includes/templates/buddypress/add-listing.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/templates/buddypress/add-listing.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/templates/buddypress/favorites.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/templates/buddypress/favorites.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/templates/buddypress/my-listings.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/templates/buddypress/my-listings.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/templates/directorist/archive-message-button.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/templates/directorist/archive-message-button.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [includes/templates/directorist/single-message-button.php:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/includes/templates/directorist/single-message-button.php#L1) | feature-linked | [activity](topics/activity.md) |
+| [languages/directorist-buddyboss-integration.pot:1](https://github.com/sovware/directorist-buddyboss-integration/blob/c0d40913b46a04e151ac76f0867fa96e8c3c2827/languages/directorist-buddyboss-integration.pot#L1) | support-or-generated | Fingerprint only; build/library/tooling/assets are not declared first-party runtime features. |

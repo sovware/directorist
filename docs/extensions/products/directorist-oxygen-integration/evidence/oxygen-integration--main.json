@@ -1,0 +1,955 @@
+{
+  "snapshot": {
+    "key": "oxygen-integration--main",
+    "repo": "directorist-oxygen-integration",
+    "branch": "main",
+    "commit": "4dc1f5b906b0bdb7c8175c917a58c5b457ddea39",
+    "date": "2025-04-16T05:09:32Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-oxygen-integration",
+    "kind": "remote"
+  },
+  "files": {
+    ".DS_Store": {
+      "sha256": "3699ca3367b4d25634aa9ff54f9ef0e6b46209a2b83576c0d4019e6785941cef",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "class-control.php": {
+      "sha256": "c06f6a991bcd0276c7f2029a333d32eb6bcc748af5115959aafce85e9fc825ee",
+      "bytes": 4670,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Control",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_listings",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_locations",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_tags",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_categories",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_types",
+          "line": 90,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_custom_select2_html",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "class-element.php": {
+      "sha256": "18aba00806308fd2a748391a3549322627cfb03d03bb8e434dde4cba6aad9b45",
+      "bytes": 2708,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Element",
+          "line": 22,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "controls",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "tag",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "icon",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "class_names",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "button_place",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "processShortcodeParams",
+          "line": 68,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "doShortcodeCallback",
+          "line": 105,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "directorist-oxygen-integration.php": {
+      "sha256": "29c9ecb9d0605fe219bdd916f23f9e9665563e1ad3b48d2dea253dbaa7e63f47",
+      "bytes": 5919,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "OxyEl_update_controller",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extension_init",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_controls",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_elements",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_section",
+          "line": 135,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_subsection",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_control_style",
+          "line": 156,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remove_shortcode_restrictions_from_directorist_script",
+          "line": 176,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 188,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 194,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 29,
+          "args": [
+            "'ATBDP_OXEEl_POST_ID'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 44,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 58,
+          "args": [
+            "'\\OxyEl'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'oxygen_add_plus_sections'",
+            "__NAMESPACE__ . '\\register_section'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'oxygen_add_plus_directorist_category_section_content'",
+            "__NAMESPACE__ . '\\register_subsection'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 69,
+          "args": [
+            "'ct_before_builder'",
+            "__NAMESPACE__ . '\\add_control_style'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 75,
+          "args": [
+            "'directorist_css_scripts'",
+            "__NAMESPACE__ . '\\remove_shortcode_restrictions_from_directorist_script'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 78,
+          "args": [
+            "'\\Directorist\\Directorist_Template_Hooks'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 83,
+          "args": [
+            "'\\EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 87,
+          "args": [
+            "'init'",
+            "__NAMESPACE__ . '\\extension_init'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 153,
+          "args": [
+            "'oxygen_add_plus_directorist_elements'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 187,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 189,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 193,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 199,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "assets/icon-active.svg": {
+      "sha256": "1d23fc0186fe659e3499df796e346a6d38e0dee9a018a45d24370c80261a68b8",
+      "bytes": 2031,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icon.svg": {
+      "sha256": "90f0ea97b97d70bf3e24612958dfca829688ae4ae1bb38ca08c4e856d5ae1949",
+      "bytes": 2044,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "elements/add-listing.php": {
+      "sha256": "74e66933be71d5e8f174f916cc6c5b982fbcc7b793bd3a99f8b83effefcc06e0",
+      "bytes": 1125,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AddListing",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remapShortcodeParams",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/all-categories.php": {
+      "sha256": "b6f5bd0be9017d2d6dc31a9fb255c0ce15134fa882b3957c2d5310c4984c8aad",
+      "bytes": 3795,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AllCategories",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remapShortcodeParams",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/all-listing.php": {
+      "sha256": "327c049d6e5d0eb483c558897a44b37ae9a2a01e3a37ee96c590a9a22766a61e",
+      "bytes": 7585,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AllListing",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remapShortcodeParams",
+          "line": 239,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/all-locations.php": {
+      "sha256": "9c4a4d481033ee15030efeb89670b6810662a47de150eb242aae1cfec7cd40ab",
+      "bytes": 3788,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AllLocations",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remapShortcodeParams",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/author-profile.php": {
+      "sha256": "c09796df0c9499fc33b23f0f4def6bc6ff012847625c3533ec81bf5eb01ef491",
+      "bytes": 885,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AuthorProfile",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/category.php": {
+      "sha256": "b9cac0c5f8a0e42c38ad530bb8840e6db28a98139d66870da59526506464578d",
+      "bytes": 4577,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Category",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/checkout.php": {
+      "sha256": "2fc207bc0ba90ffb80deb8c6db418e4c633e8d295dcac0d4f693abadc22c900d",
+      "bytes": 352,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Checkout",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/custom-registration.php": {
+      "sha256": "f8443f94b176f0014899874a1461d8ee1e453da24d0de1a0cb486537aa064ed1",
+      "bytes": 391,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CustomRegistration",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/location.php": {
+      "sha256": "40edc13cdb50945c118de8283e483e295a951efe4e31e67a428ba51f16baa271",
+      "bytes": 4577,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Location",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/payment-receipt.php": {
+      "sha256": "13ae507735be087013ffef4273eb27fde567835ca19b8ae3b841305feb0955cb",
+      "bytes": 378,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PaymentReceipt",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/search-listing.php": {
+      "sha256": "47bcb6199f05645cca07a065bac8eadab8e452c10226e7ac262ddc42fa5e3c53",
+      "bytes": 4769,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SearchListing",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remapShortcodeParams",
+          "line": 142,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/search-result.php": {
+      "sha256": "bda716bee9c97ff07f6ccf8b3967ce239cde85e9e25e3d2ae437901b48a87e9e",
+      "bytes": 5045,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SearchResult",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/single-details.php": {
+      "sha256": "52e97a1fd195c26cf4e9de7ed39123dc8c0aecfd5fe2ac36fe3788a5371777ff",
+      "bytes": 703,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SingleDetails",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "elements/tag.php": {
+      "sha256": "3ec480992c1e6a2ad6d2ae6c0105b1d1d49cd01100f376033dd5df5441fd03c1",
+      "bytes": 4552,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Tag",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "controls",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/transaction-failure.php": {
+      "sha256": "efba70578a3671de163af30a956f201dbbe66ef20a15f564cc895e6f2ad306ea",
+      "bytes": 398,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TransactionFailure",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/user-dashboard.php": {
+      "sha256": "ad5e1fb95f73794a8800da3aa8b6ce599d0815fb18585dcb4aa6f704883b70f7",
+      "bytes": 373,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserDashboard",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "elements/user-login.php": {
+      "sha256": "80f3a6a34940d4d5353818205aa9ab6b9a4351792522d43e62c74b7dd4bba75a",
+      "bytes": 348,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserLogin",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "slug",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "c372a0cefeeb3100c9b1bea7def97c4257a0317fd847db006fb76b6cb097fdac",
+      "bytes": 21653,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/.DS_Store": {
+      "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-oxygen-integration.pot": {
+      "sha256": "0550f4dc6b4b837a383825f5a826f0f937184e926d16ce0f74f90d5ca8e513fd",
+      "bytes": 10334,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

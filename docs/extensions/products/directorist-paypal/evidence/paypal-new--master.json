@@ -1,0 +1,664 @@
+{
+  "snapshot": {
+    "key": "paypal-new--master",
+    "repo": "directorist-paypal-new",
+    "branch": "master",
+    "commit": "84ec39c5da30366b388fc05c92bc58f3cb422dce",
+    "date": "2025-06-15T05:08:49Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal-new",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "8aa222454f54b8c2fe728a15a364624659cfe51904664e0afb40a02b8a5e2891",
+      "bytes": 31,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "d38fbc5c519fe98e2e1f74d709fe202027180e78f8a73afce41e48b271ba8ac7",
+      "bytes": 229,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "df5a630006d968378f6182e5e37b3474723b046cf0ca8ba4c0d27d410f71f055",
+      "bytes": 1062,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "dc7b6e059dfaf9834dbac841fbcf9ee66f335d928324300c477906587f99c262",
+      "bytes": 1526,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "artisan": {
+      "sha256": "cf54607d0bfc4cb31e0b12ad35968d8ed9ed37b1a6e175f70f17c180626e43c9",
+      "bytes": 155,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "f4889eb760a86128be7ffb8178c7c7ae42f5af4769a87b6255713ac6a4cf6b6f",
+      "bytes": 1784,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-paypal.php": {
+      "sha256": "f23e65b38c295549d0873e961e717911c543c9875634b4354b1ebeba0a883e6a",
+      "bytes": 1458,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristPaypal",
+          "line": 25,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $application ): void { do_action( 'before_load_directorist_paypal' ); $application->load(); do_action( 'after_load_directorist_paypal' ); }"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 48,
+          "args": [
+            "'before_load_directorist_paypal'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 52,
+          "args": [
+            "'after_load_directorist_paypal'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "275951db933e7c72e8fcc2aeb82d95f7630f5275f0476b47e22006cccdfeaca5",
+      "bytes": 1212,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "79b95f8e6ef2f89136a9d442474296908be3cb087dbb9900cb24fafc8afc1a8a",
+      "bytes": 647,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/on-pull-request.yml": {
+      "sha256": "7f5191079a308b1ebf4cbb0820f28facc1cfd58ea90e5323ae1208c000d754c5",
+      "bytes": 910,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CustomSniffs/Sniffs/Files/ABSPATHDefinedSniff.php": {
+      "sha256": "b82313aa4489eaf55e1000887934f4a9b36ce1beb9c94cebb44979a2c9462542",
+      "bytes": 1725,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "8f94a68ce6575a96c3fd16e3d05089f5e404cae375c16a46ae0f35af3849ce4d",
+      "bytes": 1099,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_paypal",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_config",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_app_config",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_version",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_container",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_singleton",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_url",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_dir",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_paypal_render",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/Controller.php": {
+      "sha256": "b0f532818c63ad80194d41a6b906383225700d5329d507cbba56a3f76986a089",
+      "bytes": 77,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Controller",
+          "line": 5,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": []
+    },
+    "app/Http/Controllers/UserController.php": {
+      "sha256": "c111b8c85744549b743bc231437f5a7973f64d91eb8dfc0d7fe60147d275a9f6",
+      "bytes": 132,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserController",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "index",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Http/Middleware/EnsureIsUserAdmin.php": {
+      "sha256": "ee0a89863af266265e45d58c615cd97b2682317e642d4889033f6c4f4c06b5f6",
+      "bytes": 438,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/Post.php": {
+      "sha256": "7bfe6c47ab58aee3641bfcd5d4565e22812c29d32e92e181661517f1f7e36ea4",
+      "bytes": 576,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Post",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolver",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/PostMeta.php": {
+      "sha256": "57e3805be1f7a1ce2f095712baf35e358f97545a1f9abdf8c1a678f231516833",
+      "bytes": 405,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PostMeta",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/User.php": {
+      "sha256": "874d341999a509d54bc33a406ca42b1c2a269a54536dd4a9b9ac1ba6c8a45c9f",
+      "bytes": 398,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/UserMeta.php": {
+      "sha256": "87ba4e3939502a92929370144025994b05c2a683f976f08af393748476246993",
+      "bytes": 405,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserMeta",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Providers/MenuServiceProvider.php": {
+      "sha256": "d84534a20e80448d5a99d2149cfb4fed6f8b93fc71017282d37333f7b38cafee",
+      "bytes": 3789,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MenuServiceProvider",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_paypal_submenu_item",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_paypal_settings",
+          "line": 56,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_paypal_gateway",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'atbdp_monetization_settings_submenu'",
+            "[$this, 'register_paypal_submenu_item']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[$this, 'register_paypal_settings']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'atbdp_default_gateways'",
+            "[$this, 'register_paypal_gateway']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'directorist_active_gateways'",
+            "[$this, 'register_paypal_gateway']"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 38,
+          "args": [
+            "'atbdp_paypal_settings_controls'"
+          ]
+        }
+      ]
+    },
+    "assets/build/css/app.asset.php": {
+      "sha256": "f5c18b100345b817b598e6245dea81539fd4a15892ef9ebff9652728bffa9d26",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.css": {
+      "sha256": "d659c408f72a50f379f3e07774baaa4ba32aae3b2f8187f661e7388362c2fcae",
+      "bytes": 738,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.js": {
+      "sha256": "fe2decc7d8447119a71f9769e08a9cb5a92c415811d8a3f180dda380e0f9c339",
+      "bytes": 1024,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/style-rtl.css": {
+      "sha256": "c87827c65190932df54abdb73e96ce95891cc0fa6e2ba5be84cbb5692249b147",
+      "bytes": 1571,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/style.asset.php": {
+      "sha256": "f5c18b100345b817b598e6245dea81539fd4a15892ef9ebff9652728bffa9d26",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/style.css": {
+      "sha256": "3e1d5abdcb9444449d2db00343c2137ac906ebee27b7f24a85fc105cd204f850",
+      "bytes": 1568,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.asset.php": {
+      "sha256": "6540b37f9a6bfdc7720d1c884fa26e47f99cd8209e4cb89e99f014ca86fb8fe7",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.js": {
+      "sha256": "880f74d04bf7384d5871cd2e348cb866aa8cc8ed268ba03900560fea3a4a677a",
+      "bytes": 251,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/main.asset.php": {
+      "sha256": "6540b37f9a6bfdc7720d1c884fa26e47f99cd8209e4cb89e99f014ca86fb8fe7",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/main.js": {
+      "sha256": "880f74d04bf7384d5871cd2e348cb866aa8cc8ed268ba03900560fea3a4a677a",
+      "bytes": 251,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config/app.php": {
+      "sha256": "dbb76067bfeb796200461b80fb205e17dc0b6d9402335d7a9b13ed891c0961ac",
+      "bytes": 3069,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 55,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Migrations/TestMigration.php": {
+      "sha256": "b75e1d1a647b6c9e32d56af5593ef21fb86900205b8433bdf561e1dcd7533680",
+      "bytes": 289,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TestMigration",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "more_than_version",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "execute",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "e52e5ceda4d4456e442a1dbcdd2abf7da295414d4d35489eb1faa384deb71fb6",
+      "bytes": 4507,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/phpcs.xml": {
+      "sha256": "eacd79c0024c1e611c2b4834f69e85bed76c5a9821d635dcdba6d2621756faa6",
+      "bytes": 6165,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "c9e0aa6da7540a864f3f646a4fb59e92838fc8db40456407097a2e609e0bbe43",
+      "bytes": 2380,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "f82513c1e80af3d980f1ddce029ffa3e73c3669e8492625b4a85dcdc19015a78",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/exclude.files.config.php": {
+      "sha256": "62c1d4560e848bd07a1fafcdb3cc3f9dd7d09abe913e84e9bf76a0a6e1f983d0",
+      "bytes": 1683,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/global.config.php": {
+      "sha256": "f2aae69377c625a721e52024fd54761032118a28c74466919f87d14d2edc0fe6",
+      "bytes": 2724,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/index.php": {
+      "sha256": "7d4c501042e762e13462947d1516b78263c28a45d179f62c3f256fdbc08d55fb",
+      "bytes": 1406,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "db44f86eac6cb3219cf3d5c6da9419d9d70d21a7595e3c2f76b9e7c724d6d7b9",
+      "bytes": 193,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "8de47dfdd396b65f57068254060276f53bad7f0f606736e692a90e5fdf498cef",
+      "bytes": 460,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/js/app.js": {
+      "sha256": "02a1d28ea235dae21bd69a23200ba4a570b0ef3404b634e269275c9b87b31d9d",
+      "bytes": 27,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/app.scss": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/index.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "336e9b0c41a9f1973fd25586b5d55e50334d080e3d9811bcbc3186feb01ddf72",
+      "bytes": 180,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "routes/rest/api.php": {
+      "sha256": "53b5fc1799cf8d9c66223861c659491a15f9b3bf9682448328b93f61e12ca3d2",
+      "bytes": 176,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

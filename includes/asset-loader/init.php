@@ -371,6 +371,17 @@ class Asset_Loader {
         Helper::register_all_scripts( Scripts::get_all_scripts() );
         Enqueue::register_script( 'directorist-payment-receipt', 'build/js/react/frontend/payment-receipt.js', ['jquery', 'wp-api-fetch'] );
 
+        // Google can invoke its callback before the map bundle has loaded.
+        static $google_map_callback_registered = false;
+        if ( ! $google_map_callback_registered ) {
+            wp_add_inline_script(
+                'google-map-api',
+                'window.directoristLoadGoogleMap = function () { window.dispatchEvent(new Event("directorist-google-maps-ready")); };',
+                'before'
+            );
+            $google_map_callback_registered = true;
+        }
+
         // Inline styles
         if ( apply_filters( 'directorist_load_inline_style', true ) ) {
             wp_add_inline_style( 'directorist-main-style', Helper::dynamic_style() );

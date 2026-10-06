@@ -3140,9 +3140,23 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
 
 .directorist-te-page .directorist-te-row__actions > .directorist-te-btn--requirement {
   max-width: 100%;
+  border-color: var(--danger);
+  background: var(--danger-tint);
+  color: var(--danger);
   line-height: 1.25;
   text-align: center;
   white-space: normal;
+}
+
+.directorist-te-page .directorist-te-row__actions > .directorist-te-btn--requirement:hover,
+.directorist-te-page .directorist-te-row__actions > .directorist-te-btn--requirement:focus {
+  border-color: var(--danger);
+  background: var(--danger);
+  color: #fff;
+}
+
+.directorist-te-page .directorist-te-row__actions > .directorist-te-btn--requirement:focus-visible {
+  box-shadow: 0 0 0 3px var(--danger-tint);
 }
 
 .directorist-te-row__actions > .directorist-te-btn--details {

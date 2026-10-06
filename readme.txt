@@ -313,6 +313,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 - Listing address autocomplete not syncing with the map pin. (#3032)
 - Frontend listing submissions not persisting selected taxonomies. (#3031)
 - Review visibility in the featured listing widget. (#2998)
+- Deprecated PHP warning when rendering taxonomy list subterms with empty category or location children.
 
 = 8.10 - Oct 1, 2026 =
 

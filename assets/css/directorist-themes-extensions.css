@@ -2954,6 +2954,10 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
   color: var(--muted);
 }
 
+.directorist-te-page .directorist-te-requirement--warning {
+  color: var(--danger);
+}
+
 .directorist-te-page .directorist-te-requirement i {
   flex: 0 0 auto;
   margin-top: 1px;

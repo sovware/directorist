@@ -26,6 +26,7 @@ $dashboard_setup_visible = ! array_key_exists( 'is_visible', $dashboard_setup ) 
 $dashboard_activity    = ! empty( $args['dashboard_activity'] ) && is_array( $args['dashboard_activity'] ) ? $args['dashboard_activity'] : [];
 $dashboard_activity_items = ! empty( $dashboard_activity['items'] ) && is_array( $dashboard_activity['items'] ) ? $dashboard_activity['items'] : [];
 $dashboard_recommendations = ! empty( $args['dashboard_recommendations'] ) && is_array( $args['dashboard_recommendations'] ) ? $args['dashboard_recommendations'] : [];
+$site_integration_signals = ! empty( $args['site_integration_signals'] ) && is_array( $args['site_integration_signals'] ) ? $args['site_integration_signals'] : [];
 $account_name          = ! empty( $dashboard_welcome['account_name'] ) ? (string) $dashboard_welcome['account_name'] : '';
 $account_avatar_url    = ! empty( $dashboard_welcome['account_avatar_url'] ) ? (string) $dashboard_welcome['account_avatar_url'] : '';
 $account_initials      = ! empty( $dashboard_welcome['account_initials'] ) ? (string) $dashboard_welcome['account_initials'] : 'D';
@@ -410,7 +411,7 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
 
         $required_key  = $get_required_extension_key( $extension_key, $extension_base );
         $is_required   = '' !== $required_key;
-        $status        = $has_update ? 'update installed active' : ( $is_active ? 'active installed' : 'installed' );
+        $status        = $has_update ? ( $is_active ? 'update installed active' : 'update installed' ) : ( $is_active ? 'active installed' : 'installed' );
         $status_label  = $has_update ? $get_update_status_label( $update_version ) : ( $is_active ? __( 'Active', 'directorist' ) : __( 'Installed', 'directorist' ) );
         $primary       = $has_update
             ? [
@@ -523,6 +524,7 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                 'key'         => 'extension-installed-' . $extension_base,
                 'type'        => 'extension',
                 'status'      => $status,
+                'isActive'    => $is_active,
                 'name'        => $name,
                 'version'     => $version,
                 'description' => $description,
@@ -591,7 +593,7 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
         }
         $name        = $product['title'] ?? $product['name'] ?? $extension_key;
         $description = $product['description'] ?? '';
-        $is_purchased = ! empty( $extension['purchased'] );
+        $can_install = ! empty( $extension['download_link'] ) && ( ! empty( $extension['skip_licencing'] ) || ( ! empty( $extension['license'] ) && ! empty( $extension['item_id'] ) ) );
         $required_key = $get_required_extension_key( $extension_key );
         $is_required  = '' !== $required_key;
         $badges       = $get_product_badges( $product );
@@ -605,24 +607,26 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
             [
                 'key'         => 'extension-subscription-' . $extension_key,
                 'type'        => 'extension',
-                'status'      => $is_required ? 'required not-installed' : 'not-installed',
+                'status'      => $can_install ? ( $is_required ? 'required not-installed' : 'not-installed' ) : ( $is_required ? 'marketplace required not-installed' : 'marketplace not-installed' ),
                 'name'        => $name,
                 'description' => $description,
                 'image'       => $get_image( $product ),
                 'badges'      => $badges,
-                'statusLabel' => $is_required ? __( 'Required', 'directorist' ) : __( 'Not installed', 'directorist' ),
-                'primary'     => [
-                    'label' => $is_beta ? __( 'Install Beta', 'directorist' ) : __( 'Install', 'directorist' ),
-                    'class' => 'directorist-te-btn directorist-te-btn--primary file-install-btn',
-                    'attrs' => [
-                        'data-type' => 'plugin',
-                        'data-key'  => $extension_key,
-                    ],
-                    'icon'  => 'la la-download',
-                ],
-                'details'     => $is_purchased ? $get_details_action( $product ) : null,
+                'statusLabel' => $can_install ? ( $is_required ? __( 'Required', 'directorist' ) : __( 'Not installed', 'directorist' ) ) : ( $is_required ? __( 'Required purchase', 'directorist' ) : __( 'Marketplace', 'directorist' ) ),
+                'primary'     => $can_install
+                    ? [
+                        'label' => $is_beta ? __( 'Install Beta', 'directorist' ) : __( 'Install', 'directorist' ),
+                        'class' => 'directorist-te-btn directorist-te-btn--primary file-install-btn',
+                        'attrs' => [
+                            'data-type' => 'plugin',
+                            'data-key'  => $extension_key,
+                        ],
+                        'icon'  => 'la la-download',
+                    ]
+                    : $get_details_action( $product ),
+                'details'     => $can_install ? $get_details_action( $product ) : null,
                 'menu'        => [],
-                'bulk'        => $get_bulk_control( 'directorist-te-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ),
+                'bulk'        => $can_install ? $get_bulk_control( 'directorist-te-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ) : null,
             ]
         );
     }
@@ -661,12 +665,7 @@ if ( $is_logged_in && ! empty( $args['required_extensions_list'] ) && is_array( 
                         ],
                         'icon'  => 'la la-download',
                     ]
-                    : [
-                        'label'    => __( 'Get It Now', 'directorist' ),
-                        'href'     => $get_link( $product ),
-                        'class'    => 'directorist-te-btn directorist-te-btn--secondary',
-                        'external' => true,
-                    ],
+                    : $get_details_action( $product ),
                 'details'     => $is_purchased ? $get_details_action( $product ) : null,
                 'menu'        => [],
                 'bulk'        => $is_purchased ? $get_bulk_control( 'directorist-te-required-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ) : null,
@@ -853,7 +852,58 @@ $dependency_rows = array_values(
     )
 );
 
-$notification_count = $total_updates + $required_rows + count( $dependency_rows );
+$integration_recommendations = [];
+if ( $is_logged_in ) {
+    foreach ( $site_integration_signals as $extension_key => $companion_name ) {
+        if ( ! is_string( $extension_key ) || ! is_scalar( $companion_name ) || '' === trim( (string) $companion_name ) ) {
+            continue;
+        }
+
+        $extension_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_key );
+        $lookup_keys     = array_filter( [ $extension_key, $extension_alias ] );
+
+        foreach ( $rows as $row ) {
+            if ( 'extension' !== ( $row['type'] ?? '' ) ) {
+                continue;
+            }
+
+            $row_key = (string) ( $row['key'] ?? '' );
+            if ( ! preg_match( '/^extension-(?:installed|subscription|required|promo)-(.+)$/', $row_key, $matches ) ) {
+                continue;
+            }
+
+            $row_extension = strtok( $matches[1], '/' );
+            if ( ! in_array( $row_extension, $lookup_keys, true ) ) {
+                continue;
+            }
+
+            if ( ! empty( $row['isActive'] ) ) {
+                break;
+            }
+
+            // A prerequisite warning already points to this installed row.
+            if ( 'warning' === ( $row['noticeType'] ?? '' ) && ! empty( $row['notice'] ) ) {
+                break;
+            }
+
+            $action_label = $row['primary']['label'] ?? '';
+            if ( ! is_scalar( $action_label ) || '' === trim( (string) $action_label ) ) {
+                break;
+            }
+
+            $integration_recommendations[] = [
+                'key'       => $row_key,
+                'name'      => $row['name'],
+                'companion' => (string) $companion_name,
+                'action'    => (string) $action_label,
+                'status'    => false !== strpos( (string) $row['status'], 'installed' ) && false === strpos( (string) $row['status'], 'not-installed' ) ? 'installed' : 'not-installed',
+            ];
+            break;
+        }
+    }
+}
+
+$notification_count = $total_updates + $required_rows + count( $dependency_rows ) + count( $integration_recommendations );
 ?>
 
 <div
@@ -1003,6 +1053,40 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                                             <span class="directorist-te-notification-item__content">
                                                 <strong><?php echo esc_html( $dependency_row['name'] ); ?></strong>
                                                 <span><?php echo esc_html( $dependency_row['notice'] ); ?></span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endforeach; ?>
+
+                                    <?php foreach ( $integration_recommendations as $recommendation ) : ?>
+                                        <button
+                                            type="button"
+                                            class="directorist-te-notification-item"
+                                            data-notification-type="extension"
+                                            data-notification-status="<?php echo esc_attr( $recommendation['status'] ); ?>"
+                                            data-notification-target="directorist-te-row-<?php echo esc_attr( sanitize_html_class( $recommendation['key'] ) ); ?>"
+                                        >
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--recommendation" aria-hidden="true"><i class="la la-lightbulb-o"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: %s: Directorist integration name. */
+                                                        esc_html__( 'Recommended: %s', 'directorist' ),
+                                                        esc_html( $recommendation['name'] )
+                                                    );
+                                                    ?>
+                                                </strong>
+                                                <span>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: 1: Detected plugin or theme. 2: Action available for the Directorist integration. */
+                                                        esc_html__( '%1$s detected on this site. Next step: %2$s.', 'directorist' ),
+                                                        esc_html( $recommendation['companion'] ),
+                                                        esc_html( $recommendation['action'] )
+                                                    );
+                                                    ?>
+                                                </span>
                                             </span>
                                             <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
                                         </button>

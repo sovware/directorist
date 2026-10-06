@@ -227,6 +227,14 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - The predefined Post Your Need directory profile remains supported and recommends other available products. Legacy detection for already-installed Post Your Need extension copies remains untouched for customer compatibility.
 - Automatic rotation, manual switching, card-window changes, and interaction-based pausing are page-local interactions and make no remote request.
 
+## Site Integration Bell Recommendations
+
+- The connected page resolves active companion plugin/theme signals locally through `ATBDP_Extensions::get_site_integration_signals()` and matches them to existing product rows. The bell item reuses the Add-ons filter and row-focus flow; it never starts an install, activation, or purchase.
+- Elementor, Divi, Bricks, supported Oxygen, WooCommerce Pricing Plans, WPML, BuddyBoss, BuddyPress, GamiPress, and supported HelpGent are direct signals. BuddyBoss suppresses the overlapping BuddyPress suggestion.
+- Gutenberg needs a Directorist block on a configured Directorist page. Digital Marketplace needs both WooCommerce and a marketplace directory. Mailchimp has no reliable core companion signal; a verified local integration may add one through `directorist_site_integration_signals`.
+- Product rows still resolve the action: installed/inactive -> Activate or existing prerequisite/update action; entitled/uninstalled -> Install; no usable install entitlement -> View Details. Active integrations and installed rows already carrying prerequisite warnings do not create recommendation items.
+- Signal detection, account state, entitlements, and bell counts are recomputed on each canonical page load. Do not persist runtime snapshots in this reference.
+
 ## Compatibility Rules Preserved
 
 - Page slug remains `atbdp-extension`.

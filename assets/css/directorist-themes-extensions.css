@@ -406,6 +406,11 @@
   color: var(--accent);
 }
 
+.directorist-te-notification-item__icon--recommendation {
+  background: var(--info-tint);
+  color: var(--info);
+}
+
 .directorist-te-notification-item__content {
   display: flex;
   min-width: 0;

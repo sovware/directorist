@@ -90,6 +90,110 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         /**
+         * Find integrations relevant to tools already in use on this site.
+         * This is a read-only signal; entitlement and installation are resolved by the page.
+         *
+         * @return array<string, string> Extension slug to detected companion name.
+         */
+        public function get_site_integration_signals() {
+            if ( ! function_exists( 'get_plugins' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+
+            $active_plugins = [];
+            foreach ( array_keys( get_plugins() ) as $plugin_base ) {
+                if ( is_plugin_active( $plugin_base ) ) {
+                    $active_plugins[ strtok( $plugin_base, '/' ) ]      = true;
+                    $active_plugins[ basename( $plugin_base, '.php' ) ] = true;
+                }
+            }
+
+            $signals = [];
+            foreach ( self::get_extension_companion_plugins() as $extension => $companions ) {
+                // WooCommerce alone does not establish that this site needs a marketplace.
+                if ( 'directorist-digital-marketplace' === $extension ) {
+                    continue;
+                }
+
+                foreach ( $companions as $plugin_slug => $label ) {
+                    if ( isset( $active_plugins[ $plugin_slug ] ) ) {
+                        $signals[ $extension ] = $label;
+                        break;
+                    }
+                }
+            }
+
+            $theme = wp_get_theme();
+            if ( defined( 'ET_BUILDER_PLUGIN_ACTIVE' ) || 'Divi' === $theme->get_template() || 'Divi' === $theme->parent_theme ) {
+                $signals['directorist-divi-integration'] = 'Divi';
+            }
+            if ( 'bricks' === $theme->get_template() && ( ! defined( 'ATBDP_VERSION' ) || version_compare( ATBDP_VERSION, '8.0.0', '>=' ) ) ) {
+                $signals['addonskit-for-bricks'] = 'Bricks';
+            }
+            if ( class_exists( '\\OxyEl', false ) || ( defined( 'BREAKDANCE_MODE' ) && 'oxygen' === BREAKDANCE_MODE ) ) {
+                $signals['directorist-oxygen-integration'] = 'Oxygen Builder';
+            }
+            if ( isset( $signals['directorist-helpgent-integration'] ) && defined( 'HELPGENT_DEPENDENCY_VERSION' ) && version_compare( HELPGENT_DEPENDENCY_VERSION, '3.0.0', '<' ) ) {
+                unset( $signals['directorist-helpgent-integration'] );
+            }
+            if ( isset( $signals['directorist-buddyboss-integration'] ) ) {
+                unset( $signals['directorist-buddypress-integration'] );
+            }
+
+            // Block-editor availability is universal; require actual Directorist block usage.
+            if ( function_exists( 'parse_blocks' ) && function_exists( 'get_directorist_option' ) ) {
+                foreach ( [ 'all_listing_page', 'search_listing', 'search_result_page', 'add_listing_page', 'user_dashboard', 'all_categories_page' ] as $page_option ) {
+                    $page_id = absint( get_directorist_option( $page_option ) );
+                    $page    = $page_id ? get_post( $page_id ) : null;
+                    if ( $page && 'page' === $page->post_type && self::contains_directorist_block( parse_blocks( $page->post_content ) ) ) {
+                        $signals['directorist-gutenberg'] = __( 'Directorist blocks', 'directorist' );
+                        break;
+                    }
+                }
+            }
+
+            // A marketplace directory plus WooCommerce is a stronger signal than WooCommerce alone.
+            if ( isset( $active_plugins['woocommerce'] ) && function_exists( 'directory_types' ) ) {
+                $directories = directory_types();
+                if ( is_array( $directories ) ) {
+                    foreach ( $directories as $directory ) {
+                        if ( $directory instanceof WP_Term && preg_match( '/(^|[-_ ])marketplace($|[-_ ])/', (string) $directory->slug ) ) {
+                            $signals['directorist-digital-marketplace'] = __( 'WooCommerce and your marketplace directory', 'directorist' );
+                            break;
+                        }
+                    }
+                }
+            }
+
+            /**
+             * Add integrations with a verified local signal, such as a configured Mailchimp workflow.
+             *
+             * @param array<string, string> $signals        Detected integrations and companion labels.
+             * @param array<string, bool>   $active_plugins Active plugin slugs.
+             */
+            return apply_filters( 'directorist_site_integration_signals', $signals, $active_plugins );
+        }
+
+        /**
+         * Check nested block content for a Directorist block.
+         *
+         * @param array $blocks Parsed WordPress blocks.
+         * @return bool
+         */
+        private static function contains_directorist_block( $blocks ) {
+            foreach ( $blocks as $block ) {
+                if ( 0 === strpos( (string) ( $block['blockName'] ?? '' ), 'directorist/' ) ) {
+                    return true;
+                }
+                if ( ! empty( $block['innerBlocks'] ) && self::contains_directorist_block( $block['innerBlocks'] ) ) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /**
          * Get unmet prerequisites for an installed extension at the time of the request.
          * Plugin headers cover WordPress dependencies; the map covers integrations whose
          * current releases only check for a companion at runtime.
@@ -4257,6 +4361,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 'extension_list'                        => $this->extensions,
                 'theme_list'                            => $this->themes,
+                'site_integration_signals'              => $is_logged_in ? $this->get_site_integration_signals() : [],
 
                 'settings_url'                          => $settings_url,
                 'dashboard_welcome'                     => $this->get_dashboard_welcome_data( $extensions_overview, $themes_overview, $is_logged_in ),

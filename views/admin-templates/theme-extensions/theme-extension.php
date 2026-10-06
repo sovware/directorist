@@ -582,8 +582,13 @@ if ( $is_logged_in && ! empty( $args['current_active_theme_info'] ) && is_array(
 
 if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) && is_array( $args['extensions_available_in_subscriptions'] ) ) {
     foreach ( $args['extensions_available_in_subscriptions'] as $extension_key => $extension ) {
-        $extension   = is_array( $extension ) ? $extension : [];
-        $product     = array_merge( $get_extension_product( $extension_key ), $extension );
+        $extension       = is_array( $extension ) ? $extension : [];
+        $catalog_product = $get_extension_product( $extension_key );
+        $product         = array_merge( $catalog_product, $extension );
+        // Stored subscription data may still contain an outdated remote thumbnail URL.
+        if ( in_array( $extension_key, [ 'directorist-elementor', 'directorist-gutenberg' ], true ) && ! empty( $catalog_product['thumbnail'] ) ) {
+            $product['thumbnail'] = $catalog_product['thumbnail'];
+        }
         $name        = $product['title'] ?? $product['name'] ?? $extension_key;
         $description = $product['description'] ?? '';
         $is_purchased = ! empty( $extension['purchased'] );

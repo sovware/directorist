@@ -385,6 +385,22 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_extensions() {
             return [
+                'directorist-elementor' => [
+                    'name'        => 'Directorist Elementor Integration',
+                    'description' => __( 'Connect Directorist with Elementor to build responsive directory pages, listings, archives, profiles, and searches visually.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-elementor/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-elementor-integration.jpg',
+                    'active'      => true,
+                    'item_id'     => 372388,
+                ],
+                'directorist-gutenberg' => [
+                    'name'        => 'Directorist Gutenberg Integration',
+                    'description' => __( 'Build directory layouts with dynamic Directorist data, customizable blocks, and intuitive browsing without custom code.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-gutenberg/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-gutenberg-integration.png',
+                    'active'      => true,
+                    'item_id'     => 372387,
+                ],
                 'directorist-pay-per-lead' => [
                     'name'        => 'Directorist Pay Per Lead',
                     'description' => __( 'Monetize listing inquiries by charging owners to unlock qualified leads.', 'directorist' ),

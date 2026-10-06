@@ -72,6 +72,24 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         }
 
         /**
+         * Companion plugins for integrations whose dependency headers may be absent.
+         *
+         * @return array<string, array<string, string>> Extension slug to plugin slug and label.
+         */
+        public static function get_extension_companion_plugins() {
+            return [
+                'directorist-elementor'                 => [ 'elementor' => 'Elementor' ],
+                'directorist-helpgent-integration'      => [ 'helpgent' => 'HelpGent' ],
+                'directorist-woocommerce-pricing-plans' => [ 'woocommerce' => 'WooCommerce' ],
+                'directorist-wpml-integration'          => [ 'sitepress-multilingual-cms' => 'WPML' ],
+                'directorist-buddyboss-integration'     => [ 'buddyboss-platform' => 'BuddyBoss Platform' ],
+                'directorist-buddypress-integration'    => [ 'buddypress' => 'BuddyPress' ],
+                'directorist-gamipress-integration'     => [ 'gamipress' => 'GamiPress' ],
+                'directorist-digital-marketplace'       => [ 'woocommerce' => 'WooCommerce' ],
+            ];
+        }
+
+        /**
          * Get unmet prerequisites for an installed extension at the time of the request.
          * Plugin headers cover WordPress dependencies; the map covers integrations whose
          * current releases only check for a companion at runtime.
@@ -95,16 +113,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             $plugin_data  = is_array( $plugin_data ) ? $plugin_data : $installed_plugins[ $plugin_base ];
             $extension    = strtok( $plugin_base, '/' );
-            $companions   = [
-                'directorist-elementor'                 => [ 'elementor' => 'Elementor' ],
-                'directorist-helpgent-integration'      => [ 'helpgent' => 'HelpGent' ],
-                'directorist-woocommerce-pricing-plans' => [ 'woocommerce' => 'WooCommerce' ],
-                'directorist-wpml-integration'          => [ 'sitepress-multilingual-cms' => 'WPML' ],
-                'directorist-buddyboss-integration'     => [ 'buddyboss-platform' => 'BuddyBoss Platform' ],
-                'directorist-buddypress-integration'    => [ 'buddypress' => 'BuddyPress' ],
-                'directorist-gamipress-integration'     => [ 'gamipress' => 'GamiPress' ],
-                'directorist-digital-marketplace'       => [ 'woocommerce' => 'WooCommerce' ],
-            ];
+            $companions   = self::get_extension_companion_plugins();
             $requirements = $companions[ $extension ] ?? [];
             $header       = ! empty( $plugin_data['RequiresPlugins'] ) ? (string) $plugin_data['RequiresPlugins'] : '';
 
@@ -2882,6 +2891,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $outdated_plugins_key = array_keys( $outdated_plugins );
 
             $official_extensions = is_array( $this->extensions ) ? array_keys( $this->extensions ) : array();
+            $known_integrations  = array_keys( self::get_extension_companion_plugins() );
 
             if ( ! is_array( $official_extensions ) ) {
                 $official_extensions = array();
@@ -2904,7 +2914,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 $folder_base = strtok( $plugin_base, '/' );
 
-                if ( in_array( $folder_base, $official_extensions, true ) || in_array( $this->get_extension_alias_key( $folder_base ), $official_extensions, true ) ) {
+                if ( in_array( $folder_base, $official_extensions, true ) || in_array( $this->get_extension_alias_key( $folder_base ), $official_extensions, true ) || in_array( $folder_base, $known_integrations, true ) ) {
                     $installed_extensions[ $plugin_base ] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {

@@ -1837,6 +1837,9 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                             <span class="screen-reader-text"><?php esc_html_e( 'Search themes and extensions', 'directorist' ); ?></span>
                             <i class="la la-search" aria-hidden="true"></i>
                             <input type="search" class="directorist-te-search-input" placeholder="<?php esc_attr_e( 'Search add-ons...', 'directorist' ); ?>">
+                            <?php if ( $is_logged_in ) : ?>
+                                <kbd class="directorist-te-search-shortcut" aria-hidden="true" hidden><i class="la la-keyboard-o"></i><span class="directorist-te-search-shortcut-label">⌘ F</span></kbd>
+                            <?php endif; ?>
                         </label>
                         <span class="directorist-te-count"><?php printf( esc_html( _n( '%d add-on', '%d add-ons', $total_rows, 'directorist' ) ), absint( $total_rows ) ); ?></span>
                     </div>

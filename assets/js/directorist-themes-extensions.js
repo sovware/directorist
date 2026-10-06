@@ -2312,6 +2312,48 @@
     updateFilters();
   });
 
+  const catalogSearch = $(
+    ".directorist-te-page--connected .directorist-te-search-input",
+  ).first();
+
+  if (catalogSearch.length) {
+    const isMac = /Mac|iPhone|iPad|iPod/i.test(
+      navigator.userAgentData?.platform || navigator.platform || "",
+    );
+
+    $(".directorist-te-search-shortcut-label").text(isMac ? "⌘ F" : "Ctrl F");
+    $(".directorist-te-search-shortcut").prop("hidden", false);
+    catalogSearch.attr("aria-keyshortcuts", isMac ? "Meta+F" : "Control+F");
+
+    $(document).on("keydown.directoristTeSearch", function (event) {
+      const target = $(event.target);
+      const isEditable =
+        target.is("input, textarea, select") ||
+        target.closest(
+          '[contenteditable], [role="textbox"]',
+        ).length;
+
+      if (
+        state.view !== "addons" ||
+        !catalogSearch.is(":visible") ||
+        event.key.toLowerCase() !== "f" ||
+        event.altKey ||
+        event.shiftKey ||
+        (isMac
+          ? !event.metaKey || event.ctrlKey
+          : !event.ctrlKey || event.metaKey) ||
+        (isEditable && event.target !== catalogSearch[0]) ||
+        $('[aria-modal="true"]:visible').length
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      catalogSearch[0].focus();
+      catalogSearch[0].select();
+    });
+  }
+
   $(".directorist-te-empty-reset").on("click", function () {
     resetCatalogFilters();
   });

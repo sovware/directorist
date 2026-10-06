@@ -34,6 +34,7 @@ Default behavior is local-first:
 - Filters can modify these lists:
   - `atbdp_extension_list`
   - `atbdp_theme_list`
+- `Directorist\Core\API::get_product_badges()` overlays badge metadata from `v1/get-remote-products` onto matching local products before these filters run. This request has a three-second timeout, a one-hour badge cache (`directorist_product_badges`), and a five-minute failure cache. It does not replace local product copy or subscription data.
 
 Optional remote catalog path:
 
@@ -45,7 +46,7 @@ Optional remote catalog path:
 - Cache duration: `30 * DAY_IN_SECONDS`
 - Empty remote response falls back to local defaults.
 
-Use the product catalog for product names, descriptions, thumbnails, product links, demo links, active promo flags, item IDs, optional plugin base overrides, and future optional product badge/status metadata. Do not store fetched catalog output in docs.
+Use the product catalog for product names, descriptions, thumbnails, product links, demo links, active promo flags, item IDs, optional plugin base overrides, and badge/status metadata. Do not store fetched catalog output in docs.
 
 Product copy/source policy for rewrite:
 

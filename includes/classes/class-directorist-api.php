@@ -138,6 +138,64 @@ class API {
     }
 
     /**
+     * Get current product badges without relying on the long-lived product catalog cache.
+     *
+     * @return array Product badges grouped by extension and theme slug.
+     */
+    public static function get_product_badges() {
+        $cached_badges = get_transient( 'directorist_product_badges' );
+
+        if ( false !== $cached_badges && is_array( $cached_badges ) ) {
+            return $cached_badges;
+        }
+
+        $request_args            = static::get_request_args();
+        $request_args['timeout'] = 3;
+        $response                = wp_remote_get( static::URL . 'v1/get-remote-products', $request_args );
+
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+            set_transient( 'directorist_product_badges', [], 5 * MINUTE_IN_SECONDS );
+            return [];
+        }
+
+        $products = json_decode( wp_remote_retrieve_body( $response ), true );
+
+        if ( ! is_array( $products ) ) {
+            set_transient( 'directorist_product_badges', [], 5 * MINUTE_IN_SECONDS );
+            return [];
+        }
+
+        $product_badges = [
+            'extensions' => [],
+            'themes'     => [],
+        ];
+
+        foreach ( array_keys( $product_badges ) as $group ) {
+            if ( empty( $products[ $group ] ) || ! is_array( $products[ $group ] ) ) {
+                continue;
+            }
+
+            foreach ( $products[ $group ] as $slug => $product ) {
+                if ( ! is_string( $slug ) || ! is_array( $product ) ) {
+                    continue;
+                }
+
+                $badges = $product['badges'] ?? $product['badge'] ?? [];
+
+                if ( empty( $badges ) ) {
+                    continue;
+                }
+
+                $product_badges[ $group ][ sanitize_key( $slug ) ] = $badges;
+            }
+        }
+
+        set_transient( 'directorist_product_badges', $product_badges, HOUR_IN_SECONDS );
+
+        return $product_badges;
+    }
+
+    /**
      * @return array
      */
     protected static function get_request_args() {

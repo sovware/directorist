@@ -365,8 +365,25 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $this->extensions = empty( $this->extensions ) ? static::get_default_extensions() : $this->extensions;
                 $this->themes     = empty( $this->themes ) ? static::get_default_themes() : $this->themes;
             } else {
-                $this->extensions = apply_filters( 'atbdp_extension_list', static::get_default_extensions() );
-                $this->themes     = apply_filters( 'atbdp_theme_list', static::get_default_themes() );
+                $this->extensions = static::get_default_extensions();
+                $this->themes     = static::get_default_themes();
+
+                $product_badges = API::get_product_badges();
+
+                foreach ( $product_badges['extensions'] ?? [] as $slug => $badges ) {
+                    if ( isset( $this->extensions[ $slug ] ) ) {
+                        $this->extensions[ $slug ]['badges'] = $badges;
+                    }
+                }
+
+                foreach ( $product_badges['themes'] ?? [] as $slug => $badges ) {
+                    if ( isset( $this->themes[ $slug ] ) ) {
+                        $this->themes[ $slug ]['badges'] = $badges;
+                    }
+                }
+
+                $this->extensions = apply_filters( 'atbdp_extension_list', $this->extensions );
+                $this->themes     = apply_filters( 'atbdp_theme_list', $this->themes );
             }
         }
 

@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 8.10.2
+Stable tag: 8.10.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -300,12 +300,7 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
-= 8.10.2 - Oct 6, 2026 =
-
-**Fixed**
-- Corrected the WordPress.org stable tag so the latest release is served properly.
-
-= 8.10.1 - Oct 6, 2026 =
+= 8.10.3 - Oct 6, 2026 =
 
 **Security**
 - Hardened listing tag submission and taxonomy dropdown rendering to prevent stored XSS. (#3056)

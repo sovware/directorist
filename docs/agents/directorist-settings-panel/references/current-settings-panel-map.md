@@ -1,6 +1,6 @@
 # Current Settings Panel Map
 
-Last reviewed: 2026-06-04
+Last reviewed: 2026-10-06
 
 ## Main Entry Points
 
@@ -43,6 +43,7 @@ Last reviewed: 2026-06-04
 - Sidebar navigation depends on `layouts` and active menu/submenu state.
 - Deep links use URL hashes in the pattern `menu__submenu__section__field`.
 - Search suggestions are built from cached field labels and jump to layout paths prepared by the store.
+- The sidebar search input is rendered by `assets/src/js/admin/vue/modules/Sidebar_Navigation.vue`. The page-scoped `assets/js/directorist-settings-search-shortcut.js` adds a visible keyboard hint and focuses/selects that existing input with ⌘F or Ctrl+F after the `directorist:settings-panel:mounted` event. It does not alter the Vue search query or saved options.
 - Field rendering is handled by globally registered Vue modules under `assets/src/js/admin/vue/modules`.
 - Existing field types and theme variants should be reused before adding new components.
 

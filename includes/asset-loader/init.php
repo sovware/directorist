@@ -278,9 +278,11 @@ class Asset_Loader {
             do_action( 'directorist_builder_edit_assets_enqueued', $hook_suffix );
         } elseif ( Helper::is_admin_page( 'settings' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );
+            wp_enqueue_style( 'directorist-settings-search-shortcut', DIRECTORIST_ASSETS . 'css/directorist-settings-search-shortcut.css', [ 'directorist-admin-style' ], ATBDP_VERSION );
             wp_enqueue_style( 'directorist-unicons' );
             wp_enqueue_script( 'directorist-icon-picker' );
             wp_enqueue_script( 'directorist-settings-manager' );
+            wp_enqueue_script( 'directorist-settings-search-shortcut', DIRECTORIST_ASSETS . 'js/directorist-settings-search-shortcut.js', [ 'directorist-settings-manager' ], ATBDP_VERSION, true );
             wp_enqueue_media();
         } elseif ( Helper::is_admin_page( 'extensions' ) ) {
             wp_enqueue_style( 'directorist-admin-style' );

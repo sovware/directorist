@@ -433,6 +433,13 @@
   line-height: 1.4;
 }
 
+.directorist-te-notification-item__content .directorist-te-notification-item__action {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+}
+
 .directorist-te-notification-item__arrow {
   margin-left: auto;
   color: var(--faint);

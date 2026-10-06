@@ -1083,7 +1083,7 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                                                         /* translators: 1: Detected plugin or theme. 2: Action available for the Directorist integration. */
                                                         esc_html__( '%1$s detected on this site. Next step: %2$s.', 'directorist' ),
                                                         esc_html( $recommendation['companion'] ),
-                                                        esc_html( $recommendation['action'] )
+                                                        '<strong class="directorist-te-notification-item__action">' . esc_html( $recommendation['action'] ) . '</strong>'
                                                     );
                                                     ?>
                                                 </span>

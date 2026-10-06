@@ -197,8 +197,10 @@ export default {
         this.groupData?.type === "general_group" ||
         this.groupData?.id === "basic-search-form" ||
         this.groupData?.id === "basic" ||
+        this.groupData?.id === "search-bar" ||
         this.groupData?.id === "advanced-search-form" ||
-        this.groupData?.id === "advanced";
+        this.groupData?.id === "advanced" ||
+        this.groupData?.id === "search-filter";
 
       return expandStatus;
     },

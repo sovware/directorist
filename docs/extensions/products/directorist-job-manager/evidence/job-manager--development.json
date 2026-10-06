@@ -1,0 +1,1873 @@
+{
+  "snapshot": {
+    "key": "job-manager--development",
+    "repo": "directorist-job-manager",
+    "branch": "development",
+    "commit": "562615e4ede94f2c41c79c02e15035f7b9e64a41",
+    "date": "2026-06-28T11:15:00Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-job-manager__development",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "c2f74a0bb6a05a7fe9ea97bfb214cb7b0b746e3b0dd9ddb0694852c26dd71bef",
+      "bytes": 94,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "b6cb8af72c9f01bdf025f0940ca207f2d1103d5784304c3b852be0e2a9928918",
+      "bytes": 27,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-job-manager.php": {
+      "sha256": "81c1f1457039d929cd372f61b1d64b3272976e17792db347ab25677fac30672b",
+      "bytes": 4006,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Job_Manager",
+          "line": 39,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DIRJOB_BASE_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'DIRJOB_BASE_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 33,
+          "args": [
+            "'ATBDP_DIRJOB_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 37,
+          "args": [
+            "'Directorist_Job_Manager'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'load_textdomain' )"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 58,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 60,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 65,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 83,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 104,
+          "args": [
+            "'plugins_loaded'",
+            "function () { require_once ( ABSPATH . '/wp-admin/includes/plugin.php' ); if ( ! is_plugin_active( 'directorist/directorist-base.php' ) ) { deactivate_plugins( 'directorist-job-manager/directorist-job-manager.php' ); require_once DIRJOB_BAS"
+          ]
+        },
+        {
+          "name": "is_plugin_active",
+          "line": 107,
+          "args": [
+            "'directorist/directorist-base.php'"
+          ]
+        }
+      ]
+    },
+    "gulpfile.js": {
+      "sha256": "b60b0ad25783a1358643b9e754a1c2b6c3543821fc5e3bb08d6fc777a994f909",
+      "bytes": 994,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "51b8c62c03a3d605c4660330e427bb89e5b8521de6a816ce10e87cb84a68426e",
+      "bytes": 251,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "todo.txt": {
+      "sha256": "068197dff62f630efba2d751880a81a17d10d1099a3ebfc9904abeb55f2d2fbb",
+      "bytes": 622,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/admin.css": {
+      "sha256": "6168e3a55e24841447dab01b55fa46c25fe442a9da272b98c14506c6093a3006",
+      "bytes": 2901,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "1a0028b86fbf5371d477509d5e97f6a6f86419c35dbf78a411aa79f2ea8c2602",
+      "bytes": 5817,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/briefcase-solid.svg": {
+      "sha256": "66ea7413dc9bf67701d6b90f0a3bfaf3293936320a4a28ab056dca94354c890d",
+      "bytes": 515,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/clock.svg": {
+      "sha256": "cd7444c0363d37a0aceffd91d301fb29e0479463868b9d8ca9a97df948c13574",
+      "bytes": 399,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/globe-solid.svg": {
+      "sha256": "dec569584b2206f304926c61500d0a0d4718bccaa43927c195a8c78eb1d8fc10",
+      "bytes": 1253,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/map-marker-solid.svg": {
+      "sha256": "2b46f86c5d63ac3d594bb02962030a5d7e7a3e3786be6a46d121df0c1548d6b3",
+      "bytes": 1028,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/money-bill-wave-solid.svg": {
+      "sha256": "23c165016f04339f2c4a179c9c34b9935abb959e29b7c8ca19f30dfb0e8e67d6",
+      "bytes": 2124,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/paperclip-icon-vector-03.svg": {
+      "sha256": "e12b2a2158792af1d8c3ad3551976cc01308f95c60ec5bff21cf3fea4b8b1289",
+      "bytes": 844,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/icons/user-check-solid.svg": {
+      "sha256": "820254a131eb76724cd9003493622d25f4f3139d18fc9bbdd210536fcd7a3b87",
+      "bytes": 1034,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/admin.js": {
+      "sha256": "3346f89e2baad68c3c2f5d306347bcc19bbaa210ce081ddf640b00a3e137eec2",
+      "bytes": 5392,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "addNewElement",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "FormField_Wrap",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "currentItems",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "ID",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "iconBindingElement",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "e",
+          "kind": "JS",
+          "line": 13
+        },
+        {
+          "name": "handles",
+          "kind": "JS",
+          "line": 29
+        },
+        {
+          "name": "atbdp_do_ajax",
+          "kind": "JS",
+          "line": 30
+        },
+        {
+          "name": "n",
+          "kind": "JS",
+          "line": 37
+        },
+        {
+          "name": "id",
+          "kind": "JS",
+          "line": 68
+        },
+        {
+          "name": "elementToRemove",
+          "kind": "JS",
+          "line": 69
+        },
+        {
+          "name": "e",
+          "kind": "JS",
+          "line": 92
+        },
+        {
+          "name": "success",
+          "kind": "JS",
+          "line": 137
+        },
+        {
+          "name": "error",
+          "kind": "JS",
+          "line": 140
+        },
+        {
+          "name": "dirjob_salary_1st",
+          "kind": "JS",
+          "line": 158
+        },
+        {
+          "name": "dirjob_salary_2nd",
+          "kind": "JS",
+          "line": 159
+        },
+        {
+          "name": "mixValue",
+          "kind": "JS",
+          "line": 160
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/jquery.repeater.js": {
+      "sha256": "43b993504639efad1e79af260a1ced7521aeaa0dc126e55fc3146034181858ab",
+      "bytes": 27218,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "5e72c2e7ecb463980cf7d29430b1f19914781b8b05b8a8247c344368c4bf4ffe",
+      "bytes": 5087,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "addNewElement",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "FormField_Wrap",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "currentItems",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "ID",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "iconBindingElement",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "e",
+          "kind": "JS",
+          "line": 13
+        },
+        {
+          "name": "handles",
+          "kind": "JS",
+          "line": 29
+        },
+        {
+          "name": "atbdp_do_ajax",
+          "kind": "JS",
+          "line": 30
+        },
+        {
+          "name": "n",
+          "kind": "JS",
+          "line": 37
+        },
+        {
+          "name": "id",
+          "kind": "JS",
+          "line": 68
+        },
+        {
+          "name": "elementToRemove",
+          "kind": "JS",
+          "line": 69
+        },
+        {
+          "name": "e",
+          "kind": "JS",
+          "line": 92
+        },
+        {
+          "name": "success",
+          "kind": "JS",
+          "line": 140
+        },
+        {
+          "name": "error",
+          "kind": "JS",
+          "line": 144
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/sweetalert.min.js": {
+      "sha256": "f1de35952d4e269b45e3a6c390445bf2a3b4b643b69a5de4bb63790e7ca1d1b9",
+      "bytes": 16978,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/class-ajax-handler.php": {
+      "sha256": "31f862daa75d7facb2324e3e720929776e3b0acfb8b9d88379ff396525db8202",
+      "bytes": 1199,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Ajax_Handler",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "job_manager_form_field_handler",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dirjob_form_submission",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'wp_ajax_job_manager_form_field_handler'",
+            "array( $this, 'job_manager_form_field_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'wp_ajax_nopriv_job_manager_form_field_handler'",
+            "array( $this, 'job_manager_form_field_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'wp_ajax_dirjob_form_submission'",
+            "array( $this, 'dirjob_form_submission' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'wp_ajax_nopriv_dirjob_form_submission'",
+            "array( $this, 'dirjob_form_submission' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-file-handler.php": {
+      "sha256": "d3902f0d964b848c46d3c90a60d1bec3de68fc5c2e47fa036b2dd6c43c193acb",
+      "bytes": 8082,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "File_Handler",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init_uploads",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "upload_files",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "upload_single_file",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "upload_dir",
+          "line": 97,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "maybe_add_random_dir",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "canonicalize",
+          "line": 142,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "anti_script_file_name",
+          "line": 208,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cleanup_upload_files",
+          "line": 249,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "wpcf7_rmdir_p",
+          "line": 302,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "upload_tmp_dir",
+          "line": 353,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'init'",
+            "array( $this, 'init_uploads' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'template_redirect'",
+            "array( $this, 'cleanup_upload_files' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 100,
+          "args": [
+            "'dirjob_upload_dir'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 159,
+          "args": [
+            "'blog_charset'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 173,
+          "args": [
+            "'mb_convert_kana'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 184,
+          "args": [
+            "'mb_strtolower'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 190,
+          "args": [
+            "'mb_strtoupper'"
+          ]
+        }
+      ]
+    },
+    "includes/class-form-generator.php": {
+      "sha256": "66561c2ef1c20e757cc511661e150dffb41226c0642b15d776300f2212154b85",
+      "bytes": 5325,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Form_Generator",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "text",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "email",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "url",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "number",
+          "line": 85,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "textarea",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "select",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "file",
+          "line": 111,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "placeholder",
+          "line": 120,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "includes/class-form-handler.php": {
+      "sha256": "423d71bf8af789f1c440c4abd28b49a72620317c5fc4ac99a9c00a5ea4743854",
+      "bytes": 1012,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Form_Handler",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "submit_data_process",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "includes/class-general.php": {
+      "sha256": "5a1300cb0ee72804d51524593a1cde16a9f81aa701fb382a59cf3016afbc31ec",
+      "bytes": 1072,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "General",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_job_manager_form_preview",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_post_meta",
+          "line": 28,
+          "args": [
+            "$listing_id",
+            "'_dirjob_apply_form'"
+          ]
+        }
+      ]
+    },
+    "includes/class-generate-pages.php": {
+      "sha256": "5a48d153662c9c84e755ee8e503a34b974a33ee521dacfc02d1de57349a6d25a",
+      "bytes": 3612,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Generate_Pages",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_custom_page",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_option",
+          "line": 15,
+          "args": [
+            "'atbdp_pages_version'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'wp_loaded'",
+            "array( $this, 'add_custom_page' )"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 29,
+          "args": [
+            "'DOING_AJAX'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 33,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 79,
+          "args": [
+            "$id",
+            "'_wp_page_template'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 99,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 101,
+          "args": [
+            "'atbdp_pages_version'"
+          ]
+        }
+      ]
+    },
+    "includes/class-helper.php": {
+      "sha256": "680e2d78e1919c9739867084268a91387ec997b6256e4f38b9f36de822f9c4a1",
+      "bytes": 9309,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Helper",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "field_label_template",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "field_description_template",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_template",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_salary_range",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_single_listing_quick_info_data",
+          "line": 111,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "open_position_label_placement",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_svg_icon",
+          "line": 166,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_currency_symbol",
+          "line": 183,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_date_by_wp_format",
+          "line": 189,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_apply_now_button_html",
+          "line": 193,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_pages_vl_arrays",
+          "line": 228,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_option",
+          "line": 59,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 64,
+          "args": [
+            "'directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 89,
+          "args": [
+            "'g_currency_position'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 118,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 119,
+          "args": [
+            "$listing_type",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 130,
+          "args": [
+            "$listing_id",
+            "'_dirjob_deadline'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 131,
+          "args": [
+            "$listing_id",
+            "'_dirjob_job_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 132,
+          "args": [
+            "$listing_id",
+            "'_dirjob_open_position'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 133,
+          "args": [
+            "$listing_id",
+            "'_address'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 134,
+          "args": [
+            "$listing_id",
+            "'_website'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 135,
+          "args": [
+            "$listing_id",
+            "'_dirjob_salary'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 160,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 161,
+          "args": [
+            "$listing_type",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 190,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 199,
+          "args": [
+            "'job_manager_form_preview_page'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 201,
+          "args": [
+            "$listing_id",
+            "'_dirjob_apply_form'"
+          ]
+        }
+      ]
+    },
+    "includes/class-mail-processor.php": {
+      "sha256": "121e8a4af48a38375240f4bc1bb0d7730756e3ee052a5bb9b232e27de3d6e781",
+      "bytes": 4380,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Mail_Processor",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "to",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "subject",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "body",
+          "line": 56,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_submission_keys",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "headers",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "attachments",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "beautify_message",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_the_author_meta",
+          "line": 49,
+          "args": [
+            "'user_email'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 53,
+          "args": [
+            "'email_sub_job_submission_email'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 82,
+          "args": [
+            "'email_from_name'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 82,
+          "args": [
+            "'blogname'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 83,
+          "args": [
+            "'email_from_email'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 83,
+          "args": [
+            "'admin_email'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 102,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 103,
+          "args": [
+            "'time_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 120,
+          "args": [
+            "'email_sub_job_submission_email'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 121,
+          "args": [
+            "'email_tmpl_job_submission_email'"
+          ]
+        }
+      ]
+    },
+    "includes/class-scripts.php": {
+      "sha256": "9c5b3f0b142a9d6a635d2b43f37d309fbf681784153f73f7e05d777de597753a",
+      "bytes": 8239,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Scripts",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_scripts",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_scripts",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_scripts",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "conditional_scripts",
+          "line": 76,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'admin_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'conditional_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'register_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'enqueue_scripts' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 249,
+          "args": [
+            "'add_listing_page'"
+          ]
+        }
+      ]
+    },
+    "includes/class-settings-manager.php": {
+      "sha256": "4ea7fa947333fad7afb5631a4bfcd5b17d7ce7bb19827495821fd49f60d8e2d1",
+      "bytes": 27531,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings_Manager",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_preset_widgets",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_search_form_widgets",
+          "line": 287,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_search_listings_meta_queries",
+          "line": 329,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_template",
+          "line": 390,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 454,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listing_header_layout",
+          "line": 662,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_single_listing_other_fields_widget",
+          "line": 766,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_email_settings_submenu",
+          "line": 794,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_pages_settings_fields",
+          "line": 808,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array( $this, 'atbdp_form_preset_widgets' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'directorist_search_form_widgets'",
+            "array( $this, 'directorist_search_form_widgets' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'atbdp_listing_search_query_argument'",
+            "array( $this, 'atbdp_search_listings_meta_queries' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 26,
+          "args": [
+            "'directorist_template'",
+            "array( $this, 'directorist_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'directorist_listing_header_layout'",
+            "array( $this, 'directorist_listing_header_layout' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 31,
+          "args": [
+            "'atbdp_single_listing_other_fields_widget'",
+            "array( $this, 'atbdp_single_listing_other_fields_widget' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 34,
+          "args": [
+            "'atbdp_email_settings_submenu'",
+            "array( $this, 'atbdp_email_settings_submenu' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 37,
+          "args": [
+            "'atbdp_pages_settings_fields'",
+            "array( $this, 'atbdp_pages_settings_fields' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-warning-notice.php": {
+      "sha256": "1b5235d17bb78bf2995950441ff891f57abdb5405e7258ffb109264c1eaeaaa0",
+      "bytes": 848,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Job_Manager_Warning_Notice",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_notice",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'admin_notices'",
+            "array( $this, 'admin_notice' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-widget-quick-info.php": {
+      "sha256": "3612914a207e07db6086019ad1398bb441af4815da6b49ac69d37e5a19246315",
+      "bytes": 3920,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "job_manager_quick_info_Widget",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "widget",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "field_generator",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form",
+          "line": 90,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 102,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_job_manager_quick_info_widget",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "register_widget",
+          "line": 117,
+          "args": [
+            "'job_manager_quick_info_Widget'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 120,
+          "args": [
+            "'widgets_init'",
+            "'register_job_manager_quick_info_widget'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-job-manager.pot": {
+      "sha256": "6a7c7ed14bb78839ff56736975215b6bb76bc9283e1d7a2d1965337f2d2b84e7",
+      "bytes": 7739,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/archive/fields/dirjob_deadline.php": {
+      "sha256": "a109ccb19c8ba0e81b6f0d1e7d610df42de3c6353c60bf7abe42db2d2159e2c2",
+      "bytes": 484,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/archive/fields/dirjob_job_type.php": {
+      "sha256": "abfbdb96c70cd4f12403a8b470f02ef70638a4500f6b43766d7e511319740d80",
+      "bytes": 344,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/archive/fields/dirjob_open_position.php": {
+      "sha256": "51f759380bb8bf1b9c8e01cff475473dcc83e91c6bd1590348e263b12fc32bf8",
+      "bytes": 664,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/archive/fields/dirjob_salary.php": {
+      "sha256": "0639f80c4663d34126abdc4442dee66b21ea389802055c4d1923ff00fc1c3e9f",
+      "bytes": 453,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/field-description.php": {
+      "sha256": "9ef4e8d7897e9c1d79d335318f4fa79adffa99b6d0b1917740b6c8d0ffe05ecf",
+      "bytes": 251,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/field-label.php": {
+      "sha256": "60420c49bf8c91cf228bef6bbc91aaf489a3820579eca59098d28fc33ef67393",
+      "bytes": 339,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/fields/dirjob_apply_form.php": {
+      "sha256": "d683ace32a72678e18bf6ade7c9244c22f8788b4e958afc4bfe2f4f62c6ac029",
+      "bytes": 916,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/fields/dirjob_apply_form_fields.php": {
+      "sha256": "e582e7a06b75f67350232d61c0f847e9ef6ea360d4d5fcd26298f7b3e4fb662b",
+      "bytes": 4570,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/listing-form/fields/dirjob_deadline.php": {
+      "sha256": "174a20b5bef98c9904c0bb3e888aa07d9cea1d9984ce7e7b64bad7320431c6de",
+      "bytes": 574,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/fields/dirjob_job_type.php": {
+      "sha256": "3da548b0acfd1ac10f1bfd122fb7a5e4f6b4781c066b69811c1965cfcfc3a6aa",
+      "bytes": 1130,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/fields/dirjob_open_position.php": {
+      "sha256": "a887feee6eaabec11aa4bb90d4e6d335b41da280268a085f8332d25d7ef8e926",
+      "bytes": 749,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/listing-form/fields/dirjob_salary.php": {
+      "sha256": "05ae0cb697297eb0c8256a5d935c9f9cf2480f16bb4bbda05dcbd45f5649b5d9",
+      "bytes": 1283,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/search-form/fields/dirjob_date_posted.php": {
+      "sha256": "9bc908a5977ce2bdb838be31886b4ce05082b95a53c1515ebfd3e20038813bbd",
+      "bytes": 2269,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/search-form/fields/dirjob_job_type.php": {
+      "sha256": "17009e96f59e21bec65526accc14a8d327ecee7cbe4199943f2477c1889d5e3b",
+      "bytes": 1832,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/single/section-dirjob_job_details.php": {
+      "sha256": "adc018b521f9e631db0875c35613c5d421734906af2d8de5fee9c735125b37b4",
+      "bytes": 4204,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 34,
+          "args": [
+            "'directorist_is_listing_feature_available'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 65,
+          "args": [
+            "$listing_id",
+            "'_dirjob_apply_form'"
+          ]
+        }
+      ]
+    },
+    "templates/single/fields/dirjob_apply_form.php": {
+      "sha256": "902f16329f37eb9cfccfd4e68bd3ad7b679156333904817c5d746850e38f2f6f",
+      "bytes": 424,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 14,
+          "args": [
+            "get_the_ID()",
+            "'_dirjob_apply_form'"
+          ]
+        }
+      ]
+    },
+    "templates/single/fields/dirjob_deadline.php": {
+      "sha256": "670f639aa72beece3ca7fe653f77e5ff54155bb82faaa6036161db42f04df697",
+      "bytes": 564,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 13,
+          "args": [
+            "get_the_ID()",
+            "'_dirjob_deadline'"
+          ]
+        }
+      ]
+    },
+    "templates/single/fields/dirjob_job_type.php": {
+      "sha256": "3759cded8065378ef3d4f5c50686cf73ffed2eefb65dd21f6fabc4adfc2e2cd8",
+      "bytes": 549,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 13,
+          "args": [
+            "get_the_ID()",
+            "'_dirjob_job_type'"
+          ]
+        }
+      ]
+    },
+    "templates/single/fields/dirjob_open_position.php": {
+      "sha256": "c3b6f62349957ae14ca97107950c2ca805884f07233887cdebb6b0e132a767f1",
+      "bytes": 834,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 13,
+          "args": [
+            "get_the_ID()",
+            "'_dirjob_open_position'"
+          ]
+        }
+      ]
+    },
+    "templates/single/fields/dirjob_salary.php": {
+      "sha256": "575cec99b68efac006ba3edc7d6146e186149300af06300f8a18b1ecaaa3ffcc",
+      "bytes": 567,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 12,
+          "args": [
+            "get_the_ID()",
+            "'_dirjob_salary'"
+          ]
+        }
+      ]
+    },
+    "templates/widgets/quick-info.php": {
+      "sha256": "ffbe068b02f1cd453c7c20c2397df94fa3b2ded3375afff8c694380f4127be95",
+      "bytes": 3198,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "apply_filters",
+          "line": 16,
+          "args": [
+            "'widget_title'"
+          ]
+        }
+      ]
+    }
+  }
+}

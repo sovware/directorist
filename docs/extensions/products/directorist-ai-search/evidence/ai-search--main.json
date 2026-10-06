@@ -1,0 +1,2824 @@
+{
+  "snapshot": {
+    "key": "ai-search--main",
+    "repo": "directorist-ai-search",
+    "branch": "main",
+    "commit": "07f49c7e6c2ba400e756f69b815b4febaf4d886f",
+    "date": "2026-07-28T05:00:53Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-ai-search",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "d059de80aad7f9d55ecdee1dbfff70c7677f45d461c1c6d5ac65cf1a23914b83",
+      "bytes": 67,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CHANGELOG.md": {
+      "sha256": "6ed0d41d83a5d18e3018bfbb47755943cddc1e4b8b9317bfcad5f4bfcc4abf5f",
+      "bytes": 1624,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "b69630974f47f7438e18794fba90f408097d60eaaa3419dcb1db9127f1bd06ea",
+      "bytes": 5183,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-ai-search.php": {
+      "sha256": "5603925a2111898a945c7c2e6d8ab73ec98d4939d366890ac87a933c65b83ed4",
+      "bytes": 2370,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "register_deactivation_hook",
+          "line": 73,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 74,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_FILE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 25,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 29,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 33,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_BASENAME'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 73,
+          "args": [
+            "DIRECTORIST_AI_SEARCH_FILE"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 74,
+          "args": [
+            "DIRECTORIST_AI_SEARCH_FILE"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "ecccbc300e0237acaa640cb73bebe39a97999fd9c4a0e7f0f1ee38c83fe480f1",
+      "bytes": 590,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/frontend-search.css": {
+      "sha256": "861c62de8f5d83fc2b0e532f395ce0023d908aa47bcb9548824c3261e5513ead",
+      "bytes": 4180,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/frontend-search.js": {
+      "sha256": "2224ab3422fe2780a8488e79eb6dfc35089f40ead14d91e9a8f3a3eccb8c5182",
+      "bytes": 8960,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "config",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "minChars",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "debounceMs",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "changeDelayMs",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "resultLimit",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "inputSelector",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "state",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "debounce",
+          "kind": "JS",
+          "line": 16
+        },
+        {
+          "name": "debounced",
+          "kind": "JS",
+          "line": 19
+        },
+        {
+          "name": "args",
+          "kind": "JS",
+          "line": 20
+        },
+        {
+          "name": "getState",
+          "kind": "JS",
+          "line": 28
+        },
+        {
+          "name": "getForm",
+          "kind": "JS",
+          "line": 40
+        },
+        {
+          "name": "serializeForm",
+          "kind": "JS",
+          "line": 44
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 45
+        },
+        {
+          "name": "requestParams",
+          "kind": "JS",
+          "line": 51
+        },
+        {
+          "name": "params",
+          "kind": "JS",
+          "line": 52
+        },
+        {
+          "name": "requestKey",
+          "kind": "JS",
+          "line": 68
+        },
+        {
+          "name": "ensureDropdown",
+          "kind": "JS",
+          "line": 72
+        },
+        {
+          "name": "field",
+          "kind": "JS",
+          "line": 73
+        },
+        {
+          "name": "submit",
+          "kind": "JS",
+          "line": 99
+        },
+        {
+          "name": "form",
+          "kind": "JS",
+          "line": 102
+        },
+        {
+          "name": "show",
+          "kind": "JS",
+          "line": 112
+        },
+        {
+          "name": "hide",
+          "kind": "JS",
+          "line": 117
+        },
+        {
+          "name": "setLoading",
+          "kind": "JS",
+          "line": 122
+        },
+        {
+          "name": "section",
+          "kind": "JS",
+          "line": 123
+        },
+        {
+          "name": "list",
+          "kind": "JS",
+          "line": 124
+        },
+        {
+          "name": "empty",
+          "kind": "JS",
+          "line": 125
+        },
+        {
+          "name": "skeletons",
+          "kind": "JS",
+          "line": 126
+        },
+        {
+          "name": "escapeHtml",
+          "kind": "JS",
+          "line": 145
+        },
+        {
+          "name": "render",
+          "kind": "JS",
+          "line": 157
+        },
+        {
+          "name": "listings",
+          "kind": "JS",
+          "line": 158
+        },
+        {
+          "name": "count",
+          "kind": "JS",
+          "line": 159
+        },
+        {
+          "name": "section",
+          "kind": "JS",
+          "line": 160
+        },
+        {
+          "name": "list",
+          "kind": "JS",
+          "line": 161
+        },
+        {
+          "name": "empty",
+          "kind": "JS",
+          "line": 162
+        },
+        {
+          "name": "countEl",
+          "kind": "JS",
+          "line": 163
+        },
+        {
+          "name": "title",
+          "kind": "JS",
+          "line": 184
+        },
+        {
+          "name": "type",
+          "kind": "JS",
+          "line": 185
+        },
+        {
+          "name": "thumbnail",
+          "kind": "JS",
+          "line": 186
+        },
+        {
+          "name": "url",
+          "kind": "JS",
+          "line": 187
+        },
+        {
+          "name": "search",
+          "kind": "JS",
+          "line": 214
+        },
+        {
+          "name": "query",
+          "kind": "JS",
+          "line": 215
+        },
+        {
+          "name": "form",
+          "kind": "JS",
+          "line": 216
+        },
+        {
+          "name": "dropdown",
+          "kind": "JS",
+          "line": 217
+        },
+        {
+          "name": "itemState",
+          "kind": "JS",
+          "line": 218
+        },
+        {
+          "name": "params",
+          "kind": "JS",
+          "line": 225
+        },
+        {
+          "name": "key",
+          "kind": "JS",
+          "line": 226
+        },
+        {
+          "name": "bindInput",
+          "kind": "JS",
+          "line": 268
+        },
+        {
+          "name": "debouncedSearch",
+          "kind": "JS",
+          "line": 275
+        },
+        {
+          "name": "changeSearch",
+          "kind": "JS",
+          "line": 278
+        },
+        {
+          "name": "form",
+          "kind": "JS",
+          "line": 281
+        },
+        {
+          "name": "dropdown",
+          "kind": "JS",
+          "line": 304
+        },
+        {
+          "name": "bindAll",
+          "kind": "JS",
+          "line": 312
+        },
+        {
+          "name": "shouldBind",
+          "kind": "JS",
+          "line": 324
+        }
+      ],
+      "calls": []
+    },
+    "config/.gitkeep": {
+      "sha256": "e05780731b44f2267da7e882d1181d45c3c1252a4a22d15ad244a9ec0b826804",
+      "bytes": 52,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/Admin/AdminMenu.php": {
+      "sha256": "54b6b5f32b72b23e526928ed6cd908eba0c4efc90b0931a7029016e022b93eca",
+      "bytes": 40750,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AdminMenu",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_menu",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "position_menu",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_page",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "app_config",
+          "line": 165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "auth_title",
+          "line": 201,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "auth_required_message",
+          "line": 220,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "auth_action",
+          "line": 248,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_styles",
+          "line": 274,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_script",
+          "line": 339,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_post_type",
+          "line": 1019,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'admin_menu'",
+            "[ $this, 'register_menu' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'admin_menu'",
+            "[ $this, 'position_menu' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1020,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Admin/AdminRestController.php": {
+      "sha256": "e611edd07677a987fcba4a3feb3e15b2fe1c00315590bd4aab4306aa1f8108ff",
+      "bytes": 7846,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AdminRestController",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_routes",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "can_manage",
+          "line": 93,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "list_listings",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_semantic_terms",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_action",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_test",
+          "line": 188,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_score_settings",
+          "line": 211,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "score_param",
+          "line": 243,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "api_auth_required_error",
+          "line": 266,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "error_response",
+          "line": 302,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'rest_api_init'",
+            "[ $this, 'register_routes' ]"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 37,
+          "args": [
+            "self::NAMESPACE",
+            "'/listings'"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 47,
+          "args": [
+            "self::NAMESPACE",
+            "'/listings/(?P<id>\\d+)/semantic-terms'"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 57,
+          "args": [
+            "self::NAMESPACE",
+            "'/listings/(?P<id>\\d+)/(?P<action>index|re-index|delete-index)'"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 67,
+          "args": [
+            "self::NAMESPACE",
+            "'/search-test'"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 77,
+          "args": [
+            "self::NAMESPACE",
+            "'/settings/scores'"
+          ]
+        }
+      ]
+    },
+    "inc/Core/Activator.php": {
+      "sha256": "3ef67406754d86f57a1c1dff6f048bf476a889ff71a4217b77c6d5271012422b",
+      "bytes": 358,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Activator",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "activate",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 19,
+          "args": [
+            "'directorist_ai_search_version'"
+          ]
+        }
+      ]
+    },
+    "inc/Core/Deactivator.php": {
+      "sha256": "e555db2f907293ab5d38abe743ea55c9878bfe601f1c333a8e7cb78ec5c53381",
+      "bytes": 283,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Deactivator",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "deactivate",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "inc/Core/Plugin.php": {
+      "sha256": "b7d9fba141aa5a41e335237cd39690042976952f65f0a763c3e8ed046dd45d39",
+      "bytes": 3289,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Plugin",
+          "line": 23,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "define_constants",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_hooks",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init_services",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "boot_directorist_services",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 93,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plugin_action_links",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_post_type",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 43,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_VERSION'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'plugins_loaded'",
+            "[ $this, 'load_textdomain' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'plugins_loaded'",
+            "[ $this, 'boot_directorist_services' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 56,
+          "args": [
+            "'plugin_action_links_' . DIRECTORIST_AI_SEARCH_BASENAME",
+            "[ $this, 'plugin_action_links' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 129,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/ApiClient.php": {
+      "sha256": "3d45777746b16470161349f144101233816e405b28a1dac2a7b3f78cd1780819",
+      "bytes": 5542,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ApiClient",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "request",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_url",
+          "line": 146,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "decode_json",
+          "line": 169,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_error_message",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "debug_log",
+          "line": 204,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "wp_remote_request",
+          "line": 101,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 113,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 114,
+          "args": [
+            "$response"
+          ]
+        }
+      ]
+    },
+    "inc/Services/ApiKeyProvisioningService.php": {
+      "sha256": "f6183fde3ce8f562167548776c0947418b02358de78e79edc1eb18456f889e78",
+      "bytes": 4013,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ApiKeyProvisioningService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "ensure_site_api_key",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "provision",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 95,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 124,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 125,
+          "args": [
+            "$response"
+          ]
+        }
+      ]
+    },
+    "inc/Services/AutomaticIndexingService.php": {
+      "sha256": "0115f6691ae7a27534be9fa22062c6c1728e3edc83821c09c128df7b64672c8a",
+      "bytes": 7990,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AutomaticIndexingService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_save_post",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_status_transition",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_meta_change",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_terms_change",
+          "line": 105,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_delete_post",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_pending_actions",
+          "line": 134,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "schedule_for_current_status",
+          "line": 164,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "schedule_index",
+          "line": 181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "schedule_delete",
+          "line": 195,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_run",
+          "line": 204,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_handle_post",
+          "line": 216,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_listing_post",
+          "line": 234,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_index_meta_key",
+          "line": 244,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_listing_taxonomy",
+          "line": 272,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "debug_log",
+          "line": 291,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_post_type",
+          "line": 302,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'save_post_' . $this->listing_post_type()",
+            "[ $this, 'handle_save_post' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'transition_post_status'",
+            "[ $this, 'handle_status_transition' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'added_post_meta'",
+            "[ $this, 'handle_meta_change' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'updated_post_meta'",
+            "[ $this, 'handle_meta_change' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'deleted_post_meta'",
+            "[ $this, 'handle_meta_change' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'set_object_terms'",
+            "[ $this, 'handle_terms_change' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 36,
+          "args": [
+            "'wp_trash_post'",
+            "[ $this, 'handle_delete_post' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 37,
+          "args": [
+            "'before_delete_post'",
+            "[ $this, 'handle_delete_post' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'shutdown'",
+            "[ $this, 'process_pending_actions' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 225,
+          "args": [
+            "'DOING_AUTOSAVE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 303,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/DirectoristAccountService.php": {
+      "sha256": "9e90ea4f2a2de326e703702c4f829cb47ffbe3ea50be8f4fa32520a1725c860d",
+      "bytes": 1482,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristAccountService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "current_user_is_authenticated",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "user_is_authenticated",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_missing_auth_message",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 40,
+          "args": [
+            "$user_id",
+            "self::SUBSCRIBED_USERNAME_META"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 41,
+          "args": [
+            "$user_id",
+            "self::SUBSCRIPTION_SESSION_META"
+          ]
+        }
+      ]
+    },
+    "inc/Services/DirectoristDependencyService.php": {
+      "sha256": "335b43aa556e127b64b7750dfb820fa730e8860a3afa197eb0a506bc1702dc9d",
+      "bytes": 1146,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristDependencyService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directorist_active",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_missing_directorist_notice",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'admin_notices'",
+            "[ $this, 'render_missing_directorist_notice' ]"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 32,
+          "args": [
+            "'\\Directorist_Base'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 32,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 32,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/DirectoristQueryInterceptor.php": {
+      "sha256": "dd4ab4c7b105eec8e34c92ded489a9cc09aa9902e31b62e8cbfb9e20035a16de",
+      "bytes": 12563,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristQueryInterceptor",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_query_args",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_archive_fields_for_semantic_results",
+          "line": 118,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "candidate_limit_for_query",
+          "line": 162,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "allowed_ids_for_query",
+          "line": 176,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_restrictive_filters",
+          "line": 212,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "query_has_clauses",
+          "line": 252,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta_query_has_restrictive_clauses",
+          "line": 276,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_sole_directory_meta_query",
+          "line": 304,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "fallback_query_args",
+          "line": 342,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remove_implicit_default_directory_filter",
+          "line": 366,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_explicit_directory_filter",
+          "line": 402,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_default_directory_meta_query",
+          "line": 421,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 37,
+          "args": [
+            "'atbdp_listing_search_query_argument'",
+            "[ $this, 'filter_query_args' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 38,
+          "args": [
+            "'directorist_listing_archive_fields'",
+            "[ $this, 'filter_archive_fields_for_semantic_results' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 129,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 133,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 305,
+          "args": [
+            "'directorist_get_directories'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 371,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/FrontendAssetsService.php": {
+      "sha256": "bbf6b9f484ad5978c4d162a30a7594b0f3a6e507e3106665bc751f796afb3c01",
+      "bytes": 3916,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FrontendAssetsService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_no_optimize_attribute",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_no_optimize_inline_attribute",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "exclude_litespeed_js_optimization",
+          "line": 136,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 42,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "[ $this, 'enqueue' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 43,
+          "args": [
+            "'script_loader_tag'",
+            "[ $this, 'add_no_optimize_attribute' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 44,
+          "args": [
+            "'wp_inline_script_attributes'",
+            "[ $this, 'add_no_optimize_inline_attribute' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 45,
+          "args": [
+            "'litespeed_optimize_js_excludes'",
+            "[ $this, 'exclude_litespeed_js_optimization' ]"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 67,
+          "args": [
+            "'directorist_require_style'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/FrontendRestController.php": {
+      "sha256": "21c62f45e4967b26a96aa43440bebc3b11f8071aa33699dfe71a4aa7e88176d7",
+      "bytes": 5816,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FrontendRestController",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_routes",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "request_payload",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "validate_identity",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "response_payload",
+          "line": 161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cacheable_response",
+          "line": 184,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_limit",
+          "line": 201,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'rest_api_init'",
+            "[ $this, 'register_routes' ]"
+          ]
+        },
+        {
+          "name": "register_rest_route",
+          "line": 33,
+          "args": [
+            "'directorist-ai-search/v1'",
+            "'/frontend-search'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/FrontendResultsService.php": {
+      "sha256": "6df31d324a89a41ca7a1056f44576cb8f3afd633cd16db414b9e630184d1f9c7",
+      "bytes": 5156,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FrontendResultsService",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "search_listings",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "empty_listings",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_listing",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_title",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_text",
+          "line": 117,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_media",
+          "line": 150,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Helper",
+          "line": 157,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "directory_taxonomy",
+          "line": 176,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 128,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 130,
+          "args": [
+            "'directorist_is_multi_directory_enabled'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 130,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 155,
+          "args": [
+            "'directorist_get_directory_meta'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 156,
+          "args": [
+            "'directorist_icon'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 157,
+          "args": [
+            "Helper::class"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 160,
+          "args": [
+            "'directorist_get_listing_preview_image'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 162,
+          "args": [
+            "'atbdp_get_image_source'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 167,
+          "args": [
+            "'get_the_post_thumbnail_url'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 177,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 177,
+          "args": [
+            "'ATBDP_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/ListingPayloadService.php": {
+      "sha256": "9aaf54885aedf25d5724537c6b345275763e75b4d998e6a06f9713ddec1a073e",
+      "bytes": 5408,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ListingPayloadService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "build_payload",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listing_meta",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_taxonomies",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_term_names",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_type",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_field_schema",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "first_non_empty",
+          "line": 174,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_featured",
+          "line": 192,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_post_type",
+          "line": 205,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 30,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_listing_meta",
+          "line": 32,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 43,
+          "args": [
+            "$post_id",
+            "ListingService::SEMANTIC_TERMS_META"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 59,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 159,
+          "args": [
+            "$term_id",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 206,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/ListingService.php": {
+      "sha256": "864feb796f769d15c4dbaf8d83be0dec4a204a1516a432b2dcadd00a2ac4dee5",
+      "bytes": 19715,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ListingService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "list_listings",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_semantic_terms",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "index_listing",
+          "line": 117,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_index",
+          "line": 147,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_test",
+          "line": 179,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_listing",
+          "line": 248,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "store_api_result",
+          "line": 282,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_ai_status",
+          "line": 320,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_ai_status",
+          "line": 334,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "assert_listing",
+          "line": 345,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_status_counts",
+          "line": 362,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listings_meta_query",
+          "line": 414,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listings_tax_query",
+          "line": 466,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "combine_meta_queries",
+          "line": 487,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_title",
+          "line": 512,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_text",
+          "line": 522,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_post_status",
+          "line": 532,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_orderby",
+          "line": 544,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "status_options",
+          "line": 560,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directory_options",
+          "line": 569,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "category_options",
+          "line": 591,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_directory_type",
+          "line": 623,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_directory_term",
+          "line": 647,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_term_names",
+          "line": 662,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_featured",
+          "line": 678,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_post_type",
+          "line": 687,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 99,
+          "args": [
+            "$post_id",
+            "self::SEMANTIC_TERMS_META"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 228,
+          "args": [
+            "$post->ID",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 262,
+          "args": [
+            "$post->ID",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 265,
+          "args": [
+            "$post->ID",
+            "self::MESSAGE_META"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 266,
+          "args": [
+            "$post->ID",
+            "self::LAST_INDEXED_AT_META"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 267,
+          "args": [
+            "$post->ID",
+            "self::SEMANTIC_TERMS_META"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 270,
+          "args": [
+            "$post->ID",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 283,
+          "args": [
+            "$post_id",
+            "self::LAST_RESULT_META"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 301,
+          "args": [
+            "$post_id",
+            "self::LAST_INDEXED_AT_META"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 304,
+          "args": [
+            "$post_id",
+            "self::CONTENT_HASH_META"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 321,
+          "args": [
+            "$post_id",
+            "self::STATUS_META"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 335,
+          "args": [
+            "$post_id",
+            "self::STATUS_META"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 336,
+          "args": [
+            "$post_id",
+            "self::MESSAGE_META"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 688,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/SearchContextService.php": {
+      "sha256": "02144d1e26b2f5d56a4d05bed4104a58f30c609bb34dbff4b9b006578f164583",
+      "bytes": 16113,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SearchContextService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "normalize_frontend_payload",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_query",
+          "line": 56,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_context_query",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_api_payload",
+          "line": 77,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_filtered_query_args",
+          "line": 105,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "candidate_limit",
+          "line": 182,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "id_list",
+          "line": 194,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sanitize_deep",
+          "line": 208,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "append_context_line",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directory_label",
+          "line": 232,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directory_term",
+          "line": 238,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "term_labels",
+          "line": 251,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "price_label",
+          "line": 282,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "price_range_label",
+          "line": 302,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "rating_label",
+          "line": 314,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "custom_field_labels",
+          "line": 326,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "custom_field_label",
+          "line": 347,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_price_meta_query",
+          "line": 363,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_scalar_meta_query",
+          "line": 395,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_phone_meta_query",
+          "line": 409,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_address_query",
+          "line": 431,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_rating_meta_query",
+          "line": 464,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_custom_field_meta_queries",
+          "line": 481,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_post_type",
+          "line": 549,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directory_taxonomy",
+          "line": 553,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "category_taxonomy",
+          "line": 557,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "location_taxonomy",
+          "line": 561,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "tag_taxonomy",
+          "line": 565,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 183,
+          "args": [
+            "'directorist_ai_search_candidate_limit'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 435,
+          "args": [
+            "'directorist_get_distance_range'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 449,
+          "args": [
+            "'directorist_get_distance_range'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 471,
+          "args": [
+            "'directorist_get_rating_field_meta_key'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 550,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 554,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 554,
+          "args": [
+            "'ATBDP_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 558,
+          "args": [
+            "'ATBDP_CATEGORY'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 562,
+          "args": [
+            "'ATBDP_LOCATION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 566,
+          "args": [
+            "'ATBDP_TAGS'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/SemanticCandidateService.php": {
+      "sha256": "51dd859e1354b69cb6953808c070663ee37d8dd69d99190240e9effc82cae9e8",
+      "bytes": 2516,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SemanticCandidateService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "search",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "failure",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "inc/Services/SettingsService.php": {
+      "sha256": "2d9c0f815104c8d1999015418f4f07c6e94657e9e01d0a3dca47f6fe9dfffb97",
+      "bytes": 19793,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SettingsService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_extension_toggle",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_settings_fields",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_settings_submenu",
+          "line": 136,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_enabled",
+          "line": 165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_api_base_url",
+          "line": 174,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_api_key",
+          "line": 191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_provisioning_key",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "store_site_api_key",
+          "line": 230,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_site_id",
+          "line": 243,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_domain",
+          "line": 261,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_site_url",
+          "line": 270,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_local_environment",
+          "line": 279,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "allow_local_domains",
+          "line": 288,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_local_domain_message",
+          "line": 307,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_timeout",
+          "line": 316,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "indexing_hooks_enabled",
+          "line": 327,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "debug_logging_enabled",
+          "line": 336,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "native_fallback_enabled",
+          "line": 345,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_autocomplete_limit",
+          "line": 354,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_min_score",
+          "line": 365,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_featured_min_score",
+          "line": 374,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_min_score_percent",
+          "line": 383,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_featured_min_score_percent",
+          "line": 392,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_score_settings",
+          "line": 403,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_configuration_errors",
+          "line": 424,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_api_key",
+          "line": 461,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_api_key_for_current_identity",
+          "line": 470,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_server_config_value",
+          "line": 489,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "parse_boolean_config",
+          "line": 512,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_runtime_domain",
+          "line": 535,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "generate_site_id",
+          "line": 546,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_local_domain",
+          "line": 558,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_local_ip",
+          "line": 588,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "score_percent_to_decimal",
+          "line": 626,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sanitize_score_percent",
+          "line": 642,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_option",
+          "line": 659,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_option",
+          "line": 675,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 41,
+          "args": [
+            "'atbdp_extension_fields'",
+            "[ $this, 'register_extension_toggle' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 42,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[ $this, 'register_settings_fields' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 43,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "[ $this, 'register_settings_submenu' ]"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 166,
+          "args": [
+            "self::ENABLE_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 192,
+          "args": [
+            "self::API_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 195,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_SITE_API_KEY'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 207,
+          "args": [
+            "'DIRECTORIST_AI_SEARCH_PROVISIONING_KEY'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 231,
+          "args": [
+            "self::API_KEY_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 232,
+          "args": [
+            "self::API_KEY_PREFIX_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 233,
+          "args": [
+            "self::API_KEY_PROVISIONED_SITE_ID_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 234,
+          "args": [
+            "self::API_KEY_PROVISIONED_DOMAIN_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 235,
+          "args": [
+            "self::API_KEY_PROVISIONED_AT_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 244,
+          "args": [
+            "self::SITE_ID_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 251,
+          "args": [
+            "self::SITE_ID_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 317,
+          "args": [
+            "self::TIMEOUT_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 328,
+          "args": [
+            "self::INDEXING_HOOKS_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 337,
+          "args": [
+            "self::DEBUG_LOGGING_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 346,
+          "args": [
+            "self::NATIVE_FALLBACK_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 355,
+          "args": [
+            "self::AUTOCOMPLETE_LIMIT_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 366,
+          "args": [
+            "self::MIN_SCORE_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 375,
+          "args": [
+            "self::FEATURED_MIN_SCORE_OPTION"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 410,
+          "args": [
+            "$key"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 475,
+          "args": [
+            "self::API_KEY_PROVISIONED_SITE_ID_OPTION"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 476,
+          "args": [
+            "self::API_KEY_PROVISIONED_DOMAIN_OPTION"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 491,
+          "args": [
+            "$name"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 547,
+          "args": [
+            "'wp_generate_uuid4'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 660,
+          "args": [
+            "'update_directorist_option'"
+          ]
+        },
+        {
+          "name": "update_directorist_option",
+          "line": 661,
+          "args": [
+            "$key"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 665,
+          "args": [
+            "$key"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 676,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 677,
+          "args": [
+            "$key"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 680,
+          "args": [
+            "$key"
+          ]
+        }
+      ]
+    },
+    "inc/Services/UniversalSearchInterceptor.php": {
+      "sha256": "6c5ce9f1eed2ea26cd6f6b581036acc6e128a71d5253457ac4853e14d9e157e1",
+      "bytes": 1692,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UniversalSearchInterceptor",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_response",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'directorist-universal-search_rest_response_filter'",
+            "[ $this, 'filter_response' ]"
+          ]
+        }
+      ]
+    },
+    "inc/Traits/Singleton.php": {
+      "sha256": "937359b58210be2986554184649fa3bad924ef5bbaa6550eadc86b1a6d80ef66",
+      "bytes": 733,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Singleton",
+          "line": 12,
+          "kind": "T_TRAIT"
+        },
+        {
+          "name": "get_instance",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-ai-search.pot": {
+      "sha256": "56ac02a83062dd642d64c9948cb1b7bc68c3a83897c467e637771f7230282995",
+      "bytes": 7472,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "scripts/build-release.js": {
+      "sha256": "3076b8b6a1290380d0f533e929f78d852bb85636319f2284d8c5b32f4f692da1",
+      "bytes": 2264,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

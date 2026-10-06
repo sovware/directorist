@@ -1,0 +1,2434 @@
+{
+  "snapshot": {
+    "key": "mpesa-payment-gateway--main",
+    "repo": "directorist-mpesa-payment-gateway",
+    "branch": "main",
+    "commit": "f304ecfa35049b5cc827b182f54dcbc048dc5bf3",
+    "date": "2026-09-03T06:14:05Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mpesa-payment-gateway",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "0e8e2062b69082d38b2ce807b8e26921d33905779ee8948589c270c623afb825",
+      "bytes": 60,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "85fa3188f3bb70f4253a761ca67e7a777dc7ccfd9a777715616d8af283f44e74",
+      "bytes": 297,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "f362557152b95d01f207fc31ed4fe52831a5ee18a93cff9e882eba897ce6ddaa",
+      "bytes": 1062,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "9c6b40de36189a1591df318ef5409554bcaedf51d162f69a603f44f35a197f36",
+      "bytes": 1031,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "artisan": {
+      "sha256": "dc4b163af2013964d9ce11c9dfb7af8ab2b6d1f326dca22172d7883ad811d2b3",
+      "bytes": 154,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "761957491d5c16c7f4ccad0881073275247d600460b50dd9e09818ff43223e96",
+      "bytes": 2623,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-mpesa.php": {
+      "sha256": "e24c9875f06c9cb8de6ef6cb441391f1b15b9cfab560a1849902baf58086ca71",
+      "bytes": 3373,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristMPesaPaymentGateway",
+          "line": 28,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_incompatible_directorist_notice",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 42,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 48,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "wp_clear_scheduled_hook",
+          "line": 50,
+          "args": [
+            "MpesaService::CRON_HOOK"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 62,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $application ): void { if ( ! class_exists( 'Directorist_Base' ) ) { return; } $current_version = defined( 'ATBDP_VERSION' ) ? ATBDP_VERSION : '0'; if ( version_compare( $current_version, self::MINIMUM_DIRECTORIST_VERSION,"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 64,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 68,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 71,
+          "args": [
+            "'admin_notices'",
+            "[ $this, 'render_incompatible_directorist_notice' ]"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 75,
+          "args": [
+            "'directorist_mpesa_payment_gateway_before_load'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 79,
+          "args": [
+            "'directorist_mpesa_payment_gateway_after_load'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 85,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "08d9448a8d0d2c87e85885fb1f15edd7a8ee820044c7a6ed0bbbe86191a32597",
+      "bytes": 1300,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpunit.unit.xml.dist": {
+      "sha256": "ff0121f40eba503318a03c0bc8269cd71134fecd542ea3c757cededd494d79d5",
+      "bytes": 455,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "phpunit.xml.dist": {
+      "sha256": "f2e84311044e97459c476d0d6724608643d62bd0e167e121291389e99f896c50",
+      "bytes": 913,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "ca152ba9dccf8709b5f7713171d575e911e13c9db5ca2748a0b37bb1b5e0bcb0",
+      "bytes": 648,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/on-pull-request.yml": {
+      "sha256": "711a99b8d4e7f59fd59a109b6edc326325b5709bb95897f3497590e167b99934",
+      "bytes": 934,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CustomSniffs/Sniffs/Files/ABSPATHDefinedSniff.php": {
+      "sha256": "b82313aa4489eaf55e1000887934f4a9b36ce1beb9c94cebb44979a2c9462542",
+      "bytes": 1725,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/MPesa.php": {
+      "sha256": "c3bc9c0f05680439b374a5e237d56a9ba190e74d5d29c5278ed27254ba1427e4",
+      "bytes": 828,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MPesa",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_key",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "supports_recurring",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "supports_trial",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pay",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "70260d983b998e2a4561f55651e09e8f21547330edc5fd10a87e41cd2a16d3d7",
+      "bytes": 7581,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_mpesa_payment_gateway",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_config",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_app_config",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_version",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_container",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_resolve",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_make",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_url",
+          "line": 88,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_dir",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_payment_gateway_now",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_service",
+          "line": 112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_is_pricing_plan_active",
+          "line": 113,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "directorist_mpesa_is_pricing_plan_active",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_is_pricing_plan_compatible",
+          "line": 120,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_is_test_mode",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_has_credentials",
+          "line": 132,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_gateway_title",
+          "line": 139,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_gateway_description",
+          "line": 143,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_consumer_key",
+          "line": 150,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_consumer_secret",
+          "line": 156,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_shortcode",
+          "line": 162,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_passkey",
+          "line": 168,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_base_url",
+          "line": 174,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_oauth_url",
+          "line": 182,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_password",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_transaction_type",
+          "line": 190,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_ratiba_transaction_type",
+          "line": 196,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_receiver_identifier_type",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_callback_secret",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_callback_url",
+          "line": 217,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_is_supported_currency",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_gateway_key",
+          "line": 230,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_mpesa_normalize_credential",
+          "line": 234,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 117,
+          "args": [
+            "'directorist_pricing_plans_singleton'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 117,
+          "args": [
+            "'directorist_user_package_repository'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 121,
+          "args": [
+            "'directorist_pricing_plans_version'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 129,
+          "args": [
+            "'mpesa_gateway_test_mode'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 140,
+          "args": [
+            "'mpesa_gateway_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 144,
+          "args": [
+            "'mpesa_gateway_description'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 152,
+          "args": [
+            "directorist_mpesa_is_test_mode() ? 'mpesa_test_consumer_key' : 'mpesa_live_consumer_key'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 158,
+          "args": [
+            "directorist_mpesa_is_test_mode() ? 'mpesa_test_consumer_secret' : 'mpesa_live_consumer_secret'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 164,
+          "args": [
+            "directorist_mpesa_is_test_mode() ? 'mpesa_test_shortcode' : 'mpesa_live_shortcode'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 170,
+          "args": [
+            "directorist_mpesa_is_test_mode() ? 'mpesa_test_passkey' : 'mpesa_live_passkey'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 179,
+          "args": [
+            "'directorist_mpesa_base_url'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 191,
+          "args": [
+            "'mpesa_shortcode_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 197,
+          "args": [
+            "'mpesa_shortcode_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 203,
+          "args": [
+            "'mpesa_shortcode_type'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 207,
+          "args": [
+            "'directorist_mpesa_callback_secret'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 211,
+          "args": [
+            "'directorist_mpesa_callback_secret'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 218,
+          "args": [
+            "'directorist_mpesa_callback_url'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/CheckoutController.php": {
+      "sha256": "4afcb0a9f9d9a35bd1d90de6ae5439416ea802f129cd98dff0d1f1697b694583",
+      "bytes": 822,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CheckoutController",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "callback",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/Controller.php": {
+      "sha256": "3082b01c5353fc7412ccde0a788830474c58cd8d528af2a0bbfc7e6c50bba68f",
+      "bytes": 107,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Controller",
+          "line": 7,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/OAuthController.php": {
+      "sha256": "01a614698435c47821d2c6299952d02958fdf3497aa34e370f3fcf4a38e5439d",
+      "bytes": 2073,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "OAuthController",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "test",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "test_oauth_connection",
+          "line": 23,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "redirect_to_settings",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/UserController.php": {
+      "sha256": "8243f8508a399aa43c5d5b00a9004d9785e3391068047deaf548428e8ab2ac50",
+      "bytes": 276,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserController",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "index",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/EnsureIsUserAdmin.php": {
+      "sha256": "4d5a8e105d45f911643bc7c0b2189e2212bccd125cfc59b452f461b559a6c8ed",
+      "bytes": 829,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/Comment.php": {
+      "sha256": "97a0b6a0cd58afe5766efe35806ac13b0698467976e131afda6d293327adec0c",
+      "bytes": 2417,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Comment",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 77,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "post",
+          "line": 93,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "user",
+          "line": 94,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "user",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 101,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "meta",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/CommentMeta.php": {
+      "sha256": "49b899c54b5f3a27c7322610865c324a6576e2cd9a9a67b691daa74a3b1e8264",
+      "bytes": 1460,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CommentMeta",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 56,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "comment",
+          "line": 72,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/Option.php": {
+      "sha256": "e7af9e67d748f95b0e697567004f9bc558b03c444bc233ce5a759075970077b3",
+      "bytes": 1412,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Option",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/Post.php": {
+      "sha256": "f24c76d4ed7ea2a08dfa72d10a734c5091784f8bc3c50681c1cafe730eb5d663",
+      "bytes": 3137,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Post",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "scope_post_type",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "author",
+          "line": 114,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 115,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "meta",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "comments",
+          "line": 122,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "comments",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "terms",
+          "line": 129,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "terms",
+          "line": 135,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 108,
+          "args": [
+            "'post_type'"
+          ]
+        }
+      ]
+    },
+    "app/Models/PostMeta.php": {
+      "sha256": "1a7790c69276446657a87c8f08099bd8fcc1b9c5703b76d3f0f392fe5afdb8d8",
+      "bytes": 1464,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PostMeta",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "post",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/Term.php": {
+      "sha256": "8742504249d2193c096bfcb975cd08ce19c0f84d70d7e96414bf62c81ea17fd6",
+      "bytes": 1696,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Term",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "taxonomy",
+          "line": 77,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 78,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "meta",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/TermMeta.php": {
+      "sha256": "271ae1899ef421aef21220d7bd8be528bbd03132c8582e2878f42d6c02b36c00",
+      "bytes": 1458,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TermMeta",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "term",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/TermTaxonomy.php": {
+      "sha256": "c4b23cce8e1fcaa662289f6e66ef8ad62dad91c2fef265b35a2de32fd41dc7e1",
+      "bytes": 1968,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TermTaxonomy",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "term",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "posts",
+          "line": 82,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "posts",
+          "line": 88,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/User.php": {
+      "sha256": "4101321bc65b0e1eb17620c670cf28e5915fdbed2f5af7f2bcc670433fba15ff",
+      "bytes": 2764,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "metas",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "primary_meta",
+          "line": 92,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "primary_meta",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "where",
+          "line": 99,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "posts",
+          "line": 105,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "latest_post",
+          "line": 106,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "latest_post",
+          "line": 112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "latest",
+          "line": 113,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "comments",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "comments_through_posts",
+          "line": 120,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "comments_through_posts",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Post",
+          "line": 127,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 99,
+          "args": [
+            "'meta_key'"
+          ]
+        }
+      ]
+    },
+    "app/Models/UserMeta.php": {
+      "sha256": "5b20f12cf004cbd62bea2de09997507362d62203ad36da8c4b6d9ab2b719f0e2",
+      "bytes": 1467,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserMeta",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "user",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Providers/CheckoutServiceProvider.php": {
+      "sha256": "567565e1f6f74bca3521ee2bf3be9fa17ce5c3d5cab337f894952904d071910a",
+      "bytes": 2613,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CheckoutServiceProvider",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_checkout_fields",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "validate_checkout_fields",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_active_gateways",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_receipt_notice",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_renewal_payment",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cancel_subscription",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'directorist_checkout_payment_gateways_after'",
+            "[ $this, 'render_checkout_fields' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'directorist_checkout_validate_payment_processor'",
+            "[ $this, 'validate_checkout_fields' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'directorist_payment_receipt_before_order_details'",
+            "[ $this, 'render_receipt_notice' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'directorist_checkout_active_gateways'",
+            "[ $this, 'filter_active_gateways' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'directorist_mpesa_gateway_renewal_payment'",
+            "[ $this, 'process_renewal_payment' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'directorist_pricing_plan_subscription_canceled'",
+            "[ $this, 'cancel_subscription' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'directorist_pricing_plan_subscription_canceled_at_period_end'",
+            "[ $this, 'cancel_subscription' ]"
+          ]
+        }
+      ]
+    },
+    "app/Providers/CronServiceProvider.php": {
+      "sha256": "fe51c1e17636004b19f44b7503c54ccf62721d31012cccaaf4102d60675d9e78",
+      "bytes": 1174,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CronServiceProvider",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_interval",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "schedule_event",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'cron_schedules'",
+            "[ $this, 'register_interval' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "MpesaService::CRON_HOOK",
+            "[ $this, 'sync' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'init'",
+            "[ $this, 'schedule_event' ]"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 27,
+          "args": [
+            "MpesaService::CRON_HOOK"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 31,
+          "args": [
+            "time() + MINUTE_IN_SECONDS"
+          ]
+        }
+      ]
+    },
+    "app/Providers/DirectoristServiceProvider.php": {
+      "sha256": "0b29cf05724e7d84fb3cf8e7abc47179c31dabd8d7541ddd177c277bbfc838d2",
+      "bytes": 919,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristServiceProvider",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_active_gateways",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_processor",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'directorist_active_gateways'",
+            "[ $this, 'default_active_gateways' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'atbdp_default_gateways'",
+            "[ $this, 'default_active_gateways' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_payment_processors'",
+            "[ $this, 'register_processor' ]"
+          ]
+        }
+      ]
+    },
+    "app/Providers/Admin/SettingsServiceProvider.php": {
+      "sha256": "ff373424f0ee7c1a93f0d29de7fead8e140f855a2af6348e0f4a7c1807f80f9c",
+      "bytes": 12075,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SettingsServiceProvider",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_settings_submenu",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_settings_fields",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "maybe_show_credentials_notice",
+          "line": 177,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "maybe_show_compatibility_notice",
+          "line": 192,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "maybe_show_oauth_test_notice",
+          "line": 214,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_oauth_test_notice_fallback",
+          "line": 234,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_oauth_test_result",
+          "line": 266,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_monetization_settings_submenu'",
+            "[ $this, 'register_settings_submenu' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[ $this, 'register_settings_fields' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'admin_notices'",
+            "[ $this, 'maybe_show_credentials_notice' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'admin_notices'",
+            "[ $this, 'maybe_show_compatibility_notice' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'all_admin_notices'",
+            "[ $this, 'maybe_show_oauth_test_notice' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'admin_footer'",
+            "[ $this, 'render_oauth_test_notice_fallback' ]"
+          ]
+        }
+      ]
+    },
+    "app/Services/MpesaApi.php": {
+      "sha256": "733bac8dc54b1672361c22168b440d240ec04f987797557a744466167c51f048",
+      "bytes": 13314,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MpesaApi",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "test_oauth_connection",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_stk_push",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "query_stk_status",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_recurring_payment",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cancel_recurring_payment",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "access_token",
+          "line": 117,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "post",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_response",
+          "line": 168,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "assert_accepted_response",
+          "line": 243,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "user_agent",
+          "line": 263,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_response",
+          "line": 271,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "integer_amount",
+          "line": 284,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "account_reference",
+          "line": 294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "transaction_description",
+          "line": 298,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "timestamp",
+          "line": 308,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 83,
+          "args": [
+            "'directorist_mpesa_receiver_party_identifier_type'"
+          ]
+        },
+        {
+          "name": "wp_remote_get",
+          "line": 127,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 151,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 186,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 187,
+          "args": [
+            "$response"
+          ]
+        }
+      ]
+    },
+    "app/Services/MpesaService.php": {
+      "sha256": "fff32dcd143c8d68e70b1d98e88ebf8d2c3a2d3cf0388b1765ac38dc0df0d888",
+      "bytes": 41233,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MpesaService",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "start_payment",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_valid_callback_request",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_callback_payload",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_checkout_fields",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "validate_checkout_fields",
+          "line": 189,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_receipt_notice",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_pending_orders",
+          "line": 236,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_recurring_event_queue",
+          "line": 313,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cancel_subscription",
+          "line": 411,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "standing_order_name",
+          "line": 450,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plan_schedule",
+          "line": 454,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_stk_callback",
+          "line": 505,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_recurring_callback",
+          "line": 585,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_callback_metadata",
+          "line": 647,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "upsert_pending_payment",
+          "line": 661,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mark_order_payment_paid",
+          "line": 692,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mark_order_failed",
+          "line": 725,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bind_package_subscription_after_initial_payment",
+          "line": 744,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "payment_transaction_exists",
+          "line": 772,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "amount_from_order",
+          "line": 779,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "subscription_amount_from_order",
+          "line": 797,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_recurring_order",
+          "line": 813,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_by_order_id",
+          "line": 822,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "is_trial_order",
+          "line": 827,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_by_order_id",
+          "line": 832,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "normalize_phone_number",
+          "line": 837,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mask_phone_number",
+          "line": 857,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_order_state",
+          "line": 867,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_order_state",
+          "line": 873,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_pending_order",
+          "line": 877,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remove_pending_order",
+          "line": 893,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "find_payload_value",
+          "line": 912,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "map_reference_to_order",
+          "line": 944,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_order_id_from_references",
+          "line": 952,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "reference_option_key",
+          "line": 974,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_error",
+          "line": 978,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 237,
+          "args": [
+            "'directorist_mpesa_pending_orders'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 318,
+          "args": [
+            "'directorist_mpesa_recurring_events'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 381,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 406,
+          "args": [
+            "'directorist_mpesa_recurring_events'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 500,
+          "args": [
+            "'directorist_mpesa_plan_frequency'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 627,
+          "args": [
+            "'directorist_mpesa_recurring_events'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 640,
+          "args": [
+            "'directorist_mpesa_recurring_events'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 668,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 681,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 699,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 707,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 718,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 730,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 737,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 769,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 775,
+          "args": [
+            "'transaction_id'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 868,
+          "args": [
+            "'directorist_mpesa_order_' . $order_id"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 874,
+          "args": [
+            "'directorist_mpesa_order_' . $order_id"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 878,
+          "args": [
+            "'directorist_mpesa_pending_orders'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 886,
+          "args": [
+            "'directorist_mpesa_pending_orders'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 894,
+          "args": [
+            "'directorist_mpesa_pending_orders'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 900,
+          "args": [
+            "'directorist_mpesa_pending_orders'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 945,
+          "args": [
+            "$this->reference_option_key( $reference )"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 948,
+          "args": [
+            "'directorist_mpesa_checkout_' . sanitize_key( $reference )"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 960,
+          "args": [
+            "$this->reference_option_key( $reference )"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 963,
+          "args": [
+            "'directorist_mpesa_checkout_' . sanitize_key( $reference )"
+          ]
+        }
+      ]
+    },
+    "bin/install-wp-tests.sh": {
+      "sha256": "4f400d950071e98955c18a298c1480214bcbc118340ee51967b14e72fff692f3",
+      "bytes": 6261,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config/app.php": {
+      "sha256": "799fe2409067992be3773a11be2781baa3f4e6c4b2c079d85bee9b2d55ea324b",
+      "bytes": 3961,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CronServiceProvider",
+          "line": 57,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "DirectoristServiceProvider",
+          "line": 58,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "SettingsServiceProvider",
+          "line": 59,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 66,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "User",
+          "line": 76,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Post",
+          "line": 129,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Comment",
+          "line": 130,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Term",
+          "line": 131,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "TermTaxonomy",
+          "line": 132,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Setup.php": {
+      "sha256": "f1d252189c35cdfc8e824bd5670517c1ca0836fc254ce072dfdfee85a4f7c258",
+      "bytes": 687,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Setup",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "execute",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "drop",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 11,
+          "args": [
+            "'directorist_mpesa_callback_secret'"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 12,
+          "args": [
+            "'directorist_mpesa_callback_secret'"
+          ]
+        }
+      ]
+    },
+    "database/Seeders/DatabaseSeeder.php": {
+      "sha256": "ed96e2e271563f580e3a3e180cabad31aead09f385d18335c6bc1d1978fa1378",
+      "bytes": 310,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DatabaseSeeder",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "run",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "401352f5becbb4369533b16ec9a06f5f57a08029c1f5ad6316de577e54bbc630",
+      "bytes": 4484,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/phpcs.xml": {
+      "sha256": "addd0de583896d7147c9eb747b58afc2d92bbf8c8e8f75325f5abfe876a3dd59",
+      "bytes": 6218,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "1bb2d196692a81c99e1071813cb2da1591c2c1750578009c7d3ab6fce5a99d22",
+      "bytes": 2444,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "f82513c1e80af3d980f1ddce029ffa3e73c3669e8492625b4a85dcdc19015a78",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/exclude.files.config.php": {
+      "sha256": "62c1d4560e848bd07a1fafcdb3cc3f9dd7d09abe913e84e9bf76a0a6e1f983d0",
+      "bytes": 1683,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/global.config.php": {
+      "sha256": "5f91f75ca30e3516fe291200519ff33ec6c7d92f257e04e37db4ac825ff85e9c",
+      "bytes": 6468,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/index.php": {
+      "sha256": "7d4c501042e762e13462947d1516b78263c28a45d179f62c3f256fdbc08d55fb",
+      "bytes": 1406,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "03a47a4e5c808d023be8d674ddc53796b5c7cfa8b7b272d787abcd1d2ea1fb76",
+      "bytes": 198,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/js/app.js": {
+      "sha256": "02a1d28ea235dae21bd69a23200ba4a570b0ef3404b634e269275c9b87b31d9d",
+      "bytes": 27,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/app.scss": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/index.php": {
+      "sha256": "4014533bd26342511edf79dd8a383a557f438b673a36f3621a1fecbc8b330f2a",
+      "bytes": 57,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/settings.php": {
+      "sha256": "a942dee52db33eb2cea36e41769c84a4b29b69970475f05df9a37f18e97551d8",
+      "bytes": 57,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "48f6bf70b2b268c7e878806734380bc4c5aa0daab575bfbb1a851672452f15d1",
+      "bytes": 230,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/rest/api.php": {
+      "sha256": "7f09a3973422d4b6f454ad4b77068b7860c1dd0cabb1be8d88392c0be978ed81",
+      "bytes": 349,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Route",
+          "line": 9,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "tests/bootstrap.php": {
+      "sha256": "d8be88e55f34ae529024ad3ae762cfcabd09fa5db570bf4a88dffba34adb693b",
+      "bytes": 1217,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/unit-bootstrap.php": {
+      "sha256": "75d3ea114a1323485c43de238140b1cf8ad58d1ef6f70417e99cfcbd70f8a3a5",
+      "bytes": 4224,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Compatibility/MpesaApiTest.php": {
+      "sha256": "175176c87fa11d5a779ee933cb298717b6bb5537b615b166dd845ff0bc2e0432",
+      "bytes": 4789,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Compatibility/MpesaServiceTest.php": {
+      "sha256": "82b746daf3d4ed82c3e0a2325bdda4955a485621f17600a1c58eaf0f51aca084",
+      "bytes": 3420,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Compatibility/featured-listing-smoke.php": {
+      "sha256": "d7315ca4dc8a6f1db5c0cf5455381b040e3888e88ef66375cd5f15b522aea665",
+      "bytes": 7303,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Compatibility/receipt-assertion.php": {
+      "sha256": "9510523fe99784d1fb5a5bae16db0da087d147318563ffd019e29e3e3d82fb08",
+      "bytes": 1782,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Compatibility/wordpress-smoke.php": {
+      "sha256": "d9735f24b2d1ed81875c8789e1004bfc901419886d7c573d3722a3f42d16b98c",
+      "bytes": 11590,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Integrations/UserTest.php": {
+      "sha256": "9409be5f2f6ce4b895fadb3331f23e201fa9a52b58bace3b7e83bf4bda8e01e1",
+      "bytes": 967,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Stubs/OrderDTO.php": {
+      "sha256": "8e3ba18f8a8e3dba0552781c124f6357bf97ce568219bf147c2c549424904fc5",
+      "bytes": 983,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Unit/HelperTest.php": {
+      "sha256": "5f8b183aae92c36ee04e58d9f7dfb5589eafbb53ee783fd8ecc0f37e1161f418",
+      "bytes": 456,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

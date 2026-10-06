@@ -8,10 +8,48 @@ import { initSingleMap } from './single-listing/google-map';
 import { initSingleMapWidget } from './single-listing/google-map-widget';
 
 (function () {
-	window.addEventListener('load', initMap);
+	let initialMapInitialized = false;
+
+	function googleMapsReady() {
+		return (
+			typeof google !== 'undefined' &&
+			google.maps &&
+			google.maps.Map &&
+			google.maps.Marker &&
+			google.maps.OverlayView &&
+			google.maps.marker &&
+			google.maps.marker.AdvancedMarkerElement
+		);
+	}
+
+	function initInitialMap() {
+		if (
+			initialMapInitialized ||
+			document.readyState === 'loading' ||
+			!googleMapsReady()
+		) {
+			return;
+		}
+
+		initialMapInitialized = true;
+		initMap();
+		initSingleMap();
+		initAddListingMap();
+		initSingleMapWidget();
+	}
+
+	window.addEventListener('load', initInitialMap);
+	window.addEventListener('directorist-google-maps-ready', initInitialMap);
 	window.addEventListener('directorist-reload-listings-map-archive', initMap);
+	if (document.readyState === 'complete') {
+		initInitialMap();
+	}
 
 	function initMap() {
+		if (!googleMapsReady()) {
+			return;
+		}
+
 		const mapData = get_dom_data('atbdp_map');
 
 		// Define Marker Shapes
@@ -438,11 +476,5 @@ import { initSingleMapWidget } from './single-listing/google-map-widget';
 })();
 
 window.directoristLoadGoogleMap = function () {
-	if (typeof google === 'undefined' || !google.maps || !google.maps.Map) {
-		return;
-	} else {
-		initSingleMap();
-		initAddListingMap();
-		initSingleMapWidget();
-	}
+	window.dispatchEvent(new Event('directorist-google-maps-ready'));
 };

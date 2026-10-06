@@ -1,0 +1,3027 @@
+{
+  "snapshot": {
+    "key": "listing-import--main",
+    "repo": "directorist-listing-import",
+    "branch": "main",
+    "commit": "81e621c5d45a938a1a21d9e0185f3f7528f9a660",
+    "date": "2026-09-10T08:42:37Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listing-import",
+    "kind": "remote"
+  },
+  "files": {
+    "USAGE-GUIDE.md": {
+      "sha256": "de4529381bafba0eaea271ad839532d45cd067318b89aa4f9e6785ec1b8de5a6",
+      "bytes": 17171,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-listing-import.php": {
+      "sha256": "e9f63d94db023759db3249134959a4f3077228af7896d45245f7ebf10096ce0d",
+      "bytes": 7353,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_listing_import_update_controller",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listing_import_init",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listing_import_migrate_legacy_options",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listing_import_activate",
+          "line": 129,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listing_import_deactivate",
+          "line": 168,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'plugins_loaded'",
+            "'directorist_listing_import_init'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 64,
+          "args": [
+            "'admin_init'",
+            "'directorist_listing_import_update_controller'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 67,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 71,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 93,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 94,
+          "args": [
+            "'admin_notices'",
+            "function () { echo '<div class=\"notice notice-error\"><p>'; echo esc_html__( 'Listing Importer requires Directorist to be installed and activated.', 'directorist-listing-import' ); echo '</p></div>'; }"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 116,
+          "args": [
+            "$new_option"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 120,
+          "args": [
+            "$legacy_option"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 122,
+          "args": [
+            "$new_option"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 128,
+          "args": [
+            "DLI_FILE"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 132,
+          "args": [
+            "'\\DLIG\\Installer'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 137,
+          "args": [
+            "DLI_OPTION_SETTINGS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 138,
+          "args": [
+            "DLI_OPTION_SETTINGS"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 146,
+          "args": [
+            "DLI_OPTION_FEEDS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 147,
+          "args": [
+            "DLI_OPTION_FEEDS"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 151,
+          "args": [
+            "DLI_OPTION_LOGS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 152,
+          "args": [
+            "DLI_OPTION_LOGS"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 156,
+          "args": [
+            "DLI_LEGACY_CRON_HOOK"
+          ]
+        },
+        {
+          "name": "wp_unschedule_event",
+          "line": 158,
+          "args": [
+            "$legacy_timestamp"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 161,
+          "args": [
+            "DLI_CRON_HOOK"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 162,
+          "args": [
+            "time()"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 167,
+          "args": [
+            "DLI_FILE"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 170,
+          "args": [
+            "$hook"
+          ]
+        },
+        {
+          "name": "wp_unschedule_event",
+          "line": 172,
+          "args": [
+            "$timestamp"
+          ]
+        }
+      ]
+    },
+    "admin/class-admin-page.php": {
+      "sha256": "2f02c0353d0d96fb7eb3c5c4fae2081e926532fac6f2ddc075ed20818e5b4fc6",
+      "bytes": 16297,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Listing_Import_Admin_Page",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_menu",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "hide_standalone_google_menu",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_assets",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_page",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_preview_feed",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_add_feed",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_save_feed",
+          "line": 191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_toggle_feed",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_delete_feed",
+          "line": 246,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_save_settings",
+          "line": 261,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_clear_logs",
+          "line": 281,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "feed_url_exists",
+          "line": 296,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "redirect_with_notice",
+          "line": 310,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "notice_transient_key",
+          "line": 335,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "preview_results_key",
+          "line": 339,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "feed_success_message",
+          "line": 343,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_source_name",
+          "line": 363,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'admin_menu'",
+            "[ __CLASS__, 'register_menu' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[ __CLASS__, 'enqueue_assets' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'admin_post_dli_preview_feed'",
+            "[ __CLASS__, 'handle_preview_feed' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'admin_post_dli_add_feed'",
+            "[ __CLASS__, 'handle_add_feed' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'admin_post_dli_save_feed'",
+            "[ __CLASS__, 'handle_save_feed' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'admin_post_dli_toggle_feed'",
+            "[ __CLASS__, 'handle_toggle_feed' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'admin_post_dli_delete_feed'",
+            "[ __CLASS__, 'handle_delete_feed' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'admin_post_dli_save_settings'",
+            "[ __CLASS__, 'handle_save_settings' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'admin_post_dli_clear_logs'",
+            "[ __CLASS__, 'handle_clear_logs' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'admin_menu'",
+            "[ __CLASS__, 'hide_standalone_google_menu' ]"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 92,
+          "args": [
+            "'\\DLIG\\Plugin'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 129,
+          "args": [
+            "get_current_user_id()",
+            "self::preview_results_key()"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 270,
+          "args": [
+            "DLI_OPTION_SETTINGS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 285,
+          "args": [
+            "DLI_OPTION_LOGS"
+          ]
+        },
+        {
+          "name": "set_transient",
+          "line": 312,
+          "args": [
+            "self::notice_transient_key()"
+          ]
+        }
+      ]
+    },
+    "admin/views/admin-page.php": {
+      "sha256": "7c07480d6b3280602ea7a737915ec94643f95d03fe75cdc99100add290240232",
+      "bytes": 28753,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 11,
+          "args": [
+            "DLI_OPTION_LOGS"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 12,
+          "args": [
+            "DLI_OPTION_SETTINGS"
+          ]
+        },
+        {
+          "name": "get_transient",
+          "line": 15,
+          "args": [
+            "Directorist_Listing_Import_Admin_Page::notice_transient_key()"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 16,
+          "args": [
+            "get_current_user_id()",
+            "Directorist_Listing_Import_Admin_Page::preview_results_key()"
+          ]
+        },
+        {
+          "name": "delete_transient",
+          "line": 18,
+          "args": [
+            "Directorist_Listing_Import_Admin_Page::notice_transient_key()"
+          ]
+        },
+        {
+          "name": "delete_user_meta",
+          "line": 21,
+          "args": [
+            "get_current_user_id()",
+            "Directorist_Listing_Import_Admin_Page::preview_results_key()"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 30,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 128,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        }
+      ]
+    },
+    "assets/admin.css": {
+      "sha256": "a525b24f3ec24fb91d4b625697cd741e72645a2fbd1b13edd6a9f7803d88d856",
+      "bytes": 8971,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "google/assets/css/admin.css": {
+      "sha256": "22ac0e2d152bc358d1e611df2424896f6b7a730d8443a9875bc292ac4d91ba3f",
+      "bytes": 7504,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "google/assets/js/admin.js": {
+      "sha256": "8a01bbc305a2b288faab08ec3fde368164b78c40690828af026c9231670ffdc1",
+      "bytes": 15496,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initFieldMappingUniqueness",
+          "kind": "JS",
+          "line": 51
+        },
+        {
+          "name": "syncFieldMapOptions",
+          "kind": "JS",
+          "line": 56
+        },
+        {
+          "name": "runSearch",
+          "kind": "JS",
+          "line": 115
+        },
+        {
+          "name": "renderChecklist",
+          "kind": "JS",
+          "line": 160
+        },
+        {
+          "name": "countChecked",
+          "kind": "JS",
+          "line": 245
+        },
+        {
+          "name": "updateImportBtnLabel",
+          "kind": "JS",
+          "line": 249
+        },
+        {
+          "name": "runImportLoop",
+          "kind": "JS",
+          "line": 257
+        },
+        {
+          "name": "importNext",
+          "kind": "JS",
+          "line": 273
+        },
+        {
+          "name": "finishImport",
+          "kind": "JS",
+          "line": 348
+        },
+        {
+          "name": "setProgress",
+          "kind": "JS",
+          "line": 371
+        },
+        {
+          "name": "renderResults",
+          "kind": "JS",
+          "line": 377
+        },
+        {
+          "name": "showError",
+          "kind": "JS",
+          "line": 432
+        },
+        {
+          "name": "showWarning",
+          "kind": "JS",
+          "line": 436
+        },
+        {
+          "name": "resetUI",
+          "kind": "JS",
+          "line": 440
+        },
+        {
+          "name": "sprintf",
+          "kind": "JS",
+          "line": 450
+        },
+        {
+          "name": "escHtml",
+          "kind": "JS",
+          "line": 461
+        }
+      ],
+      "calls": []
+    },
+    "google/includes/class-admin-page.php": {
+      "sha256": "ca010f6d5f969911995259f2b80925327e19aa96cbff7ecf42ea8204a426fd2d",
+      "bytes": 31406,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Admin_Page",
+          "line": 30,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_menu",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_assets",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_page",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_embedded_page",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_mapping_tab",
+          "line": 187,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_import_tab",
+          "line": 277,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_history_tab",
+          "line": 548,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_form_submissions",
+          "line": 626,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_notices",
+          "line": 651,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_types",
+          "line": 765,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'admin_menu'",
+            "[ $this, 'register_menu' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'handle_form_submissions' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 58,
+          "args": [
+            "'admin_notices'",
+            "[ $this, 'show_notices' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[ $this, 'enqueue_assets' ]"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 549,
+          "args": [
+            "'dgbi_import_history'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 636,
+          "args": [
+            "'dgbi_import_history'"
+          ]
+        },
+        {
+          "name": "get_transient",
+          "line": 738,
+          "args": [
+            "'dgbi_last_errors_' . get_current_user_id()"
+          ]
+        },
+        {
+          "name": "delete_transient",
+          "line": 747,
+          "args": [
+            "'dgbi_last_errors_' . get_current_user_id()"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 766,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-ajax-import.php": {
+      "sha256": "fa80be41ca84bc27901f52798010a1c535e760b6d7911d4dbca9fb3bfa4cc187",
+      "bytes": 10455,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Ajax_Import",
+          "line": 34,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_start",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_place",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_finish",
+          "line": 223,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cleanup_stale_queues",
+          "line": 267,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "verify",
+          "line": 304,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'wp_ajax_dlig_start_import'",
+            "[ $this, 'handle_start' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'wp_ajax_dlig_import_place'",
+            "[ $this, 'handle_place' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'wp_ajax_dlig_finish_import'",
+            "[ $this, 'handle_finish' ]"
+          ]
+        },
+        {
+          "name": "get_transient",
+          "line": 69,
+          "args": [
+            "$rate_key"
+          ]
+        },
+        {
+          "name": "set_transient",
+          "line": 77,
+          "args": [
+            "$rate_key"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 139,
+          "args": [
+            "$user_id",
+            "$queue_id"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 192,
+          "args": [
+            "get_current_user_id()",
+            "$queue_id"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 228,
+          "args": [
+            "$user_id",
+            "$queue_id"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 236,
+          "args": [
+            "'dgbi_import_history'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 250,
+          "args": [
+            "'dgbi_import_history'"
+          ]
+        },
+        {
+          "name": "delete_user_meta",
+          "line": 252,
+          "args": [
+            "$user_id",
+            "$queue_id"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 285,
+          "args": [
+            "$user_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "delete_user_meta",
+          "line": 287,
+          "args": [
+            "$user_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "delete_user_meta",
+          "line": 294,
+          "args": [
+            "$user_id",
+            "$meta_key"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-field-mapping.php": {
+      "sha256": "56a1e1f4f35512398f2044c578c609e366dd75bd2e8cde35274293b1005d6f78",
+      "bytes": 39580,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Field_Mapping",
+          "line": 21,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_fields",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_directory_id",
+          "line": 165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_types",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_mapping_screen_directory_id",
+          "line": 210,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_available_destinations",
+          "line": 220,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_effective_mapping",
+          "line": 273,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_save",
+          "line": 292,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_mapped_data",
+          "line": 335,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_mapping",
+          "line": 367,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_saved_mapping",
+          "line": 406,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_allowed_destination_ids",
+          "line": 420,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sanitize_mapping_payload",
+          "line": 437,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enforce_unique_destinations",
+          "line": 459,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_destinations_for_source",
+          "line": 485,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "destination_matches_source_kind",
+          "line": 514,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_supported_form_field",
+          "line": 552,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_destination_label",
+          "line": 571,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "find_field_destination",
+          "line": 585,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_form_fields",
+          "line": 604,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "find_form_field_by_key",
+          "line": 623,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "source_has_value",
+          "line": 638,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_destination",
+          "line": 651,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_special_destination",
+          "line": 672,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_taxonomy_destination",
+          "line": 736,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_form_field_destination",
+          "line": 768,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_value_for_field",
+          "line": 839,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_selectable_value",
+          "line": 875,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_checkbox_value",
+          "line": 895,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_field_options",
+          "line": 916,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "match_field_option",
+          "line": 939,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "value_to_candidates",
+          "line": 967,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "stringify_value",
+          "line": 1017,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_flat_scalar_array",
+          "line": 1045,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_numeric",
+          "line": 1060,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_bool",
+          "line": 1124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_price_range_value",
+          "line": 1142,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_taxonomy_terms",
+          "line": 1180,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_term_id",
+          "line": 1211,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_comparison_token",
+          "line": 1248,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_category_taxonomy",
+          "line": 1258,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_location_taxonomy",
+          "line": 1265,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_tag_taxonomy",
+          "line": 1272,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'admin_post_dlig_save_google_field_mapping'",
+            "[ $this, 'handle_save' ]"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 170,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 174,
+          "args": [
+            "'default_directory_type'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 187,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 300,
+          "args": [
+            "self::OPT_FIELD_MAP"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 311,
+          "args": [
+            "self::OPT_FIELD_MAP"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 317,
+          "args": [
+            "self::OPT_FIELD_MAP"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 356,
+          "args": [
+            "$post_id",
+            "'_google_description'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 407,
+          "args": [
+            "self::OPT_FIELD_MAP"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 611,
+          "args": [
+            "'directorist_get_listing_form_fields'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 676,
+          "args": [
+            "$post_id",
+            "'_manual_lat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 677,
+          "args": [
+            "$post_id",
+            "'_latitude'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 682,
+          "args": [
+            "$post_id",
+            "'_manual_lng'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 683,
+          "args": [
+            "$post_id",
+            "'_longitude'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 688,
+          "args": [
+            "$post_id",
+            "'_hide_map'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 690,
+          "args": [
+            "$post_id",
+            "'_manual_lat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 691,
+          "args": [
+            "$post_id",
+            "'_manual_lng'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 696,
+          "args": [
+            "$post_id",
+            "'_directorist_listing_rating'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 701,
+          "args": [
+            "$post_id",
+            "'_user_ratings_total'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 702,
+          "args": [
+            "$post_id",
+            "'_directorist_listing_review_count'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 711,
+          "args": [
+            "$post_id",
+            "'_atbd_listing_pricing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 712,
+          "args": [
+            "$post_id",
+            "'_price'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 713,
+          "args": [
+            "$post_id",
+            "'_price_range'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 722,
+          "args": [
+            "$post_id",
+            "'_atbd_listing_pricing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 723,
+          "args": [
+            "$post_id",
+            "'_price'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 724,
+          "args": [
+            "$post_id",
+            "'_price_range'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 784,
+          "args": [
+            "'\\Directorist\\Fields\\Fields'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 785,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 824,
+          "args": [
+            "$post_id",
+            "'_excerpt'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 828,
+          "args": [
+            "$post_id",
+            "'_' . $field_key"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1259,
+          "args": [
+            "'ATBDP_CATEGORY'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1266,
+          "args": [
+            "'ATBDP_LOCATION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1273,
+          "args": [
+            "'ATBDP_TAGS'"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-google-places-client.php": {
+      "sha256": "2a36e7aa8c57e04169c046231d2aa2c5db09d524dc877984266da9b6436e6a4a",
+      "bytes": 21150,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Google_Places_Client",
+          "line": 22,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "sslverify",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_api_key",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "geocode",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_page",
+          "line": 168,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_details",
+          "line": 255,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_search_result",
+          "line": 294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalise_detail",
+          "line": 328,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "humanise_business_status",
+          "line": 393,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "humanise_price_level",
+          "line": 409,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "money_to_float",
+          "line": 431,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_price_currency",
+          "line": 449,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_price_range_text",
+          "line": 464,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_money",
+          "line": 488,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_plus_code",
+          "line": 509,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "optional_bool",
+          "line": 530,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_photo_media_url",
+          "line": 544,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_photo_media_failure",
+          "line": 595,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 41,
+          "args": [
+            "'dgbi_sslverify'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 66,
+          "args": [
+            "self::SEARCH_ENDPOINT"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 87,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 199,
+          "args": [
+            "self::SEARCH_ENDPOINT"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 217,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 218,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_get",
+          "line": 262,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 278,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_get",
+          "line": 551,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 568,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 569,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_header",
+          "line": 570,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 596,
+          "args": [
+            "'dgbi_log_photo_import_failures'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 596,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-importer.php": {
+      "sha256": "b6a94a58e1255b4ee8827c860f88fc1a3e127bf214133934f1d8adfc19390ba1",
+      "bytes": 27213,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Importer",
+          "line": 24,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "run",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_only",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_for_import",
+          "line": 151,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "import_single_place",
+          "line": 269,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_exists",
+          "line": 398,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_search_context",
+          "line": 411,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "annotate_duplicate_status",
+          "line": 452,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_existing_place_id_map",
+          "line": 476,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_existing_listing_id",
+          "line": 497,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_listing",
+          "line": 515,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_listing_directory",
+          "line": 549,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_google_source_data",
+          "line": 559,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "merge_source_data",
+          "line": 574,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sideload_featured_image",
+          "line": 596,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sideload_image_from_url",
+          "line": 631,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_directorist_preview_image",
+          "line": 657,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_directorist_preview_image",
+          "line": 667,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_directorist_preview_image",
+          "line": 679,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_photo_import_failure",
+          "line": 690,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "map_opening_hours",
+          "line": 702,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "restore_google_rating",
+          "line": 751,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "import_reviews",
+          "line": 767,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 334,
+          "args": [
+            "'dgbi_after_listing_updated'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 388,
+          "args": [
+            "'dgbi_after_listing_imported'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 529,
+          "args": [
+            "$post_id",
+            "'_google_place_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 532,
+          "args": [
+            "$post_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 534,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 539,
+          "args": [
+            "'directorist_set_listing_directory'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 550,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 563,
+          "args": [
+            "$post_id",
+            "'_opening_hours'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 603,
+          "args": [
+            "'media_sideload_image'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 658,
+          "args": [
+            "$post_id",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 672,
+          "args": [
+            "$post_id",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 691,
+          "args": [
+            "'dgbi_log_photo_import_failures'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 691,
+          "args": [
+            "'WP_DEBUG'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 703,
+          "args": [
+            "'ATBDP_BUSINESS_HOURS'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 704,
+          "args": [
+            "'Directorist_Business_Hour'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 705,
+          "args": [
+            "'ATBDP_Business_Hours'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 707,
+          "args": [
+            "'dgbi_business_hours_active'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 736,
+          "args": [
+            "$post_id",
+            "'_businesshours'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 753,
+          "args": [
+            "$post_id",
+            "'_directorist_listing_rating'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 756,
+          "args": [
+            "$post_id",
+            "'_directorist_listing_review_count'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 759,
+          "args": [
+            "'atbdp_after_review_added'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 779,
+          "args": [
+            "$post_id",
+            "'_google_reviews'"
+          ]
+        },
+        {
+          "name": "insert",
+          "line": 783,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-installer.php": {
+      "sha256": "aaf3b88a9df6186dda80b78078ff7d40a9d8b3cc849208094d3f333c10b74771",
+      "bytes": 1196,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Installer",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "activate",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "deactivate",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 35,
+          "args": [
+            "'dgbi_api_key'"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 36,
+          "args": [
+            "'dgbi_default_status'"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 37,
+          "args": [
+            "'dgbi_max_results'"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 38,
+          "args": [
+            "'dgbi_field_map'"
+          ]
+        },
+        {
+          "name": "add_option",
+          "line": 40,
+          "args": [
+            "'dgbi_import_history'"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-plugin.php": {
+      "sha256": "563bc35cdb697bb8d65983e48b4077dbf9554f1c8e38802fb3af922ff58cb66f",
+      "bytes": 2970,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Plugin",
+          "line": 19,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "maybe_repair_listings",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 60,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'maybe_repair_listings' ]"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 71,
+          "args": [
+            "'dgbi_repair_v1_1_done'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 75,
+          "args": [
+            "'directorist_set_listing_directory'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 75,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 84,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 99,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 104,
+          "args": [
+            "$post_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 105,
+          "args": [
+            "$post_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 107,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 108,
+          "args": [
+            "$post_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 112,
+          "args": [
+            "'dgbi_repair_v1_1_done'"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-review-mapper.php": {
+      "sha256": "2cb0f0f43738bbb09809fd0fcf45e0c0264b39810306fccbd1c973f904d90add",
+      "bytes": 5936,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Review_Mapper",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "insert",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "recalculate_average_rating",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 78,
+          "args": [
+            "'dgbi_review_approved'"
+          ]
+        },
+        {
+          "name": "update_comment_meta",
+          "line": 101,
+          "args": [
+            "$comment_id",
+            "'rating'"
+          ]
+        },
+        {
+          "name": "update_comment_meta",
+          "line": 105,
+          "args": [
+            "$comment_id",
+            "'dgbi_google_review_id'"
+          ]
+        },
+        {
+          "name": "update_comment_meta",
+          "line": 111,
+          "args": [
+            "$comment_id",
+            "'dgbi_review_language'"
+          ]
+        },
+        {
+          "name": "get_comment_meta",
+          "line": 149,
+          "args": [
+            "$c->comment_ID",
+            "'rating'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 160,
+          "args": [
+            "'\\Directorist\\Review\\Listing_Review_Meta'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 166,
+          "args": [
+            "$post_id",
+            "'_directorist_listing_rating'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 167,
+          "args": [
+            "$post_id",
+            "'_directorist_listing_review_count'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 172,
+          "args": [
+            "'atbdp_after_review_added'"
+          ]
+        }
+      ]
+    },
+    "google/includes/class-settings.php": {
+      "sha256": "c4ebf9aea16237679aa09c53d3142a9479ccacf2d29426070f37016a39fc022f",
+      "bytes": 11938,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings",
+          "line": 22,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_api_key",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_status",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_max_results",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_settings",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_save",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_remove",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_tab",
+          "line": 137,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "encrypt",
+          "line": 254,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "decrypt",
+          "line": 294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_cipher_key",
+          "line": 340,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'register_settings' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'admin_post_dlig_save_google_settings'",
+            "[ $this, 'handle_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'admin_post_dlig_remove_google_api_key'",
+            "[ $this, 'handle_remove' ]"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 44,
+          "args": [
+            "self::OPT_API_KEY"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 49,
+          "args": [
+            "self::OPT_DEFAULT_STATUS"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 55,
+          "args": [
+            "self::OPT_MAX_RESULTS"
+          ]
+        },
+        {
+          "name": "register_setting",
+          "line": 61,
+          "args": [
+            "'dgbi_settings_group'"
+          ]
+        },
+        {
+          "name": "register_setting",
+          "line": 66,
+          "args": [
+            "'dgbi_settings_group'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 91,
+          "args": [
+            "self::OPT_API_KEY"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 93,
+          "args": [
+            "self::OPT_API_KEY"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 101,
+          "args": [
+            "self::OPT_DEFAULT_STATUS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 104,
+          "args": [
+            "self::OPT_MAX_RESULTS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 123,
+          "args": [
+            "self::OPT_API_KEY"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 138,
+          "args": [
+            "self::OPT_API_KEY"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 256,
+          "args": [
+            "'openssl_encrypt'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 256,
+          "args": [
+            "'openssl_random_pseudo_bytes'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 295,
+          "args": [
+            "'openssl_decrypt'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 342,
+          "args": [
+            "'DGBI_ENCRYPTION_SALT'"
+          ]
+        }
+      ]
+    },
+    "includes/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/class-feed-discovery.php": {
+      "sha256": "8b251ac20969bebeead9fc771cc6ae0385c1aaf237bb9e53d5b3913b6aebffc5",
+      "bytes": 12190,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Listing_Import_Feed_Discovery",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolve",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "preview_items",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "preview_listings",
+          "line": 90,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "quality_score",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_valid_feed",
+          "line": 155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_email",
+          "line": 165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_phone",
+          "line": 173,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_website",
+          "line": 181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_address",
+          "line": 189,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_known_source",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "discover_from_html",
+          "line": 212,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "find_alternate_feed_link",
+          "line": 260,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "unsupported_source_error",
+          "line": 294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "result",
+          "line": 310,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_or_replace_query_arg",
+          "line": 318,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "absolute_url",
+          "line": 322,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 67,
+          "args": [
+            "'fetch_feed'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 91,
+          "args": [
+            "'fetch_feed'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 156,
+          "args": [
+            "'fetch_feed'"
+          ]
+        },
+        {
+          "name": "wp_remote_get",
+          "line": 213,
+          "args": [
+            "$url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 228,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 247,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 261,
+          "args": [
+            "'DOMDocument'"
+          ]
+        }
+      ]
+    },
+    "includes/class-feed-manager.php": {
+      "sha256": "50bc0164dfe109f811d8877335d37ca1bd814cac8d293e27159e609d10e89776",
+      "bytes": 6113,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Listing_Import_Feed_Manager",
+          "line": 23,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_feeds",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_feed",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_feed",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_feed",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_feed",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_due_feeds",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "generate_id",
+          "line": 167,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 31,
+          "args": [
+            "DLI_OPTION_FEEDS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 75,
+          "args": [
+            "DLI_OPTION_FEEDS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 116,
+          "args": [
+            "DLI_OPTION_FEEDS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 135,
+          "args": [
+            "DLI_OPTION_FEEDS"
+          ]
+        }
+      ]
+    },
+    "includes/class-importer.php": {
+      "sha256": "204d3e9c688d6b64a84be9bc1f85313a6354feb973d317da98e2abe97235a62a",
+      "bytes": 14525,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Listing_Import_Importer",
+          "line": 24,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "run_feed",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "fetch_items",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_duplicate",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_listing",
+          "line": 155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sideload_image",
+          "line": 261,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_price",
+          "line": 281,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_location",
+          "line": 303,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_phone",
+          "line": 318,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_email",
+          "line": 326,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_website",
+          "line": 334,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_name",
+          "line": 348,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log",
+          "line": 364,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DLI_META_SOURCE_URL'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 33,
+          "args": [
+            "DLI_OPTION_SETTINGS"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 105,
+          "args": [
+            "'SimplePie'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 171,
+          "args": [
+            "'directorist_listing_import_pre_insert_listing'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 179,
+          "args": [
+            "'directorist_set_listing_directory'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 181,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 181,
+          "args": [
+            "'directorist_set_listing_directory'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 192,
+          "args": [
+            "$post_id",
+            "DLI_META_SOURCE_URL"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 193,
+          "args": [
+            "$post_id",
+            "DLI_META_SOURCE_NAME"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 194,
+          "args": [
+            "$post_id",
+            "DLI_META_IMPORTED_AT"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 195,
+          "args": [
+            "$post_id",
+            "DLI_LEGACY_META_SOURCE_URL"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 196,
+          "args": [
+            "$post_id",
+            "DLI_LEGACY_META_SOURCE_NAME"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 197,
+          "args": [
+            "$post_id",
+            "DLI_LEGACY_META_IMPORTED_AT"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 203,
+          "args": [
+            "$post_id",
+            "'_price'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 205,
+          "args": [
+            "$post_id",
+            "'price'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 211,
+          "args": [
+            "$post_id",
+            "'_address'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 212,
+          "args": [
+            "$post_id",
+            "'address'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 221,
+          "args": [
+            "$post_id",
+            "'_phone'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 222,
+          "args": [
+            "$post_id",
+            "'phone'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 226,
+          "args": [
+            "$post_id",
+            "'_email'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 227,
+          "args": [
+            "$post_id",
+            "'email'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 231,
+          "args": [
+            "$post_id",
+            "'_website'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 232,
+          "args": [
+            "$post_id",
+            "'website'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 249,
+          "args": [
+            "'directorist_listing_import_listing_created'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 262,
+          "args": [
+            "'media_sideload_image'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 365,
+          "args": [
+            "DLI_OPTION_LOGS"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 381,
+          "args": [
+            "DLI_OPTION_LOGS"
+          ]
+        }
+      ]
+    },
+    "includes/class-scheduler.php": {
+      "sha256": "f68a2e0d324ab7e3a34a50bff97a4cfc1844dedd662711ebef91589985c86214",
+      "bytes": 2070,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Listing_Import_Scheduler",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "run_due_feeds",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_run_now",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "DLI_CRON_HOOK",
+            "[ __CLASS__, 'run_due_feeds' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'admin_post_dli_run_feed_now'",
+            "[ __CLASS__, 'handle_run_now' ]"
+          ]
+        }
+      ]
+    }
+  }
+}

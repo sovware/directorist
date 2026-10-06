@@ -300,6 +300,21 @@ Directorist comes with an AI-powered directory builder. Use the Create with AI o
 
 == Changelog ==
 
+= 8.10.1 - Oct 6, 2026 =
+
+**Security**
+- Hardened listing tag submission and taxonomy dropdown rendering to prevent stored XSS. (#3056)
+- Strengthened REST API item permissions to prevent unauthorized access to non-public listing resources. (#3056)
+- Escaped single listing map info window phone and direction URL output to prevent stored XSS. (#3056)
+
+**Fixed**
+- Google Maps initialization before required map libraries finish loading. (#3055)
+- Malformed archive card layouts not recovering correctly. (#3033)
+- Listing address autocomplete not syncing with the map pin. (#3032)
+- Frontend listing submissions not persisting selected taxonomies. (#3031)
+- Review visibility in the featured listing widget. (#2998)
+- Deprecated PHP warning when rendering taxonomy list subterms with empty category or location children.
+
 = 8.10 - Oct 1, 2026 =
 
 **Added**

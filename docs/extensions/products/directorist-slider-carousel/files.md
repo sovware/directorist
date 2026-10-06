@@ -1,0 +1,23 @@
+# Classified file inventory
+
+Every scanned file is classified and fingerprinted. First-party source declarations and literal call sites are indexed; this is structural coverage, not a guarantee that every semantic branch was manually reviewed. Dependency/vendor trees are deliberately excluded; their packages must be inspected if an issue reaches them.
+
+| Snapshot / file | Class | Symbols | Topic candidates |
+| --- | --- | --- | --- |
+| slider-carousel--beta / [.gitignore:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/.gitignore#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [bd-directorist-slider.php:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/bd-directorist-slider.php#L1) | source | 17 | [slider-query](topics/slider-query.md), [slider-motion](topics/slider-motion.md) |
+| slider-carousel--beta / [composer.json:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/composer.json#L1) | source | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [composer.lock:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/composer.lock#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [config.php:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/config.php#L1) | source | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [index.php:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/index.php#L1) | source | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [phpcs.xml.dist:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/phpcs.xml.dist#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [readme.txt:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/readme.txt#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [assets/admin/main.js:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/admin/main.js#L1) | source | 0 | [slider-motion](topics/slider-motion.md) |
+| slider-carousel--beta / [assets/admin/slick.min.css:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/admin/slick.min.css#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [assets/admin/slick.min.js:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/admin/slick.min.js#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [assets/admin/style-rtl.css:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/admin/style-rtl.css#L1) | source | 0 | [slider-motion](topics/slider-motion.md) |
+| slider-carousel--beta / [assets/admin/style.css:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/admin/style.css#L1) | source | 0 | [slider-motion](topics/slider-motion.md) |
+| slider-carousel--beta / [assets/css/style-rtl.css:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/css/style-rtl.css#L1) | source | 0 | [slider-motion](topics/slider-motion.md) |
+| slider-carousel--beta / [assets/css/style.css:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/assets/css/style.css#L1) | source | 0 | [slider-motion](topics/slider-motion.md) |
+| slider-carousel--beta / [inc/EDD_SL_Plugin_Updater.php:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/inc/EDD_SL_Plugin_Updater.php#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| slider-carousel--beta / [languages/directorist-slider-carousel.pot:1](https://github.com/sovware/directorist-slider-carousel/blob/fa74bc9ece627c2c36bf5c2464dc2f3710fec438/languages/directorist-slider-carousel.pot#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |

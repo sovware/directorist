@@ -1,0 +1,4051 @@
+{
+  "snapshot": {
+    "key": "advanced-review--development",
+    "repo": "directorist-advanced-review",
+    "branch": "development",
+    "commit": "e3559325447ddb3ede6b916ffbf9defd658cbbf5",
+    "date": "2026-06-22T04:41:52Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review__development",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "8aa222454f54b8c2fe728a15a364624659cfe51904664e0afb40a02b8a5e2891",
+      "bytes": 31,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "2b9ad3c640d8567684df0ffb5df8f8c98a355ffab26231c504b50468fbe5b532",
+      "bytes": 308,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "18b0cd753bff1c89ec5a54cdaca5144516541aa11c2044bfebef541deeb863d9",
+      "bytes": 1064,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "b6ebad384c7f1418a1f4d8bbd589c825030fba1143aa4d83a9770f9c909ec18e",
+      "bytes": 377,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "856e811f0c0a30bc9e28c8e3e70fdd4dcc516b79da120b2970489b7f8c762a97",
+      "bytes": 2752,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-advanced-review.php": {
+      "sha256": "2bea45417e31116625b196bb3ddc04d5899309c78c799770eee9d0b94e556bf7",
+      "bytes": 3151,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristAdvancedReview",
+          "line": 31,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "on_activation",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "on_deactivation",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 4,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 43,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 44,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'init'",
+            "[ $this, 'update' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 58,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $application ): void { do_action( 'before_load_directorist_advanced_review' ); $application->load(); do_action( 'after_load_directorist_advanced_review' ); }"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 61,
+          "args": [
+            "'before_load_directorist_advanced_review'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 65,
+          "args": [
+            "'after_load_directorist_advanced_review'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 81,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "d71b722fb84f0665ab276851a09aadb67142f0d34aeed220196150dffed43fc6",
+      "bytes": 1799,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "pnpm-lock.yaml": {
+      "sha256": "f5407a7bf2e00487ea9fcaa11fe7b7220d4247656cc771ede6c243651fac7860",
+      "bytes": 465584,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "377636aef56bbadfd45f94ad1b49250dfc026c42ac45c0edff14313ee999974e",
+      "bytes": 1915,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/build-release.yml": {
+      "sha256": "5301d770c42014a56708c93dfa338d066e1c1695c975bf4ff427f20a1306998c",
+      "bytes": 1366,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/build-unminified-release.yml": {
+      "sha256": "c7d9bb9671d4bcbd64422c23f055d703fc5f0ea55d72df7b4987e95457067c80",
+      "bytes": 1396,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".husky/pre-commit": {
+      "sha256": "4d6126ff628b748d6be9ec35cbff3c4a953a5363456884e2c7634235c84ad846",
+      "bytes": 28,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CustomSniffs/Sniffs/Files/ABSPATHDefinedSniff.php": {
+      "sha256": "b82313aa4489eaf55e1000887934f4a9b36ce1beb9c94cebb44979a2c9462542",
+      "bytes": 1725,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/DTO/ReactionDTO.php": {
+      "sha256": "5d3ea015af02dc402bf059b9511a9993ae6b6e48b68c058cd96e954b93edc86b",
+      "bytes": 1977,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReactionDTO",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_id",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_id",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_comment_ID",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_comment_ID",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_user_id",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_user_id",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_reaction",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_reaction",
+          "line": 102,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/DTO/ReviewDTO.php": {
+      "sha256": "7cbd6f30a2623cd13a002c4e6d7255f42031d6a471f908772d14f9697ec0b158",
+      "bytes": 4810,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReviewDTO",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_id",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_id",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_post_id",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_post_id",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_title",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_title",
+          "line": 92,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_name",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_name",
+          "line": 114,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_email",
+          "line": 125,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_email",
+          "line": 136,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_content",
+          "line": 147,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_content",
+          "line": 158,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_rating",
+          "line": 169,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_rating",
+          "line": 180,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_ratings",
+          "line": 191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_ratings",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_user_id",
+          "line": 213,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_user_id",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_comment_parent",
+          "line": 235,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_comment_parent",
+          "line": 246,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_attachment_ids",
+          "line": 257,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_attachment_ids",
+          "line": 268,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/DTO/ReviewReadDTO.php": {
+      "sha256": "8f131413c97c0e113385097ffbd48401ab51af2d690e09cc955aec16e7a2242c",
+      "bytes": 2233,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReviewReadDTO",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_post_id",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_post_id",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_rating",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_rating",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_sort",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_sort",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_page",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_page",
+          "line": 102,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_criteria_ids",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_criteria_ids",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Helpers/edd-updater.php": {
+      "sha256": "1f8a2d0e1b3ac99d564bcf1f5239a0625fa45403c320ff53a3e01c764069166f",
+      "bytes": 21166,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "ec38effcde15b6c15b4069f57a6073ec911de4736c8e8717d2b489f3e2c4842b",
+      "bytes": 1474,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_advanced_review",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_config",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_app_config",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_version",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_container",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_singleton",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_url",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_dir",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_render",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_advanced_review_repository",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/AttachmentController.php": {
+      "sha256": "9bbf996a5a94b5335dad51a7ed7a35116977ee378e43d818045be04f19d07140",
+      "bytes": 1849,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AttachmentController",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "store",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/Controller.php": {
+      "sha256": "b3dff8dca600550fbc4168fba8823545eb2ad1650e79c52e249ede0f838c0c77",
+      "bytes": 116,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Controller",
+          "line": 7,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/ReactionController.php": {
+      "sha256": "43ee0a6c8041206f301e5c881ac6dc22a708271e0936eb29cf33ceaa41b8f35d",
+      "bytes": 2204,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReactionController",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "store",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "update",
+          "line": 50,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 52,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/ReplyController.php": {
+      "sha256": "87cea96e06320f15c377f22e1c8af65fde5458d02b6bde6a63250af6e4cc3a06",
+      "bytes": 4959,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReplyController",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "index",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "store",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete",
+          "line": 142,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "update",
+          "line": 126,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/ReportController.php": {
+      "sha256": "2ad8e9193b3e1722385e125d234ce4e922fc76724988b15f3a8d2a9b2db91638",
+      "bytes": 2078,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReportController",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "store",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 49,
+          "args": [
+            "'admin_email'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 51,
+          "args": [
+            "'di_adr_report_mail_body'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/ReviewController.php": {
+      "sha256": "84141b1e835ff99cf31eed14b6c4bf63dfa54f791a22aeaff42dcc89a8dffed0",
+      "bytes": 7432,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReviewController",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "index",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "store",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete",
+          "line": 205,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "create",
+          "line": 156,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/UserController.php": {
+      "sha256": "91f49fa7029eef391ae3b8bd43313426a0cc35ababda374eea9e793a22146a8b",
+      "bytes": 171,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserController",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "index",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/Auth.php": {
+      "sha256": "709fee9800b4f8723bcfd043a088c4d10304e70d6cc0e38ebac214d41d7cae04",
+      "bytes": 513,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Auth",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/EnsureIsUserAdmin.php": {
+      "sha256": "d85db11d8fb0ba5ea0e8795af9973510e5123435ad4d39afa4f11175586d825c",
+      "bytes": 485,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/GuestReview.php": {
+      "sha256": "b14ac8b6e2ce664171332537d381eceabc2a5e84836bfcc20c6c027bd6f6819a",
+      "bytes": 561,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "GuestReview",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/AdvancedReview.php": {
+      "sha256": "faf4f0da6c36ad7a6ea4340289c9374f23a29b4796c75ad23b284734375a91ce",
+      "bytes": 494,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AdvancedReview",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/Comment.php": {
+      "sha256": "3ef74afb25682afbae040ca2dfa918363d6a83d125e1067a5bffcb2a9c2f8287",
+      "bytes": 1250,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Comment",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "author",
+          "line": 19,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "author",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "reaction",
+          "line": 23,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "reaction",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "criterias",
+          "line": 27,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "criterias",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "children",
+          "line": 31,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "children",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 35,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolver",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/CommentMeta.php": {
+      "sha256": "33ada8b3879e9b5b6ab896db9c8a9855bd382ed04dbd74b99228ae428a3146ae",
+      "bytes": 474,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CommentMeta",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/Post.php": {
+      "sha256": "10996182f64d7c8aefa3e28fac489e3b182923b9081b76c529461526e31a3d34",
+      "bytes": 647,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Post",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolver",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/PostMeta.php": {
+      "sha256": "da828a55e24678953e9a3b7c96bda48d47c3ddbc07d2d2bce08c7f57135f9e42",
+      "bytes": 468,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PostMeta",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/Reaction.php": {
+      "sha256": "6b1690f1b1ba2a2cf383b45b94a4dcb9d530233e65ceb6e18daeab1db7070512",
+      "bytes": 488,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Reaction",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/User.php": {
+      "sha256": "b55d194587800a4cf336dae2645b29783966f8d0f7f338b2a645fc99d7059472",
+      "bytes": 461,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/UserMeta.php": {
+      "sha256": "b5181f49821a8568bfd58614016f4ce16e18a127e93a405ca124557ba2210377",
+      "bytes": 468,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserMeta",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Providers/FrontendServiceProvider.php": {
+      "sha256": "b50022df7a4f235e0adbe1416d1d0548f0e2646102c9487d8101c88a68e2aac8",
+      "bytes": 1080,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FrontendServiceProvider",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_template_path",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_frontend_assets",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_template_file_path'",
+            "[$this, 'add_template_path']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "[$this, 'enqueue_frontend_assets']"
+          ]
+        }
+      ]
+    },
+    "app/Providers/MenuServiceProvider.php": {
+      "sha256": "75e4360c5d5e4c4497d5fff46b766b4b531a3f9244f3d7aec5042faa318d5628",
+      "bytes": 231,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MenuServiceProvider",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Providers/Admin/SettingsServiceProvider.php": {
+      "sha256": "20572885e95a28d29a2e2bb83927687e5b65428bcf4f9ebe7c89a2799d141c4e",
+      "bytes": 9084,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SettingsServiceProvider",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "action_edit_comment",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_review_settings",
+          "line": 112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register",
+          "line": 196,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "review_data",
+          "line": 229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "review_images",
+          "line": 233,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'atbdp_single_listing_other_fields_widget'",
+            "[$this, 'add_review_settings']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'add_meta_boxes_comment'",
+            "[ $this, 'register' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'edit_comment'",
+            "[ $this, 'action_edit_comment' ]"
+          ]
+        },
+        {
+          "name": "update_comment_meta",
+          "line": 57,
+          "args": [
+            "$comment_id",
+            "'rating'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 84,
+          "args": [
+            "'id'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 84,
+          "args": [
+            "write keys: rating (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "insert",
+          "line": 94,
+          "args": [
+            "write keys: listing_id, comment_ID, criteria_key, rating (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update_comment_meta",
+          "line": 105,
+          "args": [
+            "$comment_id",
+            "'rating'"
+          ]
+        },
+        {
+          "name": "update_comment_meta",
+          "line": 106,
+          "args": [
+            "$comment_id",
+            "'title'"
+          ]
+        }
+      ]
+    },
+    "app/Repositories/ReactionRepository.php": {
+      "sha256": "efaec30d190481473d448aa6a42ba38253d4989d28b46581084be0a97f966552",
+      "bytes": 790,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReactionRepository",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_query_builder",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "find_one_by_comment_id_and_user_id",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "total_like",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 17,
+          "args": [
+            "'user_id'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 17,
+          "args": [
+            "'comment_ID'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 21,
+          "args": [
+            "'comment_ID'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 21,
+          "args": [
+            "'reaction'"
+          ]
+        }
+      ]
+    },
+    "app/Repositories/ReviewRepository.php": {
+      "sha256": "aa3b7833b5fbefb4ec2813ab39e6439ec790169d9e3115cf2a5eaf60468278ab",
+      "bytes": 14953,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReviewRepository",
+          "line": 19,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_query_builder",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_user_reviewed",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_review_data",
+          "line": 160,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_criterias",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_replies",
+          "line": 216,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_total_replies",
+          "line": 243,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create",
+          "line": 252,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "createReply",
+          "line": 301,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 318,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_by_id",
+          "line": 329,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_advanced_review_by_comment_id",
+          "line": 333,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_review_criterias",
+          "line": 337,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 21,
+          "args": [
+            "'comment_approved'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 29,
+          "args": [
+            "'comment_type'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 29,
+          "args": [
+            "'comment.comment_post_ID'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 29,
+          "args": [
+            "'comment.comment_parent'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 38,
+          "args": [
+            "AdvancedReview::get_table_name() . ' as criteria'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 47,
+          "args": [
+            "CommentMeta::get_table_name() . ' as meta'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 54,
+          "args": [
+            "'comment.*'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 66,
+          "args": [
+            "'reaction_like_count.reaction'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 134,
+          "args": [
+            "'comment_type'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 134,
+          "args": [
+            "'COALESCE( AVG(meta_value * 1), 0 ) AS average_rating'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 134,
+          "args": [
+            "'comment_post_ID'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 134,
+          "args": [
+            "CommentMeta::get_table_name() . ' as meta'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 134,
+          "args": [
+            "'meta.meta_key'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 136,
+          "args": [
+            "CommentMeta::get_table_name() . ' as meta'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 150,
+          "args": [
+            "'comment_type'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 150,
+          "args": [
+            "'comment_post_ID'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 150,
+          "args": [
+            "'comment_parent'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 150,
+          "args": [
+            "'comment_author_email'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 157,
+          "args": [
+            "'comment_type'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 157,
+          "args": [
+            "'comment_post_ID'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 157,
+          "args": [
+            "'comment_parent'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 157,
+          "args": [
+            "'user_id'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 179,
+          "args": [
+            "\"advanced_review.criteria_key\""
+          ]
+        },
+        {
+          "name": "join",
+          "line": 180,
+          "args": [
+            "Comment::get_table_name() . ' as comment'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 185,
+          "args": [
+            "'comment.comment_post_ID'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 218,
+          "args": [
+            "'comment.*'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 224,
+          "args": [
+            "'reaction_like_count.reaction'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 230,
+          "args": [
+            "Post::get_table_name() . ' as post'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 230,
+          "args": [
+            "'comment.comment_parent'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 244,
+          "args": [
+            "'comment_parent'"
+          ]
+        },
+        {
+          "name": "insert",
+          "line": 292,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 330,
+          "args": [
+            "'comment_ID'"
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 330,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 334,
+          "args": [
+            "$columns"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 334,
+          "args": [
+            "'comment_ID'"
+          ]
+        }
+      ]
+    },
+    "assets/images/close.png": {
+      "sha256": "b091a5b7762cb39ed38b308f765e0e7d5fda52fc413c33603c44808909695a57",
+      "bytes": 252,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/images/loading.gif": {
+      "sha256": "225aa88b6ab02c06222ec9468d62e15fa188e39cdb9431d1f55401ad380753ed",
+      "bytes": 8476,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/images/next.png": {
+      "sha256": "ddde44b34354984cc90ed944c41d66c44eedabfe9bb5d47c657ba460adaddd65",
+      "bytes": 1270,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/images/placeholder.png": {
+      "sha256": "5ebeb017d82c12b0cd23ddfc32011b98a7e5ae7a4484d2f16dd4c0fb005805aa",
+      "bytes": 1963,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/images/prev.png": {
+      "sha256": "48a13d8f02a09f1ce6a19bdfd38b90943c9a1385e9b0406f1a4842b7eeab8874",
+      "bytes": 1335,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config/app.php": {
+      "sha256": "e2d0d502d0194aa23173494c527a9f855926761b8610c8b54d3a1badbd83d5c3",
+      "bytes": 3603,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SettingsServiceProvider",
+          "line": 54,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "MenuServiceProvider",
+          "line": 61,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Auth",
+          "line": 62,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 72,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "GuestReview",
+          "line": 73,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Migrations/CreateDB.php": {
+      "sha256": "0f608fcdd631bbd8a2a8434a33f3a98dd0854994672b8cfd3637c260844e157f",
+      "bytes": 1762,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CreateDB",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "more_than_version",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "execute",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 21,
+          "args": [
+            "'dbDelta'"
+          ]
+        },
+        {
+          "name": "dbDelta",
+          "line": 53,
+          "args": [
+            "$sql"
+          ]
+        }
+      ]
+    },
+    "database/Migrations/SnapMigration.php": {
+      "sha256": "20f9b3fd722569ff0f754edf35ed651c06a8f881199e1d388c969ba184011360",
+      "bytes": 444,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SnapMigration",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "migrate_activation_snap",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "migrate_deactivation_snap",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "database/Migrations/TestMigration.php": {
+      "sha256": "e9c30a1c7684b054d281a1baf0b1d0174821aeb9b2a3d217517942dace8ed6c7",
+      "bytes": 336,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TestMigration",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "more_than_version",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "execute",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "database/Migrations/Snap/DirectoryBuilderSnap.php": {
+      "sha256": "4b386228b372db519a0d50723ed8db88e6ba663184d6a7d6550c41baa66868d8",
+      "bytes": 11479,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoryBuilderSnap",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "migrate_activation_snap",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "migrate_deactivation_snap",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "restore_snaps",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_snap",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_core_snap",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_extension_review_section_fields",
+          "line": 76,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_extension_snap",
+          "line": 99,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_snaps",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_snap_data",
+          "line": 146,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_snap_data_for_single_listings_contents",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_directory_snap_data_for_single_listings_contents",
+          "line": 217,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_directory_with_snap",
+          "line": 283,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_saved_snaps",
+          "line": 295,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_snaps",
+          "line": 300,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_snaps",
+          "line": 304,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_terms",
+          "line": 308,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 160,
+          "args": [
+            "$directory_id",
+            "'single_listings_contents'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 218,
+          "args": [
+            "$directory_id",
+            "'single_listings_contents'"
+          ]
+        },
+        {
+          "name": "update_term_meta",
+          "line": 279,
+          "args": [
+            "$directory_id",
+            "'single_listings_contents'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 296,
+          "args": [
+            "\"directorist_advanced_review_directory_snaps:{$type"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 301,
+          "args": [
+            "\"directorist_advanced_review_directory_snaps:{$type"
+          ]
+        },
+        {
+          "name": "delete_option",
+          "line": 305,
+          "args": [
+            "\"directorist_advanced_review_directory_snaps:{$type"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 311,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        }
+      ]
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "777f046bddb27c5d3c8c233d1b6805a93cca582b72c5b7390bf1b0214cb2dd3d",
+      "bytes": 4522,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/phpcs.xml": {
+      "sha256": "eacd79c0024c1e611c2b4834f69e85bed76c5a9821d635dcdba6d2621756faa6",
+      "bytes": 6165,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "efae30e2e5c4c02f94002e72e1a24f81193f692fb0269be71197686a24348d60",
+      "bytes": 2374,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "f82513c1e80af3d980f1ddce029ffa3e73c3669e8492625b4a85dcdc19015a78",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/exclude.files.config.php": {
+      "sha256": "62c1d4560e848bd07a1fafcdb3cc3f9dd7d09abe913e84e9bf76a0a6e1f983d0",
+      "bytes": 1683,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/global.config.php": {
+      "sha256": "76e8aa767db8a346e294adc70aa7612cf18e0eabbfb2224bfceeb5c3493f8f3b",
+      "bytes": 2732,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/index.php": {
+      "sha256": "7d4c501042e762e13462947d1516b78263c28a45d179f62c3f256fdbc08d55fb",
+      "bytes": 1406,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "303bc15c8c2663a9948487174025917ef822eea42b4c6e567d56f774688fd56a",
+      "bytes": 290,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "1c48e821287b971fa8037878c1a093a8d09d0a48cde63f2cc6651dfdf904655b",
+      "bytes": 697,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "register_style",
+          "line": 7,
+          "args": [
+            "'directorist-advanced-review-frontend'"
+          ]
+        },
+        {
+          "name": "register_script",
+          "line": 19,
+          "args": [
+            "'directorist-advanced-review-lightbox'"
+          ]
+        }
+      ]
+    },
+    "resources/js/frontend.js": {
+      "sha256": "dc6a913d77fe77af020b9cde8f5912747254b0efe431ad266499a0feda349fe1",
+      "bytes": 14022,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "moment",
+          "kind": "JS",
+          "line": 28
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 33
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 37
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 41
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 45
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 52
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 59
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 66
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 70
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 77
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 81
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 85
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 93
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 97
+        },
+        {
+          "name": "commentId",
+          "kind": "JS",
+          "line": 98
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 105
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 112
+        },
+        {
+          "name": "content",
+          "kind": "JS",
+          "line": 113
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 117
+        },
+        {
+          "name": "content",
+          "kind": "JS",
+          "line": 118
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 126
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 130
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 151
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 174
+        },
+        {
+          "name": "date",
+          "kind": "JS",
+          "line": 175
+        },
+        {
+          "name": "now",
+          "kind": "JS",
+          "line": 176
+        },
+        {
+          "name": "givenDate",
+          "kind": "JS",
+          "line": 177
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 183
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 191
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 195
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 199
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 203
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 211
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 215
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 219
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 227
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 231
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 238
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 242
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 246
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 250
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 261
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 273
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 279
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 283
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 296
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 305
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 315
+        },
+        {
+          "name": "currentComment_ID",
+          "kind": "JS",
+          "line": 316
+        },
+        {
+          "name": "commentId",
+          "kind": "JS",
+          "line": 317
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 322
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 323
+        },
+        {
+          "name": "dropdown",
+          "kind": "JS",
+          "line": 324
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 331
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 337
+        },
+        {
+          "name": "currentComment_ID",
+          "kind": "JS",
+          "line": 339
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 358
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 362
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 366
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 372
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 379
+        },
+        {
+          "name": "reaction",
+          "kind": "JS",
+          "line": 381
+        },
+        {
+          "name": "response",
+          "kind": "JS",
+          "line": 383
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 392
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 399
+        },
+        {
+          "name": "reaction",
+          "kind": "JS",
+          "line": 401
+        },
+        {
+          "name": "response",
+          "kind": "JS",
+          "line": 403
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 412
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 417
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 423
+        },
+        {
+          "name": "el",
+          "kind": "JS",
+          "line": 427
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 435
+        },
+        {
+          "name": "currentComment_ID",
+          "kind": "JS",
+          "line": 436
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 450
+        },
+        {
+          "name": "currentComment_ID",
+          "kind": "JS",
+          "line": 451
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 464
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 472
+        },
+        {
+          "name": "replies",
+          "kind": "JS",
+          "line": 473
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 480
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 486
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 490
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 491
+        },
+        {
+          "name": "parentContext",
+          "kind": "JS",
+          "line": 501
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/fslightbox.js": {
+      "sha256": "f419724d1b4fea5acecbb22d2387e8e42883179be6f3c3f50788b0deb04ae107",
+      "bytes": 54287,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/js/repository.js": {
+      "sha256": "9bde3e80e03d057854c5bdd79e83dc46a9be59e46f4304c4e3a1ee6f1bfe086c",
+      "bytes": 1621,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Repository",
+          "kind": "JS",
+          "line": 8
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/utils.js": {
+      "sha256": "87982139044fa8092939267c770f88b566bb7bf4623eb7149c999ec3868a01bd",
+      "bytes": 7229,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "lodash",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "apiFetch",
+          "kind": "JS",
+          "line": 15
+        },
+        {
+          "name": "initFSLightbox",
+          "kind": "JS",
+          "line": 20
+        },
+        {
+          "name": "refreshReviews",
+          "kind": "JS",
+          "line": 26
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 27
+        },
+        {
+          "name": "response",
+          "kind": "JS",
+          "line": 29
+        },
+        {
+          "name": "checkedCriteriaIds",
+          "kind": "JS",
+          "line": 36
+        },
+        {
+          "name": "updatedCriterias",
+          "kind": "JS",
+          "line": 37
+        },
+        {
+          "name": "generatePagination",
+          "kind": "JS",
+          "line": 50
+        },
+        {
+          "name": "getCheckedCriteriaIds",
+          "kind": "JS",
+          "line": 93
+        },
+        {
+          "name": "getRatingData",
+          "kind": "JS",
+          "line": 102
+        },
+        {
+          "name": "truncateText",
+          "kind": "JS",
+          "line": 122
+        },
+        {
+          "name": "base64DecodeUTF8",
+          "kind": "JS",
+          "line": 134
+        },
+        {
+          "name": "binary",
+          "kind": "JS",
+          "line": 136
+        },
+        {
+          "name": "bytes",
+          "kind": "JS",
+          "line": 137
+        },
+        {
+          "name": "preventDefaults",
+          "kind": "JS",
+          "line": 146
+        },
+        {
+          "name": "hideReplyForm",
+          "kind": "JS",
+          "line": 151
+        },
+        {
+          "name": "commentForm",
+          "kind": "JS",
+          "line": 156
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 160
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 167
+        },
+        {
+          "name": "replies",
+          "kind": "JS",
+          "line": 172
+        },
+        {
+          "name": "commentEditForm",
+          "kind": "JS",
+          "line": 189
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 193
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 200
+        },
+        {
+          "name": "isUserLoggedIn",
+          "kind": "JS",
+          "line": 214
+        },
+        {
+          "name": "initCharacterCounter",
+          "kind": "JS",
+          "line": 221
+        },
+        {
+          "name": "containers",
+          "kind": "JS",
+          "line": 226
+        },
+        {
+          "name": "textareas",
+          "kind": "JS",
+          "line": 229
+        },
+        {
+          "name": "maxCharacters",
+          "kind": "JS",
+          "line": 232
+        },
+        {
+          "name": "wordLimit",
+          "kind": "JS",
+          "line": 236
+        },
+        {
+          "name": "updateCounter",
+          "kind": "JS",
+          "line": 240
+        },
+        {
+          "name": "currentLength",
+          "kind": "JS",
+          "line": 241
+        },
+        {
+          "name": "form",
+          "kind": "JS",
+          "line": 255
+        },
+        {
+          "name": "extendContent",
+          "kind": "JS",
+          "line": 268
+        },
+        {
+          "name": "scrollToTopOfReviews",
+          "kind": "JS",
+          "line": 281
+        },
+        {
+          "name": "el",
+          "kind": "JS",
+          "line": 282
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/actions/file.js": {
+      "sha256": "5020a28170bae0477c9b45dc3f86028d2c1d86ef0a2d4c1fdad2200cf2d1041b",
+      "bytes": 4511,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "fileDragEnter",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "fileDragLeave",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 12
+        },
+        {
+          "name": "fileDrop",
+          "kind": "JS",
+          "line": 16
+        },
+        {
+          "name": "dt",
+          "kind": "JS",
+          "line": 19
+        },
+        {
+          "name": "files",
+          "kind": "JS",
+          "line": 20
+        },
+        {
+          "name": "updateUploadState",
+          "kind": "JS",
+          "line": 27
+        },
+        {
+          "name": "hasUploadingFiles",
+          "kind": "JS",
+          "line": 31
+        },
+        {
+          "name": "resetFileInput",
+          "kind": "JS",
+          "line": 40
+        },
+        {
+          "name": "fileInput",
+          "kind": "JS",
+          "line": 42
+        },
+        {
+          "name": "onChangeFile",
+          "kind": "JS",
+          "line": 48
+        },
+        {
+          "name": "files",
+          "kind": "JS",
+          "line": 49
+        },
+        {
+          "name": "uploadFile",
+          "kind": "JS",
+          "line": 60
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 61
+        },
+        {
+          "name": "url",
+          "kind": "JS",
+          "line": 68
+        },
+        {
+          "name": "item",
+          "kind": "JS",
+          "line": 82
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 84
+        },
+        {
+          "name": "$",
+          "kind": "JS",
+          "line": 87
+        },
+        {
+          "name": "ajaxRequest",
+          "kind": "JS",
+          "line": 90
+        },
+        {
+          "name": "xhr",
+          "kind": "JS",
+          "line": 100
+        },
+        {
+          "name": "removeFile",
+          "kind": "JS",
+          "line": 144
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 145
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/admin/index.js": {
+      "sha256": "0eed79924531260a5e52b6073a632f2f34a90624233a406b70cf3de646103d4c",
+      "bytes": 7769,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "STAR_TEMPLATES",
+          "kind": "JS",
+          "line": 2
+        },
+        {
+          "name": "ratingDataAttributes",
+          "kind": "JS",
+          "line": 42
+        },
+        {
+          "name": "reviewData",
+          "kind": "JS",
+          "line": 43
+        },
+        {
+          "name": "isMultiCriteria",
+          "kind": "JS",
+          "line": 52
+        },
+        {
+          "name": "ratingContainer",
+          "kind": "JS",
+          "line": 58
+        },
+        {
+          "name": "ratingStarCategories",
+          "kind": "JS",
+          "line": 61
+        },
+        {
+          "name": "ratingsMap",
+          "kind": "JS",
+          "line": 69
+        },
+        {
+          "name": "generateStars",
+          "kind": "JS",
+          "line": 77
+        },
+        {
+          "name": "fullStars",
+          "kind": "JS",
+          "line": 78
+        },
+        {
+          "name": "hasHalfStar",
+          "kind": "JS",
+          "line": 79
+        },
+        {
+          "name": "emptyStars",
+          "kind": "JS",
+          "line": 80
+        },
+        {
+          "name": "calculateRating",
+          "kind": "JS",
+          "line": 90
+        },
+        {
+          "name": "selects",
+          "kind": "JS",
+          "line": 91
+        },
+        {
+          "name": "value",
+          "kind": "JS",
+          "line": 98
+        },
+        {
+          "name": "average",
+          "kind": "JS",
+          "line": 103
+        },
+        {
+          "name": "avgElement",
+          "kind": "JS",
+          "line": 107
+        },
+        {
+          "name": "roundElement",
+          "kind": "JS",
+          "line": 108
+        },
+        {
+          "name": "roundpElement",
+          "kind": "JS",
+          "line": 109
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/callbacks/init.js": {
+      "sha256": "12c1f24ee3153d031b4252007e198e45fb24e23f253644cac7edfd244a233775",
+      "bytes": 2206,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "init",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "$",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "select2Wrapper",
+          "kind": "JS",
+          "line": 44
+        },
+        {
+          "name": "targetContainer",
+          "kind": "JS",
+          "line": 47
+        },
+        {
+          "name": "targetContainer",
+          "kind": "JS",
+          "line": 58
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/callbacks/initCommentForm.js": {
+      "sha256": "80579eb35650a954c1f8bfdb67cad121a8f252b63b226aad4078ccd7e1bff321",
+      "bytes": 660,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initCommentForm",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "$",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "validate",
+          "kind": "JS",
+          "line": 9
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/callbacks/initEditCommentForm.js": {
+      "sha256": "8db416f552e99f7c56e0b3b9bcb22e115a9284236519428ce09b27dac491abc3",
+      "bytes": 477,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initEditCommentForm",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "validate",
+          "kind": "JS",
+          "line": 8
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/callbacks/initReplyForm.js": {
+      "sha256": "1a7b8dcffcadc1703b5ec90b3f0cdf594087217b064e6fb510f776081090c247",
+      "bytes": 486,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initReplyForm",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "validate",
+          "kind": "JS",
+          "line": 8
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/callbacks/initReportForm.js": {
+      "sha256": "2c7b591a046a2dd94fd246fa949451514df5c1bb3fa73391f5878343079902f3",
+      "bytes": 1284,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initReportForm",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "validate",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 25
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 29
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/callbacks/initReviewForm.js": {
+      "sha256": "2c9db51f52a61437c4e4905624fe10dda9c8bd3ab4630f2d9bc7414af59c639c",
+      "bytes": 3813,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initReviewForm",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "element",
+          "kind": "JS",
+          "line": 11
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 12
+        },
+        {
+          "name": "validate",
+          "kind": "JS",
+          "line": 13
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 112
+        },
+        {
+          "name": "attachmentIds",
+          "kind": "JS",
+          "line": 114
+        },
+        {
+          "name": "repository",
+          "kind": "JS",
+          "line": 124
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/states/comment.js": {
+      "sha256": "4961280a01608188fb5a0155c14a4b7f0d24e39d8917c48d72a6dd55790e7227",
+      "bytes": 593,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "moment",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "getCommentContent",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "content",
+          "kind": "JS",
+          "line": 11
+        },
+        {
+          "name": "getCommentDate",
+          "kind": "JS",
+          "line": 18
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 19
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/states/delete.js": {
+      "sha256": "d4e0250e03f49e40e051e634001cdf24ef701df0b4cc659f190035cd8d87298f",
+      "bytes": 266,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "getDeleteModalDisplay",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 4
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/states/reaction.js": {
+      "sha256": "a4d122e54ebe707c5e4ea9cb562d08d72d7d9ca5f19fb401b50453b2127028b5",
+      "bytes": 468,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "getLike",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "likeBackgroundColor",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "unLikeBackgroundColor",
+          "kind": "JS",
+          "line": 15
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 16
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/states/reply.js": {
+      "sha256": "de5af21283e72835c8b41ff3b08eef2b734fc5a83918b294bd3041c5f40f5be3",
+      "bytes": 163,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "moment",
+          "kind": "JS",
+          "line": 7
+        }
+      ],
+      "calls": []
+    },
+    "resources/sass/admin.scss": {
+      "sha256": "b286d473d8ed053ebe95197dfb1faae9cd3037edc7f551f27fb6e6a399f8e30f",
+      "bytes": 30,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/frontend.scss": {
+      "sha256": "c1bb5e9e2cfc9976097496b0df5f09d417d48b27352b03f507d8c0e40e6d9ff4",
+      "bytes": 142,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/admin/_rating.scss": {
+      "sha256": "c3ffef2621bca0714ca85f6c6f16d452e668906c36b738ad8008a8bca2f7b8b9",
+      "bytes": 2460,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/admin/index.scss": {
+      "sha256": "4949e7e471acb72bbe303c54da249cf3e09a18a83b8e18d5fb828c85fa2d3551",
+      "bytes": 47,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/component/_layout.scss": {
+      "sha256": "00d530b06b234ba5c72f8102b78b42a88b0e6225c9d25f82a86d00fbdc29bfe1",
+      "bytes": 244,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/component/components.scss": {
+      "sha256": "a5cd40f70d217cea7c202e0e75395ad2df4c97a06cec540bea9ec08a0df1bba3",
+      "bytes": 49,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_create.scss": {
+      "sha256": "584d34a87e62268a6120b290c5d8e9f96e7977568a653e8724250effe8635c3e",
+      "bytes": 13896,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_directorist-overwrite.scss": {
+      "sha256": "abf96cfac945ffe8eabf71026305bf2846c75c97eb4d6d43cdcb64db5914435a",
+      "bytes": 167,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_filter.scss": {
+      "sha256": "a96c5f2cd38fa66a515ad0f22cac1b83d7910ae9b3556277ff8789f55902599e",
+      "bytes": 3978,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_header.scss": {
+      "sha256": "13c72281e71cd0dce56eaa1d7c15acac3e9965f606a8d20b674bdb6e414cd64f",
+      "bytes": 4470,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_pagination.scss": {
+      "sha256": "6f370b53d12af0b669016144e70d035c64a7ced9807e1b11c3fee4813424a0ea",
+      "bytes": 1024,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_reviews.scss": {
+      "sha256": "871dd70e6e2806087f0da5ea73864da75f80760dde6fa0bdf98066a2bf07f2d6",
+      "bytes": 13023,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/_upload.scss": {
+      "sha256": "c6b5ae339a8f4a6f59bbdd0ad7e4d1ebfeae69c33b28064e29c9ff55b6a1a725",
+      "bytes": 3677,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/element/elements.scss": {
+      "sha256": "0c5480b13f27dd686b7ff618cc6931ecfb4bc3d7e5d8704c1e4fe11b8bbe207c",
+      "bytes": 176,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/general/_global.scss": {
+      "sha256": "1133e5554f3dc2714ff18c4dbdd40c70d4091d9ccdf503c3b4558e89c7751145",
+      "bytes": 1444,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/general/general.scss": {
+      "sha256": "e8ab978ddface8604103361bc709859ff1a8607daf7a75a391aa00f806261312",
+      "bytes": 47,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/mixin/_functions.scss": {
+      "sha256": "3b213c9b6b6407d7ffdc5d37988a6ad5cb82014e9c82134f89efb6009386578f",
+      "bytes": 168,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/mixin/_key-frames.scss": {
+      "sha256": "6f31616072dda8b26a7ae6d24db2b60dfd1605d619b4ae3c0c7a0304e9c513cd",
+      "bytes": 101,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/mixin/_media-queries.scss": {
+      "sha256": "cd5f695d9c87d6e8b3818a49d327cab2551f7f871c66cf0e3de7a425ee81faa1",
+      "bytes": 1745,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/mixin/_rfs.scss": {
+      "sha256": "afc505e4be4c33a0b32a81215aed2aa28f364104b182c2e24ffdfa7533212564",
+      "bytes": 10008,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/mixin/mixin.scss": {
+      "sha256": "1bf4915d360fcb95beac881ff0669fc599c1ee00e69ee49292ef74fee9567ff1",
+      "bytes": 83,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/create.php": {
+      "sha256": "c6d772b1a1ab75d7fdf07f051cd1ea46470f76d999b18fdf4a76ef8932c812d1",
+      "bytes": 8901,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/delete-modal.php": {
+      "sha256": "a35769aefe961549d6b6aebe7ea8283af170f127852282c0b0f8c353b071e135",
+      "bytes": 1450,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/filter.php": {
+      "sha256": "e2ceac1da16663f70715efc759cfaff79971d3961175b28f356c90883b79b1a4",
+      "bytes": 5470,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/header.php": {
+      "sha256": "19e31e3afe285b07357b0a4f3585ff1c8569acf0d7d3e0424a8493957c1b1148",
+      "bytes": 4356,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/login-alert.php": {
+      "sha256": "276b21c4c682fd0bf82673f19eacb98427a208c8ef0b1d8c76390caf1fa3b28e",
+      "bytes": 993,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/pagination.php": {
+      "sha256": "a671f1c13c7dd73d92a32ab4b11434f511a2f710e9ef03291a0ee725ff263e01",
+      "bytes": 846,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/report-modal.php": {
+      "sha256": "3d5da178d6e18503d2b8df2256fc43afa1176701ff1f2e9851e8af20af500b13",
+      "bytes": 2244,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/review.php": {
+      "sha256": "19483021c027067cb204eb8f91403a1ca04e0ea348abd9eb949311827baecb5b",
+      "bytes": 9970,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "get_review_criterias",
+          "line": 90,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/reviews.php": {
+      "sha256": "ebfb73c1f82acb954c66a81c23eeba2414f27793809bf77f9849b606b20a5747",
+      "bytes": 10504,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/upload.php": {
+      "sha256": "5ef5cfed538b2c511a56686bbcf6a6278cd52769019b98ef455ada5ff0aa6d3a",
+      "bytes": 8621,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/admin/review-data.php": {
+      "sha256": "9f1cbfbc598f3db9a510b4497e8e5453b9ed66150a6d66da5343e12db445122c",
+      "bytes": 3791,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_comment_meta",
+          "line": 10,
+          "args": [
+            "$comment->comment_ID",
+            "'title'"
+          ]
+        }
+      ]
+    },
+    "resources/views/admin/review-images.php": {
+      "sha256": "30b1a8c8da722142f3d65caf8218ec840ae629929293ba7f9b7a4c2c84627f19",
+      "bytes": 780,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_comment_meta",
+          "line": 5,
+          "args": [
+            "$comment->comment_ID",
+            "'attachment_ids'"
+          ]
+        }
+      ]
+    },
+    "resources/views/components/action.php": {
+      "sha256": "d01dfdb6782a9665eda438063f08b0588706be54297ca1b51a839f0ab0a372d1",
+      "bytes": 3869,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/components/listing-owner.php": {
+      "sha256": "60939290ddeaee23d4a4af24be55e952085a2266d8dff8afe35184d99328b82d",
+      "bytes": 230,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/components/reaction.php": {
+      "sha256": "5e2358ab5a0f314c490b09875433e4922f0de49ae3e3f8c7653cebd01ba04e14",
+      "bytes": 4582,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/components/reply-button.php": {
+      "sha256": "a629a323f1f5e595c017dae4a76bec7d576f107972999019724992a26e1738eb",
+      "bytes": 1956,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/components/stars.php": {
+      "sha256": "a45fe38bcf4fdb553ef4481221466cfa93051d84f79e1d975fc535dde68dd56f",
+      "bytes": 938,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/mail/report.php": {
+      "sha256": "d1d7c009c421dce6d215b50de8f5c06ac0426db1d7a6abcb8ea82098cbbbf88a",
+      "bytes": 7119,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/create-form.php": {
+      "sha256": "d2e601d88059d89da023602b8e727f8872be62b469f10f9642506022c21f5c41",
+      "bytes": 2856,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/index.php": {
+      "sha256": "01cd48318546e9b37e1586f4cbbdb264bf23fefc1d739b3ba415245fe3b83108",
+      "bytes": 189,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/create.php": {
+      "sha256": "afb2f061ff3a90fda456d33e21025ef145062a940b2b407720ae524a9917c3d0",
+      "bytes": 1272,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/edit.php": {
+      "sha256": "81edbd8544e72bbe9bfdac91f0503ea6dce6d7bdd972cd50402f6cc7741df294",
+      "bytes": 947,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/footer.php": {
+      "sha256": "6ed35f0de35f3d1df6972076be4eb7c63a2b3473703494a7177be48dbb57cad9",
+      "bytes": 3322,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/index.php": {
+      "sha256": "0e429188cc565812a17936be37a8155e2c2cea02ab1551c7d659bdf55c24236d",
+      "bytes": 2957,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/sub-comment/edit.php": {
+      "sha256": "2357f859b3fe1430c9dbac7b84f6e7389a846bc893319bdd9eee4c3f86f04002",
+      "bytes": 1084,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/sub-comment/footer.php": {
+      "sha256": "86ad28bc142760d0a1f61125301e0cd1b296c488ff134f5b1c14d4155d9b3559",
+      "bytes": 353,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/replies/comment/sub-comment/index.php": {
+      "sha256": "d380e78aa225dda9a5c12fdb5f458d8729b2222be81335693667909d69e6a743",
+      "bytes": 2396,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 1,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "12f82dfed7f9107675d2d80d97be35759beea2392459093247544be27af86a61",
+      "bytes": 236,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "routes/rest/api.php": {
+      "sha256": "89ed85ea5c895b1d279d3addb379db8f9ff8b184a4bae61d4a3e92a7d1ca36bf",
+      "bytes": 1318,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Route",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 23,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 24,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 25,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 29,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 32,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Route",
+          "line": 33,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 17,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 24,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    }
+  }
+}

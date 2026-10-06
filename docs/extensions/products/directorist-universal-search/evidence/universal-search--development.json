@@ -1,0 +1,1662 @@
+{
+  "snapshot": {
+    "key": "universal-search--development",
+    "repo": "directorist-universal-search",
+    "branch": "development",
+    "commit": "3abafc6bd041a96e14cadeb17d0596d90497545c",
+    "date": "2025-12-17T09:04:22Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-universal-search__development",
+    "kind": "remote"
+  },
+  "files": {
+    ".DS_Store": {
+      "sha256": "c2fa42251e98fb78e2f13cf36722cb566861d501b8d741fe4cdb4cce51b50270",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitattributes": {
+      "sha256": "8aa222454f54b8c2fe728a15a364624659cfe51904664e0afb40a02b8a5e2891",
+      "bytes": 31,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "9150c0ba39dd931dd3bebd78ca0a98141bd6ba5f40d5d07af466dadf027eb8e3",
+      "bytes": 246,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "df5a630006d968378f6182e5e37b3474723b046cf0ca8ba4c0d27d410f71f055",
+      "bytes": 1062,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "8deac4ff205c9b43a7af1147a4dceb3de5b38768fe261ee116d61ac231b9e830",
+      "bytes": 378,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "artisan": {
+      "sha256": "f6e0cc4120a60f768d644baaf4da3644ee9b29942588ecd48d753678ff03aaa1",
+      "bytes": 151,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "1afdeddf08112d1dffa23d29ef94a290e9bd77c0bbd5ca157ca7414874a5b47f",
+      "bytes": 1807,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-universal-search.php": {
+      "sha256": "cbc9adf4946ee2abb90550313d39f99e157abc60db70711d043b038585dc7391",
+      "bytes": 1799,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristUS",
+          "line": 28,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 40,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $app_instance ): void { do_action( 'directorist_us_before_load' ); $app_instance->load(); do_action( 'directorist_us_after_load' ); }"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 55,
+          "args": [
+            "'directorist_us_before_load'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 59,
+          "args": [
+            "'directorist_us_after_load'"
+          ]
+        }
+      ]
+    },
+    "package-lock.json": {
+      "sha256": "cd3a02101d2cf239e03e4b962b5c8a54ebbf5b62ced64a17266ea88cf67bfda9",
+      "bytes": 710417,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "c0fcc245f3267a1cbfb10a5bb99547c22c5a50013823ea39a223f262cc419e41",
+      "bytes": 1364,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "79b95f8e6ef2f89136a9d442474296908be3cb087dbb9900cb24fafc8afc1a8a",
+      "bytes": 647,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/build-release.yml": {
+      "sha256": "d8a61e617d1fb04cacab8fcc00f03928efd8e0753a8cf39cf39783b5a4c45910",
+      "bytes": 1373,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/build-unminified-release.yml": {
+      "sha256": "b8f78c2d725ae6ee3c8356eaf4744eddf596148c358671fd70ce82a36928401a",
+      "bytes": 1401,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CustomSniffs/Sniffs/Files/ABSPATHDefinedSniff.php": {
+      "sha256": "b82313aa4489eaf55e1000887934f4a9b36ce1beb9c94cebb44979a2c9462542",
+      "bytes": 1725,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/.DS_Store": {
+      "sha256": "c92155789083c70163ca35c67debb2251d702c4023d10e279ffbd13558d18335",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "7874feadb279cda33b46566f3a0ed0cf39c66a6b709333030295d43cb908e042",
+      "bytes": 4925,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_us",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_config",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_app_config",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_version",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_container",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_singleton",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_url",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_dir",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_frontend_localizations",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_get_result_page_link",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_get_all_categories_page",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_get_all_directory_types",
+          "line": 112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_get_search_result_page",
+          "line": 139,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_us_form",
+          "line": 158,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 43,
+          "args": [
+            "'directorist_us_frontend_localizations'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 57,
+          "args": [
+            "'directorist_us_get_result_page_link'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 65,
+          "args": [
+            "'universal_search_result_page'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 71,
+          "args": [
+            "'atbdp_required_polylang_url'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 71,
+          "args": [
+            "'pll_get_post'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 80,
+          "args": [
+            "'directorist_us_get_all_categories_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 89,
+          "args": [
+            "'all_categories_page'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 95,
+          "args": [
+            "'atbdp_required_polylang_url'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 95,
+          "args": [
+            "'pll_get_post'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 106,
+          "args": [
+            "'directorist_us_get_all_directory_types'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 115,
+          "args": [
+            "'directorist_is_multi_directory_enabled'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 130,
+          "args": [
+            "'directorist_us_get_search_result_page'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 149,
+          "args": [
+            "'directorist_us_form'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/UniversalSearchController.php": {
+      "sha256": "479b8aff49b52eb3d49406bc2ac50c847a0fb07919ff6375381ac0d56fa2e4e7",
+      "bytes": 1480,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UniversalSearchController",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "index",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/EnsureIsUserAdmin.php": {
+      "sha256": "5331bc3ef1283fd706f16edcf571ce095c2ca6451cd6c9237ed48c72c66e65c8",
+      "bytes": 461,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Providers/.DS_Store": {
+      "sha256": "961ca0926a6d9f1938bae5303f894a83862a18196ffe179fa2df82f470bcd39f",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Providers/DirectoristServiceProvider.php": {
+      "sha256": "ed4a4e295b423857137821b0dbfdfc775484a2e53d5abc2de0e967f12380d883",
+      "bytes": 711,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristServiceProvider",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_get_directory_type_nav_url",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'directorist_get_directory_type_nav_url'",
+            "[$this, 'directorist_get_directory_type_nav_url']"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 16,
+          "args": [
+            "'universal_search_result_page'"
+          ]
+        }
+      ]
+    },
+    "app/Providers/ShortcodeServiceProvider.php": {
+      "sha256": "df9f32f5143465385caefcf26dd1ce1e8a21bb4f13bc9464e528e14b06de640b",
+      "bytes": 2777,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ShortcodeServiceProvider",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_search_form",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_search_result",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "View",
+          "line": 62,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Providers/Admin/DirectoristSettingsProvider.php": {
+      "sha256": "0ec932438c804288e699d9c3e10c4d4837ecdf48b43181b6d701347b45268d6a",
+      "bytes": 1511,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristSettingsProvider",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_pages_settings_fields",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_pages_settings_fields'",
+            "[$this, 'atbdp_pages_settings_fields']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[$this, 'atbdp_listing_type_settings_field_list']"
+          ]
+        }
+      ]
+    },
+    "app/Providers/Admin/PageServiceProvider.php": {
+      "sha256": "eda34db15671f8e9b561c9b3289a38966cb5b543fc5bfeda8364346b672d5aeb",
+      "bytes": 1008,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PageServiceProvider",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_universal_search_post_state",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'display_post_states'",
+            "[$this, 'display_universal_search_post_state']"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 22,
+          "args": [
+            "'universal_search_result_page'"
+          ]
+        }
+      ]
+    },
+    "app/Repositories/AutoSuggestionRepository.php": {
+      "sha256": "02d226ed80af5410c229d3a72680abe76c6d8a409b28fd4f553016d101808095",
+      "bytes": 1320,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AutoSuggestionRepository",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_search_suggestions",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Repositories/ListingsRepository.php": {
+      "sha256": "b15c29d4010866a26a67ee1d1062017472b6fec74a8b7eca1e0f94547fcc797b",
+      "bytes": 6138,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ListingsRepository",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_query_args",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_data",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listing_media",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_listing_data",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listings_by_search_term",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listings_with_type_by_search_term",
+          "line": 105,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listings_data",
+          "line": 172,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 55,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        }
+      ]
+    },
+    "app/Repositories/ResultsRepository.php": {
+      "sha256": "eb8b8a2cc1bbc02b9859f2b6ae64b6dbae8bb7800a5fdecbfe30bbfbffe9058c",
+      "bytes": 2185,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ResultsRepository",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_total_data",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_results_found",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Repositories/TaxonomiesRepository.php": {
+      "sha256": "35dcf4f1c632ccd44fd22ccffb37550d0b227a1bb61c62f25632ca531b8ce2d8",
+      "bytes": 9605,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TaxonomiesRepository",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_query_args",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_terms_by_directory",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_ids",
+          "line": 62,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_matching_directory",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_directory_ids_with_posts",
+          "line": 77,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_info",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_directory_list",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_category_data",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "format_category_data_results",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_categories_by_search_term",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_categories_by_directory",
+          "line": 207,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_empty_response",
+          "line": 240,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "group_categories_by_directory",
+          "line": 251,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 63,
+          "args": [
+            "$term->term_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 129,
+          "args": [
+            "$term->term_id",
+            "'category_icon'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 156,
+          "args": [
+            "$term->term_id",
+            "'_category_icon'"
+          ]
+        }
+      ]
+    },
+    "app/Setup/Activation.php": {
+      "sha256": "9da3b1cb5a0602eba04d81eaf98caf3cd6324dbeed83cb861568bb95d58a2829",
+      "bytes": 1774,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Activation",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "create_pages",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_pages",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 41,
+          "args": [
+            "'universal_search_result_page'"
+          ]
+        },
+        {
+          "name": "update_directorist_option",
+          "line": 44,
+          "args": [
+            "'universal_search_result_page'"
+          ]
+        }
+      ]
+    },
+    "app/Setup/Deactivation.php": {
+      "sha256": "f4d4d0b2e754f5a52de46337cc62334063b5a1cea7d0d3e58d7a709c2f9ffa91",
+      "bytes": 371,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Deactivation",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 12,
+          "args": [
+            "'helpgent_dismiss_nginx_setup_notice'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 13,
+          "args": [
+            "'helpgent_after_deactivation'"
+          ]
+        }
+      ]
+    },
+    "assets/build/css/app-rtl.css": {
+      "sha256": "80bad523f9de60452ef549e6b2a463285dbee60c0aa0a816018706ca01b0200f",
+      "bytes": 13593,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.asset.php": {
+      "sha256": "ec6a982cb5d8a8385d4e5d012f177b068ad65a06a977c8a395fc34874f8dca19",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.css": {
+      "sha256": "64d4bdc2f133734a70db892693e2c93c5e860d31707e1ec7dd94f213a1d32d23",
+      "bytes": 13587,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.js": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/fonts/Inter-VariableFont_slnt,wght.b2b32f78.woff2": {
+      "sha256": "e931823ffd0b6cfd1624e3a7c1c49861ed3420297862e727f07e04c8be1cc89b",
+      "bytes": 326628,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.asset.php": {
+      "sha256": "060cdaa703eb5abc5e62cce3aa18959a7941bd9e0cecc2b158f75507b0d6b35f",
+      "bytes": 108,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.js": {
+      "sha256": "97b20c02a61561a36d934f20672ab61821e0d5b4c1a3c38db96254d43ddc5875",
+      "bytes": 7363,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/img/no_listing_found.svg": {
+      "sha256": "13d658d23f550f9349ec73f1112b662b3e1ac9b858cd6e2313b7aaab689d799a",
+      "bytes": 8799,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config/app.php": {
+      "sha256": "dd97f2191112a2bb25f2a6b1dedb79faa58efd6c28cfc6e5f5fc96297738f876",
+      "bytes": 3397,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ShortcodeServiceProvider",
+          "line": 52,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "DirectoristSettingsProvider",
+          "line": 53,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "PageServiceProvider",
+          "line": 60,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 61,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "777f046bddb27c5d3c8c233d1b6805a93cca582b72c5b7390bf1b0214cb2dd3d",
+      "bytes": 4522,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/phpcs.xml": {
+      "sha256": "eacd79c0024c1e611c2b4834f69e85bed76c5a9821d635dcdba6d2621756faa6",
+      "bytes": 6165,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "6bd75b1afe8986bda88b7b00bc34d4884f29343fb1551b4e8517429b0fa5c270",
+      "bytes": 2390,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "f82513c1e80af3d980f1ddce029ffa3e73c3669e8492625b4a85dcdc19015a78",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/exclude.files.config.php": {
+      "sha256": "62c1d4560e848bd07a1fafcdb3cc3f9dd7d09abe913e84e9bf76a0a6e1f983d0",
+      "bytes": 1683,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/global.config.php": {
+      "sha256": "7aaebeff4aaf11e5965f508efbceda5e270aa03459fb155accd2b3f329758fa2",
+      "bytes": 2720,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/index.php": {
+      "sha256": "7d4c501042e762e13462947d1516b78263c28a45d179f62c3f256fdbc08d55fb",
+      "bytes": 1406,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "bd9813eabcb6fd9cd3aa2a2eb8efeb41037377ac908e46b7555a981cf726b3ec",
+      "bytes": 195,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "c32e74fcd993397f27c759805a7dbb121a7d2fec65230ec26ca86fcaeab2427a",
+      "bytes": 445,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/fonts/inter/Inter-VariableFont_slnt,wght.woff2": {
+      "sha256": "e931823ffd0b6cfd1624e3a7c1c49861ed3420297862e727f07e04c8be1cc89b",
+      "bytes": 326628,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/fonts/inter/LICENSE.txt": {
+      "sha256": "6e6410f2892d61813f54654098dc9654d0a3af2e92172999bee07eec13b0a75a",
+      "bytes": 4376,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/js/app.js": {
+      "sha256": "94e81b9542a4f55ec8106d8d9366f8acca469cf1bf9f62568657140af0854d65",
+      "bytes": 11713,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "searchData",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "createSkeletonItem",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "skeletonItem",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "showSkeleton",
+          "kind": "JS",
+          "line": 25
+        },
+        {
+          "name": "container",
+          "kind": "JS",
+          "line": 26
+        },
+        {
+          "name": "skeletonItem",
+          "kind": "JS",
+          "line": 33
+        },
+        {
+          "name": "realtimeSearch",
+          "kind": "JS",
+          "line": 39
+        },
+        {
+          "name": "searchInput",
+          "kind": "JS",
+          "line": 40
+        },
+        {
+          "name": "resultElement",
+          "kind": "JS",
+          "line": 43
+        },
+        {
+          "name": "searchText",
+          "kind": "JS",
+          "line": 49
+        },
+        {
+          "name": "updateResultCount",
+          "kind": "JS",
+          "line": 58
+        },
+        {
+          "name": "listingsCount",
+          "kind": "JS",
+          "line": 59
+        },
+        {
+          "name": "categoriesCount",
+          "kind": "JS",
+          "line": 61
+        },
+        {
+          "name": "listingsElement",
+          "kind": "JS",
+          "line": 64
+        },
+        {
+          "name": "categoriesElement",
+          "kind": "JS",
+          "line": 67
+        },
+        {
+          "name": "updateListings",
+          "kind": "JS",
+          "line": 81
+        },
+        {
+          "name": "apiUrl",
+          "kind": "JS",
+          "line": 93
+        },
+        {
+          "name": "response",
+          "kind": "JS",
+          "line": 95
+        },
+        {
+          "name": "listings",
+          "kind": "JS",
+          "line": 104
+        },
+        {
+          "name": "categories",
+          "kind": "JS",
+          "line": 105
+        },
+        {
+          "name": "hasNoResults",
+          "kind": "JS",
+          "line": 108
+        },
+        {
+          "name": "viewBtnResults",
+          "kind": "JS",
+          "line": 109
+        },
+        {
+          "name": "wrapperContainer",
+          "kind": "JS",
+          "line": 110
+        },
+        {
+          "name": "noResults",
+          "kind": "JS",
+          "line": 113
+        },
+        {
+          "name": "crossBorder",
+          "kind": "JS",
+          "line": 116
+        },
+        {
+          "name": "updatePopularListing",
+          "kind": "JS",
+          "line": 137
+        },
+        {
+          "name": "containerParent",
+          "kind": "JS",
+          "line": 138
+        },
+        {
+          "name": "container",
+          "kind": "JS",
+          "line": 141
+        },
+        {
+          "name": "itemElement",
+          "kind": "JS",
+          "line": 156
+        },
+        {
+          "name": "updateBudapestCategories",
+          "kind": "JS",
+          "line": 193
+        },
+        {
+          "name": "containerParent",
+          "kind": "JS",
+          "line": 194
+        },
+        {
+          "name": "container",
+          "kind": "JS",
+          "line": 197
+        },
+        {
+          "name": "itemElement",
+          "kind": "JS",
+          "line": 211
+        },
+        {
+          "name": "to",
+          "kind": "JS",
+          "line": 257
+        },
+        {
+          "name": "debounce",
+          "kind": "JS",
+          "line": 258
+        },
+        {
+          "name": "debouncedSearch",
+          "kind": "JS",
+          "line": 268
+        },
+        {
+          "name": "searchInput",
+          "kind": "JS",
+          "line": 280
+        },
+        {
+          "name": "dropdownMenu",
+          "kind": "JS",
+          "line": 283
+        },
+        {
+          "name": "searchQuery",
+          "kind": "JS",
+          "line": 289
+        },
+        {
+          "name": "replaceContainerFluid",
+          "kind": "JS",
+          "line": 316
+        },
+        {
+          "name": "containerFluids",
+          "kind": "JS",
+          "line": 317
+        },
+        {
+          "name": "change",
+          "kind": "JS",
+          "line": 324
+        },
+        {
+          "name": "find",
+          "kind": "JS",
+          "line": 324
+        },
+        {
+          "name": "add",
+          "kind": "JS",
+          "line": 324
+        },
+        {
+          "name": "addActiveClass",
+          "kind": "JS",
+          "line": 325
+        },
+        {
+          "name": "directoryTypes",
+          "kind": "JS",
+          "line": 327
+        },
+        {
+          "name": "from",
+          "kind": "JS",
+          "line": 330
+        },
+        {
+          "name": "to",
+          "kind": "JS",
+          "line": 335
+        },
+        {
+          "name": "formSubmissionBehavior",
+          "kind": "JS",
+          "line": 343
+        },
+        {
+          "name": "form",
+          "kind": "JS",
+          "line": 344
+        },
+        {
+          "name": "submitLink",
+          "kind": "JS",
+          "line": 345
+        }
+      ],
+      "calls": []
+    },
+    "resources/sass/app.scss": {
+      "sha256": "c63d50d7c3b454158701f77c0cb91cbb4864692c0faa614fcdbacd3e58e456c1",
+      "bytes": 96,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/1.global/_font.scss": {
+      "sha256": "333575881bff9c2a3908cd027d5527717614c3a7c230ab258ac224e4cfdc1cf3",
+      "bytes": 734,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/1.global/_general.scss": {
+      "sha256": "39f5c480999f9eeccfde9e2c7407fb02bf69f4c1267b436e8fd5e9cab97607f4",
+      "bytes": 64,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/1.global/global.scss": {
+      "sha256": "cb4179457ea6d28ea604639d26ef88c4e39f1370dc42fc1e6a443edbbba858ab",
+      "bytes": 33,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/2.mixins/_helper.scss": {
+      "sha256": "0e8acd783c421712fa85634a052a09b9ee39d8ab4b37e5704ff49ffb2e034814",
+      "bytes": 169,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/2.mixins/_kew-frames.scss": {
+      "sha256": "de107a2142b4824e9d353040693f79ebde024327d46a132c921a441cfe0efd65",
+      "bytes": 105,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/2.mixins/_media-queries.scss": {
+      "sha256": "5911fb0761da120ddbea620ebfb3bd74c86f81e352a8d92250c9e08bfc539fba",
+      "bytes": 1788,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/2.mixins/mixins.scss": {
+      "sha256": "51cf5f4391360bd0f5335ae23892abdaf4219402e851472bf4ba5aba81706293",
+      "bytes": 63,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/3.plugins/_search.scss": {
+      "sha256": "e6a46c6e95c61711765465ceca242dcb2d9a6241f77938109cbfc2284ce37995",
+      "bytes": 16809,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/3.plugins/plugins.scss": {
+      "sha256": "c2324ee5b80c2443acd28a076618432f056faf134993b75a9b22c3d7c05652ae",
+      "bytes": 17,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/4.block/block.scss": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/autosuggestions.php": {
+      "sha256": "ecfb2dda6bc1733dac5403bb803bc6ecce9cfb7cf6ede194b2287e108a761a93",
+      "bytes": 2367,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/index.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-form-wrapper.php": {
+      "sha256": "91e0f43acfb2cdb362ae972393f4d34f692ac9cb4f1d3ca5a0fdad50f8c8bbed",
+      "bytes": 530,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-form.php": {
+      "sha256": "7b540aa5e088696dca8d1f1d72303b8fb2f4adf717ba25a3c4997f871fd21d77",
+      "bytes": 2551,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results-categories.php": {
+      "sha256": "305b559854bfafd3a2f0c1af20df8d178ec7f3edd42d357fd1d6139e7ed52de0",
+      "bytes": 3511,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results-empty.php": {
+      "sha256": "7cf3b740763fcbc852fe40baf3117461ccea1d9396b694668b26788c08da23ca",
+      "bytes": 666,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results-header.php": {
+      "sha256": "9eab4e4a422a6b428da4d41ba1be05bb235d114f2812c3a5fcb5605c94c7f811",
+      "bytes": 2647,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 15,
+          "args": [
+            "'search_result_page'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results-listings.php": {
+      "sha256": "d6e1f214b1edd28bf9d9c9e9e4e4144f95377a3d25b98eae127988c8841fa166",
+      "bytes": 686,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results-status.php": {
+      "sha256": "ac97b95f72cb26fe65614b6148a9af2b9df7c28f25c8c1536f935d49e4e47884",
+      "bytes": 796,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results-wrapper.php": {
+      "sha256": "13e61d1b1c272af310ffdaa027024d9dc6e5fecf59df6dbff00997ead72e8bea",
+      "bytes": 1311,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/search-results.php": {
+      "sha256": "b2cb84e285fb4aa7f1bffd7fb63d836ca12a09d3f36a966873d6a0b26038423f",
+      "bytes": 1984,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "13c296fc9bce216ec300364ae84d9645eb720654e7bb2d4b406dfb41821a4d63",
+      "bytes": 210,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/rest/api.php": {
+      "sha256": "7a93689874c1e9318fac7dbf049165f7e6a0c8035fd8a5b7c7a151c89047626f",
+      "bytes": 213,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# Classified file inventory
+
+Every scanned file is classified and fingerprinted. First-party source declarations and literal call sites are indexed; this is structural coverage, not a guarantee that every semantic branch was manually reviewed. Dependency/vendor trees are deliberately excluded; their packages must be inspected if an issue reaches them.
+
+| Snapshot / file | Class | Symbols | Topic candidates |
+| --- | --- | --- | --- |
+| announcement--master / [.gitattributes:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/.gitattributes#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [.gitignore:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/.gitignore#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [composer.json:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/composer.json#L1) | source | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [composer.lock:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/composer.lock#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [directorist-announcement.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/directorist-announcement.php#L1) | source | 8 | inspect by file / supporting infrastructure |
+| announcement--master / [gulpfile.js:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/gulpfile.js#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [package.json:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/package.json#L1) | source | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [phpcs.xml.dist:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/phpcs.xml.dist#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [assets/css/announcement-main.css:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/assets/css/announcement-main.css#L1) | source | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [assets/js/admin.js:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/assets/js/admin.js#L1) | source | 13 | [publish-target](topics/publish-target.md) |
+| announcement--master / [assets/js/main.js:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/assets/js/main.js#L1) | source | 0 | [read-state](topics/read-state.md) |
+| announcement--master / [inc/EDD_SL_Plugin_Updater.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/inc/EDD_SL_Plugin_Updater.php#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [inc/class-content-update.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/inc/class-content-update.php#L1) | source | 10 | [publish-target](topics/publish-target.md), [read-state](topics/read-state.md) |
+| announcement--master / [inc/class-frontend-view.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/inc/class-frontend-view.php#L1) | source | 4 | [read-state](topics/read-state.md) |
+| announcement--master / [inc/class-helpers.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/inc/class-helpers.php#L1) | source | 9 | [publish-target](topics/publish-target.md), [read-state](topics/read-state.md) |
+| announcement--master / [inc/class-settings.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/inc/class-settings.php#L1) | source | 6 | [publish-target](topics/publish-target.md) |
+| announcement--master / [inc/class-warning-notice.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/inc/class-warning-notice.php#L1) | source | 4 | inspect by file / supporting infrastructure |
+| announcement--master / [languages/directorist-announcement.pot:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/languages/directorist-announcement.pot#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| announcement--master / [template-parts/list.php:1](https://github.com/sovware/directorist-announcement/blob/92c16c32b1f6610316b2250ebf68c5f6c2abd717/template-parts/list.php#L1) | source | 0 | [read-state](topics/read-state.md) |

@@ -1,0 +1,1470 @@
+{
+  "snapshot": {
+    "key": "search-alert--local",
+    "repo": "directorist-search-alert",
+    "branch": "main",
+    "commit": "4b62ac4632520a7e5ea2494ac30ca2b3756899df",
+    "date": "2026-08-23T12:57:31+06:00",
+    "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-search-alert",
+    "kind": "local",
+    "dirty": ""
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "e7cb669cbff2bba8b67e7f0b3fde7e7bfc16f4b39ab342b69cb3cdef6c90ce9e",
+      "bytes": 271,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "d97369696afcbeddaa744ccb66034b4eb096b5849abdc3bd6ceaa247da0d1098",
+      "bytes": 1413,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "const.php": {
+      "sha256": "072f075ac7cec36dfc59fa8f7b2dcd4309e6bd2a0d8a324941b542816b3ede3e",
+      "bytes": 1140,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DSA_LANG_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 6,
+          "args": [
+            "'DSA_PLUGIN_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'DSA_PLUGIN_DIR_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'DSA_ASSET_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DSA_CSS_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'DSA_JS_URI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'DSA_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'DSA_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'DSA_POST_ID'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 32,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 36,
+          "args": [
+            "'DSA_VERSION'"
+          ]
+        }
+      ]
+    },
+    "directorist-search-alert.php": {
+      "sha256": "f91c132c4fce39b7dcd610e06a0cc17230f919cfcbdca8c1adb6711667618e09",
+      "bytes": 2514,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_search_alert_update_controller",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 24,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'DSA_PLUGIN_FILE'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 39,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 44,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 47,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 61,
+          "args": [
+            "'Directorist_Search_Alert'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 65,
+          "args": [
+            "'admin_init'",
+            "'directorist_search_alert_update_controller'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 66,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 67,
+          "args": [
+            "__FILE__"
+          ]
+        }
+      ]
+    },
+    "package-lock.json": {
+      "sha256": "c85e24a0a5dd6ccfbdf9ca531b99248aaaa20bcd16b1822ca895391e6b7f6860",
+      "bytes": 19653,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "771e6df4e47bdbcb3f6add3476de5ffec645e34388d7141c50d7d7a2755b94b5",
+      "bytes": 1183,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/css/style.css": {
+      "sha256": "484dfd7316e8e71df8bf2f39d7cbcc531d29348ab4843129efd7fc82d2399a0e",
+      "bytes": 10086,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/icon/check.svg": {
+      "sha256": "8c9654f69ad8c997513eaa4c6dc231eb98eb3117b9b150206ce082fdafd76c27",
+      "bytes": 534,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/js/admin.js": {
+      "sha256": "aad4a89d1df6c51d2bd2f48dae9cef322e43e25ffca1f7f4ca7d0b93e39de365",
+      "bytes": 112,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "app/base.php": {
+      "sha256": "701e13809e8976a9ee7d920a29d1af72cf7babc2501c89751e8b82e3977602c5",
+      "bytes": 7029,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Search_Alert",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_database_table",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "clear_scheduled_hook",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listings_header_title",
+          "line": 95,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_services",
+          "line": 181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Enqueue",
+          "line": 183,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Dashboard",
+          "line": 184,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "User_Dashboard",
+          "line": 185,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Admin_Dashboard",
+          "line": 186,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Ajax",
+          "line": 187,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Email",
+          "line": 188,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register_services",
+          "line": 189,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register_services",
+          "line": 198,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Search_Alert",
+          "line": 220,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 231,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 243,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 36,
+          "args": [
+            "'init'",
+            "array( self::$instance, 'load_textdomain' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 37,
+          "args": [
+            "'directorist_listings_header_title'",
+            "array( self::$instance, 'directorist_listings_header_title' )"
+          ]
+        },
+        {
+          "name": "dbDelta",
+          "line": 76,
+          "args": [
+            "$sql"
+          ]
+        },
+        {
+          "name": "wp_clear_scheduled_hook",
+          "line": 83,
+          "args": [
+            "'directorist_saved_search_daily_emails'"
+          ]
+        },
+        {
+          "name": "wp_clear_scheduled_hook",
+          "line": 84,
+          "args": [
+            "'directorist_saved_search_weekly_emails'"
+          ]
+        },
+        {
+          "name": "wp_clear_scheduled_hook",
+          "line": 85,
+          "args": [
+            "'directorist_saved_search_monthly_emails'"
+          ]
+        },
+        {
+          "name": "wp_clear_scheduled_hook",
+          "line": 86,
+          "args": [
+            "'directorist_delete_expired_saved_searches'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 105,
+          "args": [
+            "'guest_alert'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 131,
+          "args": [
+            "'plugin_locale'"
+          ]
+        },
+        {
+          "name": "register_services",
+          "line": 146,
+          "args": [
+            ""
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 205,
+          "args": [
+            "$class_name"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 230,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 232,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 242,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 248,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "app/Ajax/Ajax.php": {
+      "sha256": "b463409b4877a0b2ca35597bd66c36e39160f871d833dd8f416087586b634313",
+      "bytes": 6885,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Ajax",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "edit_save_search",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "edit_modal",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "deleted_search",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "saved_search",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 9,
+          "args": [
+            "'wp_ajax_dsa_saved_search'",
+            "array( $this, 'saved_search' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 10,
+          "args": [
+            "'wp_ajax_nopriv_dsa_saved_search'",
+            "array( $this, 'saved_search' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'wp_ajax_dsa_deleted_search'",
+            "array( $this, 'deleted_search' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'wp_ajax_nopriv_dsa_deleted_search'",
+            "array( $this, 'deleted_search' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'wp_ajax_dsa_edit_modal'",
+            "array( $this, 'edit_modal' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'wp_ajax_nopriv_dsa_edit_modal'",
+            "array( $this, 'edit_modal' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_ajax_dsa_edit_saved_search'",
+            "array( $this, 'edit_save_search' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'wp_ajax_nopriv_dsa_edit_saved_search'",
+            "array( $this, 'edit_save_search' )"
+          ]
+        }
+      ]
+    },
+    "app/Dashboard/Admin_Dashboard.php": {
+      "sha256": "6be3421de6d21e9baa759c3dfe9ca11e6d263b13ee74abc73e54dd90dd24a7b2",
+      "bytes": 1998,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Admin_Dashboard",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "status_menu",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_users_by_email",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "saved_search",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 8,
+          "args": [
+            "'admin_menu'",
+            "array( $this, 'status_menu' )"
+          ]
+        }
+      ]
+    },
+    "app/Dashboard/Dashboard.php": {
+      "sha256": "84419a4f4b1f757f6611023b004aad7c325bb74f73535874685f951a88b234ae",
+      "bytes": 3375,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Dashboard",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_category_name",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_location_name",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_tag_names",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_price_range",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_search_filters",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_date",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_notification_status",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Dashboard/User_Dashboard.php": {
+      "sha256": "7e039c5356d549695fd4e10a0846e8fe687cbb4074ff9b7446dadad0aad7575a",
+      "bytes": 1406,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User_Dashboard",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_after_dashboard_navigation",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_after_dashboard_contents",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 9,
+          "args": [
+            "\"directorist_after_dashboard_navigation\"",
+            "array( $this, \"directorist_after_dashboard_navigation\" )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 10,
+          "args": [
+            "\"directorist_after_dashboard_contents\"",
+            "array( $this, \"directorist_after_dashboard_contents\" )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 17,
+          "args": [
+            "'atbdp_user_dashboard_saved_search_tab'"
+          ]
+        }
+      ]
+    },
+    "app/Database/Database.php": {
+      "sha256": "26929d10d6d3bf6010298e39279386d9a1e65fd723214f42e0c895050d780bf3",
+      "bytes": 8823,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Database",
+          "line": 3,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "insert_saved_search",
+          "line": 5,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_saved_search",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_search_data",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_search_data_by_id",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "deleted_saved_search",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_expired_saved_searches",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "check_combined_request_values_in_db",
+          "line": 151,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "insert",
+          "line": 41,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 70,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 123,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "app/Email/Email.php": {
+      "sha256": "b393df0b6032f99e73b117043f0cacb672b37cb9ba38e64455c6f9c13de4359c",
+      "bytes": 9442,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Email",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_wp_insert_post",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_type_slug",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_expired_saved_searches",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_email_after_created_listing",
+          "line": 56,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_email",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "replace_in_content",
+          "line": 158,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "custom_cron_schedules",
+          "line": 175,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "schedule_email_events",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_notification_emails",
+          "line": 216,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_daily_emails",
+          "line": 232,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_weekly_emails",
+          "line": 239,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_monthly_emails",
+          "line": 246,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'cron_schedules'",
+            "array( $this, 'custom_cron_schedules' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'wp'",
+            "array( $this, 'schedule_email_events' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'directorist_saved_search_daily_emails'",
+            "array( $this, 'send_daily_emails' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'directorist_saved_search_weekly_emails'",
+            "array( $this, 'send_weekly_emails' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_saved_search_monthly_emails'",
+            "array( $this, 'send_monthly_emails' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'directorist_delete_expired_saved_searches'",
+            "array( $this, 'delete_expired_saved_searches' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'wp_insert_post'",
+            "array( $this, 'handle_wp_insert_post' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 63,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 65,
+          "args": [
+            "$listing_id",
+            "'_zip'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 66,
+          "args": [
+            "$listing_id",
+            "'_address'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 67,
+          "args": [
+            "$listing_id",
+            "'_price'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 132,
+          "args": [
+            "'blogname'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 133,
+          "args": [
+            "'email_from_email'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 135,
+          "args": [
+            "'search_alert_subject'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 136,
+          "args": [
+            "'search_alert_body'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 159,
+          "args": [
+            "'blogname'"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 187,
+          "args": [
+            "'directorist_saved_search_daily_emails'"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 188,
+          "args": [
+            "time()"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 190,
+          "args": [
+            "'directorist_saved_search_weekly_emails'"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 191,
+          "args": [
+            "time()"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 193,
+          "args": [
+            "'directorist_saved_search_monthly_emails'"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 194,
+          "args": [
+            "time()"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 202,
+          "args": [
+            "'directorist_delete_expired_saved_searches'"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 203,
+          "args": [
+            "time()"
+          ]
+        },
+        {
+          "name": "wp_clear_scheduled_hook",
+          "line": 207,
+          "args": [
+            "'directorist_delete_expired_saved_searches'"
+          ]
+        }
+      ]
+    },
+    "app/Setup/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Setup/Enqueue.php": {
+      "sha256": "259e94e44d6897cab19ba16fa96df5f30c464220b7a16f74ddb0c5db48ba330f",
+      "bytes": 3297,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Enqueue",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_frontend_scripts",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_admin_scripts",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_script_data",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_scripts",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'load_frontend_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'load_admin_scripts' )"
+          ]
+        }
+      ]
+    },
+    "app/Setup/Settings.php": {
+      "sha256": "d5cfcc0772175633d0b28909fe49ae3d35bf22d6c0406de78323b3781cb4269c",
+      "bytes": 3276,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 6,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_alert_menu",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setting_fields",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "email_template_section",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 7,
+          "args": [
+            "'atbdp_email_templates_settings_sections'",
+            "array( $this, 'email_template_section' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 8,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'setting_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 9,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( $this, 'search_alert_menu' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 16,
+          "args": [
+            "'atbdp_search_alert_settings_controls'"
+          ]
+        }
+      ]
+    },
+    "assets/css/style.css": {
+      "sha256": "375812829dab60eb7d15dd4c9ce6885445484f643de8fefa8ecee619e2326c2a",
+      "bytes": 8803,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style.css.map": {
+      "sha256": "1284ac37549cc4d7cd46b95e700bf2c61e3b195d936fb16df9bfb4e75aaefde5",
+      "bytes": 1987,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "02da0b84bff0c6568b7ad1d463b9e9f8830b9d78ae8efe58e30cb1a62fbf920c",
+      "bytes": 12896,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "updateSaveSearchContainers",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "saveSearchContainers",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "observer",
+          "kind": "JS",
+          "line": 19
+        },
+        {
+          "name": "config",
+          "kind": "JS",
+          "line": 26
+        },
+        {
+          "name": "getDsaText",
+          "kind": "JS",
+          "line": 30
+        },
+        {
+          "name": "currentElement",
+          "kind": "JS",
+          "line": 39
+        },
+        {
+          "name": "saveSearchBtn",
+          "kind": "JS",
+          "line": 40
+        },
+        {
+          "name": "targetId",
+          "kind": "JS",
+          "line": 41
+        },
+        {
+          "name": "closeId",
+          "kind": "JS",
+          "line": 42
+        },
+        {
+          "name": "targetModal",
+          "kind": "JS",
+          "line": 45
+        },
+        {
+          "name": "openModals",
+          "kind": "JS",
+          "line": 55
+        },
+        {
+          "name": "targetModal",
+          "kind": "JS",
+          "line": 61
+        },
+        {
+          "name": "editSearch",
+          "kind": "JS",
+          "line": 69
+        },
+        {
+          "name": "editModal",
+          "kind": "JS",
+          "line": 70
+        },
+        {
+          "name": "editModalClose",
+          "kind": "JS",
+          "line": 71
+        },
+        {
+          "name": "showSuccessMessage",
+          "kind": "JS",
+          "line": 85
+        },
+        {
+          "name": "openModals",
+          "kind": "JS",
+          "line": 94
+        },
+        {
+          "name": "notice_message",
+          "kind": "JS",
+          "line": 135
+        },
+        {
+          "name": "alertFrequencyRadios",
+          "kind": "JS",
+          "line": 136
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 143
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 189
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 213
+        },
+        {
+          "name": "notice_message",
+          "kind": "JS",
+          "line": 250
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 257
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 294
+        }
+      ],
+      "calls": []
+    },
+    "assets/scss/style.scss": {
+      "sha256": "d7f6cea8056e4595ce4ee70bafd578f5667157067a61c13af4c4491f65852c40",
+      "bytes": 32,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/scss/admin/admin.scss": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/scss/frontend/frontend.scss": {
+      "sha256": "e5328710335f57febc9b9e1e4a5ece135118fa27c58e8ec43b4dca24e9f30ec8",
+      "bytes": 9192,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "helpers/helpers.php": {
+      "sha256": "c4a4e651146adb5834237116e8bc768fcc0793c9df03ae14821b0f6086baefaa",
+      "bytes": 1757,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dsa_load_template",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dsa_get_terms",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dsa_get_saved_search_expiration_days",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dsa_get_version_from_content",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dsa_get_version_from_file_content",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 39,
+          "args": [
+            "'delete_saved_searches_after'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 42,
+          "args": [
+            "'dsa_get_version_from_content'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 54,
+          "args": [
+            "'dsa_get_version_from_file_content'"
+          ]
+        }
+      ]
+    },
+    "helpers/trait-search-helper.php": {
+      "sha256": "ab663ef9bbd6b4b9b759508f1b2b08f12567ede5dcb920131df5fa06fb04f9ba",
+      "bytes": 5862,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Search_Helper",
+          "line": 5,
+          "kind": "T_TRAIT"
+        },
+        {
+          "name": "new_listings_count",
+          "line": 6,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_search_url",
+          "line": 117,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 4,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-search-alert.pot": {
+      "sha256": "2c2b3f286e04ae0ea7e1447ed738dbff0af41810164386ab96be519a10d09e24",
+      "bytes": 6708,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/editing-form.php": {
+      "sha256": "2feb435a55a52d9cb4b60e5019c0226f2f3c240036e41c9acc5690223ba41aee",
+      "bytes": 1971,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/search-result.php": {
+      "sha256": "8bf2b52b2daec620f1172408bce0b5fee85e8941b7473cc4f07aaedeee785e1c",
+      "bytes": 5005,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/dashboard/admin-dashboard.php": {
+      "sha256": "942725a626fe528d2648c5554b748e50a8d5963804369cc5ba50218acb3f36ae",
+      "bytes": 4164,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/dashboard/user-dashboard.php": {
+      "sha256": "71956847c44557170e400450e3eefef1e51a685e888d0d97da2330941f3135ad",
+      "bytes": 5106,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -44,6 +44,7 @@ Last reviewed: 2026-10-06
 - Deep links use URL hashes in the pattern `menu__submenu__section__field`.
 - Search suggestions are built from cached field labels and jump to layout paths prepared by the store.
 - The sidebar search input is rendered by `assets/src/js/admin/vue/modules/Sidebar_Navigation.vue`. The page-scoped `assets/js/directorist-settings-search-shortcut.js` adds a visible keyboard hint and focuses/selects that existing input with ⌘F or Ctrl+F after the `directorist:settings-panel:mounted` event. It does not alter the Vue search query or saved options.
+- The core `Extensions > Extensions General` promotion button reads its site-specific Add-ons URL from `data-extension-browse-url` on `#atbdp-settings-manager`, which PHP builds with `admin_url()`. A page-scoped adapter keeps the current compiled Vue link aligned until the next standard build; it also handles Vue remounts when switching settings tabs.
 - Field rendering is handled by globally registered Vue modules under `assets/src/js/admin/vue/modules`.
 - Existing field types and theme variants should be reused before adding new components.
 

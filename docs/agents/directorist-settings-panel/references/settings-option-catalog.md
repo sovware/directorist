@@ -346,7 +346,7 @@ Current redesign behavior (2026-06-08): the core `Extensions` menu renders `exte
 - Card header: `Extensions`.
 - Empty state: `Installed extensions` with `No extensions installed yet. Each extension you install will add its own section here.`
 - Browse row: `Browse extensions` with `30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.`
-- Action: `View directory`, linking to the existing Directorist extensions admin page. This is presentation-only and does not add extension-specific settings.
+- Action: `View directory`, linking to the current site's Directorist Themes & Extensions Add-ons view through `admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-extension&te_view=addons' )`. This is presentation-only and does not add extension-specific settings.
 
 Current redesign behavior (2026-06-09): runtime extension settings registered through `atbdp_extension_settings_submenu` now render under the redesigned `Extensions` menu using the extension-provided submenu label, for example `Booking`, `Pricing Plans`, or `Social Login` when those extensions are active. The redesign preserves each extension's existing section/field definitions and save keys. These extension-owned fields should not be routed to `Needs Design` simply because they are not core mockup fields. The canonical core layout key is `extension_settings`; `extensions_settings` remains only as a compatibility hash alias.
 

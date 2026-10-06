@@ -719,8 +719,6 @@ const FIELD_OVERRIDES = {
 		browseDescription:
 			'30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.',
 		browseButtonLabel: 'View directory',
-		browseUrl:
-			'/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-extension',
 	},
 	brand_color: {
 		label: 'Brand color',

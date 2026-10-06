@@ -2028,6 +2028,10 @@
       );
     }
 
+    if (result.action === "activate" && result.failedMessages.length) {
+      parts.push(result.failedMessages.slice(0, 3).join(" "));
+    }
+
     if (result.skipped) {
       parts.push(
         `${result.skipped} remaining ${result.skipped === 1 ? "item was" : "items were"} skipped after a network or server interruption.`,
@@ -2067,6 +2071,9 @@
       skipped,
       failedLabels: Array.isArray(result.failedLabels)
         ? result.failedLabels.map(String).filter(Boolean)
+        : [],
+      failedMessages: Array.isArray(result.failedMessages)
+        ? result.failedMessages.map(String).filter(Boolean)
         : [],
     };
     const isSuccess = failed === 0 && skipped === 0;
@@ -2192,6 +2199,7 @@
       failed: 0,
       skipped: 0,
       failedLabels: [],
+      failedMessages: [],
     };
     let completed = 0;
 
@@ -2234,6 +2242,9 @@
           if (failureMessage) {
             result.failed += 1;
             result.failedLabels.push(item.label || item.item);
+            if (actionKey === "activate") {
+              result.failedMessages.push(failureMessage);
+            }
             setProductItemState(item, "failed", "Failed");
           } else {
             result.succeeded += 1;

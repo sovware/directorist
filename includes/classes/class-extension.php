@@ -71,6 +71,98 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
 
+        /**
+         * Get unmet prerequisites for an installed extension at the time of the request.
+         * Plugin headers cover WordPress dependencies; the map covers integrations whose
+         * current releases only check for a companion at runtime.
+         *
+         * @param string     $plugin_base Installed extension plugin basename.
+         * @param array|null $plugin_data Installed plugin header data.
+         * @return string[] Human-readable requirements that are not satisfied.
+         */
+        public function get_extension_activation_issues( $plugin_base, $plugin_data = null ) {
+            if ( ! function_exists( 'get_plugins' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+
+            static $installed_plugins = null;
+            if ( null === $installed_plugins ) {
+                $installed_plugins = get_plugins();
+            }
+            if ( ! isset( $installed_plugins[ $plugin_base ] ) ) {
+                return [];
+            }
+
+            $plugin_data  = is_array( $plugin_data ) ? $plugin_data : $installed_plugins[ $plugin_base ];
+            $extension    = strtok( $plugin_base, '/' );
+            $companions   = [
+                'directorist-elementor'                 => [ 'elementor' => 'Elementor' ],
+                'directorist-helpgent-integration'      => [ 'helpgent' => 'HelpGent' ],
+                'directorist-woocommerce-pricing-plans' => [ 'woocommerce' => 'WooCommerce' ],
+                'directorist-wpml-integration'          => [ 'sitepress-multilingual-cms' => 'WPML' ],
+                'directorist-buddyboss-integration'     => [ 'buddyboss-platform' => 'BuddyBoss Platform' ],
+                'directorist-buddypress-integration'    => [ 'buddypress' => 'BuddyPress' ],
+                'directorist-gamipress-integration'     => [ 'gamipress' => 'GamiPress' ],
+                'directorist-digital-marketplace'       => [ 'woocommerce' => 'WooCommerce' ],
+            ];
+            $requirements = $companions[ $extension ] ?? [];
+            $header       = ! empty( $plugin_data['RequiresPlugins'] ) ? (string) $plugin_data['RequiresPlugins'] : '';
+
+            foreach ( explode( ',', $header ) as $slug ) {
+                $slug = sanitize_key( trim( $slug ) );
+                if ( '' !== $slug && 'directorist' !== $slug && ! isset( $requirements[ $slug ] ) ) {
+                    $requirements[ $slug ] = ucwords( str_replace( '-', ' ', $slug ) );
+                }
+            }
+
+            $active_slugs    = [];
+            $installed_slugs = [];
+            foreach ( array_keys( $installed_plugins ) as $installed_base ) {
+                $installed_slugs[ strtok( $installed_base, '/' ) ]      = true;
+                $installed_slugs[ basename( $installed_base, '.php' ) ] = true;
+                if ( is_plugin_active( $installed_base ) ) {
+                    $active_slugs[ strtok( $installed_base, '/' ) ]      = true;
+                    $active_slugs[ basename( $installed_base, '.php' ) ] = true;
+                }
+            }
+
+            $issues = [];
+            foreach ( $requirements as $slug => $label ) {
+                if ( ! isset( $active_slugs[ $slug ] ) ) {
+                    if ( isset( $installed_slugs[ $slug ] ) ) {
+                        /* translators: %s: required plugin name. */
+                        $issues[] = sprintf( __( 'Activate %s.', 'directorist' ), $label );
+                    } else {
+                        /* translators: %s: required plugin name. */
+                        $issues[] = sprintf( __( 'Install and activate %s.', 'directorist' ), $label );
+                    }
+                }
+            }
+
+            if ( 'directorist-divi-integration' === $extension ) {
+                $theme = wp_get_theme();
+                if ( ! defined( 'ET_BUILDER_PLUGIN_ACTIVE' ) && 'Divi' !== $theme->get_template() && 'Divi' !== $theme->parent_theme ) {
+                    $issues[] = __( 'Activate the Divi theme or Divi Builder plugin.', 'directorist' );
+                }
+            } elseif ( 'addonskit-for-bricks' === $extension ) {
+                if ( 'bricks' !== wp_get_theme()->get_template() ) {
+                    $issues[] = __( 'Activate the Bricks theme.', 'directorist' );
+                }
+                if ( defined( 'ATBDP_VERSION' ) && version_compare( ATBDP_VERSION, '8.0.0', '<' ) ) {
+                    $issues[] = __( 'Update Directorist to version 8.0 or later.', 'directorist' );
+                }
+            } elseif ( 'directorist-oxygen-integration' === $extension ) {
+                $oxygen_6 = defined( 'BREAKDANCE_MODE' ) && 'oxygen' === BREAKDANCE_MODE;
+                if ( ! class_exists( '\\OxyEl', false ) && ! $oxygen_6 ) {
+                    $issues[] = __( 'Activate a supported Oxygen Builder version.', 'directorist' );
+                }
+            } elseif ( 'directorist-helpgent-integration' === $extension && defined( 'HELPGENT_DEPENDENCY_VERSION' ) && version_compare( HELPGENT_DEPENDENCY_VERSION, '3.0.0', '<' ) ) {
+                $issues[] = __( 'Update HelpGent to version 3.0 or later.', 'directorist' );
+            }
+
+            return apply_filters( 'directorist_extension_activation_issues', $issues, $plugin_base, $plugin_data );
+        }
+
         // initial_setup
         public function initial_setup() {
             $this->setup_extensions_alias();
@@ -1270,6 +1362,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 }
 
                 if ( 'activate' === $task ) {
+                    $issues = $this->get_extension_activation_issues( $plugin, $installed_plugins[ $plugin ] );
+                    if ( ! empty( $issues ) ) {
+                        $status['failed_items'][ $plugin ] = implode( ' ', $issues );
+                        continue;
+                    }
+
                     $activated = activate_plugin( $plugin );
 
                     if ( is_wp_error( $activated ) ) {
@@ -1361,6 +1459,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $status['log']     = [ '$plugin_key' => $plugin_key ];
                 $status['message'] = __( 'Please specefy which plugin to activate', 'directorist' );
 
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            $issues = $this->get_extension_activation_issues( $plugin_key );
+            if ( ! empty( $issues ) ) {
+                $status['success'] = false;
+                $status['message'] = implode( ' ', $issues );
                 wp_send_json( [ 'status' => $status ] );
             }
 
@@ -2799,7 +2904,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 $folder_base = strtok( $plugin_base, '/' );
 
-                if ( preg_match( '/^directorist-/', $plugin_base ) && in_array( $folder_base, $official_extensions, true ) ) {
+                if ( in_array( $folder_base, $official_extensions, true ) || in_array( $this->get_extension_alias_key( $folder_base ), $official_extensions, true ) ) {
                     $installed_extensions[ $plugin_base ] = $plugin_data;
 
                     if ( is_plugin_active( $plugin_base ) ) {

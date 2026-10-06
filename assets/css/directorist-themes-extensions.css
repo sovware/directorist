@@ -2927,6 +2927,26 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
   white-space: nowrap;
 }
 
+.directorist-te-page .directorist-te-requirement {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin-top: 5px;
+  color: #8a4b00;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.directorist-te-page .directorist-te-requirement--info {
+  color: var(--muted);
+}
+
+.directorist-te-page .directorist-te-requirement i {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
 .directorist-te-page .directorist-te-search-highlight {
   padding: 0 1px;
   border-radius: 3px;

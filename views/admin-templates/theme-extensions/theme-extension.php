@@ -401,6 +401,12 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
         $has_update    = in_array( $extension_base, $outdated_keys, true );
         $update_version = $get_update_version( $outdated_plugins[ $extension_base ] ?? null );
         $is_active     = is_plugin_active( $extension_base );
+
+        $activation_issues = $args['ATBDP_Extensions']->get_extension_activation_issues( $extension_base, $extension );
+        $activation_notice = ! empty( $activation_issues ) ? implode( ' ', $activation_issues ) : '';
+        $is_mailchimp      = in_array( $extension_key, [ 'directorist-mailchimp', 'directorist-mailchimp-integration' ], true );
+        $setup_notice      = $is_mailchimp && ! $is_active ? __( 'After activation, configure the Mailchimp API key, audience ID, and server in extension settings. No separate Mailchimp plugin is needed.', 'directorist' ) : '';
+
         $required_key  = $get_required_extension_key( $extension_key, $extension_base );
         $is_required   = '' !== $required_key;
         $status        = $has_update ? 'update installed active' : ( $is_active ? 'active installed' : 'installed' );
@@ -428,6 +434,14 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                         ],
                         'icon'  => 'la la-check',
                     ] );
+
+        if ( ! $has_update && ! $is_active && $activation_notice ) {
+            $primary = [
+                'label' => __( 'Manage prerequisites', 'directorist' ),
+                'href'  => admin_url( in_array( $extension_key, [ 'addonskit-for-bricks', 'directorist-divi-integration' ], true ) ? 'themes.php' : 'plugins.php' ),
+                'class' => 'directorist-te-btn directorist-te-btn--secondary',
+            ];
+        }
 
         $menu = [];
 
@@ -467,7 +481,11 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
         if ( $has_update ) {
             $bulk_actions[] = 'update';
         }
-        $bulk_actions[] = $is_active ? 'deactivate' : 'activate';
+        if ( $is_active ) {
+            $bulk_actions[] = 'deactivate';
+        } elseif ( ! $activation_notice ) {
+            $bulk_actions[] = 'activate';
+        }
         if ( ! $is_active ) {
             $bulk_actions[] = 'uninstall';
         }
@@ -480,6 +498,8 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                 'name'        => $name,
                 'version'     => $version,
                 'description' => $description,
+                'notice'      => $activation_notice ?: $setup_notice,
+                'noticeType'  => $activation_notice ? 'warning' : 'info',
                 'image'       => $get_image( $product ),
                 'badges'      => $badges,
                 'statusLabel' => $status_label,
@@ -1877,6 +1897,12 @@ $notification_count = $total_updates + $required_rows;
                                         </div>
                                         <?php if ( ! empty( $row['description'] ) ) : ?>
                                             <p><?php echo esc_html( $row['description'] ); ?></p>
+                                        <?php endif; ?>
+                                        <?php if ( ! empty( $row['notice'] ) ) : ?>
+                                            <div class="directorist-te-requirement directorist-te-requirement--<?php echo esc_attr( $row['noticeType'] ?? 'info' ); ?>" role="note">
+                                                <i class="la la-info-circle" aria-hidden="true"></i>
+                                                <span><?php echo esc_html( $row['notice'] ); ?></span>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
 

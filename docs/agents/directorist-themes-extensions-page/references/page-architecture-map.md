@@ -88,6 +88,13 @@ Registered by `ATBDP_Extensions::setup_ajax_actions()`:
 
 Most actions use `directorist_admin.nonce`; bulk plugin actions use `directorist_admin.directorist_nonce`. Re-check each handler before changing request shape.
 
+## Extension Activation Prerequisites
+
+- `ATBDP_Extensions::get_extension_activation_issues()` combines installed plugin `RequiresPlugins` headers with companion plugin/theme rules for integrations whose releases use runtime checks.
+- Connected installed-product rows in `theme-extension.php` show unmet prerequisites and omit Activate from eligible bulk actions. Mailchimp setup guidance is informational.
+- Both `atbdp_activate_plugin` and `atbdp_plugins_bulk_action` recheck prerequisites at activation time. The rewritten page action queue displays returned activation errors after reload.
+- The resolver is extensible through `directorist_extension_activation_issues`; callers should provide an installed plugin basename and treat returned strings as display text.
+
 ## Remote Dependencies
 
 - Preferred Directorist account authentication: `POST https://directorist.com/wp-json/directorist-license-manager/user-login`

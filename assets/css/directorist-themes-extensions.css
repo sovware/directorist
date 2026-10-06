@@ -324,6 +324,8 @@
 .directorist-te-notification-list {
   display: grid;
   gap: 4px;
+  max-height: min(60vh, 440px);
+  overflow-y: auto;
   padding-top: 8px;
 }
 
@@ -2805,6 +2807,16 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
   background: var(--bg-soft);
 }
 
+.directorist-te-page .directorist-te-row--notification-focus {
+  background: var(--accent-tint);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.directorist-te-page .directorist-te-row:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 .directorist-te-row.selected {
   box-shadow: inset 3px 0 0 var(--accent);
 }
@@ -3124,6 +3136,13 @@ body.at_biz_dir_page_atbdp-extension.directorist-te-activity-drawer-open {
   min-height: 31px;
   padding: 6px 12px;
   font-size: 12.5px;
+}
+
+.directorist-te-page .directorist-te-row__actions > .directorist-te-btn--requirement {
+  max-width: 100%;
+  line-height: 1.25;
+  text-align: center;
+  white-space: normal;
 }
 
 .directorist-te-row__actions > .directorist-te-btn--details {

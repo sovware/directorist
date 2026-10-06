@@ -96,9 +96,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
          *
          * @param string     $plugin_base Installed extension plugin basename.
          * @param array|null $plugin_data Installed plugin header data.
-         * @return string[] Human-readable requirements that are not satisfied.
+         * @return array{issues: string[], requirements: array[]} Messages and requirement states.
          */
-        public function get_extension_activation_issues( $plugin_base, $plugin_data = null ) {
+        public function get_extension_activation_state( $plugin_base, $plugin_data = null ) {
             if ( ! function_exists( 'get_plugins' ) ) {
                 require_once ABSPATH . 'wp-admin/includes/plugin.php';
             }
@@ -108,7 +108,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $installed_plugins = get_plugins();
             }
             if ( ! isset( $installed_plugins[ $plugin_base ] ) ) {
-                return [];
+                return [ 'issues' => [], 'requirements' => [] ];
             }
 
             $plugin_data  = is_array( $plugin_data ) ? $plugin_data : $installed_plugins[ $plugin_base ];
@@ -135,15 +135,18 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 }
             }
 
-            $issues = [];
+            $issues              = [];
+            $requirement_details = [];
             foreach ( $requirements as $slug => $label ) {
                 if ( ! isset( $active_slugs[ $slug ] ) ) {
                     if ( isset( $installed_slugs[ $slug ] ) ) {
                         /* translators: %s: required plugin name. */
-                        $issues[] = sprintf( __( 'Activate %s.', 'directorist' ), $label );
+                        $issues[]              = sprintf( __( 'Activate %s.', 'directorist' ), $label );
+                        $requirement_details[] = [ 'name' => $label, 'kind' => 'plugin', 'state' => 'inactive' ];
                     } else {
                         /* translators: %s: required plugin name. */
-                        $issues[] = sprintf( __( 'Install and activate %s.', 'directorist' ), $label );
+                        $issues[]              = sprintf( __( 'Install and activate %s.', 'directorist' ), $label );
+                        $requirement_details[] = [ 'name' => $label, 'kind' => 'plugin', 'state' => 'missing' ];
                     }
                 }
             }
@@ -151,25 +154,49 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             if ( 'directorist-divi-integration' === $extension ) {
                 $theme = wp_get_theme();
                 if ( ! defined( 'ET_BUILDER_PLUGIN_ACTIVE' ) && 'Divi' !== $theme->get_template() && 'Divi' !== $theme->parent_theme ) {
-                    $issues[] = __( 'Activate the Divi theme or Divi Builder plugin.', 'directorist' );
+                    $issues[]              = __( 'Activate the Divi theme or Divi Builder plugin.', 'directorist' );
+                    $requirement_details[] = [ 'name' => 'Divi', 'kind' => 'theme-or-plugin', 'state' => 'inactive' ];
                 }
             } elseif ( 'addonskit-for-bricks' === $extension ) {
                 if ( 'bricks' !== wp_get_theme()->get_template() ) {
-                    $issues[] = __( 'Activate the Bricks theme.', 'directorist' );
+                    $bricks_installed      = wp_get_theme( 'bricks' )->exists();
+                    $issues[]              = $bricks_installed
+                        ? __( 'Activate the Bricks theme.', 'directorist' )
+                        : __( 'Install and activate the Bricks theme.', 'directorist' );
+                    $requirement_details[] = [ 'name' => 'Bricks', 'kind' => 'theme', 'state' => $bricks_installed ? 'inactive' : 'missing' ];
                 }
                 if ( defined( 'ATBDP_VERSION' ) && version_compare( ATBDP_VERSION, '8.0.0', '<' ) ) {
-                    $issues[] = __( 'Update Directorist to version 8.0 or later.', 'directorist' );
+                    $issues[]              = __( 'Update Directorist to version 8.0 or later.', 'directorist' );
+                    $requirement_details[] = [ 'name' => 'Directorist', 'kind' => 'plugin', 'state' => 'outdated' ];
                 }
             } elseif ( 'directorist-oxygen-integration' === $extension ) {
                 $oxygen_6 = defined( 'BREAKDANCE_MODE' ) && 'oxygen' === BREAKDANCE_MODE;
                 if ( ! class_exists( '\\OxyEl', false ) && ! $oxygen_6 ) {
-                    $issues[] = __( 'Activate a supported Oxygen Builder version.', 'directorist' );
+                    $issues[]              = __( 'Activate a supported Oxygen Builder version.', 'directorist' );
+                    $oxygen_state          = isset( $active_slugs['oxygen'] ) ? 'unsupported' : ( isset( $installed_slugs['oxygen'] ) ? 'inactive' : 'missing' );
+                    $requirement_details[] = [ 'name' => 'Oxygen Builder', 'kind' => 'plugin', 'state' => $oxygen_state ];
                 }
             } elseif ( 'directorist-helpgent-integration' === $extension && defined( 'HELPGENT_DEPENDENCY_VERSION' ) && version_compare( HELPGENT_DEPENDENCY_VERSION, '3.0.0', '<' ) ) {
-                $issues[] = __( 'Update HelpGent to version 3.0 or later.', 'directorist' );
+                $issues[]              = __( 'Update HelpGent to version 3.0 or later.', 'directorist' );
+                $requirement_details[] = [ 'name' => 'HelpGent', 'kind' => 'plugin', 'state' => 'outdated' ];
             }
 
-            return apply_filters( 'directorist_extension_activation_issues', $issues, $plugin_base, $plugin_data );
+            return [
+                'issues'       => apply_filters( 'directorist_extension_activation_issues', $issues, $plugin_base, $plugin_data ),
+                'requirements' => $requirement_details,
+            ];
+        }
+
+        /**
+         * Get human-readable unmet requirements for activation responses.
+         *
+         * @param string     $plugin_base Installed extension plugin basename.
+         * @param array|null $plugin_data Installed plugin header data.
+         * @return string[] Unmet requirement messages.
+         */
+        public function get_extension_activation_issues( $plugin_base, $plugin_data = null ) {
+            $state = $this->get_extension_activation_state( $plugin_base, $plugin_data );
+            return $state['issues'];
         }
 
         // initial_setup

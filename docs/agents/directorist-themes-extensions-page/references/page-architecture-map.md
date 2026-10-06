@@ -91,7 +91,8 @@ Most actions use `directorist_admin.nonce`; bulk plugin actions use `directorist
 ## Extension Activation Prerequisites
 
 - `ATBDP_Extensions::get_extension_activation_issues()` combines installed plugin `RequiresPlugins` headers with companion plugin/theme rules for integrations whose releases use runtime checks. Installed integrations in `get_extension_companion_plugins()` remain visible even before a matching catalog entry is available.
-- Connected installed-product rows in `theme-extension.php` show unmet prerequisites and omit Activate from eligible bulk actions. Mailchimp setup guidance is informational.
+- Connected installed-product rows in `theme-extension.php` show unmet prerequisites and omit Activate from eligible bulk actions. The primary action names the missing, inactive, or outdated prerequisite; multiple requirements show a count. Mailchimp setup guidance is informational.
+- The existing connected-page notification bell also lists each extension with an unmet activation requirement. Selecting an item opens Add-ons, clears filters, and focuses the matching row.
 - Both `atbdp_activate_plugin` and `atbdp_plugins_bulk_action` recheck prerequisites at activation time. The rewritten page action queue displays returned activation errors after reload.
 - The resolver is extensible through `directorist_extension_activation_issues`; callers should provide an installed plugin basename and treat returned strings as display text.
 

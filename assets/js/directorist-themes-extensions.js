@@ -827,6 +827,7 @@
 
         const type = $(this).attr("data-notification-type") || "all";
         const status = $(this).attr("data-notification-status") || "all";
+        const targetId = $(this).attr("data-notification-target") || "";
         const typeTab = $(
           `.directorist-te-tab[data-filter-type="${type}"]`,
         ).first();
@@ -848,6 +849,24 @@
 
         if (statusFilter.length) {
           statusFilter.trigger("click");
+        }
+
+        const targetRow = targetId ? document.getElementById(targetId) : null;
+
+        if (targetRow && !targetRow.classList.contains("is-hidden")) {
+          targetRow.classList.add("directorist-te-row--notification-focus");
+          targetRow.scrollIntoView({
+            block: "center",
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "auto"
+              : "smooth",
+          });
+          targetRow.focus({ preventScroll: true });
+          window.setTimeout(() => {
+            targetRow.classList.remove("directorist-te-row--notification-focus");
+          }, 1800);
+          return;
         }
 
         const highlightedControls = typeTab.add(statusFilter);

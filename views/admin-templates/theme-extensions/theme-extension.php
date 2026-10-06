@@ -402,7 +402,8 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
         $update_version = $get_update_version( $outdated_plugins[ $extension_base ] ?? null );
         $is_active     = is_plugin_active( $extension_base );
 
-        $activation_issues = $args['ATBDP_Extensions']->get_extension_activation_issues( $extension_base, $extension );
+        $activation_state  = $args['ATBDP_Extensions']->get_extension_activation_state( $extension_base, $extension );
+        $activation_issues = $activation_state['issues'];
         $activation_notice = ! empty( $activation_issues ) ? implode( ' ', $activation_issues ) : '';
         $is_mailchimp      = in_array( $extension_key, [ 'directorist-mailchimp', 'directorist-mailchimp-integration' ], true );
         $setup_notice      = $is_mailchimp && ! $is_active ? __( 'After activation, configure the Mailchimp API key, audience ID, and server in extension settings. No separate Mailchimp plugin is needed.', 'directorist' ) : '';
@@ -436,10 +437,37 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                     ] );
 
         if ( ! $has_update && ! $is_active && $activation_notice ) {
+            $requirement_count = count( $activation_issues );
+            $requirement       = $activation_state['requirements'][0] ?? [];
+            $requirement_name  = $requirement['name'] ?? '';
+            $requirement_kind  = $requirement['kind'] ?? 'plugin';
+            $requirement_state = $requirement['state'] ?? '';
+            $requirement_label = __( 'Resolve requirement', 'directorist' );
+
+            if ( 1 < $requirement_count ) {
+                /* translators: %d: number of unmet activation requirements. */
+                $requirement_label = sprintf( __( 'Resolve requirements (%d)', 'directorist' ), $requirement_count );
+            } elseif ( $requirement_name && 1 === count( $activation_state['requirements'] ) ) {
+                if ( 'theme-or-plugin' === $requirement_kind || 'unsupported' === $requirement_state ) {
+                    /* translators: %s: required integration name. */
+                    $requirement_label = sprintf( __( 'Check %s requirement', 'directorist' ), $requirement_name );
+                } elseif ( 'missing' === $requirement_state ) {
+                    /* translators: %s: required plugin or theme name. */
+                    $requirement_label = sprintf( __( 'Install %s first', 'directorist' ), $requirement_name );
+                } elseif ( 'outdated' === $requirement_state ) {
+                    /* translators: %s: required plugin name. */
+                    $requirement_label = sprintf( __( 'Update %s first', 'directorist' ), $requirement_name );
+                } else {
+                    /* translators: %s: required plugin or theme name. */
+                    $requirement_label = sprintf( __( 'Activate %s first', 'directorist' ), $requirement_name );
+                }
+            }
+
             $primary = [
-                'label' => __( 'Manage prerequisites', 'directorist' ),
-                'href'  => admin_url( in_array( $extension_key, [ 'addonskit-for-bricks', 'directorist-divi-integration' ], true ) ? 'themes.php' : 'plugins.php' ),
-                'class' => 'directorist-te-btn directorist-te-btn--secondary',
+                'label' => $requirement_label,
+                'href'  => admin_url( in_array( $requirement_kind, [ 'theme', 'theme-or-plugin' ], true ) ? 'themes.php' : 'plugins.php' ),
+                'class' => 'directorist-te-btn directorist-te-btn--secondary directorist-te-btn--requirement',
+                'icon'  => 'la la-exclamation-circle',
             ];
         }
 
@@ -811,7 +839,16 @@ $required_rows = count(
         }
     )
 );
-$notification_count = $total_updates + $required_rows;
+$dependency_rows = array_values(
+    array_filter(
+        $rows,
+        static function( $row ) {
+            return 'extension' === ( $row['type'] ?? '' ) && 'warning' === ( $row['noticeType'] ?? '' ) && ! empty( $row['notice'] );
+        }
+    )
+);
+
+$notification_count = $total_updates + $required_rows + count( $dependency_rows );
 ?>
 
 <div
@@ -949,11 +986,28 @@ $notification_count = $total_updates + $required_rows;
                                         </button>
                                     <?php endif; ?>
 
+                                    <?php foreach ( $dependency_rows as $dependency_row ) : ?>
+                                        <button
+                                            type="button"
+                                            class="directorist-te-notification-item"
+                                            data-notification-type="extension"
+                                            data-notification-status="installed"
+                                            data-notification-target="directorist-te-row-<?php echo esc_attr( sanitize_html_class( $dependency_row['key'] ) ); ?>"
+                                        >
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--required" aria-hidden="true"><i class="la la-exclamation-circle"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong><?php echo esc_html( $dependency_row['name'] ); ?></strong>
+                                                <span><?php echo esc_html( $dependency_row['notice'] ); ?></span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endforeach; ?>
+
                                     <?php if ( ! $notification_count ) : ?>
                                         <div class="directorist-te-notification-empty">
                                             <span aria-hidden="true"><i class="la la-check-circle"></i></span>
                                             <strong><?php esc_html_e( 'You are all caught up', 'directorist' ); ?></strong>
-                                            <p><?php esc_html_e( 'No add-on updates or required extensions need attention.', 'directorist' ); ?></p>
+                                            <p><?php esc_html_e( 'No add-on updates or extension requirements need attention.', 'directorist' ); ?></p>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -1847,7 +1901,7 @@ $notification_count = $total_updates + $required_rows;
                                     : ( 'theme' === $row['type'] ? __( 'Theme', 'directorist' ) : __( 'Extension', 'directorist' ) );
                                 $row_type_class = ! empty( $row['typeClass'] ) && is_scalar( $row['typeClass'] ) ? sanitize_html_class( (string) $row['typeClass'] ) : $row['type'];
                                 ?>
-                                <article class="directorist-te-row" data-product-type="<?php echo esc_attr( $row['type'] ); ?>" data-product-status="<?php echo esc_attr( $row['status'] ); ?>" data-search-text="<?php echo esc_attr( $search_index['text'] ); ?>" data-badge-search-text="<?php echo esc_attr( $search_index['badge_text'] ); ?>" data-badge-search-terms="<?php echo esc_attr( $search_index['badge_terms'] ); ?>">
+                                <article<?php $render_attrs( $is_logged_in ? [ 'id' => 'directorist-te-row-' . sanitize_html_class( $row['key'] ), 'tabindex' => '-1' ] : [] ); ?> class="directorist-te-row" data-product-type="<?php echo esc_attr( $row['type'] ); ?>" data-product-status="<?php echo esc_attr( $row['status'] ); ?>" data-search-text="<?php echo esc_attr( $search_index['text'] ); ?>" data-badge-search-text="<?php echo esc_attr( $search_index['badge_text'] ); ?>" data-badge-search-terms="<?php echo esc_attr( $search_index['badge_terms'] ); ?>">
                                     <?php if ( $is_logged_in ) : ?>
                                         <div class="directorist-te-row__select">
                                             <?php if ( ! empty( $row['bulk'] ) ) : ?>

@@ -26,7 +26,7 @@ Frontend JavaScript should not call Directorist.com directly. Keep the browser t
 
 ## Product Catalog Source
 
-Default behavior is local-first:
+Default behavior starts with local product definitions and overlays current API display data:
 
 - `ATBDP_Extensions::$load_from_api` is `false`.
 - Extensions come from `ATBDP_Extensions::get_default_extensions()`.
@@ -34,7 +34,7 @@ Default behavior is local-first:
 - Filters can modify these lists:
   - `atbdp_extension_list`
   - `atbdp_theme_list`
-- `Directorist\Core\API::get_product_badges()` overlays badge metadata from `v1/get-remote-products` onto matching local products before these filters run. This request has a three-second timeout, a one-hour badge cache (`directorist_product_badges`), and a five-minute failure cache. It does not replace local product copy or subscription data.
+- `Directorist\Core\API::get_product_display_data()` reads product names and badges from `v1/get-remote-products` before these filters run. A nonempty API name overrides the matching local name; missing product/name data keeps the local name. Connected accounts use API badges when present for a product, while disconnected accounts use local badges. Missing API product data keeps local badges. The request has a three-second timeout, a one-hour display-data cache (`directorist_product_display_data`), and a five-minute failure cache. Other local product copy and subscription data remain unchanged.
 
 Optional remote catalog path:
 
@@ -54,7 +54,7 @@ Product copy/source policy for rewrite:
 - Keep local product arrays as safe fallback for product name, description, thumbnail, product link, demo link, item ID, and plugin base when the API is unavailable, empty, malformed, missing a field, or disabled.
 - Do not render blank cards only because remote copy is missing; merge API data over local defaults by product key where possible.
 - Cross-check public product claims against local `README.md`/`readme.txt` and official Directorist docs before changing visible copy.
-- Badge/status values are different: render them only from product API or explicit local filters. Do not invent hardcoded badge/status fallback from local copy, product order, slug, or name.
+- Badge/status values are different: connected accounts prefer product API badges; disconnected accounts use explicitly maintained local badge metadata. Do not infer badges from product copy, order, slug, or name.
 
 Future badge/status support should be added to this catalog contract as optional API data. EDD product meta or a dedicated product badge setting on Directorist.com can feed the API, but the core plugin UI should consume the product API field. Do not use normal EDD/WordPress `post_status` as the badge source because it represents product availability, not display labels such as `New`.
 

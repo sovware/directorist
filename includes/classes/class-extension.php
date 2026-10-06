@@ -472,17 +472,22 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $this->extensions = static::get_default_extensions();
                 $this->themes     = static::get_default_themes();
 
-                $product_badges = API::get_product_badges();
+                $display_data = API::get_product_display_data();
+                $is_connected = ! empty( get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true ) );
 
-                foreach ( $product_badges['extensions'] ?? [] as $slug => $badges ) {
-                    if ( isset( $this->extensions[ $slug ] ) ) {
-                        $this->extensions[ $slug ]['badges'] = $badges;
-                    }
-                }
+                foreach ( [ 'extensions', 'themes' ] as $group ) {
+                    foreach ( $display_data[ $group ] ?? [] as $slug => $product ) {
+                        if ( ! isset( $this->{$group}[ $slug ] ) ) {
+                            continue;
+                        }
 
-                foreach ( $product_badges['themes'] ?? [] as $slug => $badges ) {
-                    if ( isset( $this->themes[ $slug ] ) ) {
-                        $this->themes[ $slug ]['badges'] = $badges;
+                        if ( ! empty( $product['name'] ) ) {
+                            $this->{$group}[ $slug ]['name'] = $product['name'];
+                        }
+
+                        if ( $is_connected && isset( $product['badges'] ) && is_array( $product['badges'] ) ) {
+                            $this->{$group}[ $slug ]['badges'] = $product['badges'];
+                        }
                     }
                 }
 
@@ -513,6 +518,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-elementor-integration.jpg',
                     'active'      => true,
                     'item_id'     => 372388,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-gutenberg' => [
                     'name'        => 'Directorist Gutenberg Integration',
@@ -521,6 +527,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-gutenberg-integration.png',
                     'active'      => true,
                     'item_id'     => 372387,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-pay-per-lead' => [
                     'name'        => 'Directorist Pay Per Lead',
@@ -529,6 +536,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Pay-Per-Lead-Feature-Image.jpg',
                     'active'      => true,
                     'item_id'     => 372148,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-mpesa-payment-gateway' => [
                     'name'        => 'M-Pesa Payment Gateway',
@@ -537,6 +545,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Mpesa-thumbnail.png',
                     'active'      => true,
                     'item_id'     => 372057,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
                 ],
                 'directorist-notifications-pro' => [
                     'name'        => 'Directorist Notifications Pro',
@@ -925,7 +934,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'active'      => true,
                 ],
                 'onelisting-pro' => [
-                    'name'        => 'OneListing Pro',
+                    'name'        => 'Onelisting Pro',
                     'description' => __( 'Onelisting Pro is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/onelisting-pro/',
                     'demo_link'   => 'https://demo.directorist.com/theme/onelisting-pro/',
@@ -970,7 +979,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'badges'      => [ self::get_product_badge( 'popular', __( 'Popular', 'directorist' ) ) ],
                 ],
                 'dlist' => [
-                    'name'        => 'dList',
+                    'name'        => 'DList',
                     'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dlist/',
                     'demo_link'   => 'https://demo.directorist.com/theme/dlist/',
@@ -978,7 +987,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'active'      => true,
                 ],
                 'dservice' => [
-                    'name'        => 'dService',
+                    'name'        => 'DService',
                     'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dservice/',
                     'demo_link'   => 'https://demo.directorist.com/theme/dservice/',

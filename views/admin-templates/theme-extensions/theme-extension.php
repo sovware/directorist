@@ -880,7 +880,7 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                 <?php if ( $is_logged_in ) : ?>
                     <div class="directorist-te-top-right">
                         <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
-                            <a href="https://directorist.com/documentation/directorist/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
+                            <a href="https://directorist.com/docs/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
                             <a href="https://www.youtube.com/@wpdirectorist" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Tutorials, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Tutorials', 'directorist' ); ?></a>
                             <a href="https://directorist.com/contact/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Support, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Support', 'directorist' ); ?></a>
                         </nav>
@@ -1152,7 +1152,7 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                     </div>
                 <?php else : ?>
                     <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
-                        <a href="https://directorist.com/documentation/directorist/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
+                        <a href="https://directorist.com/docs/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
                         <a href="https://www.youtube.com/@wpdirectorist" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Tutorials, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Tutorials', 'directorist' ); ?></a>
                         <a href="https://directorist.com/contact/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Support, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Support', 'directorist' ); ?></a>
                     </nav>

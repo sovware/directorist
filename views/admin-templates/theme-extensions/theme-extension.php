@@ -396,7 +396,7 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
     foreach ( $args['installed_extension_list'] as $extension_base => $extension ) {
         $extension_key = preg_replace( '/\/.+/', '', $extension_base );
         $product       = $get_extension_product( $extension_key );
-        $name          = ! empty( $extension['Name'] ) ? $extension['Name'] : ( $product['name'] ?? $extension_key );
+        $name          = ! empty( $product['name'] ) ? $product['name'] : ( $extension['Name'] ?? $extension_key );
         $version       = ! empty( $extension['Version'] ) ? $extension['Version'] : '';
         $description   = $product['description'] ?? ( $extension['Description'] ?? '' );
         $has_update    = in_array( $extension_base, $outdated_keys, true );
@@ -591,7 +591,7 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
         if ( in_array( $extension_key, [ 'directorist-elementor', 'directorist-gutenberg' ], true ) && ! empty( $catalog_product['thumbnail'] ) ) {
             $product['thumbnail'] = $catalog_product['thumbnail'];
         }
-        $name        = $product['title'] ?? $product['name'] ?? $extension_key;
+        $name        = ! empty( $catalog_product['name'] ) ? $catalog_product['name'] : ( $extension['title'] ?? $extension['name'] ?? $extension_key );
         $description = $product['description'] ?? '';
         $can_install = ! empty( $extension['download_link'] ) && ( ! empty( $extension['skip_licencing'] ) || ( ! empty( $extension['license'] ) && ! empty( $extension['item_id'] ) ) );
         $required_key = $get_required_extension_key( $extension_key );

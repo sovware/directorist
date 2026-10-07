@@ -425,6 +425,7 @@ export default {
                 const liveField = this.fields[ fieldKey ];
 
                 if ( ! cachedField || ! cachedField.layout_path || ! liveField ) { continue; }
+                if ( this.isInactiveGatewayModeField( liveField ) ) { continue; }
 
                 const label = this.toPlainSearchText(
                     liveField.label ||
@@ -547,6 +548,20 @@ export default {
             });
 
             return results;
+        },
+
+        isInactiveGatewayModeField( field ) {
+            const showIf = field.showIf || field.show_if || field[ 'show-if' ];
+            const modeKey = showIf && showIf.where;
+
+            if ( ! [ 'stripe_gateway_test_mode', 'paypal_gateway_test_mode' ].includes( modeKey ) ) {
+                return false;
+            }
+
+            const modeCondition = Array.isArray( showIf.conditions ) &&
+                showIf.conditions.find( condition => condition.key === 'value' && condition.compare === '=' );
+
+            return !! modeCondition && this.fields[ modeKey ]?.value != modeCondition.value;
         },
 
         collectQuickSearchSectionResults({

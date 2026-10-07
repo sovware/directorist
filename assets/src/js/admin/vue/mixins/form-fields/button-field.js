@@ -7,6 +7,16 @@ const WEBHOOK_CREDENTIAL_FIELDS = {
 	stripe_test_webhook: ['stripe_test_pk', 'stripe_test_sk'],
 };
 
+const getSavedWebhookId = (value) => {
+	if (typeof value === 'string' || typeof value === 'number') {
+		return String(value);
+	}
+
+	return value && !Array.isArray(value) && typeof value === 'object'
+		? String(value.id || '')
+		: '';
+};
+
 export default {
 	mixins: [props],
 
@@ -14,7 +24,7 @@ export default {
 		return {
 			local_value: false,
 			async_processing: false,
-			async_connected: Boolean(this.value),
+			async_connected: Boolean(getSavedWebhookId(this.value)),
 			async_feedback: null,
 			async_action_url: '',
 			async_action_label: '',
@@ -40,15 +50,17 @@ export default {
 
 			const url = new URL(this.url.replace(/&amp;/g, '&'), window.location.href);
 
+			const savedWebhookId = getSavedWebhookId(this.value);
+
 			if (
 				this.async_connected &&
-				this.value &&
+				savedWebhookId &&
 				WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey] &&
 				url.pathname.endsWith('/webhook-register')
 			) {
 				url.pathname = url.pathname.replace(/webhook-register$/, 'webhook-unregister');
 				url.searchParams.delete('type');
-				url.searchParams.set('id', this.value);
+				url.searchParams.set('id', savedWebhookId);
 			}
 
 			return url.href;

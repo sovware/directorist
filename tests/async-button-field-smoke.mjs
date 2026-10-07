@@ -20,6 +20,9 @@ const sandbox = {
 vm.runInNewContext(source, sandbox);
 
 const mixin = sandbox.module.exports;
+assert.equal(mixin.data.call({ value: [] }).async_connected, false);
+assert.equal(mixin.data.call({ value: {} }).async_connected, false);
+assert.equal(mixin.data.call({ value: { id: 'we_saved' } }).async_connected, true);
 const commits = [];
 let fetchCount = 0;
 const context = {
@@ -88,6 +91,9 @@ context.buttonLabel = 'Register Sandbox Webhook';
 context.value = 'wh_local_test';
 assert.equal(context.asyncButtonLabel, 'Disconnect Sandbox Webhook');
 assert.match(context.asyncActionUrl, /webhook-unregister\?key=stripe_test_webhook&_wpnonce=test&id=wh_local_test/);
+context.value = { id: 'wh_local_test' };
+assert.match(context.asyncActionUrl, /webhook-unregister\?key=stripe_test_webhook&_wpnonce=test&id=wh_local_test/);
+context.value = 'wh_local_test';
 
 context.async_action_url = 'https://example.test/wp-json/gateway/webhook-unregister?id=wh_local_test';
 context.async_action_label = 'Unregister Sandbox Webhook';

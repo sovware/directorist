@@ -187,18 +187,31 @@ $settings-primary-color: #3e62f5;
     }
 }
 // Opt-in async gateway actions; ordinary button fields keep their existing link behavior.
+.atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group {
+    > .atbdp-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    }
+
+    > .atbdp-row > .atbdp-col-8 {
+        width: 100%;
+        min-width: 0;
+        justify-self: stretch;
+    }
+}
+
 .directorist-async-button-field {
     &__row {
         display: flex;
         align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
+        justify-content: flex-end;
+        gap: 12px;
     }
 
     &__status {
         color: #526071;
         font-size: 12px;
         font-weight: 600;
+        white-space: nowrap;
 
         &::before {
             content: '';
@@ -217,11 +230,44 @@ $settings-primary-color: #3e62f5;
     }
 
     &__feedback {
-        margin: 8px 0 0;
-        font-size: 12px;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 10px 0 0;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        font-size: 13px;
         line-height: 1.5;
+        overflow-wrap: anywhere;
 
-        &--success { color: #166534; }
-        &--error { color: #b42318; }
+        &--success {
+            color: #166534;
+            border-color: #bbefca;
+            background: #f0fdf4;
+        }
+
+        &--error {
+            color: #b42318;
+            border-color: #fecdca;
+            background: #fff5f5;
+        }
+    }
+}
+
+@media only screen and (max-width: 1399px) {
+    .atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group > .atbdp-row {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group > .atbdp-row > .atbdp-col-8 {
+        grid-column: 1 !important;
+        width: 100% !important;
+        max-width: none !important;
+        justify-self: stretch !important;
+    }
+
+    .directorist-async-button-field__row {
+        justify-content: flex-start;
+        flex-wrap: wrap;
     }
 }

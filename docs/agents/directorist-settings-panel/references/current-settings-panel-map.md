@@ -46,6 +46,7 @@ Last reviewed: 2026-06-04
 - Field rendering is handled by globally registered Vue modules under `assets/src/js/admin/vue/modules`.
 - Existing field types and theme variants should be reused before adding new components.
 - Button fields can opt into inline REST actions with `async-action: true`. The gateway endpoint keeps its normal link/redirect fallback and, for requests with `X-Directorist-Async: 1`, returns `success`, `connected`, `webhook_id`, `message`, `action_url`, and `action_label`. Successful responses update the live and cached field together without marking settings unsaved; errors leave the saved state untouched. A saved webhook ID is labeled `Registered (saved)`, not independently verified with the provider.
+- Async button fields need a wider action track than ordinary fields to keep the action and status together. The scoped settings-panel layout uses a 440px action track on wide screens, then stacks the label above a full-width control at 1399px and below; the feedback card stays inside that control track.
 
 ## Connected Systems
 

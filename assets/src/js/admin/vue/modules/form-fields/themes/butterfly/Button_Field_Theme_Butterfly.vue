@@ -1,5 +1,5 @@
 <template>
-    <div class="cptm-form-group">
+    <div class="cptm-form-group" :class="{ 'directorist-async-button-group': asyncAction }">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
                 <label v-if="( label.length )">

@@ -84,8 +84,14 @@
 
 			let form_data = {
 				action: 'ajaxlogin',
-				username: $this.find('input[name="username"]').val(),
-				password: $this.find('input[name="password"]').val(),
+				username: $this
+					.find('input#directorist__authentication__signin__username, input#username, input[name="username"]')
+					.first()
+					.val(),
+				password: $this
+					.find('input#directorist__authentication__signin__password, input#password, input[name="password"]')
+					.first()
+					.val(),
 				rememberme: $this.find('#keep_signed_in').is(':checked')
 					? 1
 					: 0,

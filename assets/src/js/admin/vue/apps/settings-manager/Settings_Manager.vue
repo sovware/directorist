@@ -49,9 +49,12 @@
                             <span
                                 class="settings-footer-unsaved"
                                 v-if="hasUnsavedChanges"
+                                :title="unsavedStatusTitle"
+                                role="status"
+                                aria-live="polite"
                             >
                                 <span class="settings-footer-unsaved__dot" aria-hidden="true"></span>
-                                Unsaved changes
+                                {{ unsavedStatusLabel }}
                             </span>
 
                             <button 
@@ -260,7 +263,8 @@ export default {
             return this.quickSearchPayload.total;
         },
 
-        hasUnsavedChanges() {
+        unsavedFieldKeys() {
+            const keys = [];
             for ( let field_key in this.fields ) {
                 if ( ! this.cached_fields[ field_key ] ) { continue; }
 
@@ -271,11 +275,32 @@ export default {
                         field_key
                     )
                 ) {
-                    return true;
+                    keys.push( field_key );
                 }
             }
 
-            return false;
+            return keys;
+        },
+
+        hasUnsavedChanges() {
+            return this.unsavedFieldKeys.length > 0;
+        },
+
+        unsavedStatusTitle() {
+            const labels = this.unsavedFieldKeys.map( fieldKey => {
+                const field = this.fields[ fieldKey ];
+                return this.toPlainSearchText( field.label || field.title || fieldKey );
+            } );
+
+            return `Unsaved: ${labels.join( ', ' )}`;
+        },
+
+        unsavedStatusLabel() {
+            if ( this.unsavedFieldKeys.length === 1 ) {
+                return this.unsavedStatusTitle;
+            }
+
+            return `${this.unsavedFieldKeys.length} unsaved changes`;
         },
 
         saveButtonIsDisabled() {

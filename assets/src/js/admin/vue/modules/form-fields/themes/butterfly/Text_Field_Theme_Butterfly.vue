@@ -10,7 +10,7 @@
             </div>
 
             <div class="atbdp-col atbdp-col-8">
-                <input class="cptm-form-control" :class="formControlClass" :id="fieldId" v-if="( typeof filteredValue !== 'object' ) ? true : false" :type="input_type" :min="min" :max="max" :step="step" :value="( filteredValue === false ) ? '' : filteredValue" :placeholder="placeholder" :disabled="disable || webhookCredentialLocked" @input="$emit('update', $event.target.value)">
+                <input class="cptm-form-control" :class="[ formControlClass, { 'cptm-form-control--webhook-locked': webhookCredentialLocked } ]" :id="fieldId" v-if="( typeof filteredValue !== 'object' ) ? true : false" :type="input_type" :min="min" :max="max" :step="step" :value="( filteredValue === false ) ? '' : filteredValue" :placeholder="placeholder" :disabled="disable || webhookCredentialLocked" @input="$emit('update', $event.target.value)">
                 <input v-if="( typeof filteredValue === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( filteredValue )">
 				<p v-if="webhookCredentialLocked" class="directorist-webhook-credential-lock-note">Disconnect the webhook to edit these keys.</p>
 

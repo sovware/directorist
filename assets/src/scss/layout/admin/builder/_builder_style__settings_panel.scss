@@ -207,8 +207,71 @@ $settings-primary-color: #3e62f5;
         gap: 12px;
     }
 
+    &__action {
+        position: relative;
+        display: inline-flex;
+        flex: 0 0 auto;
+
+        &--blocked {
+            border-radius: 8px;
+            cursor: not-allowed;
+
+            > .settings-save-btn,
+            > .settings-save-btn:hover,
+            > .settings-save-btn:focus {
+                color: #667085;
+                border-color: #d0d5dd;
+                background: #eaecf0;
+                box-shadow: none;
+                cursor: not-allowed;
+            }
+
+            &:focus-visible {
+                outline: 2px solid #3e62f5;
+                outline-offset: 3px;
+            }
+
+            &:hover .directorist-async-button-field__tooltip,
+            &:focus-within .directorist-async-button-field__tooltip {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &__tooltip {
+        position: absolute;
+        z-index: 20;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        width: max-content;
+        max-width: min(240px, calc(100vw - 48px));
+        padding: 8px 10px;
+        border-radius: 6px;
+        color: #fff;
+        background: #1f2937;
+        box-shadow: 0 4px 12px rgba(16, 24, 40, 0.18);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        text-align: center;
+        white-space: normal;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateX(-50%);
+        transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+
     &__status {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 4px 9px;
+        border: 1px solid #e2e7ee;
+        border-radius: 100px;
         color: #526071;
+        background: #f8fafc;
         font-size: 12px;
         font-weight: 600;
         white-space: nowrap;
@@ -227,6 +290,30 @@ $settings-primary-color: #3e62f5;
         &--connected::before {
             background: #16a34a;
         }
+
+        &--connected {
+            color: #166534;
+            border-color: #bbefca;
+            background: #f0fdf4;
+        }
+
+        &--attention {
+            color: #92400e;
+            border-color: #fcd34d;
+            background: #fffbeb;
+
+            &::before {
+                background: #f59e0b;
+            }
+        }
+    }
+
+    &__details {
+        margin: 8px 0 0;
+        color: #526071;
+        font-size: 12px;
+        line-height: 1.45;
+        text-align: right;
     }
 
     &__feedback {
@@ -254,6 +341,16 @@ $settings-primary-color: #3e62f5;
     }
 }
 
+.atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn,
+.atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn:hover,
+.atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn:focus {
+    color: #667085;
+    border-color: #d0d5dd;
+    background: #eaecf0;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
 @media only screen and (max-width: 1399px) {
     .atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group > .atbdp-row {
         grid-template-columns: minmax(0, 1fr) !important;
@@ -269,5 +366,9 @@ $settings-primary-color: #3e62f5;
     .directorist-async-button-field__row {
         justify-content: flex-start;
         flex-wrap: wrap;
+    }
+
+    .directorist-async-button-field__details {
+        text-align: left;
     }
 }

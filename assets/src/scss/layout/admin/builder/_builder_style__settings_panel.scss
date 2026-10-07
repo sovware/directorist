@@ -309,18 +309,23 @@ $settings-primary-color: #3e62f5;
     }
 
     &__details {
-        margin: 8px 0 0;
+        box-sizing: border-box;
+        width: min(100%, 380px);
+        margin: 8px 0 0 auto;
         color: #526071;
         font-size: 12px;
         line-height: 1.45;
         text-align: left;
 
         &--attention {
+            width: 100%;
+            margin-left: 0;
             padding: 9px 11px;
             border: 1px solid #fcd34d;
             border-radius: 6px;
             color: #713f12;
             background: #fffbeb;
+            text-align: left;
         }
     }
 

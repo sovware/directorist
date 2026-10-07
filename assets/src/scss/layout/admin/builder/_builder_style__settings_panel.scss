@@ -354,9 +354,11 @@ $settings-primary-color: #3e62f5;
     color: #526071;
     font-size: 12px;
     line-height: 1.4;
+    text-align: right;
 }
 
 .atbdp-settings-manager .atbdp-settings-panel .cptm-form-control--webhook-locked:disabled {
+    margin-left: auto;
     border-color: #d0d5dd;
     background: #f2f4f7;
     color: #667085;

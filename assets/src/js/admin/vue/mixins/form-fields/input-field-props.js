@@ -109,6 +109,18 @@ export default {
 			type: String,
 			default: '',
 		},
+		asyncAction: {
+			type: Boolean,
+			default: false,
+		},
+		statusLabelConnected: {
+			type: String,
+			default: 'Connected',
+		},
+		statusLabelDisconnected: {
+			type: String,
+			default: 'Disconnected',
+		},
 		action: {
 			type: String,
 			default: '',

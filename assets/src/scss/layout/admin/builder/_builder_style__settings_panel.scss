@@ -186,3 +186,42 @@ $settings-primary-color: #3e62f5;
         }
     }
 }
+// Opt-in async gateway actions; ordinary button fields keep their existing link behavior.
+.directorist-async-button-field {
+    &__row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    &__status {
+        color: #526071;
+        font-size: 12px;
+        font-weight: 600;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: 6px;
+            border-radius: 50%;
+            background: #98a2b3;
+            vertical-align: middle;
+        }
+
+        &--connected::before {
+            background: #16a34a;
+        }
+    }
+
+    &__feedback {
+        margin: 8px 0 0;
+        font-size: 12px;
+        line-height: 1.5;
+
+        &--success { color: #166534; }
+        &--error { color: #b42318; }
+    }
+}

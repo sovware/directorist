@@ -10,7 +10,27 @@
             </div>
             
             <div class="atbdp-col atbdp-col-8">
-                <a :href="formattedUrl"
+                <div v-if="asyncAction" class="directorist-async-button-field">
+                    <div class="directorist-async-button-field__row">
+                        <a :href="formattedUrl"
+                            class="settings-save-btn"
+                            :aria-disabled="async_processing ? 'true' : null"
+                            @click.prevent="submitAsyncAction"
+                        >{{ asyncButtonLabel }}</a>
+                        <span
+                            class="directorist-async-button-field__status"
+                            :class="{ 'directorist-async-button-field__status--connected': async_connected }"
+                            role="status"
+                        >{{ asyncStatusLabel }}</span>
+                    </div>
+                    <p
+                        v-if="async_feedback"
+                        class="directorist-async-button-field__feedback"
+                        :class="'directorist-async-button-field__feedback--' + async_feedback.type"
+                        :role="async_feedback.type === 'error' ? 'alert' : 'status'"
+                    >{{ async_feedback.message }}</p>
+                </div>
+                <a v-else :href="formattedUrl"
                     class="settings-save-btn" 
                     :target="( openInNewTab ) ? '_blank' : '_self'" 
                     v-html="buttonLabel">

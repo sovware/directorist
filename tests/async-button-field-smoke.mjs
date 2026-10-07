@@ -108,7 +108,7 @@ context.$store.state.cached_fields.stripe_test_sk.value = '';
 assert.equal(context.asyncCredentialsMissing, true);
 assert.equal(context.asyncActionBlocked, true);
 assert.equal(context.asyncStatusLabel, 'Keys missing');
-assert.match(context.asyncActionBlockReason, /Restore the original keys/);
+assert.match(context.asyncActionBlockReason, /valid keys for the same gateway account/);
 await mixin.methods.submitAsyncAction.call(context);
 assert.equal(commits.length, 1);
 

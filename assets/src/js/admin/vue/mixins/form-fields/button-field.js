@@ -95,7 +95,7 @@ export default {
 			}
 
 			return this.async_connected
-				? 'Restore the original keys and save changes before disconnecting.'
+				? 'Add valid keys for the same gateway account and save before disconnecting.'
 				: 'Add both API keys and save changes before registering.';
 		},
 	},

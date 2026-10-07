@@ -33,6 +33,8 @@ const credentialFields = {
 	stripe_test_sk: { value: 'secret' },
 	stripe_test_webhook: { value: 'we_saved' },
 };
+assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'stripe_test_pk'), false);
+credentialFields.stripe_test_webhook['async-action'] = true;
 assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'stripe_test_pk'), true);
 assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'stripe_test_sk'), true);
 assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'paypal_test_secret'), false);
@@ -44,8 +46,24 @@ assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'stripe_test_pk')
 credentialFields.paypal_test_client_id = { value: 'client' };
 credentialFields.paypal_test_secret = { value: 'secret' };
 credentialFields.paypal_test_webhook = { value: { id: 'paypal_saved' } };
+assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'paypal_test_secret'), false);
+credentialFields.paypal_test_webhook['async-action'] = true;
 assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'paypal_test_secret'), true);
 assert.equal(mixin.isWebhookCredentialLocked(credentialFields, 'paypal_live_secret'), false);
+const liveCredentialFields = {
+	stripe_live_pk: { value: 'publishable' },
+	stripe_live_sk: { value: 'secret' },
+	stripe_live_webhook: { value: 'stripe_live_saved', 'async-action': false },
+	paypal_live_client_id: { value: 'client' },
+	paypal_live_secret: { value: 'secret' },
+	paypal_live_webhook: { value: 'paypal_live_saved' },
+};
+assert.equal(mixin.isWebhookCredentialLocked(liveCredentialFields, 'stripe_live_sk'), false);
+assert.equal(mixin.isWebhookCredentialLocked(liveCredentialFields, 'paypal_live_secret'), false);
+liveCredentialFields.stripe_live_webhook['async-action'] = true;
+liveCredentialFields.paypal_live_webhook['async-action'] = true;
+assert.equal(mixin.isWebhookCredentialLocked(liveCredentialFields, 'stripe_live_sk'), true);
+assert.equal(mixin.isWebhookCredentialLocked(liveCredentialFields, 'paypal_live_secret'), true);
 const commits = [];
 let fetchCount = 0;
 const actionOrder = [];
@@ -162,4 +180,4 @@ assert.equal(fetchCount, beforeFailedSave);
 assert.equal(context.async_feedback.type, 'error');
 assert.match(context.async_feedback.message, /Settings save failed/);
 
-console.log('PASS: One-click scoped save precedes registration; failed save blocks registration.');
+console.log('PASS: Legacy gateway keys remain editable; opted-in keys lock; one-click save precedes registration.');

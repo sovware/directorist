@@ -20,7 +20,12 @@ export const isWebhookCredentialLocked = (fields, credentialKey) => {
 		WEBHOOK_CREDENTIAL_FIELDS[key].includes(credentialKey)
 	);
 
-	if (!webhookKey || !fields[webhookKey] || !getSavedWebhookId(fields[webhookKey].value)) {
+	if (
+		!webhookKey ||
+		!fields[webhookKey] ||
+		fields[webhookKey]['async-action'] !== true ||
+		!getSavedWebhookId(fields[webhookKey].value)
+	) {
 		return false;
 	}
 

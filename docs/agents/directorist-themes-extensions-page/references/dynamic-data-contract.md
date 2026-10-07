@@ -85,7 +85,7 @@ The legacy licensing flow does not expose these account-level fields through a n
 
 The newer Directorist License Manager API provides an optional normalized `plan_data.account_summary` from EDD All Access pass data. Core stores the sanitized summary in `_atbdp_account_summary` during account connection/refresh and removes it on disconnect. When EDD All Access data is unavailable, no matching pass exists, the field is malformed, or the legacy API is used, fields remain null/unknown and core renders generic connected-account copy.
 
-The current connection method is stored separately in `_atbdp_subscription_connection_method` as `account` or `access_key`. This is non-secret UI/refresh state. Never store the submitted access key as runtime truth or persistent credential; request it again when an access-key-connected customer refreshes purchases.
+Supported connections store `_atbdp_subscription_connection_method=account`. An older `access_key` marker is migration-only: Core denies its cached entitlements and clears the session on the next admin request. Refresh Purchases requires the Directorist.com password.
 
 Do not infer missing account fields from product counts, individual product licenses, installed products, or the connected username/email.
 

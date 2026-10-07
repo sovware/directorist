@@ -30,7 +30,6 @@ $site_integration_signals = ! empty( $args['site_integration_signals'] ) && is_a
 $account_name          = ! empty( $dashboard_welcome['account_name'] ) ? (string) $dashboard_welcome['account_name'] : '';
 $account_avatar_url    = ! empty( $dashboard_welcome['account_avatar_url'] ) ? (string) $dashboard_welcome['account_avatar_url'] : '';
 $account_initials      = ! empty( $dashboard_welcome['account_initials'] ) ? (string) $dashboard_welcome['account_initials'] : 'D';
-$connection_method     = ! empty( $dashboard_welcome['connection_method'] ) && 'access_key' === $dashboard_welcome['connection_method'] ? 'access_key' : 'account';
 $plugin_version        = ! empty( $dashboard_welcome['plugin_version'] ) ? (string) $dashboard_welcome['plugin_version'] : '';
 $account_plan_label    = ! empty( $dashboard_welcome['plan_label'] ) ? (string) $dashboard_welcome['plan_label'] : __( 'Connected account', 'directorist' );
 $whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://wordpress.org/plugins/directorist/#developers';
@@ -1175,13 +1174,7 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                                                 </button>
                                             </div>
                                             <label class="directorist-te-refresh-panel__label" for="directorist-te-refresh-credential">
-                                                <?php
-                                                echo esc_html(
-                                                    'access_key' === $connection_method
-                                                        ? __( 'Directorist access key', 'directorist' )
-                                                        : __( 'Directorist password', 'directorist' )
-                                                );
-                                                ?>
+                                                <?php esc_html_e( 'Directorist password', 'directorist' ); ?>
                                             </label>
                                             <div class="directorist-te-refresh-form">
                                                 <span class="directorist-te-password-control">
@@ -1190,7 +1183,7 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                                                         class="atbdp-form-control"
                                                         id="directorist-te-refresh-credential"
                                                         name="password"
-                                                        autocomplete="<?php echo esc_attr( 'access_key' === $connection_method ? 'off' : 'current-password' ); ?>"
+                                                        autocomplete="current-password"
                                                         required
                                                         aria-describedby="directorist-te-refresh-feedback"
                                                     >
@@ -1811,71 +1804,32 @@ $notification_count = $total_updates + $required_rows + count( $dependency_rows 
                         data-connecting-label="<?php esc_attr_e( 'Connecting...', 'directorist' ); ?>"
                         data-username-required="<?php esc_attr_e( 'Enter your Directorist account username or email address.', 'directorist' ); ?>"
                         data-password-required="<?php esc_attr_e( 'Enter your Directorist account password.', 'directorist' ); ?>"
-                        data-access-key-required="<?php esc_attr_e( 'Enter your Directorist account access key.', 'directorist' ); ?>"
-                        data-invalid-access-key="<?php esc_attr_e( 'The access key is invalid. Check the key in your Directorist account and try again.', 'directorist' ); ?>"
                         data-invalid-credentials="<?php esc_attr_e( 'The username, email address, or password is incorrect. Please check your details and try again.', 'directorist' ); ?>"
                         data-unexpected-error="<?php esc_attr_e( 'Could not connect. Please check your details and try again.', 'directorist' ); ?>"
                         data-network-error="<?php esc_attr_e( 'Could not reach Directorist.com. Please try again.', 'directorist' ); ?>"
                     >
                         <div class="atbdp-form-page">
-                            <input type="hidden" name="auth_method" value="account">
-                            <div class="directorist-te-auth-methods" role="tablist" aria-label="<?php esc_attr_e( 'Choose a Directorist account connection method', 'directorist' ); ?>">
-                                <button type="button" class="is-active" role="tab" aria-selected="true" aria-controls="directorist-te-auth-account" data-auth-method="account">
-                                    <?php esc_html_e( 'Account login', 'directorist' ); ?>
-                                </button>
-                                <button type="button" role="tab" aria-selected="false" aria-controls="directorist-te-auth-access-key" data-auth-method="access_key">
-                                    <?php esc_html_e( 'Access key', 'directorist' ); ?>
-                                </button>
-                            </div>
-                            <div id="directorist-te-auth-account" class="directorist-te-auth-panel" role="tabpanel" data-auth-panel="account">
-                                <div class="directorist-te-field-row">
-                                    <label>
-                                        <span><?php esc_html_e( 'Username or email address', 'directorist' ); ?></span>
-                                        <input type="text" name="username" id="username" autocomplete="username" placeholder="<?php esc_attr_e( 'name@example.com', 'directorist' ); ?>" aria-describedby="directorist-te-connect-feedback">
-                                    </label>
-                                    <label>
-                                        <span><?php esc_html_e( 'Password', 'directorist' ); ?></span>
-                                        <span class="directorist-te-password-control">
-                                            <input type="password" name="password" id="password" autocomplete="current-password" aria-describedby="directorist-te-connect-feedback">
-                                            <button
-                                                type="button"
-                                                class="directorist-te-password-toggle"
-                                                aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
-                                                aria-pressed="false"
-                                                data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
-                                                data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
-                                            >
-                                                <i class="la la-eye" aria-hidden="true"></i>
-                                            </button>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div id="directorist-te-auth-access-key" class="directorist-te-auth-panel" role="tabpanel" data-auth-panel="access_key" hidden>
-                                <div class="directorist-te-field-row directorist-te-field-row--single">
-                                    <label>
-                                        <span><?php esc_html_e( 'Directorist access key', 'directorist' ); ?></span>
-                                        <span class="directorist-te-password-control">
-                                            <input type="password" name="access_key" id="directorist-te-access-key" autocomplete="off" placeholder="<?php esc_attr_e( 'Paste your access key', 'directorist' ); ?>" aria-describedby="directorist-te-access-key-help directorist-te-connect-feedback" disabled>
-                                            <button
-                                                type="button"
-                                                class="directorist-te-password-toggle"
-                                                aria-label="<?php esc_attr_e( 'Show access key', 'directorist' ); ?>"
-                                                aria-pressed="false"
-                                                data-show-label="<?php esc_attr_e( 'Show access key', 'directorist' ); ?>"
-                                                data-hide-label="<?php esc_attr_e( 'Hide access key', 'directorist' ); ?>"
-                                            >
-                                                <i class="la la-eye" aria-hidden="true"></i>
-                                            </button>
-                                        </span>
-                                        <small id="directorist-te-access-key-help">
-                                            <?php esc_html_e( 'Use the access key from your', 'directorist' ); ?>
-                                            <a href="<?php echo esc_url( apply_filters( 'directorist_access_key_dashboard_url', 'https://directorist.com/dashboard/' ) ); ?>" target="_blank" rel="noopener noreferrer">
-                                                <?php esc_html_e( 'Directorist account dashboard', 'directorist' ); ?>
-                                            </a>
-                                        </small>
-                                    </label>
-                                </div>
+                            <div class="directorist-te-field-row">
+                                <label>
+                                    <span><?php esc_html_e( 'Username or email address', 'directorist' ); ?></span>
+                                    <input type="text" name="username" id="username" autocomplete="username" placeholder="<?php esc_attr_e( 'name@example.com', 'directorist' ); ?>" aria-describedby="directorist-te-connect-feedback">
+                                </label>
+                                <label>
+                                    <span><?php esc_html_e( 'Password', 'directorist' ); ?></span>
+                                    <span class="directorist-te-password-control">
+                                        <input type="password" name="password" id="password" autocomplete="current-password" aria-describedby="directorist-te-connect-feedback">
+                                        <button
+                                            type="button"
+                                            class="directorist-te-password-toggle"
+                                            aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                            aria-pressed="false"
+                                            data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                            data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
+                                        >
+                                            <i class="la la-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </label>
                             </div>
                             <div id="directorist-te-connect-feedback" class="atbdp-form-feedback directorist-te-feedback" role="status" aria-live="polite"></div>
                             <button type="submit" class="account-connect__btn directorist-te-btn directorist-te-btn--primary">

@@ -37,7 +37,7 @@ Do not commit fetched product payloads into docs. Store only the source and cont
 
 - Connected-account flag user meta: `_atbdp_has_subscriptions_sassion`
 - Connected username user meta: `_atbdp_subscribed_username`
-- Connection method user meta: `_atbdp_subscription_connection_method` (`account` or `access_key`; never the credential)
+- Connection method user meta: `_atbdp_subscription_connection_method` (`account` for supported sessions; legacy `access_key` triggers disconnection)
 - Subscribed plugins user meta: `_plugins_available_in_subscriptions`
 - Subscribed themes user meta: `_themes_available_in_subscriptions`
 - Refresh and logout behavior are controlled by class methods in `class-extension.php` and jQuery handlers in `subscriptionManagement.js`.
@@ -61,7 +61,7 @@ Template output is server-rendered PHP and must remain usable without new JavaSc
 
 - Admin entry: `assets/src/js/admin/admin.js`
 - Legacy account/product behavior: `assets/src/js/admin/components/subscriptionManagement.js`
-- Current rewritten page behavior, including the account/access-key method switch and connect-form submit owner: `assets/js/directorist-themes-extensions.js`
+- Current rewritten page behavior, including the account connect-form submit owner: `assets/js/directorist-themes-extensions.js`
 - Current rewritten page styles: `assets/css/directorist-themes-extensions.css`
 - Enqueued admin script: `directorist-admin-script`
 - Enqueued admin CSS: `directorist-admin-style`
@@ -99,7 +99,6 @@ Most actions use `directorist_admin.nonce`; bulk plugin actions use `directorist
 ## Remote Dependencies
 
 - Preferred Directorist account authentication: `POST https://directorist.com/wp-json/directorist-license-manager/user-login`
-- Directorist access-key authentication: `POST https://directorist.com/wp-json/directorist-license-manager/user-connect`
 - Legacy account authentication fallback: `GET https://directorist.com/wp-json/directorist/v1/licencing`
 - Product data/download links: `https://directorist.com/wp-json/directorist/v1/get-product-data/`
 - EDD software licensing version checks: `https://directorist.com` with `edd_action=get_version`

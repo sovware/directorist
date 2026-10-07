@@ -40,7 +40,11 @@
                             role="status"
                         >{{ asyncStatusLabel }}</span>
                     </div>
-                    <p v-if="async_connected" class="directorist-async-button-field__details">
+                    <p
+                        v-if="async_connected"
+                        class="directorist-async-button-field__details"
+                        :class="{ 'directorist-async-button-field__details--attention': asyncCredentialsMissing }"
+                    >
                         {{ asyncCredentialsMissing
                             ? 'Webhook ID is still saved. Add valid keys for the same gateway account, save changes, then disconnect. Removing keys does not remove the gateway webhook.'
                             : 'Webhook ID saved on this site; provider status has not been rechecked. Disconnect to remove the gateway webhook.' }}

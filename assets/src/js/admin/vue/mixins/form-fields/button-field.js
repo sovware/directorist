@@ -1,24 +1,11 @@
 import props from './input-field-props.js';
-
-const WEBHOOK_CREDENTIAL_FIELDS = {
-	paypal_live_webhook: ['paypal_live_client_id', 'paypal_live_secret'],
-	paypal_test_webhook: ['paypal_test_client_id', 'paypal_test_secret'],
-	stripe_live_webhook: ['stripe_live_pk', 'stripe_live_sk'],
-	stripe_test_webhook: ['stripe_test_pk', 'stripe_test_sk'],
-};
-
-const getSavedWebhookId = (value) => {
-	if (typeof value === 'string' || typeof value === 'number') {
-		return String(value);
-	}
-
-	return value && !Array.isArray(value) && typeof value === 'object'
-		? String(value.id || '')
-		: '';
-};
+import { WEBHOOK_CREDENTIAL_FIELDS, getSavedWebhookId } from './webhook-credential-fields.js';
 
 export default {
 	mixins: [props],
+	inject: {
+		saveWebhookCredentials: { default: null },
+	},
 
 	data() {
 		return {
@@ -39,8 +26,12 @@ export default {
 
 			const label = this.async_action_label || this.buttonLabel;
 
-			return this.async_connected && WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]
-				? label.replace(/^(Register|Unregister)\b/, 'Disconnect')
+			if (this.async_connected && WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]) {
+				return label.replace(/^(Register|Unregister)\b/, 'Disconnect');
+			}
+
+			return this.asyncCredentialsUnsaved && !this.asyncCredentialsMissing && WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]
+				? `Save & ${label}`
 				: label;
 		},
 		asyncActionUrl() {
@@ -83,7 +74,7 @@ export default {
 			const { fields } = this.$store.state;
 
 			return credentialKeys.some((key) =>
-				fields[key] && !String(fields[key].value ?? '').trim()
+				!fields[key] || !String(fields[key].value ?? '').trim()
 			);
 		},
 		asyncCredentialsUnsaved() {
@@ -91,24 +82,32 @@ export default {
 			const { fields, cached_fields: cachedFields } = this.$store.state;
 
 			return credentialKeys.some((key) => {
-				if (!fields[key] || !cachedFields[key]) {
+				if (!fields[key]) {
 					return false;
+				}
+				if (!cachedFields[key]) {
+					return true;
 				}
 
 				return String(fields[key].value ?? '') !== String(cachedFields[key].value ?? '');
 			});
 		},
 		asyncActionBlocked() {
-			return this.async_processing || this.asyncCredentialsUnsaved || this.asyncCredentialsMissing;
+			return this.async_processing || this.asyncCredentialsMissing ||
+				(this.async_connected && this.asyncCredentialsUnsaved);
 		},
 		asyncActionBlockReason() {
+			if (this.asyncCredentialsMissing) {
+				return this.async_connected
+					? 'Add valid keys for the same gateway account and save before disconnecting.'
+					: 'Add both API keys before registering.';
+			}
+
 			if (this.asyncCredentialsUnsaved) {
 				return 'Save changes first to use the updated keys.';
 			}
 
-			return this.async_connected
-				? 'Add valid keys for the same gateway account and save before disconnecting.'
-				: 'Add both API keys and save changes before registering.';
+			return '';
 		},
 	},
 
@@ -122,6 +121,18 @@ export default {
 			this.async_feedback = null;
 
 			try {
+				if (!this.async_connected && this.asyncCredentialsUnsaved) {
+					if (typeof this.saveWebhookCredentials !== 'function') {
+						throw new Error('Settings save is unavailable. Refresh this page and try again.');
+					}
+
+					await this.saveWebhookCredentials(WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]);
+
+					if (this.asyncCredentialsUnsaved || this.asyncCredentialsMissing) {
+						throw new Error('Keys changed while saving. Review them and try again.');
+					}
+				}
+
 				const response = await fetch(this.asyncActionUrl, {
 					credentials: 'same-origin',
 					cache: 'no-store',

@@ -349,6 +349,13 @@ $settings-primary-color: #3e62f5;
     }
 }
 
+.atbdp-settings-manager .directorist-webhook-credential-lock-note {
+    margin: 6px 0 0;
+    color: #526071;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
 .atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn,
 .atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn:hover,
 .atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn:focus {

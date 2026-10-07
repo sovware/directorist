@@ -167,6 +167,7 @@
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 import tabContents from './TabContents.vue';
+import { isWebhookCredentialLocked } from './../../mixins/form-fields/webhook-credential-fields';
 import {
     applySettingsRedesignFieldOverrides,
     buildSettingsRedesignLayout,
@@ -185,6 +186,14 @@ const CHECKBOX_ARRAY_ACCORDION_FIELDS = [
 ];
 
 export default {
+    provide() {
+        return {
+            saveWebhookCredentials: (keys) => this.saveSettingsData({
+                only_field_keys: keys,
+                skip_success_feedback: true,
+            }),
+        };
+    },
     name: 'settings-manager',
 
     components: {
@@ -434,6 +443,7 @@ export default {
                         controlType,
                         inputType: this.getQuickSearchInputType( liveField ),
                         value: liveField.value,
+                        locked: isWebhookCredentialLocked( this.fields, fieldKey ),
                         options,
                         matchText: this.getQuickSearchAliasMatchText( aliases, normalizedQuery ) ||
                             this.getQuickSearchMatchText( options, normalizedQuery ),
@@ -874,6 +884,7 @@ export default {
         updateQuickSearchFieldValue( payload ) {
             if ( ! payload || ! payload.fieldKey ) { return; }
             if ( ! this.fields[ payload.fieldKey ] ) { return; }
+            if ( isWebhookCredentialLocked( this.fields, payload.fieldKey ) ) { return; }
 
             this.$store.commit( 'updateFieldValue', {
                 field_key: payload.fieldKey,
@@ -1243,8 +1254,8 @@ export default {
 
         },
 
-        getSettingsSavePayload() {
-            if ( ! this.hasUnsavedChanges ) {
+        getSettingsSavePayload( onlyFieldKeys = null ) {
+            if ( ! onlyFieldKeys && ! this.hasUnsavedChanges ) {
                 return {
                     form_data: null,
                     field_list: [],
@@ -1260,6 +1271,7 @@ export default {
             let changed_fields = {};
 
             for ( let field_key in fields ) {
+                if ( onlyFieldKeys && ! onlyFieldKeys.includes( field_key ) ) { continue; }
                 if ( ! this.fields[ field_key ] ) { continue; }
                 if ( ! this.cached_fields[ field_key ] ) { continue; }
 
@@ -1307,7 +1319,7 @@ export default {
                 return Promise.reject( new Error( 'Please wait...' ) );
             }
 
-            if ( ! this.hasUnsavedChanges ) {
+            if ( ! args.only_field_keys && ! this.hasUnsavedChanges ) {
                 this.status_message = null;
 
                 return Promise.resolve( { skipped: true } );
@@ -1315,7 +1327,7 @@ export default {
 
             let submission_url  = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.url ) ? this.$store.state.config.submission.url : '';
             let submission_with = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.with ) ? this.$store.state.config.submission.with : '';
-            let payload = this.getSettingsSavePayload();
+            let payload = this.getSettingsSavePayload( args.only_field_keys || null );
 
             if ( ! payload.field_list.length ) {
                 this.status_message = null;

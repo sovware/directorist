@@ -14,9 +14,9 @@
                     <div class="directorist-async-button-field__row">
                         <span
                             class="directorist-async-button-field__action"
-                            :class="{ 'directorist-async-button-field__action--blocked': asyncCredentialsUnsaved || asyncCredentialsMissing }"
-                            :tabindex="asyncCredentialsUnsaved || asyncCredentialsMissing ? 0 : null"
-                            :aria-describedby="asyncCredentialsUnsaved || asyncCredentialsMissing ? `directorist-async-save-tip-${fieldKey}` : null"
+                            :class="{ 'directorist-async-button-field__action--blocked': asyncActionBlocked && !async_processing }"
+                            :tabindex="asyncActionBlocked && !async_processing ? 0 : null"
+                            :aria-describedby="asyncActionBlocked && !async_processing ? `directorist-async-save-tip-${fieldKey}` : null"
                         >
                             <a :href="asyncActionBlocked ? null : asyncActionUrl"
                                 class="settings-save-btn"
@@ -25,7 +25,7 @@
                                 @click.prevent="submitAsyncAction"
                             >{{ asyncButtonLabel }}</a>
                             <span
-                                v-if="asyncCredentialsUnsaved || asyncCredentialsMissing"
+                                v-if="asyncActionBlocked && !async_processing"
                                 :id="`directorist-async-save-tip-${fieldKey}`"
                                 class="directorist-async-button-field__tooltip"
                                 role="tooltip"

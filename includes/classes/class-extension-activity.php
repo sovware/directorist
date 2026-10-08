@@ -495,6 +495,7 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
          *
          * Only active gateways can satisfy the setup step. A saved default
          * gateway may remain selected after that gateway is disabled.
+         * Missing credentials change the review label, not completion.
          *
          * @return array{label:string,complete:bool}
          */
@@ -517,8 +518,6 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
 
             foreach ( array_keys( $selected_gateways ) as $gateway_key ) {
                 if ( ! $this->is_dashboard_gateway_configured( $gateway_key ) ) {
-                    $is_complete = false;
-
                     if ( 'bank_transfer' !== $gateway_key ) {
                         $incomplete_gateways[] = $selected_gateways[ $gateway_key ];
                     }

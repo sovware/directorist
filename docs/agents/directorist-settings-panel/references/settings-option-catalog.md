@@ -321,7 +321,7 @@ Redesigned UI note (2026-06-08): `Monetization > Currency` shows a presentation-
 
 Bank Transfer is the built-in offline gateway in core Directorist settings. It is not extension-only. Other gateways may be extension-provided and can extend `active_gateways`, `default_gateway`, and related gateway settings through filters or extension code.
 
-Dashboard setup checklist (2026-10-08): only registered gateways selected in `active_gateways` count toward the payment step. `default_gateway` can retain Bank Transfer after its payment-method toggle is disabled; it controls checkout preselection and does not activate the gateway. The checklist must remain incomplete when the active list is empty.
+Dashboard setup checklist (2026-10-08): only registered gateways selected in `active_gateways` count toward the payment step. `default_gateway` can retain Bank Transfer after its payment-method toggle is disabled; it controls checkout preselection and does not activate the gateway. The checklist is complete when at least one gateway is active, even if its credentials still need review, and remains incomplete when the active list is empty.
 
 Redesigned UI note (2026-06-10): payment gateway extension submenus registered through `atbdp_monetization_settings_submenu`, such as `Authorize.net Gateway` and `Paypal`, render under the existing `Monetization` sidebar menu as additional tabs after `Payment gateways`. They preserve the extension-provided labels, sections, fields, show-if behavior, and saved option keys. They must not be routed to `Needs Design` or generic `Extensions` simply because they are extension-owned.
 

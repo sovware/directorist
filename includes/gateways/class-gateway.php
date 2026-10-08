@@ -342,7 +342,14 @@ class ATBDP_Gateway{
     }
 
     public static function get_active_gateways(): array {
-        return get_directorist_option( 'active_gateways', [ 'bank_transfer' ] );
+        $active_gateways    = get_directorist_option( 'active_gateways', [ 'bank_transfer' ] );
+        $payment_processors = directorist_get_payment_processors();
+
+        if ( ! is_array( $active_gateways ) || ! is_array( $payment_processors ) ) {
+            return [];
+        }
+
+        return array_values( array_intersect( $active_gateways, array_keys( $payment_processors ) ) );
     }
 
     public static function gateways_markup( ?array $active_gateways = null ) {
@@ -351,7 +358,7 @@ class ATBDP_Gateway{
 
         // If the gateways are empty, vail out.
         if ( empty( $active_gateways ) ) {
-            return '<p class="directorist-payment-text">'. __( 'No active gateways found', 'directorist' ) .'</p>';
+            return '<p class="directorist-payment-text">' . __( 'No active gateways found', 'directorist' ) . '</p>';
         }
 
         $format = '

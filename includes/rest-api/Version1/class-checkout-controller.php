@@ -22,6 +22,11 @@ class Checkout_Controller extends Abstract_Controller {
             '/' . $this->rest_base,
             [
                 [
+                    'methods'             => WP_REST_Server::READABLE,
+                    'callback'            => [ $this, 'get_checkout_data' ],
+                    'permission_callback' => '__return_true',
+                ],
+                [
                     'methods'             => WP_REST_Server::CREATABLE,
                     'callback'            => [ $this, 'checkout' ],
                     'permission_callback' => [ $this, 'auth_permissions_check' ],
@@ -63,6 +68,33 @@ class Checkout_Controller extends Abstract_Controller {
                 ],
             ]
         );
+    }
+
+    /**
+     * Get the checkout provider and page URL.
+     *
+     * @param WP_REST_Request $request Request object.
+     * @return \WP_REST_Response
+     */
+    public function get_checkout_data( WP_REST_Request $request ) {
+        $checkout_page_id = (int) get_directorist_option( 'checkout_page', 0 );
+        $data             = [
+            'type' => 'directorist',
+            'url'  => $checkout_page_id ? get_permalink( $checkout_page_id ) : '',
+        ];
+
+        /**
+         * Filters the checkout provider data returned by the REST API.
+         *
+         * Extensions can replace the provider type and URL when they own the
+         * checkout flow.
+         *
+         * @param array           $data    Checkout provider data.
+         * @param WP_REST_Request $request Request object.
+         */
+        $data = apply_filters( 'directorist_rest_checkout_data', $data, $request );
+
+        return rest_ensure_response( $data );
     }
 
     public function checkout( WP_REST_Request $request ) {

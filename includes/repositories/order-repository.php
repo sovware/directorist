@@ -150,7 +150,7 @@ class OrderRepository extends Repository {
                 $order->total_amount = directorist_order_total_amount( $order );
 
                 return apply_filters( 'directorist_order_data', $order );
-            }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page() ) 
+            }, $query->order_by_desc( 'd_order.id' )->pagination( $dto->get_page(), $dto->get_per_page(), 1, 100 )
         );
 
         return $orders;

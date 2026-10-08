@@ -325,6 +325,10 @@ Dashboard setup checklist (2026-10-08): only registered gateways selected in `ac
 
 Redesigned UI note (2026-06-10): payment gateway extension submenus registered through `atbdp_monetization_settings_submenu`, such as `Authorize.net Gateway` and `Paypal`, render under the existing `Monetization` sidebar menu as additional tabs after `Payment gateways`. They preserve the extension-provided labels, sections, fields, show-if behavior, and saved option keys. They must not be routed to `Needs Design` or generic `Extensions` simply because they are extension-owned.
 
+Stripe and PayPal extension visibility (verified 2026-10-07): `stripe_gateway_test_mode` and `paypal_gateway_test_mode` select the visible credential/webhook environment in their respective settings tabs. Off shows only that gateway's live credential and live webhook fields; on shows only its test/sandbox credential and webhook fields. Gateway title and description stay visible in both modes. Hidden environment values and saved webhook IDs remain stored; switching modes does not disconnect them. The mode change is persisted only after Save changes.
+
+Webhook credential locking is opt-in (verified 2026-10-07): Core locks a saved webhook's matching Stripe/PayPal credential fields only when that extension's webhook field declares `'async-action' => true`. Older extension versions without this field metadata keep the legacy redirect button and editable credentials after a Core-only update. The guard reads field metadata and does not change option keys or saved webhook IDs.
+
 ## Personalization
 
 Purpose: visual branding colors for Directorist frontend/admin output controlled by settings.

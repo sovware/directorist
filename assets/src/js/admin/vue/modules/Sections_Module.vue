@@ -1017,7 +1017,12 @@ export default {
 
 		sectionClass(section, sectionKey = '') {
 			const firstField = section.fields[0];
+			const isGatewayModeSelector = [
+				'stripe_gateway_test_mode',
+				'paypal_gateway_test_mode',
+			].includes(firstField);
 			const isDisabled =
+				!isGatewayModeSelector &&
 				firstField !== 'disable_email_notification' &&
 				this.fields[firstField]?.type === 'toggle' &&
 				this.fields[firstField].value !== true;

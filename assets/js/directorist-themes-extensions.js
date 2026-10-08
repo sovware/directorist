@@ -558,41 +558,7 @@
   }
 
   function connectFields(form) {
-    return form.find(
-      'input[name="username"], input[name="password"], input[name="access_key"]',
-    );
-  }
-
-  function connectAuthMethod(form) {
-    return form.find('input[name="auth_method"]').val() === "access_key"
-      ? "access_key"
-      : "account";
-  }
-
-  function syncConnectAuthMethod(form, shouldFocus) {
-    const method = connectAuthMethod(form);
-    const busy = form.attr("aria-busy") === "true";
-
-    form.find("[data-auth-method]").each(function () {
-      const button = $(this);
-      const isActive = button.attr("data-auth-method") === method;
-
-      button
-        .toggleClass("is-active", isActive)
-        .attr("aria-selected", isActive ? "true" : "false");
-    });
-
-    form.find("[data-auth-panel]").each(function () {
-      const panel = $(this);
-      const isActive = panel.attr("data-auth-panel") === method;
-
-      panel.prop("hidden", !isActive).attr("aria-hidden", !isActive);
-      panel.find("input, button").prop("disabled", !isActive || busy);
-    });
-
-    if (shouldFocus) {
-      form.find(`[data-auth-panel="${method}"] input`).first().trigger("focus");
-    }
+    return form.find('input[name="username"], input[name="password"]');
   }
 
   function renderConnectFeedback(form, type, message) {
@@ -613,7 +579,6 @@
   function setConnectBusy(form, busy) {
     const submitButton = form.find('button[type="submit"]').first();
     const fields = connectFields(form);
-    const methodButtons = form.find("[data-auth-method]");
 
     if (!submitButton.data("default-html")) {
       submitButton.data("default-html", submitButton.html());
@@ -621,7 +586,6 @@
 
     form.toggleClass("is-submitting", busy).attr("aria-busy", busy);
     fields.prop("disabled", busy);
-    methodButtons.prop("disabled", busy);
     submitButton.prop("disabled", busy);
 
     if (busy) {
@@ -630,7 +594,6 @@
     }
 
     submitButton.html(submitButton.data("default-html"));
-    syncConnectAuthMethod(form, false);
   }
 
   function isAuthRequest(settings) {
@@ -827,6 +790,7 @@
 
         const type = $(this).attr("data-notification-type") || "all";
         const status = $(this).attr("data-notification-status") || "all";
+        const targetId = $(this).attr("data-notification-target") || "";
         const typeTab = $(
           `.directorist-te-tab[data-filter-type="${type}"]`,
         ).first();
@@ -848,6 +812,24 @@
 
         if (statusFilter.length) {
           statusFilter.trigger("click");
+        }
+
+        const targetRow = targetId ? document.getElementById(targetId) : null;
+
+        if (targetRow && !targetRow.classList.contains("is-hidden")) {
+          targetRow.classList.add("directorist-te-row--notification-focus");
+          targetRow.scrollIntoView({
+            block: "center",
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "auto"
+              : "smooth",
+          });
+          targetRow.focus({ preventScroll: true });
+          window.setTimeout(() => {
+            targetRow.classList.remove("directorist-te-row--notification-focus");
+          }, 1800);
+          return;
         }
 
         const highlightedControls = typeTab.add(statusFilter);
@@ -2028,6 +2010,10 @@
       );
     }
 
+    if (result.action === "activate" && result.failedMessages.length) {
+      parts.push(result.failedMessages.slice(0, 3).join(" "));
+    }
+
     if (result.skipped) {
       parts.push(
         `${result.skipped} remaining ${result.skipped === 1 ? "item was" : "items were"} skipped after a network or server interruption.`,
@@ -2067,6 +2053,9 @@
       skipped,
       failedLabels: Array.isArray(result.failedLabels)
         ? result.failedLabels.map(String).filter(Boolean)
+        : [],
+      failedMessages: Array.isArray(result.failedMessages)
+        ? result.failedMessages.map(String).filter(Boolean)
         : [],
     };
     const isSuccess = failed === 0 && skipped === 0;
@@ -2192,6 +2181,7 @@
       failed: 0,
       skipped: 0,
       failedLabels: [],
+      failedMessages: [],
     };
     let completed = 0;
 
@@ -2234,6 +2224,9 @@
           if (failureMessage) {
             result.failed += 1;
             result.failedLabels.push(item.label || item.item);
+            if (actionKey === "activate") {
+              result.failedMessages.push(failureMessage);
+            }
             setProductItemState(item, "failed", "Failed");
           } else {
             result.succeeded += 1;
@@ -2282,6 +2275,48 @@
     updateFilters();
   });
 
+  const catalogSearch = $(
+    ".directorist-te-page--connected .directorist-te-search-input",
+  ).first();
+
+  if (catalogSearch.length) {
+    const isMac = /Mac|iPhone|iPad|iPod/i.test(
+      navigator.userAgentData?.platform || navigator.platform || "",
+    );
+
+    $(".directorist-te-search-shortcut-label").text(isMac ? "⌘ F" : "Ctrl F");
+    $(".directorist-te-search-shortcut").prop("hidden", false);
+    catalogSearch.attr("aria-keyshortcuts", isMac ? "Meta+F" : "Control+F");
+
+    $(document).on("keydown.directoristTeSearch", function (event) {
+      const target = $(event.target);
+      const isEditable =
+        target.is("input, textarea, select") ||
+        target.closest(
+          '[contenteditable], [role="textbox"]',
+        ).length;
+
+      if (
+        state.view !== "addons" ||
+        !catalogSearch.is(":visible") ||
+        event.key.toLowerCase() !== "f" ||
+        event.altKey ||
+        event.shiftKey ||
+        (isMac
+          ? !event.metaKey || event.ctrlKey
+          : !event.ctrlKey || event.metaKey) ||
+        (isEditable && event.target !== catalogSearch[0]) ||
+        $('[aria-modal="true"]:visible').length
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      catalogSearch[0].focus();
+      catalogSearch[0].select();
+    });
+  }
+
   $(".directorist-te-empty-reset").on("click", function () {
     resetCatalogFilters();
   });
@@ -2290,10 +2325,8 @@
     "submit",
     function (event) {
       const form = $(this);
-      const authMethod = connectAuthMethod(form);
       const username = form.find('input[name="username"]').first();
       const password = form.find('input[name="password"]').first();
-      const accessKey = form.find('input[name="access_key"]').first();
 
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -2304,21 +2337,7 @@
 
       clearConnectFeedback(form);
 
-      if (authMethod === "access_key" && !accessKey.val().trim()) {
-        accessKey.attr("aria-invalid", "true").trigger("focus");
-        renderConnectFeedback(
-          form,
-          "danger",
-          formMessage(
-            form,
-            "access-key-required",
-            "Enter your Directorist account access key.",
-          ),
-        );
-        return;
-      }
-
-      if (authMethod === "account" && !username.val().trim()) {
+      if (!username.val().trim()) {
         username.attr("aria-invalid", "true").trigger("focus");
         renderConnectFeedback(
           form,
@@ -2332,7 +2351,7 @@
         return;
       }
 
-      if (authMethod === "account" && !password.val()) {
+      if (!password.val()) {
         password.attr("aria-invalid", "true").trigger("focus");
         renderConnectFeedback(
           form,
@@ -2354,10 +2373,8 @@
         directoristTeOwned: true,
         data: {
           action: "atbdp_authenticate_the_customer",
-          auth_method: authMethod,
-          access_key: authMethod === "access_key" ? accessKey.val().trim() : "",
-          username: authMethod === "account" ? username.val().trim() : "",
-          password: authMethod === "account" ? password.val() : "",
+          username: username.val().trim(),
+          password: password.val(),
           nonce: nonce(),
         },
         success(response) {
@@ -2385,12 +2402,8 @@
               "danger",
               formMessage(
                 form,
-                authMethod === "access_key"
-                  ? "invalid-access-key"
-                  : "invalid-credentials",
-                authMethod === "access_key"
-                  ? "The access key is invalid. Check the key in your Directorist account and try again."
-                  : "The username, email address, or password is incorrect. Please check your details and try again.",
+                "invalid-credentials",
+                "The username, email address, or password is incorrect. Please check your details and try again.",
               ),
             );
           }
@@ -2414,7 +2427,7 @@
   );
 
   $(
-    '#atbdp-directorist-license-login-form.directorist-te-connect-form input[name="username"], #atbdp-directorist-license-login-form.directorist-te-connect-form input[name="password"], #atbdp-directorist-license-login-form.directorist-te-connect-form input[name="access_key"]',
+    '#atbdp-directorist-license-login-form.directorist-te-connect-form input[name="username"], #atbdp-directorist-license-login-form.directorist-te-connect-form input[name="password"]',
   ).on("input", function () {
     const form = $(this).closest(".directorist-te-connect-form");
 
@@ -2425,60 +2438,6 @@
     }
   });
 
-  $(".directorist-te-auth-methods [data-auth-method]").on("click", function () {
-    const button = $(this);
-    const form = button.closest(".directorist-te-connect-form");
-
-    if (!form.length || form.attr("aria-busy") === "true") {
-      return;
-    }
-
-    form
-      .find('input[name="auth_method"]')
-      .val(
-        button.attr("data-auth-method") === "access_key"
-          ? "access_key"
-          : "account",
-      );
-    clearConnectFeedback(form);
-    syncConnectAuthMethod(form, true);
-  });
-
-  $(".directorist-te-auth-methods [data-auth-method]").on(
-    "keydown",
-    function (event) {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
-        return;
-      }
-
-      event.preventDefault();
-
-      const buttons = $(this)
-        .closest(".directorist-te-auth-methods")
-        .find("[data-auth-method]:not(:disabled)");
-      const currentIndex = buttons.index(this);
-      let nextIndex = currentIndex;
-
-      if (event.key === "Home") {
-        nextIndex = 0;
-      } else if (event.key === "End") {
-        nextIndex = buttons.length - 1;
-      } else if (event.key === "ArrowRight") {
-        nextIndex = (currentIndex + 1) % buttons.length;
-      } else {
-        nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
-      }
-
-      buttons.eq(nextIndex).trigger("click").trigger("focus");
-    },
-  );
-
-  $("#atbdp-directorist-license-login-form.directorist-te-connect-form").each(
-    function () {
-      syncConnectAuthMethod($(this), false);
-    },
-  );
-
   $(document).on("ajaxSuccess", function (_event, _xhr, settings, response) {
     if (settings?.directoristTeOwned || !isAuthRequest(settings)) {
       return;
@@ -2487,7 +2446,6 @@
     const form = $(
       "#atbdp-directorist-license-login-form.directorist-te-connect-form",
     );
-    const authMethod = connectAuthMethod(form);
 
     if (!form.length || response?.has_previous_subscriptions) {
       return;
@@ -2516,12 +2474,8 @@
         "danger",
         formMessage(
           form,
-          authMethod === "access_key"
-            ? "invalid-access-key"
-            : "invalid-credentials",
-          authMethod === "access_key"
-            ? "The access key is invalid. Check the key in your Directorist account and try again."
-            : "The username, email address, or password is incorrect. Please check your details and try again.",
+          "invalid-credentials",
+          "The username, email address, or password is incorrect. Please check your details and try again.",
         ),
       );
     }

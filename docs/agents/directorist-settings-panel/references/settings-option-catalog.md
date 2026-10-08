@@ -321,6 +321,8 @@ Redesigned UI note (2026-06-08): `Monetization > Currency` shows a presentation-
 
 Bank Transfer is the built-in offline gateway in core Directorist settings. It is not extension-only. Other gateways may be extension-provided and can extend `active_gateways`, `default_gateway`, and related gateway settings through filters or extension code.
 
+Dashboard setup checklist (2026-10-08): only registered gateways selected in `active_gateways` count toward the payment step. `default_gateway` can retain Bank Transfer after its payment-method toggle is disabled; it controls checkout preselection and does not activate the gateway. The checklist is complete when at least one gateway is active, even if its credentials still need review, and remains incomplete when the active list is empty.
+
 Redesigned UI note (2026-06-10): payment gateway extension submenus registered through `atbdp_monetization_settings_submenu`, such as `Authorize.net Gateway` and `Paypal`, render under the existing `Monetization` sidebar menu as additional tabs after `Payment gateways`. They preserve the extension-provided labels, sections, fields, show-if behavior, and saved option keys. They must not be routed to `Needs Design` or generic `Extensions` simply because they are extension-owned.
 
 ## Personalization
@@ -346,7 +348,7 @@ Current redesign behavior (2026-06-08): the core `Extensions` menu renders `exte
 - Card header: `Extensions`.
 - Empty state: `Installed extensions` with `No extensions installed yet. Each extension you install will add its own section here.`
 - Browse row: `Browse extensions` with `30+ extensions available including PayPal, Stripe, Live Chat, Universal Search, Booking, and Pricing Plans.`
-- Action: `View directory`, linking to the existing Directorist extensions admin page. This is presentation-only and does not add extension-specific settings.
+- Action: `View directory`, linking to the current site's Directorist Themes & Extensions Add-ons view through `admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-extension&te_view=addons' )`. This is presentation-only and does not add extension-specific settings.
 
 Current redesign behavior (2026-06-09): runtime extension settings registered through `atbdp_extension_settings_submenu` now render under the redesigned `Extensions` menu using the extension-provided submenu label, for example `Booking`, `Pricing Plans`, or `Social Login` when those extensions are active. The redesign preserves each extension's existing section/field definitions and save keys. These extension-owned fields should not be routed to `Needs Design` simply because they are not core mockup fields. The canonical core layout key is `extension_settings`; `extensions_settings` remains only as a compatibility hash alias.
 

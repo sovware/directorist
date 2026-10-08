@@ -138,6 +138,87 @@ class API {
     }
 
     /**
+     * Get current product names and badges without relying on the long-lived catalog cache.
+     *
+     * @return array Product display data grouped by extension and theme slug.
+     */
+    public static function get_product_display_data() {
+        $cached_data = get_transient( 'directorist_product_display_data' );
+
+        if ( false !== $cached_data && is_array( $cached_data ) ) {
+            return $cached_data;
+        }
+
+        $request_args            = static::get_request_args();
+        $request_args['timeout'] = 3;
+        $response                = wp_remote_get( static::URL . 'v1/get-remote-products', $request_args );
+
+        if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+            set_transient( 'directorist_product_display_data', [], 5 * MINUTE_IN_SECONDS );
+            return [];
+        }
+
+        $products = json_decode( wp_remote_retrieve_body( $response ), true );
+
+        if ( ! is_array( $products ) ) {
+            set_transient( 'directorist_product_display_data', [], 5 * MINUTE_IN_SECONDS );
+            return [];
+        }
+
+        $display_data = [
+            'extensions' => [],
+            'themes'     => [],
+        ];
+
+        foreach ( array_keys( $display_data ) as $group ) {
+            if ( empty( $products[ $group ] ) || ! is_array( $products[ $group ] ) ) {
+                continue;
+            }
+
+            foreach ( $products[ $group ] as $slug => $product ) {
+                if ( ! is_string( $slug ) || ! is_array( $product ) ) {
+                    continue;
+                }
+
+                $display_data[ $group ][ sanitize_key( $slug ) ] = [
+                    'badges' => $product['badges'] ?? $product['badge'] ?? [],
+                ];
+
+                if ( isset( $product['name'] ) && is_string( $product['name'] ) && '' !== trim( $product['name'] ) ) {
+                    $display_data[ $group ][ sanitize_key( $slug ) ]['name'] = sanitize_text_field( $product['name'] );
+                }
+            }
+        }
+
+        set_transient( 'directorist_product_display_data', $display_data, HOUR_IN_SECONDS );
+
+        return $display_data;
+    }
+
+    /**
+     * Get current product badges.
+     *
+     * @return array Product badges grouped by extension and theme slug.
+     */
+    public static function get_product_badges() {
+        $display_data   = static::get_product_display_data();
+        $product_badges = [
+            'extensions' => [],
+            'themes'     => [],
+        ];
+
+        foreach ( array_keys( $product_badges ) as $group ) {
+            foreach ( $display_data[ $group ] ?? [] as $slug => $product ) {
+                if ( ! empty( $product['badges'] ) ) {
+                    $product_badges[ $group ][ $slug ] = $product['badges'];
+                }
+            }
+        }
+
+        return $product_badges;
+    }
+
+    /**
      * @return array
      */
     protected static function get_request_args() {

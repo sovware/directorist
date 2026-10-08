@@ -47,7 +47,7 @@ Theme catalog items commonly include:
 - Local default product arrays remain the fallback source for product name, description, thumbnail, product link, demo link, item ID, and plugin base.
 - Merge API data over local defaults by product key when possible so missing remote fields do not create blank cards.
 - If the API is unavailable, empty, malformed, or missing a non-badge field, render the local fallback field.
-- Badge/status fields do not use hardcoded local fallback. Render badge/status only when provided by product API data or explicit filters.
+- Do not add hardcoded local fallback for new badge/status fields. Prefer product API data or explicit filters; existing default badges remain for legacy compatibility.
 - Do not store the current merged catalog output in this skill.
 
 Optional product badge/status shape:
@@ -59,6 +59,8 @@ Optional product badge/status shape:
 - `expires_at`: optional expiration date/time; expired badges must not render
 
 Badge/status data should come from Directorist.com product API data. EDD product meta, a dedicated product badge setting, or taxonomy can be the upstream source on Directorist.com, but the core plugin should consume the API field. Local product-list filters may add or override badge data for compatibility/testing. Do not infer badges from product order, names, slugs, or local runtime state.
+
+The local-first Themes & Extensions page now overlays badge fields from the product API with a separate one-hour cache. Existing default badge fields remain for legacy compatibility when the API cannot be reached; new product badges should be supplied through the API rather than added to the local defaults. A recent upstream badge change may take up to one hour to appear on a site with a warm badge cache.
 
 Purchased/subscribed items returned from the account journey may include title, slug/key, item id, license, URL, download/package data, or product type. Re-check the current handler before relying on a field.
 
@@ -83,7 +85,7 @@ The legacy licensing flow does not expose these account-level fields through a n
 
 The newer Directorist License Manager API provides an optional normalized `plan_data.account_summary` from EDD All Access pass data. Core stores the sanitized summary in `_atbdp_account_summary` during account connection/refresh and removes it on disconnect. When EDD All Access data is unavailable, no matching pass exists, the field is malformed, or the legacy API is used, fields remain null/unknown and core renders generic connected-account copy.
 
-The current connection method is stored separately in `_atbdp_subscription_connection_method` as `account` or `access_key`. This is non-secret UI/refresh state. Never store the submitted access key as runtime truth or persistent credential; request it again when an access-key-connected customer refreshes purchases.
+Supported connections store `_atbdp_subscription_connection_method=account`. An older `access_key` marker is migration-only: Core denies its cached entitlements and clears the session on the next admin request. Refresh Purchases requires the Directorist.com password.
 
 Do not infer missing account fields from product counts, individual product licenses, installed products, or the connected username/email.
 

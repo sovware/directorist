@@ -26,7 +26,7 @@ Frontend JavaScript should not call Directorist.com directly. Keep the browser t
 
 ## Product Catalog Source
 
-Default behavior is local-first:
+Default behavior starts with local product definitions and overlays current API display data:
 
 - `ATBDP_Extensions::$load_from_api` is `false`.
 - Extensions come from `ATBDP_Extensions::get_default_extensions()`.
@@ -34,6 +34,7 @@ Default behavior is local-first:
 - Filters can modify these lists:
   - `atbdp_extension_list`
   - `atbdp_theme_list`
+- `Directorist\Core\API::get_product_display_data()` reads product names and badges from `v1/get-remote-products` before these filters run. A nonempty API name overrides the matching local name; missing product/name data keeps the local name. Connected accounts use API badges when present for a product, while disconnected accounts use local badges. Missing API product data keeps local badges. The request has a three-second timeout, a one-hour display-data cache (`directorist_product_display_data`), and a five-minute failure cache. Other local product copy and subscription data remain unchanged.
 
 Optional remote catalog path:
 
@@ -45,7 +46,7 @@ Optional remote catalog path:
 - Cache duration: `30 * DAY_IN_SECONDS`
 - Empty remote response falls back to local defaults.
 
-Use the product catalog for product names, descriptions, thumbnails, product links, demo links, active promo flags, item IDs, optional plugin base overrides, and future optional product badge/status metadata. Do not store fetched catalog output in docs.
+Use the product catalog for product names, descriptions, thumbnails, product links, demo links, active promo flags, item IDs, optional plugin base overrides, and badge/status metadata. Do not store fetched catalog output in docs.
 
 Product copy/source policy for rewrite:
 
@@ -53,7 +54,7 @@ Product copy/source policy for rewrite:
 - Keep local product arrays as safe fallback for product name, description, thumbnail, product link, demo link, item ID, and plugin base when the API is unavailable, empty, malformed, missing a field, or disabled.
 - Do not render blank cards only because remote copy is missing; merge API data over local defaults by product key where possible.
 - Cross-check public product claims against local `README.md`/`readme.txt` and official Directorist docs before changing visible copy.
-- Badge/status values are different: render them only from product API or explicit local filters. Do not invent hardcoded badge/status fallback from local copy, product order, slug, or name.
+- Badge/status values are different: connected accounts prefer product API badges; disconnected accounts use explicitly maintained local badge metadata. Do not infer badges from product copy, order, slug, or name.
 
 Future badge/status support should be added to this catalog contract as optional API data. EDD product meta or a dedicated product badge setting on Directorist.com can feed the API, but the core plugin UI should consume the product API field. Do not use normal EDD/WordPress `post_status` as the badge source because it represents product availability, not display labels such as `New`.
 
@@ -121,8 +122,7 @@ Browser action:
 - Legacy compatibility handler: `assets/src/js/admin/components/subscriptionManagement.js`
 - Local AJAX URL: `directorist_admin.ajaxurl`
 - AJAX action: `atbdp_authenticate_the_customer`
-- Account request fields: `auth_method=account`, `username`, `password`, `nonce`
-- Access-key request fields: `auth_method=access_key`, `access_key`, `nonce`
+- Account request fields: `username`, `password`, `nonce`
 
 Server handler:
 
@@ -130,9 +130,6 @@ Server handler:
 - Remote method: `ATBDP_Extensions::remote_authenticate_user()`
 - Preferred remote endpoint: `POST https://directorist.com/wp-json/directorist-license-manager/user-login`
 - Preferred request fields: `email` (accepts username or email), `pass`, `domain`
-- Access-key method: `ATBDP_Extensions::remote_authenticate_user_by_access_key()`
-- Access-key endpoint: `POST https://directorist.com/wp-json/directorist-license-manager/user-connect`
-- Access-key request fields: `access_key`, `domain`
 - Compatibility fallback endpoint: `GET https://directorist.com/wp-json/directorist/v1/licencing`
 - Legacy request body: `user`, `password`
 - Headers include a Directorist user-agent and `Accept: application/json`.
@@ -141,9 +138,7 @@ Server handler:
 - Transport errors, missing routes, other non-2xx responses, or malformed successful payloads also fall back to the legacy endpoint.
 - The preferred response is accepted only when both `plan_data.downloads.templates` and `plan_data.downloads.extensions` are arrays. A partial success response falls back instead of clearing or replacing existing entitlement state.
 - Credential-bearing POST requests do not follow HTTP redirects.
-- Access-key authentication has no legacy fallback. A `422` response is an invalid-key result; transport/non-2xx failures use the safe connection error.
-- The access key is a bearer credential. Core uses it for the current HTTPS request only, whitelists non-secret identity fields from `account_data`, discards any echoed `account_data.access_key`, never stores the key in WordPress options/user meta, never returns it in local AJAX responses, and asks for it again during Refresh Purchases.
-- The Directorist.com License Manager must protect `user-connect` with transport security, rate limiting/failed-attempt controls, key rotation/revocation, request logging that redacts the key, and a cryptographically secure key generator. Its response should omit `account_data.access_key`. Do not copy PR #2440's permissive local REST route or plaintext option storage into core.
+- Core no longer accepts access-key authentication. Legacy access-key session markers are denied immediately and cleared with their cached entitlements on the next admin request.
 
 The preferred API returns `account_data` and `plan_data`. Core maps `plan_data.downloads.templates` and `plan_data.downloads.extensions` to the existing `license_data.themes` and `license_data.plugins` contract before storing current user meta:
 
@@ -152,7 +147,7 @@ The preferred API returns `account_data` and `plan_data`. Core maps `plan_data.d
 - `_themes_available_in_subscriptions`
 - `_plugins_available_in_subscriptions`
 - `_atbdp_account_summary` when optional authoritative summary data exists
-- `_atbdp_subscription_connection_method` with `account` or `access_key`
+- `_atbdp_subscription_connection_method` with `account`
 
 Keep the `sassion` spelling because it is part of the existing data/action contract.
 

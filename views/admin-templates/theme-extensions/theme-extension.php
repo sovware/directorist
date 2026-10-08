@@ -26,10 +26,10 @@ $dashboard_setup_visible = ! array_key_exists( 'is_visible', $dashboard_setup ) 
 $dashboard_activity    = ! empty( $args['dashboard_activity'] ) && is_array( $args['dashboard_activity'] ) ? $args['dashboard_activity'] : [];
 $dashboard_activity_items = ! empty( $dashboard_activity['items'] ) && is_array( $dashboard_activity['items'] ) ? $dashboard_activity['items'] : [];
 $dashboard_recommendations = ! empty( $args['dashboard_recommendations'] ) && is_array( $args['dashboard_recommendations'] ) ? $args['dashboard_recommendations'] : [];
+$site_integration_signals = ! empty( $args['site_integration_signals'] ) && is_array( $args['site_integration_signals'] ) ? $args['site_integration_signals'] : [];
 $account_name          = ! empty( $dashboard_welcome['account_name'] ) ? (string) $dashboard_welcome['account_name'] : '';
 $account_avatar_url    = ! empty( $dashboard_welcome['account_avatar_url'] ) ? (string) $dashboard_welcome['account_avatar_url'] : '';
 $account_initials      = ! empty( $dashboard_welcome['account_initials'] ) ? (string) $dashboard_welcome['account_initials'] : 'D';
-$connection_method     = ! empty( $dashboard_welcome['connection_method'] ) && 'access_key' === $dashboard_welcome['connection_method'] ? 'access_key' : 'account';
 $plugin_version        = ! empty( $dashboard_welcome['plugin_version'] ) ? (string) $dashboard_welcome['plugin_version'] : '';
 $account_plan_label    = ! empty( $dashboard_welcome['plan_label'] ) ? (string) $dashboard_welcome['plan_label'] : __( 'Connected account', 'directorist' );
 $whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://wordpress.org/plugins/directorist/#developers';
@@ -395,15 +395,22 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
     foreach ( $args['installed_extension_list'] as $extension_base => $extension ) {
         $extension_key = preg_replace( '/\/.+/', '', $extension_base );
         $product       = $get_extension_product( $extension_key );
-        $name          = ! empty( $extension['Name'] ) ? $extension['Name'] : ( $product['name'] ?? $extension_key );
+        $name          = ! empty( $product['name'] ) ? $product['name'] : ( $extension['Name'] ?? $extension_key );
         $version       = ! empty( $extension['Version'] ) ? $extension['Version'] : '';
         $description   = $product['description'] ?? ( $extension['Description'] ?? '' );
         $has_update    = in_array( $extension_base, $outdated_keys, true );
         $update_version = $get_update_version( $outdated_plugins[ $extension_base ] ?? null );
         $is_active     = is_plugin_active( $extension_base );
+
+        $activation_state  = $args['ATBDP_Extensions']->get_extension_activation_state( $extension_base, $extension );
+        $activation_issues = $activation_state['issues'];
+        $activation_notice = ! empty( $activation_issues ) ? implode( ' ', $activation_issues ) : '';
+        $is_mailchimp      = in_array( $extension_key, [ 'directorist-mailchimp', 'directorist-mailchimp-integration' ], true );
+        $setup_notice      = $is_mailchimp && ! $is_active ? __( 'After activation, configure the Mailchimp API key, audience ID, and server in extension settings. No separate Mailchimp plugin is needed.', 'directorist' ) : '';
+
         $required_key  = $get_required_extension_key( $extension_key, $extension_base );
         $is_required   = '' !== $required_key;
-        $status        = $has_update ? 'update installed active' : ( $is_active ? 'active installed' : 'installed' );
+        $status        = $has_update ? ( $is_active ? 'update installed active' : 'update installed' ) : ( $is_active ? 'active installed' : 'installed' );
         $status_label  = $has_update ? $get_update_status_label( $update_version ) : ( $is_active ? __( 'Active', 'directorist' ) : __( 'Installed', 'directorist' ) );
         $primary       = $has_update
             ? [
@@ -428,6 +435,41 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                         ],
                         'icon'  => 'la la-check',
                     ] );
+
+        if ( ! $has_update && ! $is_active && $activation_notice ) {
+            $requirement_count = count( $activation_issues );
+            $requirement       = $activation_state['requirements'][0] ?? [];
+            $requirement_name  = $requirement['name'] ?? '';
+            $requirement_kind  = $requirement['kind'] ?? 'plugin';
+            $requirement_state = $requirement['state'] ?? '';
+            $requirement_label = __( 'Resolve requirement', 'directorist' );
+
+            if ( 1 < $requirement_count ) {
+                /* translators: %d: number of unmet activation requirements. */
+                $requirement_label = sprintf( __( 'Resolve requirements (%d)', 'directorist' ), $requirement_count );
+            } elseif ( $requirement_name && 1 === count( $activation_state['requirements'] ) ) {
+                if ( 'theme-or-plugin' === $requirement_kind || 'unsupported' === $requirement_state ) {
+                    /* translators: %s: required integration name. */
+                    $requirement_label = sprintf( __( 'Check %s requirement', 'directorist' ), $requirement_name );
+                } elseif ( 'missing' === $requirement_state ) {
+                    /* translators: %s: required plugin or theme name. */
+                    $requirement_label = sprintf( __( 'Install %s first', 'directorist' ), $requirement_name );
+                } elseif ( 'outdated' === $requirement_state ) {
+                    /* translators: %s: required plugin name. */
+                    $requirement_label = sprintf( __( 'Update %s first', 'directorist' ), $requirement_name );
+                } else {
+                    /* translators: %s: required plugin or theme name. */
+                    $requirement_label = sprintf( __( 'Activate %s first', 'directorist' ), $requirement_name );
+                }
+            }
+
+            $primary = [
+                'label' => $requirement_label,
+                'href'  => admin_url( in_array( $requirement_kind, [ 'theme', 'theme-or-plugin' ], true ) ? 'themes.php' : 'plugins.php' ),
+                'class' => 'directorist-te-btn directorist-te-btn--secondary directorist-te-btn--requirement',
+                'icon'  => 'la la-exclamation-circle',
+            ];
+        }
 
         $menu = [];
 
@@ -467,7 +509,11 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
         if ( $has_update ) {
             $bulk_actions[] = 'update';
         }
-        $bulk_actions[] = $is_active ? 'deactivate' : 'activate';
+        if ( $is_active ) {
+            $bulk_actions[] = 'deactivate';
+        } elseif ( ! $activation_notice ) {
+            $bulk_actions[] = 'activate';
+        }
         if ( ! $is_active ) {
             $bulk_actions[] = 'uninstall';
         }
@@ -477,9 +523,12 @@ if ( $is_logged_in && ! empty( $args['installed_extension_list'] ) && is_array( 
                 'key'         => 'extension-installed-' . $extension_base,
                 'type'        => 'extension',
                 'status'      => $status,
+                'isActive'    => $is_active,
                 'name'        => $name,
                 'version'     => $version,
                 'description' => $description,
+                'notice'      => $activation_notice ?: $setup_notice,
+                'noticeType'  => $activation_notice ? 'warning' : 'info',
                 'image'       => $get_image( $product ),
                 'badges'      => $badges,
                 'statusLabel' => $status_label,
@@ -534,11 +583,16 @@ if ( $is_logged_in && ! empty( $args['current_active_theme_info'] ) && is_array(
 
 if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) && is_array( $args['extensions_available_in_subscriptions'] ) ) {
     foreach ( $args['extensions_available_in_subscriptions'] as $extension_key => $extension ) {
-        $extension   = is_array( $extension ) ? $extension : [];
-        $product     = array_merge( $get_extension_product( $extension_key ), $extension );
-        $name        = $product['title'] ?? $product['name'] ?? $extension_key;
+        $extension       = is_array( $extension ) ? $extension : [];
+        $catalog_product = $get_extension_product( $extension_key );
+        $product         = array_merge( $catalog_product, $extension );
+        // Stored subscription data may still contain an outdated remote thumbnail URL.
+        if ( in_array( $extension_key, [ 'directorist-elementor', 'directorist-gutenberg' ], true ) && ! empty( $catalog_product['thumbnail'] ) ) {
+            $product['thumbnail'] = $catalog_product['thumbnail'];
+        }
+        $name        = ! empty( $catalog_product['name'] ) ? $catalog_product['name'] : ( $extension['title'] ?? $extension['name'] ?? $extension_key );
         $description = $product['description'] ?? '';
-        $is_purchased = ! empty( $extension['purchased'] );
+        $can_install = ! empty( $extension['download_link'] ) && ( ! empty( $extension['skip_licencing'] ) || ( ! empty( $extension['license'] ) && ! empty( $extension['item_id'] ) ) );
         $required_key = $get_required_extension_key( $extension_key );
         $is_required  = '' !== $required_key;
         $badges       = $get_product_badges( $product );
@@ -552,24 +606,26 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
             [
                 'key'         => 'extension-subscription-' . $extension_key,
                 'type'        => 'extension',
-                'status'      => $is_required ? 'required not-installed' : 'not-installed',
+                'status'      => $can_install ? ( $is_required ? 'required not-installed' : 'not-installed' ) : ( $is_required ? 'marketplace required not-installed' : 'marketplace not-installed' ),
                 'name'        => $name,
                 'description' => $description,
                 'image'       => $get_image( $product ),
                 'badges'      => $badges,
-                'statusLabel' => $is_required ? __( 'Required', 'directorist' ) : __( 'Not installed', 'directorist' ),
-                'primary'     => [
-                    'label' => $is_beta ? __( 'Install Beta', 'directorist' ) : __( 'Install', 'directorist' ),
-                    'class' => 'directorist-te-btn directorist-te-btn--primary file-install-btn',
-                    'attrs' => [
-                        'data-type' => 'plugin',
-                        'data-key'  => $extension_key,
-                    ],
-                    'icon'  => 'la la-download',
-                ],
-                'details'     => $is_purchased ? $get_details_action( $product ) : null,
+                'statusLabel' => $can_install ? ( $is_required ? __( 'Required', 'directorist' ) : __( 'Not installed', 'directorist' ) ) : ( $is_required ? __( 'Required purchase', 'directorist' ) : __( 'Marketplace', 'directorist' ) ),
+                'primary'     => $can_install
+                    ? [
+                        'label' => $is_beta ? __( 'Install Beta', 'directorist' ) : __( 'Install', 'directorist' ),
+                        'class' => 'directorist-te-btn directorist-te-btn--primary file-install-btn',
+                        'attrs' => [
+                            'data-type' => 'plugin',
+                            'data-key'  => $extension_key,
+                        ],
+                        'icon'  => 'la la-download',
+                    ]
+                    : $get_details_action( $product ),
+                'details'     => $can_install ? $get_details_action( $product ) : null,
                 'menu'        => [],
-                'bulk'        => $get_bulk_control( 'directorist-te-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ),
+                'bulk'        => $can_install ? $get_bulk_control( 'directorist-te-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ) : null,
             ]
         );
     }
@@ -608,12 +664,7 @@ if ( $is_logged_in && ! empty( $args['required_extensions_list'] ) && is_array( 
                         ],
                         'icon'  => 'la la-download',
                     ]
-                    : [
-                        'label'    => __( 'Get It Now', 'directorist' ),
-                        'href'     => $get_link( $product ),
-                        'class'    => 'directorist-te-btn directorist-te-btn--secondary',
-                        'external' => true,
-                    ],
+                    : $get_details_action( $product ),
                 'details'     => $is_purchased ? $get_details_action( $product ) : null,
                 'menu'        => [],
                 'bulk'        => $is_purchased ? $get_bulk_control( 'directorist-te-required-install-' . sanitize_html_class( $extension_key ), $extension_key, 'plugin', [ 'install' ] ) : null,
@@ -791,7 +842,67 @@ $required_rows = count(
         }
     )
 );
-$notification_count = $total_updates + $required_rows;
+$dependency_rows = array_values(
+    array_filter(
+        $rows,
+        static function( $row ) {
+            return 'extension' === ( $row['type'] ?? '' ) && 'warning' === ( $row['noticeType'] ?? '' ) && ! empty( $row['notice'] );
+        }
+    )
+);
+
+$integration_recommendations = [];
+if ( $is_logged_in ) {
+    foreach ( $site_integration_signals as $extension_key => $companion_name ) {
+        if ( ! is_string( $extension_key ) || ! is_scalar( $companion_name ) || '' === trim( (string) $companion_name ) ) {
+            continue;
+        }
+
+        $extension_alias = $args['ATBDP_Extensions']->get_extension_alias_key( $extension_key );
+        $lookup_keys     = array_filter( [ $extension_key, $extension_alias ] );
+
+        foreach ( $rows as $row ) {
+            if ( 'extension' !== ( $row['type'] ?? '' ) ) {
+                continue;
+            }
+
+            $row_key = (string) ( $row['key'] ?? '' );
+            if ( ! preg_match( '/^extension-(?:installed|subscription|required|promo)-(.+)$/', $row_key, $matches ) ) {
+                continue;
+            }
+
+            $row_extension = strtok( $matches[1], '/' );
+            if ( ! in_array( $row_extension, $lookup_keys, true ) ) {
+                continue;
+            }
+
+            if ( ! empty( $row['isActive'] ) ) {
+                break;
+            }
+
+            // A prerequisite warning already points to this installed row.
+            if ( 'warning' === ( $row['noticeType'] ?? '' ) && ! empty( $row['notice'] ) ) {
+                break;
+            }
+
+            $action_label = $row['primary']['label'] ?? '';
+            if ( ! is_scalar( $action_label ) || '' === trim( (string) $action_label ) ) {
+                break;
+            }
+
+            $integration_recommendations[] = [
+                'key'       => $row_key,
+                'name'      => $row['name'],
+                'companion' => (string) $companion_name,
+                'action'    => (string) $action_label,
+                'status'    => false !== strpos( (string) $row['status'], 'installed' ) && false === strpos( (string) $row['status'], 'not-installed' ) ? 'installed' : 'not-installed',
+            ];
+            break;
+        }
+    }
+}
+
+$notification_count = $total_updates + $required_rows + count( $dependency_rows ) + count( $integration_recommendations );
 ?>
 
 <div
@@ -818,7 +929,7 @@ $notification_count = $total_updates + $required_rows;
                 <?php if ( $is_logged_in ) : ?>
                     <div class="directorist-te-top-right">
                         <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
-                            <a href="https://directorist.com/documentation/directorist/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
+                            <a href="https://directorist.com/docs/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
                             <a href="https://www.youtube.com/@wpdirectorist" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Tutorials, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Tutorials', 'directorist' ); ?></a>
                             <a href="https://directorist.com/contact/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Support, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Support', 'directorist' ); ?></a>
                         </nav>
@@ -929,11 +1040,62 @@ $notification_count = $total_updates + $required_rows;
                                         </button>
                                     <?php endif; ?>
 
+                                    <?php foreach ( $dependency_rows as $dependency_row ) : ?>
+                                        <button
+                                            type="button"
+                                            class="directorist-te-notification-item"
+                                            data-notification-type="extension"
+                                            data-notification-status="installed"
+                                            data-notification-target="directorist-te-row-<?php echo esc_attr( sanitize_html_class( $dependency_row['key'] ) ); ?>"
+                                        >
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--required" aria-hidden="true"><i class="la la-exclamation-circle"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong><?php echo esc_html( $dependency_row['name'] ); ?></strong>
+                                                <span><?php echo esc_html( $dependency_row['notice'] ); ?></span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endforeach; ?>
+
+                                    <?php foreach ( $integration_recommendations as $recommendation ) : ?>
+                                        <button
+                                            type="button"
+                                            class="directorist-te-notification-item"
+                                            data-notification-type="extension"
+                                            data-notification-status="<?php echo esc_attr( $recommendation['status'] ); ?>"
+                                            data-notification-target="directorist-te-row-<?php echo esc_attr( sanitize_html_class( $recommendation['key'] ) ); ?>"
+                                        >
+                                            <span class="directorist-te-notification-item__icon directorist-te-notification-item__icon--recommendation" aria-hidden="true"><i class="la la-lightbulb-o"></i></span>
+                                            <span class="directorist-te-notification-item__content">
+                                                <strong>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: %s: Directorist integration name. */
+                                                        esc_html__( 'Recommended: %s', 'directorist' ),
+                                                        esc_html( $recommendation['name'] )
+                                                    );
+                                                    ?>
+                                                </strong>
+                                                <span>
+                                                    <?php
+                                                    printf(
+                                                        /* translators: 1: Detected plugin or theme. 2: Action available for the Directorist integration. */
+                                                        esc_html__( '%1$s detected on this site. Next step: %2$s.', 'directorist' ),
+                                                        esc_html( $recommendation['companion'] ),
+                                                        '<strong class="directorist-te-notification-item__action">' . esc_html( $recommendation['action'] ) . '</strong>'
+                                                    );
+                                                    ?>
+                                                </span>
+                                            </span>
+                                            <i class="la la-angle-right directorist-te-notification-item__arrow" aria-hidden="true"></i>
+                                        </button>
+                                    <?php endforeach; ?>
+
                                     <?php if ( ! $notification_count ) : ?>
                                         <div class="directorist-te-notification-empty">
                                             <span aria-hidden="true"><i class="la la-check-circle"></i></span>
                                             <strong><?php esc_html_e( 'You are all caught up', 'directorist' ); ?></strong>
-                                            <p><?php esc_html_e( 'No add-on updates or required extensions need attention.', 'directorist' ); ?></p>
+                                            <p><?php esc_html_e( 'No add-on updates or extension requirements need attention.', 'directorist' ); ?></p>
                                         </div>
                                     <?php endif; ?>
                                 </div>
@@ -1012,13 +1174,7 @@ $notification_count = $total_updates + $required_rows;
                                                 </button>
                                             </div>
                                             <label class="directorist-te-refresh-panel__label" for="directorist-te-refresh-credential">
-                                                <?php
-                                                echo esc_html(
-                                                    'access_key' === $connection_method
-                                                        ? __( 'Directorist access key', 'directorist' )
-                                                        : __( 'Directorist password', 'directorist' )
-                                                );
-                                                ?>
+                                                <?php esc_html_e( 'Directorist password', 'directorist' ); ?>
                                             </label>
                                             <div class="directorist-te-refresh-form">
                                                 <span class="directorist-te-password-control">
@@ -1027,7 +1183,7 @@ $notification_count = $total_updates + $required_rows;
                                                         class="atbdp-form-control"
                                                         id="directorist-te-refresh-credential"
                                                         name="password"
-                                                        autocomplete="<?php echo esc_attr( 'access_key' === $connection_method ? 'off' : 'current-password' ); ?>"
+                                                        autocomplete="current-password"
                                                         required
                                                         aria-describedby="directorist-te-refresh-feedback"
                                                     >
@@ -1073,7 +1229,7 @@ $notification_count = $total_updates + $required_rows;
                     </div>
                 <?php else : ?>
                     <nav class="directorist-te-resource-links" aria-label="<?php esc_attr_e( 'Directorist resources', 'directorist' ); ?>">
-                        <a href="https://directorist.com/documentation/directorist/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
+                        <a href="https://directorist.com/docs/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Docs, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Docs', 'directorist' ); ?></a>
                         <a href="https://www.youtube.com/@wpdirectorist" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Tutorials, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Tutorials', 'directorist' ); ?></a>
                         <a href="https://directorist.com/contact/" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e( 'Support, opens in a new tab', 'directorist' ); ?>"><?php esc_html_e( 'Support', 'directorist' ); ?></a>
                     </nav>
@@ -1648,71 +1804,32 @@ $notification_count = $total_updates + $required_rows;
                         data-connecting-label="<?php esc_attr_e( 'Connecting...', 'directorist' ); ?>"
                         data-username-required="<?php esc_attr_e( 'Enter your Directorist account username or email address.', 'directorist' ); ?>"
                         data-password-required="<?php esc_attr_e( 'Enter your Directorist account password.', 'directorist' ); ?>"
-                        data-access-key-required="<?php esc_attr_e( 'Enter your Directorist account access key.', 'directorist' ); ?>"
-                        data-invalid-access-key="<?php esc_attr_e( 'The access key is invalid. Check the key in your Directorist account and try again.', 'directorist' ); ?>"
                         data-invalid-credentials="<?php esc_attr_e( 'The username, email address, or password is incorrect. Please check your details and try again.', 'directorist' ); ?>"
                         data-unexpected-error="<?php esc_attr_e( 'Could not connect. Please check your details and try again.', 'directorist' ); ?>"
                         data-network-error="<?php esc_attr_e( 'Could not reach Directorist.com. Please try again.', 'directorist' ); ?>"
                     >
                         <div class="atbdp-form-page">
-                            <input type="hidden" name="auth_method" value="account">
-                            <div class="directorist-te-auth-methods" role="tablist" aria-label="<?php esc_attr_e( 'Choose a Directorist account connection method', 'directorist' ); ?>">
-                                <button type="button" class="is-active" role="tab" aria-selected="true" aria-controls="directorist-te-auth-account" data-auth-method="account">
-                                    <?php esc_html_e( 'Account login', 'directorist' ); ?>
-                                </button>
-                                <button type="button" role="tab" aria-selected="false" aria-controls="directorist-te-auth-access-key" data-auth-method="access_key">
-                                    <?php esc_html_e( 'Access key', 'directorist' ); ?>
-                                </button>
-                            </div>
-                            <div id="directorist-te-auth-account" class="directorist-te-auth-panel" role="tabpanel" data-auth-panel="account">
-                                <div class="directorist-te-field-row">
-                                    <label>
-                                        <span><?php esc_html_e( 'Username or email address', 'directorist' ); ?></span>
-                                        <input type="text" name="username" id="username" autocomplete="username" placeholder="<?php esc_attr_e( 'name@example.com', 'directorist' ); ?>" aria-describedby="directorist-te-connect-feedback">
-                                    </label>
-                                    <label>
-                                        <span><?php esc_html_e( 'Password', 'directorist' ); ?></span>
-                                        <span class="directorist-te-password-control">
-                                            <input type="password" name="password" id="password" autocomplete="current-password" aria-describedby="directorist-te-connect-feedback">
-                                            <button
-                                                type="button"
-                                                class="directorist-te-password-toggle"
-                                                aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
-                                                aria-pressed="false"
-                                                data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
-                                                data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
-                                            >
-                                                <i class="la la-eye" aria-hidden="true"></i>
-                                            </button>
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-                            <div id="directorist-te-auth-access-key" class="directorist-te-auth-panel" role="tabpanel" data-auth-panel="access_key" hidden>
-                                <div class="directorist-te-field-row directorist-te-field-row--single">
-                                    <label>
-                                        <span><?php esc_html_e( 'Directorist access key', 'directorist' ); ?></span>
-                                        <span class="directorist-te-password-control">
-                                            <input type="password" name="access_key" id="directorist-te-access-key" autocomplete="off" placeholder="<?php esc_attr_e( 'Paste your access key', 'directorist' ); ?>" aria-describedby="directorist-te-access-key-help directorist-te-connect-feedback" disabled>
-                                            <button
-                                                type="button"
-                                                class="directorist-te-password-toggle"
-                                                aria-label="<?php esc_attr_e( 'Show access key', 'directorist' ); ?>"
-                                                aria-pressed="false"
-                                                data-show-label="<?php esc_attr_e( 'Show access key', 'directorist' ); ?>"
-                                                data-hide-label="<?php esc_attr_e( 'Hide access key', 'directorist' ); ?>"
-                                            >
-                                                <i class="la la-eye" aria-hidden="true"></i>
-                                            </button>
-                                        </span>
-                                        <small id="directorist-te-access-key-help">
-                                            <?php esc_html_e( 'Use the access key from your', 'directorist' ); ?>
-                                            <a href="<?php echo esc_url( apply_filters( 'directorist_access_key_dashboard_url', 'https://directorist.com/dashboard/' ) ); ?>" target="_blank" rel="noopener noreferrer">
-                                                <?php esc_html_e( 'Directorist account dashboard', 'directorist' ); ?>
-                                            </a>
-                                        </small>
-                                    </label>
-                                </div>
+                            <div class="directorist-te-field-row">
+                                <label>
+                                    <span><?php esc_html_e( 'Username or email address', 'directorist' ); ?></span>
+                                    <input type="text" name="username" id="username" autocomplete="username" placeholder="<?php esc_attr_e( 'name@example.com', 'directorist' ); ?>" aria-describedby="directorist-te-connect-feedback">
+                                </label>
+                                <label>
+                                    <span><?php esc_html_e( 'Password', 'directorist' ); ?></span>
+                                    <span class="directorist-te-password-control">
+                                        <input type="password" name="password" id="password" autocomplete="current-password" aria-describedby="directorist-te-connect-feedback">
+                                        <button
+                                            type="button"
+                                            class="directorist-te-password-toggle"
+                                            aria-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                            aria-pressed="false"
+                                            data-show-label="<?php esc_attr_e( 'Show password', 'directorist' ); ?>"
+                                            data-hide-label="<?php esc_attr_e( 'Hide password', 'directorist' ); ?>"
+                                        >
+                                            <i class="la la-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </label>
                             </div>
                             <div id="directorist-te-connect-feedback" class="atbdp-form-feedback directorist-te-feedback" role="status" aria-live="polite"></div>
                             <button type="submit" class="account-connect__btn directorist-te-btn directorist-te-btn--primary">
@@ -1758,6 +1875,9 @@ $notification_count = $total_updates + $required_rows;
                             <span class="screen-reader-text"><?php esc_html_e( 'Search themes and extensions', 'directorist' ); ?></span>
                             <i class="la la-search" aria-hidden="true"></i>
                             <input type="search" class="directorist-te-search-input" placeholder="<?php esc_attr_e( 'Search add-ons...', 'directorist' ); ?>">
+                            <?php if ( $is_logged_in ) : ?>
+                                <kbd class="directorist-te-search-shortcut" aria-hidden="true" hidden><i class="la la-keyboard-o"></i><span class="directorist-te-search-shortcut-label">⌘ F</span></kbd>
+                            <?php endif; ?>
                         </label>
                         <span class="directorist-te-count"><?php printf( esc_html( _n( '%d add-on', '%d add-ons', $total_rows, 'directorist' ) ), absint( $total_rows ) ); ?></span>
                     </div>
@@ -1827,7 +1947,7 @@ $notification_count = $total_updates + $required_rows;
                                     : ( 'theme' === $row['type'] ? __( 'Theme', 'directorist' ) : __( 'Extension', 'directorist' ) );
                                 $row_type_class = ! empty( $row['typeClass'] ) && is_scalar( $row['typeClass'] ) ? sanitize_html_class( (string) $row['typeClass'] ) : $row['type'];
                                 ?>
-                                <article class="directorist-te-row" data-product-type="<?php echo esc_attr( $row['type'] ); ?>" data-product-status="<?php echo esc_attr( $row['status'] ); ?>" data-search-text="<?php echo esc_attr( $search_index['text'] ); ?>" data-badge-search-text="<?php echo esc_attr( $search_index['badge_text'] ); ?>" data-badge-search-terms="<?php echo esc_attr( $search_index['badge_terms'] ); ?>">
+                                <article<?php $render_attrs( $is_logged_in ? [ 'id' => 'directorist-te-row-' . sanitize_html_class( $row['key'] ), 'tabindex' => '-1' ] : [] ); ?> class="directorist-te-row" data-product-type="<?php echo esc_attr( $row['type'] ); ?>" data-product-status="<?php echo esc_attr( $row['status'] ); ?>" data-search-text="<?php echo esc_attr( $search_index['text'] ); ?>" data-badge-search-text="<?php echo esc_attr( $search_index['badge_text'] ); ?>" data-badge-search-terms="<?php echo esc_attr( $search_index['badge_terms'] ); ?>">
                                     <?php if ( $is_logged_in ) : ?>
                                         <div class="directorist-te-row__select">
                                             <?php if ( ! empty( $row['bulk'] ) ) : ?>
@@ -1877,6 +1997,12 @@ $notification_count = $total_updates + $required_rows;
                                         </div>
                                         <?php if ( ! empty( $row['description'] ) ) : ?>
                                             <p><?php echo esc_html( $row['description'] ); ?></p>
+                                        <?php endif; ?>
+                                        <?php if ( ! empty( $row['notice'] ) ) : ?>
+                                            <div class="directorist-te-requirement directorist-te-requirement--<?php echo esc_attr( $row['noticeType'] ?? 'info' ); ?>" role="note">
+                                                <i class="la la-info-circle" aria-hidden="true"></i>
+                                                <span><?php echo esc_html( $row['notice'] ); ?></span>
+                                            </div>
                                         <?php endif; ?>
                                     </div>
 

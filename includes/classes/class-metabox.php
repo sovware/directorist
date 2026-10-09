@@ -71,7 +71,11 @@ class ATBDP_Metabox {
         $map_type    = get_directorist_option( 'select_listing_map', 'openstreet' );
         $script_name = ( 'openstreet' === $map_type ) ? 'js/global/openstreet-map' : 'js/global/google-map';
 
-        $required_script_src[ 'map-custom-script' ] = DIRECTORIST_BUILD_ASSETS . $script_name . '.js';
+        $script_url = DIRECTORIST_BUILD_ASSETS . $script_name . '.js';
+        if ( 'google' === $map_type ) {
+            $script_url = add_query_arg( 'ver', DIRECTORIST_SCRIPT_VERSION . '-places-new-20261009', $script_url );
+        }
+        $required_script_src[ 'map-custom-script' ] = $script_url;
 
         wp_send_json_success(
             [

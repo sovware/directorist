@@ -1,3 +1,4 @@
+import { adaptLegacyWebhookFields } from './vue/compat/legacy-webhook-actions';
 import Vue from 'vue';
 import SlideUpDown from 'vue-slide-up-down';
 import Vuex from 'vuex';
@@ -114,6 +115,8 @@ window.addEventListener('load', () => {
 				},
 			})
 		);
+
+		adaptLegacyWebhookFields(builderData.fields || {});
 
 		const app = new Vue({
 			el: '#atbdp-settings-manager',

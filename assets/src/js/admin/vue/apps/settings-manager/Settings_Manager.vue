@@ -170,7 +170,8 @@
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 import tabContents from './TabContents.vue';
-import { isWebhookCredentialLocked } from './../../mixins/form-fields/webhook-credential-fields';
+import helpers from './../../mixins/helpers';
+import { getActionFieldLock } from './../../mixins/form-fields/async-action-fields';
 import {
     applySettingsRedesignFieldOverrides,
     buildSettingsRedesignLayout,
@@ -191,13 +192,14 @@ const CHECKBOX_ARRAY_ACCORDION_FIELDS = [
 export default {
     provide() {
         return {
-            saveWebhookCredentials: (keys) => this.saveSettingsData({
+            saveActionFields: (keys) => this.saveSettingsData({
                 only_field_keys: keys,
                 skip_success_feedback: true,
             }),
         };
     },
     name: 'settings-manager',
+    mixins: [helpers],
 
     components: {
         tabContents,
@@ -425,7 +427,7 @@ export default {
                 const liveField = this.fields[ fieldKey ];
 
                 if ( ! cachedField || ! cachedField.layout_path || ! liveField ) { continue; }
-                if ( this.isInactiveGatewayModeField( liveField ) ) { continue; }
+                if ( this.isSearchFieldHidden( liveField ) ) { continue; }
 
                 const label = this.toPlainSearchText(
                     liveField.label ||
@@ -469,7 +471,8 @@ export default {
                         controlType,
                         inputType: this.getQuickSearchInputType( liveField ),
                         value: liveField.value,
-                        locked: isWebhookCredentialLocked( this.fields, fieldKey ),
+                        locked: getActionFieldLock( this.fields, fieldKey ).locked,
+                        lockMessage: getActionFieldLock( this.fields, fieldKey ).message,
                         options,
                         matchText: this.getQuickSearchAliasMatchText( aliases, normalizedQuery ) ||
                             this.getQuickSearchMatchText( options, normalizedQuery ),
@@ -550,18 +553,10 @@ export default {
             return results;
         },
 
-        isInactiveGatewayModeField( field ) {
-            const showIf = field.showIf || field.show_if || field[ 'show-if' ];
-            const modeKey = showIf && showIf.where;
-
-            if ( ! [ 'stripe_gateway_test_mode', 'paypal_gateway_test_mode' ].includes( modeKey ) ) {
-                return false;
-            }
-
-            const modeCondition = Array.isArray( showIf.conditions ) &&
-                showIf.conditions.find( condition => condition.key === 'value' && condition.compare === '=' );
-
-            return !! modeCondition && this.fields[ modeKey ]?.value != modeCondition.value;
+        isSearchFieldHidden( field ) {
+            const condition = field.showIf || field.show_if || field['show-if'];
+            return field['search-respect-show-if'] === true && condition
+                ? !this.checkShowIfCondition({ condition }).status : false;
         },
 
         collectQuickSearchSectionResults({
@@ -924,7 +919,7 @@ export default {
         updateQuickSearchFieldValue( payload ) {
             if ( ! payload || ! payload.fieldKey ) { return; }
             if ( ! this.fields[ payload.fieldKey ] ) { return; }
-            if ( isWebhookCredentialLocked( this.fields, payload.fieldKey ) ) { return; }
+            if ( getActionFieldLock( this.fields, payload.fieldKey ).locked ) { return; }
 
             this.$store.commit( 'updateFieldValue', {
                 field_key: payload.fieldKey,
@@ -1314,6 +1309,8 @@ export default {
                 if ( onlyFieldKeys && ! onlyFieldKeys.includes( field_key ) ) { continue; }
                 if ( ! this.fields[ field_key ] ) { continue; }
                 if ( ! this.cached_fields[ field_key ] ) { continue; }
+                // Async action values are persisted by their endpoint, not the settings form.
+                if ( this.fields[ field_key ]['async-action'] === true && this.fields[ field_key ]['async-action-config'] ) { continue; }
 
                 let new_value    = fields[ field_key ];
                 let cahced_value = this.cached_fields[ field_key ].value;

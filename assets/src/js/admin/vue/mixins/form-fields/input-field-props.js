@@ -109,6 +109,8 @@ export default {
 			type: String,
 			default: '',
 		},
+		asyncActionConfig: { type: Object, default: () => ({}) },
+		asyncActionState: { type: Object, default: () => ({}) },
 		asyncAction: {
 			type: Boolean,
 			default: false,

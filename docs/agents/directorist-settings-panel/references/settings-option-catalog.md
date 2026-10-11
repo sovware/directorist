@@ -447,3 +447,5 @@ Before assuming this catalog is exhaustive for a live site, inspect active exten
 - Direct core settings: settings defined and laid out directly in `includes/classes/class-settings-panel.php`.
 - Core filter-injected settings: settings provided by bundled core modules through filters, such as Review and Schema Markup.
 - Extension-provided settings: settings added only when a Directorist extension is installed/active. These must be inspected from the extension source before design or implementation work.
+
+Generic async action follow-up (2026-10-11): provider dependency keys, initial/next action state, translated copy, and mode metadata now come from the Stripe/PayPal extensions. Core evaluates `async-action-config`, `async-action-state`, `search-respect-show-if`, and `section-toggle`; the previous contract is isolated in `vue/compat/legacy-webhook-actions.js`. Ordinary links and existing option storage remain unchanged. See [the async settings action contract](async-settings-actions.md) for ownership, save/lock behavior, compatibility, and verification.

@@ -55,3 +55,11 @@ Screenshots contain obvious fake QA credentials and mocked provider status:
 - [390px mobile](generic-paypal-mobile-20261011.png)
 
 The contract is documented in [async settings actions](../../agents/directorist-settings-panel/references/async-settings-actions.md).
+
+## GitHub checks on the follow-up PRs
+
+- [Stripe #27 PHPCS run](https://github.com/sovware/directorist-stripe-new/actions/runs/38133163105): failed. Its existing `pull_request_target` workflow explicitly checks out `github.event.pull_request.base.ref`, so it linted the merged base rather than this PR's tested head. Logs include the old smoke-test naming/ABSPATH errors corrected in this PR, plus existing `UpdateServiceProvider.php` and `EDDPluginUpdaterStripe.php` failures. Local targeted PHPCS on the actual changed head files is clean. Workflow scope/base-branch lint debt was not changed by this action-contract refactor.
+- [PayPal #8 PHPCS run](https://github.com/sovware/directorist-paypal-new/actions/runs/38133163366): failed during Composer setup before PHPCS. Existing constraints (`squizlabs/php_codesniffer` 3.7.2 and WPCS ^2.3) are rejected by Composer security advisories. Local targeted lint uses the available Core-hosted PHPCS runtime with the extension's rules and has the two advisory warnings described above. No Composer security checks were disabled.
+- Core #3076 has no check results on the inspected head; its PHP workflow is path-filtered and this follow-up changes no PHP source.
+
+These PRs have local functional/build evidence, but the extension GitHub checks are not green. The workflow/dependency failures require separate CI maintenance before claiming clean repository-wide CI.

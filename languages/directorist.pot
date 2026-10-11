@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-05 11:37+0000\n"
+"POT-Creation-Date: 2026-10-11 09:36+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../blocks/init.php:109, ../includes/classes/class-custom-post.php:681, ../includes/elementor/init.php:41, ../views/admin-templates/setup-wizard/ai-setup-wizard.php:13, ../views/admin-templates/theme-extensions/theme-extension.php:810, ../views/admin-templates/theme-extensions/theme-extension.php:1559, ../views/admin-templates/theme-extensions/theme-extension.php:1597
+#: ../blocks/init.php:109, ../includes/classes/class-custom-post.php:681, ../includes/elementor/init.php:41, ../views/admin-templates/setup-wizard/ai-setup-wizard.php:13, ../views/admin-templates/theme-extensions/theme-extension.php:916, ../views/admin-templates/theme-extensions/theme-extension.php:1710, ../views/admin-templates/theme-extensions/theme-extension.php:1748
 msgid "Directorist"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Username or Email Address"
 msgstr ""
 
-#: ../blocks/templates/login.php:14, ../blocks/templates/login.php:126, ../blocks/templates/registration.php:17, ../blocks/templates/signin-signup.php:12, ../includes/classes/class-settings-panel.php:3072, ../includes/classes/class-settings-panel.php:3315, ../includes/classes/class-settings-panel.php:4346, ../includes/classes/class-settings-panel.php:4446, ../includes/model/Account.php:33, ../views/admin-templates/theme-extensions/theme-extension.php:1674
+#: ../blocks/templates/login.php:14, ../blocks/templates/login.php:126, ../blocks/templates/registration.php:17, ../blocks/templates/signin-signup.php:12, ../includes/classes/class-settings-panel.php:3072, ../includes/classes/class-settings-panel.php:3315, ../includes/classes/class-settings-panel.php:4346, ../includes/classes/class-settings-panel.php:4446, ../includes/model/Account.php:33, ../views/admin-templates/theme-extensions/theme-extension.php:1813
 msgid "Password"
 msgstr ""
 
@@ -318,7 +318,7 @@ msgstr ""
 msgid "Directorist All Listings"
 msgstr ""
 
-#: ../directorist-base.php:668, ../includes/classes/class-extension.php:2618
+#: ../directorist-base.php:668, ../includes/classes/class-extension.php:2904
 msgid "Directorist Dashboard"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr ""
 msgid "Directorist Sign In"
 msgstr ""
 
-#: ../directorist-base.php:721, ../includes/classes/class-settings-panel.php:4878, ../views/admin-templates/theme-extensions/theme-extension.php:1803
+#: ../directorist-base.php:721, ../includes/classes/class-settings-panel.php:4878, ../views/admin-templates/theme-extensions/theme-extension.php:1918
 msgid "Uninstall"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgstr ""
 msgid "Author Profile"
 msgstr ""
 
-#: ../includes/helper-functions.php:2615, ../includes/classes/class-extension.php:2619, ../includes/classes/class-settings-panel.php:4493, ../includes/elementor/user-dashboard.php:14, ../views/admin-templates/theme-extensions/theme-extension.php:814
+#: ../includes/helper-functions.php:2615, ../includes/classes/class-extension.php:2905, ../includes/classes/class-settings-panel.php:4493, ../includes/elementor/user-dashboard.php:14, ../views/admin-templates/theme-extensions/theme-extension.php:920
 msgid "Dashboard"
 msgstr ""
 
@@ -855,7 +855,7 @@ msgid_plural "Invalid pin code. You have %s attempts left."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/helper-functions.php:4689, ../includes/classes/class-extension.php:2190
+#: ../includes/helper-functions.php:4689, ../includes/classes/class-extension.php:2476
 msgid "Invalid download link"
 msgstr ""
 
@@ -863,7 +863,7 @@ msgstr ""
 msgid "Could not create temp directory"
 msgstr ""
 
-#: ../includes/helper-functions.php:4781, ../includes/classes/class-extension.php:2321
+#: ../includes/helper-functions.php:4781, ../includes/classes/class-extension.php:2607
 msgid "The plugin has been downloaded successfully"
 msgstr ""
 
@@ -1159,7 +1159,7 @@ msgstr ""
 msgid "Sender"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:425, ../includes/classes/class-custom-post.php:776, ../includes/classes/class-upgrade.php:822, ../templates/dashboard/tab-my-listings.php:63, ../views/admin-templates/theme-extensions/theme-extension.php:1820
+#: ../includes/asset-loader/localized_data.php:425, ../includes/classes/class-custom-post.php:776, ../includes/classes/class-upgrade.php:822, ../templates/dashboard/tab-my-listings.php:63, ../views/admin-templates/theme-extensions/theme-extension.php:1935
 msgid "Status"
 msgstr ""
 
@@ -1179,7 +1179,7 @@ msgstr ""
 msgid "Mark as read"
 msgstr ""
 
-#: ../includes/asset-loader/localized_data.php:430, ../views/admin-templates/post-types-manager/all-listing-types.php:209, ../views/admin-templates/post-types-manager/all-listing-types.php:357, ../views/admin-templates/theme-extensions/theme-extension.php:453, ../views/admin-templates/theme-extensions/theme-extension.php:1793
+#: ../includes/asset-loader/localized_data.php:430, ../views/admin-templates/post-types-manager/all-listing-types.php:209, ../views/admin-templates/post-types-manager/all-listing-types.php:357, ../views/admin-templates/theme-extensions/theme-extension.php:490, ../views/admin-templates/theme-extensions/theme-extension.php:1908
 msgid "Delete"
 msgstr ""
 
@@ -1636,7 +1636,7 @@ msgstr ""
 msgid "Condition"
 msgstr ""
 
-#: ../includes/classes/class-ai-setup-wizard.php:504, ../includes/classes/class-extension-activity.php:365, ../includes/classes/class-extension.php:283, ../includes/classes/class-extension.php:292, ../includes/classes/class-extension.php:301, ../includes/classes/class-extension.php:311, ../includes/classes/class-extension.php:350, ../includes/classes/class-extension.php:360, ../includes/classes/class-extension.php:370, ../includes/classes/class-extension.php:594, ../includes/classes/class-extension.php:634, ../includes/classes/class-settings-panel.php:1628, ../includes/modules/multi-directory-setup/class-builder-data.php:1543, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1611
+#: ../includes/classes/class-ai-setup-wizard.php:504, ../includes/classes/class-extension-activity.php:365, ../includes/classes/class-extension.php:560, ../includes/classes/class-extension.php:569, ../includes/classes/class-extension.php:578, ../includes/classes/class-extension.php:587, ../includes/classes/class-extension.php:596, ../includes/classes/class-extension.php:605, ../includes/classes/class-extension.php:614, ../includes/classes/class-extension.php:624, ../includes/classes/class-extension.php:663, ../includes/classes/class-extension.php:673, ../includes/classes/class-extension.php:683, ../includes/classes/class-extension.php:907, ../includes/classes/class-extension.php:947, ../includes/classes/class-settings-panel.php:1628, ../includes/modules/multi-directory-setup/class-builder-data.php:1543, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1611
 msgid "New"
 msgstr ""
 
@@ -2028,7 +2028,7 @@ msgstr ""
 msgid "Invalid directory."
 msgstr ""
 
-#: ../includes/classes/class-ajax-handler.php:623, ../includes/classes/class-ajax-handler.php:869, ../includes/classes/class-extension.php:848, ../includes/classes/class-extension.php:1227, ../includes/classes/class-extension.php:1321, ../includes/classes/class-extension.php:1347, ../includes/classes/class-extension.php:1380, ../includes/classes/class-extension.php:1533, ../includes/classes/class-extension.php:1709, ../includes/classes/class-extension.php:1829, ../includes/classes/class-extension.php:1970, ../includes/classes/class-extension.php:2087
+#: ../includes/classes/class-ajax-handler.php:623, ../includes/classes/class-ajax-handler.php:869, ../includes/classes/class-extension.php:1159, ../includes/classes/class-extension.php:1538, ../includes/classes/class-extension.php:1638, ../includes/classes/class-extension.php:1664, ../includes/classes/class-extension.php:1704, ../includes/classes/class-extension.php:1857, ../includes/classes/class-extension.php:2003, ../includes/classes/class-extension.php:2107, ../includes/classes/class-extension.php:2256, ../includes/classes/class-extension.php:2373
 msgid "You do not have permission to perform this action."
 msgstr ""
 
@@ -2305,7 +2305,7 @@ msgstr ""
 msgid "This listing could not be approved because it appears to be spam, misleading, or not a legitimate business listing."
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:507, ../includes/classes/class-custom-post.php:771, ../includes/classes/class-custom-taxonomy.php:298, ../includes/classes/class-custom-taxonomy.php:359, ../includes/classes/class-custom-taxonomy.php:460, ../includes/classes/class-custom-taxonomy.php:502, ../includes/classes/class-custom-taxonomy.php:657, ../includes/classes/class-custom-taxonomy.php:670, ../includes/classes/class-extension-recommendations.php:311, ../includes/classes/class-metabox.php:407, ../views/admin-templates/theme-extensions/theme-extension.php:1317, ../views/admin-templates/theme-extensions/theme-extension.php:1465
+#: ../includes/classes/class-custom-post.php:507, ../includes/classes/class-custom-post.php:771, ../includes/classes/class-custom-taxonomy.php:298, ../includes/classes/class-custom-taxonomy.php:359, ../includes/classes/class-custom-taxonomy.php:460, ../includes/classes/class-custom-taxonomy.php:502, ../includes/classes/class-custom-taxonomy.php:657, ../includes/classes/class-custom-taxonomy.php:670, ../includes/classes/class-extension-recommendations.php:311, ../includes/classes/class-metabox.php:407, ../views/admin-templates/theme-extensions/theme-extension.php:1468, ../views/admin-templates/theme-extensions/theme-extension.php:1616
 msgid "Directory"
 msgstr ""
 
@@ -2498,7 +2498,7 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: ../includes/classes/class-custom-post.php:789, ../views/admin-templates/theme-extensions/theme-extension.php:1213
+#: ../includes/classes/class-custom-post.php:789, ../views/admin-templates/theme-extensions/theme-extension.php:1364
 msgid "Listing views"
 msgstr ""
 
@@ -2796,7 +2796,7 @@ msgstr ""
 msgid "Tags deleted."
 msgstr ""
 
-#: ../includes/classes/class-custom-taxonomy.php:961, ../includes/classes/class-settings-panel.php:5755, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26, ../views/admin-templates/theme-extensions/theme-extension.php:1610, ../views/admin-templates/theme-extensions/theme-extension.php:1752, ../views/admin-templates/theme-extensions/theme-extension.php:1768
+#: ../includes/classes/class-custom-taxonomy.php:961, ../includes/classes/class-settings-panel.php:5755, ../templates/all-authors.php:25, ../templates/archive/directory-type-nav.php:26, ../views/admin-templates/theme-extensions/theme-extension.php:1761, ../views/admin-templates/theme-extensions/theme-extension.php:1864, ../views/admin-templates/theme-extensions/theme-extension.php:1883
 msgid "All"
 msgstr ""
 
@@ -3045,7 +3045,7 @@ msgstr ""
 msgid "Your directory foundation is ready"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:485, ../views/admin-templates/theme-extensions/theme-extension.php:1142
+#: ../includes/classes/class-extension-activity.php:485, ../views/admin-templates/theme-extensions/theme-extension.php:1293
 msgid "A few steps to launch your directory"
 msgstr ""
 
@@ -3053,147 +3053,147 @@ msgstr ""
 msgid "Core setup is complete. Use these links whenever you need to make changes."
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:488, ../views/admin-templates/theme-extensions/theme-extension.php:1143
+#: ../includes/classes/class-extension-activity.php:488, ../views/admin-templates/theme-extensions/theme-extension.php:1294
 msgid "Complete the remaining setup tasks before accepting live submissions."
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:540
+#: ../includes/classes/class-extension-activity.php:529
 msgid "Configure a payment gateway"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:558, ../includes/classes/class-settings-panel.php:549, ../includes/classes/class-settings-panel.php:564, ../includes/gateways/class-gateway.php:258, ../includes/gateways/class-gateway.php:277
+#: ../includes/classes/class-extension-activity.php:547, ../includes/classes/class-settings-panel.php:549, ../includes/classes/class-settings-panel.php:564, ../includes/gateways/class-gateway.php:258, ../includes/gateways/class-gateway.php:277
 msgid "Bank Transfer (Offline Gateway)"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:603
+#: ../includes/classes/class-extension-activity.php:592
 msgid "Review payment gateways"
 msgstr ""
 
 #. translators: %s: one or more payment gateway names.
-#: ../includes/classes/class-extension-activity.php:610
+#: ../includes/classes/class-extension-activity.php:599
 msgid "Review %s payment gateway"
 msgid_plural "Review %s payment gateways"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-extension-activity.php:870
+#: ../includes/classes/class-extension-activity.php:859
 msgid "Listing awaiting review"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:871
+#: ../includes/classes/class-extension-activity.php:860
 msgid "Listing published"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:871
+#: ../includes/classes/class-extension-activity.php:860
 msgid "Listing draft saved"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:872, ../includes/classes/class-extension-activity.php:952, ../includes/classes/class-extension-activity.php:1425, ../includes/review/class-admin.php:55, ../includes/review/class-settings-screen.php:23, ../includes/modules/multi-directory-setup/class-builder-data.php:359
+#: ../includes/classes/class-extension-activity.php:861, ../includes/classes/class-extension-activity.php:941, ../includes/classes/class-extension-activity.php:1414, ../includes/review/class-admin.php:55, ../includes/review/class-settings-screen.php:23, ../includes/modules/multi-directory-setup/class-builder-data.php:359
 msgid "Review"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:872, ../includes/review/directorist-review-functions.php:110, ../templates/dashboard/listing-row.php:62, ../templates/single/top-actions.php:36, ../views/admin-templates/post-types-manager/all-listing-types.php:185
+#: ../includes/classes/class-extension-activity.php:861, ../includes/review/directorist-review-functions.php:110, ../templates/dashboard/listing-row.php:62, ../templates/single/top-actions.php:36, ../views/admin-templates/post-types-manager/all-listing-types.php:185
 msgid "Edit"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:879, ../includes/classes/class-extension-activity.php:947, ../includes/classes/class-extension-activity.php:1416
+#: ../includes/classes/class-extension-activity.php:868, ../includes/classes/class-extension-activity.php:936, ../includes/classes/class-extension-activity.php:1405
 msgid "Untitled listing"
 msgstr ""
 
 #. translators: %s: Listing author display name.
-#: ../includes/classes/class-extension-activity.php:882, ../includes/classes/class-metabox.php:207
+#: ../includes/classes/class-extension-activity.php:871, ../includes/classes/class-metabox.php:207
 msgid "by %s"
 msgstr ""
 
 #. translators: 1: Review rating, 2: Reviewer name.
-#: ../includes/classes/class-extension-activity.php:930
+#: ../includes/classes/class-extension-activity.php:919
 msgid "%1$s-star review by %2$s"
 msgstr ""
 
 #. translators: %s: Reviewer name.
-#: ../includes/classes/class-extension-activity.php:936
+#: ../includes/classes/class-extension-activity.php:925
 msgid "Review by %s"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:945
+#: ../includes/classes/class-extension-activity.php:934
 msgid "Review awaiting moderation"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:946
+#: ../includes/classes/class-extension-activity.php:935
 msgid "New review received"
 msgstr ""
 
 #. translators: %s: Customer display name.
-#: ../includes/classes/class-extension-activity.php:1040, ../includes/classes/class-extension-activity.php:1121
+#: ../includes/classes/class-extension-activity.php:1029, ../includes/classes/class-extension-activity.php:1110
 msgid "from %s"
 msgstr ""
 
 #. translators: %s: Listing title.
-#: ../includes/classes/class-extension-activity.php:1048, ../includes/classes/class-extension-activity.php:1129
+#: ../includes/classes/class-extension-activity.php:1037, ../includes/classes/class-extension-activity.php:1118
 msgid "for %s"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1057, ../includes/classes/class-extension-activity.php:1138
+#: ../includes/classes/class-extension-activity.php:1046, ../includes/classes/class-extension-activity.php:1127
 msgid "Payment received"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1063, ../includes/classes/class-extension-activity.php:1144
+#: ../includes/classes/class-extension-activity.php:1052, ../includes/classes/class-extension-activity.php:1133
 msgid "View order"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1337
+#: ../includes/classes/class-extension-activity.php:1326
 msgid "New user registered"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1340
+#: ../includes/classes/class-extension-activity.php:1329
 msgid "Registered as a listing owner"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1341
+#: ../includes/classes/class-extension-activity.php:1330
 msgid "Registered for the directory"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1345
+#: ../includes/classes/class-extension-activity.php:1334
 msgid "View user"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1415
+#: ../includes/classes/class-extension-activity.php:1404
 msgid "Listing expiring soon"
 msgstr ""
 
 #. translators: %d: Number of days before listing expiration.
-#: ../includes/classes/class-extension-activity.php:1419
+#: ../includes/classes/class-extension-activity.php:1408
 msgid "Expires in %d day"
 msgid_plural "Expires in %d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../includes/classes/class-extension-activity.php:1496
+#: ../includes/classes/class-extension-activity.php:1485
 msgid "Open"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1557
+#: ../includes/classes/class-extension-activity.php:1546
 msgid "Today"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1558
+#: ../includes/classes/class-extension-activity.php:1547
 msgid "Yesterday"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1559
+#: ../includes/classes/class-extension-activity.php:1548
 msgid "Earlier"
 msgstr ""
 
-#: ../includes/classes/class-extension-activity.php:1560
+#: ../includes/classes/class-extension-activity.php:1549
 msgid "Upcoming"
 msgstr ""
 
 #. translators: %s: Human-readable time difference.
-#: ../includes/classes/class-extension-activity.php:1584
+#: ../includes/classes/class-extension-activity.php:1573
 msgid "%s ago"
 msgstr ""
 
-#: ../includes/classes/class-extension-recommendations.php:76, ../includes/classes/class-extension-recommendations.php:474, ../views/admin-templates/theme-extensions/theme-extension.php:1433
+#: ../includes/classes/class-extension-recommendations.php:76, ../includes/classes/class-extension-recommendations.php:474, ../views/admin-templates/theme-extensions/theme-extension.php:1584
 msgid "your directory"
 msgstr ""
 
@@ -3305,675 +3305,720 @@ msgstr ""
 msgid "View details"
 msgstr ""
 
-#: ../includes/classes/class-extension-recommendations.php:569, ../views/admin-templates/theme-extensions/theme-extension.php:560, ../views/admin-templates/theme-extensions/theme-extension.php:644, ../views/admin-templates/theme-extensions/theme-extension.php:1770
+#: ../includes/classes/class-extension-recommendations.php:569, ../views/admin-templates/theme-extensions/theme-extension.php:609, ../views/admin-templates/theme-extensions/theme-extension.php:690, ../views/admin-templates/theme-extensions/theme-extension.php:1885
 msgid "Not installed"
 msgstr ""
 
-#: ../includes/classes/class-extension-recommendations.php:571, ../views/admin-templates/theme-extensions/theme-extension.php:562, ../views/admin-templates/theme-extensions/theme-extension.php:603, ../views/admin-templates/theme-extensions/theme-extension.php:653
+#: ../includes/classes/class-extension-recommendations.php:571, ../views/admin-templates/theme-extensions/theme-extension.php:612, ../views/admin-templates/theme-extensions/theme-extension.php:654, ../views/admin-templates/theme-extensions/theme-extension.php:699
 msgid "Install Beta"
 msgstr ""
 
-#: ../includes/classes/class-extension-recommendations.php:571, ../views/admin-templates/theme-extensions/theme-extension.php:562, ../views/admin-templates/theme-extensions/theme-extension.php:603, ../views/admin-templates/theme-extensions/theme-extension.php:653, ../views/admin-templates/theme-extensions/theme-extension.php:1789
+#: ../includes/classes/class-extension-recommendations.php:571, ../views/admin-templates/theme-extensions/theme-extension.php:612, ../views/admin-templates/theme-extensions/theme-extension.php:654, ../views/admin-templates/theme-extensions/theme-extension.php:699, ../views/admin-templates/theme-extensions/theme-extension.php:1904
 msgid "Install"
 msgstr ""
 
-#: ../includes/classes/class-extension-recommendations.php:556, ../includes/classes/class-upgrade.php:992, ../includes/classes/class-upgrade.php:1000, ../views/admin-templates/theme-extensions/theme-extension.php:407, ../views/admin-templates/theme-extensions/theme-extension.php:644, ../views/admin-templates/theme-extensions/theme-extension.php:1769
+#: ../includes/classes/class-extension-recommendations.php:556, ../includes/classes/class-upgrade.php:992, ../includes/classes/class-upgrade.php:1000, ../views/admin-templates/theme-extensions/theme-extension.php:409, ../views/admin-templates/theme-extensions/theme-extension.php:690, ../views/admin-templates/theme-extensions/theme-extension.php:1884
 msgid "Installed"
 msgstr ""
 
-#: ../includes/classes/class-extension-recommendations.php:558, ../views/admin-templates/theme-extensions/theme-extension.php:423, ../views/admin-templates/theme-extensions/theme-extension.php:647, ../views/admin-templates/theme-extensions/theme-extension.php:1791, ../views/admin-templates/theme-extensions/theme-extension.php:1801, ../views/admin-templates/theme-extensions/my-themes-extensions/extensions-tab.php:260, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:102
+#: ../includes/classes/class-extension-recommendations.php:558, ../views/admin-templates/theme-extensions/theme-extension.php:425, ../views/admin-templates/theme-extensions/theme-extension.php:693, ../views/admin-templates/theme-extensions/theme-extension.php:1906, ../views/admin-templates/theme-extensions/theme-extension.php:1916, ../views/admin-templates/theme-extensions/my-themes-extensions/extensions-tab.php:260, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:102
 msgid "Activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:262
-msgid "Monetize listing inquiries by charging owners to unlock qualified leads."
+#: ../includes/classes/class-extension.php:188
+msgid "Directorist blocks"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:270
-msgid "Accept M-Pesa payments directly through your Directorist checkout."
+#: ../includes/classes/class-extension.php:200
+msgid "WooCommerce and your marketplace directory"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:278
-msgid "Send instant browser push notifications for listings, payments, reviews, renewals, and other important directory events."
+#. translators: %s: required plugin name.
+#: ../includes/classes/class-extension.php:291
+msgid "Install and activate %s."
 msgstr ""
 
 #: ../includes/classes/class-extension.php:287
-msgid "AI-powered directory search that understands intent and improves listing discovery."
+msgid "Activate %s."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:296
-msgid "Turn your directory into native Divi 5 modules and visually customize listing archives, search, categories, locations, single listings, and author profile pages."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:305
-msgid "Import Google Maps and feeds into Directorist automatically, effortlessly."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:312, ../includes/classes/class-extension.php:408, ../includes/classes/class-extension.php:577, ../includes/classes/class-extension.php:611, ../includes/classes/class-extension.php:652, ../includes/classes/class-extension.php:671
-msgid "Trending"
+#: ../includes/classes/class-extension.php:323
+msgid "Update HelpGent to version 3.0 or later."
 msgstr ""
 
 #: ../includes/classes/class-extension.php:318
-msgid "Unlock powerful insights to grow your directory with confidence."
+msgid "Activate a supported Oxygen Builder version."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:327
-msgid "Detailed, criteria-based review to make listings more trustworthy."
+#: ../includes/classes/class-extension.php:307
+msgid "Activate the Bricks theme."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:336
-msgid "Unified Search Across All Your Directories – Instantly Find What You Need"
+#: ../includes/classes/class-extension.php:308
+msgid "Install and activate the Bricks theme."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:345
-msgid "The Search Alert Plugin lets users create, manage, and receive alerts for matches."
+#: ../includes/classes/class-extension.php:312
+msgid "Update Directorist to version 8.0 or later."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:355
-msgid "Effortlessly share updates, news, or promotions with the Directorist Announcement Extension."
+#: ../includes/classes/class-extension.php:300
+msgid "Activate the Divi theme or Divi Builder plugin."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:365
-msgid "Enhance directory sites with AddonsKit for Bricks Builder with drag-and-drop custom elements, interactive maps, and more."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:375
-msgid "It lets you offer discounts to users when purchasing listing plans or paying for featured listings."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:383
-msgid "Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:391
-msgid "Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:397, ../includes/classes/class-extension.php:407, ../includes/classes/class-extension.php:418, ../includes/classes/class-extension.php:427, ../includes/classes/class-extension.php:485, ../includes/classes/class-extension.php:511, ../includes/classes/class-extension.php:643, ../includes/classes/class-extension.php:670, ../includes/classes/class-extension.php:705, ../includes/classes/class-extension.php:730, ../includes/classes/class-settings-panel.php:1683, ../includes/model/Listings.php:307, ../includes/modules/multi-directory-setup/class-builder-data.php:1550, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1618
-msgid "Popular"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:401
-msgid "Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:413
-msgid "Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:422
-msgid "Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:431
-msgid "Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:439
-msgid "Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:447
-msgid "Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:455
-msgid "Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:463
-msgid "Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:471
-msgid "Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:479
-msgid "Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:489
-msgid "Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:498
-msgid "Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:506
-msgid "This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:515
-msgid "Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:524
-msgid "Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:532
-msgid "Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:540
-msgid "Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:548
-msgid "Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:556
-msgid "Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together."
+#: ../includes/classes/class-extension.php:555
+msgid "Connect Directorist with Elementor to build responsive directory pages, listings, archives, profiles, and searches visually."
 msgstr ""
 
 #: ../includes/classes/class-extension.php:564
+msgid "Build directory layouts with dynamic Directorist data, customizable blocks, and intuitive browsing without custom code."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:573
+msgid "Monetize listing inquiries by charging owners to unlock qualified leads."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:582
+msgid "Accept M-Pesa payments directly through your Directorist checkout."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:591
+msgid "Send instant browser push notifications for listings, payments, reviews, renewals, and other important directory events."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:600
+msgid "AI-powered directory search that understands intent and improves listing discovery."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:609
+msgid "Turn your directory into native Divi 5 modules and visually customize listing archives, search, categories, locations, single listings, and author profile pages."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:618
+msgid "Import Google Maps and feeds into Directorist automatically, effortlessly."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:625, ../includes/classes/class-extension.php:721, ../includes/classes/class-extension.php:890, ../includes/classes/class-extension.php:924, ../includes/classes/class-extension.php:965, ../includes/classes/class-extension.php:984
+msgid "Trending"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:631
+msgid "Unlock powerful insights to grow your directory with confidence."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:640
+msgid "Detailed, criteria-based review to make listings more trustworthy."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:649
+msgid "Unified Search Across All Your Directories – Instantly Find What You Need"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:658
+msgid "The Search Alert Plugin lets users create, manage, and receive alerts for matches."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:668
+msgid "Effortlessly share updates, news, or promotions with the Directorist Announcement Extension."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:678
+msgid "Enhance directory sites with AddonsKit for Bricks Builder with drag-and-drop custom elements, interactive maps, and more."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:688
+msgid "It lets you offer discounts to users when purchasing listing plans or paying for featured listings."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:696
+msgid "Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:704
+msgid "Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:710, ../includes/classes/class-extension.php:720, ../includes/classes/class-extension.php:731, ../includes/classes/class-extension.php:740, ../includes/classes/class-extension.php:798, ../includes/classes/class-extension.php:824, ../includes/classes/class-extension.php:956, ../includes/classes/class-extension.php:983, ../includes/classes/class-extension.php:1018, ../includes/classes/class-extension.php:1043, ../includes/classes/class-settings-panel.php:1683, ../includes/model/Listings.php:307, ../includes/modules/multi-directory-setup/class-builder-data.php:1550, ../includes/modules/multi-directory-setup/class-multi-directory-migration.php:1618
+msgid "Popular"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:714
+msgid "Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:726
+msgid "Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:735
+msgid "Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:744
+msgid "Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:752
+msgid "Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:760
+msgid "Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:768
+msgid "Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:776
+msgid "Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:784
+msgid "Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:792
+msgid "Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:802
+msgid "Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:811
+msgid "Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:819
+msgid "This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:828
+msgid "Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:837
+msgid "Are you wondering about placing advertisements in your directory? Directorist Ads Manager allows you to insert advertisements on specific Directorist pages such as All listings, Single Listings, All Location, All Category, etc."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:845
+msgid "Directorist - BuddyBoss Integration extension is used to integrate the giant Directorist with the popular BuddyBoss plugin. It combines all the functionalities needed to create a complete community based WordPress directory website using Directorist plugin and BuddyBoss platform"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:853
+msgid "Directorist Oxygen is used to integrate the giant Directorist with the popular Oxygen Page Builder plugin. It combines all the functionalities needed to create a complete WordPress directory website using Oxygen Builder."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:861
+msgid "Directorist Authorize Payment Gateway is a secured payment solution that accepts a great number of payment options for Directorist Pricing Plan like Visa, MasterCard, Discover, AmEx, JCB, PayPal, and more."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:869
+msgid "Directorist - BuddyPress Integration is a premium extension which makes Direcorist and BuddyPress work as a single integrated app, allowing you to build a hybrid listings directory and social network together."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:877
 msgid "If you are running multi-directories on your directory website, Multi-directory Linking will be an awesome extension that will allow your users to connect to other types of directories. This opens up a new window to earn money from your directory website."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:572
+#: ../includes/classes/class-extension.php:885
 msgid "If you're wondering how to place job listings with detailed specifications, then Directorist-Job Manager gets you rid out of this problem"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:581
+#: ../includes/classes/class-extension.php:894
 msgid "Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:589
+#: ../includes/classes/class-extension.php:902
 msgid "Directorist HelpGent Integration puts Directorist and HelpGent on the same avenue. The integration helps you to make your directory website more accessible to your audience which eventually creates more leads and conversions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:598
+#: ../includes/classes/class-extension.php:911
 msgid "Directorist WPML Integration connects Directorist and WPML in one place. It helps you to make your directory sites multilingual more conveniently & efficiently by switching your directory website from one language to another."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:606
+#: ../includes/classes/class-extension.php:919
 msgid "If you want to create a marketplace of fixed-price services or digital downloads, then the Digital Marketplace Extension will be a worth-investment to kickstart."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:615
+#: ../includes/classes/class-extension.php:928
 msgid "Directorist GamiPress Integration Connects Directorist with GamiPress in one place. It helps you to aggrandize the engagement of your directory business with the utmost possible ease."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:629
+#: ../includes/classes/class-extension.php:942
 msgid "dJobs is a beautiful WordPress directory theme for jobs, employment, and other job-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:638
+#: ../includes/classes/class-extension.php:951
 msgid "dHotels is a beautiful WordPress directory theme for hotels, motels, resorts, and other hospitality-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:647
+#: ../includes/classes/class-extension.php:960
 msgid "dClassified is a beautiful WordPress directory theme for classifieds, ads, and other classified-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:656
+#: ../includes/classes/class-extension.php:969
 msgid "Onelisting is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:664
+#: ../includes/classes/class-extension.php:977
 msgid "Onelisting Pro is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:676
+#: ../includes/classes/class-extension.php:989
 msgid "dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:684
+#: ../includes/classes/class-extension.php:997
 msgid "Are you looking for the best restaurant directory theme that brings you more business? Then, nothing can beat dRestaurant, as it is the most powerful theme that checks all your visual needs with the concept of scalability in mind."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:692
+#: ../includes/classes/class-extension.php:1005
 msgid "dRealEstate is a beautiful WordPress directory theme for real estate, property, and other real estate-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:700
+#: ../includes/classes/class-extension.php:1013
 msgid "dCar is a beautiful WordPress directory theme for cars, motorcycles, and other vehicle-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:709
+#: ../includes/classes/class-extension.php:1022
 msgid "DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:717
+#: ../includes/classes/class-extension.php:1030
 msgid "DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:725
+#: ../includes/classes/class-extension.php:1038
 msgid "dDoctors is a beautiful WordPress directory theme for doctor, nurse, medical techonologist, hospital, clinic, and other medical-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:734
+#: ../includes/classes/class-extension.php:1047
 msgid "dLawyers is a beautiful WordPress directory theme for legal, legal adviser companies, legal offices, court consultants, lawyers, counsel bureau, attorney agencies, and other law-related businesses."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:878
+#: ../includes/classes/class-extension.php:1189
 msgid "All plugins are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:901
+#: ../includes/classes/class-extension.php:1212
 msgid "The plugin is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:910
+#: ../includes/classes/class-extension.php:1221
 msgid "No purchased extensions found"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:920
+#: ../includes/classes/class-extension.php:1231
 msgid "License not found for this extension"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:928, ../includes/classes/class-extension.php:1452
+#: ../includes/classes/class-extension.php:1239, ../includes/classes/class-extension.php:1776
 msgid "Download link could not be retrieved"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:944
+#: ../includes/classes/class-extension.php:1255
 msgid "The plugin has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:936
+#: ../includes/classes/class-extension.php:1247
 msgid "The plugin could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:996
+#: ../includes/classes/class-extension.php:1307
 msgid "No plugins could be updated"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:993
+#: ../includes/classes/class-extension.php:1304
 msgid "All plugins have been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:990
+#: ../includes/classes/class-extension.php:1301
 msgid "Some of the plugins could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1250
+#: ../includes/classes/class-extension.php:1561
 msgid "Invalid plugin action."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1268
+#: ../includes/classes/class-extension.php:1579
 msgid "Plugin files were not found."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1288
+#: ../includes/classes/class-extension.php:1605
 msgid "Deactivate the plugin before deleting it."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1300
+#: ../includes/classes/class-extension.php:1617
 msgid "WordPress could not delete this plugin."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1283
+#: ../includes/classes/class-extension.php:1600
 msgid "WordPress could not deactivate this plugin."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1312
+#: ../includes/classes/class-extension.php:1629
 msgid "Plugin action completed successfully."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1335
+#: ../includes/classes/class-extension.php:1652
 msgid "Theme's stylesheet is missing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1362
+#: ../includes/classes/class-extension.php:1679
 msgid "Please specefy which plugin to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1412
+#: ../includes/classes/class-extension.php:1736
 msgid "All themes are up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1418
+#: ../includes/classes/class-extension.php:1742
 msgid "The theme is up to date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1432
+#: ../includes/classes/class-extension.php:1756
 msgid "The theme is already upto date"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1439
+#: ../includes/classes/class-extension.php:1763
 msgid "License not found for this theme"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1465
+#: ../includes/classes/class-extension.php:1789
 msgid "The theme has been updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1461
+#: ../includes/classes/class-extension.php:1785
 msgid "The theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1501
+#: ../includes/classes/class-extension.php:1825
 msgid "Some of the theme could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1506
+#: ../includes/classes/class-extension.php:1830
 msgid "All the themes are updated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1511
+#: ../includes/classes/class-extension.php:1835
 msgid "No themes could not update"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1561, ../includes/classes/class-extension.php:1755
-msgid "Access key is required"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:1571
+#: ../includes/classes/class-extension.php:1882
 msgid "Username or email address is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1580, ../includes/classes/class-extension.php:1756
+#: ../includes/classes/class-extension.php:1891, ../includes/classes/class-extension.php:2046
 msgid "Password is required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1589
+#: ../includes/classes/class-extension.php:1900
 msgid "Username or email address and password are required"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1624
+#: ../includes/classes/class-extension.php:1932
 msgid "Something went wrong"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:1766
-msgid "Sassion is destroyed, please sign-in again"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:1821
-msgid "Your purchase has been refreshed successfuly"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:2008
-msgid "Item key is missing"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:2015
-msgid "Type not specified"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:2022
-msgid "Invalid type"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:2037
-msgid "Nothing available in subscriptions"
-msgstr ""
-
-#: ../includes/classes/class-extension.php:2044
-msgid "The item is not available in your subscriptions"
+#: ../includes/classes/class-extension.php:2039
+msgid "Connect your Directorist account to refresh purchases."
 msgstr ""
 
 #: ../includes/classes/class-extension.php:2056
+msgid "Sassion is destroyed, please sign-in again"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2099
+msgid "Your purchase has been refreshed successfuly"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2212, ../includes/classes/class-extension.php:3420
+msgid "Connect your Directorist account to manage licenses."
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2294
+msgid "Item key is missing"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2301
+msgid "Type not specified"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2308
+msgid "Invalid type"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2323
+msgid "Nothing available in subscriptions"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2330
+msgid "The item is not available in your subscriptions"
+msgstr ""
+
+#: ../includes/classes/class-extension.php:2342
 msgid "The license is not valid, please check you subscription."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2079
+#: ../includes/classes/class-extension.php:2365
 msgid "Installed Successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2126, ../includes/classes/class-extension.php:3187
+#: ../includes/classes/class-extension.php:2412, ../includes/classes/class-extension.php:3480
 msgid "Activation failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2159
+#: ../includes/classes/class-extension.php:2445
 msgid "Download failed"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2164
+#: ../includes/classes/class-extension.php:2450
 msgid "Downloaded"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2195
+#: ../includes/classes/class-extension.php:2481
 msgid "Invalid product type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2206
+#: ../includes/classes/class-extension.php:2492
 msgid "Could not initialize the WordPress filesystem."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2211
+#: ../includes/classes/class-extension.php:2497
 msgid "The WordPress filesystem is unavailable."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2233
+#: ../includes/classes/class-extension.php:2519
 msgid "Could not create a temporary product directory."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2258
+#: ../includes/classes/class-extension.php:2544
 msgid "The product package contains an invalid directory name."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2272
+#: ../includes/classes/class-extension.php:2558
 msgid "The staged product files are invalid."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2285
+#: ../includes/classes/class-extension.php:2571
 msgid "Could not prepare the existing product files for replacement."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2293
+#: ../includes/classes/class-extension.php:2579
 msgid "Could not move the staged product files into place."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2322
+#: ../includes/classes/class-extension.php:2608
 msgid "The theme has been downloaded successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2371
+#: ../includes/classes/class-extension.php:2657
 msgid "The downloaded archive does not contain valid product files."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2375
+#: ../includes/classes/class-extension.php:2661
 msgid "The downloaded archive contains multiple plugin directories."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:2618, ../includes/classes/class-extension.php:2647, ../includes/classes/class-extension.php:2650, ../views/admin-templates/theme-extensions/theme-extension.php:1631
+#: ../includes/classes/class-extension.php:2904, ../includes/classes/class-extension.php:2933, ../includes/classes/class-extension.php:2936, ../views/admin-templates/theme-extensions/theme-extension.php:1782
 msgid "Themes & Extensions"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3133
+#: ../includes/classes/class-extension.php:3426
 msgid "Nothing to activate"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3184, ../includes/classes/class-extension.php:3194
+#: ../includes/classes/class-extension.php:3477, ../includes/classes/class-extension.php:3487
 msgid "License activated successfully"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3200, ../views/admin-templates/theme-extensions/theme-extension.php:1655
+#: ../includes/classes/class-extension.php:3493, ../views/admin-templates/theme-extensions/theme-extension.php:1804
 msgid "Could not reach Directorist.com. Please try again."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3204, ../views/admin-templates/theme-extensions/theme-extension.php:1653
+#: ../includes/classes/class-extension.php:3497, ../views/admin-templates/theme-extensions/theme-extension.php:1802
 msgid "The username, email address, or password is incorrect. Please check your details and try again."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3208, ../views/admin-templates/theme-extensions/theme-extension.php:1652
-msgid "The access key is invalid. Check the key in your Directorist account and try again."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:3334
-msgid "Directorist.com could not verify this access key. Please try again."
-msgstr ""
-
-#: ../includes/classes/class-extension.php:3657
+#: ../includes/classes/class-extension.php:3882
 msgid "Your lifetime plan is active, so every theme and extension is unlocked."
 msgstr ""
 
 #. translators: %s: Subscription expiration date.
-#: ../includes/classes/class-extension.php:3662
+#: ../includes/classes/class-extension.php:3887
 msgid "Your plan is active until %s, so every theme and extension is unlocked."
 msgstr ""
 
 #. translators: 1: Plan name, 2: Subscription expiration date.
-#: ../includes/classes/class-extension.php:3667
+#: ../includes/classes/class-extension.php:3892
 msgid "Your %1$s plan is active until %2$s."
 msgstr ""
 
 #. translators: %s: Subscription expiration date.
-#: ../includes/classes/class-extension.php:3672
+#: ../includes/classes/class-extension.php:3897
 msgid "Your plan is active until %s."
 msgstr ""
 
 #. translators: %s: Subscription expiration date.
-#: ../includes/classes/class-extension.php:3679
+#: ../includes/classes/class-extension.php:3904
 msgid "Your plan expired on %s. Renew it to receive subscription updates and installs."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3682
+#: ../includes/classes/class-extension.php:3907
 msgid "Your plan has expired. Renew it to receive subscription updates and installs."
 msgstr ""
 
 #. translators: %s: Subscription access end date.
-#: ../includes/classes/class-extension.php:3689
+#: ../includes/classes/class-extension.php:3914
 msgid "Your plan is cancelled. Your access remains available until %s."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3692
+#: ../includes/classes/class-extension.php:3917
 msgid "Your plan is cancelled. Check your Directorist account for current access details."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3696
+#: ../includes/classes/class-extension.php:3921
 msgid "Your Directorist account is connected. Your subscribed themes and extensions are ready to manage."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3697
+#: ../includes/classes/class-extension.php:3922
 msgid "Your Directorist account is connected, but no subscribed products were found. Refresh purchases to sync your account."
 msgstr ""
 
 #. translators: %s: Connected Directorist subscription plan name.
-#: ../includes/classes/class-extension.php:3718
+#: ../includes/classes/class-extension.php:3943
 msgid "%s plan"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3722
+#: ../includes/classes/class-extension.php:3947
 msgid "Lifetime plan"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3728
+#: ../includes/classes/class-extension.php:3953
 msgid "Active plan"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3732
+#: ../includes/classes/class-extension.php:3957
 msgid "Expired plan"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3736
+#: ../includes/classes/class-extension.php:3961
 msgid "Cancelled plan"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3739, ../views/admin-templates/theme-extensions/theme-extension.php:34
+#: ../includes/classes/class-extension.php:3964, ../views/admin-templates/theme-extensions/theme-extension.php:34
 msgid "Connected account"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3791, ../views/admin-templates/theme-extensions/theme-extension.php:1089
+#: ../includes/classes/class-extension.php:4014, ../views/admin-templates/theme-extensions/theme-extension.php:1240
 msgid "Welcome back"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3789
+#: ../includes/classes/class-extension.php:4012
 msgid "Good evening"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3787
+#: ../includes/classes/class-extension.php:4010
 msgid "Good afternoon"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3785
+#: ../includes/classes/class-extension.php:4008
 msgid "Good morning"
 msgstr ""
 
 #. translators: 1: Time-aware greeting. 2: Connected Directorist account owner's display name.
-#: ../includes/classes/class-extension.php:3796
+#: ../includes/classes/class-extension.php:4019
 msgid "%1$s, %2$s"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3847, ../views/admin-templates/theme-extensions/theme-extension.php:1103
+#: ../includes/classes/class-extension.php:4069, ../views/admin-templates/theme-extensions/theme-extension.php:1254
 msgid "Add listing"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3848, ../includes/classes/class-extension.php:3978
+#: ../includes/classes/class-extension.php:4070, ../includes/classes/class-extension.php:4200
 msgid "Create directory"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3904
+#: ../includes/classes/class-extension.php:4126
 msgid "Add a listing"
 msgstr ""
 
 #. translators: %s: Directory type name.
-#: ../includes/classes/class-extension.php:3906
+#: ../includes/classes/class-extension.php:4128
 msgid "Create a new %s listing"
 msgstr ""
 
 #. translators: %s: Directory type name.
-#: ../includes/classes/class-extension.php:3908
+#: ../includes/classes/class-extension.php:4130
 msgid "Add a listing for %s"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3920
+#: ../includes/classes/class-extension.php:4142
 msgid "Manage categories"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3921
+#: ../includes/classes/class-extension.php:4143
 msgid "Organize how listings are grouped"
 msgstr ""
 
 #. translators: %s: Directory type name.
-#: ../includes/classes/class-extension.php:3923
+#: ../includes/classes/class-extension.php:4145
 msgid "Manage categories for %s"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3936
+#: ../includes/classes/class-extension.php:4158
 msgid "Customize listing layout"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3937
+#: ../includes/classes/class-extension.php:4159
 msgid "Design the single listing page"
 msgstr ""
 
 #. translators: %s: Directory type name.
-#: ../includes/classes/class-extension.php:3939
+#: ../includes/classes/class-extension.php:4161
 msgid "Customize the listing layout for %s"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3945
+#: ../includes/classes/class-extension.php:4167
 msgid "Submission form settings"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3946
+#: ../includes/classes/class-extension.php:4168
 msgid "Control what users can submit"
 msgstr ""
 
 #. translators: %s: Directory type name.
-#: ../includes/classes/class-extension.php:3948
+#: ../includes/classes/class-extension.php:4170
 msgid "Edit submission form settings for %s"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3979
+#: ../includes/classes/class-extension.php:4201
 msgid "Set up your first directory type"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3980
+#: ../includes/classes/class-extension.php:4202
 msgid "Create a directory"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3986
+#: ../includes/classes/class-extension.php:4208
 msgid "Email notifications"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3987
+#: ../includes/classes/class-extension.php:4209
 msgid "Set who gets notified, and when"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:3988
+#: ../includes/classes/class-extension.php:4210
 msgid "Manage Directorist email notifications"
 msgstr ""
 
-#: ../includes/classes/class-extension.php:4006
+#: ../includes/classes/class-extension.php:4228
 msgid "You are not allowed to load this activity."
 msgstr ""
 
-#: ../includes/classes/class-extension.php:4026
+#: ../includes/classes/class-extension.php:4248
 msgid "You are not allowed to dismiss these setup steps."
 msgstr ""
 
@@ -5274,7 +5319,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:2159, ../views/admin-templates/theme-extensions/theme-extension.php:1806
+#: ../includes/classes/class-settings-panel.php:2159, ../views/admin-templates/theme-extensions/theme-extension.php:1921
 msgid "Apply"
 msgstr ""
 
@@ -5642,7 +5687,7 @@ msgstr ""
 msgid "Enable"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3081, ../includes/classes/class-settings-panel.php:3113, ../includes/classes/class-settings-panel.php:3140, ../includes/classes/class-settings-panel.php:3167, ../includes/classes/class-settings-panel.php:3194, ../includes/modules/multi-directory-setup/builder-custom-fields.php:154, ../includes/modules/multi-directory-setup/builder-custom-fields.php:201, ../includes/modules/multi-directory-setup/builder-custom-fields.php:243, ../includes/modules/multi-directory-setup/builder-custom-fields.php:285, ../includes/modules/multi-directory-setup/builder-custom-fields.php:359, ../includes/modules/multi-directory-setup/builder-custom-fields.php:401, ../includes/modules/multi-directory-setup/builder-custom-fields.php:443, ../includes/modules/multi-directory-setup/builder-custom-fields.php:480, ../includes/modules/multi-directory-setup/builder-custom-fields.php:534, ../includes/modules/multi-directory-setup/builder-custom-fields.php:588, ../includes/modules/multi-directory-setup/builder-custom-fields.php:642, ../includes/modules/multi-directory-setup/builder-custom-fields.php:692, ../includes/modules/multi-directory-setup/builder-custom-fields.php:779, ../includes/modules/multi-directory-setup/builder-preset-fields.php:61, ../includes/modules/multi-directory-setup/builder-preset-fields.php:115, ../includes/modules/multi-directory-setup/builder-preset-fields.php:156, ../includes/modules/multi-directory-setup/builder-preset-fields.php:318, ../includes/modules/multi-directory-setup/builder-preset-fields.php:387, ../includes/modules/multi-directory-setup/builder-preset-fields.php:438, ../includes/modules/multi-directory-setup/builder-preset-fields.php:499, ../includes/modules/multi-directory-setup/builder-preset-fields.php:573, ../includes/modules/multi-directory-setup/builder-preset-fields.php:613, ../includes/modules/multi-directory-setup/builder-preset-fields.php:653, ../includes/modules/multi-directory-setup/builder-preset-fields.php:698, ../includes/modules/multi-directory-setup/builder-preset-fields.php:743, ../includes/modules/multi-directory-setup/builder-preset-fields.php:783, ../includes/modules/multi-directory-setup/builder-preset-fields.php:823, ../includes/modules/multi-directory-setup/builder-preset-fields.php:858, ../includes/modules/multi-directory-setup/builder-preset-fields.php:912, ../includes/modules/multi-directory-setup/builder-preset-fields.php:952, ../includes/modules/multi-directory-setup/builder-preset-fields.php:994, ../includes/modules/multi-directory-setup/class-builder-data.php:720, ../includes/modules/multi-directory-setup/class-builder-data.php:731, ../includes/modules/multi-directory-setup/class-builder-data.php:753, ../includes/modules/multi-directory-setup/class-builder-data.php:832, ../includes/modules/multi-directory-setup/class-builder-data.php:854, ../includes/modules/multi-directory-setup/class-builder-data.php:875, ../includes/modules/multi-directory-setup/class-builder-data.php:896, ../includes/modules/multi-directory-setup/class-builder-data.php:917, ../includes/modules/multi-directory-setup/class-builder-data.php:938, ../includes/modules/multi-directory-setup/class-builder-data.php:959, ../includes/modules/multi-directory-setup/class-builder-data.php:991, ../includes/modules/multi-directory-setup/class-builder-data.php:1012, ../includes/modules/multi-directory-setup/class-builder-data.php:1033, ../includes/modules/multi-directory-setup/class-builder-data.php:1054, ../includes/modules/multi-directory-setup/class-builder-data.php:1070, ../includes/modules/multi-directory-setup/class-builder-data.php:1091, ../includes/modules/multi-directory-setup/class-builder-data.php:1107, ../includes/modules/multi-directory-setup/class-builder-data.php:1123, ../views/admin-templates/theme-extensions/theme-extension.php:462, ../views/admin-templates/theme-extensions/theme-extension.php:547, ../views/admin-templates/theme-extensions/theme-extension.php:560, ../views/admin-templates/theme-extensions/theme-extension.php:599, ../views/admin-templates/theme-extensions/theme-extension.php:600, ../views/admin-templates/theme-extensions/theme-extension.php:1772
+#: ../includes/classes/class-settings-panel.php:3081, ../includes/classes/class-settings-panel.php:3113, ../includes/classes/class-settings-panel.php:3140, ../includes/classes/class-settings-panel.php:3167, ../includes/classes/class-settings-panel.php:3194, ../includes/modules/multi-directory-setup/builder-custom-fields.php:154, ../includes/modules/multi-directory-setup/builder-custom-fields.php:201, ../includes/modules/multi-directory-setup/builder-custom-fields.php:243, ../includes/modules/multi-directory-setup/builder-custom-fields.php:285, ../includes/modules/multi-directory-setup/builder-custom-fields.php:359, ../includes/modules/multi-directory-setup/builder-custom-fields.php:401, ../includes/modules/multi-directory-setup/builder-custom-fields.php:443, ../includes/modules/multi-directory-setup/builder-custom-fields.php:480, ../includes/modules/multi-directory-setup/builder-custom-fields.php:534, ../includes/modules/multi-directory-setup/builder-custom-fields.php:588, ../includes/modules/multi-directory-setup/builder-custom-fields.php:642, ../includes/modules/multi-directory-setup/builder-custom-fields.php:692, ../includes/modules/multi-directory-setup/builder-custom-fields.php:779, ../includes/modules/multi-directory-setup/builder-preset-fields.php:61, ../includes/modules/multi-directory-setup/builder-preset-fields.php:115, ../includes/modules/multi-directory-setup/builder-preset-fields.php:156, ../includes/modules/multi-directory-setup/builder-preset-fields.php:318, ../includes/modules/multi-directory-setup/builder-preset-fields.php:387, ../includes/modules/multi-directory-setup/builder-preset-fields.php:438, ../includes/modules/multi-directory-setup/builder-preset-fields.php:499, ../includes/modules/multi-directory-setup/builder-preset-fields.php:573, ../includes/modules/multi-directory-setup/builder-preset-fields.php:613, ../includes/modules/multi-directory-setup/builder-preset-fields.php:653, ../includes/modules/multi-directory-setup/builder-preset-fields.php:698, ../includes/modules/multi-directory-setup/builder-preset-fields.php:743, ../includes/modules/multi-directory-setup/builder-preset-fields.php:783, ../includes/modules/multi-directory-setup/builder-preset-fields.php:823, ../includes/modules/multi-directory-setup/builder-preset-fields.php:858, ../includes/modules/multi-directory-setup/builder-preset-fields.php:912, ../includes/modules/multi-directory-setup/builder-preset-fields.php:952, ../includes/modules/multi-directory-setup/builder-preset-fields.php:994, ../includes/modules/multi-directory-setup/class-builder-data.php:720, ../includes/modules/multi-directory-setup/class-builder-data.php:731, ../includes/modules/multi-directory-setup/class-builder-data.php:753, ../includes/modules/multi-directory-setup/class-builder-data.php:832, ../includes/modules/multi-directory-setup/class-builder-data.php:854, ../includes/modules/multi-directory-setup/class-builder-data.php:875, ../includes/modules/multi-directory-setup/class-builder-data.php:896, ../includes/modules/multi-directory-setup/class-builder-data.php:917, ../includes/modules/multi-directory-setup/class-builder-data.php:938, ../includes/modules/multi-directory-setup/class-builder-data.php:959, ../includes/modules/multi-directory-setup/class-builder-data.php:991, ../includes/modules/multi-directory-setup/class-builder-data.php:1012, ../includes/modules/multi-directory-setup/class-builder-data.php:1033, ../includes/modules/multi-directory-setup/class-builder-data.php:1054, ../includes/modules/multi-directory-setup/class-builder-data.php:1070, ../includes/modules/multi-directory-setup/class-builder-data.php:1091, ../includes/modules/multi-directory-setup/class-builder-data.php:1107, ../includes/modules/multi-directory-setup/class-builder-data.php:1123, ../views/admin-templates/theme-extensions/theme-extension.php:499, ../views/admin-templates/theme-extensions/theme-extension.php:596, ../views/admin-templates/theme-extensions/theme-extension.php:609, ../views/admin-templates/theme-extensions/theme-extension.php:650, ../views/admin-templates/theme-extensions/theme-extension.php:651, ../views/admin-templates/theme-extensions/theme-extension.php:1887
 msgid "Required"
 msgstr ""
 
@@ -6168,7 +6213,7 @@ msgstr ""
 msgid "The text used in your tag archive URLs. Example: yourdomain.com/single-tag/popular/"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:3991, ../includes/classes/class-settings-panel.php:4823, ../templates/dashboard/tab-my-listings.php:53, ../views/admin-templates/post-types-manager/all-listing-types.php:131, ../views/admin-templates/theme-extensions/theme-extension.php:1611
+#: ../includes/classes/class-settings-panel.php:3991, ../includes/classes/class-settings-panel.php:4823, ../templates/dashboard/tab-my-listings.php:53, ../views/admin-templates/post-types-manager/all-listing-types.php:131, ../views/admin-templates/theme-extensions/theme-extension.php:1762
 msgid "Listings"
 msgstr ""
 
@@ -6432,7 +6477,7 @@ msgstr ""
 msgid "All Listings Map Marker"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4794, ../views/admin-templates/theme-extensions/all-themes-extensions.php:7, ../views/admin-templates/theme-extensions/theme-extension.php:1753
+#: ../includes/classes/class-settings-panel.php:4794, ../views/admin-templates/theme-extensions/all-themes-extensions.php:7, ../views/admin-templates/theme-extensions/theme-extension.php:1865
 msgid "Extensions"
 msgstr ""
 
@@ -6444,7 +6489,7 @@ msgstr ""
 msgid "Import and Export"
 msgstr ""
 
-#: ../includes/classes/class-settings-panel.php:4831, ../views/admin-templates/theme-extensions/theme-extension.php:417, ../views/admin-templates/theme-extensions/theme-extension.php:436
+#: ../includes/classes/class-settings-panel.php:4831, ../views/admin-templates/theme-extensions/theme-extension.php:419, ../views/admin-templates/theme-extensions/theme-extension.php:473
 msgid "Settings"
 msgstr ""
 
@@ -6777,7 +6822,7 @@ msgstr ""
 msgid "Listing Status"
 msgstr ""
 
-#: ../includes/classes/class-tools.php:952, ../includes/review/class-admin.php:68, ../includes/review/class-admin.php:82, ../includes/review/class-admin.php:83, ../views/admin-templates/theme-extensions/theme-extension.php:1612
+#: ../includes/classes/class-tools.php:952, ../includes/review/class-admin.php:68, ../includes/review/class-admin.php:82, ../includes/review/class-admin.php:83, ../views/admin-templates/theme-extensions/theme-extension.php:1763
 msgid "Reviews"
 msgstr ""
 
@@ -6910,15 +6955,15 @@ msgstr ""
 msgid "Hide deprecated items"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:943, ../views/admin-templates/theme-extensions/theme-extension.php:1827
+#: ../includes/classes/class-upgrade.php:943, ../views/admin-templates/theme-extensions/theme-extension.php:1942
 msgid "Extension"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:972, ../views/admin-templates/theme-extensions/theme-extension.php:1827
+#: ../includes/classes/class-upgrade.php:972, ../views/admin-templates/theme-extensions/theme-extension.php:1942
 msgid "Theme"
 msgstr ""
 
-#: ../includes/classes/class-upgrade.php:985, ../includes/classes/class-upgrade.php:997, ../views/admin-templates/theme-extensions/theme-extension.php:407, ../views/admin-templates/theme-extensions/theme-extension.php:514
+#: ../includes/classes/class-upgrade.php:985, ../includes/classes/class-upgrade.php:997, ../views/admin-templates/theme-extensions/theme-extension.php:409, ../views/admin-templates/theme-extensions/theme-extension.php:558
 msgid "Active"
 msgstr ""
 
@@ -9252,7 +9297,7 @@ msgstr ""
 msgid "Submit Button Label"
 msgstr ""
 
-#: ../includes/modules/multi-directory-setup/class-builder-data.php:2391, ../views/admin-templates/theme-extensions/theme-extension.php:410, ../views/admin-templates/theme-extensions/theme-extension.php:517, ../views/admin-templates/theme-extensions/theme-extension.php:1790
+#: ../includes/modules/multi-directory-setup/class-builder-data.php:2391, ../views/admin-templates/theme-extensions/theme-extension.php:412, ../views/admin-templates/theme-extensions/theme-extension.php:561, ../views/admin-templates/theme-extensions/theme-extension.php:1905
 msgid "Update"
 msgstr ""
 
@@ -11887,7 +11932,7 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: ../views/admin-templates/post-types-manager/all-listing-types.php:48, ../views/admin-templates/theme-extensions/theme-extension.php:1078, ../views/admin-templates/theme-extensions/theme-extension.php:823
+#: ../views/admin-templates/post-types-manager/all-listing-types.php:48, ../views/admin-templates/theme-extensions/theme-extension.php:1229, ../views/admin-templates/theme-extensions/theme-extension.php:929
 msgid "Support"
 msgstr ""
 
@@ -12131,595 +12176,584 @@ msgstr ""
 msgid "Not right now. Exit to dashboard"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/all-themes-extensions.php:20, ../views/admin-templates/theme-extensions/all-themes-extensions.php:44, ../views/admin-templates/theme-extensions/theme-extension.php:242
+#: ../views/admin-templates/theme-extensions/all-themes-extensions.php:20, ../views/admin-templates/theme-extensions/all-themes-extensions.php:44, ../views/admin-templates/theme-extensions/theme-extension.php:237
 msgid "View Details"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/all-themes-extensions.php:21, ../views/admin-templates/theme-extensions/all-themes-extensions.php:45, ../views/admin-templates/theme-extensions/theme-extension.php:612
+#: ../views/admin-templates/theme-extensions/all-themes-extensions.php:21, ../views/admin-templates/theme-extensions/all-themes-extensions.php:45
 msgid "Get It Now"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/all-themes-extensions.php:31, ../views/admin-templates/theme-extensions/theme-extension.php:1754
+#: ../views/admin-templates/theme-extensions/all-themes-extensions.php:31, ../views/admin-templates/theme-extensions/theme-extension.php:1866
 msgid "Themes"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:38
-msgid "Connect to manage installed Directorist products"
+#: ../views/admin-templates/theme-extensions/theme-extension.php:36
+msgid "Connect your Directorist account"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:39
-msgid "Connect to manage subscribed products"
+#: ../views/admin-templates/theme-extensions/theme-extension.php:37
+msgid "Install, update, and manage your Directorist themes and extensions from one place."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:41
-msgid "We found Directorist products installed on this site. They will keep working. Connect your Directorist account to verify subscriptions, install new products, receive updates, and manage license-backed product actions."
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:42
-msgid "You can browse available products now. Connect your account when you need subscription installs, updates, and license-backed product management."
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:255, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:115
+#: ../views/admin-templates/theme-extensions/theme-extension.php:250, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:115
 msgid "Demo"
 msgstr ""
 
 #. translators: %s: available product version.
-#: ../views/admin-templates/theme-extensions/theme-extension.php:324
+#: ../views/admin-templates/theme-extensions/theme-extension.php:319
 msgid "v%s available"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:327, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:124
+#: ../views/admin-templates/theme-extensions/theme-extension.php:322, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:24, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:124
 msgid "Update available"
 msgstr ""
 
 #. translators: %s: product status label.
-#: ../views/admin-templates/theme-extensions/theme-extension.php:354
+#: ../views/admin-templates/theme-extensions/theme-extension.php:349
 msgid "Status: %s"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:410, ../views/admin-templates/theme-extensions/theme-extension.php:517
+#: ../views/admin-templates/theme-extensions/theme-extension.php:404
+msgid "After activation, configure the Mailchimp API key, audience ID, and server in extension settings. No separate Mailchimp plugin is needed."
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:412, ../views/admin-templates/theme-extensions/theme-extension.php:561
 msgid "Update Beta"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:444, ../views/admin-templates/theme-extensions/theme-extension.php:1792, ../views/admin-templates/theme-extensions/theme-extension.php:1802
+#: ../views/admin-templates/theme-extensions/theme-extension.php:440
+msgid "Resolve requirement"
+msgstr ""
+
+#. translators: %s: required plugin or theme name.
+#: ../views/admin-templates/theme-extensions/theme-extension.php:457
+msgid "Activate %s first"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:454
+msgid "Update %s first"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:451
+msgid "Install %s first"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:448
+msgid "Check %s requirement"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:444
+msgid "Resolve requirements (%d)"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:481, ../views/admin-templates/theme-extensions/theme-extension.php:1907, ../views/admin-templates/theme-extensions/theme-extension.php:1917
 msgid "Deactivate"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:506, ../views/admin-templates/theme-extensions/theme-extension.php:636, ../views/admin-templates/theme-extensions/theme-extension.php:720
+#: ../views/admin-templates/theme-extensions/theme-extension.php:550, ../views/admin-templates/theme-extensions/theme-extension.php:682, ../views/admin-templates/theme-extensions/theme-extension.php:766
 msgid "Directorist theme"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:506
+#: ../views/admin-templates/theme-extensions/theme-extension.php:550
 msgid "WordPress theme"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:509, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:2
+#: ../views/admin-templates/theme-extensions/theme-extension.php:553, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:2
 msgid "Active Theme"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:511
+#: ../views/admin-templates/theme-extensions/theme-extension.php:555
 msgid "Currently active WordPress theme for this site."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:513
+#: ../views/admin-templates/theme-extensions/theme-extension.php:557
 msgid "Active site theme"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:523, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:17
+#: ../views/admin-templates/theme-extensions/theme-extension.php:567, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:17
 msgid "Customize"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:600
+#: ../views/admin-templates/theme-extensions/theme-extension.php:609, ../views/admin-templates/theme-extensions/theme-extension.php:651
 msgid "Required purchase"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:667, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:106
-msgid "Live Preview"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:702, ../views/admin-templates/theme-extensions/theme-extension.php:727
+#: ../views/admin-templates/theme-extensions/theme-extension.php:609, ../views/admin-templates/theme-extensions/theme-extension.php:748, ../views/admin-templates/theme-extensions/theme-extension.php:773
 msgid "Marketplace"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:812
+#: ../views/admin-templates/theme-extensions/theme-extension.php:713, ../views/admin-templates/theme-extensions/my-themes-extensions/themes-tab.php:106
+msgid "Live Preview"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:918
 msgid "Directorist sections"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:816
+#: ../views/admin-templates/theme-extensions/theme-extension.php:922
 msgid "Themes and Extensions"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1075, ../views/admin-templates/theme-extensions/theme-extension.php:820
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1226, ../views/admin-templates/theme-extensions/theme-extension.php:926
 msgid "Directorist resources"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1076, ../views/admin-templates/theme-extensions/theme-extension.php:821
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1227, ../views/admin-templates/theme-extensions/theme-extension.php:927
 msgid "Docs, opens in a new tab"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1076, ../views/admin-templates/theme-extensions/theme-extension.php:821
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1227, ../views/admin-templates/theme-extensions/theme-extension.php:927
 msgid "Docs"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1077, ../views/admin-templates/theme-extensions/theme-extension.php:822
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1228, ../views/admin-templates/theme-extensions/theme-extension.php:928
 msgid "Tutorials, opens in a new tab"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1077, ../views/admin-templates/theme-extensions/theme-extension.php:822
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1228, ../views/admin-templates/theme-extensions/theme-extension.php:928
 msgid "Tutorials"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1078, ../views/admin-templates/theme-extensions/theme-extension.php:823
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1229, ../views/admin-templates/theme-extensions/theme-extension.php:929
 msgid "Support, opens in a new tab"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:848
+#: ../views/admin-templates/theme-extensions/theme-extension.php:954
 msgid "Open notifications, no items need attention"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:844
+#: ../views/admin-templates/theme-extensions/theme-extension.php:950
 msgid "Open notifications, %d item needs attention"
 msgid_plural "Open notifications, %d items need attention"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:861
+#: ../views/admin-templates/theme-extensions/theme-extension.php:967
 msgid "Notifications"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:867
+#: ../views/admin-templates/theme-extensions/theme-extension.php:973
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:883
+#: ../views/admin-templates/theme-extensions/theme-extension.php:989
 msgid "%d extension update"
 msgid_plural "%d extension updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:888
+#: ../views/admin-templates/theme-extensions/theme-extension.php:994
 msgid "Review available extension updates."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:902
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1008
 msgid "%d theme update"
 msgid_plural "%d theme updates"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:907
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1013
 msgid "Review available theme updates."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:921
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1027
 msgid "%d required extension"
 msgid_plural "%d required extensions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:926
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1032
 msgid "Review products required by your active theme."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:935
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1069
+msgid "Recommended: %s"
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1078
+msgid "%1$s detected on this site. Next step: %2$s."
+msgstr ""
+
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1092
 msgid "You are all caught up"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:936
-msgid "No add-on updates or required extensions need attention."
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1093
+msgid "No add-on updates or extension requirements need attention."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:961
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1118
 msgid "Open Directorist account menu for %s"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:964
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1121
 msgid "Open Directorist account menu"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:980, ../views/admin-templates/theme-extensions/theme-extension.php:983, ../views/admin-templates/theme-extensions/theme-extension.php:1639
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1137, ../views/admin-templates/theme-extensions/theme-extension.php:1140, ../views/admin-templates/theme-extensions/theme-extension.php:1790
 msgid "Directorist account"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:988
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1145
 msgid "Connected"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:991
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1148
 msgid "Directorist account product summary"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:994
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1151
 msgid "Active extensions"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:998
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1155
 msgid "Account extensions"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1002
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1159
 msgid "Account themes"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1009, ../views/admin-templates/theme-extensions/theme-extension.php:1058
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1166, ../views/admin-templates/theme-extensions/theme-extension.php:1209
 msgid "Refresh purchases"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1010
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1167
 msgid "Close refresh form"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1018, ../views/admin-templates/theme-extensions/theme-extension.php:1694
-msgid "Directorist access key"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1019
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1172
 msgid "Directorist password"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1037, ../views/admin-templates/theme-extensions/theme-extension.php:1039, ../views/admin-templates/theme-extensions/theme-extension.php:1680, ../views/admin-templates/theme-extensions/theme-extension.php:1682
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1188, ../views/admin-templates/theme-extensions/theme-extension.php:1190, ../views/admin-templates/theme-extensions/theme-extension.php:1819, ../views/admin-templates/theme-extensions/theme-extension.php:1821
 msgid "Show password"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1040, ../views/admin-templates/theme-extensions/theme-extension.php:1683
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1191, ../views/admin-templates/theme-extensions/theme-extension.php:1822
 msgid "Hide password"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1047
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1198
 msgid "Refresh"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1067
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1218
 msgid "Disconnect account"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1083
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1234
 msgid "Directorist dashboard"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1098
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1249
 msgid "View directory"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1119
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1270
 msgid "Setup progress %d percent"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1145
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1296
 msgid "Dismiss setup steps"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1188
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1339
 msgid "Directory metrics"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1192
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1343
 msgid "Published listings"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1203
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1354
 msgid "Currently live in your directory"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1201, ../views/admin-templates/theme-extensions/theme-extension.php:1222, ../views/admin-templates/theme-extensions/theme-extension.php:1261
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1352, ../views/admin-templates/theme-extensions/theme-extension.php:1373, ../views/admin-templates/theme-extensions/theme-extension.php:1412
 msgid "vs previous 30 days"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1224
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1375
 msgid "Across published listings"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1234
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1385
 msgid "Pending review"
 msgstr ""
 
 #. translators: %s: Number of listings expiring this week.
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1240
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1391
 msgid "%s listing expires this week"
 msgid_plural "%s listings expire this week"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1245
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1396
 msgid "Review now"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1252
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1403
 msgid "Revenue"
 msgstr ""
 
 #. translators: %s: Number of paid orders in the last 30 days.
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1267
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1418
 msgid "%s paid order in the last 30 days"
 msgid_plural "%s paid orders in the last 30 days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1310
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1461
 msgid "Quick actions now use %s."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1314
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1465
 msgid "Quick actions"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1370
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1521
 msgid "Recent activity"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1378
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1529
 msgid "View all"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1413
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1564
 msgid "No recent Directorist activity was found."
 msgstr ""
 
 #. translators: %s: Directory type name.
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1439, ../views/admin-templates/theme-extensions/theme-extension.php:1453
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1590, ../views/admin-templates/theme-extensions/theme-extension.php:1604
 msgid "Recommended for %s"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1442
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1593
 msgid "carousel"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1443
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1594
 msgid "Directory extension recommendations"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1462
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1613
 msgid "Based on what you're building"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1486, ../views/admin-templates/theme-extensions/theme-extension.php:1487
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1637, ../views/admin-templates/theme-extensions/theme-extension.php:1638
 msgid "Previous directory"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1495, ../views/admin-templates/theme-extensions/theme-extension.php:1496
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1646, ../views/admin-templates/theme-extensions/theme-extension.php:1647
 msgid "Next directory"
 msgstr ""
 
 #. translators: %s: Installed Directorist plugin version.
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1556
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1707
 msgid "Directorist %s"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1567
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1718
 msgid "What's new"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1575
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1726
 msgid "Loading activity..."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1576
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1727
 msgid "Loading more activity..."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1577
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1728
 msgid "No activity found"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1578
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1729
 msgid "There is no Directorist activity in this category yet."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1579
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1730
 msgid "Unable to load activity"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1580
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1731
 msgid "Activity could not be loaded. Close the panel and try again."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1598
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1749
 msgid "Activity"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1604
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1755
 msgid "Close activity panel"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1609
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1760
 msgid "Filter activity"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1613
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1764
 msgid "Payments"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1614
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1765
 msgid "Users"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1620
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1771
 msgid "Load more"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1632
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1783
 msgid "Add features and looks to your directory. Each one solves a real job, so pick what fits."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1648
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1799
 msgid "Connecting..."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1649
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1800
 msgid "Enter your Directorist account username or email address."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1650
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1801
 msgid "Enter your Directorist account password."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1651
-msgid "Enter your Directorist account access key."
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1654
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1803
 msgid "Could not connect. Please check your details and try again."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1659
-msgid "Choose a Directorist account connection method"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1661
-msgid "Account login"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1664
-msgid "Access key"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1670
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1809
 msgid "Username or email address"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1671
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1810
 msgid "name@example.com"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1696
-msgid "Paste your access key"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1700, ../views/admin-templates/theme-extensions/theme-extension.php:1702
-msgid "Show access key"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1703
-msgid "Hide access key"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1709
-msgid "Use the access key from your"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1711
-msgid "Directorist account dashboard"
-msgstr ""
-
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1719
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1831
 msgid "Connect"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1735
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1847
 msgid "%d update available"
 msgid_plural "%d updates available"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1740
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1852
 msgid "Keep your extensions current, so bugs get fixed and your site stays secure."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1744
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1856
 msgid "Update all"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1751
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1863
 msgid "Product type"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1758
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1870
 msgid "Search themes and extensions"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1760
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1872
 msgid "Search add-ons..."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1762
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1877
 msgid "%d add-on"
 msgid_plural "%d add-ons"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1767
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1882
 msgid "Product status"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1774
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1889
 msgid "Updates"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1787
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1902
 msgid "No safe bulk action is available for this selection."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1788
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1903
 msgid "Action counts show eligible selected items. Unsupported selected items are skipped."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1794
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1909
 msgid "Clear"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1921
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2042
 msgid "No themes or extensions found"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1922
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2043
 msgid "Reconnect your account or refresh products to collect the latest available items."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1816
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1931
 msgid "Select all selectable products"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1819
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1934
 msgid "Add-on"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1843
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1958
 msgid "Bulk actions unavailable for %s"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1837
+#: ../views/admin-templates/theme-extensions/theme-extension.php:1952
 msgid "Select %s"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1897
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2018
 msgid "More actions"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1912
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2033
 msgid "Nothing here yet"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1913
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2034
 msgid "No add-ons match this filter. Try a different tab or search."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1915
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2036
 msgid "Clear filters"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1930
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2051
 msgid "Unlock every theme and extension"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1931
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2052
 msgid "Browse the full library and add anything your directory needs."
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1935
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2056
 msgid "Browse all add-ons"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1940
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2061
 msgid "Showing add-ons for your site"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1942
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2063
 msgid "Need something specific?"
 msgstr ""
 
-#: ../views/admin-templates/theme-extensions/theme-extension.php:1943
+#: ../views/admin-templates/theme-extensions/theme-extension.php:2064
 msgid "Request an extension"
 msgstr ""
 

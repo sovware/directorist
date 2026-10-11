@@ -671,6 +671,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                         self::get_product_badge( 'trending', __( 'Trending', 'directorist' ) ),
                     ],
                 ],
+                'dtour' => [
+                    'name'        => 'DTour',
+                    'description' => __( 'DTour is a Gutenberg block theme for travel and tour directories, with global colors, typography, headers, and footers that can be customized in the WordPress Site Editor.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dtour/',
+                    'demo_link'   => 'https://live.directorist.com/directorist-gutenberg-dtour/',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dtour.png',
+                    'active'      => true,
+                ],
                 'dplace' => [
                     'name'        => 'dPlace',
                     'description' => __( 'dPlace theme is tailored to meet all the nitty gritties to build attractive mobile responsive travel agency directory websites. As a full-fledged theme, it will allow you to create travel & tour directories with booking and reservation features.', 'directorist' ),

@@ -4042,7 +4042,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             $plugin_version   = defined( 'ATBDP_VERSION' ) ? sanitize_text_field( (string) ATBDP_VERSION ) : '';
             $whats_new_url    = apply_filters(
                 'directorist_themes_extensions_whats_new_url',
-                'https://wordpress.org/plugins/directorist/#developers',
+                'https://directorist.com/whats-new/',
                 $plugin_version
             );
 

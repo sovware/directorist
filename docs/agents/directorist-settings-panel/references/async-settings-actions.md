@@ -59,7 +59,7 @@ On failure, return `success: false` and an actionable `message`. Core retains th
 
 `assets/src/js/admin/vue/compat/legacy-webhook-actions.js` adapts the previous async contract before the settings app mounts. Its Stripe/PayPal mappings, old URL correction, old response keys and old copy are an intentional compatibility exception, isolated from generic components. New extensions supply explicit metadata and bypass that mapping. Existing opt-in async consumers without the new metadata still use the old response contract; non-async buttons keep link behavior and editable credentials.
 
-Stripe #26 and PayPal #7 return `action_state` alongside their existing `connected`, `webhook_id`, `action_url`, and `action_label` fields. Requests without the async header retain redirects. No option keys, settings storage, AJAX endpoint, nonce/capability contract, or migration changed.
+Stripe #27 (following merged #26) and PayPal #8 (following merged #7) return `action_state` alongside their existing `connected`, `webhook_id`, `action_url`, and `action_label` fields. Requests without the async header retain redirects. No option keys, settings storage, AJAX endpoint, nonce/capability contract, or migration changed.
 
 Do not remove the adapter based only on the status of an extension PR. It also protects development/third-party installations using the previously merged contract. Removal needs a separately agreed compatibility policy.
 

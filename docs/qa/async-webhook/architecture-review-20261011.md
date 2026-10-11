@@ -66,3 +66,5 @@ Sources: https://github.com/sovware/directorist/pull/3069 ; https://github.com/s
 ## Approved implementation follow-up
 
 The user approved the proposed cross-repository refactor, targeted build, QA, Core follow-up PR, and updates to both extension PRs on 2026-10-11. The report above records the pre-implementation review. The implemented contract is documented in `docs/agents/directorist-settings-panel/references/async-settings-actions.md`; executed QA is recorded in `generic-actions-qa-20261011.md`.
+
+Delivery: the original extension PRs merged at their old heads while implementation was underway. Their code follow-ups are Stripe #27 and PayPal #8, both based on current `development`; Core is #3076. The original merged PR descriptions link to these follow-ups and do not claim to contain the new commits.

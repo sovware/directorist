@@ -2,7 +2,7 @@
 
 ## Scope and ownership
 
-Follow-up to Core #3069, with additive updates to Stripe #26 and PayPal #7. Generic Core components consume extension-supplied field dependencies, state, URLs, labels, and visibility metadata. Legacy provider mappings and response interpretation are restricted to `vue/compat/legacy-webhook-actions.js`.
+Core #3076 follows #3069. Stripe #27 and PayPal #8 contain the extension updates after Stripe #26 and PayPal #7 merged at their original heads during implementation. The three reviewed follow-up PRs target `development`. Generic Core components consume extension-supplied field dependencies, state, URLs, labels, and visibility metadata. Legacy provider mappings and response interpretation are restricted to `vue/compat/legacy-webhook-actions.js`.
 
 No option migration, endpoint rename, nonce/capability change, or live deployment. Credential locking remains a UI safeguard, not a server-side policy preventing all external option changes.
 

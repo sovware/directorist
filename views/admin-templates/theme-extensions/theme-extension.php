@@ -32,14 +32,9 @@ $account_avatar_url    = ! empty( $dashboard_welcome['account_avatar_url'] ) ? (
 $account_initials      = ! empty( $dashboard_welcome['account_initials'] ) ? (string) $dashboard_welcome['account_initials'] : 'D';
 $plugin_version        = ! empty( $dashboard_welcome['plugin_version'] ) ? (string) $dashboard_welcome['plugin_version'] : '';
 $account_plan_label    = ! empty( $dashboard_welcome['plan_label'] ) ? (string) $dashboard_welcome['plan_label'] : __( 'Connected account', 'directorist' );
-$whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://wordpress.org/plugins/directorist/#developers';
-$has_local_products    = ! empty( $installed_extensions ) || ! empty( $installed_themes );
-$connect_title         = $has_local_products
-    ? __( 'Connect to manage installed Directorist products', 'directorist' )
-    : __( 'Connect to manage subscribed products', 'directorist' );
-$connect_description   = $has_local_products
-    ? __( 'We found Directorist products installed on this site. They will keep working. Connect your Directorist account to verify subscriptions, install new products, receive updates, and manage license-backed product actions.', 'directorist' )
-    : __( 'You can browse available products now. Connect your account when you need subscription installs, updates, and license-backed product management.', 'directorist' );
+$whats_new_url         = ! empty( $dashboard_welcome['whats_new_url'] ) ? (string) $dashboard_welcome['whats_new_url'] : 'https://directorist.com/whats-new/';
+$connect_title         = __( 'Connect your Directorist account', 'directorist' );
+$connect_description   = __( 'Install, update, and manage your Directorist themes and extensions from one place.', 'directorist' );
 $rows                  = [];
 $seen_rows             = [];
 

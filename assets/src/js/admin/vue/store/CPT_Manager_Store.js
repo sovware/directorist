@@ -253,6 +253,29 @@ export default new Vuex.Store({
 			Vue.set(state.fields[payload.field_key], 'value', payload.value);
 		},
 
+		setPersistedAsyncField: (state, payload) => {
+			const field = state.fields[payload.field_key];
+
+			if (!field) {
+				return;
+			}
+
+			if (!state.cached_fields[payload.field_key]) {
+				Vue.set(
+					state.cached_fields,
+					payload.field_key,
+					JSON.parse(JSON.stringify(field))
+				);
+			}
+
+			const cached = state.cached_fields[payload.field_key];
+
+			for (const key of ['value', 'url', 'button-label']) {
+				Vue.set(field, key, payload[key]);
+				Vue.set(cached, key, payload[key]);
+			}
+		},
+
 		updateFieldData: (state, payload) => {
 			Vue.set(
 				state.fields[payload.field_key],

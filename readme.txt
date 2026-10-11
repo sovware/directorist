@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 8.10.3
+Stable tag: 8.10.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,18 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.10.4 - Oct 11, 2026 =
+
+**Improved**
+- Improved Themes & Extensions catalog, account connection, extension recommendations, and activation guidance. (#3067)
+- Improved gateway webhook registration with inline feedback and same-page settings flow. (#3069)
+- Updated licensing links and account connection copy. (#3072)
+
+**Fixed**
+- Payment setup progress when all gateways are disabled. (#3067)
+- Missing accessible labels on sign-in fields. (#3068)
+- Empty or unsaved webhook states showing incorrect registration status. (#3069)
 
 = 8.10.3 - Oct 6, 2026 =
 

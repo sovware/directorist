@@ -37,7 +37,7 @@ Do not commit fetched product payloads into docs. Store only the source and cont
 
 - Connected-account flag user meta: `_atbdp_has_subscriptions_sassion`
 - Connected username user meta: `_atbdp_subscribed_username`
-- Connection method user meta: `_atbdp_subscription_connection_method` (`account` or `access_key`; never the credential)
+- Connection method user meta: `_atbdp_subscription_connection_method` (`account` for supported sessions; legacy `access_key` triggers disconnection)
 - Subscribed plugins user meta: `_plugins_available_in_subscriptions`
 - Subscribed themes user meta: `_themes_available_in_subscriptions`
 - Refresh and logout behavior are controlled by class methods in `class-extension.php` and jQuery handlers in `subscriptionManagement.js`.
@@ -61,7 +61,7 @@ Template output is server-rendered PHP and must remain usable without new JavaSc
 
 - Admin entry: `assets/src/js/admin/admin.js`
 - Legacy account/product behavior: `assets/src/js/admin/components/subscriptionManagement.js`
-- Current rewritten page behavior, including the account/access-key method switch and connect-form submit owner: `assets/js/directorist-themes-extensions.js`
+- Current rewritten page behavior, including the account connect-form submit owner: `assets/js/directorist-themes-extensions.js`
 - Current rewritten page styles: `assets/css/directorist-themes-extensions.css`
 - Enqueued admin script: `directorist-admin-script`
 - Enqueued admin CSS: `directorist-admin-style`
@@ -88,10 +88,17 @@ Registered by `ATBDP_Extensions::setup_ajax_actions()`:
 
 Most actions use `directorist_admin.nonce`; bulk plugin actions use `directorist_admin.directorist_nonce`. Re-check each handler before changing request shape.
 
+## Extension Activation Prerequisites
+
+- `ATBDP_Extensions::get_extension_activation_issues()` combines installed plugin `RequiresPlugins` headers with companion plugin/theme rules for integrations whose releases use runtime checks. Installed integrations in `get_extension_companion_plugins()` remain visible even before a matching catalog entry is available.
+- Connected installed-product rows in `theme-extension.php` show unmet prerequisites and omit Activate from eligible bulk actions. The primary action names the missing, inactive, or outdated prerequisite; multiple requirements show a count. Mailchimp setup guidance is informational.
+- The existing connected-page notification bell also lists each extension with an unmet activation requirement. Selecting an item opens Add-ons, clears filters, and focuses the matching row.
+- Both `atbdp_activate_plugin` and `atbdp_plugins_bulk_action` recheck prerequisites at activation time. The rewritten page action queue displays returned activation errors after reload.
+- The resolver is extensible through `directorist_extension_activation_issues`; callers should provide an installed plugin basename and treat returned strings as display text.
+
 ## Remote Dependencies
 
 - Preferred Directorist account authentication: `POST https://directorist.com/wp-json/directorist-license-manager/user-login`
-- Directorist access-key authentication: `POST https://directorist.com/wp-json/directorist-license-manager/user-connect`
 - Legacy account authentication fallback: `GET https://directorist.com/wp-json/directorist/v1/licencing`
 - Product data/download links: `https://directorist.com/wp-json/directorist/v1/get-product-data/`
 - EDD software licensing version checks: `https://directorist.com` with `edd_action=get_version`

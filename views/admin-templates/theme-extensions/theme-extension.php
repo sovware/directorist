@@ -96,6 +96,17 @@ $get_extension_product = static function( $extension_key ) use ( $extensions, $a
     return [];
 };
 
+// Account products may provide only a title when absent from the public catalog.
+$get_product_name = static function( array $product, $fallback ) {
+    foreach ( [ 'name', 'title' ] as $field ) {
+        if ( isset( $product[ $field ] ) && is_string( $product[ $field ] ) && '' !== trim( $product[ $field ] ) ) {
+            return trim( $product[ $field ] );
+        }
+    }
+
+    return $fallback;
+};
+
 $get_product_badges = static function( $product ) {
     if ( ! is_array( $product ) ) {
         return [];
@@ -536,7 +547,7 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
     foreach ( $args['extensions_available_in_subscriptions'] as $extension_key => $extension ) {
         $extension   = is_array( $extension ) ? $extension : [];
         $product     = array_merge( $get_extension_product( $extension_key ), $extension );
-        $name        = $product['title'] ?? $product['name'] ?? $extension_key;
+        $name        = $get_product_name( $product, $extension_key );
         $description = $product['description'] ?? '';
         $is_purchased = ! empty( $extension['purchased'] );
         $required_key = $get_required_extension_key( $extension_key );
@@ -636,7 +647,7 @@ if ( $is_logged_in && ! empty( $args['themes_available_in_subscriptions'] ) && i
                 'typeLabel'   => __( 'Directorist theme', 'directorist' ),
                 'typeClass'   => 'directorist-theme',
                 'status'      => $is_installed ? 'installed' : 'not-installed',
-                'name'        => $product['name'] ?? $theme_key,
+                'name'        => $get_product_name( $product, $theme_key ),
                 'version'     => $product['version'] ?? '',
                 'description' => $product['description'] ?? '',
                 'image'       => $get_image( $product ),

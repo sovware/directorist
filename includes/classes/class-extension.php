@@ -937,6 +937,15 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         public static function get_default_themes() {
             return [
+                'dtour' => [
+                    'name'        => 'dTour',
+                    'description' => __( 'DTour is a Gutenberg block theme for travel and tour directories, with global colors, typography, headers, and footers that can be customized in the WordPress Site Editor.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dtour/',
+                    'demo_link'   => 'http://demo.directorist.com/theme/dtour',
+                    'thumbnail'   => ATBDP_URL . 'assets/images/themes/dtour-theme.png',
+                    'active'      => true,
+                    'badges'      => [ self::get_product_badge( 'new', __( 'New', 'directorist' ) ) ],
+                ],
                 'djobs' => [
                     'name'        => 'dJobs',
                     'description' => __( 'dJobs is a beautiful WordPress directory theme for jobs, employment, and other job-related businesses.', 'directorist' ),

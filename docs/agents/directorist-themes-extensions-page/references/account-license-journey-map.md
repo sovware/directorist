@@ -14,14 +14,14 @@ All values are dynamic and must be re-collected on each task.
 
 ## Logged-Out Account Journey
 
-1. The page renders `#atbdp-directorist-license-login-form` with Account login selected by default and Access key as an explicit alternative.
+1. The page renders `#atbdp-directorist-license-login-form` with username/email and password fields.
 2. The page-specific script intercepts submit before the legacy handler and keeps the existing local AJAX action.
-3. Account login sends `auth_method=account`, username/email, password, and nonce. Access-key login sends `auth_method=access_key`, access key, and nonce.
-4. `authenticate_the_customer()` calls `user-login` for account credentials or `user-connect` for an access key.
+3. Account login sends username/email, password, and nonce.
+4. `authenticate_the_customer()` calls `user-login` for account credentials, with the legacy account endpoint as a compatibility fallback.
 5. On success, user meta is updated with connected state and available subscription data.
 6. Current JS reloads the page after success.
 
-Both methods normalize into the existing `license_data.themes` and `license_data.plugins` contract. Account/password remains the default for existing customers. Access keys are not persisted locally; only the non-secret connection method and returned account identity/entitlements are stored.
+The response normalizes into the existing `license_data.themes` and `license_data.plugins` contract. Only an account login establishes a supported local session. Older access-key sessions are disconnected and their cached entitlements cleared on the next admin request.
 
 Performance opportunity: replace unconditional reload with a state refresh/render step, but keep reload fallback when canonical state cannot be reconstructed safely.
 
@@ -44,7 +44,7 @@ When the account is not connected, preserve the current page behavior: render th
 1. Statistics section renders current extension/theme availability and update status from server-side overview data.
 2. `my-themes-extensions.php` renders tabs for extension and theme management.
 3. Installed products, subscribed products, required products, active theme, and available subscription themes are all generated from live data.
-4. Refresh Purchase requests the same credential type used for connection: password for Account login, access key for Access key. It calls the existing `atbdp_refresh_purchase_status` action.
+4. Refresh Purchase requests the Directorist.com password and calls the existing `atbdp_refresh_purchase_status` action.
 5. Logout calls `atbdp_close_subscriptions_sassion` and clears connected account state.
 
 Do not store the resulting product or account values in docs.

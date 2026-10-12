@@ -142,16 +142,14 @@ Product-action queue QA:
 ## Disconnected Accessibility Checks
 
 - Confirm the disconnected page remains browse-first: account connect form plus marketplace catalog are both reachable without forced focus.
-- Confirm Account login remains the selected default and username/password fields have visible labels.
-- Confirm Access key is an explicit secondary tab, and only the selected method's controls are enabled or reachable by keyboard.
-- Confirm Left/Right/Home/End keys change the selected authentication tab and move focus with it.
-- Confirm pressing Enter inside username/password or access key submits the account-connect form exactly once.
-- Confirm password and access-key visibility toggles change the input type, icon, `aria-label`, and `aria-pressed`.
+- Confirm username/email and password fields have visible labels.
+- Confirm pressing Enter inside username/password submits the account-connect form exactly once.
+- Confirm the password visibility toggle changes the input type, icon, `aria-label`, and `aria-pressed`.
 - Confirm connect loading state disables controls only during the active request and restores them after failure.
-- Confirm empty username, empty password, empty/invalid access key, wrong account credentials, API unavailable, nonce failure, capability failure, and unexpected errors render inline form feedback.
-- Confirm a submitted access key never appears in the URL, local/session storage, AJAX response, user meta, options, logs, or documentation.
+- Confirm empty username, empty password, wrong account credentials, API unavailable, nonce failure, capability failure, and unexpected errors render inline form feedback.
+- Confirm submitting an old access-key-only payload cannot establish a session or reach the remote authentication endpoint.
 - Confirm an existing account-login connection with no `_atbdp_subscription_connection_method` value still refreshes with a password.
-- Confirm an access-key connection stores only `_atbdp_subscription_connection_method=access_key` and asks for the key again during Refresh Purchases.
+- Confirm an existing `_atbdp_subscription_connection_method=access_key` session is disconnected, its cached entitlements are cleared, and account/password login is required again.
 - Confirm disconnected search no-result state shows an inline empty state and a clear/reset affordance.
 - Confirm mobile disconnected view uses a one-column connect form, does not open the keyboard on load, and has no horizontal page overflow.
 

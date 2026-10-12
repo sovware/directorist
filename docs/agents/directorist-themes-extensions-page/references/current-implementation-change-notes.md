@@ -20,10 +20,9 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Connected-state navigation, account menu, settings, active/update controls, and local product management are not shown while disconnected.
 - Account form uses `Username or email address` with an email-style placeholder.
 - Password field has a show/hide toggle.
-- Account login remains the default connection method for backward compatibility. A compact, keyboard-accessible Access key tab uses the License Manager `user-connect` endpoint through the existing `atbdp_authenticate_the_customer` AJAX action.
-- Access-key and account-login responses normalize into the same legacy session and entitlement user meta. The access key is request-only and is not persisted; `_atbdp_subscription_connection_method` stores only the non-secret method name.
-- Access-key help links to the Directorist.com account dashboard where the current theme exposes the key. Official Directorist installation/license docs still describe account email/password only, so those docs must be updated before publicly announcing Access Key login.
-- The disconnected page does not force focus on load, so the account form and marketplace remain browse-first; switching authentication methods focuses the first field in the selected panel.
+- The account connect form accepts only Directorist.com username/email and password through the existing `atbdp_authenticate_the_customer` AJAX action.
+- Former access-key sessions are disconnected and their cached entitlements cleared on the next admin request. Users must connect again with account credentials.
+- The disconnected page does not force focus on load, so the account form and marketplace remain browse-first.
 - Messaging clarifies that already installed Directorist products keep working, but account connection is required for subscription installs, updates, and license-backed management.
 - Disconnected product rows use marketplace/details-oriented actions instead of install/update/activate/deactivate/delete controls.
 
@@ -52,7 +51,7 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Avatar dropdown is click-only for opening. Hover and focus alone do not open it.
 - Dropdown closes on outside click, Escape, and focus leaving the menu.
 - Dropdown contains a labeled connected state, compact dynamic account summary tiles, touch-sized `Refresh purchases`, and a visually separated `Disconnect account` action.
-- `Refresh purchases` keeps the existing `#purchase-refresh-form` and `atbdp_refresh_purchase_status` AJAX action. It requests a Directorist password for account-login connections and an access key for access-key connections.
+- `Refresh purchases` keeps the existing `#purchase-refresh-form` and `atbdp_refresh_purchase_status` AJAX action. It requests a Directorist password.
 - `Disconnect` keeps `.subscriptions-logout-btn` and `atbdp_close_subscriptions_sassion` compatibility.
 - Returning-customer reconnect reuses the first validated authentication response to replace saved theme/extension entitlements and account summary. It no longer calls `refresh_purchase_status()` automatically and therefore does not issue a duplicate remote authentication request.
 - The reconnect response still preserves `has_previous_subscriptions`, and the existing page reload remains in place. Manual Refresh Purchases behavior is unchanged.
@@ -226,6 +225,14 @@ Do not store runtime product counts, installed product lists, update counts, acc
 - Post Your Need is no longer a local catalog product or recommendation candidate because it was removed from the remote product API.
 - The predefined Post Your Need directory profile remains supported and recommends other available products. Legacy detection for already-installed Post Your Need extension copies remains untouched for customer compatibility.
 - Automatic rotation, manual switching, card-window changes, and interaction-based pausing are page-local interactions and make no remote request.
+
+## Site Integration Bell Recommendations
+
+- The connected page resolves active companion plugin/theme signals locally through `ATBDP_Extensions::get_site_integration_signals()` and matches them to existing product rows. The bell item reuses the Add-ons filter and row-focus flow; it never starts an install, activation, or purchase.
+- Elementor, Divi, Bricks, supported Oxygen, WooCommerce Pricing Plans, WPML, BuddyBoss, BuddyPress, GamiPress, and supported HelpGent are direct signals. BuddyBoss suppresses the overlapping BuddyPress suggestion.
+- Gutenberg needs a Directorist block on a configured Directorist page. Digital Marketplace needs both WooCommerce and a marketplace directory. Mailchimp has no reliable core companion signal; a verified local integration may add one through `directorist_site_integration_signals`.
+- Product rows still resolve the action: installed/inactive -> Activate or existing prerequisite/update action; entitled/uninstalled -> Install; no usable install entitlement -> View Details. Active integrations and installed rows already carrying prerequisite warnings do not create recommendation items.
+- Signal detection, account state, entitlements, and bell counts are recomputed on each canonical page load. Do not persist runtime snapshots in this reference.
 
 ## Compatibility Rules Preserved
 

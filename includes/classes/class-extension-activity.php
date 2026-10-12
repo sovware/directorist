@@ -493,9 +493,9 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
         /**
          * Get the payment-gateway checklist state from current settings.
          *
-         * Active gateways are authoritative. When none are active, the saved
-         * default gateway is used as a fallback so the built-in offline default
-         * can still satisfy the setup step.
+         * Only active gateways can satisfy the setup step. A saved default
+         * gateway may remain selected after that gateway is disabled.
+         * Missing credentials change the review label, not completion.
          *
          * @return array{label:string,complete:bool}
          */
@@ -513,22 +513,11 @@ if ( ! class_exists( 'ATBDP_Extension_Activity' ) ) {
                 }
             }
 
-            if ( empty( $selected_gateways ) ) {
-                $default_gateway = get_directorist_option( 'default_gateway', 'bank_transfer' );
-                $default_gateway = sanitize_key( is_scalar( $default_gateway ) ? (string) $default_gateway : '' );
-
-                if ( $default_gateway && isset( $available_gateways[ $default_gateway ] ) ) {
-                    $selected_gateways[ $default_gateway ] = $available_gateways[ $default_gateway ];
-                }
-            }
-
             $is_complete         = ! empty( $selected_gateways );
             $incomplete_gateways = [];
 
             foreach ( array_keys( $selected_gateways ) as $gateway_key ) {
                 if ( ! $this->is_dashboard_gateway_configured( $gateway_key ) ) {
-                    $is_complete = false;
-
                     if ( 'bank_transfer' !== $gateway_key ) {
                         $incomplete_gateways[] = $selected_gateways[ $gateway_key ];
                     }

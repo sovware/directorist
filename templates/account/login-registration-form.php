@@ -143,12 +143,12 @@ if ( ! empty( $_GET['registration_status'] ) ) {
                             <p class="status"></p>
                             <div class="directorist-form-group directorist-mb-15">
                                 <label for="directorist__authentication__signin__username"><?php echo esc_html( $log_username ); ?></label>
-                                <input type="text" class="directorist-form-element" id="username" name="username" />
+                                <input type="text" class="directorist-form-element" id="directorist__authentication__signin__username" name="username" />
                             </div>
 
                             <div class="directorist-form-group directorist-password-group">
                                 <label for="directorist__authentication__signin__password"><?php echo esc_html( $log_password ); ?></label>
-                                <input type="password" id="password" autocomplete="off" name="password" class="directorist-form-element directorist-password-group-input"/>
+                                <input type="password" id="directorist__authentication__signin__password" autocomplete="off" name="password" class="directorist-form-element directorist-password-group-input"/>
                                 <span class="directorist-password-group-toggle">
                                     <svg class="directorist-password-group-eyeIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24">
                                         <path stroke="#888" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/>

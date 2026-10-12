@@ -2151,18 +2151,42 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
         // prepare_available_in_subscriptions
         public function prepare_available_in_subscriptions( array $products = [] ) {
-            $available_in_subscriptions = [];
+            return self::normalize_purchased_products( $products );
+        }
 
-            if ( empty( $products ) ) {
-                return $available_in_subscriptions;
+        /**
+         * Match account products to installed slugs, including cached private products.
+         *
+         * Private downloads may have query-string permalinks instead of /product/slug/.
+         * Only the array keys change; license and download data remain untouched.
+         *
+         * @param array $products Account products or previously keyed purchase records.
+         * @return array
+         */
+        public static function normalize_purchased_products( array $products ) {
+            $normalized = [];
+
+            foreach ( $products as $key => $product ) {
+                if ( ! is_array( $product ) ) {
+                    continue;
+                }
+
+                $slug = $product['slug'] ?? '';
+                if ( is_string( $slug ) && preg_match( '/^[a-z0-9][a-z0-9_-]*$/D', $slug ) ) {
+                    $key = $slug;
+                } elseif ( ! is_string( $key ) || '' === $key ) {
+                    // Preserve the permalink fallback for legacy API responses without slugs.
+                    $permalink = $product['permalink'] ?? '';
+                    if ( ! is_string( $permalink ) || '' === $permalink ) {
+                        continue;
+                    }
+                    $key = str_replace( [ 'http://directorist.com/product/', 'https://directorist.com/product/', '/' ], '', $permalink );
+                }
+
+                $normalized[ $key ] = $product;
             }
 
-            foreach ( $products as $product ) {
-                $product_key                              = $this->get_product_key_from_permalink( $product['permalink'] );
-                $available_in_subscriptions[ $product_key ] = $product;
-            }
-
-            return $available_in_subscriptions;
+            return $normalized;
         }
 
         // get_product_key_from_permalink
@@ -2246,9 +2270,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                 $purchased_items = $user_purchased[ $product_type ];
 
-                // Append new product
-                $product_key                   = $this->get_product_key_from_permalink( $license_item['permalink'] );
-                $purchased_items[ $product_key ] = $license_item;
+                // Use the same identity after activation as in the account purchase list.
+                $purchased_items = self::normalize_purchased_products( array_merge( $purchased_items, [ $license_item ] ) );
 
                 $user_purchased[ $product_type ] = $purchased_items;
                 update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $user_purchased );
@@ -3754,10 +3777,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             $extensions_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
-            $directorist_purchased_extension_list  = apply_filters( 'directorist_purchased_extension_list', $extensions_available_in_subscriptions );
+            if ( is_array( $extensions_available_in_subscriptions ) ) {
+                $extensions_available_in_subscriptions = self::normalize_purchased_products( $extensions_available_in_subscriptions );
+            }
+            $directorist_purchased_extension_list = apply_filters( 'directorist_purchased_extension_list', $extensions_available_in_subscriptions );
 
             if ( is_array( $directorist_purchased_extension_list ) ) {
-                return $directorist_purchased_extension_list;
+                return self::normalize_purchased_products( $directorist_purchased_extension_list );
             }
 
             return $extensions_available_in_subscriptions;
@@ -3770,10 +3796,13 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
             }
 
             $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            $directorist_purchased_theme_list  = apply_filters( 'directorist_purchased_theme_list', $themes_available_in_subscriptions );
+            if ( is_array( $themes_available_in_subscriptions ) ) {
+                $themes_available_in_subscriptions = self::normalize_purchased_products( $themes_available_in_subscriptions );
+            }
+            $directorist_purchased_theme_list = apply_filters( 'directorist_purchased_theme_list', $themes_available_in_subscriptions );
 
             if ( is_array( $directorist_purchased_theme_list ) ) {
-                return $directorist_purchased_theme_list;
+                return self::normalize_purchased_products( $directorist_purchased_theme_list );
             }
 
             return $themes_available_in_subscriptions;

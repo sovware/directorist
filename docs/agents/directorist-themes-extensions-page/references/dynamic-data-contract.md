@@ -64,6 +64,8 @@ The local-first Themes & Extensions page now overlays badge fields from the prod
 
 Purchased/subscribed items returned from the account journey may include title, slug/key, item id, license, URL, download/package data, or product type. Re-check the current handler before relying on a field.
 
+Purchase identity prefers a validated API `slug`. Private download permalinks may use `?post_type=download&p=...`, so stripping a public `/product/` URL prefix cannot reliably identify them. Normalize cached records and purchase-filter results at the read boundary without rewriting license/download fields or changing account permissions. Legacy responses without a slug retain the permalink/key fallback.
+
 ## Account Summary Availability
 
 The connected dashboard can safely resolve these values without a new remote API contract:

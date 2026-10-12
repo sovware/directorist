@@ -938,7 +938,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
         public static function get_default_themes() {
             return [
                 'dtour' => [
-                    'name'        => 'DTour',
+                    'name'        => 'dTour',
                     'description' => __( 'DTour is a Gutenberg block theme for travel and tour directories, with global colors, typography, headers, and footers that can be customized in the WordPress Site Editor.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dtour/',
                     'demo_link'   => 'http://demo.directorist.com/theme/dtour',

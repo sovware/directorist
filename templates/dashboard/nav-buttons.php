@@ -11,7 +11,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <div class="directorist-tab__nav__action">
 
     <?php if ( $dashboard->user_can_submit() ) : ?>
-        <a href="<?php echo is_fee_manager_active() ? esc_url( ATBDP_Permalink::get_fee_plan_page_link() ) : esc_url( ATBDP_Permalink::get_add_listing_page_link() ); ?>" class="directorist-btn directorist-btn--add-listing"><?php esc_html_e( 'Submit Listing', 'directorist' ); ?></a>
+        <?php
+        $submit_listing_url = is_fee_manager_active() ? ATBDP_Permalink::get_fee_plan_page_link() : ATBDP_Permalink::get_add_listing_page_link();
+
+        /**
+         * Allows fee managers to send eligible users directly to listing submission.
+         *
+         * @param string $submit_listing_url Default dashboard submission URL.
+         * @param object $dashboard          Current dashboard instance.
+         */
+        $submit_listing_url = apply_filters( 'directorist_dashboard_submit_listing_url', $submit_listing_url, $dashboard );
+        ?>
+        <a href="<?php echo esc_url( $submit_listing_url ); ?>" class="directorist-btn directorist-btn--add-listing"><?php esc_html_e( 'Submit Listing', 'directorist' ); ?></a>
     <?php endif; ?>
 
     <?php if ( $dashboard->user_type == 'general' && ! empty( $dashboard->become_author_button ) ) : ?>

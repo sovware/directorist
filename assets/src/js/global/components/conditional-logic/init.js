@@ -128,14 +128,9 @@ export function initConditionalLogic(
 	}
 
 	const $formWrapper = $(getWrapperFn());
-	let $fieldsWithConditionalLogic = $formWrapper.find(
+	const $fieldsWithConditionalLogic = $formWrapper.find(
 		'.directorist-form-group[data-conditional-logic]'
 	);
-	if ($fieldsWithConditionalLogic.length === 0) {
-		$fieldsWithConditionalLogic = $(
-			'.directorist-form-group[data-conditional-logic]'
-		);
-	}
 
 	$fieldsWithConditionalLogic.each(function () {
 		applyConditionalLogicFn($(this));
@@ -183,7 +178,7 @@ export function watchFieldChanges(
 		fieldKey,
 		$changedField
 	) {
-		const $fieldsWithLogic = $(
+		const $fieldsWithLogic = $(getWrapperFn()).find(
 			'.directorist-form-group[data-conditional-logic], .directorist-conditional-logic-target[data-conditional-logic]'
 		);
 

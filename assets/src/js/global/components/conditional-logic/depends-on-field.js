@@ -9,11 +9,30 @@
  * @param {Function} normalizeConditionFieldKey - Normalizer for field keys
  * @returns {boolean} True if any condition in the config references the changed field
  */
-import {
-	WIDGET_KEY_TO_FIELD_KEY,
-	TAXONOMY_FIELD_KEYS,
-	SELECTORS,
-} from './field-mapping.js';
+import { WIDGET_KEY_TO_FIELD_KEY, SELECTORS } from './field-mapping.js';
+
+const TAXONOMY_GROUPS = {
+	category: [
+		'category',
+		'categories',
+		'admin_category_select[]',
+		'tax_input[at_biz_dir-category][]',
+		'in_cat',
+	],
+	tag: ['tag', 'tags', 'in_tag[]', 'tax_input[at_biz_dir-tags][]'],
+	location: [
+		'location',
+		'locations',
+		'tax_input[at_biz_dir-location][]',
+		'in_loc',
+	],
+};
+
+function taxonomyGroupForKey(key) {
+	return Object.keys(TAXONOMY_GROUPS).find((group) =>
+		TAXONOMY_GROUPS[group].includes(key)
+	);
+}
 
 export function fieldDependsOnChange(
 	conditionalLogic,
@@ -30,19 +49,29 @@ export function fieldDependsOnChange(
 		$changedField &&
 		typeof $changedField.length !== 'undefined' &&
 		$changedField.length > 0;
-	const isTaxonomyField =
-		TAXONOMY_FIELD_KEYS.includes(fieldKey) ||
-		TAXONOMY_FIELD_KEYS.includes(fieldName) ||
-		(hasChangedField &&
-			($changedField.is(SELECTORS.CATEGORY) ||
-				$changedField.is(SELECTORS.TAGS) ||
-				$changedField.is(SELECTORS.LOCATION) ||
-				$changedField.is(SELECTORS.IN_LOC) ||
-				$changedField.is(SELECTORS.IN_CAT) ||
-				$changedField.is(SELECTORS.IN_TAG) ||
-				$changedField.closest(SELECTORS.CATEGORY_CHECKLIST).length ||
-				$changedField.closest(SELECTORS.LOCATION_CHECKLIST).length ||
-				$changedField.closest(SELECTORS.TAGS_CHECKLIST).length));
+	let changedTaxonomyGroup =
+		taxonomyGroupForKey(fieldKey) || taxonomyGroupForKey(fieldName);
+	if (!changedTaxonomyGroup && hasChangedField) {
+		if (
+			$changedField.is(SELECTORS.CATEGORY) ||
+			$changedField.is(SELECTORS.IN_CAT) ||
+			$changedField.closest(SELECTORS.CATEGORY_CHECKLIST).length
+		) {
+			changedTaxonomyGroup = 'category';
+		} else if (
+			$changedField.is(SELECTORS.TAGS) ||
+			$changedField.is(SELECTORS.IN_TAG) ||
+			$changedField.closest(SELECTORS.TAGS_CHECKLIST).length
+		) {
+			changedTaxonomyGroup = 'tag';
+		} else if (
+			$changedField.is(SELECTORS.LOCATION) ||
+			$changedField.is(SELECTORS.IN_LOC) ||
+			$changedField.closest(SELECTORS.LOCATION_CHECKLIST).length
+		) {
+			changedTaxonomyGroup = 'location';
+		}
+	}
 
 	for (const group of conditionalLogic.groups) {
 		if (!group.conditions || !Array.isArray(group.conditions)) {
@@ -110,13 +139,16 @@ export function fieldDependsOnChange(
 		}
 	}
 
-	if (isTaxonomyField) {
+	if (changedTaxonomyGroup) {
 		for (const group of conditionalLogic.groups) {
 			if (!group.conditions || !Array.isArray(group.conditions)) {
 				continue;
 			}
 			for (const condition of group.conditions) {
-				if (TAXONOMY_FIELD_KEYS.includes(condition.field)) {
+				if (
+					taxonomyGroupForKey(condition.field) ===
+					changedTaxonomyGroup
+				) {
 					return true;
 				}
 			}

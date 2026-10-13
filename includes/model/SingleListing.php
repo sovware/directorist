@@ -6,6 +6,7 @@
 namespace Directorist;
 
 use \ATBDP_Permalink;
+use Directorist\Fields\Conditional_Logic;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -85,6 +86,7 @@ class Directorist_Single_Listing {
             ]
         );
         $submission_form_fields = directorist_submission_form_fields_raw( $this->type );
+        $listing_field_values   = $this->get_conditional_field_values( $submission_form_fields );
 
         if ( ! empty( $single_fields['fields'] ) ) {
             foreach ( $single_fields['fields'] as $key => $value ) {
@@ -115,6 +117,12 @@ class Directorist_Single_Listing {
 
                 // Added form_field, field_key, label, widget_group from submission form
                 $form_data = $submission_form_fields['fields'][ $form_key ];
+
+                // A saved value can outlive the category where its field is visible.
+                if ( ! Conditional_Logic::should_show_field( $form_data, $listing_field_values ) ) {
+                    unset( $single_fields['fields'][ $key ] );
+                    continue;
+                }
 
                 $single_fields['fields'][ $key ]['form_data'] = $form_data;
 
@@ -157,6 +165,39 @@ class Directorist_Single_Listing {
         }
 
         return $content_data;
+    }
+
+    private function get_conditional_field_values( array $submission_form_fields ) {
+        $tax_input = [];
+
+        foreach ( [ ATBDP_CATEGORY, ATBDP_TAGS, ATBDP_LOCATION ] as $taxonomy ) {
+            $term_ids = wp_get_post_terms( $this->id, $taxonomy, [ 'fields' => 'ids' ] );
+            $tax_input[ $taxonomy ] = is_wp_error( $term_ids ) ? [] : $term_ids;
+        }
+
+        $values = [
+            'tax_input'       => $tax_input,
+            'listing_title'   => get_the_title( $this->id ),
+            'listing_content' => $this->post ? $this->post->post_content : '',
+        ];
+
+        foreach ( $submission_form_fields['fields'] ?? [] as $widget_key => $field ) {
+            if ( empty( $field['field_key'] ) ) {
+                continue;
+            }
+
+            $field_key = $field['field_key'];
+            $value     = get_post_meta( $this->id, '_' . $field_key, true );
+
+            if ( '' === $value ) {
+                $value = get_post_meta( $this->id, $field_key, true );
+            }
+
+            $values[ $field_key ]  = $value;
+            $values[ $widget_key ] = $value;
+        }
+
+        return $values;
     }
 
     public function section_template( $section_data ) {

@@ -36,7 +36,7 @@
     z-index: 9999;
     line-height: 1.5;
 
-    @media (max-width: 576px) {
+    @media (max-width: 991px) {
         position: fixed;
         top: auto;
         bottom: 16px;
@@ -79,5 +79,11 @@
         font-size: 13px;
         max-height: 200px;
         overflow-y: auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .directorist-listing-table:has(.directorist-rejection-popover.is-open) {
+        overflow: visible;
     }
 }

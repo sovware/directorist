@@ -382,6 +382,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
                     'directorist-mpesa-payment-gateway'    => 'm-pesa-payment-gateway',
                     'm-pesa-payment-gateway'               => 'directorist-mpesa-payment-gateway',
+                    'directorist-mpesa'                    => 'directorist-mpesa-payment-gateway',
                 ]
             );
         }
@@ -579,6 +580,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 ],
                 'directorist-mpesa-payment-gateway' => [
                     'name'        => 'M-Pesa Payment Gateway',
+                    'base'        => 'directorist-mpesa/directorist-mpesa.php',
                     'description' => __( 'Accept M-Pesa payments directly through your Directorist checkout.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/m-pesa-payment-gateway/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/Mpesa-thumbnail.png',
@@ -1506,6 +1508,14 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
 
             if ( in_array( $plugin_alias_key, $keys_in_list ) ) {
                 $plugin_item = $list[ $plugin_alias_key ];
+            }
+
+            // A package folder can map to a catalog key that has a legacy purchase key.
+            if ( empty( $plugin_item ) && ! empty( $plugin_alias_key ) ) {
+                $purchase_alias_key = self::get_extension_alias_key( $plugin_alias_key );
+                if ( in_array( $purchase_alias_key, $keys_in_list, true ) ) {
+                    $plugin_item = $list[ $purchase_alias_key ];
+                }
             }
 
             return $plugin_item;
@@ -3219,6 +3229,12 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     $new_key = preg_replace( '/(directorist-)/', '', $new_key );
 
                     $extensions_keys[ $index ] = $new_key;
+
+                    // Also match purchases against the installed package's catalog alias.
+                    $alias_key = $this->get_extension_alias_key( strtok( $key, '/' ) );
+                    if ( ! empty( $alias_key ) ) {
+                        $extensions_keys[] = preg_replace( '/(directorist-)/', '', $alias_key );
+                    }
                 }
             }
 

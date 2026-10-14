@@ -891,6 +891,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 ],
                 'directorist-mailchimp-integration' => [
                     'name'        => 'Mailchimp Integration',
+                    'base'        => 'directorist-mailchimp/directorist-mailchimp-integration.php',
                     'description' => __( 'Directorist Mailchimp Integration Connects Directorist with Mailchimp. It helps you to make your directory business grow faster and smarter with more leads.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-mailchimp/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/27_Mailchimp.svg',

@@ -2660,11 +2660,11 @@ class Directorist_Listings {
         $style_attr    = Helper::badge_style_attr( $badge );
         $badge_content = esc_html( $badge['label'] );
 
-		if ( ! empty( $badge['type'] ) && 'icon' === $badge['type'] && ! empty( $badge['icon'] ) ) {
-			$badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );
+        if ( ! empty( $badge['type'] ) && 'icon' === $badge['type'] && ! empty( $badge['icon'] ) ) {
+            $badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );
 
-			if ( $badge_icon ) {
-				$badge_content = wp_kses_post( $badge_icon );
+            if ( $badge_icon ) {
+                $badge_content = wp_kses_post( $badge_icon );
             }
         } elseif ( ! empty( $badge['icon'] ) ) {
             $badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );

@@ -56,7 +56,9 @@ class Helper {
         if ( $script['type'] == 'css' ) {
             wp_register_style( $handle, $url, $dep, $version );
         } else {
-            wp_register_script( $handle, $url, $dep, $version, true );
+            // The Places (New) bundle must use a fresh URL so cached legacy autocomplete code is not served.
+            $script_version = 'directorist-google-map' === $handle ? $version . '-places-new-20261009' : $version;
+            wp_register_script( $handle, $url, $dep, $script_version, true );
         }
     }
 

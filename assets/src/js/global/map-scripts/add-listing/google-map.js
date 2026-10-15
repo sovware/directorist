@@ -10,8 +10,7 @@ export function initAddListingMap() {
 		typeof google === 'undefined' ||
 		!google.maps ||
 		!google.maps.Geocoder ||
-		!google.maps.places ||
-		!google.maps.places.Autocomplete
+		!google.maps.importLibrary
 	) {
 		return;
 	}
@@ -29,8 +28,7 @@ export function initAddListingMap() {
 
 	if (mapElement || addressElement) {
 		if (addressElement) {
-			addressElement.dataset.directoristGoogleAutocompleteInitialized =
-				'true';
+			addressElement.dataset.directoristGoogleAutocompleteInitialized = 'true';
 		}
 
 		if (mapElement) {
@@ -49,12 +47,8 @@ export function initAddListingMap() {
 		let saved_lat_lng;
 
 		// Localized Data
-		const loc_default_latitude = parseFloat(
-			localized_data.default_latitude
-		);
-		const loc_default_longitude = parseFloat(
-			localized_data.default_longitude
-		);
+		const loc_default_latitude = parseFloat(localized_data.default_latitude);
+		const loc_default_longitude = parseFloat(localized_data.default_longitude);
 		let loc_manual_lat = parseFloat(localized_data.manual_lat);
 		let loc_manual_lng = parseFloat(localized_data.manual_lng);
 		const loc_map_zoom_level = parseInt(localized_data.map_zoom_level);
@@ -82,9 +76,6 @@ export function initAddListingMap() {
 		// default is London city
 		((markers = []), // initialize the array to keep track all the marker
 			(address_input = addressElement));
-		if (address_input !== null) {
-			address_input.addEventListener('focus', geolocate);
-		}
 
 		const geocoder = new google.maps.Geocoder();
 
@@ -137,75 +128,109 @@ export function initAddListingMap() {
 					// Clean the address by removing plus code prefix if present
 					const cleanedAddress = formatAddress(results[0]);
 					address_input.value = cleanedAddress;
+					if (autocomplete) {
+						autocomplete.value = cleanedAddress;
+					}
 				}
 			});
 		}
 
-		// this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
-		function geolocate() {
-			if (navigator.geolocation && autocomplete) {
-				navigator.geolocation.getCurrentPosition(function (position) {
-					const geolocation = {
-						lat: position.coords.latitude,
-						lng: position.coords.longitude,
-					};
-					const circle = new google.maps.Circle({
-						center: geolocation,
-						radius: position.coords.accuracy,
-					});
-					autocomplete.setBounds(circle.getBounds());
-				});
+		async function initAutocomplete() {
+			try {
+				const { PlaceAutocompleteElement } =
+					await google.maps.importLibrary('places');
+				if (!PlaceAutocompleteElement || !address_input.isConnected) {
+					return;
+				}
+
+				autocomplete = new PlaceAutocompleteElement();
+				autocomplete.value = address_input.value;
+				autocomplete.placeholder = address_input.placeholder;
+				autocomplete.style.width = '100%';
+				autocomplete.style.display = 'block';
+				autocomplete.style.colorScheme = 'light';
+				const addressLabel = address_input
+					.closest('.directorist-form-group')
+					?.querySelector('label');
+				if (addressLabel) {
+					autocomplete.setAttribute(
+						'aria-label',
+						addressLabel.textContent.trim(),
+					);
+					addressLabel.addEventListener('click', () => autocomplete.focus());
+				}
+
+				if (
+					directorist.countryRestriction &&
+					directorist.restricted_countries
+				) {
+					autocomplete.includedRegionCodes = [].concat(
+						directorist.restricted_countries,
+					);
+				}
+
+				// Keep the original input as the form's submitted address field.
+				address_input.after(autocomplete);
+				address_input.style.display = 'none';
+				const syncAddress = () => {
+					address_input.value = autocomplete.value || '';
+				};
+				autocomplete.addEventListener('input', syncAddress);
+				autocomplete.addEventListener('change', syncAddress);
+				autocomplete.addEventListener('focusout', syncAddress);
+				address_input
+					.closest('form')
+					?.addEventListener('submit', syncAddress, true);
+				autocomplete.addEventListener(
+					'gmp-select',
+					async ({ placePrediction }) => {
+						const place = placePrediction.toPlace();
+						try {
+							await place.fetchFields({
+								fields: ['formattedAddress', 'location'],
+							});
+							fillInAddress(place);
+						} catch (error) {
+							console.error(
+								'Directorist: Could not load the selected place.',
+								error,
+							);
+						}
+					},
+				);
+			} catch (error) {
+				// The address remains editable when Google Places is unavailable.
+				console.error(
+					'Directorist: Could not load Places autocomplete.',
+					error,
+				);
 			}
 		}
 
-		function initAutocomplete() {
-			// Create the autocomplete object, restricting the search to geographical
-			let opt = {
-				types: ['geocode'],
-				componentRestrictions: {
-					country: directorist.restricted_countries,
-				},
-			};
-			const options = directorist.countryRestriction
-				? opt
-				: {
-						types: [],
-					};
-
-			// location types.
-			autocomplete = new google.maps.places.Autocomplete(
-				address_input,
-				options
-			);
-
-			// When the user selects an address from the dropdown, populate the necessary input fields and draw a marker
-			autocomplete.addListener('place_changed', fillInAddress);
-		}
-
-		function fillInAddress() {
-			// Get the place details from the autocomplete object.
-			const place = autocomplete.getPlace();
-
-			if (!place.geometry || !place.geometry.location) {
+		function fillInAddress(place) {
+			if (!place.location) {
 				return;
 			}
 
+			address_input.value = place.formattedAddress || autocomplete.value;
+			autocomplete.value = address_input.value;
+
 			// set the value of input field to save them to the database
-			$manual_lat.val(place.geometry.location.lat());
-			$manual_lng.val(place.geometry.location.lng());
+			$manual_lat.val(place.location.lat());
+			$manual_lng.val(place.location.lng());
 
 			if (!map) {
 				return;
 			}
 
-			map.setCenter(place.geometry.location);
+			map.setCenter(place.location);
 
 			// Delete Previous Marker
 			deleteMarker();
 
 			const marker = new google.maps.marker.AdvancedMarkerElement({
 				map,
-				position: place.geometry.location,
+				position: place.location,
 				gmpDraggable: true,
 				content: markerShape,
 				title: localized_data.marker_title,
@@ -291,15 +316,13 @@ export function initAddListingMap() {
 
 					deleteMarker();
 
-					const marker = new google.maps.marker.AdvancedMarkerElement(
-						{
-							map: resultsMap,
-							position: latLng, // Use original coordinates
-							gmpDraggable: true,
-							content: markerShape,
-							title: localized_data.marker_title,
-						}
-					);
+					const marker = new google.maps.marker.AdvancedMarkerElement({
+						map: resultsMap,
+						position: latLng, // Use original coordinates
+						gmpDraggable: true,
+						content: markerShape,
+						title: localized_data.marker_title,
+					});
 
 					// add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
 					markers.push(marker);
@@ -307,6 +330,9 @@ export function initAddListingMap() {
 					// Clean the address by removing plus code prefix if present
 					const cleanedAddress = formatAddress(results[0]);
 					address_input.value = cleanedAddress;
+					if (autocomplete) {
+						autocomplete.value = cleanedAddress;
+					}
 
 					markerDragInit(marker);
 				} else {

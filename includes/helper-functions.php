@@ -2425,7 +2425,11 @@ function atbdp_guest_submission( $guest_email ) {
      */
     $notify = apply_filters( 'directorist_guest_submission_email_notification', true, $user_id );
     if ( $notify ) {
-        ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
+        if ( directorist_is_email_verification_enabled() ) {
+            ATBDP()->email->send_user_confirmation_email( get_user_by( 'ID', $user_id ) );
+        } else {
+            ATBDP()->email->custom_wp_new_user_notification_email( $user_id );
+        }
     }
 }
 

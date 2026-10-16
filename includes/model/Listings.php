@@ -704,13 +704,13 @@ class Directorist_Listings {
             }
         }
 
+        // Reuse the named featured clause so sorting does not add another postmeta join.
         switch ( $current_order ) {
             case 'title-asc':
                 if ( $this->has_featured ) {
-                    $args['meta_key'] = '_featured';
-                    $args['orderby']  = [
-                        'meta_value_num' => 'DESC',
-                        'title'          => 'ASC',
+                    $args['orderby'] = [
+                        '_featured' => 'DESC',
+                        'title'     => 'ASC',
                     ];
                 } else {
                     $args['orderby'] = 'title';
@@ -721,10 +721,9 @@ class Directorist_Listings {
 
             case 'title-desc':
                 if ( $this->has_featured ) {
-                    $args['meta_key'] = '_featured';
-                    $args['orderby']  = [
-                        'meta_value_num' => 'DESC',
-                        'title'          => 'DESC',
+                    $args['orderby'] = [
+                        '_featured' => 'DESC',
+                        'title'     => 'DESC',
                     ];
                 } else {
                     $args['orderby'] = 'title';
@@ -735,10 +734,9 @@ class Directorist_Listings {
 
             case 'date-asc':
                 if ( $this->has_featured ) {
-                    $args['meta_key'] = '_featured';
-                    $args['orderby']  = [
-                        'meta_value_num' => 'DESC',
-                        'date'           => 'ASC',
+                    $args['orderby'] = [
+                        '_featured' => 'DESC',
+                        'date'      => 'ASC',
                     ];
                 } else {
                     $args['orderby'] = 'date';
@@ -749,10 +747,9 @@ class Directorist_Listings {
 
             case 'date-desc':
                 if ( $this->has_featured ) {
-                    $args['meta_key'] = '_featured';
-                    $args['orderby']  = [
-                        'meta_value_num' => 'DESC',
-                        'date'           => 'DESC',
+                    $args['orderby'] = [
+                        '_featured' => 'DESC',
+                        'date'      => 'DESC',
                     ];
                 } else {
                     $args['orderby'] = 'date';
@@ -800,8 +797,7 @@ class Directorist_Listings {
 
             case 'rand':
                 if ( $this->has_featured ) {
-                    $args['meta_key'] = '_featured';
-                    $args['orderby']  = 'meta_value_num rand';
+                    $args['orderby'] = '_featured rand';
                 } else {
                     $args['orderby'] = 'rand';
                 }
@@ -922,10 +918,9 @@ class Directorist_Listings {
         }
 
         if ( $this->has_featured ) {
-            $args['meta_key'] = '_featured';
-            $args['orderby']  = [
-                'meta_value_num' => 'DESC',
-                'title'          => 'ASC',
+            $args['orderby'] = [
+                '_featured' => 'DESC',
+                'title'     => 'ASC',
             ];
         } else {
             $args['orderby'] = 'title';
@@ -2665,11 +2660,11 @@ class Directorist_Listings {
         $style_attr    = Helper::badge_style_attr( $badge );
         $badge_content = esc_html( $badge['label'] );
 
-		if ( ! empty( $badge['type'] ) && 'icon' === $badge['type'] && ! empty( $badge['icon'] ) ) {
-			$badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );
+        if ( ! empty( $badge['type'] ) && 'icon' === $badge['type'] && ! empty( $badge['icon'] ) ) {
+            $badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );
 
-			if ( $badge_icon ) {
-				$badge_content = wp_kses_post( $badge_icon );
+            if ( $badge_icon ) {
+                $badge_content = wp_kses_post( $badge_icon );
             }
         } elseif ( ! empty( $badge['icon'] ) ) {
             $badge_icon = Helper::badge_icon_markup( $badge['icon'], $badge );

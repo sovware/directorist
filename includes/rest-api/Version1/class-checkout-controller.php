@@ -130,9 +130,20 @@ class Checkout_Controller extends Abstract_Controller {
             if ( $process_payment ) {
                 do_action( 'directorist_before_redirect_checkout', $dto, $checkout_type, $request );
 
+                $redirect_url = $processor_instance->pay( $dto, $request->get_params() );
+
+                /**
+                 * Fires after a checkout payment has been initiated successfully.
+                 *
+                 * @param OrderDTO        $dto           The created order.
+                 * @param string          $checkout_type The checkout type.
+                 * @param WP_REST_Request $request       The checkout request.
+                 */
+                do_action( 'directorist_checkout_payment_initiated', $dto, $checkout_type, $request );
+
                 return rest_ensure_response(
                     [
-                        "redirect_url" => $processor_instance->pay( $dto, $request->get_params() ) ?? $this->get_redirect_url( $dto )
+                        "redirect_url" => $redirect_url ?? $this->get_redirect_url( $dto )
                     ]
                 );
             }

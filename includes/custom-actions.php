@@ -544,6 +544,17 @@ function directorist_updated_post_meta_action( $meta_id, $object_id, $meta_key, 
             $meta_value = 'publish';
         }
 
+        global $wpdb;
+
+        // During wp_insert_post(), metadata is saved before the post cache is cleared.
+        // Read the stored status to avoid firing the same transition a second time.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $post_status = $wpdb->get_var( $wpdb->prepare( "SELECT post_status FROM {$wpdb->posts} WHERE ID = %d", $object_id ) );
+
+        if ( $post_status === $meta_value ) {
+            return;
+        }
+
         wp_update_post(
             [
                 'ID'          => $object_id,

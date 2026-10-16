@@ -5,7 +5,6 @@ if ( ! class_exists( 'ATBDP_Email' ) ) :
      * Class ATBDP_Email
      */
     class ATBDP_Email {
-
         public function __construct() {
             /*Fire up emails when a listing is inserted in the front end*/
             add_action( 'atbdp_listing_inserted', [ $this, 'notify_admin_listing_submitted' ] );

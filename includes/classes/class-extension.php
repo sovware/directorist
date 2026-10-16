@@ -2221,7 +2221,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 $status['success'] = false;
             }
 
-            $status['response'] = $activation_status['response'];
+            $status['response'] = $activation_status['response'] ?? null;
             $product_type       = self::filter_product_type( $product_type );
 
             if ( $status['success'] && ( 'plugin' === $product_type || 'theme' === $product_type ) ) {
@@ -3428,7 +3428,8 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 return $status;
             }
 
-            if ( isset( $license_item['skip_licencing'] ) && ! empty( $license_item['skip_licencing'] ) ) {
+            // Keep the legacy spelling compatible with existing API responses and cached purchases.
+            if ( ! empty( $license_item['skip_licensing'] ) || ! empty( $license_item['skip_licencing'] ) ) {
                 $status['success'] = true;
 
                 return $status;

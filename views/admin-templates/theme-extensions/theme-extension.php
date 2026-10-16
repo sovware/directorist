@@ -587,7 +587,7 @@ if ( $is_logged_in && ! empty( $args['extensions_available_in_subscriptions'] ) 
         }
         $name        = ! empty( $catalog_product['name'] ) ? $catalog_product['name'] : ( $extension['title'] ?? $extension['name'] ?? $extension_key );
         $description = $product['description'] ?? '';
-        $can_install = ! empty( $extension['download_link'] ) && ( ! empty( $extension['skip_licencing'] ) || ( ! empty( $extension['license'] ) && ! empty( $extension['item_id'] ) ) );
+        $can_install = ! empty( $extension['download_link'] ) && ( ! empty( $extension['skip_licensing'] ) || ! empty( $extension['skip_licencing'] ) || ( ! empty( $extension['license'] ) && ! empty( $extension['item_id'] ) ) );
         $required_key = $get_required_extension_key( $extension_key );
         $is_required  = '' !== $required_key;
         $badges       = $get_product_badges( $product );

@@ -1,178 +1,231 @@
+import { __ } from '@wordpress/i18n';
 import props from './input-field-props.js';
-import { WEBHOOK_CREDENTIAL_FIELDS, getSavedWebhookId } from './webhook-credential-fields.js';
+import {
+	actionFieldKeys,
+	hasActionFieldValue,
+	actionText,
+} from './async-action-fields.js';
+import { legacyActionState } from '../../compat/legacy-webhook-actions.js';
 
 export default {
 	mixins: [props],
-	inject: {
-		saveWebhookCredentials: { default: null },
-	},
-
+	inject: { saveActionFields: { default: null } },
 	data() {
 		return {
 			local_value: false,
 			async_processing: false,
-			async_connected: Boolean(getSavedWebhookId(this.value)),
 			async_feedback: null,
-			async_action_url: '',
-			async_action_label: '',
 		};
 	},
-
 	computed: {
-		asyncButtonLabel() {
-			if (this.async_processing) {
-				return this.buttonLabelOnProcessing || 'Working…';
-			}
-
-			const label = this.async_action_label || this.buttonLabel;
-
-			if (this.async_connected && WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]) {
-				return label.replace(/^(Register|Unregister)\b/, 'Disconnect');
-			}
-
-			return this.asyncCredentialsUnsaved && !this.asyncCredentialsMissing && WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]
-				? `Save & ${label}`
-				: label;
+		actionConfig() {
+			return this.asyncActionConfig || {};
 		},
-		asyncActionUrl() {
-			if (this.async_action_url) {
-				return this.async_action_url;
-			}
-
-			const url = new URL(this.url.replace(/&amp;/g, '&'), window.location.href);
-
-			const savedWebhookId = getSavedWebhookId(this.value);
-
-			if (
-				this.async_connected &&
-				savedWebhookId &&
-				WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey] &&
-				url.pathname.endsWith('/webhook-register')
-			) {
-				url.pathname = url.pathname.replace(/webhook-register$/, 'webhook-unregister');
-				url.searchParams.delete('type');
-				url.searchParams.set('id', savedWebhookId);
-			}
-
-			return url.href;
+		actionState() {
+			return this.asyncActionState || {};
 		},
-		asyncStatusLabel() {
-			if (this.async_connected && this.asyncCredentialsMissing) {
-				return 'Keys missing';
-			}
-
-			if (this.async_connected && WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]) {
-				return 'Webhook ID saved';
-			}
-
-			return this.async_connected
-				? this.statusLabelConnected
-				: this.statusLabelDisconnected;
-		},
-		asyncCredentialsMissing() {
-			const credentialKeys = WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey] || [];
-			const { fields } = this.$store.state;
-
-			return credentialKeys.some((key) =>
-				!fields[key] || !String(fields[key].value ?? '').trim()
+		actionLabels() {
+			return Object.fromEntries(
+				Object.entries(this.actionConfig.labels || {}).map(([key, value]) => [
+					key,
+					actionText(value),
+				])
 			);
 		},
-		asyncCredentialsUnsaved() {
-			const credentialKeys = WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey] || [];
-			const { fields, cached_fields: cachedFields } = this.$store.state;
-
-			return credentialKeys.some((key) => {
-				if (!fields[key]) {
-					return false;
-				}
-				if (!cachedFields[key]) {
-					return true;
-				}
-
-				return String(fields[key].value ?? '') !== String(cachedFields[key].value ?? '');
-			});
+		async_connected() {
+			return this.actionState.active === true;
+		},
+		requiredFieldKeys() {
+			return actionFieldKeys(this.actionConfig.requiredFields);
+		},
+		asyncButtonLabel() {
+			if (this.async_processing)
+				return (
+					actionText(this.buttonLabelOnProcessing) ||
+					__('Working…', 'directorist')
+				);
+			if (
+				!this.async_connected &&
+				this.asyncFieldsUnsaved &&
+				!this.asyncFieldsMissing &&
+				this.actionConfig.saveBeforeAction
+			) {
+				return (
+					this.actionLabels.save ||
+					actionText(this.actionState.label || this.buttonLabel)
+				);
+			}
+			return actionText(this.actionState.label || this.buttonLabel);
+		},
+		asyncActionUrl() {
+			return this.actionState.url || this.url;
+		},
+		asyncStatusLabel() {
+			if (this.async_connected && this.asyncFieldsMissing)
+				return (
+					this.actionLabels.missing ||
+					__('Required fields missing', 'directorist')
+				);
+			return this.async_connected
+				? this.actionLabels.active || this.statusLabelConnected
+				: this.actionLabels.inactive || this.statusLabelDisconnected;
+		},
+		asyncDetails() {
+			return this.async_connected
+				? this.asyncFieldsMissing
+					? this.actionLabels.recoveryDetails
+					: this.actionLabels.details
+				: '';
+		},
+		asyncFieldsMissing() {
+			const { fields } = this.$store.state;
+			return this.requiredFieldKeys.some(
+				(key) => !fields[key] || !hasActionFieldValue(fields[key].value)
+			);
+		},
+		asyncFieldsUnsaved() {
+			const { fields, cached_fields: cached } = this.$store.state;
+			return this.requiredFieldKeys.some(
+				(key) =>
+					fields[key] &&
+					(!cached[key] ||
+						JSON.stringify(fields[key].value) !==
+							JSON.stringify(cached[key].value))
+			);
 		},
 		asyncActionBlocked() {
-			return this.async_processing || this.asyncCredentialsMissing ||
-				(this.async_connected && this.asyncCredentialsUnsaved);
+			return (
+				this.async_processing ||
+				this.asyncFieldsMissing ||
+				(this.asyncFieldsUnsaved &&
+					(this.async_connected || !this.actionConfig.saveBeforeAction))
+			);
 		},
 		asyncActionBlockReason() {
-			if (this.asyncCredentialsMissing) {
-				return this.async_connected
-					? 'Add valid keys for the same gateway account and save before disconnecting.'
-					: 'Add both API keys before registering.';
-			}
-
-			if (this.asyncCredentialsUnsaved) {
-				return 'Save changes first to use the updated keys.';
-			}
-
-			return '';
+			if (this.asyncFieldsMissing)
+				return (
+					(this.async_connected
+						? this.actionLabels.recovery
+						: this.actionLabels.required) ||
+					__('Complete the required fields first.', 'directorist')
+				);
+			return this.asyncFieldsUnsaved
+				? this.actionLabels.unsaved || __('Save changes first.', 'directorist')
+				: '';
 		},
 	},
-
 	methods: {
-		async submitAsyncAction() {
-			if (!this.asyncAction || this.asyncActionBlocked) {
-				return;
+		validateActionUrl(value) {
+			if (typeof value !== 'string' || !value.trim())
+				throw new Error(
+					__('The action URL is missing. Refresh this page.', 'directorist')
+				);
+			const url = new URL(value.replace(/&amp;/g, '&'), window.location.href);
+			if (
+				url.origin !== window.location.origin ||
+				!['https:', 'http:'].includes(url.protocol) ||
+				url.username ||
+				url.password
+			) {
+				throw new Error(
+					__('The action URL is invalid. Refresh this page.', 'directorist')
+				);
 			}
-
+			return url.href;
+		},
+		async submitAsyncAction() {
+			if (!this.asyncAction || this.asyncActionBlocked) return;
 			this.async_processing = true;
 			this.async_feedback = null;
-
+			this.$store.commit('setAsyncActionPending', {
+				field_key: this.fieldKey,
+				pending: true,
+			});
 			try {
-				if (!this.async_connected && this.asyncCredentialsUnsaved) {
-					if (typeof this.saveWebhookCredentials !== 'function') {
-						throw new Error('Settings save is unavailable. Refresh this page and try again.');
-					}
-
-					await this.saveWebhookCredentials(WEBHOOK_CREDENTIAL_FIELDS[this.fieldKey]);
-
-					if (this.asyncCredentialsUnsaved || this.asyncCredentialsMissing) {
-						throw new Error('Keys changed while saving. Review them and try again.');
-					}
+				// Validate before saving any dependencies or making a request.
+				const url = this.validateActionUrl(this.asyncActionUrl);
+				if (
+					!this.async_connected &&
+					this.asyncFieldsUnsaved &&
+					this.actionConfig.saveBeforeAction
+				) {
+					if (typeof this.saveActionFields !== 'function')
+						throw new Error(
+							__(
+								'Settings save is unavailable. Refresh this page and try again.',
+								'directorist'
+							)
+						);
+					await this.saveActionFields(this.requiredFieldKeys);
+					if (this.asyncFieldsUnsaved || this.asyncFieldsMissing)
+						throw new Error(
+							__(
+								'Fields changed while saving. Review them and try again.',
+								'directorist'
+							)
+						);
 				}
-
-				const response = await fetch(this.asyncActionUrl, {
+				const response = await fetch(url, {
 					credentials: 'same-origin',
 					cache: 'no-store',
-					headers: {
-						Accept: 'application/json',
-						'X-Directorist-Async': '1',
-					},
+					headers: { Accept: 'application/json', 'X-Directorist-Async': '1' },
 				});
 				const result = await response.json();
-
-				if (!response.ok || !result.success) {
-					throw new Error(result.message || 'The action could not be completed.');
+				if (!response.ok || !result.success)
+					throw new Error(
+						result.message ||
+							__('The action could not be completed.', 'directorist')
+					);
+				const state = this.actionConfig.legacy
+					? legacyActionState(result, this.actionConfig)
+					: result.action_state;
+				if (
+					!state ||
+					typeof state.active !== 'boolean' ||
+					typeof state.label !== 'string' ||
+					!state.label ||
+					!Object.prototype.hasOwnProperty.call(state, 'value')
+				) {
+					throw new Error(
+						__(
+							'The action completed, but its state could not be shown. Refresh this page.',
+							'directorist'
+						)
+					);
 				}
-
-				const nextUrl = new URL(result.action_url, window.location.href);
-
-				if (nextUrl.origin !== window.location.origin || !result.action_label) {
-					throw new Error('The action completed, but the new button could not be shown. Refresh this page.');
-				}
-
-				this.async_connected = Boolean(result.connected);
-				this.async_action_url = nextUrl.href;
-				this.async_action_label = result.action_label;
+				const nextState = {
+					active: state.active,
+					value: state.value,
+					url: this.validateActionUrl(state.url),
+					label: state.label,
+				};
 				this.$store.commit('setPersistedAsyncField', {
 					field_key: this.fieldKey,
-					value: result.webhook_id || '',
-					url: nextUrl.href,
-					'button-label': result.action_label,
+					value: nextState.value,
+					url: nextState.url,
+					'button-label': nextState.label,
+					'async-action-state': nextState,
 				});
 				this.async_feedback = {
 					type: 'success',
-					message: result.message || 'The action completed.',
+					message: result.message || __('The action completed.', 'directorist'),
 				};
 			} catch (error) {
 				this.async_feedback = {
 					type: 'error',
-					message: error.message || 'The request failed. Check your connection and try again.',
+					message:
+						error.message ||
+						__(
+							'The request failed. Check your connection and try again.',
+							'directorist'
+						),
 				};
 			} finally {
 				this.async_processing = false;
+				this.$store.commit('setAsyncActionPending', {
+					field_key: this.fieldKey,
+					pending: false,
+				});
 			}
 		},
 	},

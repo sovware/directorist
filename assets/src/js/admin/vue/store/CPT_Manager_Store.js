@@ -253,6 +253,10 @@ export default new Vuex.Store({
 			Vue.set(state.fields[payload.field_key], 'value', payload.value);
 		},
 
+		setAsyncActionPending: (state, payload) => {
+			if (state.fields[payload.field_key]) Vue.set(state.fields[payload.field_key], 'asyncActionPending', payload.pending);
+		},
+
 		setPersistedAsyncField: (state, payload) => {
 			const field = state.fields[payload.field_key];
 
@@ -270,7 +274,7 @@ export default new Vuex.Store({
 
 			const cached = state.cached_fields[payload.field_key];
 
-			for (const key of ['value', 'url', 'button-label']) {
+			for (const key of ['value', 'url', 'button-label', 'async-action-state']) {
 				Vue.set(field, key, payload[key]);
 				Vue.set(cached, key, payload[key]);
 			}

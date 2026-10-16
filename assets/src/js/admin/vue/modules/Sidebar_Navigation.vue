@@ -131,7 +131,7 @@
                 :type="result.inputType"
                 :value="result.value"
                 :disabled="result.locked"
-                :title="result.locked ? 'Disconnect the webhook to edit these keys.' : null"
+                :title="result.locked ? result.lockMessage : null"
                 @input="$emit('quick-update-field', {
                   fieldKey: result.fieldKey,
                   value: $event.target.value,

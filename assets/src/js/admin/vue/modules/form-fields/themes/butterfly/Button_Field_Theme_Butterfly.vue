@@ -34,20 +34,18 @@
                         <span
                             class="directorist-async-button-field__status"
                             :class="{
-                                'directorist-async-button-field__status--connected': async_connected && !asyncCredentialsMissing,
-                                'directorist-async-button-field__status--attention': async_connected && asyncCredentialsMissing,
+                                'directorist-async-button-field__status--connected': async_connected && !asyncFieldsMissing,
+                                'directorist-async-button-field__status--attention': async_connected && asyncFieldsMissing,
                             }"
                             role="status"
                         >{{ asyncStatusLabel }}</span>
                     </div>
                     <p
-                        v-if="async_connected"
+                        v-if="asyncDetails"
                         class="directorist-async-button-field__details"
-                        :class="{ 'directorist-async-button-field__details--attention': asyncCredentialsMissing }"
+                        :class="{ 'directorist-async-button-field__details--attention': asyncFieldsMissing }"
                     >
-                        {{ asyncCredentialsMissing
-                            ? 'Webhook ID is still saved. Add valid keys for the same gateway account, save changes, then disconnect. Removing keys does not remove the gateway webhook.'
-                            : 'Webhook ID saved on this site; provider status has not been rechecked. Disconnect to remove the gateway webhook.' }}
+                        {{ asyncDetails }}
                     </p>
                     <p
                         v-if="async_feedback"

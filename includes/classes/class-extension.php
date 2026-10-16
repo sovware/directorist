@@ -380,6 +380,9 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                     'directorist-mailchimp'                => 'directorist-mailchimp-integration',
                     'directorist-mailchimp-integration'    => 'directorist-mailchimp',
 
+                    'directorist-listing-importer'         => 'directorist-listing-import',
+                    'directorist-listing-import'           => 'directorist-listing-importer',
+
                     'directorist-mpesa-payment-gateway'    => 'm-pesa-payment-gateway',
                     'm-pesa-payment-gateway'               => 'directorist-mpesa-payment-gateway',
                 ]
@@ -615,6 +618,7 @@ if ( ! class_exists( 'ATBDP_Extensions' ) ) {
                 ],
                 'directorist-listing-importer' => [
                     'name'        => 'Directorist Listing Importer',
+                    'base'        => 'directorist-listing-import/directorist-listing-import.php',
                     'description' => __( 'Import Google Maps and feeds into Directorist automatically, effortlessly.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-listing-importer/',
                     'thumbnail'   => ATBDP_URL . 'assets/images/extensions/directorist-listing-importer.png',

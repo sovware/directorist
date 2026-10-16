@@ -1,4 +1,8 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, keyframes } from 'styled-components';
+
+const spin = keyframes`
+	to { transform: rotate(360deg); }
+`;
 
 const EnquiriesComponentStyle = styled.div`
 	.directorist-enquiries-header {
@@ -12,6 +16,58 @@ const EnquiriesComponentStyle = styled.div`
 	.directorist-enquiries-description {
 		font-size: 14px;
 		margin: 8px 0 0 0;
+	}
+	.directorist-enquiries-tabs {
+		display: flex;
+		gap: 24px;
+		border-bottom: 1px solid #e5e7eb;
+		margin-bottom: 24px;
+		button {
+			border: 0;
+			border-bottom: 2px solid transparent;
+			background: transparent;
+			padding: 10px 2px;
+			color: #4b5563;
+			font: inherit;
+			cursor: pointer;
+			&.is-active {
+				border-bottom-color: var(--directorist-color-primary, #1f6fb2);
+				color: var(--directorist-color-primary, #1f6fb2);
+				font-weight: 600;
+			}
+			&:focus:not(:focus-visible) {
+				outline: none;
+			}
+			&:focus-visible {
+				outline: 2px solid var(--directorist-color-primary, #1f6fb2);
+				outline-offset: 2px;
+			}
+		}
+	}
+	.directorist-enquiries-error {
+		padding: 20px;
+	}
+	.directorist-enquiries-loading {
+		min-height: 180px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 12px;
+		padding: 24px;
+		color: #4b5563;
+		font-size: 14px;
+	}
+	.directorist-enquiries-spinner {
+		width: 24px;
+		height: 24px;
+		flex: 0 0 24px;
+		border: 3px solid #e5e7eb;
+		border-top-color: var(--directorist-color-primary, #1f6fb2);
+		border-radius: 50%;
+		animation: ${spin} 0.8s linear infinite;
+		@media (prefers-reduced-motion: reduce) {
+			animation: none;
+		}
 	}
 	.directorist-enquires-stats {
 		display: flex;
@@ -145,6 +201,8 @@ const EnquiriesComponentStyle = styled.div`
 		}
 		.dataviews-view-table {
 			border: none;
+			width: 100%;
+			table-layout: fixed;
 			tbody {
 				td {
 					vertical-align: middle;
@@ -152,7 +210,7 @@ const EnquiriesComponentStyle = styled.div`
 			}
 		}
 		.dataviews-view-table__row {
-			white-space: nowrap;
+			white-space: normal;
 			td:last-child {
 				text-align: left !important;
 				.dataviews-item-actions {
@@ -276,18 +334,16 @@ const EnquiriesComponentStyle = styled.div`
 		.directorist-table-enquiry,
 		.directorist-table-enquiry-listing,
 		.directorist-table-enquiry-sender {
+			min-width: 0;
 			h2 {
 				font-size: 14px;
 				font-weight: 500;
 				color: var(--directorist-color-dark);
 				margin: 0;
-				width: 350px;
+				max-width: 100%;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
-				@media screen and (max-width: 992px) {
-					width: auto;
-				}
 			}
 		}
 	}
@@ -306,6 +362,7 @@ const EnquiriesComponentStyle = styled.div`
 			}
 		}
 		.directorist-table-enquiry-sender-info {
+			min-width: 0;
 			h2 {
 				font-size: 14px;
 				font-weight: 600;
@@ -319,11 +376,16 @@ const EnquiriesComponentStyle = styled.div`
 		}
 	}
 	.directorist-table-enquiry {
-		display: inline-flex;
+		display: flex;
 		flex-direction: column;
 		gap: 6px;
+		min-width: 0;
 		p {
 			margin: 0;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
 		}
 	}
 	.directorist-table-enquiry-listing {
@@ -357,12 +419,30 @@ const EnquiriesComponentStyle = styled.div`
 			td {
 				&:first-child {
 					padding-left: 25px;
-					width: 400px;
+					width: 38%;
 				}
 				&:last-child {
 					padding-right: 25px;
 				}
 			}
+		}
+	}
+	@media screen and (max-width: 767px) {
+		.dataviews-view-list .directorist-table-enquiry-action {
+			position: relative;
+			z-index: 2;
+		}
+		.dataviews-view-list {
+			min-width: 0;
+		}
+		.dataviews-view-list__item {
+			min-width: 0;
+		}
+		.directorist-table-enquiry-listing h2,
+		.directorist-table-enquiry h2,
+		.directorist-table-enquiry-sender h2 {
+			white-space: normal;
+			overflow-wrap: anywhere;
 		}
 	}
 	.dataviews__view-actions {
@@ -433,6 +513,11 @@ const EnquiryDetailsModalStyle = styled.div`
 	}
 	.directorist-answers-section {
 		margin-bottom: 110px;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+		> * {
+			min-width: 0;
+		}
 	}
 	.directorist-enquiry-answer-item {
 		margin-bottom: 24px;

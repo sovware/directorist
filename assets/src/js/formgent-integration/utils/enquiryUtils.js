@@ -242,13 +242,13 @@ export const sendEmailToUser = (item) => {
  * @param {string} selectedItem - The selected item ID
  * @returns {Promise} - The API call promise
  */
-export const fetchSingleEnquiry = async (selectedItem) => {
+export const fetchSingleEnquiry = async (selectedItem, box = 'receive') => {
 	if (!selectedItem) {
 		return Promise.reject(new Error('No selected item provided'));
 	}
 
 	return apiFetch({
-		path: `/directorist/formgent/responses/single?id=${selectedItem}`,
+		path: `/directorist/formgent/responses/single?id=${encodeURIComponent(selectedItem)}&box=${box}`,
 		method: 'GET',
 	});
 };
@@ -299,9 +299,9 @@ export const getStatusBadgeText = (isRead) => {
  * Fetch enquiry KPIs
  * @returns {Promise} - The API call promise
  */
-export const fetchEnquiryKPIs = async () => {
+export const fetchEnquiryKPIs = async (box = 'receive') => {
 	return apiFetch({
-		path: '/directorist/formgent/responses/kpis',
+		path: `/directorist/formgent/responses/kpis?box=${box}`,
 		method: 'GET',
 	});
 };
@@ -310,9 +310,20 @@ export const fetchEnquiryKPIs = async () => {
  * Fetch all enquiries
  * @returns {Promise} - The API call promise
  */
-export const fetchAllEnquiries = async () => {
+export const fetchAllEnquiries = async (
+	box = 'receive',
+	{ page = 1, perPage = 10, search = '' } = {}
+) => {
+	const params = new URLSearchParams({
+		box,
+		page: String(page),
+		per_page: String(perPage),
+	});
+	if (search.trim()) {
+		params.set('search', search.trim());
+	}
 	return apiFetch({
-		path: '/directorist/formgent/responses',
+		path: `/directorist/formgent/responses?${params.toString()}`,
 		method: 'GET',
 	});
 };
@@ -321,11 +332,11 @@ export const fetchAllEnquiries = async () => {
  * Refresh enquiry data (both KPIs and responses)
  * @returns {Promise<Object>} - Object containing responses and kpis
  */
-export const refreshEnquiryData = async () => {
+export const refreshEnquiryData = async (box = 'receive', options = {}) => {
 	try {
 		const [responses, kpis] = await Promise.all([
-			fetchAllEnquiries(),
-			fetchEnquiryKPIs(),
+			fetchAllEnquiries(box, options),
+			fetchEnquiryKPIs(box),
 		]);
 
 		return { responses, kpis };
@@ -345,9 +356,7 @@ export const extractTitleFromAnswers = (answers) => {
 		return '';
 	}
 
-	const firstTextField = answers.find(
-		(answer) => answer.field_type === 'text'
-	);
+	const firstTextField = answers.find((answer) => answer.field_type === 'text');
 
 	return firstTextField?.value || firstTextField?.answer || '';
 };
@@ -407,7 +416,11 @@ export const extractEnquiryTitleAndPrefix = (item) => {
  * @param {Map} cache - Cache map to store fetched answers (key: item.id, value: answers array)
  * @returns {Promise<{enrichedItems: Array, cache: Map}>} - Enriched items and updated cache
  */
-export const enrichEnquiriesWithAnswers = async (items, cache = new Map()) => {
+export const enrichEnquiriesWithAnswers = async (
+	items,
+	cache = new Map(),
+	box = 'receive'
+) => {
 	if (!Array.isArray(items) || items.length === 0) {
 		return { enrichedItems: items, cache };
 	}
@@ -432,7 +445,7 @@ export const enrichEnquiriesWithAnswers = async (items, cache = new Map()) => {
 	// Fetch answers for items that aren't cached (in parallel)
 	const fetchPromises = itemsToFetch.map(async (item) => {
 		try {
-			const singleEnquiry = await fetchSingleEnquiry(item.id);
+			const singleEnquiry = await fetchSingleEnquiry(item.id, box);
 			if (singleEnquiry?.response?.answers) {
 				// Cache the answers
 				cache.set(String(item.id), singleEnquiry.response.answers);

@@ -34,26 +34,20 @@ import {
 } from '../utils/enquiryUtils';
 
 export default function Tables(props) {
-	const { items = [], handleTableRefresh, strings = {} } = props;
+	const {
+		items = [],
+		box = 'receive',
+		view,
+		onChangeView,
+		totalItems = 0,
+		handleTableRefresh,
+		strings = {},
+	} = props;
 	const [isViewModalOpen, setIsViewModalOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [enrichedItems, setEnrichedItems] = useState([]);
 	const [isLoadingAnswers, setIsLoadingAnswers] = useState(false);
 	const answersCacheRef = useRef(new Map()); // Cache for answers data
-
-	// Initialize view state for DataViews
-	const [view, setView] = useState({
-		type: 'table',
-		search: '',
-		page: 1,
-		perPage: 10,
-		sort: {
-			field: 'created_at',
-			direction: 'desc',
-		},
-		fields: ['enquiry', 'listing', 'sender', 'status'],
-		layout: {},
-	});
 
 	// Get badge variant based on status
 	const statusBadge = (status) => {
@@ -76,14 +70,13 @@ export default function Tables(props) {
 	// Define fields configuration for DataViews
 	const fields = useMemo(
 		() => [
-				{
-					id: 'enquiry',
-					header: strings.enquiry_header || 'Enquiry',
+			{
+				id: 'enquiry',
+				header: strings.enquiry_header || 'Enquiry',
 				enableHiding: false,
 				enableSorting: false,
 				render: ({ item }) => {
-					const { title, prefix } =
-						extractEnquiryTitleAndPrefix(item);
+					const { title, prefix } = extractEnquiryTitleAndPrefix(item);
 					//allow max 20 words in prefix
 					const maxWords = 20;
 					const words = prefix.split(' ');
@@ -103,29 +96,30 @@ export default function Tables(props) {
 										setSelectedItem(item.id);
 										setIsViewModalOpen(true);
 									}}
+								>
+									{strings.view || __('View', 'directorist')}
+								</a>
+								{box === 'receive' && (
+									<a
+										href="#"
+										className="directorist-table-enquiry-send-email"
+										onClick={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handleSendEmail(item);
+										}}
 									>
-										{strings.view || __('View', 'directorist')}
+										{strings.send_email || __('Send Email', 'directorist')}
 									</a>
-								<a
-									href="#"
-									className="directorist-table-enquiry-send-email"
-									onClick={(e) => {
-										e.preventDefault();
-										e.stopPropagation();
-										handleSendEmail(item);
-									}}
-									>
-										{strings.send_email ||
-											__('Send Email', 'directorist')}
-									</a>
+								)}
 							</div>
 						</div>
 					);
 				},
 			},
-				{
-					id: 'listing',
-					header: strings.listing_header || 'Listing',
+			{
+				id: 'listing',
+				header: strings.listing_header || 'Listing',
 				enableHiding: true,
 				enableSorting: false,
 				render: ({ item }) => {
@@ -137,49 +131,79 @@ export default function Tables(props) {
 					);
 				},
 			},
-				{
-					id: 'sender',
-					header: strings.sender_header || 'Sender',
-				enableHiding: true,
-				enableSorting: false,
-				render: ({ item }) => {
-					return (
-						<div className="directorist-table-enquiry-sender">
-							<div className="directorist-table-enquiry-sender-avatar">
-								<img
-									src={item.user?.profile_url}
-									alt={item.user?.display_name}
-								/>
-							</div>
-							<div className="directorist-table-enquiry-sender-info">
-								<h2>{item.user?.display_name}</h2>
-								<p>{item.user?.user_email}</p>
-							</div>
-						</div>
-					);
-				},
-			},
-				{
-					id: 'status',
-					header: strings.status_header || 'Status',
-				enableHiding: true,
-				enableSorting: false,
-				render: ({ item }) => {
-					return (
-						<div className="directorist-table-enquiry-status">
-							<span
-								className={`directorist-badge directorist-badge-${statusBadge(
-									item.is_read
-								)}`}
-							>
-								{getEnquiryStatusText(item.is_read)}
-							</span>
-						</div>
-					);
-				},
-			},
+			...(box === 'receive'
+				? [
+						{
+							id: 'sender',
+							header: strings.sender_header || 'Sender',
+							enableHiding: true,
+							enableSorting: false,
+							render: ({ item }) => {
+								return (
+									<div className="directorist-table-enquiry-sender">
+										<div className="directorist-table-enquiry-sender-avatar">
+											<img
+												src={item.user?.profile_url}
+												alt={item.user?.display_name}
+											/>
+										</div>
+										<div className="directorist-table-enquiry-sender-info">
+											<h2>{item.user?.display_name}</h2>
+											<p>{item.user?.user_email}</p>
+										</div>
+									</div>
+								);
+							},
+						},
+					]
+				: []),
+			...(box === 'send'
+				? [
+						{
+							id: 'recipient',
+							header: strings.recipient_header || 'Recipient',
+							enableHiding: true,
+							enableSorting: false,
+							render: ({ item }) => (
+								<div className="directorist-table-enquiry-sender">
+									{item.recipient?.profile_url && (
+										<div className="directorist-table-enquiry-sender-avatar">
+											<img src={item.recipient.profile_url} alt="" />
+										</div>
+									)}
+									<div className="directorist-table-enquiry-sender-info">
+										<h2>{item.recipient?.display_name}</h2>
+									</div>
+								</div>
+							),
+						},
+					]
+				: []),
+			...(box === 'receive'
+				? [
+						{
+							id: 'status',
+							header: strings.status_header || 'Status',
+							enableHiding: true,
+							enableSorting: false,
+							render: ({ item }) => {
+								return (
+									<div className="directorist-table-enquiry-status">
+										<span
+											className={`directorist-badge directorist-badge-${statusBadge(
+												item.is_read
+											)}`}
+										>
+											{getEnquiryStatusText(item.is_read)}
+										</span>
+									</div>
+								);
+							},
+						},
+					]
+				: []),
 		],
-		[statusBadge, getEnquiryStatusText]
+		[box, strings]
 	);
 
 	// Handler functions using utility functions
@@ -205,126 +229,83 @@ export default function Tables(props) {
 		sendEmailToUser(item);
 	}, []);
 
-	const handleOpenDeleteModal = useCallback((items) => {
-		if (!items || items.length === 0) return;
-		const item = Array.isArray(items) ? items[0] : items;
-		setItemToDelete(item);
-		setIsDeleteModalOpen(true);
-	}, []);
-
-	const handleCancelDelete = useCallback((item) => {
-		if (!item) return;
-		item.closeModal();
-	}, []);
-
 	// Define actions for DataViews
-	const hasBulk = items.length > 1;
+	const hasBulk = totalItems > 1;
 	const actions = useMemo(
-		() => [
-			{
-				id: 'mark-as-read',
-				label: strings.mark_as_read || __('Mark as read', 'directorist'),
-				supportsBulk: hasBulk,
-				icon: <CheckIcon />,
-				callback: (items) => {
-					const itemsArray = Array.isArray(items) ? items : [items];
-					if (itemsArray.length > 1) {
-						bulkMarkEnquiriesAsRead(itemsArray, handleTableRefresh);
-					} else {
-						handleMarkAsRead(itemsArray[0]);
-					}
-				},
-				isEligible: (item) => {
-					return item.is_read === '0';
-				},
-			},
-			{
-				RenderModal: ({ items, closeModal }) => {
-					return (
-						<div className="directorist-formgent-table-modal">
-							<h1>
-								{items.length > 1
-									? (
-											strings.delete_items_confirm ||
-											__('Are you sure to delete %d items?', 'directorist')
-										).replace('%d', items.length)
-									: strings.delete_item_confirm ||
-										'Are you sure to delete this item?'}
-							</h1>
-							<p>
-								{strings.action_cannot_be_undone ||
-									'This action cannot be undone.'}
-							</p>
-							<div className="directorist-formgent-table-modal-action">
-								<button
-									onClick={() => {
-										bulkDeleteEnquiries(
-											items,
-											handleTableRefresh
-										);
-										closeModal();
-									}}
-									className="directorist-btn directorist-btn-danger"
-								>
-									{strings.delete || __('Delete', 'directorist')}
-								</button>
-								<button
-									onClick={closeModal}
-									className="directorist-btn directorist-btn-light"
-								>
-									{strings.cancel || __('Cancel', 'directorist')}
-								</button>
-							</div>
-						</div>
-					);
-				},
-				hideModalHeader: true,
-				id: 'delete',
-				label: strings.delete || __('Delete', 'directorist'),
-				icon: <TrashIcon />,
-				isDestructive: true,
-				modalFocusOnMount: 'firstContentElement',
-				supportsBulk: hasBulk,
-			},
-		],
-		[handleMarkAsRead, handleOpenDeleteModal, hasBulk]
+		() =>
+			box === 'send'
+				? []
+				: [
+						{
+							id: 'mark-as-read',
+							label: strings.mark_as_read || __('Mark as read', 'directorist'),
+							supportsBulk: hasBulk,
+							icon: <CheckIcon />,
+							callback: (items) => {
+								const itemsArray = Array.isArray(items) ? items : [items];
+								if (itemsArray.length > 1) {
+									bulkMarkEnquiriesAsRead(itemsArray, handleTableRefresh);
+								} else {
+									handleMarkAsRead(itemsArray[0]);
+								}
+							},
+							isEligible: (item) => {
+								return item.is_read === '0';
+							},
+						},
+						{
+							RenderModal: ({ items, closeModal }) => {
+								return (
+									<div className="directorist-formgent-table-modal">
+										<h1>
+											{items.length > 1
+												? (
+														strings.delete_items_confirm ||
+														__(
+															'Are you sure to delete %d items?',
+															'directorist'
+														)
+													).replace('%d', items.length)
+												: strings.delete_item_confirm ||
+													'Are you sure to delete this item?'}
+										</h1>
+										<p>
+											{strings.action_cannot_be_undone ||
+												'This action cannot be undone.'}
+										</p>
+										<div className="directorist-formgent-table-modal-action">
+											<button
+												onClick={() => {
+													bulkDeleteEnquiries(items, handleTableRefresh);
+													closeModal();
+												}}
+												className="directorist-btn directorist-btn-danger"
+											>
+												{strings.delete || __('Delete', 'directorist')}
+											</button>
+											<button
+												onClick={closeModal}
+												className="directorist-btn directorist-btn-light"
+											>
+												{strings.cancel || __('Cancel', 'directorist')}
+											</button>
+										</div>
+									</div>
+								);
+							},
+							hideModalHeader: true,
+							id: 'delete',
+							label: strings.delete || __('Delete', 'directorist'),
+							icon: <TrashIcon />,
+							isDestructive: true,
+							modalFocusOnMount: 'firstContentElement',
+							supportsBulk: hasBulk,
+						},
+					],
+		[box, handleMarkAsRead, hasBulk, handleTableRefresh, strings]
 	);
 
-	// Filter and search items
-	const filteredData = useMemo(() => {
-		if (!Array.isArray(items)) return [];
-
-		let filtered = [...items];
-
-		// Apply search filter
-		if (view.search && view.search.trim() !== '') {
-			const query = view.search.toLowerCase().trim();
-			filtered = filtered.filter((item) => {
-				return (
-					item.listing_title?.toLowerCase().includes(query) ||
-					item.user?.display_name?.toLowerCase().includes(query) ||
-					item.user?.user_email?.toLowerCase().includes(query)
-				);
-			});
-		}
-
-		return [...filtered].reverse();
-	}, [items, view.search]);
-
-	// Handle view changes
-	const handleChangeView = (newView) => {
-		setView((prevView) => ({
-			...prevView,
-			...newView,
-		}));
-	};
-
-	// Calculate pagination
-	const paginatedData = useMemo(() => {
-		const start = (view.page - 1) * view.perPage;
-		const end = start + view.perPage;
-		return filteredData.slice(start, end);
-	}, [filteredData, view.page, view.perPage]);
+	const paginatedData = items;
 
 	// Lazy load answers only for visible/paginated items
 	useEffect(() => {
@@ -343,12 +324,8 @@ export default function Tables(props) {
 		if (!needsFetch) {
 			// All visible items are cached, just merge them
 			const merged = paginatedData.map((item) => {
-				const cachedAnswers = answersCacheRef.current.get(
-					String(item.id)
-				);
-				return cachedAnswers
-					? { ...item, answers: cachedAnswers }
-					: item;
+				const cachedAnswers = answersCacheRef.current.get(String(item.id));
+				return cachedAnswers ? { ...item, answers: cachedAnswers } : item;
 			});
 			setEnrichedItems(merged);
 			return;
@@ -356,7 +333,7 @@ export default function Tables(props) {
 
 		// Fetch answers for visible items that aren't cached
 		setIsLoadingAnswers(true);
-		enrichEnquiriesWithAnswers(paginatedData, answersCacheRef.current)
+		enrichEnquiriesWithAnswers(paginatedData, answersCacheRef.current, box)
 			.then(({ enrichedItems: enriched, cache }) => {
 				answersCacheRef.current = cache; // Update cache reference
 				setEnrichedItems(enriched);
@@ -380,7 +357,6 @@ export default function Tables(props) {
 		setEnrichedItems(merged);
 	}, [items]);
 
-	const totalItems = filteredData.length;
 	const totalPages = Math.ceil(totalItems / view.perPage);
 
 	// Use enriched items for rendering
@@ -398,7 +374,7 @@ export default function Tables(props) {
 				data={displayData}
 				fields={fields}
 				view={view}
-				onChangeView={handleChangeView}
+				onChangeView={onChangeView}
 				actions={actions}
 				getItemId={(item) => String(item.id)}
 				search
@@ -416,11 +392,13 @@ export default function Tables(props) {
 							styles: {},
 						},
 					},
+					list: { showMedia: false },
 				}}
 			/>
 
 			{/* View Enquiry Details Modal */}
 			<EnquiryDetailsModal
+				box={box}
 				isOpen={isViewModalOpen}
 				selectedItem={selectedItem}
 				onClose={() => {

@@ -1,0 +1,1333 @@
+{
+  "snapshot": {
+    "key": "live-chat--fix-live-chat-visibility-socket-fallback",
+    "repo": "directorist-live-chat",
+    "branch": "fix/live-chat-visibility-socket-fallback",
+    "commit": "3a48f59612eb61ad2fc6308063870e59c02fdb34",
+    "date": "2026-09-10T13:28:57Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat__fix-live-chat-visibility-socket-fallback",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "PR_DESCRIPTION.md": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "46da8245953fe2d0301372fabea4fcab2092b6f02c00968aadef04085b2dbbc8",
+      "bytes": 637,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "9bb27069d331df0eca46d24822d3880dcc9bf878f4714fdfd66430ed910d2c40",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-live-chat.php": {
+      "sha256": "6bc1640f6c296bd1a551b7a4355deba174bf5d5493eeef1de91a8fc0311ee649",
+      "bytes": 74171,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Live_Chat",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 90,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_dashboard_tabs",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 157,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_live_chat_license_deactivation",
+          "line": 173,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_live_chat_license_activation",
+          "line": 267,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_delete_chat_history",
+          "line": 361,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_author_avatar",
+          "line": 383,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_get_admin_chat_history",
+          "line": 400,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_get_chat_history",
+          "line": 429,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_new_post_types",
+          "line": 482,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_live_chat",
+          "line": 526,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_live_chat_single",
+          "line": 647,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_after_single_listing",
+          "line": 762,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_live_chat_content",
+          "line": 881,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_admin_needed_scripts",
+          "line": 1103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 1119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 1155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 1168,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 1185,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 1213,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mas_license_settings_controls",
+          "line": 1229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 1274,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 1282,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 1287,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 1292,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 1298,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 1307,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 1313,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Live_Chat",
+          "line": 1340,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 15,
+          "args": [
+            "'Directorist_Live_Chat'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 48,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 49,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_admin_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 51,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'mas_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'register_new_post_types')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'directorist_dashboard_tabs'",
+            "array( self::$instance, 'directorist_dashboard_tabs')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'atbdp_after_single_listing'",
+            "array(self::$instance, 'atbdp_after_single_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'wp_ajax_atbdp_live_chat'",
+            "array(self::$instance, 'atbdp_live_chat')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 60,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_live_chat'",
+            "array(self::$instance, 'atbdp_live_chat')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'wp_ajax_atbdp_get_chat_history'",
+            "array(self::$instance, 'atbdp_get_chat_history')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 64,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_get_chat_history'",
+            "array(self::$instance, 'atbdp_get_chat_history')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'wp_ajax_atbdp_get_admin_chat_history'",
+            "array(self::$instance, 'atbdp_get_admin_chat_history')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 68,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_get_admin_chat_history'",
+            "array(self::$instance, 'atbdp_get_admin_chat_history')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 75,
+          "args": [
+            "'wp_ajax_atbdp_live_chat_license_activation'",
+            "array(self::$instance, 'atbdp_live_chat_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 77,
+          "args": [
+            "'wp_ajax_atbdp_live_chat_license_deactivation'",
+            "array(self::$instance, 'atbdp_live_chat_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 79,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 80,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( self::$instance, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 81,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 83,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 91,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 109,
+          "args": [
+            "$user_id",
+            "'_user_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 113,
+          "args": [
+            "'chat_user_tab'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 161,
+          "args": [
+            "'atbdp_live_chat_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 176,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 178,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 179,
+          "args": [
+            "'directorist_live_chat_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 190,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 192,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 199,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 206,
+          "args": [
+            "'directorist_live_chat_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 212,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 270,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 272,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 273,
+          "args": [
+            "'directorist_live_chat_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 284,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 286,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 293,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 300,
+          "args": [
+            "'directorist_live_chat_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 306,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 385,
+          "args": [
+            "$author_id",
+            "'pro_pic'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 412,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 455,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        },
+        {
+          "name": "register_post_type",
+          "line": 523,
+          "args": [
+            "'atbdp_chat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 593,
+          "args": [
+            "$chat->ID",
+            "'_chatAuthor_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 627,
+          "args": [
+            "$chat_id",
+            "'_chatListing_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 628,
+          "args": [
+            "$chat_id",
+            "'_chatAuthor_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 629,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 630,
+          "args": [
+            "$chat_id",
+            "'_chat_listing_author'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 655,
+          "args": [
+            "'enable_live_chat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 679,
+          "args": [
+            "'start_chat_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 693,
+          "args": [
+            "'show_chat_button'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 713,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 769,
+          "args": [
+            "'single_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 774,
+          "args": [
+            "'enable_live_chat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 799,
+          "args": [
+            "'start_chat_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 813,
+          "args": [
+            "'show_chat_button'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 832,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 889,
+          "args": [
+            "'dlc_dashboard_content_div_attributes'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 891,
+          "args": [
+            "'dlc_dashboard_before_content'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 899,
+          "args": [
+            "'chat_user_tab'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 917,
+          "args": [
+            "$chats[0]->ID",
+            "'_chatAuthor_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 919,
+          "args": [
+            "$chats[0]->ID",
+            "'_chatAuthor_id'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 921,
+          "args": [
+            "'user_login'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 925,
+          "args": [
+            "$listing",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 926,
+          "args": [
+            "$listing",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 996,
+          "args": [
+            "'display_name'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1018,
+          "args": [
+            "$listing",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1019,
+          "args": [
+            "$listing",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1059,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 1093,
+          "args": [
+            "'dlc_dashboard_after_content'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1122,
+          "args": [
+            "'user_dashboard'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1139,
+          "args": [
+            "'reload_interval'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1140,
+          "args": [
+            "'show_chat_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1141,
+          "args": [
+            "'hide_chat_button'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1188,
+          "args": [
+            "'DLC_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1192,
+          "args": [
+            "'DLC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1194,
+          "args": [
+            "'DLC_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1197,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1201,
+          "args": [
+            "'ATBDP_DLC_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1219,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1231,
+          "args": [
+            "'directorist_live_chat_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1247,
+          "args": [
+            "'atbdp_live_chat_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1251,
+          "args": [
+            "'atbdp_live_chat_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1262,
+          "args": [
+            "'atbdp_licence_menu_for_live_chat'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1306,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1308,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1312,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 1318,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "bf699491bce0e54aa7417b8fba1f782e0543d5f7f4c99bb56be3d77df9c1e76b",
+      "bytes": 26,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.css": {
+      "sha256": "bccb09a55fa45df541e57c318d2300838ec7f42fe9ad17d5d41a4ccaea1a2b1a",
+      "bytes": 1081,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.js": {
+      "sha256": "7902a2040d90f0e68fe0cfa4e067cf6bc1bcf6578b6bdea08e14fcdd6d116fae",
+      "bytes": 2733,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/main.js": {
+      "sha256": "457b6b20adcd6dd0344dd30cc4512260eee4c9255e412c26460c723da1ba8da0",
+      "bytes": 18911,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "scrollToButtom",
+          "kind": "JS",
+          "line": 342
+        },
+        {
+          "name": "timeNow",
+          "kind": "JS",
+          "line": 358
+        },
+        {
+          "name": "getChats",
+          "kind": "JS",
+          "line": 369
+        },
+        {
+          "name": "getAdminChats",
+          "kind": "JS",
+          "line": 402
+        }
+      ],
+      "calls": []
+    },
+    "assets/public/style-rtl.css": {
+      "sha256": "23ca2a6e1f08b1f1abea59dc7d5f101ee397fc8d78fb856214e59da68bb8d8a1",
+      "bytes": 15691,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/style.css": {
+      "sha256": "0b889e132640cba27ffcaeef61fc9477b3bebb2c109869ff9b8899d2efb4362a",
+      "bytes": 18495,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "class/admin-chat.php": {
+      "sha256": "f22654a2a6ce4e119a23e558c98f8f34d157ce922297429415b318a7ee8926f9",
+      "bytes": 660,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Admin_Chat",
+          "line": 3,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 5,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_chat",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_chat_menu",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 7,
+          "args": [
+            "'admin_menu'",
+            "array($this, 'admin_chat')"
+          ]
+        }
+      ]
+    },
+    "includes/EDD_SL_Plugin_Updater.php": {
+      "sha256": "bd6d701d1953c7435890195735682f42f2be86d766ebea3ee8432e6071b58b3f",
+      "bytes": 17743,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/directory_type.php": {
+      "sha256": "d568f3e60adb7044bcc4f3a9a8f4d10f56ccd9eb03d7972760831c8f77693e37",
+      "bytes": 3205,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DLC_Directory_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pricing_plans_registered_features",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_section_template",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_single_listing_other_fields_widget",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'DLC_Directory_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 8,
+          "args": [
+            "'atbdp_single_listing_other_fields_widget'",
+            "array($this, 'atbdp_single_listing_other_fields_widget')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 9,
+          "args": [
+            "'directorist_single_section_template'",
+            "array( $this, 'directorist_single_section_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'directorist_pricing_plans_registered_features'",
+            "[ $this, 'pricing_plans_registered_features' ]"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 28,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 29,
+          "args": [
+            "$plan_id",
+            "'_fm_live_chat'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 36,
+          "args": [
+            "'directorist_is_listing_feature_available'"
+          ]
+        }
+      ]
+    },
+    "includes/helper.php": {
+      "sha256": "7d4cf57be10a030fee434153470bedd1e76771badb1bdc594cef5e0503815012",
+      "bytes": 9960,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "atbdp_check_live_chat_restriction",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_chats",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_chat_by_user",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_chatted_listings",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_chat_exists_by_user",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_chat_by_admin",
+          "line": 155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_chatted_user_by_listing",
+          "line": 185,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_email_notification",
+          "line": 208,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_live_chat_get_template",
+          "line": 254,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 9,
+          "args": [
+            "'atbdp_check_live_chat_restriction'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 12,
+          "args": [
+            "'atbdp_live_chat_is_restricted'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 18,
+          "args": [
+            "'get_chats'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 59,
+          "args": [
+            "'get_chat_by_user'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 100,
+          "args": [
+            "'get_chatted_listings'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 115,
+          "args": [
+            "$post_id",
+            "'_chatListing_id'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 123,
+          "args": [
+            "'listing_chat_exists_by_user'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 154,
+          "args": [
+            "'listing_chat_by_admin'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 184,
+          "args": [
+            "'all_chatted_user_by_listing'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 207,
+          "args": [
+            "'send_email_notification'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 218,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 219,
+          "args": [
+            "'time_format'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-live-chat.pot": {
+      "sha256": "e2c7263c8bb4d6572ccade238211ebd28d0f66ba2a93140eb90985e5edc65f14",
+      "bytes": 5140,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/chat.php": {
+      "sha256": "85d960b854024f43288a27da84558221783ea72cd52434c887ec24db713027fc",
+      "bytes": 6329,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 9,
+          "args": [
+            "'single_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 14,
+          "args": [
+            "'enable_live_chat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 39,
+          "args": [
+            "'start_chat_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 53,
+          "args": [
+            "'show_chat_button'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 72,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        }
+      ]
+    },
+    "templates/live_chat.php": {
+      "sha256": "d010aceae8bf9804b013121a9a1259af0245e98c507f676fbdbed5c0f37b3922",
+      "bytes": 5994,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 12,
+          "args": [
+            "'enable_live_chat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 37,
+          "args": [
+            "'start_chat_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 51,
+          "args": [
+            "'show_chat_button'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 70,
+          "args": [
+            "$chat_id",
+            "'_chatMsg'"
+          ]
+        }
+      ]
+    }
+  }
+}

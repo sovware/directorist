@@ -1,0 +1,730 @@
+{
+  "snapshot": {
+    "key": "analytics--main",
+    "repo": "directorist-analytics",
+    "branch": "main",
+    "commit": "520e871fb6bae14d211bf3c60a8b01bb0c1e3651",
+    "date": "2025-10-20T03:56:44Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "8aa222454f54b8c2fe728a15a364624659cfe51904664e0afb40a02b8a5e2891",
+      "bytes": 31,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "434df6ba030ab27d9048cacf1f599191c281b9df204a18a294f33314b64514d1",
+      "bytes": 254,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "f362557152b95d01f207fc31ed4fe52831a5ee18a93cff9e882eba897ce6ddaa",
+      "bytes": 1062,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "e300870648c102c8204a73b0dc45fee88c1e2f473e69d936084756afef6a97a1",
+      "bytes": 1936,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "artisan": {
+      "sha256": "fd537c2ae98d5ec4b8785099c524462d201be37d0270e772d4e4d4ca07bf9280",
+      "bytes": 158,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "d12663df36e796aada38c8b10465297920960b8f1e044984e8d3f5022a4b95ab",
+      "bytes": 1838,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-analytics.php": {
+      "sha256": "4863d3b9bba5b1c0ec494d88c29f500537756b7b83389ffc3e1fdb28d625eeac",
+      "bytes": 1696,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristAnalytics",
+          "line": 26,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 39,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $application ): void { do_action( 'directorist_analytics_before_load' ); $application->load(); do_action( 'directorist_analytics_after_load' ); }"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 56,
+          "args": [
+            "'directorist_analytics_before_load'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 60,
+          "args": [
+            "'directorist_analytics_after_load'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "d6cfa6ed27a1e95acb47f91bd0bcf58b72ca4f6bb50668ab24226678f61b07ee",
+      "bytes": 1201,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "ca152ba9dccf8709b5f7713171d575e911e13c9db5ca2748a0b37bb1b5e0bcb0",
+      "bytes": 648,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/on-pull-request.yml": {
+      "sha256": "18f5fad537ca284210ac562193c518e9c0e00b8e6a8e70d8f6ed63f011f38a9f",
+      "bytes": 910,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CustomSniffs/Sniffs/Files/ABSPATHDefinedSniff.php": {
+      "sha256": "b82313aa4489eaf55e1000887934f4a9b36ce1beb9c94cebb44979a2c9462542",
+      "bytes": 1725,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "42ce4f018f79ed826f879a57589c22d6c6301dad4eddc31e8245e42aa886f422",
+      "bytes": 1005,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_analytics",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_config",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_app_config",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_version",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_container",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_singleton",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_url",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_analytics_dir",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/Controller.php": {
+      "sha256": "8788227365fd80b37d2a9769de392f3d061ed40c7aecd76c24091fd011eb8bb8",
+      "bytes": 111,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Controller",
+          "line": 7,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/UserController.php": {
+      "sha256": "77fbf73e38dce4abb96aef3d939f3cbe0a3ca6ee36e215f92a033bcc19e8f188",
+      "bytes": 166,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserController",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "index",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/EnsureIsUserAdmin.php": {
+      "sha256": "992f721df0fc11c43668b0313c3c52943ba2bd0f17d7166ebb79754a911f48a4",
+      "bytes": 475,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/Post.php": {
+      "sha256": "40e7772e03f62113c4617b47d6c068a06d8258a368ee858c9866bf127d4c35d8",
+      "bytes": 622,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Post",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolver",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/PostMeta.php": {
+      "sha256": "d1a2b0a28c877bdf7ebb2b1b287925486069bb1a1493a1ecef8bef50da0218bc",
+      "bytes": 448,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PostMeta",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/User.php": {
+      "sha256": "46f250a76f7ce9622ace6c6b0cb037e67afd407755c23c4a3cfc3e942778aa7e",
+      "bytes": 441,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Models/UserMeta.php": {
+      "sha256": "bd2e3790631e97c42465692db35339d4019ca2343633fb5fea39c2262de7b973",
+      "bytes": 448,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserMeta",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "app/Providers/MenuServiceProvider.php": {
+      "sha256": "c8cdc2e05c5c6f2e256477f1bfdb350dfb56e41490913afa97e81e6c6dd8ef05",
+      "bytes": 868,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MenuServiceProvider",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_admin_menu",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_page",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'admin_menu'",
+            "[ $this, 'add_admin_menu' ]"
+          ]
+        }
+      ]
+    },
+    "assets/build/css/app.asset.php": {
+      "sha256": "f5c18b100345b817b598e6245dea81539fd4a15892ef9ebff9652728bffa9d26",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.css": {
+      "sha256": "d659c408f72a50f379f3e07774baaa4ba32aae3b2f8187f661e7388362c2fcae",
+      "bytes": 738,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.js": {
+      "sha256": "fe2decc7d8447119a71f9769e08a9cb5a92c415811d8a3f180dda380e0f9c339",
+      "bytes": 1024,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.asset.php": {
+      "sha256": "6540b37f9a6bfdc7720d1c884fa26e47f99cd8209e4cb89e99f014ca86fb8fe7",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.js": {
+      "sha256": "d79a5ad2ab69bdac2badb881da9cdaab72a88277fb9c31206227d5ade062e12d",
+      "bytes": 251,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config/app.php": {
+      "sha256": "7df547725a3ef56c462104ad4d30a361846a1bacba6bd3256fb7e6d0e4d849cb",
+      "bytes": 3102,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 55,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Setup.php": {
+      "sha256": "52463380b7cc2800dd04095b53615af31757f773cf235209718bd9d2c964ce37",
+      "bytes": 447,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Setup",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "execute",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Migrations/TestMigration.php": {
+      "sha256": "d02908f230fa4ba60367939bab4991cc3efb89f9c6d466ea66ffe0110f8787e9",
+      "bytes": 326,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TestMigration",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "more_than_version",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "execute",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "e52e5ceda4d4456e442a1dbcdd2abf7da295414d4d35489eb1faa384deb71fb6",
+      "bytes": 4507,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/phpcs.xml": {
+      "sha256": "eacd79c0024c1e611c2b4834f69e85bed76c5a9821d635dcdba6d2621756faa6",
+      "bytes": 6165,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "96284acc5f6ff86b15458adb6a7f5f727d9d034f149388f765a0257867e48ef1",
+      "bytes": 2383,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "f82513c1e80af3d980f1ddce029ffa3e73c3669e8492625b4a85dcdc19015a78",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/exclude.files.config.php": {
+      "sha256": "62c1d4560e848bd07a1fafcdb3cc3f9dd7d09abe913e84e9bf76a0a6e1f983d0",
+      "bytes": 1683,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/global.config.php": {
+      "sha256": "8b2ff40900d33e81c65c8efb5a6af287e827d88965d41ab3ebaeb2f6bdd32f65",
+      "bytes": 2800,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/index.php": {
+      "sha256": "7d4c501042e762e13462947d1516b78263c28a45d179f62c3f256fdbc08d55fb",
+      "bytes": 1406,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "972f909dde3e0cc1972b0757165e137ff4be4fbca55e5fb3de5d561ab3849a29",
+      "bytes": 628,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 10,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/js/app.js": {
+      "sha256": "02a1d28ea235dae21bd69a23200ba4a570b0ef3404b634e269275c9b87b31d9d",
+      "bytes": 27,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/app.scss": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/index.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/views/admin/analytics.php": {
+      "sha256": "98862156330917509c03734f2dc1082a2d9ae31601fb268e1928c41119e5baf6",
+      "bytes": 615,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 2,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "13cf36ce0a889d4d5532bf2b6dbf922bd07b4d232fbeb96e58942eecff209af2",
+      "bytes": 226,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/rest/api.php": {
+      "sha256": "9c6221518357d11d763f1d90733c7e63f7e6ac4f3322172ea04506509246ceea",
+      "bytes": 222,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    }
+  }
+}

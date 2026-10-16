@@ -1,0 +1,1228 @@
+{
+  "checked_at": "2026-09-13",
+  "core_path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist",
+  "core_commit": "10e13123267b92b66cbf7970cb9b0967daf28983",
+  "products": [
+    {
+      "id": "directorist-mpesa-payment-gateway",
+      "name": "M-Pesa Payment Gateway",
+      "url": "https://directorist.com/product/m-pesa-payment-gateway/",
+      "primary": "mpesa-payment-gateway--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "mpesa-payment-gateway--main",
+          "repo": "directorist-mpesa-payment-gateway",
+          "branch": "main",
+          "commit": "f304ecfa35049b5cc827b182f54dcbc048dc5bf3",
+          "date": "2026-09-03T06:14:05Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mpesa-payment-gateway",
+          "kind": "remote"
+        },
+        {
+          "key": "mpesa-payment-gateway--development",
+          "repo": "directorist-mpesa-payment-gateway",
+          "branch": "development",
+          "commit": "a9ad328642699baba4c1f854b35544cf571a2587",
+          "date": "2026-09-03T06:12:33Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mpesa-payment-gateway__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-notifications-pro",
+      "name": "Directorist Notifications Pro",
+      "url": "https://directorist.com/product/directorist-notifications-pro/",
+      "primary": "notifications-pro--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "notifications-pro--main",
+          "repo": "directorist-notifications-pro",
+          "branch": "main",
+          "commit": "b9b5c721c27d55082f25cf0ea00b74c44008020a",
+          "date": "2026-07-13T12:03:07Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-notifications-pro",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-divi-integration",
+      "name": "Directorist Divi Integration",
+      "url": "https://directorist.com/product/directorist-divi-integration/",
+      "primary": "divi-integration--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "divi-integration--master",
+          "repo": "directorist-divi-integration",
+          "branch": "master",
+          "commit": "e3c8cafacaeae1422a5fe56fba16a0eced9eee18",
+          "date": "2026-09-13T11:24:04Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-divi-integration",
+          "kind": "remote"
+        },
+        {
+          "key": "divi-integration--local",
+          "repo": "directorist-divi-integration",
+          "branch": "fix/sponsorfull-search-follow-up",
+          "commit": "9af4663e20570d26c95067f83ebd58cf988d8c39",
+          "date": "2026-09-01T16:42:14+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-divi-integration",
+          "kind": "local",
+          "dirty": "?? artifacts/"
+        }
+      ]
+    },
+    {
+      "id": "directorist-ai-search",
+      "name": "Directorist AI Search",
+      "url": "https://directorist.com/product/directorist-ai-search/",
+      "primary": "ai-search--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "ai-search--main",
+          "repo": "directorist-ai-search",
+          "branch": "main",
+          "commit": "07f49c7e6c2ba400e756f69b815b4febaf4d886f",
+          "date": "2026-07-28T05:00:53Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-ai-search",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-listing-import",
+      "name": "Directorist Listing Importer",
+      "url": "https://directorist.com/product/directorist-listing-importer/",
+      "primary": "listing-import--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "listing-import--main",
+          "repo": "directorist-listing-import",
+          "branch": "main",
+          "commit": "81e621c5d45a938a1a21d9e0185f3f7528f9a660",
+          "date": "2026-09-10T08:42:37Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listing-import",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-analytics",
+      "name": "Directorist Analytics",
+      "url": "https://directorist.com/product/directorist-analytics/",
+      "primary": "analytics--fix-weekly-monthly-report-duplicate-last-listing",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "analytics--main",
+          "repo": "directorist-analytics",
+          "branch": "main",
+          "commit": "520e871fb6bae14d211bf3c60a8b01bb0c1e3651",
+          "date": "2025-10-20T03:56:44Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics",
+          "kind": "remote"
+        },
+        {
+          "key": "analytics--fix-weekly-monthly-report-duplicate-last-listing",
+          "repo": "directorist-analytics",
+          "branch": "fix/weekly-monthly-report-duplicate-last-listing",
+          "commit": "1cfab8c614df67718fac9065037174acec4370df",
+          "date": "2026-09-07T04:51:41Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics__fix-weekly-monthly-report-duplicate-last-listing",
+          "kind": "remote"
+        },
+        {
+          "key": "analytics--development",
+          "repo": "directorist-analytics",
+          "branch": "development",
+          "commit": "f54abd3be2fa4186d59b23d8a9b4e5e1daf77c23",
+          "date": "2025-11-13T09:43:32Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics__development",
+          "kind": "remote"
+        },
+        {
+          "key": "analytics--local",
+          "repo": "directorist-analytics",
+          "branch": "fix/weekly-monthly-report-duplicate-last-listing",
+          "commit": "1cfab8c614df67718fac9065037174acec4370df",
+          "date": "2026-09-07T10:51:41+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-analytics",
+          "kind": "local",
+          "dirty": "M assets/build/css/app-rtl.css\n M assets/build/css/app.asset.php\n M assets/build/css/app.css\n M assets/build/css/app.css.map\n M assets/build/css/app.js\n M assets/build/js/app.asset.php\n M assets/build/js/app.js\n M package.json\n?? assets/build/38b05b78f50224cfe229.icc\n?? pnpm-workspace.yaml"
+        }
+      ]
+    },
+    {
+      "id": "directorist-advanced-review",
+      "name": "Directorist Advanced Review",
+      "url": "https://directorist.com/product/directorist-advanced-review/",
+      "primary": "advanced-review--fix-review-translation-pluralization",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "advanced-review--master",
+          "repo": "directorist-advanced-review",
+          "branch": "master",
+          "commit": "d21cfd0ea7d27149241495c578b7683cbd9823a9",
+          "date": "2026-06-22T04:43:07Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review",
+          "kind": "remote"
+        },
+        {
+          "key": "advanced-review--fix-review-translation-pluralization",
+          "repo": "directorist-advanced-review",
+          "branch": "fix/review-translation-pluralization",
+          "commit": "38089538e124bb99123f0db34860992247bb6506",
+          "date": "2026-09-07T10:18:38Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review__fix-review-translation-pluralization",
+          "kind": "remote"
+        },
+        {
+          "key": "advanced-review--development",
+          "repo": "directorist-advanced-review",
+          "branch": "development",
+          "commit": "e3559325447ddb3ede6b916ffbf9defd658cbbf5",
+          "date": "2026-06-22T04:41:52Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-universal-search",
+      "name": "Directorist Universal Search",
+      "url": "https://directorist.com/product/directorist-universal-search/",
+      "primary": "universal-search--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "universal-search--master",
+          "repo": "directorist-universal-search",
+          "branch": "master",
+          "commit": "9a0d3ca53ba331cb1a473965b4c86d9904a6eb9a",
+          "date": "2026-05-21T10:46:13Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-universal-search",
+          "kind": "remote"
+        },
+        {
+          "key": "universal-search--development",
+          "repo": "directorist-universal-search",
+          "branch": "development",
+          "commit": "3abafc6bd041a96e14cadeb17d0596d90497545c",
+          "date": "2025-12-17T09:04:22Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-universal-search__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-search-alert",
+      "name": "Directorist Search Alert",
+      "url": "https://directorist.com/product/directorist-search-alert/",
+      "primary": "search-alert--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "search-alert--main",
+          "repo": "directorist-search-alert",
+          "branch": "main",
+          "commit": "4b62ac4632520a7e5ea2494ac30ca2b3756899df",
+          "date": "2026-08-23T06:57:31Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-search-alert",
+          "kind": "remote"
+        },
+        {
+          "key": "search-alert--local",
+          "repo": "directorist-search-alert",
+          "branch": "main",
+          "commit": "4b62ac4632520a7e5ea2494ac30ca2b3756899df",
+          "date": "2026-08-23T12:57:31+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-search-alert",
+          "kind": "local",
+          "dirty": ""
+        }
+      ]
+    },
+    {
+      "id": "directorist-announcement",
+      "name": "Directorist Announcement",
+      "url": "https://directorist.com/product/directorist-announcement/",
+      "primary": "announcement--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "announcement--master",
+          "repo": "directorist-announcement",
+          "branch": "master",
+          "commit": "92c16c32b1f6610316b2250ebf68c5f6c2abd717",
+          "date": "2025-03-18T23:15:36Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-announcement",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "addonskit-for-bricks",
+      "name": "AddonsKit for Bricks",
+      "url": "https://directorist.com/product/addonskit-for-bricks/",
+      "primary": "addonskit-for-bricks--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "addonskit-for-bricks--main",
+          "repo": "addonskit-for-bricks",
+          "branch": "main",
+          "commit": "abedcb63f283ae13e899a33c0b2a2a1c7a922c51",
+          "date": "2026-08-10T09:45:47Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/addonskit-for-bricks",
+          "kind": "remote"
+        },
+        {
+          "key": "addonskit-for-bricks--development",
+          "repo": "addonskit-for-bricks",
+          "branch": "development",
+          "commit": "c3056318b531babf4673c18bf2114525814244fa",
+          "date": "2025-07-30T05:32:45Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/addonskit-for-bricks__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-helpgent-integration",
+      "name": "HelpGent Integration",
+      "url": "https://directorist.com/product/directorist-helpgent-integration/",
+      "primary": "helpgent-integration--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "helpgent-integration--master",
+          "repo": "directorist-helpgent-integration",
+          "branch": "master",
+          "commit": "681495a66d0f8072924937b8ae00e6f514ac68ab",
+          "date": "2026-06-15T04:25:28Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-helpgent-integration",
+          "kind": "remote"
+        },
+        {
+          "key": "helpgent-integration--development",
+          "repo": "directorist-helpgent-integration",
+          "branch": "development",
+          "commit": "1637cb93e267271b00d49faa04234a5fdec0a719",
+          "date": "2025-01-07T13:06:19Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-helpgent-integration__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-wpml-integration",
+      "name": "WPML Integration",
+      "url": "https://directorist.com/product/directorist-wpml-integration/",
+      "primary": "wpml-integration--main",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "wpml-integration--main",
+          "repo": "directorist-wpml-integration",
+          "branch": "main",
+          "commit": "7d9224d9f6937cf970a562c1abfcd1079c6aad15",
+          "date": "2026-08-23T09:07:55Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-wpml-integration",
+          "kind": "remote"
+        },
+        {
+          "key": "wpml-integration--development",
+          "repo": "directorist-wpml-integration",
+          "branch": "development",
+          "commit": "599d77a4698af796bb8e9b04f0b75684a91ab021",
+          "date": "2026-08-23T04:49:28Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-wpml-integration__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-digital-marketplace",
+      "name": "Digital Marketplace",
+      "url": "https://directorist.com/product/directorist-digital-marketplace/",
+      "primary": "digital-marketplace--fix-safari-source-map-errors",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "digital-marketplace--main",
+          "repo": "directorist-digital-marketplace",
+          "branch": "main",
+          "commit": "4d6e283fd759a804d07b6510bbe1d055a80d4b79",
+          "date": "2026-03-30T07:23:23Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-digital-marketplace",
+          "kind": "remote"
+        },
+        {
+          "key": "digital-marketplace--fix-safari-source-map-errors",
+          "repo": "directorist-digital-marketplace",
+          "branch": "fix/safari-source-map-errors",
+          "commit": "dc80ed24ba02b23f9f8157084bc02a5dea7502c7",
+          "date": "2026-08-11T06:58:43Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-digital-marketplace__fix-safari-source-map-errors",
+          "kind": "remote"
+        },
+        {
+          "key": "digital-marketplace--local",
+          "repo": "directorist-digital-marketplace",
+          "branch": "",
+          "commit": "4d6e283fd759a804d07b6510bbe1d055a80d4b79",
+          "date": "2026-03-30T13:23:23+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-digital-marketplace",
+          "kind": "local",
+          "dirty": "M assets/dist/js/public-main.js\n M package.json\n M vendor/composer/installed.php\n?? pnpm-lock.yaml\n?? pnpm-workspace.yaml"
+        }
+      ]
+    },
+    {
+      "id": "directorist-job-manager",
+      "name": "Job Manager",
+      "url": "https://directorist.com/product/directorist-job-manager/",
+      "primary": "job-manager--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "job-manager--main",
+          "repo": "directorist-job-manager",
+          "branch": "main",
+          "commit": "3c106a5bc659890d81844f9f907011fcd9c77b20",
+          "date": "2026-04-23T09:41:54Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-job-manager",
+          "kind": "remote"
+        },
+        {
+          "key": "job-manager--development",
+          "repo": "directorist-job-manager",
+          "branch": "development",
+          "commit": "562615e4ede94f2c41c79c02e15035f7b9e64a41",
+          "date": "2026-06-28T11:15:00Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-job-manager__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-booking",
+      "name": "Booking (Reservation & Appointment)",
+      "url": "https://directorist.com/product/directorist-booking/",
+      "primary": "booking--fix-client-issue-3257-guest-confirmation",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "booking--main",
+          "repo": "directorist-booking",
+          "branch": "main",
+          "commit": "3b4ae45ba3b8a1c223d17f7f7573bfcec70cfb24",
+          "date": "2025-05-15T10:43:51Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-booking",
+          "kind": "remote"
+        },
+        {
+          "key": "booking--fix-client-issue-3257-guest-confirmation",
+          "repo": "directorist-booking",
+          "branch": "fix/client-issue-3257-guest-confirmation",
+          "commit": "3dac671d62a54fb22220d790d5b9fbad990717d9",
+          "date": "2026-08-25T04:50:40Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-booking__fix-client-issue-3257-guest-confirmation",
+          "kind": "remote"
+        },
+        {
+          "key": "booking--development",
+          "repo": "directorist-booking",
+          "branch": "development",
+          "commit": "844c13bc26f443a558ef4595446cb964930d1276",
+          "date": "2026-06-28T11:12:07Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-booking__development",
+          "kind": "remote"
+        },
+        {
+          "key": "booking--local",
+          "repo": "directorist-booking",
+          "branch": "unversioned",
+          "commit": "unversioned-local",
+          "date": "unavailable",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-booking",
+          "kind": "local",
+          "dirty": "unversioned folder; use file hashes"
+        }
+      ]
+    },
+    {
+      "id": "directorist-listings-with-map",
+      "name": "Listings with Map",
+      "url": "https://directorist.com/product/directorist-listings-with-map/",
+      "primary": "listings-with-map--codex-lwm-map-sync-extension",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "listings-with-map--v8-beta",
+          "repo": "directorist-listings-with-map",
+          "branch": "v8-beta",
+          "commit": "7bf445d274ade502b05927729362b4ba7f462a5e",
+          "date": "2025-12-08T04:55:13Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listings-with-map",
+          "kind": "remote"
+        },
+        {
+          "key": "listings-with-map--codex-lwm-map-sync-extension",
+          "repo": "directorist-listings-with-map",
+          "branch": "codex/lwm-map-sync-extension",
+          "commit": "7a0d7a04f9b17b6053c8dee1f1440f84821268ad",
+          "date": "2026-07-16T11:51:34Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listings-with-map__codex-lwm-map-sync-extension",
+          "kind": "remote"
+        },
+        {
+          "key": "listings-with-map--local",
+          "repo": "directorist-listings-with-map",
+          "branch": "v8-beta",
+          "commit": "7bf445d274ade502b05927729362b4ba7f462a5e",
+          "date": "2025-12-08T10:55:13+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-listings-with-map",
+          "kind": "local",
+          "dirty": ""
+        }
+      ]
+    },
+    {
+      "id": "directorist-business-hours",
+      "name": "Business Hours",
+      "url": "https://directorist.com/product/directorist-business-hours/",
+      "primary": "business-hours--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "business-hours--main",
+          "repo": "directorist-business-hours",
+          "branch": "main",
+          "commit": "c909d05184e786fd51cd0727553f3d389f64986b",
+          "date": "2026-04-28T05:46:45Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-business-hours",
+          "kind": "remote"
+        },
+        {
+          "key": "business-hours--development",
+          "repo": "directorist-business-hours",
+          "branch": "development",
+          "commit": "f4ce722e68bff3f85b8b845042c904c7bfd52ef4",
+          "date": "2026-09-06T08:49:44Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-business-hours__development",
+          "kind": "remote"
+        },
+        {
+          "key": "business-hours--local",
+          "repo": "directorist-business-hours",
+          "branch": "development",
+          "commit": "5a42533eb7a29cdab35df86b42ad4749d5c408bd",
+          "date": "2026-08-10T12:08:53+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-business-hours",
+          "kind": "local",
+          "dirty": "M bd-business-hour.php\n?? inc/csv_manager.php\n?? pnpm-lock.yaml\n?? pnpm-workspace.yaml"
+        }
+      ]
+    },
+    {
+      "id": "directorist-woocommerce-pricing-plans",
+      "name": "WooCommerce Pricing Plans",
+      "url": "https://directorist.com/product/directorist-woocommerce-pricing-plans/",
+      "primary": "woocommerce-pricing-plans--codex-fix-subscription-plan-repair",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "woocommerce-pricing-plans--main",
+          "repo": "directorist-woocommerce-pricing-plans",
+          "branch": "main",
+          "commit": "922d5c0e7c7b2a917b58f46367e588bcde93be38",
+          "date": "2026-08-09T06:03:34Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans",
+          "kind": "remote"
+        },
+        {
+          "key": "woocommerce-pricing-plans--codex-fix-subscription-plan-repair",
+          "repo": "directorist-woocommerce-pricing-plans",
+          "branch": "codex/fix-subscription-plan-repair",
+          "commit": "c61131cdb1a319bc186bae5da4c3b55b10e42342",
+          "date": "2026-08-27T10:26:18Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans__codex-fix-subscription-plan-repair",
+          "kind": "remote"
+        },
+        {
+          "key": "woocommerce-pricing-plans--development",
+          "repo": "directorist-woocommerce-pricing-plans",
+          "branch": "development",
+          "commit": "13bb635bc5bc4736c871556887af3cda1e8e9f58",
+          "date": "2026-08-09T05:59:05Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans__development",
+          "kind": "remote"
+        },
+        {
+          "key": "woocommerce-pricing-plans--local",
+          "repo": "directorist-woocommerce-pricing-plans",
+          "branch": "development",
+          "commit": "d3f517b28dde13d1f88b6329e76ada893f595faa",
+          "date": "2026-07-29T12:12:18+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-woocommerce-pricing-plans",
+          "kind": "local",
+          "dirty": ""
+        }
+      ]
+    },
+    {
+      "id": "directorist-paypal",
+      "name": "PayPal Payment Gateway",
+      "url": "https://directorist.com/product/directorist-paypal/",
+      "primary": "paypal-new--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [
+        "directorist-paypal-new"
+      ],
+      "snapshots": [
+        {
+          "key": "paypal--alpha",
+          "repo": "directorist-paypal",
+          "branch": "alpha",
+          "commit": "89f2ecfeb827881950a35c44f3233afaa80b5d4b",
+          "date": "2024-11-16T13:00:47Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal",
+          "kind": "remote"
+        },
+        {
+          "key": "paypal--undefined-const-error",
+          "repo": "directorist-paypal",
+          "branch": "undefined-const-error",
+          "commit": "b6b11306b4c6388932714b3437eb22147c59345d",
+          "date": "2025-05-07T06:15:34Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal__undefined-const-error",
+          "kind": "remote"
+        },
+        {
+          "key": "paypal-new--master",
+          "repo": "directorist-paypal-new",
+          "branch": "master",
+          "commit": "84ec39c5da30366b388fc05c92bc58f3cb422dce",
+          "date": "2025-06-15T05:08:49Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal-new",
+          "kind": "remote"
+        },
+        {
+          "key": "paypal-new--development",
+          "repo": "directorist-paypal-new",
+          "branch": "development",
+          "commit": "84de33e01f7a8aae9ee2ee801916403ec6537703",
+          "date": "2026-06-28T11:11:03Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal-new__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-pricing-plans",
+      "name": "Pricing Plans",
+      "url": "https://directorist.com/product/directorist-pricing-plans/",
+      "primary": "pricing-plans-new--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [
+        "directorist-pricing-plans-new"
+      ],
+      "snapshots": [
+        {
+          "key": "pricing-plans--alpha",
+          "repo": "directorist-pricing-plans",
+          "branch": "alpha",
+          "commit": "1e8b549358d30d88ec39b2100b1e2cfe9ac31d49",
+          "date": "2026-03-08T06:31:10Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-pricing-plans",
+          "kind": "remote"
+        },
+        {
+          "key": "pricing-plans-new--master",
+          "repo": "directorist-pricing-plans-new",
+          "branch": "master",
+          "commit": "8977a3e1395636a8710dea2674964558e80f107c",
+          "date": "2026-09-08T14:07:34Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-pricing-plans-new",
+          "kind": "remote"
+        },
+        {
+          "key": "pricing-plans-new--development",
+          "repo": "directorist-pricing-plans-new",
+          "branch": "development",
+          "commit": "99f9cf0be143f40c4422be87ccd6e9ea028cc2df",
+          "date": "2026-09-10T06:14:24Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-pricing-plans-new__development",
+          "kind": "remote"
+        },
+        {
+          "key": "pricing-plans-new--local",
+          "repo": "directorist-pricing-plans-new",
+          "branch": "codex/fix-support-3280-missing-plan-checkout",
+          "commit": "b113fa7cd17d55788da84862046f3e780712db74",
+          "date": "2026-09-03T13:34:08+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-pricing-plans-new",
+          "kind": "local",
+          "dirty": "M pnpm-workspace.yaml"
+        }
+      ]
+    },
+    {
+      "id": "directorist-gamipress-integration",
+      "name": "Gamipress Integration",
+      "url": "https://directorist.com/product/directorist-gamipress-integration/",
+      "primary": "gamipress-integration--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "gamipress-integration--master",
+          "repo": "directorist-gamipress-integration",
+          "branch": "master",
+          "commit": "d28b69c0ecce4b699fa8a9bbc7456c7fa7d36dff",
+          "date": "2024-11-16T13:00:44Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gamipress-integration",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-mailchimp",
+      "name": "Mailchimp Integration",
+      "url": "https://directorist.com/product/directorist-mailchimp/",
+      "primary": "mailchimp--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "mailchimp--master",
+          "repo": "directorist-mailchimp",
+          "branch": "master",
+          "commit": "00943169669bf9caa01ae6ebb1c2a34fb62098ca",
+          "date": "2025-03-27T02:47:36Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mailchimp",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-directory-linking",
+      "name": "Multi Directory Linking",
+      "url": "https://directorist.com/product/directorist-directory-linking/",
+      "primary": "directory-linking--alpha",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "directory-linking--alpha",
+          "repo": "directorist-directory-linking",
+          "branch": "alpha",
+          "commit": "ade10cf1e0303510a7c9ad18a925f0799932ce46",
+          "date": "2026-08-03T10:32:23Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-directory-linking",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-buddypress-integration",
+      "name": "BuddyPress Integration",
+      "url": "https://directorist.com/product/directorist-buddypress-integration/",
+      "primary": "buddypress-integration--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "buddypress-integration--master",
+          "repo": "directorist-buddypress-integration",
+          "branch": "master",
+          "commit": "e63ae3d41639d5ddf4df772f1dbd12136792c8db",
+          "date": "2025-03-27T04:01:44Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-buddypress-integration",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-buddyboss-integration",
+      "name": "BuddyBoss Integration",
+      "url": "https://directorist.com/product/directorist-buddyboss-integration/",
+      "primary": "buddyboss-integration--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "buddyboss-integration--master",
+          "repo": "directorist-buddyboss-integration",
+          "branch": "master",
+          "commit": "c0d40913b46a04e151ac76f0867fa96e8c3c2827",
+          "date": "2025-03-27T03:53:08Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-buddyboss-integration",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-oxygen-integration",
+      "name": "Oxygen Builder Integration",
+      "url": "https://directorist.com/product/directorist-oxygen-integration/",
+      "primary": "oxygen-integration--improvement-oxygen-6-integration",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "oxygen-integration--main",
+          "repo": "directorist-oxygen-integration",
+          "branch": "main",
+          "commit": "4dc1f5b906b0bdb7c8175c917a58c5b457ddea39",
+          "date": "2025-04-16T05:09:32Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-oxygen-integration",
+          "kind": "remote"
+        },
+        {
+          "key": "oxygen-integration--improvement-oxygen-6-integration",
+          "repo": "directorist-oxygen-integration",
+          "branch": "improvement/oxygen-6-integration",
+          "commit": "6830012382294315a8c6dad1dedf5789540f1e99",
+          "date": "2026-08-10T02:16:12Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-oxygen-integration__improvement-oxygen-6-integration",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-authorize-net",
+      "name": "Authorize.net Payment Gateway",
+      "url": "https://directorist.com/product/directorist-authorize-net/",
+      "primary": "authorize-net-new--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [
+        "directorist-authorize-net-new"
+      ],
+      "snapshots": [
+        {
+          "key": "authorize-net--alpha",
+          "repo": "directorist-authorize-net",
+          "branch": "alpha",
+          "commit": "cc402159fa1d088d0acdbbd0eabc37a57845c59f",
+          "date": "2025-12-17T09:49:52Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net",
+          "kind": "remote"
+        },
+        {
+          "key": "authorize-net-new--master",
+          "repo": "directorist-authorize-net-new",
+          "branch": "master",
+          "commit": "8ed560d5ddebb4d72e7f4a4237c6324dc1f873dd",
+          "date": "2025-10-08T06:01:41Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net-new",
+          "kind": "remote"
+        },
+        {
+          "key": "authorize-net-new--development",
+          "repo": "directorist-authorize-net-new",
+          "branch": "development",
+          "commit": "ab7986313aa349c4cea2d9956169ae2d07da4fd0",
+          "date": "2026-06-28T10:48:24Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net-new__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-coupon",
+      "name": "Directorist Coupon",
+      "url": "https://directorist.com/product/directorist-coupon/",
+      "primary": "coupon--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "coupon--main",
+          "repo": "directorist-coupon",
+          "branch": "main",
+          "commit": "c98c9236247e4f3075732cc345a729cade8f0103",
+          "date": "2026-02-05T06:30:14Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-coupon",
+          "kind": "remote"
+        },
+        {
+          "key": "coupon--development",
+          "repo": "directorist-coupon",
+          "branch": "development",
+          "commit": "d98770d6b7dd98122f1be8fd0cd2038c25abe687",
+          "date": "2026-06-28T11:51:55Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-coupon__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-adverts-manager",
+      "name": "Directorist Ads Manager",
+      "url": "https://directorist.com/product/directorist-adverts-manager/",
+      "primary": "adverts-manager--v8-beta",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "adverts-manager--v8-beta",
+          "repo": "directorist-adverts-manager",
+          "branch": "v8-beta",
+          "commit": "b74a1c0372ec005708ea2bad386b30c3e439d402",
+          "date": "2025-07-21T07:07:53Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-adverts-manager",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-compare-listing",
+      "name": "Compare Listings",
+      "url": "https://directorist.com/product/directorist-compare-listing/",
+      "primary": "compare-listing--alpha",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "compare-listing--alpha",
+          "repo": "directorist-compare-listing",
+          "branch": "alpha",
+          "commit": "b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2",
+          "date": "2025-03-27T02:04:27Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-compare-listing",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-live-chat",
+      "name": "Live Chat",
+      "url": "https://directorist.com/product/directorist-live-chat/",
+      "primary": "live-chat--fix-live-chat-visibility-socket-fallback",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "live-chat--main",
+          "repo": "directorist-live-chat",
+          "branch": "main",
+          "commit": "821d8e2b813dca1f26b82fd9f9198b296a63a980",
+          "date": "2025-12-30T05:51:05Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat",
+          "kind": "remote"
+        },
+        {
+          "key": "live-chat--fix-live-chat-visibility-socket-fallback",
+          "repo": "directorist-live-chat",
+          "branch": "fix/live-chat-visibility-socket-fallback",
+          "commit": "3a48f59612eb61ad2fc6308063870e59c02fdb34",
+          "date": "2026-09-10T13:28:57Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat__fix-live-chat-visibility-socket-fallback",
+          "kind": "remote"
+        },
+        {
+          "key": "live-chat--development",
+          "repo": "directorist-live-chat",
+          "branch": "development",
+          "commit": "058296888c848f3cb1ddb4d8bf85713572c7021b",
+          "date": "2026-06-28T11:15:57Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-mark-as-sold",
+      "name": "Mark as Sold",
+      "url": "https://directorist.com/product/directorist-mark-as-sold/",
+      "primary": "mark-as-sold--details-update",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "mark-as-sold--main",
+          "repo": "directorist-mark-as-sold",
+          "branch": "main",
+          "commit": "0e783d2cd5bc97d13222f01611a2164a8ec86d0b",
+          "date": "2025-03-27T02:21:02Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold",
+          "kind": "remote"
+        },
+        {
+          "key": "mark-as-sold--details-update",
+          "repo": "directorist-mark-as-sold",
+          "branch": "details-update",
+          "commit": "ce63a5af0e80c619d48fe9ba490acbf05b66fab2",
+          "date": "2026-06-28T09:54:07Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold__details-update",
+          "kind": "remote"
+        },
+        {
+          "key": "mark-as-sold--development",
+          "repo": "directorist-mark-as-sold",
+          "branch": "development",
+          "commit": "9dbd24b25d3e9b31ea2850d7cee184559e2d4839",
+          "date": "2026-05-21T06:54:03Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-social-login",
+      "name": "Social Login",
+      "url": "https://directorist.com/product/directorist-social-login/",
+      "primary": "social-login--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "social-login--master",
+          "repo": "directorist-social-login",
+          "branch": "master",
+          "commit": "94b2eacbd6be5dc019141202abd1a32bf14bf515",
+          "date": "2026-08-20T04:30:45Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-social-login",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-gallery",
+      "name": "Image Gallery",
+      "url": "https://directorist.com/product/directorist-gallery/",
+      "primary": "gallery--fix-gallery-import-cron-scheduling",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "gallery--alpha",
+          "repo": "directorist-gallery",
+          "branch": "alpha",
+          "commit": "a4bd383934f2fbedeaab6e00205282bcddbf0ff1",
+          "date": "2026-06-22T04:52:45Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gallery",
+          "kind": "remote"
+        },
+        {
+          "key": "gallery--fix-gallery-import-cron-scheduling",
+          "repo": "directorist-gallery",
+          "branch": "fix/gallery-import-cron-scheduling",
+          "commit": "34048acde9eba93c63d2eb7b66f5d5b1ce21ba3b",
+          "date": "2026-08-15T18:35:41Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gallery__fix-gallery-import-cron-scheduling",
+          "kind": "remote"
+        },
+        {
+          "key": "gallery--local",
+          "repo": "directorist-gallery",
+          "branch": "fix/gallery-import-cron-scheduling",
+          "commit": "34048acde9eba93c63d2eb7b66f5d5b1ce21ba3b",
+          "date": "2026-08-16T00:35:41+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-gallery",
+          "kind": "local",
+          "dirty": "?? pnpm-workspace.yaml"
+        }
+      ]
+    },
+    {
+      "id": "directorist-faqs",
+      "name": "Listing FAQs",
+      "url": "https://directorist.com/product/directorist-faqs/",
+      "primary": "faqs--development",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "faqs--main",
+          "repo": "directorist-faqs",
+          "branch": "main",
+          "commit": "b83f4f571f845c19024f099fdc40438276c30563",
+          "date": "2025-05-29T04:59:19Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-faqs",
+          "kind": "remote"
+        },
+        {
+          "key": "faqs--development",
+          "repo": "directorist-faqs",
+          "branch": "development",
+          "commit": "cdcc5031f77ca1333fa39d1ee45dca4ca9937c70",
+          "date": "2026-06-28T11:15:38Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-faqs__development",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-slider-carousel",
+      "name": "Listings Slider & Carousel",
+      "url": "https://directorist.com/product/directorist-slider-carousel/",
+      "primary": "slider-carousel--beta",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "slider-carousel--beta",
+          "repo": "directorist-slider-carousel",
+          "branch": "beta",
+          "commit": "fa74bc9ece627c2c36bf5c2464dc2f3710fec438",
+          "date": "2025-12-09T06:34:18Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-slider-carousel",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-google-recaptcha",
+      "name": "Google reCAPTCHA",
+      "url": "https://directorist.com/product/directorist-google-recaptcha/",
+      "primary": "google-recaptcha--v3-support",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "google-recaptcha--beta",
+          "repo": "directorist-google-recaptcha",
+          "branch": "beta",
+          "commit": "2fcd40af48879a19f1d30aff0ed5ee551709c083",
+          "date": "2025-06-09T14:35:02Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-google-recaptcha",
+          "kind": "remote"
+        },
+        {
+          "key": "google-recaptcha--v3-support",
+          "repo": "directorist-google-recaptcha",
+          "branch": "v3-support",
+          "commit": "ae5173102e9d6f4a69d52159d610bf45856de762",
+          "date": "2025-07-10T06:40:13Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-google-recaptcha__v3-support",
+          "kind": "remote"
+        }
+      ]
+    },
+    {
+      "id": "directorist-claim-listing",
+      "name": "Claim Listing",
+      "url": "https://directorist.com/product/directorist-claim-listing/",
+      "primary": "claim-listing--local",
+      "selection_reason": "Local claimed-badge branch contains later changes than the newest visible Sovware tip; canonical local files are fingerprinted and remote differences retained.",
+      "aliases": [],
+      "snapshots": [
+        {
+          "key": "claim-listing--main",
+          "repo": "directorist-claim-listing",
+          "branch": "main",
+          "commit": "f5e2920c3127bdda2954990f37eb6f1f1c849e16",
+          "date": "2026-06-03T03:43:05Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-claim-listing",
+          "kind": "remote"
+        },
+        {
+          "key": "claim-listing--development",
+          "repo": "directorist-claim-listing",
+          "branch": "development",
+          "commit": "5c797d03501cfe5366590b8d262c9d82460d86df",
+          "date": "2026-08-20T10:15:32Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-claim-listing__development",
+          "kind": "remote"
+        },
+        {
+          "key": "claim-listing--local",
+          "repo": "directorist-claim-listing",
+          "branch": "fix/claimed-badge-tooltip",
+          "commit": "c0f000fef79d885c69881a38947e22fecd989eba",
+          "date": "2026-08-25T12:23:50+06:00",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-claim-listing",
+          "kind": "local",
+          "dirty": ""
+        }
+      ]
+    },
+    {
+      "id": "directorist-stripe",
+      "name": "Stripe Payment Gateway",
+      "url": "https://directorist.com/product/directorist-stripe/",
+      "primary": "stripe-new--master",
+      "selection_reason": "Selected the newest visible implementation branch tip, then retained default/development and local file differences for feature-level reconciliation; no branches were merged.",
+      "aliases": [
+        "directorist-stripe-new"
+      ],
+      "snapshots": [
+        {
+          "key": "stripe--alpha",
+          "repo": "directorist-stripe",
+          "branch": "alpha",
+          "commit": "6621828d9236c4dc458393ed17fedbdce4056f66",
+          "date": "2026-03-08T06:31:26Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe",
+          "kind": "remote"
+        },
+        {
+          "key": "stripe--feature-sepa-direct-debit-support",
+          "repo": "directorist-stripe",
+          "branch": "feature/sepa-direct-debit-support",
+          "commit": "a0bd8e43a74c9cc6a2d5ba54a07e3ceb9a4c7c5c",
+          "date": "2026-05-03T09:37:25Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe__feature-sepa-direct-debit-support",
+          "kind": "remote"
+        },
+        {
+          "key": "stripe--local",
+          "repo": "directorist-stripe",
+          "branch": "unversioned",
+          "commit": "unversioned-local",
+          "date": "unavailable",
+          "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-stripe",
+          "kind": "local",
+          "dirty": "unversioned folder; use file hashes"
+        },
+        {
+          "key": "stripe-new--master",
+          "repo": "directorist-stripe-new",
+          "branch": "master",
+          "commit": "498c48755f4168fdfdcaa955fb817647287a95e1",
+          "date": "2026-09-10T05:26:09Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe-new",
+          "kind": "remote"
+        },
+        {
+          "key": "stripe-new--development",
+          "repo": "directorist-stripe-new",
+          "branch": "development",
+          "commit": "6dbd9a3edc3b7453fb34f84a31ee6efebe90752d",
+          "date": "2026-09-10T05:25:25Z",
+          "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe-new__development",
+          "kind": "remote"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2738 @@
+{
+  "snapshot": {
+    "key": "listings-with-map--local",
+    "repo": "directorist-listings-with-map",
+    "branch": "v8-beta",
+    "commit": "7bf445d274ade502b05927729362b4ba7f462a5e",
+    "date": "2025-12-08T10:55:13+06:00",
+    "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-listings-with-map",
+    "kind": "local",
+    "dirty": ""
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "5045a6d2d5229102ef6784ae1a82117010e60ff9553e4d3f44a58a4836f49474",
+      "bytes": 131,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "a4b659b27575d5147ac002344d2a41d9f336ff6d90b046b528a5779751e572e8",
+      "bytes": 645,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "7f0857bb39206b5109a5a83ab00a73e00cebd01fec327f283e51372bd7e4049a",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-listings-map.php": {
+      "sha256": "912f2a979f7b19065de62f71c7d131826cd5d6aeeb42d24c8b2441c43596fdbf",
+      "bytes": 25043,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BD_Map_View",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_template_files",
+          "line": 90,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listings_map_license_deactivation",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listings_map_license_activation",
+          "line": 198,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "license_settings_controls",
+          "line": 293,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 333,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts_for_admin",
+          "line": 357,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 363,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 377,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 389,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 395,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 411,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 428,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 447,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 458,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 476,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 493,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 524,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 530,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "BD_Map_View",
+          "line": 557,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 16,
+          "args": [
+            "'BD_Map_View'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 69,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 70,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 71,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'setup_template_files')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 73,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts_for_admin')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 74,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 76,
+          "args": [
+            "'wp_ajax_atbdp_listings_map_license_activation'",
+            "array(self::$instance, 'atbdp_listings_map_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "'wp_ajax_atbdp_listings_map_license_deactivation'",
+            "array(self::$instance, 'atbdp_listings_map_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 92,
+          "args": [
+            "'atbdp_ext_template_path_listings_archive'",
+            "function( $default, $args ) { if ( 'listings_with_map' === $args['listings']->view ) { $default['template_directory'] = BDM_TEMPLATES_DIR; $default['file_path'] = 'map-view'; $default['base_directory'] = BDM_BASE; } return $default; }"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 107,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 109,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 110,
+          "args": [
+            "'directorist_listings_map_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 121,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 123,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 130,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 137,
+          "args": [
+            "'directorist_listings_map_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 143,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 201,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 203,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 204,
+          "args": [
+            "'directorist_listings_map_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 215,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 217,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 224,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 231,
+          "args": [
+            "'directorist_listings_map_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 237,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 295,
+          "args": [
+            "'directorist_listings_map_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 311,
+          "args": [
+            "'atbdp_listings_map_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 315,
+          "args": [
+            "'atbdp_listings_map_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 326,
+          "args": [
+            "'atbdp_licence_menu_for_listings_map'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 396,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 416,
+          "args": [
+            "'plugin_locale'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 437,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 496,
+          "args": [
+            "'BDM_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 498,
+          "args": [
+            "'BDM_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 500,
+          "args": [
+            "'BDM_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 502,
+          "args": [
+            "'BDM_FILE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 503,
+          "args": [
+            "'BDM_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 504,
+          "args": [
+            "'BDM_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 506,
+          "args": [
+            "'BDM_TEXTDOMAIN'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 508,
+          "args": [
+            "'BDM_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 510,
+          "args": [
+            "'BDM_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 512,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 516,
+          "args": [
+            "'ATBDP_LISTINGS_MAP_POST_ID'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 523,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 525,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 529,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 535,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "cebed75e3efc582dd1588d7b2273e39338120b7a0105512265aa3f66380d2d62",
+      "bytes": 2547,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/css/main.css": {
+      "sha256": "389fc061a42a6f713313864c67b80152f2cbfed79602de4ba33ed600a7785912",
+      "bytes": 1105,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/js/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/js/main.js": {
+      "sha256": "48df8352395d8ae9a85de9180882811d7f7aa5f9bc3003dae50a2f79290e857a",
+      "bytes": 3277,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/Listings_With_Map_Model.php": {
+      "sha256": "cb739abc6029a86c4720d24b427de8bbdc46b855b5d773858312595c2f8a064b",
+      "bytes": 53054,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Listings_With_Map_Model",
+          "line": 3,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "setup_listing_data",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_ajax_data",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "parse_ajax_query_args",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render_ajax_view",
+          "line": 560,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "parse_listings_attributes",
+          "line": 617,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_default_options",
+          "line": 645,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_ajax_options",
+          "line": 692,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_default_data",
+          "line": 698,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_listing_data",
+          "line": 749,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_attr",
+          "line": 831,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_attr",
+          "line": 842,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_option",
+          "line": 852,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_option",
+          "line": 863,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_data",
+          "line": 873,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_data",
+          "line": 883,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_boolean",
+          "line": 893,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_nonce",
+          "line": 911,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "column_is",
+          "line": 917,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_fields_in_array",
+          "line": 931,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_view_as_status",
+          "line": 947,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "header_container_class",
+          "line": 955,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "grid_container_class",
+          "line": 961,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_in_search_filters",
+          "line": 967,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_in_visible_fields",
+          "line": 974,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "header_is_enabled",
+          "line": 981,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_header_title",
+          "line": 988,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_hidden_fields",
+          "line": 997,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_in_filter_fields",
+          "line": 1030,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_in_the_filter_and_visible_fields",
+          "line": 1037,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "hidden_fields_has_any",
+          "line": 1043,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_any_in_the_sources",
+          "line": 1056,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_search_section",
+          "line": 1084,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_custom_field_count",
+          "line": 1109,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_open_now_field",
+          "line": 1121,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_custom_fields",
+          "line": 1131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "location_source_is",
+          "line": 1141,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_map_height",
+          "line": 1151,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_view",
+          "line": 1161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_grid_row_class",
+          "line": 1169,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_map_radius",
+          "line": 1178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_map_scripts",
+          "line": 1184,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_geo_location_icon",
+          "line": 1191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "map_type_is",
+          "line": 1197,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "map_type_is_not",
+          "line": 1207,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "header_advance_search",
+          "line": 1217,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_field",
+          "line": 1231,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_the_field_data",
+          "line": 1243,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_assets",
+          "line": 1255,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 2,
+          "args": [
+            "'Listings_With_Map_Model'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 57,
+          "args": [
+            "'enable_multi_directory'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 218,
+          "args": [
+            "$key",
+            "'type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 425,
+          "args": [
+            "'order_listing_by'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 426,
+          "args": [
+            "'sort_listing_by'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 436,
+          "args": [
+            "'listing_popular_by'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 437,
+          "args": [
+            "'average_review_for_popular'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 438,
+          "args": [
+            "'views_for_popular'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 439,
+          "args": [
+            "'enable_featured_listing'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 538,
+          "args": [
+            "'atbdp_all_listings_meta_queries'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 543,
+          "args": [
+            "'atbdp_all_listings_query_arguments'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 544,
+          "args": [
+            "'atbdp_listing_search_query_argument'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 592,
+          "args": [
+            "'bdmv_listings_with_map_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 629,
+          "args": [
+            "'listing_map_zoom_level'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 647,
+          "args": [
+            "'atbdp_map_options'",
+            "function ($options) { $options['zoom'] = get_directorist_option('map_view_zoom_level', 1); return $options; }"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 648,
+          "args": [
+            "'map_view_zoom_level'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 654,
+          "args": [
+            "'listing_map_visible_fields'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 655,
+          "args": [
+            "'bdmv_search_filters'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 657,
+          "args": [
+            "'listing_default_radius_distance'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 658,
+          "args": [
+            "'listing_map_location_address'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 660,
+          "args": [
+            "'select_listing_map'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 661,
+          "args": [
+            "'map_view_zoom_level'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 662,
+          "args": [
+            "'listing_map_zoom_level'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 663,
+          "args": [
+            "'listing_map_view'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 665,
+          "args": [
+            "'disable_list_price'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 666,
+          "args": [
+            "'display_sort_by'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 667,
+          "args": [
+            "'display_view_as'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 668,
+          "args": [
+            "'grid_view_as'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 670,
+          "args": [
+            "'address_label'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 671,
+          "args": [
+            "'fax_label'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 672,
+          "args": [
+            "'email_label'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 673,
+          "args": [
+            "'website_label'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 674,
+          "args": [
+            "'tag_label'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 675,
+          "args": [
+            "'zip_label'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 676,
+          "args": [
+            "'listing_filters_icon'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 677,
+          "args": [
+            "'listings_map_viewas'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 678,
+          "args": [
+            "'listings_map_sortby'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 679,
+          "args": [
+            "'sort_by_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 680,
+          "args": [
+            "'view_as_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 682,
+          "args": [
+            "'disable_list_price'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 683,
+          "args": [
+            "'display_sort_by'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 684,
+          "args": [
+            "'grid_view_as'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 685,
+          "args": [
+            "'display_view_as'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 687,
+          "args": [
+            "'listings_view_as_items'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 688,
+          "args": [
+            "'listings_sort_by_items'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 693,
+          "args": [
+            "'sort_by_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 694,
+          "args": [
+            "'view_as_text'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 726,
+          "args": [
+            "'atbdp_map_container'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 948,
+          "args": [
+            "'listing_map_view'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 957,
+          "args": [
+            "'atbdp_search_result_header_container_fluid'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 963,
+          "args": [
+            "'atbdp_search_result_grid_container_fluid'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1123,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1123,
+          "args": [
+            "'active_plugins'"
+          ]
+        }
+      ]
+    },
+    "inc/ajax.php": {
+      "sha256": "b7d82e8273f5d0e08c18e73b908df36ad9ddbd880d59f956e8eec25c85805e9c",
+      "bytes": 571,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BDMV_Ajax",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 5,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ajax_search_listing",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 7,
+          "args": [
+            "'wp_ajax_ajax_search_listing'",
+            "array($this, 'ajax_search_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 8,
+          "args": [
+            "'wp_ajax_nopriv_ajax_search_listing'",
+            "array($this, 'ajax_search_listing')"
+          ]
+        }
+      ]
+    },
+    "inc/helper.php": {
+      "sha256": "87caf7b793b1296c65c7b2c855b6640d73dda3c2de91af569acfd9cc3dbb60cc",
+      "bytes": 61673,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "bdmv_init_template_data",
+          "line": 4,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdmv_reset_template_data",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdmv_get_template",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdmv_load_more_filter",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdmv_list_view",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdmv_header_advance_search",
+          "line": 537,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdmv_custom_field_post",
+          "line": 870,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 3,
+          "args": [
+            "'bdmv_init_template_data'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 15,
+          "args": [
+            "'bdmv_reset_template_data'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 22,
+          "args": [
+            "'bdmv_get_template'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 28,
+          "args": [
+            "'bdmv_load_more_filter'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 112,
+          "args": [
+            "'bdmv_list_view'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 116,
+          "args": [
+            "'list_view_container'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 120,
+          "args": [
+            "'atbdp_listing_list_view_html_class'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 133,
+          "args": [
+            "get_the_ID()",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 134,
+          "args": [
+            "get_the_ID()",
+            "'_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 135,
+          "args": [
+            "get_the_ID()",
+            "'_price_range'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 136,
+          "args": [
+            "get_the_ID()",
+            "'_atbd_listing_pricing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 137,
+          "args": [
+            "get_the_ID()",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 138,
+          "args": [
+            "get_the_ID()",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 139,
+          "args": [
+            "get_the_ID()",
+            "'_excerpt'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 140,
+          "args": [
+            "get_the_ID()",
+            "'_tagline'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 141,
+          "args": [
+            "get_the_ID()",
+            "'_address'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 142,
+          "args": [
+            "get_the_Id()",
+            "'_phone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 143,
+          "args": [
+            "get_the_Id()",
+            "'_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 144,
+          "args": [
+            "get_the_Id()",
+            "'_website'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 145,
+          "args": [
+            "get_the_Id()",
+            "'_admin_category_select'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 146,
+          "args": [
+            "get_the_Id()",
+            "'_atbdp_post_views_count'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 147,
+          "args": [
+            "get_the_ID()",
+            "'_hide_contact_info'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 148,
+          "args": [
+            "'disable_contact_info'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 149,
+          "args": [
+            "'display_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 150,
+          "args": [
+            "'enable_review'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 151,
+          "args": [
+            "'display_price'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 152,
+          "args": [
+            "'disable_list_price'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 153,
+          "args": [
+            "'display_category'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 154,
+          "args": [
+            "'display_view_count'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 155,
+          "args": [
+            "'display_mark_as_fav'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 156,
+          "args": [
+            "'display_author_image'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 157,
+          "args": [
+            "'display_publish_date'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 158,
+          "args": [
+            "'display_email'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 159,
+          "args": [
+            "'display_web_link'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 160,
+          "args": [
+            "'display_contact_info'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 161,
+          "args": [
+            "'display_feature_badge_cart'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 162,
+          "args": [
+            "'display_popular_badge_cart'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 163,
+          "args": [
+            "'popular_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 164,
+          "args": [
+            "'feature_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 165,
+          "args": [
+            "'enable_tagline'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 166,
+          "args": [
+            "'enable_excerpt'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 167,
+          "args": [
+            "'address_location'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 169,
+          "args": [
+            "get_the_ID()",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 170,
+          "args": [
+            "get_the_ID()",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 171,
+          "args": [
+            "get_the_ID()",
+            "'_disable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 174,
+          "args": [
+            "'ID'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 175,
+          "args": [
+            "$author_id",
+            "'pro_pic'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 177,
+          "args": [
+            "'atbdp_avatar_size'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 178,
+          "args": [
+            "'thumbnail_cropping'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 179,
+          "args": [
+            "'crop_width'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 180,
+          "args": [
+            "'crop_height'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 181,
+          "args": [
+            "'display_tagline_field'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 182,
+          "args": [
+            "'display_pricing_field'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 183,
+          "args": [
+            "'display_excerpt_field'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 184,
+          "args": [
+            "'display_address_field'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 185,
+          "args": [
+            "'display_phone_field'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 213,
+          "args": [
+            "'display_preview_image'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 215,
+          "args": [
+            "'disable_single_listing'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 243,
+          "args": [
+            "'atbdp_list_lower_badges'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 248,
+          "args": [
+            "'atbdp_list_view_before_title'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 262,
+          "args": [
+            "'atbdp_list_view_after_title'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 273,
+          "args": [
+            "'atbdp_after_listing_tagline'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 298,
+          "args": [
+            "'atbdp_after_listing_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 301,
+          "args": [
+            "get_the_ID()",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 306,
+          "args": [
+            "'open_badge_text'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 315,
+          "args": [
+            "'atbdp_listings_list_review_price'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 323,
+          "args": [
+            "'atbdp_listings_before_location'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 348,
+          "args": [
+            "','"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 356,
+          "args": [
+            "'atbdp_listings_before_phone'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 370,
+          "args": [
+            "'atbdp_listings_before_post_date'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 374,
+          "args": [
+            "'publish_date_format'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 385,
+          "args": [
+            "'atbdp_listings_after_post_date'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 406,
+          "args": [
+            "'excerpt_limit'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 407,
+          "args": [
+            "'excerpt_limit'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 408,
+          "args": [
+            "'display_readmore'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 409,
+          "args": [
+            "'readmore_text'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 415,
+          "args": [
+            "'atbdp_listings_after_exerpt'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 452,
+          "args": [
+            "$output"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 497,
+          "args": [
+            "'atbdp_listings_list_cat_view_count_author'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 513,
+          "args": [
+            "'atbdp_before_listings_pagination'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 535,
+          "args": [
+            "'bdmv_header_advance_search'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 542,
+          "args": [
+            "'listing_map_location_address'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 543,
+          "args": [
+            "'g_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 610,
+          "args": [
+            "'select_listing_map'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 641,
+          "args": [
+            "'atbdp_search_field_after_location'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 732,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 732,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 781,
+          "args": [
+            "'wp_ajax_atbdp_custom_fields_search'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 868,
+          "args": [
+            "'bdmv_custom_post'"
+          ]
+        }
+      ]
+    },
+    "inc/hooks.php": {
+      "sha256": "e2b00807eb24050a4bf675dfeec8d004c0195d17c4d90f8e14a5456320ba9b93",
+      "bytes": 4623,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BDMV_Hooks",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 5,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_listings_param",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_results_param",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_category_param",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_location_param",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_tag_param",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 8,
+          "args": [
+            "'atbdp_all_listings_params'",
+            "array($this,'all_listings_param')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 9,
+          "args": [
+            "'atbdp_search_results_param'",
+            "array($this,'search_results_param')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_single_cat_param'",
+            "array($this,'single_category_param')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_single_location_param'",
+            "array($this,'single_location_param')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_single_tag_param'",
+            "array($this,'single_tag_param')"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 16,
+          "args": [
+            "'bdmv_listings_with_map_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 17,
+          "args": [
+            "'listing_map_filters'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 18,
+          "args": [
+            "'listings_map_filters_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 25,
+          "args": [
+            "'bdmv_listings_with_map_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 26,
+          "args": [
+            "'listing_map_filters'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 27,
+          "args": [
+            "'listings_map_filters_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 34,
+          "args": [
+            "'bdmv_listings_with_map_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 35,
+          "args": [
+            "'listing_map_filters'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 36,
+          "args": [
+            "'listings_map_filters_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 43,
+          "args": [
+            "'bdmv_listings_with_map_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 44,
+          "args": [
+            "'listing_map_filters'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 45,
+          "args": [
+            "'listings_map_filters_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 52,
+          "args": [
+            "'bdmv_listings_with_map_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 53,
+          "args": [
+            "'listing_map_filters'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 54,
+          "args": [
+            "'listings_map_filters_button'"
+          ]
+        }
+      ]
+    },
+    "inc/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/settings.php": {
+      "sha256": "eb58435b3e644a330b545165b14542e564453e5803c120e83d72a1fe1c81de25",
+      "bytes": 3360,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BDMV_Settings",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_map_listings_columns",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( $this, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 54,
+          "args": [
+            "'atbdp_booking_settings_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 81,
+          "args": [
+            "'bdmv_columns_setting'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-listings-with-map.pot": {
+      "sha256": "3fc9c514403ddc5732ad8d9d9a46f3bd831573e2e43efaed4b78df10442d8c9b",
+      "bytes": 6600,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/style-rtl.css": {
+      "sha256": "cbf34b84ab958991b2dc66a57a40e93b51026b66d66d30b21f92cb035b973e74",
+      "bytes": 100039,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/style.css": {
+      "sha256": "b0347c90aed72015e4d4eb2841b546ae955d161cfae824fc452b09036b391ca1",
+      "bytes": 94614,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/js/current-location.js": {
+      "sha256": "6212903df5418340c9a6b110f9fa5b141963fbfba42cce79323ffa3c7d1eda2f",
+      "bytes": 3806,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "getLocation",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "showPosition",
+          "kind": "JS",
+          "line": 18
+        },
+        {
+          "name": "showError",
+          "kind": "JS",
+          "line": 26
+        },
+        {
+          "name": "displayLocation",
+          "kind": "JS",
+          "line": 43
+        },
+        {
+          "name": "displayLocation",
+          "kind": "JS",
+          "line": 77
+        }
+      ],
+      "calls": []
+    },
+    "public/assets/js/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/js/main.js": {
+      "sha256": "3f6da570509473001fbd5ea3b965498dba31eb447af755c33fd0977fbc44615f",
+      "bytes": 45597,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "for",
+          "kind": "JS",
+          "line": 41
+        },
+        {
+          "name": "select2Initialize",
+          "kind": "JS",
+          "line": 42
+        },
+        {
+          "name": "directorist_callingSlider",
+          "kind": "JS",
+          "line": 190
+        },
+        {
+          "name": "minValueWrapper",
+          "kind": "JS",
+          "line": 191
+        },
+        {
+          "name": "getSliderConfig",
+          "kind": "JS",
+          "line": 208
+        },
+        {
+          "name": "collectFormData",
+          "kind": "JS",
+          "line": 220
+        },
+        {
+          "name": "getViewAs",
+          "kind": "JS",
+          "line": 246
+        },
+        {
+          "name": "getSortBy",
+          "kind": "JS",
+          "line": 255
+        },
+        {
+          "name": "collectCustomFields",
+          "kind": "JS",
+          "line": 266
+        },
+        {
+          "name": "collectArrays",
+          "kind": "JS",
+          "line": 296
+        },
+        {
+          "name": "triggerCustomEvents",
+          "kind": "JS",
+          "line": 317
+        },
+        {
+          "name": "adsFormReset",
+          "kind": "JS",
+          "line": 776
+        },
+        {
+          "name": "irisPicker",
+          "kind": "JS",
+          "line": 824
+        },
+        {
+          "name": "rangeSlider",
+          "kind": "JS",
+          "line": 832
+        },
+        {
+          "name": "radiusDefaultValue",
+          "kind": "JS",
+          "line": 834
+        },
+        {
+          "name": "rangeValue",
+          "kind": "JS",
+          "line": 842
+        },
+        {
+          "name": "searchForm",
+          "kind": "JS",
+          "line": 851
+        }
+      ],
+      "calls": []
+    },
+    "public/assets/js/view-as.js": {
+      "sha256": "07e8c460212bd9b8f16047406674ab8da9c8ee080519f548862bf8c5539039b4",
+      "bytes": 44861,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "for",
+          "kind": "JS",
+          "line": 28
+        },
+        {
+          "name": "select2Initialize",
+          "kind": "JS",
+          "line": 29
+        },
+        {
+          "name": "directorist_callingSlider",
+          "kind": "JS",
+          "line": 177
+        },
+        {
+          "name": "minValueWrapper",
+          "kind": "JS",
+          "line": 178
+        }
+      ],
+      "calls": []
+    },
+    "templates/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/map-view.php": {
+      "sha256": "8027853309f7cded88dfea14fcdf1a6a5e3271258d10db545e53aeeff9c8e5dd",
+      "bytes": 8221,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 5,
+          "args": [
+            "'before_directorist_template_loaded'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 6,
+          "args": [
+            "'before_directorist_template_loaded'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 7,
+          "args": [
+            "'before_directorist_template_loaded'"
+          ]
+        }
+      ]
+    },
+    "templates/all-listings/columns-one/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/all-listings/columns-one/map-listing.php": {
+      "sha256": "94730596d38852bb1f79d2be9c639667a99f8a64de3c85eea9ee9290b0971412",
+      "bytes": 332,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 9,
+          "args": [
+            "'bdmv-after-listing'"
+          ]
+        }
+      ]
+    },
+    "templates/all-listings/columns-three/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/all-listings/columns-three/map-listing.php": {
+      "sha256": "fe69abbf54d54b0ef0a1a1460b357469493f09496ffb079244111e9d368f3d8a",
+      "bytes": 328,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 5,
+          "args": [
+            "'bdmv-after-listing'"
+          ]
+        }
+      ]
+    },
+    "templates/all-listings/columns-three/search.php": {
+      "sha256": "de50ba34bf28f121a4e0107733492e68b4d345d4a0702c68f5cad62ce30f315b",
+      "bytes": 1294,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/all-listings/columns-two/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/all-listings/columns-two/search.php": {
+      "sha256": "e4e402710600680666e044d6d9ac196ff340fe0f14b91ff88c92dc5ae78fb37a",
+      "bytes": 1972,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/all-listings/columns-two-(style-two)/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/all-listings/columns-two-(style-two)/map-listing.php": {
+      "sha256": "c5959509b1ad845d92a8f7e973e2f1b6cf6e2a5ac7aa2ad90563b90534cbb74b",
+      "bytes": 422,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 5,
+          "args": [
+            "'bdmv-after-listing'"
+          ]
+        }
+      ]
+    },
+    "templates/view/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/view/map.php": {
+      "sha256": "eb1fbf696c406b9abc5b292b3cdcce1bf5595bcc22ac23811fb2f01dd2643ea4",
+      "bytes": 291,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/view/listings/grid.php": {
+      "sha256": "91d0247734620c066eba5c94b74fe242620b252f3e08c28de32f66c039a9e1ea",
+      "bytes": 2321,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 8,
+          "args": [
+            "'atbdp_before_all_listings_grid'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 22,
+          "args": [
+            "'bdm_before_grid_listings_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 46,
+          "args": [
+            "'atbdp_before_listings_pagination'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 60,
+          "args": [
+            "'bdm_after_grid_listings_loop'"
+          ]
+        }
+      ]
+    },
+    "templates/view/listings/header.php": {
+      "sha256": "8fb97934ce953640c595355cfa6144bbb9b61673d8636d4761cc88410e602c2e",
+      "bytes": 7360,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 21,
+          "args": [
+            "'bdmv_after_filter_button_in_listings_header'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 23,
+          "args": [
+            "'atbdp_total_listings_found_text'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 32,
+          "args": [
+            "'bdmv_after_total_listing_found_in_listings_header'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 34,
+          "args": [
+            "'listings_map_viewas'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 34,
+          "args": [
+            "'listings_map_sortby'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 77,
+          "args": [
+            "'atbdp_listings_with_map_header_sort_by_button'"
+          ]
+        }
+      ]
+    },
+    "templates/view/listings/index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/view/listings/list.php": {
+      "sha256": "9efc77ee5d4e37c690ed0aa92c5f778a8fa2fec0df9c8c1d3444364a06a5a8d4",
+      "bytes": 1923,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "do_action",
+          "line": 13,
+          "args": [
+            "'bdm_before_list_listings_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 39,
+          "args": [
+            "'atbdp_before_listings_pagination'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 56,
+          "args": [
+            "'bdm_after_list_listings_loop'"
+          ]
+        }
+      ]
+    },
+    "templates/view/maps/google/google-map.php": {
+      "sha256": "e59047968cae08fd4c950b137b624a9c42fd2494fcdbbf0245630135653acfb0",
+      "bytes": 18042,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 3,
+          "args": [
+            "'display_map_info'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 4,
+          "args": [
+            "'display_image_map'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 5,
+          "args": [
+            "'display_title_map'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 6,
+          "args": [
+            "'display_address_map'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 7,
+          "args": [
+            "'display_direction_map'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 38,
+          "args": [
+            "get_the_ID()",
+            "'_manual_lat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 39,
+          "args": [
+            "get_the_ID()",
+            "'_manual_lng'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 40,
+          "args": [
+            "get_the_ID()",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 41,
+          "args": [
+            "get_the_ID()",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 42,
+          "args": [
+            "'crop_width'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 43,
+          "args": [
+            "'crop_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 44,
+          "args": [
+            "get_the_ID()",
+            "'_address'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 73,
+          "args": [
+            "'default_preview_image'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 107,
+          "args": [
+            "'atbdp_after_listing_content'"
+          ]
+        }
+      ]
+    }
+  }
+}

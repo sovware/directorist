@@ -186,3 +186,216 @@ $settings-primary-color: #3e62f5;
         }
     }
 }
+// Opt-in async gateway actions; ordinary button fields keep their existing link behavior.
+.atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group {
+    > .atbdp-row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+    }
+
+    > .atbdp-row > .atbdp-col-8 {
+        width: 100%;
+        min-width: 0;
+        justify-self: stretch;
+    }
+}
+
+.directorist-async-button-field {
+    &__row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    &__action {
+        position: relative;
+        display: inline-flex;
+        flex: 0 0 auto;
+
+        &--blocked {
+            border-radius: 8px;
+            cursor: not-allowed;
+
+            > .settings-save-btn,
+            > .settings-save-btn:hover,
+            > .settings-save-btn:focus {
+                color: #667085;
+                border-color: #d0d5dd;
+                background: #eaecf0;
+                box-shadow: none;
+                cursor: not-allowed;
+            }
+
+            &:focus-visible {
+                outline: 2px solid #3e62f5;
+                outline-offset: 3px;
+            }
+
+            &:hover .directorist-async-button-field__tooltip,
+            &:focus-within .directorist-async-button-field__tooltip {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    &__tooltip {
+        position: absolute;
+        z-index: 20;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        width: max-content;
+        max-width: min(240px, calc(100vw - 48px));
+        padding: 8px 10px;
+        border-radius: 6px;
+        color: #fff;
+        background: #1f2937;
+        box-shadow: 0 4px 12px rgba(16, 24, 40, 0.18);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        text-align: center;
+        white-space: normal;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateX(-50%);
+        transition: opacity 0.15s ease, visibility 0.15s ease;
+    }
+
+    &__status {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        padding: 4px 9px;
+        border: 1px solid #e2e7ee;
+        border-radius: 100px;
+        color: #526071;
+        background: #f8fafc;
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+
+        &::before {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: 6px;
+            border-radius: 50%;
+            background: #98a2b3;
+            vertical-align: middle;
+        }
+
+        &--connected::before {
+            background: #16a34a;
+        }
+
+        &--connected {
+            color: #166534;
+            border-color: #bbefca;
+            background: #f0fdf4;
+        }
+
+        &--attention {
+            color: #92400e;
+            border-color: #fcd34d;
+            background: #fffbeb;
+
+            &::before {
+                background: #f59e0b;
+            }
+        }
+    }
+
+    &__details {
+        box-sizing: border-box;
+        width: min(100%, 380px);
+        margin: 8px 0 0 auto;
+        color: #526071;
+        font-size: 12px;
+        line-height: 1.45;
+        text-align: left;
+
+        &--attention {
+            width: 100%;
+            margin-left: 0;
+            padding: 9px 11px;
+            border: 1px solid #fcd34d;
+            border-radius: 6px;
+            color: #713f12;
+            background: #fffbeb;
+            text-align: left;
+        }
+    }
+
+    &__feedback {
+        box-sizing: border-box;
+        width: 100%;
+        margin: 10px 0 0;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        font-size: 13px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+
+        &--success {
+            color: #166534;
+            border-color: #bbefca;
+            background: #f0fdf4;
+        }
+
+        &--error {
+            color: #b42318;
+            border-color: #fecdca;
+            background: #fff5f5;
+        }
+    }
+}
+
+.atbdp-settings-manager .directorist-webhook-credential-lock-note {
+    margin: 6px 0 0;
+    color: #526071;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: right;
+}
+
+.atbdp-settings-manager .atbdp-settings-panel .cptm-form-control--webhook-locked:disabled {
+    margin-left: auto;
+    border-color: #d0d5dd;
+    background: #f2f4f7;
+    color: #667085;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn,
+.atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn:hover,
+.atbdp-settings-manager .atbdp-settings-panel .directorist-async-button-field__action--blocked > .settings-save-btn:focus {
+    color: #667085;
+    border-color: #d0d5dd;
+    background: #eaecf0;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+@media only screen and (max-width: 1399px) {
+    .atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group > .atbdp-row {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .atbdp-settings-manager .atbdp-settings-panel .cptm-form-group.directorist-async-button-group > .atbdp-row > .atbdp-col-8 {
+        grid-column: 1 !important;
+        width: 100% !important;
+        max-width: none !important;
+        justify-self: stretch !important;
+    }
+
+    .directorist-async-button-field__row {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+}

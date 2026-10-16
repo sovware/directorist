@@ -326,6 +326,7 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 **Lifecycle:** Authentication → download → install → activate (via AJAX)
 **Key AJAX actions:** `atbdp_authenticate_the_customer`, `atbdp_download_file`, `atbdp_install_file_from_subscriptions`
 **Filters:** `directorist_extensions_aliases` (deprecated name mapping), `directorist_required_extensions`
+**Themes & Extensions page agent:** Before redesigning, auditing, adding no-reload interactions, or changing product/account flows on `edit.php?post_type=at_biz_dir&page=atbdp-extension`, load `docs/agents/directorist-themes-extensions-page/SKILL.md`. Re-collect dynamic product/account state every time and do not store runtime snapshots as docs truth.
 
 ## Notes
 
@@ -334,3 +335,7 @@ Widgets: all-listing, all-categories, all-locations, category, location, tag, se
 - Multi-directory support: each listing type (`atbdp_listing_types` taxonomy) has its own builder config stored as term meta
 - Builder data is base64-encoded JSON containing fields, layouts, options, config
 - Active payment system refactor on `feature/payment-migration` branch — introduces DTO/Enum/Repository/Processor layers alongside legacy gateways
+
+## Official extension issue routing
+
+For an extension bug or feature request, start with [the selective extension router](docs/extensions/ROUTER.md). Load only the matched product identity and issue topic; A-Z storage is not a required full read. Canonical docs for the verified official catalog live in [docs/extensions/INDEX.md](docs/extensions/INDEX.md), with one discoverable skill per product. Verify actual changed files/branch/commit and local drift before diagnosing; version/tag/default branch alone is not authority. Follow the linked focused workflow for local reproduction and authorized read-only client comparison.

@@ -1488,12 +1488,24 @@ class Directorist_Single_Listing {
         $info_content .= "<div class='map-listing-card-single__content__info'>";
 
         if ( ! empty( $phone ) && ! empty( $display_phone_map ) ) {
-            $info_content .= "<div class='directorist-info-item map-listing-card-single__content__phone'>" . directorist_icon( 'fas fa-phone-alt', false ) . "<div class='directorist-info-item'><a href='tel:{$phone}'>{$phone}</a></div></div>";
+            $info_content .= sprintf(
+                "<div class='directorist-info-item map-listing-card-single__content__phone'>%s<div class='directorist-info-item'><a href='tel:%s'>%s</a></div></div>",
+                directorist_icon( 'fas fa-phone-alt', false ),
+                esc_attr( $phone ),
+                esc_html( $phone )
+            );
         }
 
         if ( ! empty( $display_address_map ) && ! empty( $ad ) ) {
-            $info_content .= "<div class='directorist-info-item map-listing-card-single__content__address'>" . directorist_icon( 'fas fa-map-marker-alt', false ) . "<div class='directorist-info-item'>";
-            $info_content .= apply_filters( "atbdp_address_in_map_info_window", "<a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'>{$ad}</a></div></div>" );
+            $directions_url = esc_url(
+                add_query_arg(
+                    'daddr',
+                    esc_attr( $manual_lat ) . ',' . esc_attr( $manual_lng ),
+                    'http://www.google.com/maps'
+                )
+            );
+            $info_content  .= "<div class='directorist-info-item map-listing-card-single__content__address'>" . directorist_icon( 'fas fa-map-marker-alt', false ) . "<div class='directorist-info-item'>";
+            $info_content  .= apply_filters( "atbdp_address_in_map_info_window", "<a href='{$directions_url}' target='_blank'>{$ad}</a></div></div>" );
         }
 
         $info_content .= "</div>";

@@ -23,9 +23,11 @@ jQuery(document).ready(function ($) {
 		)
 	);
 
-	$('body').on('click', '.select_all', function (e) {
-		var table = $(e.target).closest('table');
-		$('td input:checkbox', table).prop('checked', this.checked);
+	$('.directorist-extensions').on('change', '.select_all', function () {
+		$(this)
+			.closest('.ext-all-wrapper')
+			.find('.atbdp_extensions .de-list input[name="checked[]"]')
+			.prop('checked', this.checked);
 	});
 
 	if ($(extWrapper).innerHeight() > 250) {

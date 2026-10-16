@@ -1,0 +1,6077 @@
+{
+  "snapshot": {
+    "key": "adverts-manager--v8-beta",
+    "repo": "directorist-adverts-manager",
+    "branch": "v8-beta",
+    "commit": "b74a1c0372ec005708ea2bad386b30c3e439d402",
+    "date": "2025-07-21T07:07:53Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-adverts-manager",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "ecf1d3c1d24ccf9d2e811fb37baab340da567ba332ede8d89cf407e7c8f79198",
+      "bytes": 89,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "080dee8f189244dcfc379d754d76da4146cf9f133fcbbff61861a617a053eab9",
+      "bytes": 643,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "c4f4c6114d2c78b853cdc320d3fa3d01893256631dcfa0675146200d7e0362d0",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-adverts-manager.php": {
+      "sha256": "c2128bcb077df0a6ead0558912d3f8abb5acd3d0d680b7a9243fb032bf12c93b",
+      "bytes": 11170,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAdsManager",
+          "line": 35,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 92,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "define_constant",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance_plugin_classes",
+          "line": 137,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 191,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "SWBDPAdsManager",
+          "line": 230,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdp_ads_manager_plugin_activate",
+          "line": 241,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdp_ads_manager_plugin_deactivate",
+          "line": 265,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 273,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 279,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 25,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 31,
+          "args": [
+            "'SWBDPAdsManager'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 79,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 113,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 115,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 117,
+          "args": [
+            "'ATBDP_ADS_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 139,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 181,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 200,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 205,
+          "args": [
+            "'directorist_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 244,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 247,
+          "args": [
+            "'swbdp_ads_manager_installed'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 249,
+          "args": [
+            "'swbdp_ads_manager_installed'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 252,
+          "args": [
+            "'swbdp_ads_manager_version'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 256,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 269,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 272,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 274,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 278,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 284,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "includes.php": {
+      "sha256": "e4e0203ede21168f7fdfde6fe874405204ad7db629f074676ddf8de3a74d79b5",
+      "bytes": 1984,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMIncludeClasses",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "includes",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'SWBDPAMIncludeClasses'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "b0d17b3973fb122ba38e19cbf7cc3805a2cfa6b5defb441971d72074de56544c",
+      "bytes": 23,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "Inc/Controller/AdDisplayPages/PageAddListing.php": {
+      "sha256": "ebaa6ffa1d65836fe70f75bfd139fc6a18564c5475c5f97602a4c3d253998caa",
+      "bytes": 5799,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPAddListing",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_add_lis_before_header",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_add_lis_before_add_new_title",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_add_lis_after_save_preview_btn",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_add_lis_after_footer",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPAddListing'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_add_lis_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'atbdb_before_add_listing_from_frontend'",
+            "array( $this, 'swbdpam_ap_add_lis_before_add_new_title' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_before_add_listing_from_frontend'",
+            "array( $this, 'swbdpam_ap_add_lis_before_add_new_title' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'atbdp_after_submit_listing_frontend'",
+            "array( $this, 'swbdpam_ap_add_lis_after_save_preview_btn' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'directorist_after_submit_listing_frontend'",
+            "array( $this, 'swbdpam_ap_add_lis_after_save_preview_btn' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_add_lis_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 44,
+          "args": [
+            "'add_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 106,
+          "args": [
+            "'add_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 130,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageAllCategories.php": {
+      "sha256": "354570a0560c31f0a4808b867c64cefee68bad0fb377056b20dba5c807008413",
+      "bytes": 5299,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPAllCategories",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_cat_before_header",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_cat_before_loop",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_cat_after_loop",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_cat_after_footer",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 125,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPAllCategories'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_all_cat_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'atbdp_before_all_categories_loop'",
+            "array( $this, 'swbdpam_ap_all_cat_before_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'atbdp_after_all_categories_loop'",
+            "array( $this, 'swbdpam_ap_all_cat_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_all_cat_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 42,
+          "args": [
+            "'all_categories_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 104,
+          "args": [
+            "'all_categories_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 128,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageAllListings.php": {
+      "sha256": "05a56b707c5f0fce70d9cce14f7cdae6ccdbb236321b7f524e5bcaae711540ec",
+      "bytes": 16031,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPAllListings",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_all_lis_in_loop_ad_handler",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_before_header",
+          "line": 112,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_before_filter_bar",
+          "line": 137,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_after_filter_bar",
+          "line": 161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_as_card_in_loop",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_before_pagination",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_after_pagination",
+          "line": 245,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_lis_after_footer",
+          "line": 271,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 296,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPAllListings'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_all_lis_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_archive_header'",
+            "array( $this, 'swbdpam_ap_all_lis_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_before_listing_types'",
+            "array( $this, 'swbdpam_ap_all_lis_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'atbdp_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'directorist_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'directorist_before_map_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'atbdp_before_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'directorist_before_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 36,
+          "args": [
+            "'atbdp_listings_loop'",
+            "array( $this, 'swbdpam_all_lis_in_loop_ad_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'swbdpam_all_listing_as_card_in_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_as_card_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 40,
+          "args": [
+            "'atbdp_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_all_lis_before_pagination' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 41,
+          "args": [
+            "'directorist_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_all_lis_before_pagination' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 43,
+          "args": [
+            "'atbdp_after_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_pagination' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 44,
+          "args": [
+            "'directorist_after_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_pagination' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'directorist_after_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_all_lis_after_pagination' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 47,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_all_lis_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 61,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 62,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 63,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 65,
+          "args": [
+            "'all_listing_columns'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 85,
+          "args": [
+            "'swbdpam_all_listing_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 93,
+          "args": [
+            "'swbdpam_all_listing_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 115,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 119,
+          "args": [
+            "'directorist_all_listing_header_ad'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 140,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 164,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 189,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 222,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 248,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 275,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 279,
+          "args": [
+            "'directorist_all_listing_footer_ad'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 299,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageAllLocations.php": {
+      "sha256": "15f665e51742e5d7efae8ab10ee7274b2d274a3b7495d24962211e5055014a4f",
+      "bytes": 5292,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPAllLocations",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_loc_before_header",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_loc_before_loop",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_loc_after_loop",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_all_loc_after_footer",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 125,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPAllLocations'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_all_loc_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'atbdp_before_all_locations_loop'",
+            "array( $this, 'swbdpam_ap_all_loc_before_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'atbdp_after_all_locations_loop'",
+            "array( $this, 'swbdpam_ap_all_loc_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_all_loc_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 42,
+          "args": [
+            "'all_locations_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 104,
+          "args": [
+            "'all_locations_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 128,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageAuthorListing.php": {
+      "sha256": "57f2583e8f960be70ff685c0468b052806afdf46debc0d35aa98eba17b245733",
+      "bytes": 14199,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPAuthorListing",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_author_listings_in_loop_ad_handler",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_before_header",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_before_author_bar",
+          "line": 115,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_before_author_about",
+          "line": 134,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_after_about",
+          "line": 153,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_before_loop",
+          "line": 173,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_as_card_in_loop",
+          "line": 192,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_full_row_in_loop",
+          "line": 221,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_before_pagination",
+          "line": 246,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_auth_lis_after_footer",
+          "line": 265,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 288,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPAuthorListing'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'atbdp_before_author_profile_section'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_author_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_before_author_profile_section'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_author_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'atbdp_before_author_about_section'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_author_about' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'directorist_before_author_about_section'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_author_about' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'atbdp_author_listing_after_about_section'",
+            "array( $this, 'swbdpam_ap_auth_lis_after_about' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'directorist_author_listing_after_about_section'",
+            "array( $this, 'swbdpam_ap_auth_lis_after_about' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'atbdp_author_listings_before_loop'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'directorist_author_listings_before_loop'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'atbdp_listings_loop'",
+            "array( $this, 'swbdpam_author_listings_in_loop_ad_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 36,
+          "args": [
+            "'atbdp_author_listing_as_card_in_loop'",
+            "array( $this, 'swbdpam_ap_auth_lis_as_card_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'atbdp_author_listing_full_row_in_loop'",
+            "array( $this, 'swbdpam_ap_auth_lis_full_row_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 40,
+          "args": [
+            "'atbdp_author_listings_before_pagination'",
+            "array( $this, 'swbdpam_ap_auth_lis_before_pagination' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 42,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_auth_lis_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 61,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 62,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 63,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 64,
+          "args": [
+            "'all_listing_columns'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 72,
+          "args": [
+            "'atbdp_author_listing_as_card_in_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 78,
+          "args": [
+            "'atbdp_author_listing_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 92,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 195,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 224,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 269,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 291,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageDashboard.php": {
+      "sha256": "3fe454c596e51c87f322fc281b5ba7703b9f8a05ba2b36743f71c0025bd555e3",
+      "bytes": 11186,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPDashboard",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_dashboard_in_loop_ad_handler",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_user_dash_before_header",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_user_dash_before_dashboard_menu_bar",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_user_dash_before_loop",
+          "line": 145,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_user_dash_as_card_in_loop",
+          "line": 163,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_user_dash_full_row_in_loop",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_user_dash_after_loop",
+          "line": 205,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_apd_after_footer",
+          "line": 226,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 249,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPDashboard'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_user_dash_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_dashboard_before_container'",
+            "array( $this, 'swbdpam_ap_user_dash_before_dashboard_menu_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'directorist_dashboard_tab_contents'",
+            "array( $this, 'swbdpam_ap_user_dash_before_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'atbdp_dashboard_listings_loop'",
+            "array( $this, 'swbdpam_dashboard_in_loop_ad_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'atbdp_dashboard_as_card_in_loop'",
+            "array( $this, 'swbdpam_ap_user_dash_as_card_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'directorist_dashboard_after_loop'",
+            "array( $this, 'swbdpam_ap_user_dash_full_row_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'directorist_dashboard_before_pagination'",
+            "array( $this, 'swbdpam_ap_user_dash_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'directorist_dashboard_after_pagination'",
+            "array( $this, 'swbdpam_ap_user_dash_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_apd_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 53,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 54,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 55,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 56,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 57,
+          "args": [
+            "'all_listing_columns'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 78,
+          "args": [
+            "'directorist_dashboard_after_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 86,
+          "args": [
+            "'directorist_dashboard_after_loop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 103,
+          "args": [
+            "'user_dashboard'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 229,
+          "args": [
+            "'user_dashboard'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 252,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageSearchHome.php": {
+      "sha256": "b905b3b9b0e4f821165f39ccaecf5f294401fee7376c21e7a2f85d8926e42793",
+      "bytes": 5936,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPSearchHome",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_lis_before_header",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_lis_before_search_bar",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_lis_after_search_bar",
+          "line": 85,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_lis_after_footer",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 8,
+          "args": [
+            "'SWBDPAMPSearchHome'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_search_lis_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'atbdp_search_listing_before_title'",
+            "array( $this, 'swbdpam_ap_search_lis_before_search_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'directorist_search_listing_before_title'",
+            "array( $this, 'swbdpam_ap_search_lis_before_search_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'atbdp_search_listing_after_search_bar'",
+            "array( $this, 'swbdpam_ap_search_lis_after_search_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'directorist_search_listing_after_search_bar'",
+            "array( $this, 'swbdpam_ap_search_lis_after_search_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_search_lis_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 45,
+          "args": [
+            "'search_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 106,
+          "args": [
+            "'search_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 129,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageSearchResult.php": {
+      "sha256": "6f11f320258e26c2209a180c122415a0343e34765419dd0d8b23ce1a2f1e7e4a",
+      "bytes": 14788,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPSearchResult",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_search_result_in_loop_ad_handler",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_before_header",
+          "line": 105,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_before_filter_bar",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_search_result_after_filter_bar",
+          "line": 157,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_as_card_in_loop",
+          "line": 181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_full_row_in_loop",
+          "line": 214,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_after_loop",
+          "line": 239,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_after_footer",
+          "line": 264,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 287,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPSearchResult'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_search_result_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_archive_header'",
+            "array( $this, 'swbdpam_ap_search_result_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_before_listing_types'",
+            "array( $this, 'swbdpam_ap_search_result_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'atbdp_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_search_result_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'directorist_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_search_result_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'atbdp_before_list_listings_loop'",
+            "array( $this, 'swbdpam_search_result_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'directorist_before_list_listings_loop'",
+            "array( $this, 'swbdpam_search_result_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'atbdp_listings_loop'",
+            "array( $this, 'swbdpam_search_result_in_loop_ad_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'atbdp_search_result_as_card_in_loop'",
+            "array( $this, 'swbdpam_ap_search_result_as_card_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'atbdp_search_result_full_row_in_loop'",
+            "array( $this, 'swbdpam_ap_search_result_full_row_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 37,
+          "args": [
+            "'atbdp_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_search_result_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'directorist_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_search_result_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 40,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_search_result_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 43,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 55,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 56,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 57,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 58,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 59,
+          "args": [
+            "'all_listing_columns'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 82,
+          "args": [
+            "'atbdp_search_result_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 90,
+          "args": [
+            "'atbdp_search_result_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 108,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 134,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 160,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 184,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 217,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 242,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 267,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 290,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageSingleCategory.php": {
+      "sha256": "cbde008b41430d493eb50715204c23039f1c2154f274aefef81c3909e10ffd53",
+      "bytes": 15274,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPSingleCategory",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_single_cat_in_loop_ad_handler",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_cat_before_header",
+          "line": 106,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_cat_before_filter_bar",
+          "line": 132,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_cat_after_filter_bar",
+          "line": 157,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_as_card_in_loop",
+          "line": 183,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_full_row_in_loop",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_search_result_after_loop",
+          "line": 244,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_cat_after_footer",
+          "line": 269,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 292,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 8,
+          "args": [
+            "'SWBDPAMPSingleCategory'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_single_cat_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_archive_header'",
+            "array( $this, 'swbdpam_ap_single_cat_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'directorist_before_listing_types'",
+            "array( $this, 'swbdpam_ap_single_cat_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'atbdp_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_cat_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'directorist_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_cat_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'directorist_before_map_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_cat_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'atbdp_before_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_cat_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'directorist_before_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_cat_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'atbdp_listings_loop'",
+            "array( $this, 'swbdpam_single_cat_in_loop_ad_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'swbdpam_search_result_as_card_in_loop'",
+            "array( $this, 'swbdpam_ap_search_result_as_card_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 37,
+          "args": [
+            "'swbdpam_search_result_full_row_in_loop'",
+            "array( $this, 'swbdpam_ap_search_result_full_row_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 39,
+          "args": [
+            "'atbdp_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_search_result_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 40,
+          "args": [
+            "'directorist_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_search_result_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 42,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_single_cat_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 61,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 62,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 63,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 64,
+          "args": [
+            "'all_listing_columns'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 85,
+          "args": [
+            "'swbdpam_search_result_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 93,
+          "args": [
+            "'swbdpam_search_result_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 109,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 135,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 161,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 186,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 222,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 247,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 272,
+          "args": [
+            "'single_category_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 295,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageSingleListing.php": {
+      "sha256": "84efa1e11f0a6a45b6de229f388695c4b405820ed752b91282d6fd83d9fd7d6a",
+      "bytes": 5583,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPSingleListing",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_lis_before_header",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_lis_after_title",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_apsl_after_related_listing",
+          "line": 85,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_lis_after_footer",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 8,
+          "args": [
+            "'SWBDPAMPSingleListing'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_single_lis_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'atbdp_single_listing_after_title'",
+            "array( $this, 'swbdpam_ap_single_lis_after_title' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'directorist_single_listing_after_title'",
+            "array( $this, 'swbdpam_ap_single_lis_after_title' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'atbdp_single_listing_after_related_listing'",
+            "array( $this, 'swbdpam_apsl_after_related_listing' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_single_lis_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 130,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/AdDisplayPages/PageSingleLocation.php": {
+      "sha256": "8436e69780429b91b712a126a12a240a2a5ef8b22b915b4ebaf00ca6a01b419a",
+      "bytes": 14817,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMPSingleLocation",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_single_loc_in_loop_ad_handler",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_before_header",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_before_filter_bar",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_after_filter_bar",
+          "line": 152,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_as_card_in_loop",
+          "line": 177,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_full_row_in_loop",
+          "line": 211,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_after_loop",
+          "line": 235,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_ap_single_loc_after_footer",
+          "line": 260,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 284,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMPSingleLocation'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_head'",
+            "array( $this, 'swbdpam_ap_single_loc_before_header' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_archive_header'",
+            "array( $this, 'swbdpam_ap_single_loc_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_before_listing_types'",
+            "array( $this, 'swbdpam_ap_single_loc_before_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'atbdp_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'directorist_before_grid_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'directorist_before_map_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'atbdp_before_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'directorist_before_list_listings_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_after_filter_bar' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'atbdp_listings_loop'",
+            "array( $this, 'swbdpam_single_loc_in_loop_ad_handler' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'swbdpam_single_loc_as_card_in_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_as_card_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 36,
+          "args": [
+            "'swbdpam_single_loc_full_row_in_loop'",
+            "array( $this, 'swbdpam_ap_single_loc_full_row_in_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'atbdp_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_single_loc_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 39,
+          "args": [
+            "'directorist_before_listings_pagination'",
+            "array( $this, 'swbdpam_ap_single_loc_after_loop' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 41,
+          "args": [
+            "'wp_footer'",
+            "array( $this, 'swbdpam_ap_single_loc_after_footer' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 44,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 58,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 59,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$as_car_ad_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 61,
+          "args": [
+            "$full_row_ad_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 62,
+          "args": [
+            "'all_listing_columns'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 79,
+          "args": [
+            "'swbdpam_single_loc_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 87,
+          "args": [
+            "'swbdpam_single_loc_full_row_in_loop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 105,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 130,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 155,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 180,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 214,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 238,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 264,
+          "args": [
+            "'single_location_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 287,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Admin/AdsManagerCPT.php": {
+      "sha256": "80a48da22831c09201837102432f65884f39b1e3be76ebcff30e5bb7650b3755",
+      "bytes": 17128,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAdsManagerCPT",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_ads_manager_custom_post_type",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_ads_manager_custom_metabox",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "change_ads_manager_title_placeholder",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_save_cmb_ad_types_data",
+          "line": 162,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_save_cmb_select_pages_data",
+          "line": 198,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_save_cmb_additional_settings_data",
+          "line": 268,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remove",
+          "line": 300,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAdsManagerCPT'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'init'",
+            "array( $this, 'register_ads_manager_custom_post_type' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'admin_menu'",
+            "array( $this, 'add_ads_manager_custom_metabox')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'enter_title_here'",
+            "array( $this, 'change_ads_manager_title_placeholder')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'save_post'",
+            "array( $this, 'swbdpam_save_cmb_ad_types_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'save_post'",
+            "array( $this, 'swbdpam_save_cmb_select_pages_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'save_post'",
+            "array( $this, 'swbdpam_save_cmb_additional_settings_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 37,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remove' )"
+          ]
+        },
+        {
+          "name": "register_post_type",
+          "line": 88,
+          "args": [
+            "SWBDPAM_POST_TYPE"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 178,
+          "args": [
+            "$post_id",
+            "'swbdpam_ad_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 180,
+          "args": [
+            "$post_id",
+            "'swbdpam_image_ad_image_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 181,
+          "args": [
+            "$post_id",
+            "'swbdpam_image_ad_image_url'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 182,
+          "args": [
+            "$post_id",
+            "'swbdpam_custom_code_ad'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 184,
+          "args": [
+            "$post_id",
+            "'swbdpam_ad_terget_url'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 185,
+          "args": [
+            "$post_id",
+            "'swbdpam_rel_attr'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 186,
+          "args": [
+            "$post_id",
+            "'swbdpam_open_link'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 231,
+          "args": [
+            "$post_id",
+            "'swbdpam_pages_select'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 233,
+          "args": [
+            "$post_id",
+            "'swbdpam_all_listings_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 234,
+          "args": [
+            "$post_id",
+            "'swbdpam_single_listing_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 235,
+          "args": [
+            "$post_id",
+            "'swbdpam_all_cat_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 236,
+          "args": [
+            "$post_id",
+            "'swbdpam_single_category_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 237,
+          "args": [
+            "$post_id",
+            "'swbdpam_all_loc_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 238,
+          "args": [
+            "$post_id",
+            "'swbdpam_single_location_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 239,
+          "args": [
+            "$post_id",
+            "'swbdpam_add_listing_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 240,
+          "args": [
+            "$post_id",
+            "'swbdpam_dashboard_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 241,
+          "args": [
+            "$post_id",
+            "'swbdpam_author_listings_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 242,
+          "args": [
+            "$post_id",
+            "'swbdpam_search_home_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 243,
+          "args": [
+            "$post_id",
+            "'swbdpam_search_result_ad_places'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 245,
+          "args": [
+            "$post_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 246,
+          "args": [
+            "$post_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 248,
+          "args": [
+            "$post_id",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 249,
+          "args": [
+            "$post_id",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 250,
+          "args": [
+            "$post_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 251,
+          "args": [
+            "$post_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 253,
+          "args": [
+            "$post_id",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 254,
+          "args": [
+            "$post_id",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 255,
+          "args": [
+            "$post_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 256,
+          "args": [
+            "$post_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 284,
+          "args": [
+            "$post_id",
+            "'swbdpam_logged_in_user'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 286,
+          "args": [
+            "$post_id",
+            "'swbdpam_ad_expire_day'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 287,
+          "args": [
+            "$post_id",
+            "'swbdpam_ad_expire_hour'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 288,
+          "args": [
+            "$post_id",
+            "'swbdpam_ad_mark_as_forever'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 290,
+          "args": [
+            "$post_id",
+            "'swbdpam_after_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 291,
+          "args": [
+            "$post_id",
+            "'swbdpam_contact_image_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 292,
+          "args": [
+            "$post_id",
+            "'swbdpam_contact_image_url'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 303,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Admin/CustomWpListTable.php": {
+      "sha256": "0fd0699daf92cf7752855b560d9e14868e4923229da3a9e80c6544baa46b2769",
+      "bytes": 5136,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMCustomWpListTable",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_custom_column",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_custom_column_data",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remove",
+          "line": 128,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMCustomWpListTable'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'manage_'. SWBDPAM_POST_TYPE.'_posts_columns'",
+            "array( $this, 'add_custom_column' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'manage_posts_custom_column'",
+            "array( $this, 'display_custom_column_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remove' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 68,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 88,
+          "args": [
+            "$post->ID",
+            "'swbdpam_pages_select'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 98,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_expire_day'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 99,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_expire_hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 100,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_mark_as_forever'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 131,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Admin/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "Inc/Controller/Base/Activate.php": {
+      "sha256": "090d5afb7801fe5e309aa9085461315ed4f7f9301910e28dcc9e621db502ef80",
+      "bytes": 1635,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMActivate",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_body_class",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_plugin_textdomain",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMActivate'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'load_plugin_textdomain' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'body_class'",
+            "array( $this, 'add_body_class' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 49,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/DynamicStyle.php": {
+      "sha256": "63428087952f16fc5435c2eae7510a3d08483065b4aa2c98f028be0656a8fdcc",
+      "bytes": 64673,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMDynamicStyle",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "swbdpam_dynamic_css",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'SWBDPAMDynamicStyle'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 107,
+          "args": [
+            "$add_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 108,
+          "args": [
+            "$add_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 109,
+          "args": [
+            "$add_lis_bant_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 110,
+          "args": [
+            "$add_lis_bant_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 111,
+          "args": [
+            "$add_lis_aspb_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 112,
+          "args": [
+            "$add_lis_aspb_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 113,
+          "args": [
+            "$add_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 114,
+          "args": [
+            "$add_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 117,
+          "args": [
+            "$all_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 118,
+          "args": [
+            "$all_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 119,
+          "args": [
+            "$all_lis_be_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 120,
+          "args": [
+            "$all_lis_be_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 121,
+          "args": [
+            "$all_lis_aft_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 122,
+          "args": [
+            "$all_lis_aft_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 123,
+          "args": [
+            "$all_lis_as_card_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 124,
+          "args": [
+            "$all_lis_as_card_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 125,
+          "args": [
+            "$all_lis_full_row_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 126,
+          "args": [
+            "$all_lis_full_row_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 127,
+          "args": [
+            "$all_lis_be_pagi_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 128,
+          "args": [
+            "$all_lis_be_pagi_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 129,
+          "args": [
+            "$all_lis_aft_pagi_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 130,
+          "args": [
+            "$all_lis_aft_pagi_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 131,
+          "args": [
+            "$all_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 132,
+          "args": [
+            "$all_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 135,
+          "args": [
+            "$sing_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 136,
+          "args": [
+            "$sing_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 137,
+          "args": [
+            "$sing_lis_ati_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 138,
+          "args": [
+            "$sing_lis_ati_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 139,
+          "args": [
+            "$sing_lis_arl_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 140,
+          "args": [
+            "$sing_lis_arl_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 141,
+          "args": [
+            "$sing_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 142,
+          "args": [
+            "$sing_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 145,
+          "args": [
+            "$all_cat_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 146,
+          "args": [
+            "$all_cat_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 147,
+          "args": [
+            "$all_cat_be_lp_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 148,
+          "args": [
+            "$all_cat_be_lp_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 149,
+          "args": [
+            "$all_cat_aft_lp_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 150,
+          "args": [
+            "$all_cat_aft_lp_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 151,
+          "args": [
+            "$all_cat_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 152,
+          "args": [
+            "$all_cat_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 155,
+          "args": [
+            "$sing_cat_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 156,
+          "args": [
+            "$sing_cat_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 157,
+          "args": [
+            "$sing_cat_be_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 158,
+          "args": [
+            "$sing_cat_be_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 159,
+          "args": [
+            "$sing_cat_aft_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 160,
+          "args": [
+            "$sing_cat_aft_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 161,
+          "args": [
+            "$sing_cat_as_card_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 162,
+          "args": [
+            "$sing_cat_as_card_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 163,
+          "args": [
+            "$sing_cat_full_row_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 164,
+          "args": [
+            "$sing_cat_full_row_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 165,
+          "args": [
+            "$sing_cat_aft_lop_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 166,
+          "args": [
+            "$sing_cat_aft_lop_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 167,
+          "args": [
+            "$sing_cat_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 168,
+          "args": [
+            "$sing_cat_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 171,
+          "args": [
+            "$all_loc_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 172,
+          "args": [
+            "$all_loc_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 173,
+          "args": [
+            "$all_loc_be_lp_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 174,
+          "args": [
+            "$all_loc_be_lp_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 175,
+          "args": [
+            "$all_loc_aft_lp_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 176,
+          "args": [
+            "$all_loc_aft_lp_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 177,
+          "args": [
+            "$all_loc_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 178,
+          "args": [
+            "$all_loc_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 181,
+          "args": [
+            "$sing_loc_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 182,
+          "args": [
+            "$sing_loc_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 183,
+          "args": [
+            "$sing_loc_be_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 184,
+          "args": [
+            "$sing_loc_be_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 185,
+          "args": [
+            "$sing_loc_aft_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 186,
+          "args": [
+            "$sing_loc_aft_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 187,
+          "args": [
+            "$sing_loc_as_card_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 188,
+          "args": [
+            "$sing_loc_as_card_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 189,
+          "args": [
+            "$sing_loc_full_row_id",
+            "'swbdpam _row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 190,
+          "args": [
+            "$sing_loc_full_row_id",
+            "'swbdpam _row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 191,
+          "args": [
+            "$sing_loc_aft_lop_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 192,
+          "args": [
+            "$sing_loc_aft_lop_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 193,
+          "args": [
+            "$sing_loc_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 194,
+          "args": [
+            "$sing_loc_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 197,
+          "args": [
+            "$auth_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 198,
+          "args": [
+            "$auth_lis_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 199,
+          "args": [
+            "$auth_lis_be_ai_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 200,
+          "args": [
+            "$auth_lis_be_ai_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 201,
+          "args": [
+            "$auth_lis_aft_ai_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 202,
+          "args": [
+            "$auth_lis_aft_ai_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 203,
+          "args": [
+            "$auth_lis_aft_aa_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 204,
+          "args": [
+            "$auth_lis_aft_aa_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 205,
+          "args": [
+            "$auth_lis_be_lop_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 206,
+          "args": [
+            "$auth_lis_be_lop_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 207,
+          "args": [
+            "$auth_lis_as_card_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 208,
+          "args": [
+            "$auth_lis_as_card_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 209,
+          "args": [
+            "$auth_lis_full_row_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 210,
+          "args": [
+            "$auth_lis_full_row_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 211,
+          "args": [
+            "$auth_lis_be_pagi_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 212,
+          "args": [
+            "$auth_lis_be_pagi_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 213,
+          "args": [
+            "$auth_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 214,
+          "args": [
+            "$auth_lis_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 217,
+          "args": [
+            "$user_dash_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 218,
+          "args": [
+            "$user_dash_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 219,
+          "args": [
+            "$user_dash_be_dm_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 220,
+          "args": [
+            "$user_dash_be_dm_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 221,
+          "args": [
+            "$user_dash_be_lop_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 222,
+          "args": [
+            "$user_dash_be_lop_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 223,
+          "args": [
+            "$user_dash_as_card_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 224,
+          "args": [
+            "$user_dash_as_card_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 225,
+          "args": [
+            "$user_dash_full_row_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 226,
+          "args": [
+            "$user_dash_full_row_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 227,
+          "args": [
+            "$user_dash_be_pagi_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 228,
+          "args": [
+            "$user_dash_be_pagi_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 229,
+          "args": [
+            "$user_dash_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 230,
+          "args": [
+            "$user_dash_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 233,
+          "args": [
+            "$sea_hom_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 234,
+          "args": [
+            "$sea_hom_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 235,
+          "args": [
+            "$sea_hom_be_sb_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 236,
+          "args": [
+            "$sea_hom_be_sb_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 237,
+          "args": [
+            "$sea_hom_aft_sb_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 238,
+          "args": [
+            "$sea_hom_aft_sb_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 239,
+          "args": [
+            "$sea_hom_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 240,
+          "args": [
+            "$sea_hom_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 243,
+          "args": [
+            "$sea_res_be_hed_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 244,
+          "args": [
+            "$sea_res_be_hed_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 245,
+          "args": [
+            "$sea_res_be_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 246,
+          "args": [
+            "$sea_res_be_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 247,
+          "args": [
+            "$sea_res_aft_fil_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 248,
+          "args": [
+            "$sea_res_aft_fil_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 249,
+          "args": [
+            "$sea_res_as_card_id",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 250,
+          "args": [
+            "$sea_res_as_card_id",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 251,
+          "args": [
+            "$sea_res_full_row_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 252,
+          "args": [
+            "$sea_res_full_row_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 253,
+          "args": [
+            "$sea_res_aft_lop_id",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 254,
+          "args": [
+            "$sea_res_aft_lop_id",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 255,
+          "args": [
+            "$sea_res_aft_fot_id",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 256,
+          "args": [
+            "$sea_res_aft_fot_id",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/Enqueue.php": {
+      "sha256": "1eb17604779b90b41fc710764400095084fc12b3692fd263e5bdbb464ddb4f16",
+      "bytes": 3942,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMEnqueue",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_enqueue_script",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "frontend_enqueue_script",
+          "line": 76,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remover",
+          "line": 92,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMEnqueue'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'admin_enqueue_script' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'frontend_enqueue_script' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 95,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/ExtensionSettings.php": {
+      "sha256": "7ad76e9e2d21061cebbf0befb7534e458231d98b11ca08382ed91526f4838dc5",
+      "bytes": 13578,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMExtnSettings",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_ads_license_deactivation",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_ads_license_activation",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ads_license_settings_controls",
+          "line": 240,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpam_hook_remove",
+          "line": 286,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMExtnSettings'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( $this, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array( $this, 'ads_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'wp_ajax_atbdp_ads_license_activation'",
+            "array( $this, 'atbdp_ads_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_ajax_atbdp_ads_license_deactivation'",
+            "array( $this, 'atbdp_ads_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpam_hook_remove' )"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 52,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 54,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 55,
+          "args": [
+            "'directorist_ads_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 66,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 69,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 75,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 82,
+          "args": [
+            "'directorist_ads_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 88,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 147,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 149,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 150,
+          "args": [
+            "'directorist_ads_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 161,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 164,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 171,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 178,
+          "args": [
+            "'directorist_ads_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 184,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 243,
+          "args": [
+            "'directorist_ads_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 259,
+          "args": [
+            "'atbdp_ads_extension_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 264,
+          "args": [
+            "'atbdp_ads_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 276,
+          "args": [
+            "'atbdp_licence_menu_for_ads'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 289,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/HelperFunctions.php": {
+      "sha256": "df9da53341e0d40b47f06a8f3c432a77aebae4840ab5d6dbd9d89a750e7e98a4",
+      "bytes": 25758,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMHelperFunctions",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "ad_display_pages",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_lis_ad_places",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_lis_ad_places",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_cat_ad_places",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_cat_ad_places",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_loc_ad_places",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_loc_ad_places",
+          "line": 142,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_lis_ad_places",
+          "line": 163,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dashboard_ad_places",
+          "line": 185,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "auth_lis_ad_places",
+          "line": 206,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_home_ad_places",
+          "line": 229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "search_result_ad_places",
+          "line": 247,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_secured",
+          "line": 266,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_ad_id",
+          "line": 300,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_selected_places_in_a_page",
+          "line": 343,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_post_selected_ad_places",
+          "line": 378,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_ad",
+          "line": 399,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "data_transfer_php_to_js_file",
+          "line": 529,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMHelperFunctions'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 323,
+          "args": [
+            "$ad->ID",
+            "'swbdpam_logged_in_user'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 361,
+          "args": [
+            "$ad->ID",
+            "$select_place_meta_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 385,
+          "args": [
+            "$ad_id",
+            "$select_place_meta_key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 401,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 402,
+          "args": [
+            "$ad_id",
+            "'swbdpam_image_ad_image_id'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 403,
+          "args": [
+            "'preview_image_quality'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 405,
+          "args": [
+            "$ad_id",
+            "'swbdpam_custom_code_ad'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 406,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_expire_day'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 407,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_expire_hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 408,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_mark_as_forever'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 409,
+          "args": [
+            "$ad_id",
+            "'swbdpam_after_expire'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 410,
+          "args": [
+            "$ad_id",
+            "'swbdpam_contact_image_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 412,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_terget_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 413,
+          "args": [
+            "$ad_id",
+            "'swbdpam_rel_attr'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 414,
+          "args": [
+            "$ad_id",
+            "'swbdpam_open_link'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/ShortcodeHandler.php": {
+      "sha256": "837ea233ca88fe8cc31a0c935fb381e687a2487e62aea3e57fd063c7fd487302",
+      "bytes": 11334,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMShortcodeHandler",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_ads_manager_ad_shortcode",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "remove_directorist_listing_compare_shortcode",
+          "line": 230,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'SWBDPAMShortcodeHandler'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'remove_directorist_listing_compare_shortcode' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 39,
+          "args": [
+            "$id",
+            "'swbdpam_ad_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 40,
+          "args": [
+            "$id",
+            "'swbdpam_image_ad_image_id'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 41,
+          "args": [
+            "'preview_image_quality'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 43,
+          "args": [
+            "$id",
+            "'swbdpam_custom_code_ad'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 44,
+          "args": [
+            "$id",
+            "'swbdpam_logged_in_user'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 45,
+          "args": [
+            "$id",
+            "'swbdpam_ad_expire_day'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 46,
+          "args": [
+            "$id",
+            "'swbdpam_ad_expire_hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 47,
+          "args": [
+            "$id",
+            "'swbdpam_ad_mark_as_forever'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 48,
+          "args": [
+            "$id",
+            "'swbdpam_after_expire'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 49,
+          "args": [
+            "$id",
+            "'swbdpam_contact_image_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 50,
+          "args": [
+            "$id",
+            "'swbdpam_ad_terget_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 51,
+          "args": [
+            "$id",
+            "'swbdpam_rel_attr'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 52,
+          "args": [
+            "$id",
+            "'swbdpam_open_link'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 233,
+          "args": [
+            "'swbdp_ads_manager_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/WidgetsHandler.php": {
+      "sha256": "a2091e8a72cc8cf7f1b2fe9ae127bdfe7ad3be411b97dc6104750a05e9565fea",
+      "bytes": 903,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMWidgetsHandler",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_ads_manager_widget",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMWidgetsHandler'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'widgets_init'",
+            "array( $this, 'register_ads_manager_widget' )"
+          ]
+        },
+        {
+          "name": "register_widget",
+          "line": 32,
+          "args": [
+            "'SWBDPWidgetAdsManager'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Widgets/WidgetAdsManager.php": {
+      "sha256": "17a17629fdae34ff8ebd1a84afb0bfc53cb7a4060d76af0e9157b9856c00f17f",
+      "bytes": 3344,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPWidgetAdsManager",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "widget",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 97,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPWidgetAdsManager'"
+          ]
+        }
+      ]
+    },
+    "Inc/View/AdminCallbacks.php": {
+      "sha256": "7c182f438d83e1cbe3462c9fe15ed5c62a4dcbf9d78d95b0d5b0dccd66bc6693",
+      "bytes": 61009,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPAMAdminCallbacks",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "cmb_ads_manager_ad_types_callback",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cmb_ads_manager_select_pages_and_placement_callback",
+          "line": 197,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cmb_ads_manager_additional_settings_callback",
+          "line": 760,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPAMAdminCallbacks'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 53,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 56,
+          "args": [
+            "$post->ID",
+            "'swbdpam_image_ad_image_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 57,
+          "args": [
+            "$post->ID",
+            "'swbdpam_image_ad_image_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 58,
+          "args": [
+            "$post->ID",
+            "'swbdpam_custom_code_ad'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_terget_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 61,
+          "args": [
+            "$post->ID",
+            "'swbdpam_rel_attr'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 63,
+          "args": [
+            "$post->ID",
+            "'swbdpam_open_link'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 238,
+          "args": [
+            "$post->ID",
+            "'swbdpam_pages_select'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 239,
+          "args": [
+            "$post->ID",
+            "'swbdpam_all_listings_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 240,
+          "args": [
+            "$post->ID",
+            "'swbdpam_single_listing_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 241,
+          "args": [
+            "$post->ID",
+            "'swbdpam_all_cat_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 242,
+          "args": [
+            "$post->ID",
+            "'swbdpam_single_category_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 243,
+          "args": [
+            "$post->ID",
+            "'swbdpam_all_loc_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 244,
+          "args": [
+            "$post->ID",
+            "'swbdpam_single_location_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 245,
+          "args": [
+            "$post->ID",
+            "'swbdpam_add_listing_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 246,
+          "args": [
+            "$post->ID",
+            "'swbdpam_dashboard_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 247,
+          "args": [
+            "$post->ID",
+            "'swbdpam_author_listings_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 248,
+          "args": [
+            "$post->ID",
+            "'swbdpam_search_home_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 249,
+          "args": [
+            "$post->ID",
+            "'swbdpam_search_result_ad_places'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 251,
+          "args": [
+            "$post->ID",
+            "'swbdpam_bhaf_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 252,
+          "args": [
+            "$post->ID",
+            "'swbdpam_bhaf_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 254,
+          "args": [
+            "$post->ID",
+            "'swbdpam_card_ad_show_after_lis'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 255,
+          "args": [
+            "$post->ID",
+            "'swbdpam_card_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 258,
+          "args": [
+            "$post->ID",
+            "'swbdpam_card_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 259,
+          "args": [
+            "$post->ID",
+            "'swbdpam_card_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 261,
+          "args": [
+            "$post->ID",
+            "'swbdpam_row_ad_show_after_row'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 262,
+          "args": [
+            "$post->ID",
+            "'swbdpam_row_ad_repeat'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 265,
+          "args": [
+            "$post->ID",
+            "'swbdpam_row_ad_width'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 266,
+          "args": [
+            "$post->ID",
+            "'swbdpam_row_ad_height'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 779,
+          "args": [
+            "$post->ID",
+            "'swbdpam_logged_in_user'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 784,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_expire_day'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 785,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_expire_hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 786,
+          "args": [
+            "$post->ID",
+            "'swbdpam_ad_mark_as_forever'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 789,
+          "args": [
+            "$post->ID",
+            "'swbdpam_after_expire'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 794,
+          "args": [
+            "$post->ID",
+            "'swbdpam_contact_image_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 795,
+          "args": [
+            "$post->ID",
+            "'swbdpam_contact_image_url'"
+          ]
+        }
+      ]
+    },
+    "Inc/View/swbdpam-widget-output.php": {
+      "sha256": "8758942d3143b0e3106d1ccbb0dd210d23c1138738d95f6513e5a1b04ec5a2b7",
+      "bytes": 9874,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "get_post_meta",
+          "line": 22,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 23,
+          "args": [
+            "$ad_id",
+            "'swbdpam_image_ad_image_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 24,
+          "args": [
+            "$ad_id",
+            "'swbdpam_custom_code_ad'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 25,
+          "args": [
+            "$ad_id",
+            "'swbdpam_logged_in_user'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 26,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_expire_day'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 27,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_expire_hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 28,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_mark_as_forever'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 29,
+          "args": [
+            "$ad_id",
+            "'swbdpam_after_expire'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 30,
+          "args": [
+            "$ad_id",
+            "'swbdpam_contact_image_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 31,
+          "args": [
+            "$ad_id",
+            "'swbdpam_ad_terget_url'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 32,
+          "args": [
+            "$ad_id",
+            "'swbdpam_rel_attr'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 33,
+          "args": [
+            "$ad_id",
+            "'swbdpam_open_link'"
+          ]
+        }
+      ]
+    },
+    "assets/admin/css/swbdpam-admin.css": {
+      "sha256": "479011c51aa60431404dfd46c1ed2335436d0a26915d5d8e4b19c022700e7fc5",
+      "bytes": 16979,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/image-upload.png": {
+      "sha256": "c67634ae4110954b03b9a12abd152126822d51327fc53271dbd9866a14c90696",
+      "bytes": 527,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/ad-type/custom_code.png": {
+      "sha256": "d6096cac147e2a3174e5fd33cdcaa3d5b167ba4344efdffe511f46807d65d31e",
+      "bytes": 616,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/ad-type/facebook_pixel.png": {
+      "sha256": "8fae327ca1a9c5b5b4dc63c6043b6d81964f2ea1a09047076f7f82e0e494b390",
+      "bytes": 1133,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/ad-type/google_adsense.png": {
+      "sha256": "0989c8b6bf98afc19ed6b8ec00b571bc1b1c718f1afdcbaede4f70e745c3e7f3",
+      "bytes": 1150,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/ad-type/image.png": {
+      "sha256": "662c1a4cdf8afc7c7bf889c8f3dfbf4b46df22fbd5b0d4dfdd0a24f11ba7925d",
+      "bytes": 649,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/add-lis-img/after-footer.png": {
+      "sha256": "80c549adba7dbe1369eb6188f95fd2ff09e83dcd9d21a0a77b8fcc73245fc557",
+      "bytes": 781,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/add-lis-img/after-save-preview-btn.png": {
+      "sha256": "b9245c13e7b922f772d2c5ce4eb28288debde612d0fe97db0afb4ba1659681f2",
+      "bytes": 813,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/add-lis-img/before-add-new-title.png": {
+      "sha256": "e30e554da3747f92051a4d83841466abfc168b4a085094c56d692676b67af1c7",
+      "bytes": 814,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/add-lis-img/before-header.png": {
+      "sha256": "ae436e0fb8a4ed02db5f71d8a9330b640e8c39f456625a07f3ab9db3a613faaa",
+      "bytes": 787,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-cat-img/after-footer.png": {
+      "sha256": "a6e59860c24882e81c0a676bd41331f8c177da010cf504ad4266725faa50b996",
+      "bytes": 771,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-cat-img/after-loop.png": {
+      "sha256": "0b28f619ba765699a876d8fbad0ba74ff45c1b4aa07fd200b346b3783758d582",
+      "bytes": 758,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-cat-img/before-header.png": {
+      "sha256": "e07f0052ac4fa19e57a60616975a4cad5bc23ea612e972acd5c980ace4fef86a",
+      "bytes": 704,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-cat-img/before-loop.png": {
+      "sha256": "44a3c2974f163535371c592343a4c4a01223b5c88807402441fdfd6b72f0c9ba",
+      "bytes": 784,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/after-filter.png": {
+      "sha256": "8d0d98527c9da996d1f489ddfac58cbaa97c107c2bdb55b3cc7cf05b5338284f",
+      "bytes": 810,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/after-footer.png": {
+      "sha256": "d229a54d1bc9188182521176c8a44e88267836e532f6f82a8e58fc346f05be55",
+      "bytes": 757,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/after-pagination.png": {
+      "sha256": "e2ceff03dfd14881f09ee1e32312bc54ebc3b135b380d0378c1e47a53bae6786",
+      "bytes": 805,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/as-card-in-loop.png": {
+      "sha256": "5e08b3e56285b1325132e74156517af9058d1fca86f638d46d1a80fcb5997c33",
+      "bytes": 756,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/before-filter.png": {
+      "sha256": "c663f0c7f3564cf4d51d01bf60044d8949f2f928335d1157fe3ed0ef289a5f81",
+      "bytes": 808,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/before-header.png": {
+      "sha256": "28c0dec183e079c22446c093d16d62dd49e80c95aab7bc6f30fc7df57e30cf71",
+      "bytes": 782,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/before-pagination.png": {
+      "sha256": "1befd6e8999e885ded79113043f6ab4ded5b4bbf5bdf13bc725d28e7a61852d4",
+      "bytes": 809,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-lis-img/full-row-in-loop.png": {
+      "sha256": "1899b9ffd7f29d39c5a2aa23a6a666edb1dcb68932d392fed8a9a8421b1c2c7e",
+      "bytes": 816,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-loc-img/after-footer.png": {
+      "sha256": "a6e59860c24882e81c0a676bd41331f8c177da010cf504ad4266725faa50b996",
+      "bytes": 771,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-loc-img/after-loop.png": {
+      "sha256": "0b28f619ba765699a876d8fbad0ba74ff45c1b4aa07fd200b346b3783758d582",
+      "bytes": 758,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-loc-img/before-header.png": {
+      "sha256": "e07f0052ac4fa19e57a60616975a4cad5bc23ea612e972acd5c980ace4fef86a",
+      "bytes": 704,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/all-loc-img/before-loop.png": {
+      "sha256": "44a3c2974f163535371c592343a4c4a01223b5c88807402441fdfd6b72f0c9ba",
+      "bytes": 784,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/after-author-about.png": {
+      "sha256": "31244baed05b35061258466bcef263427e1ad710c10c5dd5afd59ba3a63922ae",
+      "bytes": 799,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/after-author-image.png": {
+      "sha256": "40dc291928e6aa5da68371776c7e3b1cd1bc545cbccfdc4814096765b284801b",
+      "bytes": 791,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/after-footer.png": {
+      "sha256": "0ecc588f72010e365101d1a60c61ffa3c9eda1b88c366a06d4c98342195bb74a",
+      "bytes": 785,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/as-card-in-loop.png": {
+      "sha256": "ad2b986feff74c5bc751d5bbfd293ed89e79ab0e449bef3cf37f682255f2f5e7",
+      "bytes": 798,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/before-author-image.png": {
+      "sha256": "446fbad6268241aceed330ee39628ae9366d6f509f047b46eed34a7b7599dc57",
+      "bytes": 789,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/before-header.png": {
+      "sha256": "e120c947f10f245084e6fda4751044ded6f027c4cbcfe081c57500a08fe11f8f",
+      "bytes": 781,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/before-loop.png": {
+      "sha256": "31244baed05b35061258466bcef263427e1ad710c10c5dd5afd59ba3a63922ae",
+      "bytes": 799,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/auth-profile-img/full-row-in-loop.png": {
+      "sha256": "a47387705dfec787990227ac03af16f158180282bc11abff7e0587d1ea931e48",
+      "bytes": 819,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/after-footer.png": {
+      "sha256": "d229a54d1bc9188182521176c8a44e88267836e532f6f82a8e58fc346f05be55",
+      "bytes": 757,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/as-card-in-loop.png": {
+      "sha256": "5e08b3e56285b1325132e74156517af9058d1fca86f638d46d1a80fcb5997c33",
+      "bytes": 756,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/before-dashboard-menu.png": {
+      "sha256": "c663f0c7f3564cf4d51d01bf60044d8949f2f928335d1157fe3ed0ef289a5f81",
+      "bytes": 808,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/before-header.png": {
+      "sha256": "28c0dec183e079c22446c093d16d62dd49e80c95aab7bc6f30fc7df57e30cf71",
+      "bytes": 782,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/before-loop.png": {
+      "sha256": "8d0d98527c9da996d1f489ddfac58cbaa97c107c2bdb55b3cc7cf05b5338284f",
+      "bytes": 810,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/before-pagination.png": {
+      "sha256": "1befd6e8999e885ded79113043f6ab4ded5b4bbf5bdf13bc725d28e7a61852d4",
+      "bytes": 809,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/dashboard-img/full-row-in-loop.png": {
+      "sha256": "1899b9ffd7f29d39c5a2aa23a6a666edb1dcb68932d392fed8a9a8421b1c2c7e",
+      "bytes": 816,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/icon/check.svg": {
+      "sha256": "768a60c3956e2e508696ce00befdc4a411839ccca7915e908748d60ce44c7878",
+      "bytes": 328,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-home-img/after-footer.png": {
+      "sha256": "4efb60ac0921814b66f421a90594b1aaad9939c0e108db739c8957a7f59db13d",
+      "bytes": 833,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-home-img/after-search-bar.png": {
+      "sha256": "864df63da9b466caa230e830153d37bc6d15c89a476ba648ea32bac2ceadfa1c",
+      "bytes": 838,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-home-img/before-header.png": {
+      "sha256": "6df09b3e18cacc3178997e90d750b954c9c6ef4d28b6a0c4048e388ddbfe6dc6",
+      "bytes": 818,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-home-img/before-search-bar.png": {
+      "sha256": "7a3fe364836a7419eea6b340312a7ff0522e663756b2bd7ed913a297624c972a",
+      "bytes": 809,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/after-filter.png": {
+      "sha256": "8d0d98527c9da996d1f489ddfac58cbaa97c107c2bdb55b3cc7cf05b5338284f",
+      "bytes": 810,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/after-footer.png": {
+      "sha256": "d229a54d1bc9188182521176c8a44e88267836e532f6f82a8e58fc346f05be55",
+      "bytes": 757,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/after-loop.png": {
+      "sha256": "1befd6e8999e885ded79113043f6ab4ded5b4bbf5bdf13bc725d28e7a61852d4",
+      "bytes": 809,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/as-card-in-loop.png": {
+      "sha256": "5e08b3e56285b1325132e74156517af9058d1fca86f638d46d1a80fcb5997c33",
+      "bytes": 756,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/before-filter.png": {
+      "sha256": "c663f0c7f3564cf4d51d01bf60044d8949f2f928335d1157fe3ed0ef289a5f81",
+      "bytes": 808,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/before-header.png": {
+      "sha256": "28c0dec183e079c22446c093d16d62dd49e80c95aab7bc6f30fc7df57e30cf71",
+      "bytes": 782,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/search-result-img/full-row-in-loop.png": {
+      "sha256": "1899b9ffd7f29d39c5a2aa23a6a666edb1dcb68932d392fed8a9a8421b1c2c7e",
+      "bytes": 816,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/after-filter.png": {
+      "sha256": "8d0d98527c9da996d1f489ddfac58cbaa97c107c2bdb55b3cc7cf05b5338284f",
+      "bytes": 810,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/after-footer.png": {
+      "sha256": "d229a54d1bc9188182521176c8a44e88267836e532f6f82a8e58fc346f05be55",
+      "bytes": 757,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/after-loop.png": {
+      "sha256": "1befd6e8999e885ded79113043f6ab4ded5b4bbf5bdf13bc725d28e7a61852d4",
+      "bytes": 809,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/as-card-in-loop.png": {
+      "sha256": "5e08b3e56285b1325132e74156517af9058d1fca86f638d46d1a80fcb5997c33",
+      "bytes": 756,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/before-filter.png": {
+      "sha256": "c663f0c7f3564cf4d51d01bf60044d8949f2f928335d1157fe3ed0ef289a5f81",
+      "bytes": 808,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/before-header.png": {
+      "sha256": "28c0dec183e079c22446c093d16d62dd49e80c95aab7bc6f30fc7df57e30cf71",
+      "bytes": 782,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-cat-img/full-row-in-loop.png": {
+      "sha256": "1899b9ffd7f29d39c5a2aa23a6a666edb1dcb68932d392fed8a9a8421b1c2c7e",
+      "bytes": 816,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-lis-img/after-footer.png": {
+      "sha256": "8c8ff8cfcaaa739ea72668649833c2500ebadface8f0733afac08062c491ad87",
+      "bytes": 734,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-lis-img/after-title.png": {
+      "sha256": "83b21a8ebb84bc10739ec3aea22b44487d7a8d020113b0809a7c67e708b04d25",
+      "bytes": 739,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-lis-img/before-header.png": {
+      "sha256": "e733216a06fcd9f648ef490e2e2589a576d3e37d06bbb3439aa8372e5eee0cb6",
+      "bytes": 724,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/after-filter.png": {
+      "sha256": "8d0d98527c9da996d1f489ddfac58cbaa97c107c2bdb55b3cc7cf05b5338284f",
+      "bytes": 810,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/after-footer.png": {
+      "sha256": "d229a54d1bc9188182521176c8a44e88267836e532f6f82a8e58fc346f05be55",
+      "bytes": 757,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/after-loop.png": {
+      "sha256": "1befd6e8999e885ded79113043f6ab4ded5b4bbf5bdf13bc725d28e7a61852d4",
+      "bytes": 809,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/as-card-in-loop.png": {
+      "sha256": "5e08b3e56285b1325132e74156517af9058d1fca86f638d46d1a80fcb5997c33",
+      "bytes": 756,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/before-filter.png": {
+      "sha256": "c663f0c7f3564cf4d51d01bf60044d8949f2f928335d1157fe3ed0ef289a5f81",
+      "bytes": 808,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/before-header.png": {
+      "sha256": "28c0dec183e079c22446c093d16d62dd49e80c95aab7bc6f30fc7df57e30cf71",
+      "bytes": 782,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/img/single-loc-img/full-row-in-loop.png": {
+      "sha256": "1899b9ffd7f29d39c5a2aa23a6a666edb1dcb68932d392fed8a9a8421b1c2c7e",
+      "bytes": 816,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/js/swbdpam-admin.js": {
+      "sha256": "34cb618c13841ad462c592c56f20b67677927dd0aecbe73cd84370af33097a1e",
+      "bytes": 41237,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "show",
+          "kind": "JS",
+          "line": 868
+        },
+        {
+          "name": "ShowLayoutOptions",
+          "kind": "JS",
+          "line": 874
+        },
+        {
+          "name": "hide",
+          "kind": "JS",
+          "line": 888
+        },
+        {
+          "name": "hideLayoutOptions",
+          "kind": "JS",
+          "line": 894
+        }
+      ],
+      "calls": []
+    },
+    "assets/admin/js/swbdpam-custom-code-editor.js": {
+      "sha256": "c314c5f23dc4582550b54e99535c18cccea23e47fc6d7bcd4ffd0e87cadd687e",
+      "bytes": 698,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/frontend/css/custom.css": {
+      "sha256": "e5776ed4190deb871b4008d1e205c754a55215cf0a9d39107f4d6f646c18695e",
+      "bytes": 833,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/frontend/css/swbdpam-frontend-rtl.css": {
+      "sha256": "966c2edb9f5f234cf24e3cbc5c49c2604dc5814882b1570e99b9dfbeba5255d1",
+      "bytes": 10604,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/frontend/css/swbdpam-frontend.css": {
+      "sha256": "9a671b5844868598f3d55d62fe94e773a933133013373f58060840cc1b06bf79",
+      "bytes": 10602,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/frontend/js/swbdpam-frontend.js": {
+      "sha256": "8d797afd840a21ff3cb3a55a8ef889163b6c5589a2f63880561f6a69870b4a26",
+      "bytes": 46,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-adverts-manager.pot": {
+      "sha256": "3edbddc89735de1b3b87198d010aef57beaa1796123b5fd991c0a5a453a73633",
+      "bytes": 12446,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

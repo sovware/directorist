@@ -495,7 +495,7 @@ export default {
               layout[section][section_area].selectedWidgets[widget];
 
             // Check if widget is available
-            if (!this.available_widgets[widget_name]) {
+            if (!this.theAvailableWidgets[widget_name]) {
               continue;
             }
 
@@ -576,8 +576,15 @@ export default {
       );
 
       for (let widget in available_widgets) {
-        available_widgets[widget].widget_name = widget;
-        available_widgets[widget].widget_key = widget;
+        if (typeof available_widgets[widget].widget_name === "undefined") {
+          available_widgets[widget].widget_name = widget;
+        }
+        if (typeof available_widgets[widget].widget_key === "undefined") {
+          available_widgets[widget].widget_key = widget;
+        }
+        if (available_widgets[widget].widget_name !== widget) {
+          continue;
+        }
 
         // Check show if condition
         let show_if_cond_state = null;
@@ -779,14 +786,16 @@ export default {
         }
       }
 
+      const available_widget_templates = this.theAvailableWidgets;
+
       // Load Active Widgets
       for (let widget_key in active_widgets_data) {
         // Validate widget exists in theAvailableWidgets (computed property)
-        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
+        if (typeof available_widget_templates[widget_key] === "undefined") {
           continue;
         }
 
-        let widgets_template = { ...this.theAvailableWidgets[widget_key] };
+        let widgets_template = { ...available_widget_templates[widget_key] };
         let widget_options =
           !active_widgets_data[widget_key].options &&
           typeof active_widgets_data[widget_key].options !== "object"
@@ -826,6 +835,15 @@ export default {
         widgets_template.widget_key = widget_key;
         widgets_template.widget_name =
           active_widgets_data[widget_key].widget_name || widget_key;
+
+        const current_widget_label =
+          available_widget_templates[widget_key].label;
+        if (
+          typeof current_widget_label === "string" &&
+          current_widget_label.length
+        ) {
+          widgets_template.label = current_widget_label;
+        }
 
         Vue.set(this.active_widgets, widget_key, widgets_template);
         Vue.set(this.available_widgets, widget_key, widgets_template);

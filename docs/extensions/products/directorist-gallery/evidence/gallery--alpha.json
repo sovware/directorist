@@ -1,0 +1,1374 @@
+{
+  "snapshot": {
+    "key": "gallery--alpha",
+    "repo": "directorist-gallery",
+    "branch": "alpha",
+    "commit": "a4bd383934f2fbedeaab6e00205282bcddbf0ff1",
+    "date": "2026-06-22T04:52:45Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gallery",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "96b9ae4b44ae1ac158766eb5fde9dbdb16376c02f9f7428ecf972dba8f1b4d43",
+      "bytes": 138,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "AGENTS.md": {
+      "sha256": "c85ec212949741a619fadb0f0abede97640238b011259a7df434d4c37f157a8e",
+      "bytes": 3936,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "2ba793f1a7d94f7d43e24857cbb168dcd735c75178732eccea4e259fd1e780d1",
+      "bytes": 766,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "bd-directorist-gallery.php": {
+      "sha256": "0c2d8d93caf127eae8a29fe6f3f66aea2c989acc312fda1fc53610caf40daefa",
+      "bytes": 45307,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BD_Gallery",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_gallery_field_in_class_map",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_gallery_display_settings",
+          "line": 147,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_gallery_image_src",
+          "line": 187,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 207,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_gallery_license_deactivation",
+          "line": 224,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_gallery_license_activation",
+          "line": 318,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "everything_has_loaded_and_ready",
+          "line": 412,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 418,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 434,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 447,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdg_gallery_area",
+          "line": 453,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdg_gellery_shortcode",
+          "line": 501,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 515,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdg_scripts_front",
+          "line": 556,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_media_uploader",
+          "line": 596,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_gallery_value",
+          "line": 612,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "on_atbdp_after_created_listing",
+          "line": 618,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "clean_deselected_gallery_images",
+          "line": 627,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "upload_gallery_images",
+          "line": 645,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "legacy_atbdp_after_created_listing",
+          "line": 732,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_business_hours_settings",
+          "line": 802,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_add_gallery_image",
+          "line": 814,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_gallery",
+          "line": 823,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 867,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "gallery_get_template",
+          "line": 872,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdg_license_settings_controls",
+          "line": 892,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 935,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 940,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 955,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 969,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 982,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 999,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 1012,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 1018,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "BD_Gallery",
+          "line": 1045,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 16,
+          "args": [
+            "'BD_Gallery'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 50,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'bdg_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'bdg_scripts_front')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'atbdp_listing_meta_admin_submission'",
+            "array(self::$instance, 'atbdp_gallery_value')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'atbdp_after_created_listing'",
+            "array(self::$instance, 'on_atbdp_after_created_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'atbdp_after_video_gallery'",
+            "array(self::$instance, 'bdg_gallery_area')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'atbdp_before_video_gallery_backend'",
+            "array(self::$instance, 'atbdp_add_gallery_image')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 60,
+          "args": [
+            "'atbdp_media_uploader'",
+            "array(self::$instance, 'atbdp_media_uploader')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 61,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'everything_has_loaded_and_ready')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'wp_ajax_atbdp_gallery_license_activation'",
+            "array(self::$instance, 'atbdp_gallery_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 65,
+          "args": [
+            "'wp_ajax_atbdp_gallery_license_deactivation'",
+            "array(self::$instance, 'atbdp_gallery_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 67,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 68,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( self::$instance, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 69,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 71,
+          "args": [
+            "'directorist_listing_form_fields_class_map'",
+            "array( __CLASS__, 'add_gallery_field_in_class_map' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 153,
+          "args": [
+            "'gallery_cropping_ex'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 154,
+          "args": [
+            "'gallery_image_width_ex'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 155,
+          "args": [
+            "'gallery_image_height_ex'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 156,
+          "args": [
+            "'select_column'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 194,
+          "args": [
+            "'atbdp_image_cropping'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 211,
+          "args": [
+            "'atbdp_gallery_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 227,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 229,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 230,
+          "args": [
+            "'directorist_gallery_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 241,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 243,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 250,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 257,
+          "args": [
+            "'directorist_gallery_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 263,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 321,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 323,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 324,
+          "args": [
+            "'directorist_gallery_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 335,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 337,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 344,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 351,
+          "args": [
+            "'directorist_gallery_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 357,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 455,
+          "args": [
+            "'enable_gallery'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 457,
+          "args": [
+            "get_the_ID()",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 505,
+          "args": [
+            "'atbdp_after_video_gallery'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 598,
+          "args": [
+            "'enable_gallery'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 620,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 628,
+          "args": [
+            "$listing_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 646,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 654,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 657,
+          "args": [
+            "$listing_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 720,
+          "args": [
+            "$listing_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 735,
+          "args": [
+            "$post_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 794,
+          "args": [
+            "$post_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 804,
+          "args": [
+            "$post_id",
+            "'_listing_info'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 825,
+          "args": [
+            "'enable_gallery'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 826,
+          "args": [
+            "$post->ID",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 894,
+          "args": [
+            "'directorist_gallery_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 910,
+          "args": [
+            "'atbdp_gallery_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 914,
+          "args": [
+            "'atbdp_gallery_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 925,
+          "args": [
+            "'atbdp_licence_menu_for_gallery'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 943,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 956,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1001,
+          "args": [
+            "'BDG_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1011,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1013,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1017,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 1023,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "composer.json": {
+      "sha256": "e0d1f5398795b8ad373401c508a514c7976e37a50fb8f5d5a5c86e85475d50f7",
+      "bytes": 635,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "09ab45189e56c1628cfcacd76a8deb3399fdd76df8975f9184117dbccfd31a7d",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config.php": {
+      "sha256": "a2ac003df5f57c7cc04b7998bba4f4e04281d0a5b1e61a4d1713accbb7e91149",
+      "bytes": 1422,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'BDG_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'BDG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'BDG_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'BDG_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'BDG_TEXTDOMAIN'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'BDG_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'BDG_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 16,
+          "args": [
+            "'BDG_ADMIN_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'BDG_FONT_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'BDG_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'BDG_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'ATBDP_GALLERY_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "gulpfile.js": {
+      "sha256": "f9063aad07e1767b15e84bcb5d544c09fa6fed496e2a4477b285119e24a20b0c",
+      "bytes": 986,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "index.php": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "d929b455554aa62ca3aaedafeb913aff13747af7445b6fd08d0064d41f1935ea",
+      "bytes": 247,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "cebed75e3efc582dd1588d7b2273e39338120b7a0105512265aa3f66380d2d62",
+      "bytes": 2547,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "pnpm-lock.yaml": {
+      "sha256": "fa6be4ff52926ab2ab49690df055e70b28ef889906a08f5ab1acd5a3fce68ee4",
+      "bytes": 85724,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "readme.txt": {
+      "sha256": "9117d711b4c9f25e8568899a884c7aa3b75977f95eace60856779bd65a18b27d",
+      "bytes": 4668,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/css/main-rtl.css": {
+      "sha256": "d99b2b8227bd5ce414d5ffd80a6e4525c64cbe43e4aa8469b71c46c26703dd77",
+      "bytes": 1944,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/css/main.css": {
+      "sha256": "fc606f6725655706e24f78b17cc03e0740ec0d0539ce76c5e8d229686d1e7842",
+      "bytes": 1943,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/js/main.js": {
+      "sha256": "6042970dc0dab5c833c0b1cc631ada2819e0be6b497981415ab6bce4e1f9af94",
+      "bytes": 5421,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "admin/assets/js/updater.js": {
+      "sha256": "efd150d4e66733eb098bf9ada766f3ee8c4701ddff3fa586d7d1f07730e25363",
+      "bytes": 2422,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "3c0f710e8987fe417c5cf6f8b9692112d118bf7beea19b17a68e61c767a5dfc0",
+      "bytes": 17771,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/directory_type.php": {
+      "sha256": "2dd9d9359e7a607c5937d3abab179b3191795ac71a1aea9d1a260a9fbafa6f7b",
+      "bytes": 4859,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Gallery_Post_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_field_template",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_single_listing_content_widgets",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_builder_widgets",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'Gallery_Post_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array($this, 'atbdp_form_builder_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_single_listing_content_widgets'",
+            "array($this, 'atbdp_single_listing_content_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'directorist_field_template'",
+            "array( $this, 'directorist_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( $this, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 29,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 33,
+          "args": [
+            "$plan_id",
+            "'_'. $field_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 35,
+          "args": [
+            "'directorist_load_gallery_template'"
+          ]
+        }
+      ]
+    },
+    "inc/importer.php": {
+      "sha256": "bdbed9ac5676b0af7f4cfbf8d64cca76c814fe46a8d3f2e26154686752a34598",
+      "bytes": 5530,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Gallery_Data_Importer",
+          "line": 4,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enable_gallery_import",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_gallery_import_schedule",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "import_gallery_images",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listings_for_gallery_import",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "insert_attachment_from_url",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 3,
+          "args": [
+            "'Directorist_Gallery_Data_Importer'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 11,
+          "args": [
+            "'directorist_after_listings_import'",
+            "[$this, 'enable_gallery_import']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'init'",
+            "[$this, 'register_gallery_import_schedule']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'directorist_gallery_import_cron'",
+            "[$this, 'import_gallery_images']"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 24,
+          "args": [
+            "'directorist_gallery_importer_run'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 32,
+          "args": [
+            "'cron_schedules'",
+            "function ( $schedules ) { $schedules['per_second'] = [ 'interval' => 1, 'display' => __( 'Every Second' ), ]; return $schedules; }"
+          ]
+        },
+        {
+          "name": "wp_next_scheduled",
+          "line": 42,
+          "args": [
+            "'directorist_gallery_import_cron'"
+          ]
+        },
+        {
+          "name": "wp_schedule_event",
+          "line": 43,
+          "args": [
+            "time()"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 53,
+          "args": [
+            "'directorist_gallery_importer_run'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 63,
+          "args": [
+            "'directorist_gallery_importer_run'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 70,
+          "args": [
+            "$listing->ID",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 71,
+          "args": [
+            "$listing->ID",
+            "'_gallery_image_urls'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 75,
+          "args": [
+            "$listing->ID",
+            "'_directorist_imported_by_csv'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 90,
+          "args": [
+            "$listing->ID",
+            "'_directorist_imported_by_csv'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 104,
+          "args": [
+            "$listing->ID",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 107,
+          "args": [
+            "$listing->ID",
+            "'_directorist_imported_by_csv'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 142,
+          "args": [
+            "'download_url'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 145,
+          "args": [
+            "'media_handle_sideload'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 149,
+          "args": [
+            "'wp_read_image_metadata'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-gallery.pot": {
+      "sha256": "1e1bb0955ce13f92c84b01cd19f15b593eb70da4579aded302f3b761fa3b690f",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/bootstrap.min.css": {
+      "sha256": "6b3bef53dc4a96ec07149d02a60b5fd026332bbce0b4ece79f3c55e3ddb85f5c",
+      "bytes": 153182,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/magnific-popup.css": {
+      "sha256": "519c5dc34211e635aa6750a8629bd564bcfa7d38ea9cb3a6ae9418f5db754b27",
+      "bytes": 7045,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/style-rtl.css": {
+      "sha256": "186a064b3535d9be322c11d480fa04ee0b0c2b70614b506475357dccb66396f3",
+      "bytes": 8562,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/css/style.css": {
+      "sha256": "72e31a0ed15572c87f023baa52622601bd8efc3503a9eac846405c78cf3b6f07",
+      "bytes": 8454,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/icons/images.svg": {
+      "sha256": "ff44808d0224ab020628be762acd4497a78e80bf78a209117ed1cf3353f043e4",
+      "bytes": 824,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/js/bootstrap.min.js": {
+      "sha256": "eb795deda8983fa5310627c9584cf3f3b95d272567113500059018b3941cb267",
+      "bytes": 55775,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/js/jquery.magnific-popup.min.js": {
+      "sha256": "3fddc6d28aba3c13d64cfd4847c333ff48c71d4a5a58bd1a0494ca6ae8ac1bb4",
+      "bytes": 20216,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/js/main.js": {
+      "sha256": "cc2342aace3da220a3b66154927f367d01b7af9e4dbf2df910360bae094e7bc0",
+      "bytes": 5894,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "public/assets/js/popper.js": {
+      "sha256": "6acc5eebfc83c2aabc8251d201df3004c6aaf801565a9e7d75196f2ac2b380c7",
+      "bytes": 20456,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/gallery-img-field.php": {
+      "sha256": "8e3d5d6184c8251382b762870257244ebc0c685a1fdc6e3d78059a91574c07ac",
+      "bytes": 5050,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "get_post_meta",
+          "line": 3,
+          "args": [
+            "$args['field_data']['form']->add_listing_id",
+            "'_gallery_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 52,
+          "args": [
+            "$plan",
+            "'atfm_listing_gallery'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 54,
+          "args": [
+            "$plan",
+            "'num_gallery_image'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 55,
+          "args": [
+            "$plan",
+            "'num_gallery_image_unl'"
+          ]
+        }
+      ]
+    },
+    "templates/gallery_image_upload.php": {
+      "sha256": "acf219737d62e05477e536ea2bfecbde362db54ad69f70fa429cfb53d2738981",
+      "bytes": 5515,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 8,
+          "args": [
+            "'enable_gallery'"
+          ]
+        }
+      ]
+    },
+    "templates/view_gallery.php": {
+      "sha256": "d35e33c0e08be0ce2050d337a8ce818151c82a95b4d1ccd15b837ee4677551dd",
+      "bytes": 1756,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 4,
+          "args": [
+            "'enable_gallery'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 6,
+          "args": [
+            "get_the_ID()",
+            "'_gallery_img'"
+          ]
+        }
+      ]
+    }
+  }
+}

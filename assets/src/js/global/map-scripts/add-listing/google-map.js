@@ -9,12 +9,34 @@ export function initAddListingMap() {
 	if (
 		typeof google === 'undefined' ||
 		!google.maps ||
-		!google.maps.Geocoder
+		!google.maps.Geocoder ||
+		!google.maps.places ||
+		!google.maps.places.Autocomplete
 	) {
 		return;
 	}
 
-	if ($('#gmap').length) {
+	const mapElement = document.getElementById('gmap');
+	const addressElement = document.getElementById('address');
+
+	if (
+		(addressElement &&
+			addressElement.dataset.directoristGoogleAutocompleteInitialized) ||
+		(mapElement && mapElement.dataset.directoristGoogleMapInitialized)
+	) {
+		return;
+	}
+
+	if (mapElement || addressElement) {
+		if (addressElement) {
+			addressElement.dataset.directoristGoogleAutocompleteInitialized =
+				'true';
+		}
+
+		if (mapElement) {
+			mapElement.dataset.directoristGoogleMapInitialized = 'true';
+		}
+
 		var localized_data = get_dom_data('map_data');
 
 		// initialize all vars here to avoid hoisting related misunderstanding.
@@ -59,7 +81,7 @@ export function initAddListingMap() {
 
 		// default is London city
 		((markers = []), // initialize the array to keep track all the marker
-			(address_input = document.getElementById('address')));
+			(address_input = addressElement));
 		if (address_input !== null) {
 			address_input.addEventListener('focus', geolocate);
 		}
@@ -111,7 +133,7 @@ export function initAddListingMap() {
 			};
 
 			geocoder.geocode(opt, function (results, status) {
-				if (status === 'OK' && results[0]) {
+				if (status === 'OK' && results[0] && address_input) {
 					// Clean the address by removing plus code prefix if present
 					const cleanedAddress = formatAddress(results[0]);
 					address_input.value = cleanedAddress;
@@ -121,7 +143,7 @@ export function initAddListingMap() {
 
 		// this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
 		function geolocate() {
-			if (navigator.geolocation) {
+			if (navigator.geolocation && autocomplete) {
 				navigator.geolocation.getCurrentPosition(function (position) {
 					const geolocation = {
 						lat: position.coords.latitude,
@@ -164,10 +186,23 @@ export function initAddListingMap() {
 			// Get the place details from the autocomplete object.
 			const place = autocomplete.getPlace();
 
+			if (!place.geometry || !place.geometry.location) {
+				return;
+			}
+
 			// set the value of input field to save them to the database
 			$manual_lat.val(place.geometry.location.lat());
 			$manual_lng.val(place.geometry.location.lng());
+
+			if (!map) {
+				return;
+			}
+
 			map.setCenter(place.geometry.location);
+
+			// Delete Previous Marker
+			deleteMarker();
+
 			const marker = new google.maps.marker.AdvancedMarkerElement({
 				map,
 				position: place.geometry.location,
@@ -176,20 +211,19 @@ export function initAddListingMap() {
 				title: localized_data.marker_title,
 			});
 
-			// Delete Previous Marker
-			deleteMarker();
-
 			// add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
 			markers.push(marker);
 			markerDragInit(marker);
 		}
 
-		initAutocomplete(); // start google map place auto complete API call
+		if (address_input) {
+			initAutocomplete(); // start google map place auto complete API call
+		}
 
 		// Map Initialize
 		function initMap() {
 			/* Create new map instance */
-			map = new google.maps.Map(document.getElementById('gmap'), {
+			map = new google.maps.Map(mapElement, {
 				zoom: loc_map_zoom_level,
 				center: saved_lat_lng,
 				mapId: 'add_listing_map',
@@ -255,6 +289,8 @@ export function initAddListingMap() {
 					// Center map on the exact coordinates
 					resultsMap.setCenter(latLng);
 
+					deleteMarker();
+
 					const marker = new google.maps.marker.AdvancedMarkerElement(
 						{
 							map: resultsMap,
@@ -265,7 +301,6 @@ export function initAddListingMap() {
 						}
 					);
 
-					deleteMarker();
 					// add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
 					markers.push(marker);
 
@@ -280,7 +315,9 @@ export function initAddListingMap() {
 			});
 		}
 
-		initMap();
+		if (mapElement) {
+			initMap();
+		}
 
 		// adding features of creating marker manually on the map on add listing page.
 		/* var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -312,7 +349,7 @@ export function initAddListingMap() {
 
 		function deleteMarker() {
 			for (let i = 0; i < markers.length; i++) {
-				markers[i].setMap(null);
+				markers[i].map = null;
 			}
 			markers = [];
 		}

@@ -847,6 +847,10 @@ if ( ! class_exists( 'ATBDP_Add_Listing' ) ) :
             $tag_ids = [];
 
             foreach ( $tags as $tag ) {
+                if ( ! directorist_is_valid_tag_name( $tag ) ) {
+                    $error->add( 'directorist_invalid_tag', __( 'Tag names cannot contain HTML.', 'directorist' ) );
+                    continue;
+                }
 
                 if ( $tag && ( $_tag = term_exists( $tag, ATBDP_TAGS ) ) ) {
                     $tag_ids[] = (int) $_tag['term_id'];

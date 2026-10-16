@@ -31,10 +31,21 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
             <?php endif; ?>
 
-            <?php if ( $listings->has_header_toolbar() ) : ?>
+            <?php if ( $listings->has_header_toolbar() || 'no_sidebar' !== $listings->sidebar ) : ?>
 
                 <div class="directorist-listings-header__right">
                     <?php
+                    if ( ! $listings->display_viewas_dropdown && 'no_sidebar' !== $listings->sidebar ) {
+                        ?>
+                        <div class="directorist-viewas">
+                            <button type="button" class="directorist-archive-sidebar-toggle" aria-label="<?php esc_attr_e( 'Sidebar Filter Toggle Button', 'directorist' ); ?>">
+                                <?php directorist_icon( 'fas fa-filter' ); ?>
+                                <?php esc_html_e( 'Filter', 'directorist' ); ?>
+                            </button>
+                        </div>
+                        <?php
+                    }
+
                     if ( $listings->display_viewas_dropdown ) {
                         $listings->viewas_dropdown_template();
                     }

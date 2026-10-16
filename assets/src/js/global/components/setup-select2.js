@@ -150,9 +150,6 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 		tags: canCreate,
 		maximumSelectionLength: maxLength,
 		width: '100%',
-		escapeMarkup: function (text) {
-			return text;
-		},
 		templateResult: function (data) {
 			if (!data.id) {
 				return data.text;
@@ -171,14 +168,6 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 			// Trim leading spaces from the original text
 			originalText = originalText.trim();
 
-			// Construct the icon element
-			const iconElm = iconURI
-				? `<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url('${iconURI}')"></i>`
-				: '';
-
-			// Prepare the combined text (icon + text)
-			const combinedText = iconElm + originalText;
-
 			// Create the state container
 			const $state = $(
 				'<div class="directorist-select2-contents"></div>'
@@ -190,7 +179,14 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 				$state.addClass('item-level-' + level); // Add class for the level (e.g., level-1, level-2, etc.)
 			}
 
-			$state.html(combinedText); // Set the combined content (icon + text)
+			// Select2 does not escape jQuery objects returned by templateResult.
+			$state.text(originalText);
+
+			if (iconURI) {
+				$('<i class="directorist-icon-mask" aria-hidden="true"></i>')
+					.css('--directorist-icon', `url('${iconURI}')`)
+					.prependTo($state);
+			}
 
 			return $state;
 		},
@@ -246,10 +242,13 @@ function maybeLazyLoadTaxonomyTermsSelect2(args) {
 						var paginationMore = currentPage < totalPage;
 
 						var items = data.map((item) => {
-							let text = item.name;
+							// Match option text decoding without parsing term names as markup.
+							const label = document.createElement('textarea');
+							label.innerHTML = item.name.replace(/</g, '&lt;');
+							let text = label.value;
 
 							if (!$addListing.length && params.data.search) {
-								text = `${item.name} (${item.count})`;
+								text = `${text} (${item.count})`;
 							}
 
 							return {

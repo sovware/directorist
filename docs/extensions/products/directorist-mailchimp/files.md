@@ -1,0 +1,21 @@
+# Classified file inventory
+
+Every scanned file is classified and fingerprinted. First-party source declarations and literal call sites are indexed; this is structural coverage, not a guarantee that every semantic branch was manually reviewed. Dependency/vendor trees are deliberately excluded; their packages must be inspected if an issue reaches them.
+
+| Snapshot / file | Class | Symbols | Topic candidates |
+| --- | --- | --- | --- |
+| mailchimp--master / [.gitignore:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/.gitignore#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [README.md:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/README.md#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [composer.json:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/composer.json#L1) | source | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [composer.lock:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/composer.lock#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [directorist-mailchimp-integration.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/directorist-mailchimp-integration.php#L1) | source | 11 | [registration](topics/registration.md), [contact-subscription](topics/contact-subscription.md) |
+| mailchimp--master / [gulpfile.js:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/gulpfile.js#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [package.json:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/package.json#L1) | source | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [includes/EDD_SL_Plugin_Updater.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/includes/EDD_SL_Plugin_Updater.php#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [includes/class-helper.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/includes/class-helper.php#L1) | source | 5 | inspect by file / supporting infrastructure |
+| mailchimp--master / [includes/class-mailchimp.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/includes/class-mailchimp.php#L1) | source | 3 | [registration](topics/registration.md), [contact-subscription](topics/contact-subscription.md) |
+| mailchimp--master / [includes/class-settings-manager.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/includes/class-settings-manager.php#L1) | source | 4 | [registration](topics/registration.md), [contact-subscription](topics/contact-subscription.md) |
+| mailchimp--master / [includes/class-subscribe-after-listing-contact.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/includes/class-subscribe-after-listing-contact.php#L1) | source | 5 | [contact-subscription](topics/contact-subscription.md) |
+| mailchimp--master / [includes/class-subscribe-after-registration.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/includes/class-subscribe-after-registration.php#L1) | source | 6 | [registration](topics/registration.md) |
+| mailchimp--master / [languages/directorist-mailchimp-integration.pot:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/languages/directorist-mailchimp-integration.pot#L1) | support-or-generated | 0 | inspect by file / supporting infrastructure |
+| mailchimp--master / [templates/before-registration-checkbox.php:1](https://github.com/sovware/directorist-mailchimp/blob/00943169669bf9caa01ae6ebb1c2a34fb62098ca/templates/before-registration-checkbox.php#L1) | source | 0 | [registration](topics/registration.md) |

@@ -1,0 +1,757 @@
+{
+  "snapshot": {
+    "key": "mark-as-sold--main",
+    "repo": "directorist-mark-as-sold",
+    "branch": "main",
+    "commit": "0e783d2cd5bc97d13222f01611a2164a8ec86d0b",
+    "date": "2025-03-27T02:21:02Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "2fef6a8b457cf9aa1c5958ce6f78fdb01e2e40f6e282ce0e20f3501b826d9109",
+      "bytes": 640,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "fd132c95337ccdc067bd038c42e8be68d753f9fffdfb7571195c683781760c60",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-mark-as-sold.php": {
+      "sha256": "d6958cfd9381a32411e21560fc1ef5719ec880bb56226e385668fd0d90f95f52",
+      "bytes": 34828,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Mark_as_Sold",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_all_listings_badge_template",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "badge_html",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_dashboard_listing_action_item",
+          "line": 123,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 238,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 254,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pyn_author_custom_meta_queries",
+          "line": 317,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pyn_custom_meta_queries",
+          "line": 340,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_grid_lower_badges",
+          "line": 383,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_after_user_dashboard_upper_badge",
+          "line": 409,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mas_user_dashboard_action",
+          "line": 427,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mas_license_settings_controls",
+          "line": 492,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_admin_needed_scripts",
+          "line": 536,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 550,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_user_dashboard_before_button",
+          "line": 565,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_price",
+          "line": 597,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_contact_owner_submitted",
+          "line": 611,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 624,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 629,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 642,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 659,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 682,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 700,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 705,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 711,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 720,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 726,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Directorist_Mark_as_Sold",
+          "line": 753,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 14,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 15,
+          "args": [
+            "'Directorist_Mark_as_Sold'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 46,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 47,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 48,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_admin_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 50,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'mas_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'atbdp_listing_contact_owner_submitted'",
+            "array(self::$instance, 'atbdp_listing_contact_owner_submitted')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 52,
+          "args": [
+            "'atbdp_listing_price'",
+            "array(self::$instance, 'atbdp_listing_price')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 53,
+          "args": [
+            "'atbdp_user_dashboard_before_button'",
+            "array(self::$instance, 'atbdp_user_dashboard_before_button')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 54,
+          "args": [
+            "'wp_ajax_mas_user_dashboard_action'",
+            "array(self::$instance, 'mas_user_dashboard_action')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'wp_ajax_noprive_mas_user_dashboard_action'",
+            "array(self::$instance, 'mas_user_dashboard_action')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'atbdp_before_listing_title'",
+            "array(self::$instance, 'atbdp_grid_lower_badges')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 59,
+          "args": [
+            "'atbdp_search_listings_meta_queries'",
+            "array(self::$instance, 'pyn_custom_meta_queries')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 60,
+          "args": [
+            "'atbdp_all_listings_meta_queries'",
+            "array(self::$instance, 'pyn_custom_meta_queries')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 61,
+          "args": [
+            "'atbdp_single_location_meta_queries'",
+            "array(self::$instance, 'pyn_custom_meta_queries')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 62,
+          "args": [
+            "'atbdp_single_tag_meta_queries'",
+            "array(self::$instance, 'pyn_custom_meta_queries')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 63,
+          "args": [
+            "'atbdp_single_category_meta_queries'",
+            "array(self::$instance, 'pyn_custom_meta_queries')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 64,
+          "args": [
+            "'atbdp_author_listings_meta_queries'",
+            "array(self::$instance, 'pyn_author_custom_meta_queries')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 66,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array(self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'atbdp_all_listings_badge_template'",
+            "array( self::$instance, 'atbdp_all_listings_badge_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 68,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( self::$instance, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 72,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 73,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( self::$instance, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 74,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 77,
+          "args": [
+            "'directorist_dashboard_listing_action_items'",
+            "array( self::$instance, 'atbdp_dashboard_listing_action_item' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 86,
+          "args": [
+            "get_the_ID()",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 106,
+          "args": [
+            "'sold_badge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 107,
+          "args": [
+            "'negotiation_badge'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 112,
+          "args": [
+            "get_the_ID()",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 126,
+          "args": [
+            "$post->ID",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 131,
+          "args": [
+            "'owner_can_mark'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 242,
+          "args": [
+            "'atbdp_mark_sold_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 319,
+          "args": [
+            "'display_sold_item'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 342,
+          "args": [
+            "'hide_negotiating_from_public'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 343,
+          "args": [
+            "'display_sold_item'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 385,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 386,
+          "args": [
+            "'display_sold_item'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 388,
+          "args": [
+            "'sold_badge'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 389,
+          "args": [
+            "get_the_ID()",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 411,
+          "args": [
+            "'sold_badge'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 412,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 432,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 458,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 462,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 468,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 472,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 494,
+          "args": [
+            "'directorist_mark_as_sold_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 510,
+          "args": [
+            "'atbdp_mark_as_sold_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 514,
+          "args": [
+            "'atbdp_mark_as_sold_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 525,
+          "args": [
+            "'atbdp_licence_menu_for_mark_as_sold'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 567,
+          "args": [
+            "'show_negotiation'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 568,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 599,
+          "args": [
+            "'negotiation_badge'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 600,
+          "args": [
+            "get_the_ID()",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 614,
+          "args": [
+            "'auto_mark_by_contact'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 617,
+          "args": [
+            "$post_id",
+            "'_negotiate'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 662,
+          "args": [
+            "'MAS_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 666,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 670,
+          "args": [
+            "'ATBDP_MAS_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 685,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 689,
+          "args": [
+            "'directorist_mark_as_sold_license'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 719,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 721,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 725,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 731,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "bf699491bce0e54aa7417b8fba1f782e0543d5f7f4c99bb56be3d77df9c1e76b",
+      "bytes": 26,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/css/main.css": {
+      "sha256": "c93d05c93075ed833c0e55fbc7b44908894680f2d87616a65ec47940ff9cf0fd",
+      "bytes": 1105,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/js/main.js": {
+      "sha256": "3ff0cc47e16b6242c409ef57c732745ffc539462345b972e4d9e39b915f37339",
+      "bytes": 2793,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/css/main-rtl.css": {
+      "sha256": "77db450574cebcb7150ade238d9fbde96b1754fcc16ca84a94483e3bcee5f3fe",
+      "bytes": 1322,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/css/main.css": {
+      "sha256": "fd4d565743a70958bd46013748d1f74b50d3f9cb75866d823104e2a208fd998f",
+      "bytes": 2223,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/public/js/main.js": {
+      "sha256": "a4159ce7b8ecb5a50108127bde0eb6cf8fc01347dd31e09c45623bc405531dab",
+      "bytes": 2715,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "includes/EDD_SL_Plugin_Updater.php": {
+      "sha256": "bd6d701d1953c7435890195735682f42f2be86d766ebea3ee8432e6071b58b3f",
+      "bytes": 17743,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-mark-as-sold.pot": {
+      "sha256": "369ab89cd42e083e95a6fc193c3b0e6afd6069a157357237519612c0fc7e085a",
+      "bytes": 3593,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

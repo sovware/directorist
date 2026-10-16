@@ -1,0 +1,1121 @@
+{
+  "snapshot": {
+    "key": "google-recaptcha--beta",
+    "repo": "directorist-google-recaptcha",
+    "branch": "beta",
+    "commit": "2fcd40af48879a19f1d30aff0ed5ee551709c083",
+    "date": "2025-06-09T14:35:02Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-google-recaptcha",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "06016f5447853164fedb30c9c6ee718c3d66fb7ca049c56d93b34cfb89cd0f13",
+      "bytes": 644,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "023339dba54736be11a28f5a4bb1425367dcb893388bd3a7823652cff83a9f24",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config.php": {
+      "sha256": "4b0b56f1b8065cd7d6f8e187f0b3b974bf28df0e3c7b53fe695e3e1162a81128",
+      "bytes": 1224,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DGR_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'DGR_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DGR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'DGR_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DGR_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'DGR_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DGR_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'DGR_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DGR_NAME'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'ATBDP_RECAPTCHA_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "directorist-google-recaptcha.php": {
+      "sha256": "a4627126b1ea143b4d078069ab94122c1a28f7a3ba96125f12b0d3103c1f9b5e",
+      "bytes": 47763,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BD_Google_Recaptcha",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 92,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_data",
+          "line": 106,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 111,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 187,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_recaptcha_license_deactivation",
+          "line": 203,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_recaptcha_license_activation",
+          "line": 297,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_rules",
+          "line": 391,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "final_varification_add_listing",
+          "line": 417,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_before_terms_and_conditions_font",
+          "line": 473,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_recaptcha_in_registration_form",
+          "line": 548,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "varification_in_registration",
+          "line": 602,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_recaptcha_in_contact_owner",
+          "line": 670,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "verification_in_review_form",
+          "line": 719,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_recaptcha_in_review_form",
+          "line": 751,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "verification_in_contact_owner",
+          "line": 797,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "recaptcha_license_settings_controls",
+          "line": 847,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "recaptch_load_needed_scripts",
+          "line": 888,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 897,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 912,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 925,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 935,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 947,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 958,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 971,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 989,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 1002,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 1008,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "BD_Google_Recaptcha",
+          "line": 1035,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 16,
+          "args": [
+            "'BD_Google_Recaptcha'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 59,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'recaptch_load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 61,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'prepare_data')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'atbdp_before_processing_submitted_listing_frontend'",
+            "array(self::$instance, 'final_varification_add_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 64,
+          "args": [
+            "'directorist_before_submit_listing_frontend'",
+            "array(self::$instance, 'atbdp_before_terms_and_conditions_font')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'atbdp_before_processing_submitted_user_registration'",
+            "array(self::$instance, 'varification_in_registration')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 68,
+          "args": [
+            "'atbdp_before_user_registration_submit'",
+            "array(self::$instance, 'show_recaptcha_in_registration_form')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 71,
+          "args": [
+            "'atbdp_before_processing_contact_to_owner'",
+            "array( self::$instance, 'verification_in_contact_owner' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'directorist_before_contact_form_submit_button'",
+            "array( self::$instance, 'show_recaptcha_in_contact_owner' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 74,
+          "args": [
+            "'preprocess_comment'",
+            "array( self::$instance, 'verification_in_review_form' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 75,
+          "args": [
+            "'directorist_comment_form_submit_field'",
+            "array(self::$instance, 'show_recaptcha_in_review_form')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "'wp_ajax_atbdp_recaptcha_license_activation'",
+            "array(self::$instance, 'atbdp_recaptcha_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 80,
+          "args": [
+            "'wp_ajax_atbdp_recaptcha_license_deactivation'",
+            "array(self::$instance, 'atbdp_recaptcha_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 82,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 83,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( self::$instance, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 84,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 93,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 107,
+          "args": [
+            "'disable_recaptcha_for'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 191,
+          "args": [
+            "'atbdp_google_recaptcha_settings_controls'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 206,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 208,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 209,
+          "args": [
+            "'directorist_recaptcha_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 220,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 222,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 229,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 236,
+          "args": [
+            "'directorist_recaptcha_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 242,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 300,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 302,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 303,
+          "args": [
+            "'directorist_recaptcha_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 314,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 316,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 323,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 330,
+          "args": [
+            "'directorist_recaptcha_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 336,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 393,
+          "args": [
+            "'dgrc_default_user_roles'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 419,
+          "args": [
+            "'google_recaptcha_add_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 426,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 428,
+          "args": [
+            "'google_recaptcha_settings_secret'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 429,
+          "args": [
+            "'google_recaptcha_settings'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 475,
+          "args": [
+            "'google_recaptcha_add_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 481,
+          "args": [
+            "'google_recaptcha_settings'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 482,
+          "args": [
+            "'google_recaptcha_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 483,
+          "args": [
+            "'google_recaptcha_theme'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 484,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 550,
+          "args": [
+            "'google_recaptcha_settings'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 551,
+          "args": [
+            "'google_recaptcha_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 552,
+          "args": [
+            "'google_recaptcha_theme'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 559,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 559,
+          "args": [
+            "'google_recaptcha_registration'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 604,
+          "args": [
+            "'google_recaptcha_settings_secret'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 606,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 606,
+          "args": [
+            "'google_recaptcha_registration'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 672,
+          "args": [
+            "'google_recaptcha_settings'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 673,
+          "args": [
+            "'google_recaptcha_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 674,
+          "args": [
+            "'google_recaptcha_theme'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 681,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 681,
+          "args": [
+            "'google_recaptcha_contact_owner'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 731,
+          "args": [
+            "'google_recaptcha_settings_secret'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 734,
+          "args": [
+            "'https://www.google.com/recaptcha/api/siteverify'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 752,
+          "args": [
+            "'google_recaptcha_settings'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 753,
+          "args": [
+            "'google_recaptcha_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 754,
+          "args": [
+            "'google_recaptcha_theme'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 761,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 761,
+          "args": [
+            "'google_recaptcha_review'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 799,
+          "args": [
+            "'google_recaptcha_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 799,
+          "args": [
+            "'google_recaptcha_contact_owner'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 824,
+          "args": [
+            "'google_recaptcha_settings_secret'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 828,
+          "args": [
+            "'google_recaptcha_settings_secret'"
+          ]
+        },
+        {
+          "name": "wp_remote_get",
+          "line": 829,
+          "args": [
+            "\"https://www.google.com/recaptcha/api/siteverify?secret=$secret_key&response=$recaptcha_response\""
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 830,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 849,
+          "args": [
+            "'directorist_recaptcha_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 865,
+          "args": [
+            "'atbdp_recaptcha_extension_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 869,
+          "args": [
+            "'atbdp_recaptcha_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 881,
+          "args": [
+            "'atbdp_licence_menu_for_recaptcha'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 952,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 991,
+          "args": [
+            "'DGR_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1001,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1003,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1007,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 1013,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "5a6ba8768251ac631b711ef52d527fb3959c957c3618c15cc5205f9f4d248fc1",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "recaptchalib.php": {
+      "sha256": "8649f9cfd920f913ce72e7a9380d0438b472560375514acf731b9467884f6c20",
+      "bytes": 4767,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ReCaptchaResponse",
+          "line": 35,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "ReCaptcha",
+          "line": 40,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "reCaptcha",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "_encodeQS",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "_submitHTTPGet",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "verifyResponse",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "assets/.DS_Store": {
+      "sha256": "155ac87412633f33a5c3a3dfccf6d37a4fd8ab1f425ebabd523f6c8f2ac904cb",
+      "bytes": 6148,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "6989504fe4db0fc0394b7a7e0e20b8b62676d8bd8f81375f3f1ccff14117af35",
+      "bytes": 1159,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "c65379a570c02dfd6aadaed11f754f5c57bb33b9a908b8a4537e14879b466115",
+      "bytes": 2730,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/directory_type.php": {
+      "sha256": "bb10a3391658a533ff31462b9d9716377e036cc1aedf94602cb8c45682e28251",
+      "bytes": 1758,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_GR_Directory_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_add_listing_submission_template_args",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_submission_form_settings",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'Directorist_GR_Directory_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array($this, 'atbdp_listing_type_settings_field_list')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_submission_form_settings'",
+            "array($this, 'atbdp_submission_form_settings')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_add_listing_submission_template_args'",
+            "array( $this, 'atbdp_add_listing_submission_template_args' )"
+          ]
+        },
+        {
+          "name": "get_directorist_type_option",
+          "line": 18,
+          "args": [
+            "$type"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "f5a057fe73931b0e2ac30f02b2d6fcc0d7c4077e37fe7b35e9debfa3068cbab5",
+      "bytes": 2426,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "atbdp_get_option",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sanitize_array",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directoria_active",
+          "line": 71,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 7,
+          "args": [
+            "'atbdp_get_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 25,
+          "args": [
+            "$group"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 38,
+          "args": [
+            "'atbdp_sanitize_array'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 66,
+          "args": [
+            "'is_directoria_active'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-google-recaptcha.pot": {
+      "sha256": "a017e454783a39879956d4114f99692d718f2b1b44f65c1f82b84a261bb8533a",
+      "bytes": 6268,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/index.php": {
+      "sha256": "dd52aa01b66e10e34eb50df2e3350bd0d4e26312eeae01dbac5c96e33f72ff38",
+      "bytes": 24,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/google-recaptcha-fields.php": {
+      "sha256": "05f48d8693081acef20fc7f78db4ca38945604625a15dd0ee1dbd36469714ba2",
+      "bytes": 256,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

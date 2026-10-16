@@ -179,7 +179,7 @@ class Client {
      * @return string
      */
     public function endpoint() {
-        $endpoint = apply_filters( 'appsero_endpoint', 'https://api.appsero.com' );
+        $endpoint = apply_filters( 'appsero_endpoint', 'https://analytics.wpwax.com/' );
 
         return trailingslashit( $endpoint );
     }

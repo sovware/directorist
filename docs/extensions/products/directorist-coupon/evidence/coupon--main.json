@@ -1,0 +1,1687 @@
+{
+  "snapshot": {
+    "key": "coupon--main",
+    "repo": "directorist-coupon",
+    "branch": "main",
+    "commit": "c98c9236247e4f3075732cc345a729cade8f0103",
+    "date": "2026-02-05T06:30:14Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-coupon",
+    "kind": "remote"
+  },
+  "files": {
+    "directorist-coupon.php": {
+      "sha256": "e0cdf8311bc79d340b5550cd49a2c48b19820426ea8e4e46367d92b4548aeb2c",
+      "bytes": 8692,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCoupon",
+          "line": 36,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "order_items",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 99,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "define_constant",
+          "line": 114,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance_plugin_classes",
+          "line": 141,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "SWBDPCoupon",
+          "line": 184,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdp_coupon_plugin_activate",
+          "line": 195,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdp_coupon_plugin_deactivate",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 226,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 232,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 26,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 32,
+          "args": [
+            "'SWBDPCoupon'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 59,
+          "args": [
+            "'atpp_order_items'",
+            "[self::$instance, 'order_items']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 60,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 68,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 129,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 131,
+          "args": [
+            "'ATBDP_COUPON_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 144,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 198,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 201,
+          "args": [
+            "'swbdp_coupon_installed'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 203,
+          "args": [
+            "'swbdp_coupon_installed'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 206,
+          "args": [
+            "'swbdp_coupon_version'"
+          ]
+        },
+        {
+          "name": "register_activation_hook",
+          "line": 210,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "register_deactivation_hook",
+          "line": 223,
+          "args": [
+            "__FILE__"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 225,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 227,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 231,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 237,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "includes.php": {
+      "sha256": "bfa8907157072aff132593a01b66f88cad7bddb6bbecb1476faed7ea76ea2b71",
+      "bytes": 1245,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCIncludeClasses",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "includes",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'SWBDPCIncludeClasses'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "b0d17b3973fb122ba38e19cbf7cc3805a2cfa6b5defb441971d72074de56544c",
+      "bytes": 23,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "Inc/Controller/Admin/CustomWpListTable.php": {
+      "sha256": "69bfbb2a1dc98e5f11290a3cca4e55cf4b3fb6e9f272b773ae72720d72e5d049",
+      "bytes": 5820,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCCustomWpListTable",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_add_custom_column",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_display_custom_column_data",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCCustomWpListTable'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'manage_'.SWBDPC_POST_TYPE.'_posts_columns'",
+            "array( $this, 'swbdpc_add_custom_column' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'manage_posts_custom_column'",
+            "array( $this, 'swbdpc_display_custom_column_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 72,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_code'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 83,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_amount'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 94,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 105,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_usage_limit'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 127,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_expiry'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 147,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Admin/EDD_SL_Plugin_Updater.php": {
+      "sha256": "bd6d701d1953c7435890195735682f42f2be86d766ebea3ee8432e6071b58b3f",
+      "bytes": 17743,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "Inc/Controller/Admin/SWBDPCouponCPT.php": {
+      "sha256": "0a7671f21e876818913e6de1f17a928df2e69fbccbecaed3c0ebd85329a63d69",
+      "bytes": 8498,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCouponCPT",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_swbdp_coupon_custom_post_type",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_swbdp_coupon_cpt_custom_metabox",
+          "line": 95,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "change_swbdp_coupon_cpt_title_placeholder",
+          "line": 117,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save_cmb_swbdpc_coupon_details_data",
+          "line": 139,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sanitize_special_characters",
+          "line": 163,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 171,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCouponCPT'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'init'",
+            "array( $this, 'register_swbdp_coupon_custom_post_type' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'admin_menu'",
+            "array( $this, 'add_swbdp_coupon_cpt_custom_metabox')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'enter_title_here'",
+            "array( $this, 'change_swbdp_coupon_cpt_title_placeholder')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'save_post'",
+            "array( $this, 'save_cmb_swbdpc_coupon_details_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 35,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "register_post_type",
+          "line": 85,
+          "args": [
+            "SWBDPC_POST_TYPE"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 153,
+          "args": [
+            "$post_id",
+            "'swbdpc_coupon_descrip'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 154,
+          "args": [
+            "$post_id",
+            "'swbdpc_coupon_code'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 155,
+          "args": [
+            "$post_id",
+            "'swbdpc_coupon_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 156,
+          "args": [
+            "$post_id",
+            "'swbdpc_fixed_products'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 157,
+          "args": [
+            "$post_id",
+            "'swbdpc_coupon_amount'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 158,
+          "args": [
+            "$post_id",
+            "'swbdpc_coupon_expiry'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 159,
+          "args": [
+            "$post_id",
+            "'swbdpc_coupon_usage_limit'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 174,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/Activate.php": {
+      "sha256": "be185fa6134c44324d3ac593ab92053731ad06677cd581cd04b153a5165b96bf",
+      "bytes": 1345,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCActivate",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_plugin_textdomain",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCActivate'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'load_plugin_textdomain' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 43,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/AjaxHandler.php": {
+      "sha256": "0328903bee48c880152de839508cc091b70057a391896777200601aa3e8bc773",
+      "bytes": 8205,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCAjaxHandler",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_get_coupons_code",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 163,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCAjaxHandler'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'wp_ajax_swbdpc_get_coupons_code'",
+            "array( $this, 'swbdpc_get_coupons_code' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_ajax_nopriv_swbdpc_get_coupons_code'",
+            "array( $this, 'swbdpc_get_coupons_code' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 36,
+          "args": [
+            "'payment_currency_position'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 81,
+          "args": [
+            "$user_id",
+            "'swbdpc_coupon_usages'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 82,
+          "args": [
+            "$coup_id",
+            "'swbdpc_coupon_code'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 83,
+          "args": [
+            "$coup_id",
+            "'swbdpc_fixed_products'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 84,
+          "args": [
+            "$coup_id",
+            "'swbdpc_coupon_usage_limit'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 85,
+          "args": [
+            "$coup_id",
+            "'swbdpc_coupon_expiry'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 86,
+          "args": [
+            "$coup_id",
+            "'swbdpc_coupon_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 87,
+          "args": [
+            "$coup_id",
+            "'swbdpc_fixed_products'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 89,
+          "args": [
+            "$coup_id",
+            "'swbdpc_current_usage_count'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 166,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/CouponHandler.php": {
+      "sha256": "998bbf0452532438ffc15ff65800e8189a597149442bea544f31a32247ca1430",
+      "bytes": 6115,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCouponHandler",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_stripe_gateway_total",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_coupon_to_stripe_checkout_session",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_coupon_code_input_field",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_calculate_after_discount_total_amount",
+          "line": 107,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_coupon_uses",
+          "line": 141,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCouponHandler'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'atbdp_before_checkout_table'",
+            "array( $this, 'swbdpc_coupon_code_input_field' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'atbdp_order_amount'",
+            "array( $this, 'swbdpc_calculate_after_discount_total_amount' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'directorist_stripe_checkout_session_args'",
+            "array( $this, 'add_coupon_to_stripe_checkout_session' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 25,
+          "args": [
+            "'directorist_stripe_gateway_total'",
+            "array( $this, 'directorist_stripe_gateway_total' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 59,
+          "args": [
+            "'payment_currency'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 59,
+          "args": [
+            "'g_currency'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 63,
+          "args": [
+            "write keys: duration, amount_off, currency (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 114,
+          "args": [
+            "$order_id",
+            "'_listing_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 115,
+          "args": [
+            "$order_id",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 116,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 117,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 127,
+          "args": [
+            "$order_id",
+            "'_discount'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 128,
+          "args": [
+            "$order_id",
+            "'_coupon'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 142,
+          "args": [
+            "$user_id",
+            "'swbdpc_coupon_usages'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 143,
+          "args": [
+            "$user_id",
+            "'swbdpc_current_user_count'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 170,
+          "args": [
+            "$user_id",
+            "'swbdpc_coupon_usages'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 171,
+          "args": [
+            "$coupon_id",
+            "'swbdpc_current_user_count'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/Enqueue.php": {
+      "sha256": "1264091f8dc6fc31d69c6a61b7d0c7bb679828e05b9d30a773201f62a643d2a9",
+      "bytes": 3541,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCEnqueue",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_admin_enqueue_script",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_frontend_enqueue_script",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCEnqueue'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'swbdpc_admin_enqueue_script' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'swbdpc_frontend_enqueue_script' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 92,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/ExtensionSettings.php": {
+      "sha256": "771121ba2b0bd69bea08d6d838d80d44a0474ff1d0ea5565362f6778323b2947",
+      "bytes": 14062,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCExtensionSettings",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_coupon_license_deactivation",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_coupon_license_activation",
+          "line": 132,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "coupon_license_settings_controls",
+          "line": 227,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_swbdp_coupon_enable_settings_field",
+          "line": 276,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 295,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCExtensionSettings'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'atbdp_extension_settings_fields'",
+            "array( $this, 'add_swbdp_coupon_enable_settings_field' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array( $this, 'coupon_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'atbdp_extension_license_settings_init'",
+            "array( $this, 'atbdp_extension_settings')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'wp_ajax_atbdp_coupon_license_activation'",
+            "array( $this, 'atbdp_coupon_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_ajax_atbdp_coupon_license_deactivation'",
+            "array( $this, 'atbdp_coupon_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 41,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 43,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 44,
+          "args": [
+            "'directorist_coupon_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 55,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 57,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 63,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 70,
+          "args": [
+            "'directorist_coupon_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 76,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 135,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 137,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 138,
+          "args": [
+            "'directorist_coupon_license'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 149,
+          "args": [
+            "ATBDP_AUTHOR_URL"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 151,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 158,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 165,
+          "args": [
+            "'directorist_coupon_license_status'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 171,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 230,
+          "args": [
+            "'directorist_coupon_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 246,
+          "args": [
+            "'atbdp_coupon_extension_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 251,
+          "args": [
+            "'atbdp_coupon_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 263,
+          "args": [
+            "'atbdp_licence_menu_for_coupon'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 298,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/HelperFunctions.php": {
+      "sha256": "6775b525dd2bb51675de35f42237454955eb89e287013d55b59d12fdafc5f0bb",
+      "bytes": 2159,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCHelperFunctions",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "is_secured",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_coupon_discount",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCHelperFunctions'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 52,
+          "args": [
+            "$coupon_id",
+            "'swbdpc_coupon_amount'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 53,
+          "args": [
+            "$coupon_id",
+            "'swbdpc_coupon_type'"
+          ]
+        }
+      ]
+    },
+    "Inc/Controller/Base/ShortcodeHandler.php": {
+      "sha256": "71c9f62fd7086c06a18759f19b33f89c7fcac216a5c09481afedfa2cae0d4a8c",
+      "bytes": 4210,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCShortcodeHandler",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_coupon_shortcode",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "swbdpc_hook_remover",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 6,
+          "args": [
+            "'SWBDPCShortcodeHandler'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'swbdpc_hook_remover' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 61,
+          "args": [
+            "$coupon_id",
+            "'swbdpc_coupon_code'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 62,
+          "args": [
+            "$coupon_id",
+            "'swbdpc_coupon_descrip'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 101,
+          "args": [
+            "'swbdp_coupon_is_enable'"
+          ]
+        }
+      ]
+    },
+    "Inc/View/AdminCallbacks.php": {
+      "sha256": "8c981ab648f4cadfadf180c987e588ee3d63d26b8b774e55ad7a16fc9c86b01d",
+      "bytes": 13592,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SWBDPCAdminCallbacks",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "cmb_swbdpccpt_coupon_details_callback",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 7,
+          "args": [
+            "'SWBDPCAdminCallbacks'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 52,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_descrip'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 53,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_code'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 54,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 55,
+          "args": [
+            "$post->ID",
+            "'swbdpc_fixed_products'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 56,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_amount'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 57,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_expiry'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 58,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_usage_limit'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 59,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_user_limit'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 60,
+          "args": [
+            "$post->ID",
+            "'swbdpc_coupon_template'"
+          ]
+        },
+        {
+          "name": "is_plugin_active",
+          "line": 128,
+          "args": [
+            "$swbdp_priceing_plan"
+          ]
+        }
+      ]
+    },
+    "Inc/View/coupon-input-field.php": {
+      "sha256": "ea00549823a4f71a661eff29b1d8a5cc3bdf0b46a74be83bc25d44c840e11485",
+      "bytes": 823,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/css/swbdpc-admin.css": {
+      "sha256": "9f18fc4c1227599e0bdfff57209d31451c96795d382228fae3fcf14c922e8fe5",
+      "bytes": 5197,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/js/swbdpc-admin.js": {
+      "sha256": "f5cfd55be572b38301bf02c02e323639617b9d2e166a602075fc2603cb798f00",
+      "bytes": 6912,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "makeid",
+          "kind": "JS",
+          "line": 68
+        },
+        {
+          "name": "possible",
+          "kind": "JS",
+          "line": 71
+        },
+        {
+          "name": "couponType",
+          "kind": "JS",
+          "line": 98
+        },
+        {
+          "name": "couponType",
+          "kind": "JS",
+          "line": 125
+        },
+        {
+          "name": "cCode",
+          "kind": "JS",
+          "line": 137
+        },
+        {
+          "name": "copy",
+          "kind": "JS",
+          "line": 138
+        },
+        {
+          "name": "inp",
+          "kind": "JS",
+          "line": 139
+        },
+        {
+          "name": "ccMessage",
+          "kind": "JS",
+          "line": 146
+        }
+      ],
+      "calls": []
+    },
+    "assets/frontend/css/swbdpc-frontend-rtl.css": {
+      "sha256": "a5b318f59ec438aee84abacba7580188327c91f950f86f743ff7191323efdce5",
+      "bytes": 5315,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/frontend/css/swbdpc-frontend.css": {
+      "sha256": "6a668d3f7e82ae9a0c8789b743c739562647ffba9c2ada1ad7779cd049927496",
+      "bytes": 5316,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/frontend/js/swbdpc-frontend-ajax.js": {
+      "sha256": "ebcfa86f345eb2c0cb4947bdc175e059db924b10ad5c4dbb0ea6391182cf308a",
+      "bytes": 7448,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "plan_id",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "userCoupCode",
+          "kind": "JS",
+          "line": 11
+        },
+        {
+          "name": "total",
+          "kind": "JS",
+          "line": 12
+        },
+        {
+          "name": "tax",
+          "kind": "JS",
+          "line": 13
+        },
+        {
+          "name": "data",
+          "kind": "JS",
+          "line": 15
+        },
+        {
+          "name": "discount",
+          "kind": "JS",
+          "line": 38
+        },
+        {
+          "name": "total",
+          "kind": "JS",
+          "line": 39
+        },
+        {
+          "name": "discounted",
+          "kind": "JS",
+          "line": 40
+        },
+        {
+          "name": "formattedTotal",
+          "kind": "JS",
+          "line": 41
+        },
+        {
+          "name": "options",
+          "kind": "JS",
+          "line": 46
+        },
+        {
+          "name": "formattedTotal",
+          "kind": "JS",
+          "line": 50
+        },
+        {
+          "name": "formattedNumber",
+          "kind": "JS",
+          "line": 54
+        },
+        {
+          "name": "coupon_btn",
+          "kind": "JS",
+          "line": 80
+        },
+        {
+          "name": "initializeCouponCodeCopy",
+          "kind": "JS",
+          "line": 90
+        },
+        {
+          "name": "couponInputs",
+          "kind": "JS",
+          "line": 91
+        },
+        {
+          "name": "copyButtons",
+          "kind": "JS",
+          "line": 92
+        },
+        {
+          "name": "copyText",
+          "kind": "JS",
+          "line": 103
+        },
+        {
+          "name": "notice",
+          "kind": "JS",
+          "line": 107
+        },
+        {
+          "name": "countDownWrapper",
+          "kind": "JS",
+          "line": 123
+        },
+        {
+          "name": "countDownWrapper",
+          "kind": "JS",
+          "line": 124
+        },
+        {
+          "name": "dateInput",
+          "kind": "JS",
+          "line": 126
+        },
+        {
+          "name": "countDownDate",
+          "kind": "JS",
+          "line": 129
+        },
+        {
+          "name": "now",
+          "kind": "JS",
+          "line": 131
+        },
+        {
+          "name": "distance",
+          "kind": "JS",
+          "line": 132
+        },
+        {
+          "name": "days",
+          "kind": "JS",
+          "line": 134
+        },
+        {
+          "name": "hours",
+          "kind": "JS",
+          "line": 135
+        },
+        {
+          "name": "minutes",
+          "kind": "JS",
+          "line": 136
+        },
+        {
+          "name": "seconds",
+          "kind": "JS",
+          "line": 137
+        }
+      ],
+      "calls": []
+    },
+    "languages/directorist-coupon.pot": {
+      "sha256": "62b3c15195a32ef409abfc8d432a8ca53db384018f085e23dda8604073771a7d",
+      "bytes": 9119,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

@@ -1,0 +1,1056 @@
+{
+  "snapshot": {
+    "key": "authorize-net-new--development",
+    "repo": "directorist-authorize-net-new",
+    "branch": "development",
+    "commit": "ab7986313aa349c4cea2d9956169ae2d07da4fd0",
+    "date": "2026-06-28T10:48:24Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net-new__development",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "8aa222454f54b8c2fe728a15a364624659cfe51904664e0afb40a02b8a5e2891",
+      "bytes": 31,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "b5e33f790c221f1db38b893014712191c127f8f3955a87e137cf5c1bec075b09",
+      "bytes": 254,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "df5a630006d968378f6182e5e37b3474723b046cf0ca8ba4c0d27d410f71f055",
+      "bytes": 1062,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "dc7b6e059dfaf9834dbac841fbcf9ee66f335d928324300c477906587f99c262",
+      "bytes": 1526,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "artisan": {
+      "sha256": "dceb08337a36fc3762bfebfb26f7b3742827649090a0685951cdf494656e951e",
+      "bytes": 161,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "c51943ff0368396450a7518324fdd2b7c735816d18cf9a8b9c4eeddc397e88f9",
+      "bytes": 1803,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-authorize-net.php": {
+      "sha256": "25581b87720bff11641238f8cd3ba47d93dbabc97fe032915d56c1f1fea4acc5",
+      "bytes": 1799,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristAuthorizeNet",
+          "line": 32,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $application ): void { do_action( 'before_load_directorist_authorize_net' ); $application->load(); do_action( 'after_load_directorist_authorize_net' ); }"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 54,
+          "args": [
+            "'before_load_directorist_authorize_net'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 58,
+          "args": [
+            "'after_load_directorist_authorize_net'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "275951db933e7c72e8fcc2aeb82d95f7630f5275f0476b47e22006cccdfeaca5",
+      "bytes": 1212,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "79b95f8e6ef2f89136a9d442474296908be3cb087dbb9900cb24fafc8afc1a8a",
+      "bytes": 647,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/on-pull-request.yml": {
+      "sha256": "7f5191079a308b1ebf4cbb0820f28facc1cfd58ea90e5323ae1208c000d754c5",
+      "bytes": 910,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "CustomSniffs/Sniffs/Files/ABSPATHDefinedSniff.php": {
+      "sha256": "b82313aa4489eaf55e1000887934f4a9b36ce1beb9c94cebb44979a2c9462542",
+      "bytes": 1725,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/AuthorizeNet.php": {
+      "sha256": "95919ae367144897ed0a6b55e264b380850ebd07426b1bf55029fb08badf77db",
+      "bytes": 9545,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AuthorizeNet",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_key",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pay",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "validate_configuration",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_hosted_payment_request",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_hosted_payment_url",
+          "line": 237,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_first_name",
+          "line": 247,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_last_name",
+          "line": 258,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 51,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 83,
+          "args": [
+            "'directorist_checkout_product_name'"
+          ]
+        }
+      ]
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "e880767b5d7f89bb4420b2dd18fd1163fd6aa3cc26799f6e0a134de19c6abd36",
+      "bytes": 4016,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_authorize_net",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_config",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_app_config",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_version",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_container",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_singleton",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_url",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_dir",
+          "line": 36,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_render",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_is_test_mode",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_login_id",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_transaction_key",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_api_url",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_hosted_url",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_merchant_authentication",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_authorize_net_api_call",
+          "line": 86,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 46,
+          "args": [
+            "'authorize_gateway_test_mode'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 50,
+          "args": [
+            "'authorize_login_id'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 54,
+          "args": [
+            "'authorize_transaction_key'"
+          ]
+        },
+        {
+          "name": "wp_remote_post",
+          "line": 90,
+          "args": [
+            "$api_url"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_response_code",
+          "line": 107,
+          "args": [
+            "$response"
+          ]
+        },
+        {
+          "name": "wp_remote_retrieve_body",
+          "line": 113,
+          "args": [
+            "$response"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/CheckoutController.php": {
+      "sha256": "deb69ba5828530b999ff800dbb8bf3337d6718005c9b062d03329d6cb516dedc",
+      "bytes": 15085,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CheckoutController",
+          "line": 24,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "webhook",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_subscription_transaction",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_subscription",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_recurring_payment",
+          "line": 189,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_existing_payment",
+          "line": 262,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_subscription_order_and_payment",
+          "line": 288,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_payment_by_transaction_id",
+          "line": 328,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "calculate_next_billing_date",
+          "line": 342,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "fire_status_change_hooks",
+          "line": 362,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 141,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 173,
+          "args": [
+            "'directorist_pricing_plans_subscription_activated'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 269,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 275,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 307,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 317,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 332,
+          "args": [
+            "'transaction_id'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 368,
+          "args": [
+            "'directorist_pricing_plans_subscription_activated'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 370,
+          "args": [
+            "'directorist_pricing_plans_subscription_expired'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 372,
+          "args": [
+            "'directorist_pricing_plans_subscription_cancelled'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/Controller.php": {
+      "sha256": "da077c3663dafa956243b4ea073d5bb7ff89ec59a12d14dda3704ee149ffe430",
+      "bytes": 83,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Controller",
+          "line": 5,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": []
+    },
+    "app/Http/Controllers/UserController.php": {
+      "sha256": "5115b1b5bfd4c82d7e73a3f6a210b59f474b343951575f227273a6f272fa633f",
+      "bytes": 138,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserController",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "index",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Http/Middleware/EnsureIsUserAdmin.php": {
+      "sha256": "434fb4dc29bbbe1a83e195bb6e32deb216f71800f866507ae9d772603d6eb987",
+      "bytes": 450,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/Post.php": {
+      "sha256": "b792762669e7c6c1e3297afdd9fcd03b99a2c1101e93e51ef071239400d173e8",
+      "bytes": 606,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Post",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolver",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/PostMeta.php": {
+      "sha256": "d513b7ffc12a488ea38acafb6a4c10a537d1f26ee1cc4280409b781e559da795",
+      "bytes": 429,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PostMeta",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/User.php": {
+      "sha256": "52b9087ab3baf04338d610fa3f1309307250651359a79e1e1152dedb67b0f4da",
+      "bytes": 422,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/UserMeta.php": {
+      "sha256": "3aae4bee07ecd336b09d8cdee37eb6d64b33a3d6882a55630650edbd4cf93dd8",
+      "bytes": 429,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserMeta",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Providers/CheckoutServiceProvider.php": {
+      "sha256": "5664021bcaf74a0381299c8567f650b9681204a956c5b3df9bc108b21281e847",
+      "bytes": 3089,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CheckoutServiceProvider",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_subscription_canceled_at_period_end",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_subscription_canceled",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cancel_authorize_net_subscription",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_pricing_plan_subscription_canceled_at_period_end'",
+            "[ $this, 'handle_subscription_canceled_at_period_end' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'directorist_pricing_plan_subscription_canceled'",
+            "[ $this, 'handle_subscription_canceled' ]"
+          ]
+        }
+      ]
+    },
+    "app/Providers/DirectoristServiceProvider.php": {
+      "sha256": "017fd2098560f3a97f1d2510e715c8d7deb8a400de8a1fb36a161eb10116956c",
+      "bytes": 1266,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristServiceProvider",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "default_active_gateways",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_processor",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_active_gateways'",
+            "[ $this, 'default_active_gateways' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'atbdp_default_gateways'",
+            "[ $this, 'default_active_gateways' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'directorist_payment_processors'",
+            "[ $this, 'register_processor' ]"
+          ]
+        }
+      ]
+    },
+    "app/Providers/MenuServiceProvider.php": {
+      "sha256": "3573506e40709a909da8c0d6862b67346fdf11041cdc95f9b7b435f5289b8d21",
+      "bytes": 196,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MenuServiceProvider",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Providers/Admin/SettingsServiceProvider.php": {
+      "sha256": "4ed2b1847cf7173e37054702418c341c1e6f7deff6d61d9863f96bb623441224",
+      "bytes": 5446,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SettingsServiceProvider",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_monetization_settings_submenu",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'atbdp_monetization_settings_submenu'",
+            "[ $this, 'atbdp_monetization_settings_submenu' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[ $this, 'atbdp_listing_type_settings_field_list' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 30,
+          "args": [
+            "'atbdp_authorize_gateway_settings_controls'"
+          ]
+        }
+      ]
+    },
+    "assets/build/css/app.asset.php": {
+      "sha256": "f5c18b100345b817b598e6245dea81539fd4a15892ef9ebff9652728bffa9d26",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.css": {
+      "sha256": "d659c408f72a50f379f3e07774baaa4ba32aae3b2f8187f661e7388362c2fcae",
+      "bytes": 738,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/css/app.js": {
+      "sha256": "fe2decc7d8447119a71f9769e08a9cb5a92c415811d8a3f180dda380e0f9c339",
+      "bytes": 1024,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.asset.php": {
+      "sha256": "6540b37f9a6bfdc7720d1c884fa26e47f99cd8209e4cb89e99f014ca86fb8fe7",
+      "bytes": 84,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/build/js/app.js": {
+      "sha256": "e206391ca61f953e0ee73c9de27f33112be282630b656a1a607e8b3565d2efe1",
+      "bytes": 247,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config/app.php": {
+      "sha256": "9f53b85f92559ca7b3a9482c3d45561a966a06f7b6f6f99881282b8d03b5fb80",
+      "bytes": 2658,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "CheckoutServiceProvider",
+          "line": 38,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "MenuServiceProvider",
+          "line": 39,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "SettingsServiceProvider",
+          "line": 46,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "EnsureIsUserAdmin",
+          "line": 47,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Migrations/TestMigration.php": {
+      "sha256": "2ce717fa2e6cd1f2c5f9f3c24255f7bff9fd0043c99f54516340b77277501dab",
+      "bytes": 301,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TestMigration",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "more_than_version",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "execute",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "e52e5ceda4d4456e442a1dbcdd2abf7da295414d4d35489eb1faa384deb71fb6",
+      "bytes": 4507,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/phpcs.xml": {
+      "sha256": "eacd79c0024c1e611c2b4834f69e85bed76c5a9821d635dcdba6d2621756faa6",
+      "bytes": 6165,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "fdf3af31271e453f487ab06d3281fe241cf271f6a2baa763dfa696fdcffef82f",
+      "bytes": 2387,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "f82513c1e80af3d980f1ddce029ffa3e73c3669e8492625b4a85dcdc19015a78",
+      "bytes": 815,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/exclude.files.config.php": {
+      "sha256": "62c1d4560e848bd07a1fafcdb3cc3f9dd7d09abe913e84e9bf76a0a6e1f983d0",
+      "bytes": 1683,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/global.config.php": {
+      "sha256": "85cc153d45b9684ed1e846257a29701faf09c22055cf0d41e6ddc23dfa66be22",
+      "bytes": 2730,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/scoper/index.php": {
+      "sha256": "7d4c501042e762e13462947d1516b78263c28a45d179f62c3f256fdbc08d55fb",
+      "bytes": 1406,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "25f6a1920ce4f2b97040ca3e1ffc5d68a18b0b02ca910288f3f51b51e89fbbdc",
+      "bytes": 215,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "resources/js/app.js": {
+      "sha256": "02a1d28ea235dae21bd69a23200ba4a570b0ef3404b634e269275c9b87b31d9d",
+      "bytes": 27,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/sass/app.scss": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/index.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "e17f3ec56302b1deda94b2ae6d4d4f0d43f60cb89d82b1006384a54aa440a0a7",
+      "bytes": 192,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "routes/rest/api.php": {
+      "sha256": "ca425e62ca0a4019c30ae99c9933ee0613fe1a38460c4be8d6f4cec3f11fae38",
+      "bytes": 290,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    }
+  }
+}

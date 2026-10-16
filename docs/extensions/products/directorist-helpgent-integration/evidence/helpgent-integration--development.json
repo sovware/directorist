@@ -1,0 +1,2196 @@
+{
+  "snapshot": {
+    "key": "helpgent-integration--development",
+    "repo": "directorist-helpgent-integration",
+    "branch": "development",
+    "commit": "1637cb93e267271b00d49faa04234a5fdec0a719",
+    "date": "2025-01-07T13:06:19Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-helpgent-integration__development",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "ec1be19e2f6356955515f4a69012dda61c519042dd089edc4754fbdc15b9d1e9",
+      "bytes": 187,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".yarnrc.yml": {
+      "sha256": "473e6def86fc03638120e0c01d0c8bbab095677256460fa4ea763e5d4697f270",
+      "bytes": 25,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "Gruntfile.js": {
+      "sha256": "ca892edfafdbb1d1b698a1784cc74ccf85b33a8d474497d1c2dcda74547fb2cd",
+      "bytes": 4773,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "LICENSE": {
+      "sha256": "2c5e810191eec8c315bac52974f9d4b8f82be518f49002959861256ec846620b",
+      "bytes": 1064,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "artisan": {
+      "sha256": "d467ac133e619d95003964812f6a60f1284faf7421908b7c32b62c675349d97c",
+      "bytes": 142,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "61974f88ef3b4ba58bbdb765423387739459aee8494d3000c43de81a35aeec4f",
+      "bytes": 1980,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "b90f4d24a2f5feed57a2588ed665f14f3ad1b86a155eba57840eab03a685d301",
+      "bytes": 69859,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-helpgent-integration.php": {
+      "sha256": "22e79c1687ace4900ad11549ac39d040c4b02d69c078b4496049a834e3d533dd",
+      "bytes": 3152,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristHelpGentIntegration",
+          "line": 27,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plugin_updater",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'init'",
+            "[ $this, 'plugin_updater' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'plugins_loaded'",
+            "function () use ( $application ): void { do_action( 'before_load_dhgi' ); if ( defined( 'HELPGENT_DEPENDENCY_VERSION' ) ) { $dependent_manager = new Manager( HELPGENT_DEPENDENCY_VERSION, '2.3.0', \"HelpGent\", \"Directorist HelpGent Integratio"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 60,
+          "args": [
+            "'before_load_dhgi'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 62,
+          "args": [
+            "'HELPGENT_DEPENDENCY_VERSION'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 74,
+          "args": [
+            "'after_load_dhgi'"
+          ]
+        }
+      ]
+    },
+    "jsconfig.json": {
+      "sha256": "e3003072c055942fbf0c26aee4acef82247851511f7270b5fe6d12d38200be0a",
+      "bytes": 259,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "983f7b3c823d4c560455f6b910989186b10c2100fd3dc8c8c4f3a390b842e5b2",
+      "bytes": 1636,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml": {
+      "sha256": "9ad3bd000fe9a3f584d9d5c66e4d7a34a872537cf9f47e2298a0bd63e92f337a",
+      "bytes": 6000,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "scoper.inc.php": {
+      "sha256": "d1e219b1f05ad5974e02904a2f236c3d0ded6503b6f4f3d98995945f2376761f",
+      "bytes": 5387,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "create",
+          "line": 19,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 30,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 53,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "create",
+          "line": 68,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "utils.js": {
+      "sha256": "e329dc14024a23b63cf7d9c4cd55a3c05d595e758e4cf5e589bffa8438d8cf74",
+      "bytes": 821,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "path",
+          "kind": "JS",
+          "line": 1
+        },
+        {
+          "name": "fs",
+          "kind": "JS",
+          "line": 2
+        },
+        {
+          "name": "pluginRootFile",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "getPluginInfo",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "fileDir",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "content",
+          "kind": "JS",
+          "line": 9
+        },
+        {
+          "name": "versionRegex",
+          "kind": "JS",
+          "line": 11
+        },
+        {
+          "name": "textDomainRegex",
+          "kind": "JS",
+          "line": 12
+        },
+        {
+          "name": "versionMatch",
+          "kind": "JS",
+          "line": 14
+        },
+        {
+          "name": "textDomainMatch",
+          "kind": "JS",
+          "line": 15
+        },
+        {
+          "name": "version",
+          "kind": "JS",
+          "line": 17
+        },
+        {
+          "name": "textDomain",
+          "kind": "JS",
+          "line": 18
+        }
+      ],
+      "calls": []
+    },
+    "webpack.compress.git.js": {
+      "sha256": "363775fe4f4c5933f18a713cde474856da35ec19c5b5ad38fa0e8899b735f76e",
+      "bytes": 1612,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.compress.js": {
+      "sha256": "0ef8ec97755c6e442d9c0e1f198d9c72cb1fde4e11eecd2d9e22b434345ea2bf",
+      "bytes": 2398,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "bcc89f4b6831ff653092c88dd67903cbb8947aab2ac260828e0bd1638354ac97",
+      "bytes": 2082,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "yarn.lock": {
+      "sha256": "1eeaeb00fb05ebb06821f896ce949d62b8a88bb0e46290031dc314a77416443e",
+      "bytes": 541780,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/pull_request_template.md": {
+      "sha256": "870411f1cfbfaa21d02be69561459abcadb602073d697aa1d6bc0aaf084093dc",
+      "bytes": 1005,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/build-release.yml": {
+      "sha256": "f20338440b5e48bd805a4a14ab1af7204aa0ca9c9275fc936d1ef4ae4ac7e973",
+      "bytes": 1309,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/on-pull-request.yml": {
+      "sha256": "7f5191079a308b1ebf4cbb0820f28facc1cfd58ea90e5323ae1208c000d754c5",
+      "bytes": 910,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".husky/pre-commit": {
+      "sha256": "dc57ce00a4508c379cd813aa3b4422937cfd51b87cd4486777b777f74b6b4f32",
+      "bytes": 82,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Helpers/EDDSLPluginUpdater.php": {
+      "sha256": "b0b61591732fafb6e0a5403e8630cdf4217ee817308847f6ea491bad84f57367",
+      "bytes": 21141,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Helpers/helper.php": {
+      "sha256": "a6e2dac4c0ba36641ea2444664169f83b7c05c43100cf1bf02b33ecd0a1c9b62",
+      "bytes": 4672,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dhgi",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_config",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_app_config",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_version",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_container",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_singleton",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_url",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_dir",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_render",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_get_default_settings",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_get_settings",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_is_pro_active",
+          "line": 111,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_get_resolution_options",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dhgi_user_has_listing",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 71,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "is_plugin_active",
+          "line": 112,
+          "args": [
+            "'helpgent-pro/helpgent-pro.php'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 149,
+          "args": [
+            "'post_author'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 149,
+          "args": [
+            "'post_type'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 149,
+          "args": [
+            "'post_status'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Controllers/Controller.php": {
+      "sha256": "9b9fe9a4efe5417ffd97cc557d0d78e2e287285325fbf3ad4ecae724611ed0f5",
+      "bytes": 64,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Controller",
+          "line": 5,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": []
+    },
+    "app/Http/Controllers/ListController.php": {
+      "sha256": "582adaea5d559e127b26138ed7f6c883a209bab36123af263f6fa463527870f0",
+      "bytes": 2766,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ListController",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "index",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "where",
+          "line": 67,
+          "args": [
+            "'post_type'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 67,
+          "args": [
+            "'post_author'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 72,
+          "args": [
+            "'post_title'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 75,
+          "args": [
+            "'ID as id'"
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/ListingOwner.php": {
+      "sha256": "aa861ac488d92cd21e2693b5a50eeeeeafe6501a36b3c03938d501848aa863fa",
+      "bytes": 758,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ListingOwner",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Http/Middleware/ListingOwnerPro.php": {
+      "sha256": "21b9796922d9bc9681225c49e6662df70f9c36fcb9d035ff0342578b78b233e5",
+      "bytes": 765,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "ListingOwnerPro",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "handle",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        }
+      ]
+    },
+    "app/Models/Post.php": {
+      "sha256": "d4de01a2e965d4e5b462b79018966d7954d27f74e27ad6af3e525a8f541e9ed1",
+      "bytes": 511,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Post",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "meta",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "resolver",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/PostMeta.php": {
+      "sha256": "58e976b0411003c9648cba799188d80af74d34f27b7398f8d6d6bc7f27b68a2f",
+      "bytes": 353,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PostMeta",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/User.php": {
+      "sha256": "6d821c22911208d6ce79522f41ad6381f7f49ec722b0f63344bd8eddf409c81c",
+      "bytes": 346,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "User",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Models/UserMeta.php": {
+      "sha256": "17478dda569ce948d9808224b89cba0c44fec7b53921cbd3452320bdcbf5d31e",
+      "bytes": 353,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "UserMeta",
+          "line": 9,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_table_name",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolver",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Providers/EmailNotificationServiceProvider.php": {
+      "sha256": "dc0dec9179119aa01e59e787dd36c48362ecfc32cdb74339a6947bac790dd856",
+      "bytes": 5248,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "EmailNotificationServiceProvider",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "after_sending_email",
+          "line": 34,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "response_store_form_query",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "incomplete_response_form_query",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_email_notification",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "email_notification_admin_data",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_email_dashboard_url",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "message_store_from_query",
+          "line": 139,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "response_form_query",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "full_response_form_query",
+          "line": 149,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_today",
+          "line": 155,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'helpgent_after_sending_email'",
+            "[$this, 'after_sending_email']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'helpgent_response_store_from_query'",
+            "[$this, 'response_store_form_query']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'helpgent_response_incomplete_from_query'",
+            "[$this, 'incomplete_response_form_query']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'helpgent_send_admin_email_notification'",
+            "[$this, 'send_email_notification']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'helpgent_send_user_email_notification'",
+            "[$this, 'send_email_notification']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'helpgent_email_notification_admin_data'",
+            "[$this, 'email_notification_admin_data']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'helpgent_admin_email_dashboard_url'",
+            "[$this, 'admin_email_dashboard_url']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'helpgent_message_store_from_query'",
+            "[$this, 'message_store_from_query']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'helpgent_response_form_query'",
+            "[$this, 'response_form_query']"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 39,
+          "args": [
+            "$form->created_by",
+            "self::EMAIL_COUNT_METAKEY"
+          ]
+        },
+        {
+          "name": "add_user_meta",
+          "line": 43,
+          "args": [
+            "$form->created_by",
+            "self::EMAIL_COUNT_METAKEY"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 55,
+          "args": [
+            "$form->created_by",
+            "self::EMAIL_COUNT_METAKEY"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 65,
+          "args": [
+            "'helpgent_response_store_from_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 74,
+          "args": [
+            "'helpgent_response_incomplete_from_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 94,
+          "args": [
+            "$form->created_by",
+            "self::EMAIL_COUNT_METAKEY"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 118,
+          "args": [
+            "'user.ID'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 140,
+          "args": [
+            "'helpgent_message_store_from_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 145,
+          "args": [
+            "'helpgent_response_form_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 152,
+          "args": [
+            "$columns"
+          ]
+        }
+      ]
+    },
+    "app/Providers/MenuServiceProvider.php": {
+      "sha256": "a3d503d8d6a65cf72c47679b3f4f50f537d1bc32c1655fdd582fbb4235f28f0b",
+      "bytes": 8311,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "MenuServiceProvider",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "can_user_access_attachment",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "allowed_form_preview",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_user_allowed_response_message",
+          "line": 58,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "chat_bubble_form_query",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "nav_items",
+          "line": 97,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "nav_contents",
+          "line": 148,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'directorist_after_dashboard_navigation'",
+            "[ $this, 'nav_items' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'directorist_after_dashboard_contents'",
+            "[ $this, 'nav_contents' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'helpgent_chat_bubble_form_query'",
+            "[$this, 'chat_bubble_form_query']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'helpgent_is_user_allowed_response_message'",
+            "[$this, 'is_user_allowed_response_message']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'helpgent_allowed_form_preview'",
+            "[$this, 'allowed_form_preview']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'helpgent_can_user_access_attachment'",
+            "[$this, 'can_user_access_attachment']"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 35,
+          "args": [
+            "1"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 35,
+          "args": [
+            "'form.created_by'"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 36,
+          "args": [
+            "$response_table"
+          ]
+        },
+        {
+          "name": "join",
+          "line": 37,
+          "args": [
+            "$response_attachment"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 38,
+          "args": [
+            "\"{$response_attachment"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 53,
+          "args": [
+            "1"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 53,
+          "args": [
+            "'id'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 53,
+          "args": [
+            "'created_by'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 64,
+          "args": [
+            "1"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 64,
+          "args": [
+            "'response.id'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 66,
+          "args": [
+            "\"{$form_table_name"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 76,
+          "args": [
+            "'helpgent_chat_bubble_form_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 94,
+          "args": [
+            "$columns"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 134,
+          "args": [
+            "\"helpgent_pro\""
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 153,
+          "args": [
+            "'helpgent_maybe_create_user'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 175,
+          "args": [
+            "wp_get_current_user()->ID",
+            "EmailNotificationServiceProvider::EMAIL_COUNT_METAKEY"
+          ]
+        }
+      ]
+    },
+    "app/Providers/QueryServiceProvider.php": {
+      "sha256": "85208e1ecc4a94ba0328a1f35a144b260116778daac7cef337f3c455c2fa3395",
+      "bytes": 13965,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "QueryServiceProvider",
+          "line": 19,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "boot",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pro_apis_middleware",
+          "line": 114,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apis_middleware",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apis_permission",
+          "line": 124,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form_query",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form_select_query",
+          "line": 151,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_owner_limit_validation",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "assign_form_to_listing_owner",
+          "line": 177,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "check_update_permission",
+          "line": 185,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_user_can_access_form",
+          "line": 189,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_user_can_access_bulk_form",
+          "line": 205,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "contact_query",
+          "line": 217,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "lead_forms_query",
+          "line": 226,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_param",
+          "line": 227,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "is_user_can_access_response_form",
+          "line": 241,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "tags_query",
+          "line": 259,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_user_can_access_tag",
+          "line": 267,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "contact_info_dto",
+          "line": 283,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_forms",
+          "line": 295,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_form_tab_total_query",
+          "line": 311,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dir_form_query",
+          "line": 319,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "single_form_query",
+          "line": 327,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_listing_owner",
+          "line": 335,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_param",
+          "line": 336,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "\"ABSPATH\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 33,
+          "args": [
+            "'helpgent_app_apis_middleware'",
+            "[$this, 'apis_middleware']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 34,
+          "args": [
+            "'helpgent_pro_app_apis_middleware'",
+            "[$this, 'pro_apis_middleware']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 36,
+          "args": [
+            "'helpgent_rest_apis_permission'",
+            "[$this, 'apis_permission']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 37,
+          "args": [
+            "'helpgent_pro_rest_apis_permission'",
+            "[$this, 'apis_permission']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 42,
+          "args": [
+            "\"helpgent_form_query_join_meta\"",
+            "\"__return_true\""
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 43,
+          "args": [
+            "\"helpgent_form_query\"",
+            "[$this, \"form_query\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 44,
+          "args": [
+            "\"helpgent_form_count_query\"",
+            "[$this, \"form_query\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 49,
+          "args": [
+            "'helpgent_before_create_form'",
+            "[$this, 'listing_owner_limit_validation']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "\"helpgent_after_create_form\"",
+            "[$this, \"assign_form_to_listing_owner\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'helpgent_before_update_form'",
+            "[$this, 'check_update_permission']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'helpgent_before_form_auto_save'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 61,
+          "args": [
+            "'helpgent_before_retrieve_a_form'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 62,
+          "args": [
+            "'helpgent_before_delete_bulk_form'",
+            "[$this, 'is_user_can_access_bulk_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 63,
+          "args": [
+            "'helpgent_before_update_bulk_form_status'",
+            "[$this, 'is_user_can_access_bulk_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 64,
+          "args": [
+            "'helpgent_before_delete_form'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 65,
+          "args": [
+            "'helpgent_before_update_form_status'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 66,
+          "args": [
+            "'helpgent_before_update_form_title'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'helpgent_before_retrieve_form_tags'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 68,
+          "args": [
+            "'helpgent_before_delete_form_element_option'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 69,
+          "args": [
+            "'helpgent_before_delete_form_element'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 71,
+          "args": [
+            "'helpgent_form_select_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 72,
+          "args": [
+            "'helpgent_form_select_list_query'",
+            "[$this, 'form_select_query']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 77,
+          "args": [
+            "\"helpgent_contact_query\"",
+            "[$this, \"contact_query\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "\"helpgent_contact_export_query\"",
+            "[$this, \"contact_query\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 79,
+          "args": [
+            "'helpgent_lead_forms_query'",
+            "[$this, 'lead_forms_query']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 80,
+          "args": [
+            "\"helpgent_lead_forms_query_join_meta\"",
+            "\"__return_true\""
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 85,
+          "args": [
+            "'helpgent_before_retrieve_responses'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 86,
+          "args": [
+            "'helpgent_before_retrieve_response_form'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 87,
+          "args": [
+            "'helpgent_before_delete_response'",
+            "[$this, 'is_user_can_access_response_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 88,
+          "args": [
+            "'helpgent_before_add_or_remove_response_tag'",
+            "[$this, 'is_user_can_access_response_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 89,
+          "args": [
+            "'helpgent_before_update_response_read'",
+            "[$this, 'is_user_can_access_response_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 90,
+          "args": [
+            "'helpgent_before_update_response_archive_status'",
+            "[$this, 'is_user_can_access_response_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 95,
+          "args": [
+            "'helpgent_before_retrieve_form_summary'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 96,
+          "args": [
+            "'helpgent_before_retrieve_form_elements'",
+            "[$this, 'is_user_can_access_form']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 101,
+          "args": [
+            "\"helpgent_tag_query_join_form_meta\"",
+            "\"__return_true\""
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 102,
+          "args": [
+            "\"helpgent_tags_query\"",
+            "[ $this, \"tags_query\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 103,
+          "args": [
+            "\"helpgent_before_create_tag\"",
+            "[ $this, \"is_user_can_access_form\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 104,
+          "args": [
+            "\"helpgent_before_update_tag\"",
+            "[ $this, \"is_user_can_access_form\"]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 105,
+          "args": [
+            "\"helpgent_before_delete_tag\"",
+            "[ $this, \"is_user_can_access_tag\"]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 108,
+          "args": [
+            "'helpgent_contact_info_dto'",
+            "[$this, 'contact_info_dto']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 109,
+          "args": [
+            "'helpgent_get_forms'",
+            "[$this, 'get_forms']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 110,
+          "args": [
+            "'helpgent_admin_form_tab_total_query'",
+            "[$this, 'admin_form_tab_total_query']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 111,
+          "args": [
+            "'helpgent_single_form_query'",
+            "[$this, 'single_form_query']"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 133,
+          "args": [
+            "\"form.created_by\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 133,
+          "args": [
+            "\"form_meta.meta_key\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 153,
+          "args": [
+            "\"form.created_by\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 153,
+          "args": [
+            "\"form_meta.meta_key\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 164,
+          "args": [
+            "'form.created_by'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 168,
+          "args": [
+            "\"form_meta.meta_key\""
+          ]
+        },
+        {
+          "name": "add_meta",
+          "line": 182,
+          "args": [
+            "$form_dto->get_id()"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 210,
+          "args": [
+            "'created_by'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 223,
+          "args": [
+            "\"JSON_EXTRACT(contact.form_data, '$.is_directorist')\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 223,
+          "args": [
+            "\"JSON_EXTRACT(contact.form_data, '$.created_by')\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 228,
+          "args": [
+            "\"form.created_by\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 228,
+          "args": [
+            "\"form_meta.meta_key\""
+          ]
+        },
+        {
+          "name": "select",
+          "line": 231,
+          "args": [
+            "\"form.id\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 252,
+          "args": [
+            "'id'"
+          ]
+        },
+        {
+          "name": "where",
+          "line": 252,
+          "args": [
+            "\"created_by\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 264,
+          "args": [
+            "\"tag.created_by\""
+          ]
+        },
+        {
+          "name": "where",
+          "line": 264,
+          "args": [
+            "\"form_meta.meta_key\""
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 328,
+          "args": [
+            "'helpgent_single_form_query_join_meta'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "select",
+          "line": 332,
+          "args": [
+            "$columns"
+          ]
+        }
+      ]
+    },
+    "app/Providers/Admin/DirectoristSettingsServiceProvider.php": {
+      "sha256": "3db4c09ea29e32fbdf9fac8f30a38e8e59ccb66ecac789046e81eeb6511b2eb8",
+      "bytes": 7066,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristSettingsServiceProvider",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "boot",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_fields",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_extension_submenu",
+          "line": 123,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 9,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[ $this, 'register_fields' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "[ $this, 'register_extension_submenu' ]"
+          ]
+        }
+      ]
+    },
+    "config/app.php": {
+      "sha256": "49d895fb666513d6f66d5a3b8fc4b2d6652f7456373c419f030a276b7b9c78ab",
+      "bytes": 1174,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DirectoristSettingsServiceProvider",
+          "line": 27,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "EmailNotificationServiceProvider",
+          "line": 28,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "QueryServiceProvider",
+          "line": 29,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "ListingOwner",
+          "line": 30,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "ListingOwnerPro",
+          "line": 36,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "config/licensing.php": {
+      "sha256": "f5f0af18a26fb6406d5059d6d90a0a757d7708185c87cd551f84ad5e5fdfd8a6",
+      "bytes": 164,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "database/Migrations/TestMigration.php": {
+      "sha256": "79ce8850bc55c19c75b4c66cece46d4f9409c20d10b654bef1234335aa42a008",
+      "bytes": 263,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "TestMigration",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "more_than_version",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "execute",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "enqueues/admin-enqueue.php": {
+      "sha256": "cd078a1ae0923e19c6391da7ac394490cbf7b2e8d4804ba1a8e1962281ae8edb",
+      "bytes": 477,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "enqueues/frontend-enqueue.php": {
+      "sha256": "e8a246834cf81b11e9c8275b5d36c0c3c05512be5d2e60005c78f4c98c5e9514",
+      "bytes": 470,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 9,
+          "args": [
+            "\"helpgent_pro\""
+          ]
+        },
+        {
+          "name": "register_script",
+          "line": 13,
+          "args": [
+            "'dhgi-listing-owner'"
+          ]
+        },
+        {
+          "name": "register_style",
+          "line": 14,
+          "args": [
+            "'dhgi-listing-owner'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-helpgent-integration.pot": {
+      "sha256": "5a9748bcc3dc7d54d27cc144208da0b1dcc291440b7f71b4af2b67a0a13b110f",
+      "bytes": 5121,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/js/admin.js": {
+      "sha256": "f849fe417f39bbd5b1b3ecaceffbcd856cafe2acdae66095a6015466fb4af128",
+      "bytes": 2595,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "StyledNotice",
+          "kind": "JS",
+          "line": 8
+        },
+        {
+          "name": "formSettings",
+          "kind": "JS",
+          "line": 102
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/app.js": {
+      "sha256": "f00064d975c539f1dd5bfd73672b263776dbedf47c2ca5a56edee5b28b7b290e",
+      "bytes": 1891,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "App",
+          "kind": "JS",
+          "line": 23
+        },
+        {
+          "name": "adminRoutes",
+          "kind": "JS",
+          "line": 24
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/frontend.js": {
+      "sha256": "9f31817173b47bd696964aa56af85f0c98b2602a37d87e758f3ba95fd63e9322",
+      "bytes": 1183,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "helpgentApiOptions",
+          "kind": "JS",
+          "line": 33
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/index.js": {
+      "sha256": "02f3c568f985ced4d85f25317719e8a8945411a69e8dc6c6c46caac573744b84",
+      "bytes": 372,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "container",
+          "kind": "JS",
+          "line": 5
+        },
+        {
+          "name": "root",
+          "kind": "JS",
+          "line": 11
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/style.js": {
+      "sha256": "111c1b494dfe53a31f7bfbed182e5f2740ba07b160743b090c925015edc43a1d",
+      "bytes": 929,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "SingleFormStyle",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "ResponseStyle",
+          "kind": "JS",
+          "line": 20
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/FormEdit.js": {
+      "sha256": "b7856836d52cb6e5b8aa5aafc4de2a17741832556b842ee61c8a45fad6b59467",
+      "bytes": 1357,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "FormEdit",
+          "kind": "JS",
+          "line": 39
+        },
+        {
+          "name": "formRef",
+          "kind": "JS",
+          "line": 40
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/FormTable.js": {
+      "sha256": "f60cd42fb1eba25029c147ccb8b2ba0b66c4e8a677349a6ab05ae63ce3aaa7c4",
+      "bytes": 1491,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "StyledNotice",
+          "kind": "JS",
+          "line": 11
+        },
+        {
+          "name": "allowedEmail",
+          "kind": "JS",
+          "line": 17
+        },
+        {
+          "name": "form",
+          "kind": "JS",
+          "line": 23
+        },
+        {
+          "name": "totalSentEmail",
+          "kind": "JS",
+          "line": 24
+        },
+        {
+          "name": "Forms",
+          "kind": "JS",
+          "line": 51
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/Leads.js": {
+      "sha256": "3a1a28c310c4a30d000d17eae19c79b7e3b0bf7e64861638f9d2267be6752273",
+      "bytes": 314,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Leads",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "LeadModule",
+          "kind": "JS",
+          "line": 5
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/PreMadeTemplate.js": {
+      "sha256": "cf71687b8ebda43bcef791b4d2d79c6b9e54c7ce8b638e7ad574ecd7127b8037",
+      "bytes": 311,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "PreMadeTemplate",
+          "kind": "JS",
+          "line": 9
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/PreMadeTemplatePreview.js": {
+      "sha256": "5b435005a33551dc9032791d3bcfef0add9bf2b16aa828f05bd99b41fc9db539",
+      "bytes": 357,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "PreMadeTemplatePreview",
+          "kind": "JS",
+          "line": 9
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/Response.js": {
+      "sha256": "cfb2a2f43022feec255b35504db2474e61792d0528e571f3c8c6e329ba9d09ba",
+      "bytes": 326,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "Response",
+          "kind": "JS",
+          "line": 6
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/Summary.js": {
+      "sha256": "9b1d6b92dd351ddf9db2410d3ac13eb64ea1ed3cbc5dbf7ba750f501b18c50b2",
+      "bytes": 272,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 4
+        },
+        {
+          "name": "Summary",
+          "kind": "JS",
+          "line": 6
+        }
+      ],
+      "calls": []
+    },
+    "resources/js/pages/Tags.js": {
+      "sha256": "7b1b9980e2e6ffbf4292f3fa3b5c804af4aae26230c48ea3579ccd29234d90e9",
+      "bytes": 174,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "baseLinkRoute",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "Tags",
+          "kind": "JS",
+          "line": 5
+        }
+      ],
+      "calls": []
+    },
+    "resources/scss/app.scss": {
+      "sha256": "63bf2b8307097ca54375d3e152b94c8d48d5a588751d59756db111a96953a777",
+      "bytes": 2578,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "resources/views/index.php": {
+      "sha256": "d6db79d918cf74d7f1521a3c3ad246e930be7f32efeaff94acc6681c944f8c42",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "routes/ajax/api.php": {
+      "sha256": "3a698ea5abc98fc4b88a8a6a69123283267353ee9d178ba2bac6d4d1c1735d0c",
+      "bytes": 154,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "routes/rest/api.php": {
+      "sha256": "0631bedc075495423e70ceae8f71e14959f7989083d567674588b7ad2e884d80",
+      "bytes": 164,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

@@ -1,0 +1,147 @@
+# Source variants
+
+Canonical means the investigation starting point selected from actual branch/file evidence, not a released build. A newer commit date identifies a candidate; compare changed files before choosing an issue-specific owner.
+
+| Snapshot | Branch / commit | File delta versus baseline | Evidence |
+| --- | --- | --- | --- |
+| analytics--main | main / 520e871fb6bae14d211bf3c60a8b01bb0c1e3651 | 134 | [machine index](evidence/analytics--main.json) |
+
+## analytics--main differences
+
+These paths differ from the canonical baseline; direction/semantic impact requires reading the diff.
+- `app/Hooks/Analytics.php` (absent in this snapshot)
+- `app/Hooks/Cron.php` (absent in this snapshot)
+- `app/Http/Controllers/AnalyticsController.php` (absent in this snapshot)
+- [app/Http/Controllers/Controller.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/app/Http/Controllers/Controller.php#L1)
+- `app/Http/Controllers/ExportController.php` (absent in this snapshot)
+- `app/Http/Controllers/SettingsController.php` (absent in this snapshot)
+- `app/Http/Controllers/TrackingController.php` (absent in this snapshot)
+- `app/Models/Activity.php` (absent in this snapshot)
+- `app/Models/Click.php` (absent in this snapshot)
+- `app/Models/CountryStatDaily.php` (absent in this snapshot)
+- `app/Models/DailyStat.php` (absent in this snapshot)
+- `app/Models/ReferralStatDaily.php` (absent in this snapshot)
+- `app/Models/Search.php` (absent in this snapshot)
+- `app/Models/SearchEngineStatDaily.php` (absent in this snapshot)
+- `app/Models/TechStatDaily.php` (absent in this snapshot)
+- `app/Models/View.php` (absent in this snapshot)
+- `app/Providers/AnalyticsServiceProvider.php` (absent in this snapshot)
+- `app/Repositories/AdminRepository.php` (absent in this snapshot)
+- `app/Repositories/AnalyticsRepository.php` (absent in this snapshot)
+- `app/Repositories/AuthorRepository.php` (absent in this snapshot)
+- `app/Repositories/ExportRepository.php` (absent in this snapshot)
+- `app/Repositories/OverviewRepository.php` (absent in this snapshot)
+- `app/Services/ActivityService.php` (absent in this snapshot)
+- `app/Services/AuthorLoginService.php` (absent in this snapshot)
+- `app/Services/PrivacyService.php` (absent in this snapshot)
+- `app/Services/StatsService.php` (absent in this snapshot)
+- `app/Services/TrackingService.php` (absent in this snapshot)
+- [config/app.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/config/app.php#L1)
+- [database/Setup.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/database/Setup.php#L1)
+- [directorist-analytics.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/directorist-analytics.php#L1)
+- [enqueues/admin-enqueue.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/enqueues/admin-enqueue.php#L1)
+- [enqueues/frontend-enqueue.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/enqueues/frontend-enqueue.php#L1)
+- `package-lock.json` (absent in this snapshot)
+- [package.json:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/package.json#L1)
+- [resources/js/app.js:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/resources/js/app.js#L1)
+- `resources/js/components/cards/ChartCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/ContactFormUsesCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/OperatingSystemsCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/ScreenResolutionsCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/SearchAppearancesCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/StatCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/TopBrowsersCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/TopCountriesVisitorsCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/TopListingsCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/TopReferralSourcesCard.jsx` (absent in this snapshot)
+- `resources/js/components/cards/TopSearchEnginesCard.jsx` (absent in this snapshot)
+- `resources/js/components/charts/ContactFormUsesBarChart.jsx` (absent in this snapshot)
+- `resources/js/components/charts/SearchAppearancesAreaChart.jsx` (absent in this snapshot)
+- `resources/js/components/charts/TrafficChannelsDonut.jsx` (absent in this snapshot)
+- `resources/js/components/dashboard/ActivityList.jsx` (absent in this snapshot)
+- `resources/js/components/dashboard/AnalyticsDashboard.jsx` (absent in this snapshot)
+- `resources/js/components/dashboard/DateRangeSelector.jsx` (absent in this snapshot)
+- `resources/js/components/dashboard/QuickActions.jsx` (absent in this snapshot)
+- `resources/js/components/index.js` (absent in this snapshot)
+- `resources/js/components/modals/ActivityModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/BaseModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/ContactFormUsesModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/SearchAppearancesModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/TopCountriesModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/TopListingsModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/TopReferralSourcesModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/TopSourcesModal.jsx` (absent in this snapshot)
+- `resources/js/components/modals/TrafficChannelsModal.jsx` (absent in this snapshot)
+- `resources/js/components/pages/AuthorsPage.jsx` (absent in this snapshot)
+- `resources/js/components/pages/ExportReport.jsx` (absent in this snapshot)
+- `resources/js/components/pages/ListingPerformance.jsx` (absent in this snapshot)
+- `resources/js/components/pages/Navigation.jsx` (absent in this snapshot)
+- `resources/js/components/pages/PageRouter.jsx` (absent in this snapshot)
+- `resources/js/components/pages/ReportsPage.jsx` (absent in this snapshot)
+- `resources/js/components/pages/SettingsPage.jsx` (absent in this snapshot)
+- `resources/js/components/pages/SystemOverview.jsx` (absent in this snapshot)
+- `resources/js/components/pages/TechStatsPage.jsx` (absent in this snapshot)
+- `resources/js/components/pages/TrafficSources.jsx` (absent in this snapshot)
+- `resources/js/components/ui/DirectoristSwitch.jsx` (absent in this snapshot)
+- `resources/js/components/ui/EmptyState.jsx` (absent in this snapshot)
+- `resources/js/components/ui/ExportButton.jsx` (absent in this snapshot)
+- `resources/js/components/ui/ExportCsvButton.jsx` (absent in this snapshot)
+- `resources/js/components/ui/FallbackImage.jsx` (absent in this snapshot)
+- `resources/js/components/ui/FlagIcon.jsx` (absent in this snapshot)
+- `resources/js/components/ui/Loading.jsx` (absent in this snapshot)
+- `resources/js/components/ui/ProgressBar.jsx` (absent in this snapshot)
+- `resources/js/components/ui/ReferralSourceIcons.jsx` (absent in this snapshot)
+- `resources/js/components/ui/SkeletonLoader.jsx` (absent in this snapshot)
+- `resources/js/config/api.config.js` (absent in this snapshot)
+- `resources/js/contexts/CacheContext.jsx` (absent in this snapshot)
+- `resources/js/contexts/DateRangeContext.jsx` (absent in this snapshot)
+- `resources/js/data/activityConfig.js` (absent in this snapshot)
+- `resources/js/data/authorsData.js` (absent in this snapshot)
+- `resources/js/data/chartData.js` (absent in this snapshot)
+- `resources/js/data/dataValidation.js` (absent in this snapshot)
+- `resources/js/data/demoData.js` (absent in this snapshot)
+- `resources/js/data/emptyDataTest.js` (absent in this snapshot)
+- `resources/js/data/index.js` (absent in this snapshot)
+- `resources/js/data/reportsData.js` (absent in this snapshot)
+- `resources/js/data/searchAppearancesData.js` (absent in this snapshot)
+- `resources/js/data/settingsData.js` (absent in this snapshot)
+- `resources/js/data/statCardConfig.js` (absent in this snapshot)
+- `resources/js/data/systemOverviewData.js` (absent in this snapshot)
+- `resources/js/data/techStatsData.js` (absent in this snapshot)
+- `resources/js/data/trafficSourcesData.js` (absent in this snapshot)
+- `resources/js/hooks/index.js` (absent in this snapshot)
+- `resources/js/hooks/useCountriesData.js` (absent in this snapshot)
+- `resources/js/hooks/useListingsData.js` (absent in this snapshot)
+- `resources/js/hooks/useReferralSourcesData.js` (absent in this snapshot)
+- `resources/js/hooks/useTabPreload.js` (absent in this snapshot)
+- `resources/js/services/api.service.js` (absent in this snapshot)
+- `resources/js/services/demo.service.js` (absent in this snapshot)
+- `resources/js/services/index.js` (absent in this snapshot)
+- `resources/js/services/unified-api.service.js` (absent in this snapshot)
+- `resources/js/types/api.types.js` (absent in this snapshot)
+- `resources/js/utils/dataNormalizers.js` (absent in this snapshot)
+- `resources/js/utils/format.js` (absent in this snapshot)
+- `resources/js/utils/requestOptimizer.js` (absent in this snapshot)
+- `resources/js/vanilla-helpers.js` (absent in this snapshot)
+- [resources/sass/app.scss:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/resources/sass/app.scss#L1)
+- [resources/views/admin/analytics.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/resources/views/admin/analytics.php#L1)
+- [routes/rest/api.php:1](https://github.com/sovware/directorist-analytics/blob/520e871fb6bae14d211bf3c60a8b01bb0c1e3651/routes/rest/api.php#L1)
+| analytics--fix-weekly-monthly-report-duplicate-last-listing | fix/weekly-monthly-report-duplicate-last-listing / 1cfab8c614df67718fac9065037174acec4370df | 0 | [machine index](evidence/analytics--fix-weekly-monthly-report-duplicate-last-listing.json) |
+| analytics--development | development / f54abd3be2fa4186d59b23d8a9b4e5e1daf77c23 | 1 | [machine index](evidence/analytics--development.json) |
+
+## analytics--development differences
+
+These paths differ from the canonical baseline; direction/semantic impact requires reading the diff.
+- [app/Repositories/ExportRepository.php:1](https://github.com/sovware/directorist-analytics/blob/f54abd3be2fa4186d59b23d8a9b4e5e1daf77c23/app/Repositories/ExportRepository.php#L1)
+| analytics--local | fix/weekly-monthly-report-duplicate-last-listing / 1cfab8c614df67718fac9065037174acec4370df | 14 | [machine index](evidence/analytics--local.json) |
+
+## analytics--local differences
+
+These paths differ from the canonical baseline; direction/semantic impact requires reading the diff.
+- [package.json:1](</Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-analytics/package.json:1>)
+
+## Visible remote branch tips
+
+All returned refs are recorded in [branch inventory](../../branches.json). The selected snapshots cover latest tip, development where distinct, catalog-named default, payment-generation variants and relevant local files. Other branch tips remain searchable candidates; they are not silently folded into the baseline.
+
+Local snapshots include file hashes and dirty-state metadata. Local generated assets are inventoried but not interpreted as source-equivalent builds. Re-run source drift checks before reusing a mapping.

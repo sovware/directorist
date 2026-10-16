@@ -54,7 +54,7 @@ $taxonomy->atts['directory_type'] = isset( $_GET['directory_type'] ) && ! empty(
                                             </span>
                                         <?php } ?>
                                     </a>
-                                    <?php echo wp_kses_post( $category['subterm_html'] );?>
+                                    <?php echo wp_kses_post( $category['subterm_html'] ?? '' );?>
                                 </div>
                             </div>
                             <?php

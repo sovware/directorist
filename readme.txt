@@ -5,7 +5,7 @@ Tags: business directory, listings, classifieds, directory plugin, directory
 Requires at least: 4.6
 Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 8.9.6
+Stable tag: 8.10.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -299,6 +299,56 @@ Directorist is developer-friendly with plenty of hooks and filters. You can exte
 Directorist comes with an AI-powered directory builder. Use the Create with AI option, provide directory name, location and AI will build the directory for you.
 
 == Changelog ==
+
+= 8.10.4 - Oct 11, 2026 =
+
+**Improved**
+- Improved Themes & Extensions catalog, account connection, extension recommendations, and activation guidance. (#3067)
+- Improved gateway webhook registration with inline feedback and same-page settings flow. (#3069)
+- Updated licensing links and account connection copy. (#3072)
+
+**Fixed**
+- Payment setup progress when all gateways are disabled. (#3067)
+- Missing accessible labels on sign-in fields. (#3068)
+- Empty or unsaved webhook states showing incorrect registration status. (#3069)
+
+= 8.10.3 - Oct 6, 2026 =
+
+**Security**
+- Hardened listing tag submission and taxonomy dropdown rendering to prevent stored XSS. (#3056)
+- Strengthened REST API item permissions to prevent unauthorized access to non-public listing resources. (#3056)
+- Escaped single listing map info window phone and direction URL output to prevent stored XSS. (#3056)
+
+**Fixed**
+- Google Maps initialization before required map libraries finish loading. (#3055)
+- Malformed archive card layouts not recovering correctly. (#3033)
+- Listing address autocomplete not syncing with the map pin. (#3032)
+- Frontend listing submissions not persisting selected taxonomies. (#3031)
+- Review visibility in the featured listing widget. (#2998)
+- Deprecated PHP warning when rendering taxonomy list subterms with empty category or location children.
+
+= 8.10 - Oct 1, 2026 =
+
+**Added**
+- Introduced a new admin dashboard for Themes & Extensions with account licensing overview, setup progress, activity insights, quick actions, and extension recommendations. (#2932)
+
+**Improved**
+- Improved the setup wizard with an AI-powered directory setup experience. (#3026)
+
+**Fixed**
+- Admin notification templates for listing and order events not applying customized admin email content. (#3042)
+- Mobile sidebar filter toggle missing when View As is disabled. (#3043)
+- Recurring listings expiring despite active subscriptions. (#3035)
+- Expired listing renewals bypassing approval and publish expiry reset. (#3025)
+- Pending review submissions missing a dismissible confirmation notice. (#3024)
+- Frontend dashboard order translations. (#3023)
+- Repeated custom fields in listing card layouts. (#3010)
+- Category conditional logic in add-listing forms. (#3009)
+- CSV category assignments when terms share names across taxonomies. (#3008)
+- Map address search not matching reordered postal codes. (#3007)
+- Blank FormGent enquiries dashboard on WordPress 7.1. (#3005)
+- CSV import validation for WordPress temporary upload filenames. (#3004)
+- Preserved the selected directory type context for listing cards on author profile pages. (#3052)
 
 = 8.9.6 - Sep 20, 2026 =
 

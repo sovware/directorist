@@ -1,0 +1,852 @@
+{
+  "snapshot": {
+    "key": "announcement--master",
+    "repo": "directorist-announcement",
+    "branch": "master",
+    "commit": "92c16c32b1f6610316b2250ebf68c5f6c2abd717",
+    "date": "2025-03-18T23:15:36Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-announcement",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitattributes": {
+      "sha256": "af348e6b619c168af673619fed99e9b01855ce6a42e837f60829427c85fe9a7e",
+      "bytes": 258,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "39c917262442a179e58cb9776e899e17e13f6bf6e884411fe15d2ae9c65ec316",
+      "bytes": 140,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "31d15443d65d4fb6457f8c819538e7e4bdd00e3e35d074341459126ec2c1852a",
+      "bytes": 1584,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "a13ecd0f71cc50a97da0629db591e583a0c25ee249f90d9aacedd3404362617d",
+      "bytes": 51180,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-announcement.php": {
+      "sha256": "431b05332554851584dfc6f35df4b1f2907de227159539b2e1fd067713d682e4",
+      "bytes": 4692,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Announcement",
+          "line": 34,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 48,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 55,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "plugins_loaded",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_template",
+          "line": 92,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "scripts",
+          "line": 104,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'DIRECTORIST_ANNOUNCEMENT_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'DIRECTORIST_ANNOUNCEMENT_BASE_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'ATBDP_DIR_ANNOUNCE_POST_ID'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 32,
+          "args": [
+            "'Directorist_Announcement'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 49,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'plugins_loaded' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "'directorist_loaded'",
+            "array( $this, 'includes' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 56,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "is_plugin_active",
+          "line": 74,
+          "args": [
+            "'directorist/directorist-base.php'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 86,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        }
+      ]
+    },
+    "gulpfile.js": {
+      "sha256": "63b3655268b14830b85aed21a4d9c04f09a8aeb33ad2d478728737c05cbc56f8",
+      "bytes": 1048,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "38dc38c236361998d95adda88c9e902481d75478c7482371367ab996ff06056e",
+      "bytes": 252,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "11515c5cb2cb87e5f1eeec8c285e3b597d3433b2d80f767678383af2e4568d28",
+      "bytes": 3711,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/announcement-main.css": {
+      "sha256": "82bfb431c0933d3e6085d763d1e59640bdcdb67ac665763e36b168f074c081fb",
+      "bytes": 4501,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/admin.js": {
+      "sha256": "aa16c532e5c65abd07acf7293456e93bd8e01eceeb8dd94c44a07c9f3d8e875b",
+      "bytes": 3705,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "announcement_to",
+          "kind": "JS",
+          "line": 6
+        },
+        {
+          "name": "announcement_recepents_section",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "toggle_section",
+          "kind": "JS",
+          "line": 14
+        },
+        {
+          "name": "submit_button",
+          "kind": "JS",
+          "line": 22
+        },
+        {
+          "name": "form_feedback",
+          "kind": "JS",
+          "line": 23
+        },
+        {
+          "name": "to",
+          "kind": "JS",
+          "line": 35
+        },
+        {
+          "name": "recepents",
+          "kind": "JS",
+          "line": 36
+        },
+        {
+          "name": "subject",
+          "kind": "JS",
+          "line": 37
+        },
+        {
+          "name": "message",
+          "kind": "JS",
+          "line": 38
+        },
+        {
+          "name": "expiration",
+          "kind": "JS",
+          "line": 39
+        },
+        {
+          "name": "send_to_email",
+          "kind": "JS",
+          "line": 40
+        },
+        {
+          "name": "fields_elm",
+          "kind": "JS",
+          "line": 42
+        },
+        {
+          "name": "form_data",
+          "kind": "JS",
+          "line": 76
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "49a6f92da10ef2ec50d8a5c74e9466acdc54d6e57b46e23a030fbdfe53b5821b",
+      "bytes": 3259,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/class-content-update.php": {
+      "sha256": "006609d1a0695046a6e0cd96fa990d44d7c520429763df7f2c53ff0a1d614cd4",
+      "bytes": 9603,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DA_Update",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_announcement_post_type",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_expired_announcements",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "send_announcement",
+          "line": 80,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "non_legacy_add_dashboard_nav_link",
+          "line": 210,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "close_announcement",
+          "line": 235,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "response_new_announcement_count",
+          "line": 260,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "clear_seen_announcements",
+          "line": 271,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 12,
+          "args": [
+            "'DA_Update'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'init'",
+            "array( $this, 'create_announcement_post_type' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'atbdp_schedule_task'",
+            "array( $this, 'delete_expired_announcements' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'wp_ajax_atbdp_send_announcement'",
+            "array( $this, 'send_announcement' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_ajax_atbdp_close_announcement'",
+            "array( $this, 'close_announcement' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'wp_ajax_atbdp_get_new_announcement_count'",
+            "array( $this, 'response_new_announcement_count' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 30,
+          "args": [
+            "'wp_ajax_atbdp_clear_seen_announcements'",
+            "array( $this, 'clear_seen_announcements' )"
+          ]
+        },
+        {
+          "name": "register_post_type",
+          "line": 43,
+          "args": [
+            "'listing-announcement'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 176,
+          "args": [
+            "$announcement",
+            "'_recepents'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 178,
+          "args": [
+            "$announcement",
+            "'_recepents'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 182,
+          "args": [
+            "$announcement",
+            "'_to'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 183,
+          "args": [
+            "$announcement",
+            "'_closed'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 184,
+          "args": [
+            "$announcement",
+            "'_seen'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 193,
+          "args": [
+            "$announcement",
+            "'_exp_in_days'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 194,
+          "args": [
+            "$announcement",
+            "'_exp_date'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 211,
+          "args": [
+            "'announcement_tab'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 212,
+          "args": [
+            "'announcement_tab_text'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 251,
+          "args": [
+            "$post_id",
+            "'_closed'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 296,
+          "args": [
+            "'user_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 302,
+          "args": [
+            "get_the_ID()",
+            "'_recepents'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 309,
+          "args": [
+            "get_the_ID()",
+            "'_seen'"
+          ]
+        }
+      ]
+    },
+    "inc/class-frontend-view.php": {
+      "sha256": "19bcd77cafcc2cd8e4451af3dab7804faa020534a79e046556dcc19ac8e24b34",
+      "bytes": 1166,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DA_Frontend",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dashboard_tabs",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'directorist_dashboard_tabs'",
+            "array( $this, 'dashboard_tabs' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 35,
+          "args": [
+            "'announcement_tab'"
+          ]
+        }
+      ]
+    },
+    "inc/class-helpers.php": {
+      "sha256": "57605a4336ac1ec29ffcd30e04bdd70e10538c466b9d4ab048f1f45f7b1aacb8",
+      "bytes": 9904,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DA_Helpers",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "get_announcement_label",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_announcements",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_announcement_query_data",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_new_announcement_count",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "non_legacy_add_dashboard_nav_content",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_dashboard_nav_link",
+          "line": 196,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_dashboard_nav_content",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_all_user_emails",
+          "line": 280,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 17,
+          "args": [
+            "'announcement_tab_text'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 22,
+          "args": [
+            "'directorist_announcement_label'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 28,
+          "args": [
+            "'user_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 33,
+          "args": [
+            "$id",
+            "'_recepents'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 105,
+          "args": [
+            "'user_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 111,
+          "args": [
+            "get_the_ID()",
+            "'_recepents'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 137,
+          "args": [
+            "'user_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 149,
+          "args": [
+            "get_the_ID()",
+            "'_recepents'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 197,
+          "args": [
+            "'announcement_tab'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 198,
+          "args": [
+            "'announcement_tab_text'"
+          ]
+        },
+        {
+          "name": "get_the_author_meta",
+          "line": 223,
+          "args": [
+            "'user_email'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 235,
+          "args": [
+            "get_the_ID()",
+            "'_recepents'"
+          ]
+        }
+      ]
+    },
+    "inc/class-settings.php": {
+      "sha256": "463ee97449cd01ddc483d0ea0c84998d0f6d79145d1b1517c2372a58307529f6",
+      "bytes": 3862,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DA_Settings",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "announcement_menu",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_setting_fields",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setting_fields_tab",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( $this, 'announcement_menu' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( $this, 'register_setting_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'atbdp_listing_settings_user_dashboard_sections'",
+            "array( $this, 'setting_fields_tab' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 34,
+          "args": [
+            "'atbdp_announcement_settings_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 53,
+          "args": [
+            "'directorist_announcement_user_query_num'"
+          ]
+        }
+      ]
+    },
+    "inc/class-warning-notice.php": {
+      "sha256": "5ad9b7330106fcdb2f426688418e26ca81fe01c5899664104ccc8b8b1f116f21",
+      "bytes": 805,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DTKWarning",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 24,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_notice",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'admin_notices'",
+            "array( $this, 'admin_notice' )"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-announcement.pot": {
+      "sha256": "d463e5769786e6cdcc4592b857df04b814d771da62a935dfc6db3d91d05f26a1",
+      "bytes": 2407,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "template-parts/list.php": {
+      "sha256": "7130e4509850d76fc8aa1d8da538b5784896a4f90268f26d0766beaeeb12fc33",
+      "bytes": 1511,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    }
+  }
+}

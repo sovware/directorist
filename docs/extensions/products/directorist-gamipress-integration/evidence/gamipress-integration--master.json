@@ -1,0 +1,1194 @@
+{
+  "snapshot": {
+    "key": "gamipress-integration--master",
+    "repo": "directorist-gamipress-integration",
+    "branch": "master",
+    "commit": "d28b69c0ecce4b699fa8a9bbc7456c7fa7d36dff",
+    "date": "2024-11-16T13:00:44Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gamipress-integration",
+    "kind": "remote"
+  },
+  "files": {
+    ".distignore": {
+      "sha256": "51a1f05af85e342e3c849b47d387086476282d5f50dc240c19216d6edfb1eb5a",
+      "bytes": 3,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "changelog.txt": {
+      "sha256": "401c7aa1feece6d25a1788ffcef6c689d1a2ac61935a02e0609826764ed70263",
+      "bytes": 69,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-gamipress-integration.php": {
+      "sha256": "9eae21cf734a556b02cbceb132805fb5d7c38050be4debded5492543bc990711",
+      "bytes": 7672,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_GamiPress_Integration",
+          "line": 32,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 77,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "init",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "on_plugins_loaded",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_props",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 132,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_plugin_textdomain",
+          "line": 151,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "can_see_warning",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_directorist_missing_admin_notice",
+          "line": 171,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_gamipress_missing_admin_notice",
+          "line": 208,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_gamipress",
+          "line": 238,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 18,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 28,
+          "args": [
+            "'ATBDP_DIR_GAMIPRESS_POST_ID'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 82,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'on_plugins_loaded' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 83,
+          "args": [
+            "'plugins_loaded'",
+            "array( $this, 'load_plugin_textdomain' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 84,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 88,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 103,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 108,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 110,
+          "args": [
+            "'admin_notices'",
+            "array( __CLASS__, 'show_directorist_missing_admin_notice' )"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 116,
+          "args": [
+            "'GamiPress'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 118,
+          "args": [
+            "'admin_notices'",
+            "array( __CLASS__, 'show_gamipress_missing_admin_notice' )"
+          ]
+        }
+      ]
+    },
+    "package-lock.json": {
+      "sha256": "1186f01e8cfa6fd1468366e6c0c6026c7f444b4dec2c52fc01e65941064d04a2",
+      "bytes": 112,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style.css": {
+      "sha256": "0107002edf10ed724229175d734ebffc1e9f5916aa36268f1c4bff29b20ffb1f",
+      "bytes": 3751,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/admin-script.js": {
+      "sha256": "2c9b6345ce261f13e25d25f4f15b511b7d1fc0f66e3b2f867800448cb96056dd",
+      "bytes": 1895,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/script.js": {
+      "sha256": "11ae7f0c9afa9ed5439ce4b0618469ff722d27e8830043156b761aeb96c79fee",
+      "bytes": 993,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "bin/makepot.sh": {
+      "sha256": "55497e9f193c4c1dc156444da824ca5ca1883a25276e203f8e29826cbcecd932",
+      "bytes": 169,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/directory_type.php": {
+      "sha256": "2e3dc71625042dc6f3edbbcae675a542955651ea56ff912e58f3b7acf0b281e9",
+      "bytes": 3662,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "FAQS_Post_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "save",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_field_template",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_single_listing_content_widgets",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_builder_widgets",
+          "line": 72,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'FAQS_Post_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array($this, 'atbdp_form_builder_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_single_listing_content_widgets'",
+            "array($this, 'atbdp_single_listing_content_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_field_template'",
+            "array( $this, 'directorist_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( $this, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_ultimate_listing_meta_user_submission'",
+            "array( $this, 'save' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 35,
+          "args": [
+            "'directorist_faqs_single_field_templete_on_demand'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 50,
+          "args": [
+            "'directorist_faqs_form_field_templete_on_demand'"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "2ff43de7cd082ac321347955888aa81bf71b6039e2c857ed5254ad3eadc5f2c4",
+      "bytes": 2763,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "atbdp_get_option",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sanitize_array",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dfaqs_get_template",
+          "line": 66,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 5,
+          "args": [
+            "'atbdp_get_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 23,
+          "args": [
+            "$group"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 36,
+          "args": [
+            "'atbdp_sanitize_array'"
+          ]
+        }
+      ]
+    },
+    "includes/class-assets.php": {
+      "sha256": "ec6e69f9900c20d36dc4d760d36b65bc8a7cec853ecf0f2abdaeaa3e13fb6ff3",
+      "bytes": 1537,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Assets",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_frontend_scripts",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_admin_scripts",
+          "line": 40,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( __CLASS__, 'enqueue_frontend_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( __CLASS__, 'enqueue_admin_scripts' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 19,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 20,
+          "args": [
+            "'user_dashboard'"
+          ]
+        }
+      ]
+    },
+    "includes/class-author.php": {
+      "sha256": "c76075405a5ecaa79e40109fe5a946bdc6a258453b2407104564ec1537352737",
+      "bytes": 1284,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Author",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "render",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'directorist_author_listing_after_about_section'",
+            "array( __CLASS__, 'render' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-coupon-manager.php": {
+      "sha256": "23ac965b95095284c77ca997dac1e5e8673d816e0a6a417a01cd55c5633aec78",
+      "bytes": 5135,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Coupon_Manager",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "clean_user_coupon",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_coupon_stats",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "process_claim_discount",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_discount_type",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'wp_ajax_' . self::ACTION",
+            "array( __CLASS__, 'process_claim_discount' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'atbdp_order_created'",
+            "array( __CLASS__, 'update_coupon_stats' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'trashed_post'",
+            "array( __CLASS__, 'clean_user_coupon' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'before_delete_post'",
+            "array( __CLASS__, 'clean_user_coupon' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 53,
+          "args": [
+            "'gamipress_discount_points_required'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 54,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_used_points'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 57,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_used_points'"
+          ]
+        },
+        {
+          "name": "delete_user_meta",
+          "line": 58,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_coupon_id'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 77,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_coupon_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 80,
+          "args": [
+            "$coupon_id",
+            "'swbdpc_coupon_code'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 86,
+          "args": [
+            "'gamipress_discount_points_required'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 87,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_used_points'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 110,
+          "args": [
+            "'gamipress_discount_amount'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 119,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_coupon_id'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 133,
+          "args": [
+            "'gamipress_discount_type'"
+          ]
+        }
+      ]
+    },
+    "includes/class-dashboard.php": {
+      "sha256": "494642eb40eabe8bb89f72ba9364f175254e51603c86de9b5fcbd2ded8ad7082",
+      "bytes": 4273,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Dashboard",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_tab",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_title",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_content",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_dashboard_tabs'",
+            "array( __CLASS__, 'register_tab' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 51,
+          "args": [
+            "'gamipress_discount_points_required'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 52,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_used_points'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 54,
+          "args": [
+            "get_current_user_id()",
+            "'directorist_gamipress_coupon_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 55,
+          "args": [
+            "$claimed_coupon_id",
+            "'swbdpc_coupon_code'"
+          ]
+        }
+      ]
+    },
+    "includes/class-listeners.php": {
+      "sha256": "67953301005c27d34b463230b3579428ad8542db214f2e8766d40f8b70076f1d",
+      "bytes": 7723,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Listeners",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "order_created_listener",
+          "line": 39,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_views_count_updated_listener",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "review_listener",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "trigger_listing_become_popular",
+          "line": 125,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "transition_post_status_listener",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_listing_listener",
+          "line": 203,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_report_listener",
+          "line": 221,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "user_favorites_listener",
+          "line": 239,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'trashed_post'",
+            "array( __CLASS__, 'delete_listing_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'before_delete_post'",
+            "array( __CLASS__, 'delete_listing_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'transition_post_status'",
+            "array( __CLASS__, 'transition_post_status_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 23,
+          "args": [
+            "'directorist_listing_reported'",
+            "array( __CLASS__, 'listing_report_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'directorist_user_favorites_added'",
+            "array( __CLASS__, 'user_favorites_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 26,
+          "args": [
+            "'directorist_listing_views_count_updated'",
+            "array( __CLASS__, 'listing_views_count_updated_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'comment_approved_'",
+            "array( __CLASS__, 'review_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'comment_approved_review'",
+            "array( __CLASS__, 'review_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'directorist_review_updated'",
+            "array( __CLASS__, 'review_listener' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 31,
+          "args": [
+            "'atbdp_order_created'",
+            "array( __CLASS__, 'order_created_listener' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 41,
+          "args": [
+            "$order_id",
+            "'_fm_plan_ordered'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 185,
+          "args": [
+            "$post->ID",
+            "'_listing_status'"
+          ]
+        }
+      ]
+    },
+    "includes/class-requirements.php": {
+      "sha256": "cee2963a5f95e3444e889d3bf2749d9a0f706599f94be14be0fbb3312ef56cf6",
+      "bytes": 2733,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Requirements",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "requirement_object",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_ui_fields",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ajax_update",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'gamipress_ajax_update_requirement'",
+            "array( __CLASS__, 'ajax_update' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'gamipress_requirement_object'",
+            "array( __CLASS__, 'requirement_object' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'gamipress_requirement_ui_html_after_achievement_post'",
+            "array( __CLASS__, 'register_ui_fields' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-rules-engine.php": {
+      "sha256": "760d4bf2aec1b3090615ab739665023bc0b543822eb2ccab40b28a9b1d418e0a",
+      "bytes": 1865,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Rules_Engine",
+          "line": 13,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "user_meets_points_requirement",
+          "line": 19,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'user_deserves_achievement'",
+            "array( __CLASS__, 'user_meets_points_requirement' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-settings.php": {
+      "sha256": "4c210204162d3abc0b2076b4a26395b0f47e3b41f15bb23fda9bf7798ec5561c",
+      "bytes": 3790,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Settings",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_coupon_fields",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_fields",
+          "line": 95,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_panel",
+          "line": 102,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 14,
+          "args": [
+            "'atbdp_listing_type_settings_layout'",
+            "array( __CLASS__, 'register_panel' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( __CLASS__, 'register_fields' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-triggers.php": {
+      "sha256": "68b8cc1e58a9b4ee09eb413c3c74c0d7cf6b374d581f0549272fa9ecd3ebba37",
+      "bytes": 3713,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Triggers",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "init",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_activity_triggers",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_event_trigger_meta_data",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "log_extra_data_fields",
+          "line": 88,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'gamipress_activity_triggers'",
+            "array( __CLASS__, 'register_activity_triggers' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'gamipress_log_extra_data_fields'",
+            "array( __CLASS__, 'log_extra_data_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'gamipress_log_event_trigger_meta_data'",
+            "array( __CLASS__, 'log_event_trigger_meta_data' )"
+          ]
+        }
+      ]
+    },
+    "includes/class-utils.php": {
+      "sha256": "08d474b2915184e51a63fb353c4dc9e01602d8d12ba7b6d9129a97f14f22f0f3",
+      "bytes": 1605,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Utils",
+          "line": 11,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "is_listing",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_total_points",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_coupon_extension_enabled",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_discount_coupon_enabled",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 54,
+          "args": [
+            "'SWBDPCoupon'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 58,
+          "args": [
+            "'gamipress_enable_discount_coupon'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-gamipress-integration.pot": {
+      "sha256": "f6a556e632d7ffe0332a40e09b9cca79fcb9648542845907f5f969408e560ef1",
+      "bytes": 5422,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

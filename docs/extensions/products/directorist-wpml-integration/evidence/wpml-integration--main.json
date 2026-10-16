@@ -1,0 +1,6566 @@
+{
+  "snapshot": {
+    "key": "wpml-integration--main",
+    "repo": "directorist-wpml-integration",
+    "branch": "main",
+    "commit": "7d9224d9f6937cf970a562c1abfcd1079c6aad15",
+    "date": "2026-08-23T09:07:55Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-wpml-integration",
+    "kind": "remote"
+  },
+  "files": {
+    ".distignore": {
+      "sha256": "d3443b3bd5b65e0206153600a35b696aee979cb9640689eee02c2beb2c8ef67c",
+      "bytes": 291,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "99e53ded98f48d67d713dabaa5ede2ef9188ded0fcef7ba57ae435cc0a94b0f2",
+      "bytes": 50,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "README.md": {
+      "sha256": "914c4e798eab8303cf058c5a0299aba246c565cf8fe72ad16bc94bba8cc90c48",
+      "bytes": 3549,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app.php": {
+      "sha256": "6944843cec1b9a6d99ca035771ce2c9d483b10415336e6d34d7a721d925eaec2",
+      "bytes": 2641,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_WPML_Integration",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_instance",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_controllers",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_incompatibility_notice",
+          "line": 52,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "show_incompatibility_notice",
+          "line": 53,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "show_incompatibility_notice",
+          "line": 54,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "show_incompatibility_notice",
+          "line": 55,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "show_incompatibility_notice",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 19,
+          "args": [
+            "'admin_notices'",
+            "[ $this, 'show_incompatibility_notice' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'plugins_loaded'",
+            "[ $this, 'load_textdomain' ]"
+          ]
+        },
+        {
+          "name": "register_services",
+          "line": 28,
+          "args": [
+            "$controllers"
+          ]
+        }
+      ]
+    },
+    "composer.json": {
+      "sha256": "f81a09efbd0de043de37a2ab1a9fb4d5f378334ccf96fb87927e0fb7b8a9086a",
+      "bytes": 456,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "5f9420521f679ab8456e3bc471f9e5e07ed8f6d54486faf12d7a7b782c90d9c1",
+      "bytes": 571,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "directorist-wpml-integration.php": {
+      "sha256": "8596cbf7628268fae49b206e50f6c848d555c3c1c2fb7319cf5467a49486d11a",
+      "bytes": 843,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_WPML_Integration",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 21,
+          "args": [
+            "'Directorist_WPML_Integration'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'directorist_loaded'",
+            "'Directorist_WPML_Integration'"
+          ]
+        }
+      ]
+    },
+    "package.json": {
+      "sha256": "d7c6bf9f869d7df69d2c4b06ec960b44f69acab5e1f2bf0811803f339fc4a652",
+      "bytes": 1193,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "postcss.config.js": {
+      "sha256": "d3dbfbb851d7a60029cf0010cbf02f854b10199a7ecf966d80a3e7cec87c97a3",
+      "bytes": 60,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "pot.js": {
+      "sha256": "e6f288ddf6e17faa921724adf77ef92eb1613eb296b680ecbd464913b1f78bd7",
+      "bytes": 194,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "readme.txt": {
+      "sha256": "68ebe7be6006972144fc4ee1a13861992cc57a24fc09389282ff8121d7ed2ffb",
+      "bytes": 9712,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "webpack.config.js": {
+      "sha256": "0be5fda6317b5555977ac21d52389dfef4ec9f8fba60d59cc1062a1b1a645f40",
+      "bytes": 565,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "wpml-config.xml": {
+      "sha256": "9b90c7febff81b52c5ae127ada8ef8892cdae3dc80a7e17735232b5f6590a6eb",
+      "bytes": 19098,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "yarn.lock": {
+      "sha256": "e5b9cf65b79d1c38cfb0be6d555be1f5eaa0099f3629e415e0a7742bcdf086cf",
+      "bytes": 507217,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/PULL_REQUEST_TEMPLATE.md": {
+      "sha256": "b104cf215aa29c0fd352faf81016e876890e842c9c71b71abf3995002356bd46",
+      "bytes": 685,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/delete-merged-branch-config.yml": {
+      "sha256": "6f129aa050e3f4f413e827e8bca2c23a02a30ba0cf485c6803bfdf42d1fbd29b",
+      "bytes": 65,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".github/workflows/deploy-to-wp-org.yml": {
+      "sha256": "9dc9294973b13b3ac997993dfdab8c459a98f4c1eb2732232f9302c2b5388d88",
+      "bytes": 1524,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".wordpress-org/banner-1544x500.png": {
+      "sha256": "9a1e7a6ad653712df7fcc181e8a6efe74ff89e1f928f83db2784236dd1b02137",
+      "bytes": 66187,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".wordpress-org/banner-772x250.png": {
+      "sha256": "d789bd9fb56d2ef084fe524b29d13554c46d7e3320f0577222bdb6c00549e2cd",
+      "bytes": 29788,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".wordpress-org/icon.svg": {
+      "sha256": "767bb92a4135ae38cbcf83c2e7fa5ab4329838a0cf785d9cea506e91040c0493",
+      "bytes": 11294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Controller/Ajax/Get_Directory_Type_Translations.php": {
+      "sha256": "40e2eb3799453d1b614f292972ca627cdd11f577eb64a48d8e38f212169c4179",
+      "bytes": 6172,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Get_Directory_Type_Translations",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_type_translations_data",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_directory_type_translation",
+          "line": 57,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_wpml_active_languages",
+          "line": 137,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_type_translations",
+          "line": 146,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'wp_ajax_get_directory_type_translations'",
+            "[ $this, 'get_directory_type_translations_data' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'wp_ajax_create_directory_type_translation'",
+            "[ $this, 'create_directory_type_translation' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 40,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 138,
+          "args": [
+            "'wpml_active_languages'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Ajax/Init.php": {
+      "sha256": "8e4282e2ecb282112473ffa5acf1f2a8d69e45e0a90d30dbdc289547e6413a13",
+      "bytes": 575,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Init",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_controllers",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "register_services",
+          "line": 18,
+          "args": [
+            "$ajax_controllers"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Asset/AdminAsset.php": {
+      "sha256": "9a8b017edc9fbd57382dcea011003ddbd3cadb836085dcde869c0897e1b390fb",
+      "bytes": 2947,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AdminAsset",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_scripts",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_css_scripts",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_js_scripts",
+          "line": 69,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[ $this, 'enqueue_scripts' ]"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Asset/AssetEnqueuer.php": {
+      "sha256": "e2ae2ffea9780f6ee3cecbb084263f6e6a9d85612dbba592a0df0ccf237eaae5",
+      "bytes": 1730,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "AssetEnqueuer",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "load_scripts",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_scripts",
+          "line": 23,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_load_min_files",
+          "line": 51,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_script_version",
+          "line": 60,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_hook_to_scripts",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "register_css_scripts",
+          "line": 38,
+          "args": [
+            ""
+          ]
+        },
+        {
+          "name": "register_js_scripts",
+          "line": 42,
+          "args": [
+            ""
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 52,
+          "args": [
+            "'directorist_wpml_integration_load_min_files'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 62,
+          "args": [
+            "'directorist_wpml_integration_script_version'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 71,
+          "args": [
+            "'directorist_wpml_integration_css_scripts'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 72,
+          "args": [
+            "'directorist_wpml_integration_js_scripts'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Asset/Init.php": {
+      "sha256": "4952f99a96054232b4279da4b5f23a0c967042a5cb425419f49a156f860fb194",
+      "bytes": 550,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Init",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_assets_enqueuers",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "PublicAsset",
+          "line": 29,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "register_services",
+          "line": 18,
+          "args": [
+            "$enqueuers"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Asset/PublicAsset.php": {
+      "sha256": "19402d1a84e7fa9b6e588e8b786c294a6d257e6627b281a9712d9c6ae7fd159f",
+      "bytes": 1929,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "PublicAsset",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_scripts",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_css_scripts",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_js_scripts",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "[ $this, 'enqueue_scripts' ]"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Admin_Text_Translation.php": {
+      "sha256": "e13e55214b733111e7ab2ff05265938bfbaa02ee0de7656b363ca54c2b1f5399",
+      "bytes": 64613,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Admin_Text_Translation",
+          "line": 10,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_package_kinds",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_packages",
+          "line": 123,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "refresh_packages_after_settings_save",
+          "line": 155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_package_for_translation_management",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_admin_texts_after_package_translation",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_completed_package_translations",
+          "line": 229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cleanup_unused_package_strings",
+          "line": 244,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_directorist_option",
+          "line": 292,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_settings_screen_options",
+          "line": 331,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_settings_ui_translation_bridge",
+          "line": 356,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_admin_menu_translation_bridge",
+          "line": 389,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package_strings",
+          "line": 432,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_settings_ui_package_strings",
+          "line": 467,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_settings_ui_source_strings",
+          "line": 491,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_settings_panel_field_strings",
+          "line": 572,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_settings_panel_source_file_strings",
+          "line": 585,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_settings_ui_php_source_strings",
+          "line": 608,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_static_settings_ui_strings",
+          "line": 658,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_supplemental_settings_ui_strings",
+          "line": 756,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_settings_ui_source",
+          "line": 852,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_admin_text_option_keys",
+          "line": 878,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_raw_directorist_options",
+          "line": 915,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directorist_options",
+          "line": 935,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_translatable_value",
+          "line": 967,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_extension_option_key",
+          "line": 992,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_email_template_key",
+          "line": 1002,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_string_title",
+          "line": 1013,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_package_string",
+          "line": 1029,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_existing_package_strings",
+          "line": 1069,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_job_translations",
+          "line": 1110,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_admin_text_translations",
+          "line": 1142,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_or_register_admin_text_string_id",
+          "line": 1187,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_update_admin_text_translation",
+          "line": 1214,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_usable_translation",
+          "line": 1240,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_placeholders",
+          "line": 1254,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "strings_match",
+          "line": 1269,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_qa_placeholder",
+          "line": 1281,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_translations_by_language",
+          "line": 1291,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_runtime_translations",
+          "line": 1325,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_settings_ui_runtime_translations",
+          "line": 1368,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_admin_menu_runtime_translations",
+          "line": 1413,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_admin_bridge_source_strings",
+          "line": 1477,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_settings_ui_translation_script",
+          "line": 1513,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_admin_menu_translation_script",
+          "line": 1684,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_target_language",
+          "line": 1871,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_default_language",
+          "line": 1896,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_requested_admin_language",
+          "line": 1905,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_language_code",
+          "line": 1925,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directorist_settings_screen",
+          "line": 1944,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directorist_admin_screen",
+          "line": 1960,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_directorist_admin_menu",
+          "line": 1985,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package_id",
+          "line": 2009,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package",
+          "line": 2027,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package_type_from_context",
+          "line": 2057,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_our_package_item",
+          "line": 2079,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_register_packages",
+          "line": 2095,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_sync_completed_packages",
+          "line": 2127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 2156,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 79,
+          "args": [
+            "'wpml_active_string_package_kinds'",
+            "[ $this, 'register_package_kinds' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 80,
+          "args": [
+            "'wpml_register_string_packages'",
+            "[ $this, 'register_packages' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 81,
+          "args": [
+            "'wpml_register_string_packages'",
+            "[ $this, 'cleanup_unused_package_strings' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 82,
+          "args": [
+            "'wpml_get_translatable_item'",
+            "[ $this, 'prepare_package_for_translation_management' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 83,
+          "args": [
+            "'wpml_save_external'",
+            "[ $this, 'sync_admin_texts_after_package_translation' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 84,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'sync_completed_package_translations' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 85,
+          "args": [
+            "'updated_option'",
+            "[ $this, 'refresh_packages_after_settings_save' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 86,
+          "args": [
+            "'directorist_option'",
+            "[ $this, 'translate_directorist_option' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 87,
+          "args": [
+            "'option_atbdp_option'",
+            "[ $this, 'translate_settings_screen_options' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 88,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[ $this, 'enqueue_admin_menu_translation_bridge' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 89,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[ $this, 'enqueue_settings_ui_translation_bridge' ]"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 141,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_packages",
+          "line": 166,
+          "args": [
+            "true"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 207,
+          "args": [
+            "'wpml_get_package_type_prefix'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 247,
+          "args": [
+            "'icl_unregister_string'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 412,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_SCRIPT_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 496,
+          "args": [
+            "'DIRECTORIST_ASSETS_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 586,
+          "args": [
+            "'ATBDP_CLASS_DIR'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 862,
+          "args": [
+            "'is_email'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 880,
+          "args": [
+            "'simplexml_load_file'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 942,
+          "args": [
+            "'ATBDP'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 943,
+          "args": [
+            "'get_editable_roles'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 1044,
+          "args": [
+            "'wpml_register_string'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1118,
+          "args": [
+            "'wpml_save_external_package_field_context'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1143,
+          "args": [
+            "'icl_add_string_translation'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1170,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1175,
+          "args": [
+            "'wpml_st_flush_string_cache_for_ids'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1199,
+          "args": [
+            "'icl_register_string'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1225,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1306,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1347,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1391,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1434,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1872,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1897,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1906,
+          "args": [
+            "'is_admin'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1906,
+          "args": [
+            "'wp_doing_ajax'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1914,
+          "args": [
+            "'wp_unslash'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 2081,
+          "args": [
+            "'\\WPML_Package'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 2119,
+          "args": [
+            "'WP_CLI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 2128,
+          "args": [
+            "'WP_CLI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 2157,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Category_Directory_Sync.php": {
+      "sha256": "59ccdaa0633dd73805903239b6f79d46957c31ff2b852f2837e3b7644660603d",
+      "bytes": 3482,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Category_Directory_Sync",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_category_directory",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'created_' . ATBDP_CATEGORY",
+            "[ $this, 'sync_category_directory' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'edited_' . ATBDP_CATEGORY",
+            "[ $this, 'sync_category_directory' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 28,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 37,
+          "args": [
+            "'directorist_update_category_directory'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 46,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 47,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 55,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 64,
+          "args": [
+            "$original_term",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 78,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Directory_Builder_Actions.php": {
+      "sha256": "8abcb0679f760f3c6ccde934fa4fb8deef2eb4f96b668743b5b7f31e08c199b3",
+      "bytes": 3478,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directory_Builder_Actions",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "before_update_directory_type",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "after_update_directory_type",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "before_update_default_directory_type",
+          "line": 72,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "after_update_default_directory_type",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'directorist_before_set_default_directory_type'",
+            "[ $this, 'before_update_default_directory_type' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'directorist_after_set_default_directory_type'",
+            "[ $this, 'after_update_default_directory_type' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 20,
+          "args": [
+            "'directorist_before_update_directory_type'",
+            "[ $this, 'before_update_directory_type' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'directorist_after_update_directory_type'",
+            "[ $this, 'after_update_directory_type' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 32,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "set_transient",
+          "line": 34,
+          "args": [
+            "'directorist_wpml_integration:current_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 42,
+          "args": [
+            "'wpml_switch_language'"
+          ]
+        },
+        {
+          "name": "get_transient",
+          "line": 54,
+          "args": [
+            "'directorist_wpml_integration:current_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 60,
+          "args": [
+            "'wpml_switch_language'"
+          ]
+        },
+        {
+          "name": "delete_transient",
+          "line": 62,
+          "args": [
+            "'directorist_wpml_integration:current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 74,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "set_transient",
+          "line": 76,
+          "args": [
+            "'directorist_wpml_integration:current_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 78,
+          "args": [
+            "'wpml_switch_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 91,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "get_transient",
+          "line": 92,
+          "args": [
+            "'directorist_wpml_integration:current_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 95,
+          "args": [
+            "'wpml_switch_language'"
+          ]
+        },
+        {
+          "name": "delete_transient",
+          "line": 97,
+          "args": [
+            "'directorist_wpml_integration:current_language'"
+          ]
+        },
+        {
+          "name": "update_term_meta",
+          "line": 110,
+          "args": [
+            "(int) $translation->term_id",
+            "'_default'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Directory_Builder_String_Package.php": {
+      "sha256": "f3c67c2899664c4cc21f69c2805f38535a31458a426f9c613a4642b7de5c8b3d",
+      "bytes": 148026,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directory_Builder_String_Package",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 696,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 722,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translatable_meta_string_map",
+          "line": 733,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_translatable_meta_string_map",
+          "line": 759,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_package_kind",
+          "line": 777,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_directory_builder_packages",
+          "line": 792,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_term_package_on_save",
+          "line": 820,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "refresh_directory_builder_package_on_save",
+          "line": 834,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "prepare_package_for_translation_management",
+          "line": 863,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_builder_meta_after_package_translation",
+          "line": 888,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_completed_directory_builder_packages",
+          "line": 982,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_directory_builder_package",
+          "line": 1008,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "track_package_string",
+          "line": 1108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_runtime_ui_strings",
+          "line": 1132,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_runtime_string_title",
+          "line": 1156,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mark_changed_directory_builder_packages_need_update",
+          "line": 1181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_top_level_meta_strings",
+          "line": 1238,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_top_level_meta_string_data",
+          "line": 1262,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_translatable_top_level_meta_value",
+          "line": 1278,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_top_level_meta_strings",
+          "line": 1310,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_runtime_string_translations",
+          "line": 1350,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_or_register_runtime_string_ids",
+          "line": 1402,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_update_wpml_string_translation",
+          "line": 1446,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_package_translations_by_language",
+          "line": 1475,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_package_translation_for_value",
+          "line": 1518,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package_id",
+          "line": 1581,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package_inventory_hash",
+          "line": 1607,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package_inventory_hash_option_name",
+          "line": 1625,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "latest_package_jobs_are_missing_fields",
+          "line": 1639,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mark_package_translations_need_update",
+          "line": 1713,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_mark_package_inventory_changes",
+          "line": 1798,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_replace_translated_scalar_value",
+          "line": 1835,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_usable_translation",
+          "line": 1852,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_language_prefixed_placeholder",
+          "line": 1866,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "strings_match_after_decoding",
+          "line": 1886,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_sync_completed_package_translations",
+          "line": 1900,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cleanup_unused_directory_builder_package_strings",
+          "line": 1932,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "repair_or_cleanup_orphaned_package_context_strings",
+          "line": 2002,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "delete_wpml_strings_by_id",
+          "line": 2094,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_cleanup_unused_package_strings",
+          "line": 2125,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cleanup_obsolete_directory_builder_packages",
+          "line": 2160,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "cleanup_legacy_add_listing_strings",
+          "line": 2212,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_builder_term_meta",
+          "line": 2247,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_add_listing_template_ui",
+          "line": 2290,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_meta_value",
+          "line": 2329,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_named_translations_to_meta_value",
+          "line": 2361,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_existing_translation_value",
+          "line": 2417,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_package_string",
+          "line": 2431,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "replace_template_string",
+          "line": 2462,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_package_string",
+          "line": 2508,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_registered_package_string_unchanged",
+          "line": 2553,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_add_listing_compatibility_strings",
+          "line": 2608,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_add_listing_compatibility_translations",
+          "line": 2716,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_compatibility_string",
+          "line": 2823,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_add_listing_compatibility_scalar",
+          "line": 2847,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_add_listing_field_slug",
+          "line": 2874,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_add_listing_custom_property_keys",
+          "line": 2886,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_context_id",
+          "line": 2923,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_id_from_template_args",
+          "line": 2935,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_strings",
+          "line": 2968,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_string_data",
+          "line": 2997,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_translatable_string",
+          "line": 3023,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_visual_builder_option_value_path",
+          "line": 3159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directory_ids",
+          "line": 3201,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directory_id",
+          "line": 3236,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directory_id_from_package_context",
+          "line": 3259,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translated_directory_id",
+          "line": 3284,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translated_directory_name",
+          "line": 3302,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_translated_directory_type",
+          "line": 3331,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "insert_translated_directory_term",
+          "line": 3400,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_reusable_translated_directory_term_id",
+          "line": 3418,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_translated_directory_slug",
+          "line": 3445,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_term_id_by_slug",
+          "line": 3461,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "copy_directory_type_meta",
+          "line": 3484,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_job_translations_by_string_name",
+          "line": 3514,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package",
+          "line": 3545,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 3573,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_filtered_meta_value",
+          "line": 3599,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directory_type_term",
+          "line": 3617,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directory_builder_package_item",
+          "line": 3629,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 3642,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_taxonomy",
+          "line": 3654,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "safe_slug",
+          "line": 3664,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "humanize_meta_key",
+          "line": 3676,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "humanize_path_part",
+          "line": 3686,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 699,
+          "args": [
+            "'wpml_active_string_package_kinds'",
+            "[ $this, 'register_package_kind' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 700,
+          "args": [
+            "'wpml_register_string_packages'",
+            "[ $this, 'register_directory_builder_packages' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 701,
+          "args": [
+            "'wpml_register_string_packages'",
+            "[ $this, 'cleanup_unused_directory_builder_package_strings' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 702,
+          "args": [
+            "'wpml_register_string_packages'",
+            "[ $this, 'mark_changed_directory_builder_packages_need_update' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 703,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'cleanup_obsolete_directory_builder_packages' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 704,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'cleanup_legacy_add_listing_strings' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 705,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'sync_completed_directory_builder_packages' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 707,
+          "args": [
+            "'created_' . $this->get_directory_taxonomy()",
+            "[ $this, 'register_term_package_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 708,
+          "args": [
+            "'edited_' . $this->get_directory_taxonomy()",
+            "[ $this, 'register_term_package_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 709,
+          "args": [
+            "'directorist_after_update_directory_type'",
+            "[ $this, 'refresh_directory_builder_package_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 710,
+          "args": [
+            "'wpml_save_external'",
+            "[ $this, 'sync_builder_meta_after_package_translation' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 712,
+          "args": [
+            "'wpml_get_translatable_item'",
+            "[ $this, 'prepare_package_for_translation_management' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 713,
+          "args": [
+            "'get_term_metadata'",
+            "[ $this, 'translate_builder_term_meta' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 714,
+          "args": [
+            "'atbdp_add_listing_page_template'",
+            "[ $this, 'translate_add_listing_template_ui' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 797,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 798,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "register_directory_builder_package",
+          "line": 809,
+          "args": [
+            "$directory_id"
+          ]
+        },
+        {
+          "name": "register_directory_builder_package",
+          "line": 849,
+          "args": [
+            "$source_directory_id"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 893,
+          "args": [
+            "'wpml_get_package_type_prefix'"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 920,
+          "args": [
+            "$source_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 921,
+          "args": [
+            "$target_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "update_term_meta",
+          "line": 958,
+          "args": [
+            "$target_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1028,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1040,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 1044,
+          "args": [
+            "$source_directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1048,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1055,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1063,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1071,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 1087,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1212,
+          "args": [
+            "$option_name"
+          ]
+        },
+        {
+          "name": "update_option",
+          "line": 1217,
+          "args": [
+            "$option_name"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 1242,
+          "args": [
+            "$source_directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 1315,
+          "args": [
+            "$source_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 1330,
+          "args": [
+            "$target_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "update_term_meta",
+          "line": 1335,
+          "args": [
+            "$target_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1351,
+          "args": [
+            "'icl_add_string_translation'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1382,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1388,
+          "args": [
+            "'wpml_st_flush_string_cache_for_ids'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1427,
+          "args": [
+            "'icl_register_string'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1461,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1493,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1526,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1558,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 1752,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 1765,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 1774,
+          "args": [
+            "'wpml_updated_translation_status'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 1782,
+          "args": [
+            "'wpml_translation_status_update'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1799,
+          "args": [
+            "'WP_CLI'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1901,
+          "args": [
+            "'WP_CLI'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1943,
+          "args": [
+            "'icl_unregister_string'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 2064,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2103,
+          "args": [
+            "'wpml_unregister_string_multi'"
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 2109,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 2110,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "delete",
+          "line": 2111,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 2200,
+          "args": [
+            "'wpml_delete_package'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2215,
+          "args": [
+            "'icl_unregister_string'"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 2262,
+          "args": [
+            "$source_directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 2440,
+          "args": [
+            "'wpml_translate_string'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 2445,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 2523,
+          "args": [
+            "'wpml_register_string'"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 2625,
+          "args": [
+            "$source_directory_id",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2957,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 3206,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 3243,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 3343,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 3485,
+          "args": [
+            "(int) $source_directory_id"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 3496,
+          "args": [
+            "$target_directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "add_term_meta",
+          "line": 3501,
+          "args": [
+            "(int) $target_directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 3522,
+          "args": [
+            "'wpml_save_external_package_field_context'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 3631,
+          "args": [
+            "'\\WPML_Package'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 3643,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 3655,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Directory_Builder_UI_String_Package.php": {
+      "sha256": "a7326bc2155a0c7dd4b28f2631d2039bfe2cbcf33a5d7da2f621996137f31c6e",
+      "bytes": 50651,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directory_Builder_UI_String_Package",
+          "line": 12,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_builder_ui_packages",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "refresh_builder_ui_labels_on_save",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_register_builder_ui_packages",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_builder_ui_data",
+          "line": 186,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_data_recursively",
+          "line": 214,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translation_source_ui_value",
+          "line": 257,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_builder_ui_strings",
+          "line": 275,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_builder_chrome_translation_bridge",
+          "line": 311,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_static_builder_chrome_string_data",
+          "line": 373,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_builder_chrome_bridge_string_data",
+          "line": 393,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_static_builder_chrome_strings",
+          "line": 408,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_builder_chrome_bridge_strings",
+          "line": 439,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_builder_chrome_translation_aliases",
+          "line": 471,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_builder_chrome_translation_script",
+          "line": 482,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_builder_data",
+          "line": 640,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_prepared_builder_data",
+          "line": 679,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_static_property_value",
+          "line": 701,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_builder_widget_data",
+          "line": 719,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_strings",
+          "line": 733,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_collision_values_for_data",
+          "line": 765,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_collision_values",
+          "line": 783,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_collision_safe_name",
+          "line": 817,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_string_data",
+          "line": 835,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_package_string",
+          "line": 870,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_package_string",
+          "line": 903,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_package_translation_by_source_value",
+          "line": 970,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_completed_translation_source_map",
+          "line": 999,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translation_source_lookup_key",
+          "line": 1031,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_package_translations",
+          "line": 1057,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "strings_match_after_decoding",
+          "line": 1119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_language_prefixed_placeholder",
+          "line": 1135,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "strip_language_prefixed_placeholder",
+          "line": 1155,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_translatable_ui_string",
+          "line": 1175,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_textual_value_path",
+          "line": 1239,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directory_name_value_path",
+          "line": 1280,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directory_ids",
+          "line": 1294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directory_id",
+          "line": 1329,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_language_code",
+          "line": 1351,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_package",
+          "line": 1367,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 1389,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_taxonomy",
+          "line": 1401,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "safe_slug",
+          "line": 1411,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "humanize_path_part",
+          "line": 1425,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 68,
+          "args": [
+            "'wpml_register_string_packages'",
+            "[ $this, 'register_builder_ui_packages' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 69,
+          "args": [
+            "'directorist_after_update_directory_type'",
+            "[ $this, 'refresh_builder_ui_labels_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 70,
+          "args": [
+            "'directorist_builder_edit_assets_enqueued'",
+            "[ $this, 'enqueue_builder_chrome_translation_bridge' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 71,
+          "args": [
+            "'directorist_builder_localize_data'",
+            "[ $this, 'translate_builder_ui_data' ]"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 97,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "register_package_string",
+          "line": 131,
+          "args": [
+            "$package"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 145,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 146,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 641,
+          "args": [
+            "'\\Directorist\\Multi_Directory\\Builder_Data'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 881,
+          "args": [
+            "'wpml_register_string'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 938,
+          "args": [
+            "'icl_translate'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 949,
+          "args": [
+            "'wpml_translate_string'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1071,
+          "args": [
+            "'ICL_TM_COMPLETE'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1299,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1330,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1390,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1402,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Directory_Translation.php": {
+      "sha256": "6a2f800d69ea0415170d774bc3679fc7cf41becd7bc05e988837c1f22357fdfb",
+      "bytes": 16879,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directory_Translation",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 29,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_directory_names",
+          "line": 50,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_directory_terms",
+          "line": 125,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_default_directory_query",
+          "line": 227,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translated_default_directory_terms",
+          "line": 250,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_term_name",
+          "line": 334,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_linked_term_name",
+          "line": 383,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "modify_language_switcher_url",
+          "line": 414,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'wpml_admin_language_switcher_items'",
+            "[ $this, 'modify_language_switcher_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_directories_for_template'",
+            "[ $this, 'translate_directory_names' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'get_terms'",
+            "[ $this, 'translate_directory_terms' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'term_name'",
+            "[ $this, 'translate_term_name' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 31,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 32,
+          "args": [
+            "'do_action'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 33,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 75,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 77,
+          "args": [
+            "'ATBDP_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 146,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 150,
+          "args": [
+            "'ATBDP_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 160,
+          "args": [
+            "'ATBDP_TAGS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 184,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 186,
+          "args": [
+            "'ATBDP_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 190,
+          "args": [
+            "'ATBDP_TAGS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 232,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 253,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 254,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 260,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 351,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 353,
+          "args": [
+            "'ATBDP_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 357,
+          "args": [
+            "'ATBDP_TAGS'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 392,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 393,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Directory_Type_Meta_Translation.php": {
+      "sha256": "b57d040957d014e0076cac1765b2b8aae3c8e83ae0954e2e364c048689df3684",
+      "bytes": 9796,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directory_Type_Meta_Translation",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_post_directory_type_meta",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_term_directory_type_meta",
+          "line": 102,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "fallback_translated_directory_meta",
+          "line": 165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_post_language_code",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_term_language_code",
+          "line": 228,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directory_type_term",
+          "line": 254,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "term_meta_exists",
+          "line": 273,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_directory_type_id",
+          "line": 291,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'get_post_metadata'",
+            "[ $this, 'translate_post_directory_type_meta' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 30,
+          "args": [
+            "'get_term_metadata'",
+            "[ $this, 'translate_term_directory_type_meta' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 39,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 40,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 70,
+          "args": [
+            "$object_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 77,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 117,
+          "args": [
+            "$object_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 127,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 186,
+          "args": [
+            "$source_term_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 261,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 292,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 293,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Directory_Type_Translation_Management_Button.php": {
+      "sha256": "f789bd875951d313576c9aa566ede2c517f5fb9cca08492f43e3ca3733910b4b",
+      "bytes": 6754,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directory_Type_Translation_Management_Button",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 33,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_button_assets",
+          "line": 43,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_render_button",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_translation_management_available",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translation_dashboard_url",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_button_label",
+          "line": 108,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_inline_script",
+          "line": 120,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_inline_style",
+          "line": 182,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[ $this, 'enqueue_button_assets' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 88,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 88,
+          "args": [
+            "'WPML_TM_VERSION'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 97,
+          "args": [
+            "'directorist_wpml_integration_translation_dashboard_url'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 109,
+          "args": [
+            "'directorist_wpml_integration_translation_dashboard_label'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Email_Translation.php": {
+      "sha256": "95a8ec1d5f51a738255e627982ef5cf4c1a48c042ce0f0316567b32320099aac",
+      "bytes": 440,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Email_Translation",
+          "line": 15,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": []
+    },
+    "app/Controller/Hook/Filter_Permalinks.php": {
+      "sha256": "54b22ebf149d6d6eeaa741fcc543238e3dcae6f2a2f1af9c8bdaae98c8e7837e",
+      "bytes": 20443,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Filter_Permalinks",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "page_id",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_directorist_pagination_url",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_directorist_directory_type_nav_url",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_author_profile_page_url",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_single_category_page_url",
+          "line": 159,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_single_location_page_url",
+          "line": 181,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_single_tag_page_url",
+          "line": 203,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_single_taxonomy_page_url",
+          "line": 221,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_lang_switcher_url_for_generic_pages",
+          "line": 262,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_lang_switcher_url_for_archive_pages",
+          "line": 285,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_lang_switcher_url_for_author_profile_page",
+          "line": 337,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_lang_switcher_url_for_single_taxonomy_page",
+          "line": 387,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_page_taxonomy_data",
+          "line": 405,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_formated_single_taxonomy_page_url",
+          "line": 455,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_instance",
+          "line": 503,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_checkout_page_url",
+          "line": 521,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_payment_receipt_page_url",
+          "line": 541,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_search_result_page_url",
+          "line": 563,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_edit_listing_page_url",
+          "line": 604,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "wpml_language_url_format_is_pretty",
+          "line": 621,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_id_current_page",
+          "line": 636,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_page_number",
+          "line": 661,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'wpml_ls_language_url'",
+            "[ $this, 'filter_lang_switcher_url_for_generic_pages' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'wpml_ls_language_url'",
+            "[ $this, 'filter_lang_switcher_url_for_archive_pages' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 18,
+          "args": [
+            "'wpml_ls_language_url'",
+            "[ $this, 'filter_lang_switcher_url_for_author_profile_page' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'wpml_ls_language_url'",
+            "[ $this, 'filter_lang_switcher_url_for_single_taxonomy_page' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'atbdp_checkout_page_url'",
+            "[ $this, 'filter_checkout_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'atbdp_payment_receipt_page_url'",
+            "[ $this, 'filter_payment_receipt_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'atbdp_search_result_page_url'",
+            "[ $this, 'filter_search_result_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'atbdp_edit_listing_page_url'",
+            "[ $this, 'filter_edit_listing_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 25,
+          "args": [
+            "'atbdp_author_profile_page_url'",
+            "[ $this, 'filter_author_profile_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 27,
+          "args": [
+            "'atbdp_single_category'",
+            "[ $this, 'filter_single_category_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 28,
+          "args": [
+            "'atbdp_single_location'",
+            "[ $this, 'filter_single_location_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'atbdp_single_tag'",
+            "[ $this, 'filter_single_tag_page_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 31,
+          "args": [
+            "'directorist_pagination'",
+            "[ $this, 'filter_directorist_pagination_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 32,
+          "args": [
+            "'directorist_get_directory_type_nav_url'",
+            "[ $this, 'filter_directorist_directory_type_nav_url' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 33,
+          "args": [
+            "'directorist_page_id'",
+            "[ $this, 'page_id' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 46,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 76,
+          "args": [
+            "'directorist_pagination_prev_text'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 77,
+          "args": [
+            "'directorist_pagination_next_text'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 125,
+          "args": [
+            "'permalink_structure'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 239,
+          "args": [
+            "'permalink_structure'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 288,
+          "args": [
+            "'all_listing_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 289,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 339,
+          "args": [
+            "'author_profile_page'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 422,
+          "args": [
+            "$page_key"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 475,
+          "args": [
+            "'get_term'",
+            "array( $sitepress,'get_term_adjust_id')"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 568,
+          "args": [
+            "'search_result_page'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 573,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 578,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 622,
+          "args": [
+            "'wpml_setting'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Init.php": {
+      "sha256": "7d5a909f294fc6c81c29dd9e9d2e26e563d9e5ac70e415b737288fd2d51e69c3",
+      "bytes": 1408,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Init",
+          "line": 8,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_hooks",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "Filter_Permalinks",
+          "line": 30,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Directory_Builder_Actions",
+          "line": 31,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Listings_Actions",
+          "line": 32,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Directory_Type_Meta_Translation",
+          "line": 33,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Directory_Builder_String_Package",
+          "line": 34,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Directory_Builder_UI_String_Package",
+          "line": 35,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Directory_Type_Translation_Management_Button",
+          "line": 36,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Page_Setup_Translation",
+          "line": 37,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Category_Directory_Sync",
+          "line": 38,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Admin_Text_Translation",
+          "line": 39,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Query_Filtering",
+          "line": 40,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Listing_Count_Filter",
+          "line": 42,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Search_Form_Filter",
+          "line": 43,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Search_Form_Field_Translation",
+          "line": 44,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Selectfield_Translation",
+          "line": 45,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Directory_Translation",
+          "line": 46,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Page_Shortcode_UI_Translation",
+          "line": 48,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "Sorting_Options_Translation",
+          "line": 49,
+          "kind": "T_CLASS"
+        }
+      ],
+      "calls": [
+        {
+          "name": "register_services",
+          "line": 19,
+          "args": [
+            "$hooks"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Listing_Count_Filter.php": {
+      "sha256": "679d27bfaec205bacf106ed52174afc675c8b0ec62019e442e9de1451b8f132a",
+      "bytes": 4477,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Listing_Count_Filter",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ensure_count_queries_are_filtered",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_tax_query_terms",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 15,
+          "args": [
+            "'pre_get_posts'",
+            "[ $this, 'ensure_count_queries_are_filtered' ]"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 30,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 71,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 105,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Listings_Actions.php": {
+      "sha256": "f46a1cb0a30ad138e1a42f2e2de2f6736071a5c8da781d61a6503e6f209904dc",
+      "bytes": 22584,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Listings_Actions",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_directory_type_after_listing_translation",
+          "line": 35,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_listing_ui_strings_on_save",
+          "line": 70,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_directory_listing_ui_strings",
+          "line": 84,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_directory_type_after_listing_duplicate",
+          "line": 123,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_directory_type_after_listing_update",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_listing_id",
+          "line": 194,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_listing_language",
+          "line": 226,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_valid_directory_type_id",
+          "line": 242,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_translated_directory_type_id",
+          "line": 271,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_valid_directory_type",
+          "line": 301,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_listing_directory_type",
+          "line": 314,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_listing_ui_strings",
+          "line": 341,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_single_listing_ui_strings",
+          "line": 377,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_single_listing_ui_strings",
+          "line": 400,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_translated_listing_ui_strings",
+          "line": 443,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_listing_ui_translations",
+          "line": 503,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_listing_layouts",
+          "line": 534,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_source_listing",
+          "line": 548,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_source_directory_type",
+          "line": 560,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 573,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mark_listing_translations_need_update",
+          "line": 593,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'directorist_show_admin_edit_listing_directory_type_nav'",
+            "'__return_true'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'directorist_should_update_directory_type'",
+            "'__return_false'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 21,
+          "args": [
+            "'icl_make_duplicate'",
+            "[ $this, 'update_directory_type_after_listing_duplicate' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'post_updated'",
+            "[ $this, 'update_directory_type_after_listing_update' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 23,
+          "args": [
+            "'wpml_pro_translation_completed'",
+            "[ $this, 'update_directory_type_after_listing_translation' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 24,
+          "args": [
+            "'save_post_at_biz_dir'",
+            "[ $this, 'sync_listing_ui_strings_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 25,
+          "args": [
+            "'directorist_after_update_directory_type'",
+            "[ $this, 'sync_directory_listing_ui_strings' ]"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 129,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 145,
+          "args": [
+            "$post_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 243,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 322,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 323,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 361,
+          "args": [
+            "$listing_id",
+            "self::UI_META_KEY"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 365,
+          "args": [
+            "$listing_id",
+            "self::UI_META_KEY"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 444,
+          "args": [
+            "$source_listing_id",
+            "self::UI_META_KEY"
+          ]
+        },
+        {
+          "name": "update_term_meta",
+          "line": 488,
+          "args": [
+            "$target_directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 536,
+          "args": [
+            "$directory_id",
+            "'single_listing_header'"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 537,
+          "args": [
+            "$directory_id",
+            "'single_listings_contents'"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 538,
+          "args": [
+            "$directory_id",
+            "'submission_form_fields'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 601,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Page_Setup_Translation.php": {
+      "sha256": "4a4588c6db2864aad935641187799bb933ddfff649b9fc321c595f9501db97db",
+      "bytes": 5630,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Page_Setup_Translation",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_page_setup_option_ids",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_page_setup_option_ids",
+          "line": 98,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_translate_page_setup_options",
+          "line": 136,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_normalize_page_setup_options",
+          "line": 157,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_ready",
+          "line": 174,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 38,
+          "args": [
+            "'option_atbdp_option'",
+            "[ $this, 'translate_page_setup_option_ids' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 39,
+          "args": [
+            "'pre_update_option_atbdp_option'",
+            "[ $this, 'normalize_page_setup_option_ids' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 58,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 59,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 70,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 103,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 104,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 115,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 175,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 175,
+          "args": [
+            "'apply_filters'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Page_Shortcode_UI_Translation.php": {
+      "sha256": "7b9f35b0c6ffac391278bdfd9c1582cfcf894bac826fd4f8428046bbaab89dc2",
+      "bytes": 101560,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Page_Shortcode_UI_Translation",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 126,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_source_pages",
+          "line": 145,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_sync_admin_pages",
+          "line": 185,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_page_on_save",
+          "line": 221,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_elementor_page_on_save",
+          "line": 236,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_translated_page_ui_meta_after_ate_completion",
+          "line": 256,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_page_ui_meta_after_wpml_translation_completed",
+          "line": 299,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_shortcode_output",
+          "line": 330,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_block_output",
+          "line": 349,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_elementor_widget_output",
+          "line": 371,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_current_page_translation_map",
+          "line": 394,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_translate_page_ui_string",
+          "line": 415,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_elementor_widget_taxonomy_settings",
+          "line": 442,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_elementor_taxonomy_setting_value",
+          "line": 504,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_elementor_taxonomy_slug",
+          "line": 538,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_output_for_context",
+          "line": 588,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_page_ui_meta",
+          "line": 608,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_ate_completion_request",
+          "line": 660,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_ate_completion_editor_job_id",
+          "line": 680,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_completed_page_job_by_editor_job_id",
+          "line": 697,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_translated_page_ui_meta_from_job",
+          "line": 742,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "sync_translated_page_ui_meta_from_translations",
+          "line": 773,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_page_ui_translations_from_completed_fields",
+          "line": 837,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_page_ui_job_translations",
+          "line": 877,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "decode_wpml_translation_field",
+          "line": 931,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_usable_page_ui_translation",
+          "line": 974,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "should_replace_page_ui_translation",
+          "line": 989,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_language_prefixed_placeholder",
+          "line": 1005,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "strings_match_after_decoding",
+          "line": 1024,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_suffix",
+          "line": 1038,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_page_ui_strings",
+          "line": 1051,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_shortcodes",
+          "line": 1075,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_blocks",
+          "line": 1116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_blocks_recursive",
+          "line": 1135,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_elementor_widgets",
+          "line": 1156,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_elementor_widgets_recursive",
+          "line": 1178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_elementor_directory_attrs",
+          "line": 1209,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_shortcode_strings",
+          "line": 1229,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_account_button_strings",
+          "line": 1302,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_account_strings",
+          "line": 1319,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_dashboard_strings",
+          "line": 1370,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_author_profile_strings",
+          "line": 1399,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_all_authors_strings",
+          "line": 1425,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_checkout_strings",
+          "line": 1441,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_payment_receipt_strings",
+          "line": 1462,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_listing_archive_strings",
+          "line": 1485,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_search_listing_strings",
+          "line": 1546,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_add_listing_strings",
+          "line": 1582,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_select2_strings",
+          "line": 1600,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "collect_builder_meta_strings",
+          "line": 1629,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_search_form_field_fallbacks",
+          "line": 1657,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "extract_builder_strings",
+          "line": 1689,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_translatable_builder_value",
+          "line": 1721,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_setting_string",
+          "line": 1834,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_string",
+          "line": 1847,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_translatable_ui_string",
+          "line": 1871,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_string_key",
+          "line": 1912,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_current_page_translation_map",
+          "line": 1927,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "build_translation_map",
+          "line": 1975,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_shortcode_native_fallback_aliases",
+          "line": 2023,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "apply_shortcode_dynamic_output_aliases",
+          "line": 2122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_single_placeholder_output_aliases",
+          "line": 2201,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "replace_shortcode_dynamic_fragments",
+          "line": 2260,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "replace_output_strings",
+          "line": 2340,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "decode_html_value",
+          "line": 2411,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_source_page_id",
+          "line": 2421,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "mark_page_translations_need_update",
+          "line": 2438,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_source_page",
+          "line": 2497,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_id_from_attrs",
+          "line": 2516,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "resolve_directory_id",
+          "line": 2541,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_raw_directorist_option",
+          "line": 2575,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 2592,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_account_template_strings",
+          "line": 2614,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_dashboard_template_strings",
+          "line": 2655,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_sorting_strings",
+          "line": 2745,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_view_strings",
+          "line": 2763,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_add_listing_template_strings",
+          "line": 2776,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_checkout_template_strings",
+          "line": 2814,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_payment_receipt_template_strings",
+          "line": 2844,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 2886,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_taxonomy",
+          "line": 2898,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "safe_slug",
+          "line": 2908,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 127,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'sync_source_pages' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 128,
+          "args": [
+            "'admin_init'",
+            "[ $this, 'sync_translated_page_ui_meta_after_ate_completion' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 129,
+          "args": [
+            "'save_post_page'",
+            "[ $this, 'sync_page_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 130,
+          "args": [
+            "'elementor/editor/after_save'",
+            "[ $this, 'sync_elementor_page_on_save' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 131,
+          "args": [
+            "'wpml_pro_translation_completed'",
+            "[ $this, 'sync_page_ui_meta_after_wpml_translation_completed' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 132,
+          "args": [
+            "'do_shortcode_tag'",
+            "[ $this, 'translate_shortcode_output' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 133,
+          "args": [
+            "'render_block'",
+            "[ $this, 'translate_block_output' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 134,
+          "args": [
+            "'elementor/frontend/widget/before_render'",
+            "[ $this, 'translate_elementor_widget_taxonomy_settings' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 135,
+          "args": [
+            "'elementor/widget/render_content'",
+            "[ $this, 'translate_elementor_widget_output' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 136,
+          "args": [
+            "'directorist_wpml_page_ui_translation_map'",
+            "[ $this, 'filter_current_page_translation_map' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 137,
+          "args": [
+            "'directorist_wpml_translate_page_ui_string'",
+            "[ $this, 'filter_translate_page_ui_string' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 210,
+          "args": [
+            "'directorist_wpml_should_sync_page_ui_strings'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 452,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 453,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 470,
+          "args": [
+            "'ATBDP_CATEGORY'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 471,
+          "args": [
+            "'ATBDP_CATEGORY'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 472,
+          "args": [
+            "'ATBDP_LOCATION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 473,
+          "args": [
+            "'ATBDP_LOCATION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 474,
+          "args": [
+            "'ATBDP_TAGS'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 624,
+          "args": [
+            "$post_id",
+            "'_elementor_data'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 629,
+          "args": [
+            "$post_id",
+            "self::META_HASH_KEY"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 631,
+          "args": [
+            "$post_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "delete_post_meta",
+          "line": 632,
+          "args": [
+            "$post_id",
+            "self::META_HASH_KEY"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 644,
+          "args": [
+            "$post_id",
+            "self::META_HASH_KEY"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 649,
+          "args": [
+            "$post_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 650,
+          "args": [
+            "$post_id",
+            "self::META_HASH_KEY"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 751,
+          "args": [
+            "$source_page_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 781,
+          "args": [
+            "$source_page_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 786,
+          "args": [
+            "$translated_page_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 821,
+          "args": [
+            "$translated_page_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 946,
+          "args": [
+            "$decoder"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 956,
+          "args": [
+            "'gzinflate'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1119,
+          "args": [
+            "'parse_blocks'"
+          ]
+        },
+        {
+          "name": "get_raw_directorist_option",
+          "line": 1353,
+          "args": [
+            "$option_key"
+          ]
+        },
+        {
+          "name": "get_raw_term_meta",
+          "line": 1632,
+          "args": [
+            "$directory_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "get_raw_directorist_option",
+          "line": 1835,
+          "args": [
+            "$option_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1938,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1939,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1955,
+          "args": [
+            "$source_page_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1956,
+          "args": [
+            "$current_page_id",
+            "self::META_KEY"
+          ]
+        },
+        {
+          "name": "get_raw_directorist_option",
+          "line": 2128,
+          "args": [
+            "'my_listing_tab_text'"
+          ]
+        },
+        {
+          "name": "get_raw_directorist_option",
+          "line": 2285,
+          "args": [
+            "'bank_transfer_instruction'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2299,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 2300,
+          "args": [
+            "'bank_transfer_instruction'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 2422,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 2460,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 2472,
+          "args": [
+            "'wpml_updated_translation_status'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 2480,
+          "args": [
+            "'wpml_translation_status_update'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2528,
+          "args": [
+            "'directorist_get_default_directory'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 2576,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 2887,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 2888,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 2899,
+          "args": [
+            "'ATBDP_DIRECTORY_TYPE'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Query_Filtering.php": {
+      "sha256": "4d68f5a123c439921d4ca416a65c5745bb775feb26c237bc41d836bcd05e2b07",
+      "bytes": 16961,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Query_Filtering",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_listing_queries",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_tax_query_terms",
+          "line": 79,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ensure_wpml_filtering",
+          "line": 180,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_directory_type_meta_query",
+          "line": 220,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directory_type_translation_ids",
+          "line": 262,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_query_results",
+          "line": 307,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 16,
+          "args": [
+            "'pre_get_posts'",
+            "[ $this, 'filter_listing_queries' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'directorist_all_listings_query_arguments'",
+            "[ $this, 'ensure_wpml_filtering' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'atbdp_listing_search_query_argument'",
+            "[ $this, 'ensure_wpml_filtering' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 22,
+          "args": [
+            "'directorist_dashboard_query_arguments'",
+            "[ $this, 'ensure_wpml_filtering' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 25,
+          "args": [
+            "'atbdp_author_listings_query_arguments'",
+            "[ $this, 'ensure_wpml_filtering' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'directorist_listings_query_results'",
+            "[ $this, 'filter_query_results' ]"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 40,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 85,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 119,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 135,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 331,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 332,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 364,
+          "args": [
+            "'wpml_element_language_details'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/REST_API.php": {
+      "sha256": "21a485bd78063a87cc71657ef36b0c523924252386a9c5701274632fcb9295fd",
+      "bytes": 1249,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "REST_API",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_content_language_before_rest_query",
+          "line": 13,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "set_content_language_in_rest_response_header",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 8,
+          "args": [
+            "'directorist_rest_before_query'",
+            "[ $this, 'set_content_language_before_rest_query' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 9,
+          "args": [
+            "'directorist_rest_response'",
+            "[ $this, 'set_content_language_in_rest_response_header' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 21,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 25,
+          "args": [
+            "'wpml_switch_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 31,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Search_Form_Field_Translation.php": {
+      "sha256": "28f27bcb49810fda4f884448c8753a7044d125073bc83dd0b9f38844992198f1",
+      "bytes": 7730,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Search_Form_Field_Translation",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 28,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_search_form_fields_meta",
+          "line": 52,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_search_form_fields",
+          "line": 75,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_single_field",
+          "line": 97,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_field_property",
+          "line": 131,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_option_collection",
+          "line": 151,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_min_max_placeholder",
+          "line": 200,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_page_ui_string",
+          "line": 221,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 29,
+          "args": [
+            "'get_term_metadata'",
+            "[ $this, 'translate_search_form_fields_meta' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 38,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 39,
+          "args": [
+            "'do_action'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 40,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 58,
+          "args": [
+            "$object_id",
+            "$meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 222,
+          "args": [
+            "'directorist_wpml_translate_page_ui_string'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Search_Form_Filter.php": {
+      "sha256": "d46ca3335220d826b63467ce85b5c5487aa56bdbc4d7601c7802fa59a0399006",
+      "bytes": 6436,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Search_Form_Filter",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_search_query",
+          "line": 26,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "filter_taxonomy_terms",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_tax_query_terms",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "ensure_search_language_filter",
+          "line": 192,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'directorist_all_listings_query_arguments'",
+            "[ $this, 'filter_search_query' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'atbdp_listing_search_query_argument'",
+            "[ $this, 'filter_search_query' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 57,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 97,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 126,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 142,
+          "args": [
+            "'wpml_object_id'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Selectfield_Translation.php": {
+      "sha256": "e1876e0bd92b9d9b4d980fe0565535dd4377c4bfcfc5302f28dd861486d72cfd",
+      "bytes": 5767,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Selectfield_Translation",
+          "line": 20,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_strings",
+          "line": 54,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate",
+          "line": 64,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_language_prefixed_placeholder",
+          "line": 82,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "inject_select2_language",
+          "line": 100,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 140,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_action",
+          "line": 45,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "[ $this, 'inject_select2_language' ]"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 65,
+          "args": [
+            "'directorist_wpml_translate_page_ui_string'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 66,
+          "args": [
+            "'wpml_current_language'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 141,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 142,
+          "args": [
+            "'do_action'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 143,
+          "args": [
+            "'apply_filters'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Hook/Sorting_Options_Translation.php": {
+      "sha256": "a6a0d711bb42be889412eabffaf36f038ee397ddb788c130485274bceea1909a",
+      "bytes": 5974,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Sorting_Options_Translation",
+          "line": 15,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_wpml_active",
+          "line": 37,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_sorting_strings",
+          "line": 53,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_view_strings",
+          "line": 74,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_orderby_options",
+          "line": 91,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_view_options_in_template",
+          "line": 133,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "translate_page_ui_string",
+          "line": 180,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "add_filter",
+          "line": 24,
+          "args": [
+            "'atbdp_get_listings_orderby_options'",
+            "[ $this, 'translate_orderby_options' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 28,
+          "args": [
+            "'directorist_template'",
+            "[ $this, 'translate_view_options_in_template' ]"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 39,
+          "args": [
+            "'ICL_SITEPRESS_VERSION'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 40,
+          "args": [
+            "'do_action'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 41,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 181,
+          "args": [
+            "'apply_filters'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 185,
+          "args": [
+            "'directorist_wpml_translate_page_ui_string'"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Setup/Init.php": {
+      "sha256": "90219fd8751ed741e7e6837c5d6b0453621b716f2f2b79a99eefc8e3e55cc4f6",
+      "bytes": 534,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Init",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 14,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_controllers",
+          "line": 27,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "register_services",
+          "line": 18,
+          "args": [
+            "$controllers"
+          ]
+        }
+      ]
+    },
+    "app/Controller/Setup/Update_Options.php": {
+      "sha256": "c9173fdf850baed8d0f80a5ef5835044ac4a3ceb15e6ec59d74d712f5bf93101",
+      "bytes": 647,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Update_Options",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 12,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enable_multidirectory",
+          "line": 21,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 27,
+          "args": [
+            "'enable_multi_directory'"
+          ]
+        },
+        {
+          "name": "update_directorist_option",
+          "line": 33,
+          "args": [
+            "'enable_multi_directory'"
+          ]
+        }
+      ]
+    },
+    "app/Helper/Response.php": {
+      "sha256": "93ac6b227f70d16526255e748aa3100c55e0e26c5d77d05f8b9311eb113eba09",
+      "bytes": 612,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Response",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "toArray",
+          "line": 32,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "app/Helper/Serve.php": {
+      "sha256": "ebace3a6d1d18af8bc6ba01d5ce98a516928628accc0a040ebdabfbf7988227f",
+      "bytes": 331,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Serve",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register_services",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 11,
+          "args": [
+            "$service"
+          ]
+        }
+      ]
+    },
+    "app/Helper/WPML_Helper.php": {
+      "sha256": "4da425326ffbfea08a526f7902660c2c27bf141fd0037f35f66b2db4d0470e78",
+      "bytes": 15007,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "WPML_Helper",
+          "line": 7,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "set_post_translation",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "assign_language",
+          "line": 83,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_language_info",
+          "line": 113,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_duplicate_term",
+          "line": 139,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_element_language_info",
+          "line": 190,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_element_translations",
+          "line": 202,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_element_trid",
+          "line": 230,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_raw_element_type",
+          "line": 248,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_wpml_element_type",
+          "line": 270,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_wpml_element_id",
+          "line": 289,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_wordpress_element_id",
+          "line": 321,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_taxonomy_element_type",
+          "line": 352,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "normalize_translations",
+          "line": 363,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_taxonomy_name",
+          "line": 403,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_term_taxonomy_id",
+          "line": 420,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_term_id_from_term_taxonomy_id",
+          "line": 445,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "apply_filters",
+          "line": 84,
+          "args": [
+            "'wpml_default_language'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 102,
+          "args": [
+            "'wpml_set_element_language_details'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 126,
+          "args": [
+            "'wpml_element_language_details'"
+          ]
+        },
+        {
+          "name": "get_term_meta",
+          "line": 166,
+          "args": [
+            "$original_term->term_id"
+          ]
+        },
+        {
+          "name": "update_term_meta",
+          "line": 171,
+          "args": [
+            "$new_term['term_id']",
+            "$original_term_meta_key"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 211,
+          "args": [
+            "'wpml_element_trid'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 217,
+          "args": [
+            "'wpml_get_element_translations'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 239,
+          "args": [
+            "'wpml_element_trid'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 277,
+          "args": [
+            "'wpml_element_type'"
+          ]
+        }
+      ]
+    },
+    "app/Model/index.php": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "app/Utility/Enqueuer.php": {
+      "sha256": "f2c9eb586f7c5756c826274d821b8665af383c260fe1083fcb4008b0cad5141b",
+      "bytes": 6911,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Enqueuer",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "register_css_scripts",
+          "line": 17,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_css_scripts_by_group",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_js_scripts",
+          "line": 68,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_js_scripts_by_group",
+          "line": 99,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "can_enqueue_asset",
+          "line": 119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "handle_script_before_enqueue_task",
+          "line": 161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_localize_data_to_script",
+          "line": 182,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "has_valid_localize_data",
+          "line": 209,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_assoc_array",
+          "line": 220,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_script_file_name",
+          "line": 233,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 168,
+          "args": [
+            "$class_name"
+          ]
+        }
+      ]
+    },
+    "assets/dist/css/admin-directory-builder.css": {
+      "sha256": "72410566575d2693aa812dc1bb73f36826e73169a68eedef69aae8a75cd0c5e0",
+      "bytes": 2347,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-directory-builder.min.css": {
+      "sha256": "3b817ebb23977a3db582d68f579810e75ae3f03ec10418a292a8dae5c2e0a460",
+      "bytes": 1300,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-directory-builder.min.rtl.css": {
+      "sha256": "5fea676080e294608b919b4df8da55d6aa61200510aa0d4080c81cb1e2dd0c55",
+      "bytes": 1298,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-directory-builder.rtl.css": {
+      "sha256": "0cb085fd004bec99c4fdf70f61caa4e727ac38b896f042e4161007dcb725c3b0",
+      "bytes": 2288,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-main.css": {
+      "sha256": "54a3a29fa9f6e313a9a6ef18a78155e66777ea1351a26ec32601344f3a3ed241",
+      "bytes": 846,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-main.min.css": {
+      "sha256": "16979de09bb422b61dc4ef8aa3993fcf42f73087ce37ed46d4c521eb05909b46",
+      "bytes": 674,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-main.min.rtl.css": {
+      "sha256": "0a0c3323bccbfade3dc0dde37ad6f8d0d54a3d9fd0c0ce5cf6f3eebe7539faa2",
+      "bytes": 673,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/admin-main.rtl.css": {
+      "sha256": "cd96ed86b08e1dca4a9d23ac4194edeb2280e2e426c55e1f8efd15181d67fb18",
+      "bytes": 802,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/public-main.css": {
+      "sha256": "07169e609e6087b15d90f14a4ae2418771a532d1eaac3a99aad13e25e36283c0",
+      "bytes": 847,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/public-main.min.css": {
+      "sha256": "16979de09bb422b61dc4ef8aa3993fcf42f73087ce37ed46d4c521eb05909b46",
+      "bytes": 674,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/public-main.min.rtl.css": {
+      "sha256": "0a0c3323bccbfade3dc0dde37ad6f8d0d54a3d9fd0c0ce5cf6f3eebe7539faa2",
+      "bytes": 673,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/css/public-main.rtl.css": {
+      "sha256": "cd96ed86b08e1dca4a9d23ac4194edeb2280e2e426c55e1f8efd15181d67fb18",
+      "bytes": 802,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/admin-directory-builder.js": {
+      "sha256": "77b34514cbc87baadda780eff8b6638002092573600860495aaa95e1f2ef59df",
+      "bytes": 18975,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/admin-directory-builder.min.js": {
+      "sha256": "c8a7dba2b35a4785fe6d7cbe0e395f5b541e5124bd2cb57855588843591bf9c6",
+      "bytes": 6493,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/admin-main.js": {
+      "sha256": "e2945c606ca87c7220cdeb7e8ba1c806586787bd2aee1c06238a0d665cfd763a",
+      "bytes": 4761,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/admin-main.min.js": {
+      "sha256": "6cd167f84e2245098529b30e8fc8d26965d5d36a0be2e4afd5fd64e73c93c38a",
+      "bytes": 975,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/admin-vue-app.js": {
+      "sha256": "b227d0bb9e9af809cd4e784c8110d13b5375933fdd554b58a85d99ff0c22ece5",
+      "bytes": 3962,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/admin-vue-app.min.js": {
+      "sha256": "82e3ada18510c29b5ed224403db945bf7167b5c96f86fe64e4bf086e3d0b9f37",
+      "bytes": 954,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/public-main.js": {
+      "sha256": "c8daf0416034bf9b6449834a841e6881839243aba2ef0ff4c3b292c3144f8206",
+      "bytes": 4790,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/public-main.min.js": {
+      "sha256": "c09e153d5cc7f52a3bf39573d81f675e1f3b1174030b02d96f170f4ed3981b18",
+      "bytes": 978,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/public-vue-app.js": {
+      "sha256": "399c4b9201977303177345931414593a2ab5cfa5a371c01a37c3e26e309c1ef3",
+      "bytes": 3968,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/dist/js/public-vue-app.min.js": {
+      "sha256": "5f4b9f3898b72f0fc063acd4aab74ba20806e9d371852cbdf30ad9416d4ad64f",
+      "bytes": 954,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/src/js/admin/admin-main.js": {
+      "sha256": "5b38a0dfd87827dce0cc65bef756fe0d8f0acaea4390951e5388401468b44042",
+      "bytes": 44,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/src/js/admin/directory-builder.js": {
+      "sha256": "bccc3ebf31e85a6e7b9f767f633568cbb453c74351d9458c93293944a678b508",
+      "bytes": 7944,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "tasks",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "self",
+          "kind": "JS",
+          "line": 14
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 16
+        },
+        {
+          "name": "queryStrings",
+          "kind": "JS",
+          "line": 21
+        },
+        {
+          "name": "self",
+          "kind": "JS",
+          "line": 59
+        },
+        {
+          "name": "currentLanguage",
+          "kind": "JS",
+          "line": 60
+        },
+        {
+          "name": "activeLanguages",
+          "kind": "JS",
+          "line": 61
+        },
+        {
+          "name": "term_translations",
+          "kind": "JS",
+          "line": 62
+        },
+        {
+          "name": "actions",
+          "kind": "JS",
+          "line": 64
+        },
+        {
+          "name": "parent",
+          "kind": "JS",
+          "line": 68
+        },
+        {
+          "name": "translation_button_wrap",
+          "kind": "JS",
+          "line": 72
+        },
+        {
+          "name": "translationListItems",
+          "kind": "JS",
+          "line": 75
+        },
+        {
+          "name": "translation",
+          "kind": "JS",
+          "line": 76
+        },
+        {
+          "name": "label",
+          "kind": "JS",
+          "line": 82
+        },
+        {
+          "name": "hasTerm",
+          "kind": "JS",
+          "line": 83
+        },
+        {
+          "name": "termTranslationKeys",
+          "kind": "JS",
+          "line": 84
+        },
+        {
+          "name": "hasTranslation",
+          "kind": "JS",
+          "line": 85
+        },
+        {
+          "name": "iconName",
+          "kind": "JS",
+          "line": 86
+        },
+        {
+          "name": "flag",
+          "kind": "JS",
+          "line": 87
+        },
+        {
+          "name": "translationTermID",
+          "kind": "JS",
+          "line": 88
+        },
+        {
+          "name": "link",
+          "kind": "JS",
+          "line": 89
+        },
+        {
+          "name": "linkClass",
+          "kind": "JS",
+          "line": 90
+        },
+        {
+          "name": "translation_button",
+          "kind": "JS",
+          "line": 109
+        },
+        {
+          "name": "links",
+          "kind": "JS",
+          "line": 134
+        },
+        {
+          "name": "dropdown",
+          "kind": "JS",
+          "line": 143
+        },
+        {
+          "name": "isLoading",
+          "kind": "JS",
+          "line": 146
+        },
+        {
+          "name": "originalContent",
+          "kind": "JS",
+          "line": 152
+        },
+        {
+          "name": "directory_type_id",
+          "kind": "JS",
+          "line": 156
+        },
+        {
+          "name": "language_code",
+          "kind": "JS",
+          "line": 157
+        },
+        {
+          "name": "formData",
+          "kind": "JS",
+          "line": 160
+        },
+        {
+          "name": "queryStrings",
+          "kind": "JS",
+          "line": 167
+        },
+        {
+          "name": "handleAddTranslationAction",
+          "kind": "JS",
+          "line": 204
+        },
+        {
+          "name": "context",
+          "kind": "JS",
+          "line": 206
+        }
+      ],
+      "calls": []
+    },
+    "assets/src/js/public/public-main.js": {
+      "sha256": "757de0a0ad6efa03a7d74420485010d8c684cad843efe5e214313e0922a8d255",
+      "bytes": 46,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/src/scss/admin/admin-main.scss": {
+      "sha256": "a14b5b56fe7a7edeca0ccb2bbb3d46df040b8acb1ab6cda01faa4cc899e344d2",
+      "bytes": 39,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/src/scss/admin/directory-builder.scss": {
+      "sha256": "2575c33d9508cecf7d4093b9ed23a231f4731294dea3b06a1383fd838ea68234",
+      "bytes": 764,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/src/scss/global/global-main.scss": {
+      "sha256": "4f8b873bad6796cde49cba774678b4c4590aa377ab3c9a2b9916ea2007156482",
+      "bytes": 691,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/src/scss/public/public-main.scss": {
+      "sha256": "a14b5b56fe7a7edeca0ccb2bbb3d46df040b8acb1ab6cda01faa4cc899e344d2",
+      "bytes": 39,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/Gruntfile.js": {
+      "sha256": "604f46b1a64300af013fc882c518a5d23608a91b225f4613e5df45b7894b0c2a",
+      "bytes": 4367,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/utils.js": {
+      "sha256": "dfec3cfb1e83a01c378627088393ba632c98df66687a5127eee7141a8438f222",
+      "bytes": 2372,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.git.js": {
+      "sha256": "697c054ff2b971fba8e9df2fe200e07795655061b2f1c1e82d76d5bc5e2ef377",
+      "bytes": 814,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "dev-tools/webpack.compress.js": {
+      "sha256": "35ca0f2b4dadef328cc04292397124fb5b7ddefa943ad690a9af1232edc092c6",
+      "bytes": 1294,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "helper/const.php": {
+      "sha256": "d0a32f74f8a3db95fc622be7eaebdd0f430b06271223fe9827c79e2c7974b51b",
+      "bytes": 2313,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_MIN_DIRECTORIST_VERSION_REQUIRMENT'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_SCRIPT_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_FILE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_LANGUAGE_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 27,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 31,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_TEMPLATE_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 35,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_VIEW_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 39,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 43,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_ASSET_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 47,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_JS_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 51,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_CSS_PATH'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 55,
+          "args": [
+            "'DIRECTORIST_WPML_INTEGRATION_LOAD_MIN_FILES'"
+          ]
+        }
+      ]
+    },
+    "helper/functions.php": {
+      "sha256": "c60260768d56b527410a98e89a37471999943ec175183d60cdef5fd69df3c4fd",
+      "bytes": 655,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "directorist_wpml_integration_get_template",
+          "line": 3,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_wpml_integration_get_view",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": []
+    },
+    "tests/Admin_Text_Translation_Test.php": {
+      "sha256": "cc2feb88db56d55f50f6387e2d8063422127d37f2e5ff3df83000b849116c567",
+      "bytes": 13338,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Directory_Builder_String_Package_Test.php": {
+      "sha256": "fbaafcea2a52271cc34ed102e9d2cdfd5cbebefe870f73a0e15de1e23c84154a",
+      "bytes": 13089,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Directory_Builder_UI_String_Package_Test.php": {
+      "sha256": "585353d12744ba93b420e1e7d02b5eadb67b3c05f0865e10118cef77a29881cd",
+      "bytes": 6056,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Listings_Actions_Test.php": {
+      "sha256": "0d3296f0f91e024661c61353ccaba10071cc28f220c100baa04afde2569be56a",
+      "bytes": 8827,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Page_Shortcode_UI_Translation_Test.php": {
+      "sha256": "be40df34a5f5656e1e392fa4da7ec451cfa4d4e26cab0115d829c5e028875204",
+      "bytes": 32800,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Search_Form_Field_Translation_Test.php": {
+      "sha256": "cb6cd4a9277e1ad7165efb63cc954b865919ea89e6ded925415b7128acd99705",
+      "bytes": 3494,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Selectfield_Translation_Test.php": {
+      "sha256": "be9aaff2d7dca230400eec04d2c056213654133fc84a84d786da3443d9550685",
+      "bytes": 1459,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "tests/Sorting_Options_Translation_Test.php": {
+      "sha256": "0a825dd5b7bbe7eed1575174bff12964331e668604ed0e59955ee8074696a497",
+      "bytes": 2520,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "translate-docs/directorist-ate-release-coverage.md": {
+      "sha256": "18204955a079d9f80daf31bdb396df2cb4613eea3a08e9e3c02ef2758d03209f",
+      "bytes": 4699,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "translate-docs/get-terms-get-term-directory-type-traversing.md": {
+      "sha256": "619f93d978d7b13f2fb742eb2fa6f42b5a14ce08bcf40181090b875ef19b21b1",
+      "bytes": 4873,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "translate-docs/listing-translate.md": {
+      "sha256": "cd5453a37826070ce80f7fe850afe44ef5d6eec717c09b0228c72eef7cd44f83",
+      "bytes": 12979,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "translate-docs/native-directorist-ate-qa-checklist.md": {
+      "sha256": "34b4df2535849c3600649556680f90afb688436d674f0d9290c02e57cd2072f5",
+      "bytes": 11310,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "translate-docs/page-shortcode-ui-ate-translation.md": {
+      "sha256": "f0e19aef30c491b8c10d7981b7b3f954a64850e3677c86e825b62995006400fd",
+      "bytes": 24671,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

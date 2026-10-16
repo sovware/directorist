@@ -900,9 +900,9 @@ class Insights
                 </div>
 
                 <div class="wd-dr-modal-footer">
-                    <a href="#" class="dont-bother-me wd-dr-button-secondary"><?php $this->client->_etrans( 'Skip & Deactivate' ); ?></a>
-                    <button class="wd-dr-button-secondary wd-dr-cancel-modal"><?php $this->client->_etrans( 'Cancel' ); ?></button>
-                    <button class="wd-dr-submit-modal"><?php $this->client->_etrans( 'Submit & Deactivate' ); ?></button>
+                    <button type="button" class="dont-bother-me wd-dr-button-secondary wd-dr-submit-modal"><?php $this->client->_etrans( 'Skip & Deactivate' ); ?></button>
+                    <button type="button" class="wd-dr-button-secondary wd-dr-cancel-modal"><?php $this->client->_etrans( 'Cancel' ); ?></button>
+                    <button type="button" class="wd-dr-submit-modal"><?php $this->client->_etrans( 'Submit & Deactivate' ); ?></button>
                 </div>
             </div>
         </div>
@@ -919,7 +919,7 @@ class Insights
 
                         modal.addClass('modal-active');
                         deactivateLink = $(this).attr('href');
-                        modal.find('a.dont-bother-me').attr('href', deactivateLink).css('float', 'left');
+                        modal.find('.dont-bother-me').css('float', 'left');
                     });
 
                     // Close modal; Cancel

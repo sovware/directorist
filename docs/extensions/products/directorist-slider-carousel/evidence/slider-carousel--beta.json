@@ -1,0 +1,705 @@
+{
+  "snapshot": {
+    "key": "slider-carousel--beta",
+    "repo": "directorist-slider-carousel",
+    "branch": "beta",
+    "commit": "fa74bc9ece627c2c36bf5c2464dc2f3710fec438",
+    "date": "2025-12-09T06:34:18Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-slider-carousel",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "3ea406a3f74fb0ccea45470f9c3782b1ccfd6043ce1f21feecfea03881bed2a1",
+      "bytes": 98,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "bd-directorist-slider.php": {
+      "sha256": "df6410c686946d72abc6946aff050dad338caf124f7912cf959fa721822c171b",
+      "bytes": 64301,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BD_Slider_Carousel",
+          "line": 18,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 44,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 63,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 81,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 85,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 363,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 386,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_slider_carousel",
+          "line": 395,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 1093,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 1106,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 1115,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_file_content",
+          "line": 1120,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_version_from_content",
+          "line": 1133,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 1150,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 1165,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 1171,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "BD_Slider_Carousel",
+          "line": 1198,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 16,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 17,
+          "args": [
+            "'BD_Slider_Carousel'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'load_needed_scripts')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 54,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 55,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 57,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 64,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 69,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 367,
+          "args": [
+            "'atbdp_booking_settings_controls'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 398,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 399,
+          "args": [
+            "'atbdp_legacy_template'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 417,
+          "args": [
+            "'listing_display_by'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 418,
+          "args": [
+            "'listing_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 419,
+          "args": [
+            "'slider_cropping'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 420,
+          "args": [
+            "'slider_image_width'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 421,
+          "args": [
+            "'slider_image_height'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 422,
+          "args": [
+            "'display_slider_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 423,
+          "args": [
+            "'display_slider_excerpt'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 424,
+          "args": [
+            "'excerpt_words_limit'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 425,
+          "args": [
+            "'display_thumbnail'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 426,
+          "args": [
+            "'slider_thumbnail_columns'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 427,
+          "args": [
+            "'slider_navigation'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 428,
+          "args": [
+            "'thumbnail_navigation'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 429,
+          "args": [
+            "'carousel_cropping'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 430,
+          "args": [
+            "'carousel_image_width'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 431,
+          "args": [
+            "'carousel_image_height'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 432,
+          "args": [
+            "'display_carousel_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 433,
+          "args": [
+            "'ls_display_publish_date'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 434,
+          "args": [
+            "'ls_display_category'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 435,
+          "args": [
+            "'carousel_columns_desktop'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 436,
+          "args": [
+            "'carousel_columns_tab'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 437,
+          "args": [
+            "'carousel_columns_mobile'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 438,
+          "args": [
+            "'carousel_navigation'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 439,
+          "args": [
+            "'nav_position'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 440,
+          "args": [
+            "'enable_featured_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 441,
+          "args": [
+            "'number_of_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 442,
+          "args": [
+            "'slider_autoplay'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 443,
+          "args": [
+            "'slider_autoplay_speed'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 444,
+          "args": [
+            "'carousel_autoplay'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 445,
+          "args": [
+            "'carousel_autoplay_speed'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 804,
+          "args": [
+            "get_the_ID()",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 805,
+          "args": [
+            "get_the_ID()",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 806,
+          "args": [
+            "get_the_ID()",
+            "'_excerpt'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 807,
+          "args": [
+            "'preview_image'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 817,
+          "args": [
+            "get_the_ID()",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 818,
+          "args": [
+            "get_the_ID()",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 819,
+          "args": [
+            "get_the_ID()",
+            "'_excerpt'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 875,
+          "args": [
+            "get_the_ID()",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 876,
+          "args": [
+            "get_the_ID()",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 961,
+          "args": [
+            "get_the_ID()",
+            "'_listing_img'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 962,
+          "args": [
+            "get_the_ID()",
+            "'_listing_prv_img'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1152,
+          "args": [
+            "'BDSC_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1164,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1166,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1170,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 1176,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "composer.json": {
+      "sha256": "1f5b7766a0073407c59650bbd26f6d8a9bbbecaa2c7317857ade22e1fe08630f",
+      "bytes": 643,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "474eabf9eb0af17e4489700eda44d3941d65bd286a8ccf321fc1585f032580f7",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config.php": {
+      "sha256": "aeef35b0665c38ffe34b5a1705b184db861f1234856488461602395a4b638a50",
+      "bytes": 1159,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'BDSC_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'BDSC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'BDSC_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'BDSC_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'BDSC_TEXTDOMAIN'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'BDSC_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'BDSC_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'BDSC_NAME'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_SLIDER_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "00aba3928cd622ad67c0f81ecd5aa8699e07f8f4908c045fe34f6a2dc0067b37",
+      "bytes": 6,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "readme.txt": {
+      "sha256": "abe611216c87357915f8a2ce2db3449b0399be7dc138267ba9252e5796c66a1b",
+      "bytes": 3652,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/main.js": {
+      "sha256": "58c50b2891bb7e9ec3226e01536a5fc8c6a4cedb91677d3604c8e52049f4cfdb",
+      "bytes": 2422,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/slick.min.css": {
+      "sha256": "fb3ed351cd5c0f1f30f88778ee1f9b056598e6d25ac4fdcab1eebcd8be521cd9",
+      "bytes": 1327,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/slick.min.js": {
+      "sha256": "0c7178cc6ca34fb18e30f070a5e7a1c287b2d7ccfcba2cfdf06e0f46eda55740",
+      "bytes": 42863,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/style-rtl.css": {
+      "sha256": "9baf438dc7d50c60bba5260f2440adae9798e3136a9dab9a80863f667e8fc415",
+      "bytes": 1061,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/admin/style.css": {
+      "sha256": "40e0f89424ca0390191f465ca71fe340f6f889b8bea36b3ee0d14d4e1fce0e3e",
+      "bytes": 1057,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style-rtl.css": {
+      "sha256": "cf46a4a96f8730665930c78b3df1731ebd3cd487357d0d017ec7acdc7cc99f95",
+      "bytes": 8884,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/style.css": {
+      "sha256": "fc15cbc9bcb75ff5ba6a90573e6047f7db877cee494f8837cd81d255fa75db1c",
+      "bytes": 8945,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-slider-carousel.pot": {
+      "sha256": "42f06df74ef5da52174dba19b60bad094c55d9cc1611e4ea45e26f55ac091185",
+      "bytes": 6402,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

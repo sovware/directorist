@@ -77,9 +77,12 @@ export default {
     },
 
     browseUrl() {
+      const panel = document.getElementById("atbdp-settings-manager");
+
       return (
         this.field.browseUrl ||
-        "/wp-admin/edit.php?post_type=at_biz_dir&page=atbdp-extension"
+        panel?.dataset.extensionBrowseUrl ||
+        "#"
       );
     },
   },

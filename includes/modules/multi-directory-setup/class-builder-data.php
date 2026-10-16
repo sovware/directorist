@@ -2586,7 +2586,7 @@ class Builder_Data {
                         'title'       => __( 'Listing Header', 'directorist' ),
                         'video' => [
                             'type' => 'video',
-                            'url' => 'https://www.youtube.com/embed/NtLXjEAPQzc',
+                            'url' => 'https://www.youtube.com/embed/Viw0q7IBbEM',
                             'button_text' => __( 'Watch Tutorial', 'directorist' ),
                             'title' => __( 'Listing Header Tutorial', 'directorist' ),
                             'description' => __( 'Watch the video to learn how to create listing header.', 'directorist' ),
@@ -2787,23 +2787,26 @@ class Builder_Data {
                                 'icon' => 'la la-circle-notch',
                                 'options' => [
                                     'title' => __( "Badge Settings", "directorist" ),
-                                    'fields' => array_merge( [
-                                        'new_badge' => [
-                                            'type' => "toggle",
-                                            'label' => $badge_toggle_label( 'new_badge', __( "Display New Badge", "directorist" ) ),
-                                            'value' => true,
+                                    'fields' => array_merge(
+                                        [
+                                            'new_badge' => [
+                                                'type' => "toggle",
+                                                'label' => $badge_toggle_label( 'new_badge', __( "Display New Badge", "directorist" ) ),
+                                                'value' => true,
+                                            ],
+                                            'popular_badge' => [
+                                                'type' => "toggle",
+                                                'label' => $badge_toggle_label( 'popular_badge', __( "Display Popular Badge", "directorist" ) ),
+                                                'value' => true,
+                                            ],
+                                            'featured_badge' => [
+                                                'type' => "toggle",
+                                                'label' => $badge_toggle_label( 'featured_badge', __( "Display Featured Badge", "directorist" ) ),
+                                                'value' => true,
+                                            ],
                                         ],
-                                        'popular_badge' => [
-                                            'type' => "toggle",
-                                            'label' => $badge_toggle_label( 'popular_badge', __( "Display Popular Badge", "directorist" ) ),
-                                            'value' => true,
-                                        ],
-                                        'featured_badge' => [
-                                            'type' => "toggle",
-                                            'label' => $badge_toggle_label( 'featured_badge', __( "Display Featured Badge", "directorist" ) ),
-                                            'value' => true,
-                                        ],
-                                    ], $custom_badge_toggle_fields ),
+                                        $custom_badge_toggle_fields
+                                    ),
                                 ],
                             ],
                             'ratings_count' => [
@@ -3050,7 +3053,7 @@ class Builder_Data {
                     'container' => 'full-width',
                     'video' => [
                         'type' => 'video',
-                        'url' => 'https://www.youtube.com/embed/0rjSHUPZgoE',
+                        'url' => 'https://www.youtube.com/embed/v-WyJteGXj0',
                         'button_text' => __( 'Watch Tutorial', 'directorist' ),
                         'title' => __( 'Add Listing Form Tutorial', 'directorist' ),
                         'description' => __( 'Watch the video to learn how to create add listing form.', 'directorist' ),
@@ -3100,7 +3103,7 @@ class Builder_Data {
                             'container' => 'full-width',
                             'video' => [
                                 'type' => 'video',
-                                'url' => 'https://www.youtube.com/embed/82CFngofqbM',
+                                'url' => 'https://www.youtube.com/embed/cHkTnUIgba4',
                                 'button_text' => __( 'Watch Tutorial', 'directorist' ),
                                 'title' => __( 'Contents Tutorial', 'directorist' ),
                                 'description' => __( 'Watch the video to learn how to create a custom contents.', 'directorist' ),
@@ -3213,7 +3216,7 @@ class Builder_Data {
                     'container' => 'full-width',
                     'video' => [
                         'type' => 'video',
-                        'url' => 'https://www.youtube.com/embed/bWRDFgFIvcI',
+                        'url' => 'https://www.youtube.com/embed/7PV7WX0ldHI',
                         'button_text' => __( 'Watch Tutorial', 'directorist' ),
                         'title' => __( 'Search Form Tutorial', 'directorist' ),
                         'description' => __( 'Watch the video to learn how to create search form.', 'directorist' ),

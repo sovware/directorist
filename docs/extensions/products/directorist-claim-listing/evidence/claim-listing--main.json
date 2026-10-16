@@ -1,0 +1,2797 @@
+{
+  "snapshot": {
+    "key": "claim-listing--main",
+    "repo": "directorist-claim-listing",
+    "branch": "main",
+    "commit": "f5e2920c3127bdda2954990f37eb6f1f1c849e16",
+    "date": "2026-06-03T03:43:05Z",
+    "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-claim-listing",
+    "kind": "remote"
+  },
+  "files": {
+    ".gitignore": {
+      "sha256": "b273da6b6e152dce22a65589808e222fda1189179ef0d34c267627b0d3ac2c68",
+      "bytes": 88,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.json": {
+      "sha256": "add8720f21b112311cf681603f3b0272cdc27feafaf2a59cf9d576a229968bca",
+      "bytes": 641,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "3fa4e5afefefccb6b2b920a6b86f8089f62c1dfdaa35b52e7dca8708ffb3a2a0",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config-helper.php": {
+      "sha256": "459be2683211d9befe901d120d859f696ab250676b05e6d0ef486868b7ab6984",
+      "bytes": 709,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "dcl_get_version_from_content",
+          "line": 4,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_get_version_from_file_content",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 3,
+          "args": [
+            "'dcl_get_version_from_content'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 15,
+          "args": [
+            "'dcl_get_version_from_file_content'"
+          ]
+        }
+      ]
+    },
+    "config.php": {
+      "sha256": "4fec6b964be327a3d70a48d5a3a2d867635ad50b609b62a1673b17571cbcee68",
+      "bytes": 1558,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'DCL_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'DCL_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'DCL_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'DCL_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'DCL_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'DCL_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'DCL_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'DCL_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'DCL_NAME'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'ATBDP_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 22,
+          "args": [
+            "'ATBDP_ORDER_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 23,
+          "args": [
+            "'ATBDP_PRICING_PLANS_POST_TYPE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 26,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 30,
+          "args": [
+            "'ATBDP_CLAIM_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "directorist-claim-listing.php": {
+      "sha256": "f7757a16a2971665efb8cd1b7a93885021a4fa59c19dd164a5a5497aaee84833",
+      "bytes": 77010,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DCL_Base",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 117,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_email_templates_settings_sections",
+          "line": 135,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 161,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 298,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 303,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "create_shortcodes",
+          "line": 320,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "claim_listing_shortcode",
+          "line": 333,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 354,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 367,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_listing_claim_now_button",
+          "line": 376,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_plan_allowances",
+          "line": 617,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_submit_claim",
+          "line": 744,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_do_claim",
+          "line": 833,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_widget",
+          "line": 842,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "verified_bedge_in_single_listing",
+          "line": 850,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_save_metabox",
+          "line": 868,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_necessary_scripts_front",
+          "line": 899,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_payment_receipt_data",
+          "line": 921,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_order_details",
+          "line": 962,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_order_items",
+          "line": 1006,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_checkout_form_final_data",
+          "line": 1046,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_front_end_enqueue_scripts",
+          "line": 1096,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_remove_row_actions_for_quick_view",
+          "line": 1119,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_custom_field_column_content",
+          "line": 1142,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atpp_add_new_plan_columns",
+          "line": 1187,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_add_meta_boxes",
+          "line": 1212,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_meta_box_plan_details",
+          "line": 1222,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_save_meta_data",
+          "line": 1239,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_claim_listing_post_type",
+          "line": 1274,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_claim_confirmation_notification",
+          "line": 1323,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_default_events_to_notify_user",
+          "line": 1340,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_default_events_to_notify_admin",
+          "line": 1351,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_claim_notification",
+          "line": 1362,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "claim_license_settings_controls",
+          "line": 1377,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 1422,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 1430,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 1442,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 1466,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 1476,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 1482,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "DCL_Base",
+          "line": 1509,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 16,
+          "args": [
+            "'DCL_Base'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 51,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'load_textdomain')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 52,
+          "args": [
+            "'plugins_loaded'",
+            "array(self::$instance, 'create_shortcodes')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 59,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "array(self::$instance, 'claim_license_settings_controls')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 60,
+          "args": [
+            "'atbdp_default_notifiable_events'",
+            "array(self::$instance, 'dcl_claim_notification')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 61,
+          "args": [
+            "'atbdp_default_events_to_notify_admin'",
+            "array(self::$instance, 'dcl_default_events_to_notify_admin')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 62,
+          "args": [
+            "'atbdp_default_events_to_notify_user'",
+            "array(self::$instance, 'dcl_default_events_to_notify_user')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 63,
+          "args": [
+            "'atbdp_only_user_notifiable_events'",
+            "array(self::$instance, 'dcl_claim_confirmation_notification')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 65,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array(self::$instance, 'register_necessary_scripts_front')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 66,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array(self::$instance, 'register_necessary_scripts_front')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'init'",
+            "array(self::$instance, 'register_claim_listing_post_type')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 68,
+          "args": [
+            "'add_meta_boxes'",
+            "array(self::$instance, 'dcl_add_meta_boxes')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 69,
+          "args": [
+            "'save_post'",
+            "array(self::$instance, 'dcl_save_meta_data')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 70,
+          "args": [
+            "'manage_dcl_claim_listing_posts_columns'",
+            "array(self::$instance, 'atpp_add_new_plan_columns')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 71,
+          "args": [
+            "'manage_dcl_claim_listing_posts_custom_column'",
+            "array(self::$instance, 'atpp_custom_field_column_content')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 72,
+          "args": [
+            "'post_row_actions'",
+            "array(self::$instance, 'atpp_remove_row_actions_for_quick_view')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 73,
+          "args": [
+            "'atbdp_after_video_metabox_backend_add_listing'",
+            "array(self::$instance, 'dcl_admin_metabox')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 74,
+          "args": [
+            "'save_post'",
+            "array(self::$instance, 'dcl_save_metabox')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 75,
+          "args": [
+            "'atbdp_single_listing_after_title'",
+            "array(self::$instance, 'verified_bedge_in_single_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 76,
+          "args": [
+            "'directorist_single_listing_after_title'",
+            "array(self::$instance, 'verified_bedge_in_single_listing')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "'widgets_init'",
+            "array(self::$instance, 'register_widget')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 81,
+          "args": [
+            "'atbdp_claim_listing'",
+            "array(self::$instance, 'dcl_listing_claim_now_button')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 86,
+          "args": [
+            "'wp_ajax_dcl_submit_claim'",
+            "array(self::$instance, 'dcl_submit_claim')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 87,
+          "args": [
+            "'wp_ajax_nopriv_dcl_submit_claim'",
+            "array(self::$instance, 'dcl_submit_claim')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 88,
+          "args": [
+            "'wp_ajax_dcl_plan_allowances'",
+            "array(self::$instance, 'dcl_plan_allowances')"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 91,
+          "args": [
+            "'ATBDP_Pricing_Plans' || 'DWPP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 93,
+          "args": [
+            "'atbdp_checkout_form_final_data'",
+            "array(self::$instance, 'dcl_checkout_form_final_data')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 94,
+          "args": [
+            "'atbdp_payment_receipt_data'",
+            "array(self::$instance, 'dcl_payment_receipt_data')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 95,
+          "args": [
+            "'atbdp_order_details'",
+            "array(self::$instance, 'dcl_order_details')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 96,
+          "args": [
+            "'atbdp_order_items'",
+            "array(self::$instance, 'dcl_order_items')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 100,
+          "args": [
+            "'wp_ajax_atbdp_claim_license_activation'",
+            "array(self::$instance, 'claim_license_activation')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 102,
+          "args": [
+            "'wp_ajax_atbdp_claim_license_deactivation'",
+            "array(self::$instance, 'atbdp_claim_license_deactivation')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 104,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array( self::$instance, 'atbdp_listing_type_settings_field_list' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 105,
+          "args": [
+            "'atbdp_extension_fields'",
+            "array( self::$instance, 'atbdp_extension_fields' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 106,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "array( self::$instance, 'atbdp_extension_settings_submenus' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 107,
+          "args": [
+            "'atbdp_email_templates_settings_sections'",
+            "array( self::$instance, 'atbdp_email_templates_settings_sections' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 109,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 123,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 307,
+          "args": [
+            "'atbdp_claim_settings_controls'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 339,
+          "args": [
+            "'atbdp_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 379,
+          "args": [
+            "'non_widger_claim_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 381,
+          "args": [
+            "'enable_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 382,
+          "args": [
+            "'claim_widget_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 383,
+          "args": [
+            "'claim_widget_description'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 384,
+          "args": [
+            "'claim_now'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 385,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 386,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 470,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 471,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 472,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 476,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 518,
+          "args": [
+            "$value->ID",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 579,
+          "args": [
+            "$value->ID",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 622,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 623,
+          "args": [
+            "$order_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 666,
+          "args": [
+            "$order",
+            "'_fm_plan_ordered'. true"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 775,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 802,
+          "args": [
+            "$post_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 806,
+          "args": [
+            "'atbdp_plan_assigned'"
+          ]
+        },
+        {
+          "name": "register_widget",
+          "line": 844,
+          "args": [
+            "'DCL_Claim_Now'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 852,
+          "args": [
+            "'enable_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 853,
+          "args": [
+            "'verified_badge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 854,
+          "args": [
+            "'verified_text'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 855,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 876,
+          "args": [
+            "'DOING_AUTOSAVE'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 891,
+          "args": [
+            "$post_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 892,
+          "args": [
+            "$post_id",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 893,
+          "args": [
+            "$post_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 923,
+          "args": [
+            "$listing_id[0]",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 924,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 926,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 933,
+          "args": [
+            "$listing_id[0]",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 936,
+          "args": [
+            "$listing_id[0]",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 937,
+          "args": [
+            "'claim_listing_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 967,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 968,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 970,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 979,
+          "args": [
+            "$listing_id",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 980,
+          "args": [
+            "'claim_listing_price'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1008,
+          "args": [
+            "'BD_Booking'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1015,
+          "args": [
+            "$listing_id[0]",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1016,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1018,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1025,
+          "args": [
+            "$listing_id[0]",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 1026,
+          "args": [
+            "get_current_user_id()",
+            "'_plan_to_active'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1031,
+          "args": [
+            "$_plan_id",
+            "'fm_description'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1032,
+          "args": [
+            "$listing_id[0]",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1033,
+          "args": [
+            "'claim_listing_price'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1048,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1056,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1057,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1059,
+          "args": [
+            "$listing_id",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1068,
+          "args": [
+            "$listing_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1069,
+          "args": [
+            "$listing_id",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1070,
+          "args": [
+            "'claim_listing_price'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1147,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1153,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1159,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1165,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1171,
+          "args": [
+            "$post_id"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1246,
+          "args": [
+            "'DOING_AUTOSAVE'"
+          ]
+        },
+        {
+          "name": "register_post_type",
+          "line": 1316,
+          "args": [
+            "'dcl_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1379,
+          "args": [
+            "'directorist_claim_license_status'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1395,
+          "args": [
+            "'atbdp_claim_license_controls'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1399,
+          "args": [
+            "'atbdp_claim_license_settings_field'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 1410,
+          "args": [
+            "'atbdp_licence_menu_for_claim_listing'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 1451,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 1468,
+          "args": [
+            "'DCL_FILE'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1475,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1477,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1481,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 1487,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        }
+      ]
+    },
+    "index.php": {
+      "sha256": "5a6ba8768251ac631b711ef52d527fb3959c957c3618c15cc5205f9f4d248fc1",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "uninstall.php": {
+      "sha256": "eca0268ae2c9d2bb660367d8c112a6309970e56a82bca65d7e90fe5c670723ef",
+      "bytes": 572,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'WP_UNINSTALL_PLUGIN'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 9,
+          "args": [
+            "'enable_uninstall'"
+          ]
+        },
+        {
+          "name": "delete_option",
+          "line": 17,
+          "args": [
+            "'widget_dcl_widget'"
+          ]
+        }
+      ]
+    },
+    "assets/css/atpp-bootstrap-grid.css": {
+      "sha256": "0fd02f47413390d668599552bc8ddc87eb9ffd9e62ceb22971bb32915a61c0f5",
+      "bytes": 48488,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main-rtl.css": {
+      "sha256": "d9450496f0101d2afb9f50ddcf8ec4bd50c0374362a094399f8b64d7d436ecab",
+      "bytes": 11214,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "fb5f215f55f53add84862e12b681ba3e3aa4c5ab138bda4cf121a7d684faace1",
+      "bytes": 11072,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/images/claim.jpg": {
+      "sha256": "22f0cf7cace1e0fc084be00aedb8284b7149b14bce6314d6dd56d596116d15a9",
+      "bytes": 97458,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "477902277d4e11cdf3ec787613131cfb50c96e171b3ad79e945482f362bf3fed",
+      "bytes": 5726,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "3c0f710e8987fe417c5cf6f8b9692112d118bf7beea19b17a68e61c767a5dfc0",
+      "bytes": 17771,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/class-claim-now.php": {
+      "sha256": "f217e1de409411c444755f09f643b22cd3d1190e3f29f895fd5cd1d4de4a4267",
+      "bytes": 21124,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DCL_Claim_Now",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "widget",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form",
+          "line": 268,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 288,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 33,
+          "args": [
+            "'admin_only_claimable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 36,
+          "args": [
+            "'enable_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 37,
+          "args": [
+            "'non_widger_claim_button'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 39,
+          "args": [
+            "'claim_widget_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 40,
+          "args": [
+            "'claim_widget_description'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 41,
+          "args": [
+            "'claim_now'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 42,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 43,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 48,
+          "args": [
+            "'widget_submit_item_title'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 49,
+          "args": [
+            "'atbdp_claim_data_target_id'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 73,
+          "args": [
+            "'atbdp_claim_now_login_link'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 74,
+          "args": [
+            "'atbdp_claim_now_registration_link'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 119,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 120,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 121,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 125,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 167,
+          "args": [
+            "$value->ID",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 226,
+          "args": [
+            "$value->ID",
+            "'plan_type'"
+          ]
+        }
+      ]
+    },
+    "inc/class-db.php": {
+      "sha256": "29f08c31fcc53bed04623e95927b17e3b1bd478f9226971a60d3afb9e32a9a5a",
+      "bytes": 8362,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'DOING_AUTOSAVE'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 26,
+          "args": [
+            "$post_id",
+            "'_listing_claimer'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 29,
+          "args": [
+            "$post_id",
+            "'_claimed_listing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 32,
+          "args": [
+            "$post_id",
+            "'_claim_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 35,
+          "args": [
+            "$post_id",
+            "'_claimer_details'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 38,
+          "args": [
+            "$post_id",
+            "'_claimer_phone'"
+          ]
+        },
+        {
+          "name": "update",
+          "line": 56,
+          "args": [
+            "write keys: (values omitted; inspect source for dynamic keys)"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 57,
+          "args": [
+            "$claimed_listing",
+            "'_claimer_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 59,
+          "args": [
+            "$claimed_listing",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 60,
+          "args": [
+            "$claimed_listing",
+            "'_claimer_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 62,
+          "args": [
+            "$claimed_listing",
+            "'_need_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 64,
+          "args": [
+            "$claimed_listing",
+            "'_featured'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 67,
+          "args": [
+            "$claimed_listing",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 68,
+          "args": [
+            "$claimed_listing",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "update_user_meta",
+          "line": 69,
+          "args": [
+            "$listing_claimer",
+            "'_user_type'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 71,
+          "args": [
+            "'disable_email_notification'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 72,
+          "args": [
+            "'notify_user'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 81,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 82,
+          "args": [
+            "'time_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 84,
+          "args": [
+            "'email_sub_approved_claim'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 85,
+          "args": [
+            "'email_tmpl_approved_claim'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 111,
+          "args": [
+            "$claimed_listing",
+            "'_claimed_ok_mail'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 115,
+          "args": [
+            "$claimed_listing",
+            "'_claimed_ok_mail'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 122,
+          "args": [
+            "$claimed_listing",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 123,
+          "args": [
+            "'disable_email_notification'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 124,
+          "args": [
+            "'notify_user'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 132,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 133,
+          "args": [
+            "'time_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 135,
+          "args": [
+            "'email_sub_declined_claim'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 136,
+          "args": [
+            "'email_tmpl_declined_claim'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 160,
+          "args": [
+            "$claimed_listing",
+            "'_claimed_error_mail'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 164,
+          "args": [
+            "$claimed_listing",
+            "'_claimed_error_mail'"
+          ]
+        }
+      ]
+    },
+    "inc/class-enqueuer.php": {
+      "sha256": "95c2dfb5334f6ba7315d562de6d270e82b59c56885cde20a7304fc1812366a17",
+      "bytes": 1868,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DCL_Enqueuer",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 9,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "front_end_enqueue_scripts",
+          "line": 20,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'DCL_Enqueuer'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 12,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'front_end_enqueue_scripts' )"
+          ]
+        }
+      ]
+    },
+    "inc/directory_type.php": {
+      "sha256": "d0a0eb232d5a2f8d77fad069f32f764a20bee7ad4617ac517943b302c500525c",
+      "bytes": 11359,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Claim_Post_Type_Manager",
+          "line": 6,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 8,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_all_listings_badge_template",
+          "line": 22,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 46,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_meta_box",
+          "line": 94,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_admin_claim",
+          "line": 103,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_save_metabox",
+          "line": 147,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_section_template",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_builder_widgets",
+          "line": 187,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "class_exists",
+          "line": 5,
+          "args": [
+            "'Claim_Post_Type_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_single_listing_other_fields_widget'",
+            "array($this, 'atbdp_form_builder_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'directorist_single_section_template'",
+            "array( $this, 'directorist_single_section_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array($this, 'atbdp_listing_type_settings_field_list')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 13,
+          "args": [
+            "'atbdp_all_listings_badge_template'",
+            "array($this, 'atbdp_all_listings_badge_template')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 17,
+          "args": [
+            "'add_meta_boxes_' . ATBDP_POST_TYPE",
+            "array( $this, 'atbdp_meta_box' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'save_post'",
+            "array( $this , 'dcl_save_metabox' )"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 24,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 28,
+          "args": [
+            "'enable_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 29,
+          "args": [
+            "'verified_badge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 30,
+          "args": [
+            "'verified_text'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 31,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 95,
+          "args": [
+            "'enable_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 106,
+          "args": [
+            "$post->ID",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 107,
+          "args": [
+            "$post->ID",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 108,
+          "args": [
+            "$post->ID",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 155,
+          "args": [
+            "'DOING_AUTOSAVE'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 170,
+          "args": [
+            "$post_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 171,
+          "args": [
+            "$post_id",
+            "'_claim_charge'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 172,
+          "args": [
+            "$post_id",
+            "'_claimed_by_admin'"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "005c17154b9dde139f12177ad12d5b12e5e45e584936ac6a8a74c2b45ca16542",
+      "bytes": 23353,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "all_rules",
+          "line": 11,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_get_option",
+          "line": 47,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 76,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sanitize_array",
+          "line": 116,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_directoria_active",
+          "line": 144,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_claim_status",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_pricing_plans_active",
+          "line": 170,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_pricing_plans_active_with_dcl",
+          "line": 190,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_current_user",
+          "line": 219,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_email_admin_listing_claim",
+          "line": 296,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_need_to_charge_with_plan",
+          "line": 361,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_need_to_charge_without_plan",
+          "line": 430,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "need_claim_to_charge_manually",
+          "line": 446,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "non_paid_claim",
+          "line": 463,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_new_claim",
+          "line": 480,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_tract_duplicate_claim",
+          "line": 514,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dcl_get_template",
+          "line": 545,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_claim_verify_nonce",
+          "line": 574,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_claimable_with_plan",
+          "line": 586,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_listing_created_by_admin",
+          "line": 611,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 6,
+          "args": [
+            "'atbdp_get_option'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 13,
+          "args": [
+            "'dgrc_default_user_roles'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 56,
+          "args": [
+            "$group"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 66,
+          "args": [
+            "'get_directorist_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 85,
+          "args": [
+            "'atbdp_option'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 90,
+          "args": [
+            "'directorist_option'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 110,
+          "args": [
+            "'atbdp_sanitize_array'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 139,
+          "args": [
+            "'is_directoria_active'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 153,
+          "args": [
+            "'dcl_claim_status'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 165,
+          "args": [
+            "'is_pricing_plans_active'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 172,
+          "args": [
+            "'fee_manager_enable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 173,
+          "args": [
+            "'woo_pricing_plans_enable'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 174,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 176,
+          "args": [
+            "'DWPP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 185,
+          "args": [
+            "'is_pricing_plans_active_with_dcl'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 194,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 199,
+          "args": [
+            "'DWPP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 218,
+          "args": [
+            "'dcl_current_user'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 229,
+          "args": [
+            "$post_id",
+            "'_claimer_name'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 230,
+          "args": [
+            "$post_id",
+            "'_claimer_phone'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 231,
+          "args": [
+            "$post_id",
+            "'_claimer_details'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 232,
+          "args": [
+            "$post_id",
+            "'_claimer_plans'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 234,
+          "args": [
+            "'disable_email_notification'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 235,
+          "args": [
+            "'notify_user'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 246,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 247,
+          "args": [
+            "'time_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 249,
+          "args": [
+            "'email_sub_new_claim'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 250,
+          "args": [
+            "'email_tmpl_new_claim'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 278,
+          "args": [
+            "$post_id",
+            "'_claimed_primary_mail'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 282,
+          "args": [
+            "$post_id",
+            "'_claimed_primary_mail'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 295,
+          "args": [
+            "'dcl_email_admin_listing_claim'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 307,
+          "args": [
+            "'disable_email_notification'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 308,
+          "args": [
+            "'notify_admin'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 316,
+          "args": [
+            "'date_format'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 317,
+          "args": [
+            "'time_format'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 345,
+          "args": [
+            "$post_id",
+            "'_claimed_admin_primary_mail'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 349,
+          "args": [
+            "$post_id",
+            "'_claimed_admin_primary_mail'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 360,
+          "args": [
+            "'dcl_need_to_charge_with_plan'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 367,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 368,
+          "args": [
+            "$post_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 374,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 380,
+          "args": [
+            "$claimer_plan_id",
+            "'num_regular'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 381,
+          "args": [
+            "$claimer_plan_id",
+            "'is_featured_listing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 391,
+          "args": [
+            "$post_id",
+            "'_plan_order_id'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 392,
+          "args": [
+            "$post_id",
+            "'_fm_plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 398,
+          "args": [
+            "$claimer_plan_id",
+            "'fm_length'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 406,
+          "args": [
+            "$claimer_plan_id",
+            "'fm_length_unl'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 408,
+          "args": [
+            "$post_id",
+            "'_never_expire'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 410,
+          "args": [
+            "$post_id",
+            "'_expiry_date'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 412,
+          "args": [
+            "$post_id",
+            "'_claimer_plans'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 415,
+          "args": [
+            "$_POST['post_id']",
+            "'_need_featured'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 429,
+          "args": [
+            "'dcl_need_to_charge_without_plan'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 445,
+          "args": [
+            "'need_claim_to_charge_manually'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 449,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 450,
+          "args": [
+            "$post_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 462,
+          "args": [
+            "'non_paid_claim'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 466,
+          "args": [
+            "$post_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 467,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 479,
+          "args": [
+            "'dcl_new_claim'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 490,
+          "args": [
+            "$listing_id",
+            "'_claimer_phone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 491,
+          "args": [
+            "$listing_id",
+            "'_claimer_name'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 492,
+          "args": [
+            "$listing_id",
+            "'_claimer_details'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 495,
+          "args": [
+            "$claim_id",
+            "'_listing_claimer'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 496,
+          "args": [
+            "$claim_id",
+            "'_claimed_listing'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 497,
+          "args": [
+            "$claim_id",
+            "'_claim_status'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 498,
+          "args": [
+            "$claim_id",
+            "'_claimer_details'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 499,
+          "args": [
+            "$claim_id",
+            "'_claimer_phone'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 504,
+          "args": [
+            "'atbdp_new_claim_inserted'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 513,
+          "args": [
+            "'dcl_tract_duplicate_claim'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-claim-listing.pot": {
+      "sha256": "ac9e4f88587b4de04f7fac5e2d45d67088e326ff3a560a0a364978cf97dba514",
+      "bytes": 15705,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/admin-meta-fields.php": {
+      "sha256": "e1f31b114853bf396a506e9bbaffe2c8b5f034044fa5ac4627b896fc9eea224b",
+      "bytes": 4053,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 4,
+          "args": [
+            "$post->ID"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 4,
+          "args": [
+            "$post->ID"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 6,
+          "args": [
+            "$post->ID",
+            "'_claimed_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 7,
+          "args": [
+            "$post->ID",
+            "'_claimer_phone'"
+          ]
+        }
+      ]
+    },
+    "templates/claim-listing-template.php": {
+      "sha256": "d7fa97cbad75419acdb835d0f1d47e78f8ba6c2fccde012423fc14231b033f60",
+      "bytes": 16192,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 3,
+          "args": [
+            "'admin_only_claimable'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 6,
+          "args": [
+            "'enable_claim_listing'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 7,
+          "args": [
+            "'claim_widget_title'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 8,
+          "args": [
+            "'claim_widget_description'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 9,
+          "args": [
+            "'claim_now'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 10,
+          "args": [
+            "$listing_id",
+            "'_claimed_by_admin'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 11,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 89,
+          "args": [
+            "'claim_charge_by'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 90,
+          "args": [
+            "$listing_id",
+            "'_claim_fee'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 91,
+          "args": [
+            "$listing_id",
+            "'_directory_type'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 95,
+          "args": [
+            "'ATBDP_Pricing_Plans'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 138,
+          "args": [
+            "$value->ID",
+            "'plan_type'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 197,
+          "args": [
+            "$value->ID",
+            "'plan_type'"
+          ]
+        }
+      ]
+    },
+    "templates/verified-badge.php": {
+      "sha256": "4c3a353539997932b9bee2958893e8f2159631553c333649956a80bafc1b1c23",
+      "bytes": 475,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    }
+  }
+}

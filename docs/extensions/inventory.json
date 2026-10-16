@@ -1,0 +1,2617 @@
+[
+  {
+    "id": "directorist-mpesa-payment-gateway",
+    "name": "M-Pesa Payment Gateway",
+    "url": "https://directorist.com/product/m-pesa-payment-gateway/",
+    "skill": "directorist-ext-mpesa-payment-gateway",
+    "primary": "mpesa-payment-gateway--main",
+    "headers": [
+      {
+        "file": "directorist-mpesa.php",
+        "name": "Directorist - M-Pesa Payment Gateway",
+        "version": "1.0.0"
+      }
+    ],
+    "aliases": [
+      "M-Pesa Payment Gateway",
+      "directorist-mpesa-payment-gateway",
+      "Directorist - M-Pesa Payment Gateway",
+      "directorist-mpesa.php"
+    ],
+    "topics": [
+      {
+        "id": "checkout",
+        "symptoms": "mpesa|m-pesa|stk push|kenyan phone|kes",
+        "selectors": "MPesa|MpesaApi|Settings|OAuth|CheckoutService|DirectoristServiceProvider",
+        "contract": "Phone normalization, KES amount rules, credentials and processor compatibility gate the request. A successful OAuth test does not prove checkout collection.",
+        "qa": "Use API stubs or authorized sandbox; test 01/07 phone formats, fractional amount rejection, missing credentials and unsupported currency; verify submitted amount/reference and checkout feedback."
+      },
+      {
+        "id": "callback-recurring",
+        "symptoms": "ratiba|mpesa callback|mpesa renewal",
+        "selectors": "MpesaService|Cron|CheckoutController|routes",
+        "contract": "Callbacks must resolve the correct order and handle repeat events; pending polling, initial package binding and recurring schedule mapping have separate paths.",
+        "qa": "Replay success/failure/duplicate callbacks for two orders; test pending query and supported/unsupported plan intervals, cancellation and receipt status. Assert no duplicate payment/package."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans"
+    ],
+    "snapshots": [
+      {
+        "key": "mpesa-payment-gateway--main",
+        "repo": "directorist-mpesa-payment-gateway",
+        "branch": "main",
+        "commit": "f304ecfa35049b5cc827b182f54dcbc048dc5bf3",
+        "date": "2026-09-03T06:14:05Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mpesa-payment-gateway",
+        "kind": "remote"
+      },
+      {
+        "key": "mpesa-payment-gateway--development",
+        "repo": "directorist-mpesa-payment-gateway",
+        "branch": "development",
+        "commit": "a9ad328642699baba4c1f854b35544cf571a2587",
+        "date": "2026-09-03T06:12:33Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mpesa-payment-gateway__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 37,
+    "classified_files": 66,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-notifications-pro",
+    "name": "Directorist Notifications Pro",
+    "url": "https://directorist.com/product/directorist-notifications-pro/",
+    "skill": "directorist-ext-notifications-pro",
+    "primary": "notifications-pro--main",
+    "headers": [
+      {
+        "file": "directorist-notifications-pro.php",
+        "name": "Directorist Notifications Pro",
+        "version": "1.0.0"
+      }
+    ],
+    "aliases": [
+      "Directorist Notifications Pro",
+      "directorist-notifications-pro",
+      "directorist-notifications-pro.php"
+    ],
+    "topics": [
+      {
+        "id": "subscription",
+        "symptoms": "push notification|browser permission|service worker|vapid",
+        "selectors": "web-push|rest-api|frontend|notification|service-worker",
+        "contract": "Browser permission, service worker scope, authenticated subscription persistence and per-user preference are required before sending.",
+        "qa": "On HTTPS localhost/test origin use two users and browsers. Grant/deny permission, subscribe/unsubscribe and disable preference; verify endpoint ownership and service worker scope without publishing credentials."
+      },
+      {
+        "id": "events-delivery",
+        "symptoms": "push duplicate|push missing|notification log",
+        "selectors": "event-integration|sender|admin-log|settings",
+        "contract": "Legacy and new order hooks can describe the same event; completion deduplication and endpoint failure handling must avoid duplicate notifications.",
+        "qa": "Capture test pushes for listing publish/edit/expiry and paid order; replay completion hook, expire an endpoint and check logs/recipient preferences. Do not trigger real client notifications."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "notifications-pro--main",
+        "repo": "directorist-notifications-pro",
+        "branch": "main",
+        "commit": "b9b5c721c27d55082f25cf0ea00b74c44008020a",
+        "date": "2026-07-13T12:03:07Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-notifications-pro",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 15,
+    "classified_files": 20,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-divi-integration",
+    "name": "Directorist Divi Integration",
+    "url": "https://directorist.com/product/directorist-divi-integration/",
+    "skill": "directorist-ext-divi-integration",
+    "primary": "divi-integration--master",
+    "headers": [
+      {
+        "file": "directorist-divi-integration.php",
+        "name": "Directorist - Divi Builder Integration",
+        "version": "1.1.5"
+      }
+    ],
+    "aliases": [
+      "Directorist Divi Integration",
+      "directorist-divi-integration",
+      "Directorist - Divi Builder Integration",
+      "directorist-divi-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "search-archive",
+        "symptoms": "divi search|divi listings|divi filter|divi pagination",
+        "selectors": "HomepageSearch|SearchForm|Archive|Pagination|CategoryHierarchy|ListingsQueryHelper|DiviListings|listing-loop|RoutePruner",
+        "contract": "Search composition, directory state and AJAX archive requests must retain the same filter contract across editor and frontend.",
+        "qa": "Use two directories with different fields, compose search/results, filter/sort/paginate and direct-open URL. Compare editor attributes, request parameters and rendered IDs."
+      },
+      {
+        "id": "single-modules",
+        "symptoms": "divi|divi business hours|divi badge|divi field",
+        "selectors": "DiviModules|ListingsController|ModuleDependency|ModuleUtil|DirectoristHelper|Visual-Builder|directorist-divi-integration.php|DiviModuleHelper|ListingCardImageSliderHelper|ListingsDiviContext|SanitizationHelper|DiviEnqueue|Traits/|Utils/Props|resources/js/(business-hours|gallery-extension|listings-favorite|helper|divi/)|routes/|modules/Modules.php",
+        "contract": "Extension modules depend on installed plugin basenames and queried listing context. Theme Builder body-layout ID must not replace actual listing ID.",
+        "qa": "Render Business Hours, Claim, FAQ and a custom field for two listings via Theme Builder. Compare editor preview vs frontend and unavailable dependency notice without deactivating client plugins."
+      },
+      {
+        "id": "templates-import",
+        "symptoms": "divi template|divi import|divi conditions|author profile",
+        "selectors": "ThemeBuilder|TemplateLibrary|CustomSingle|AuthorProfile|template-import-admin",
+        "contract": "Theme Builder conditions, template library imports and author context have distinct persistence/remapping paths. Import permission is not implied by reading a template.",
+        "qa": "In disposable clone import a small approved package; verify ID/media remaps, directory conditions and author route. Check previous content retained and native editing after save."
+      },
+      {
+        "id": "taxonomy-pricing-author",
+        "symptoms": "divi categories|divi locations|divi pricing plans|divi author profile",
+        "selectors": "AllCategories|AllLocations|DirectoryTypes|PricingPlansController|PricingPlan|AuthorProfile|all-categories|all-locations|pricing-plans|directory-types",
+        "contract": "Taxonomy loops, plan-card composition and author profiles use different object contexts and controllers. Plan action buttons must retain native entitlements/checkout; taxonomy card IDs must not be listing IDs.",
+        "qa": "Use two categories/locations, two plan types and two authors. Compare counts, term links, plan price/features/action URL and author privacy in editor/frontend. Save/reopen modules and verify native destination flow."
+      }
+    ],
+    "dependencies": [
+      "directorist-business-hours",
+      "directorist-claim-listing",
+      "directorist-faqs",
+      "directorist-gallery",
+      "directorist-booking",
+      "directorist-universal-search",
+      "directorist-pricing-plans"
+    ],
+    "snapshots": [
+      {
+        "key": "divi-integration--master",
+        "repo": "directorist-divi-integration",
+        "branch": "master",
+        "commit": "e3c8cafacaeae1422a5fe56fba16a0eced9eee18",
+        "date": "2026-09-13T11:24:04Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-divi-integration",
+        "kind": "remote"
+      },
+      {
+        "key": "divi-integration--local",
+        "repo": "directorist-divi-integration",
+        "branch": "fix/sponsorfull-search-follow-up",
+        "commit": "9af4663e20570d26c95067f83ebd58cf988d8c39",
+        "date": "2026-09-01T16:42:14+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-divi-integration",
+        "kind": "local",
+        "dirty": "?? artifacts/"
+      }
+    ],
+    "source_files": 968,
+    "classified_files": 1052,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-ai-search",
+    "name": "Directorist AI Search",
+    "url": "https://directorist.com/product/directorist-ai-search/",
+    "skill": "directorist-ext-ai-search",
+    "primary": "ai-search--main",
+    "headers": [
+      {
+        "file": "directorist-ai-search.php",
+        "name": "Directorist - AI Search",
+        "version": "1.1.1"
+      }
+    ],
+    "aliases": [
+      "Directorist AI Search",
+      "directorist-ai-search",
+      "Directorist - AI Search",
+      "directorist-ai-search.php"
+    ],
+    "topics": [
+      {
+        "id": "indexing",
+        "symptoms": "ai search|semantic|indexing|api key|embedding",
+        "selectors": "Index|Payload|Api|Settings|ListingService|Core/|DirectoristAccount|DirectoristDependency|AdminMenu",
+        "contract": "Listing publication/meta/taxonomy changes schedule index/delete operations. Site identity, remote API provisioning and supported environment checks can prevent indexing before query interception runs.",
+        "qa": "Stub or use an authorized test API; publish/edit/unpublish a listing, change taxonomy and compare queued payload, index status, failure feedback and deletion. Do not send client data to a new service by default."
+      },
+      {
+        "id": "ranked-results",
+        "symptoms": "irrelevant results|semantic ranking|ai fallback|ai autocomplete",
+        "selectors": "QueryInterceptor|SearchContext|Candidate|Frontend|Universal",
+        "contract": "Semantic candidates are constrained by directory/filter context. Native fallback, score thresholds and Universal Search interception require independent checks.",
+        "qa": "Use two directories and restrictive category/price filters. Compare native, semantic success, empty response and API timeout; ensure excluded listings never leak through ranking."
+      }
+    ],
+    "dependencies": [
+      "directorist-universal-search"
+    ],
+    "snapshots": [
+      {
+        "key": "ai-search--main",
+        "repo": "directorist-ai-search",
+        "branch": "main",
+        "commit": "07f49c7e6c2ba400e756f69b815b4febaf4d886f",
+        "date": "2026-07-28T05:00:53Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-ai-search",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 25,
+    "classified_files": 31,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-listing-import",
+    "name": "Directorist Listing Importer",
+    "url": "https://directorist.com/product/directorist-listing-importer/",
+    "skill": "directorist-ext-listing-import",
+    "primary": "listing-import--main",
+    "headers": [
+      {
+        "file": "directorist-listing-import.php",
+        "name": "Listing Importer",
+        "version": "1.1.0"
+      }
+    ],
+    "aliases": [
+      "Directorist Listing Importer",
+      "directorist-listing-import",
+      "Listing Importer",
+      "directorist-listing-import.php"
+    ],
+    "topics": [
+      {
+        "id": "google-import",
+        "symptoms": "google import|listing importer|place id|field mapping|import hours",
+        "selectors": "google/",
+        "contract": "Google imports resolve directory fields, map source types, identify existing Place IDs, download images and optionally map hours/reviews. Mapping a value is not proof a dependent extension displays it.",
+        "qa": "Import a small authorized sample into a disposable directory. Repeat the same Place ID; check duplicates, field types, image IDs, hours and review averages. Test missing photo/API failure without corrupting existing data."
+      },
+      {
+        "id": "feed-import",
+        "symptoms": "rss import|feed import|scheduled import|duplicate feed",
+        "selectors": "includes/|admin/",
+        "contract": "Feed discovery, preview, feed configuration and scheduler are separate; duplicate detection must remain stable across scheduled retries.",
+        "qa": "Use a local test feed with unique IDs, updated item and malformed response. Preview, run twice, schedule once and check counts, mappings, logs and cleanup."
+      }
+    ],
+    "dependencies": [
+      "directorist-business-hours",
+      "directorist-gallery",
+      "directorist-advanced-review"
+    ],
+    "snapshots": [
+      {
+        "key": "listing-import--main",
+        "repo": "directorist-listing-import",
+        "branch": "main",
+        "commit": "81e621c5d45a938a1a21d9e0185f3f7528f9a660",
+        "date": "2026-09-10T08:42:37Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listing-import",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 19,
+    "classified_files": 21,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-analytics",
+    "name": "Directorist Analytics",
+    "url": "https://directorist.com/product/directorist-analytics/",
+    "skill": "directorist-ext-analytics",
+    "primary": "analytics--fix-weekly-monthly-report-duplicate-last-listing",
+    "headers": [
+      {
+        "file": "directorist-analytics.php",
+        "name": "Directorist Analytics",
+        "version": "1.0.0"
+      }
+    ],
+    "aliases": [
+      "Directorist Analytics",
+      "directorist-analytics",
+      "directorist-analytics.php"
+    ],
+    "topics": [
+      {
+        "id": "tracking-reports",
+        "symptoms": "analytics|weekly report|monthly report|duplicate last listing|view tracking",
+        "selectors": "Report|Email|Analytics|Tracking|Statistics|Controller|Cron|Job|Stats|Activity|AuthorLogin",
+        "contract": "Use the selected implementation branch: default main is a scaffold and cannot explain the newer report flow. Track listing identity through aggregation and report loops.",
+        "qa": "Use at least three listings with different event counts and owners. Generate weekly/monthly reports locally, assert each listing appears once with its own totals and correct period."
+      },
+      {
+        "id": "dashboard",
+        "symptoms": "analytics dashboard|chart|click count|report filter",
+        "selectors": "resources|Provider|routes|Model|Repository",
+        "contract": "Dashboard query ranges, ownership and frontend charts are separate from report email formatting. Source features absent from a variant must be treated as absent, not assumed available.",
+        "qa": "Compare author and admin views, date ranges with no data and boundary events, timezone and listing filter; check network responses and rendered chart totals."
+      },
+      {
+        "id": "privacy-export",
+        "symptoms": "analytics privacy|do not track|dnt|anonymize ip|analytics export|raw logs",
+        "selectors": "Privacy|Activity|AuthorLogin|Stats|Export|SettingsController",
+        "contract": "Tracking respects configured privacy/admin/DNT/IP/referrer settings; raw log retention, aggregation and CSV export are distinct operations. Deleting raw logs does not necessarily delete aggregates.",
+        "qa": "Use DNT on/off, admin vs author and query-string referrers in a local fixture. Compare raw/aggregate counts, anonymization, date range export and authorized cleanup; do not export client personal data without scope."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "analytics--main",
+        "repo": "directorist-analytics",
+        "branch": "main",
+        "commit": "520e871fb6bae14d211bf3c60a8b01bb0c1e3651",
+        "date": "2025-10-20T03:56:44Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics",
+        "kind": "remote"
+      },
+      {
+        "key": "analytics--fix-weekly-monthly-report-duplicate-last-listing",
+        "repo": "directorist-analytics",
+        "branch": "fix/weekly-monthly-report-duplicate-last-listing",
+        "commit": "1cfab8c614df67718fac9065037174acec4370df",
+        "date": "2026-09-07T04:51:41Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics__fix-weekly-monthly-report-duplicate-last-listing",
+        "kind": "remote"
+      },
+      {
+        "key": "analytics--development",
+        "repo": "directorist-analytics",
+        "branch": "development",
+        "commit": "f54abd3be2fa4186d59b23d8a9b4e5e1daf77c23",
+        "date": "2025-11-13T09:43:32Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-analytics__development",
+        "kind": "remote"
+      },
+      {
+        "key": "analytics--local",
+        "repo": "directorist-analytics",
+        "branch": "fix/weekly-monthly-report-duplicate-last-listing",
+        "commit": "1cfab8c614df67718fac9065037174acec4370df",
+        "date": "2026-09-07T10:51:41+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-analytics",
+        "kind": "local",
+        "dirty": "M assets/build/css/app-rtl.css\n M assets/build/css/app.asset.php\n M assets/build/css/app.css\n M assets/build/css/app.css.map\n M assets/build/css/app.js\n M assets/build/js/app.asset.php\n M assets/build/js/app.js\n M package.json\n?? assets/build/38b05b78f50224cfe229.icc\n?? pnpm-workspace.yaml"
+      }
+    ],
+    "source_files": 129,
+    "classified_files": 156,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-advanced-review",
+    "name": "Directorist Advanced Review",
+    "url": "https://directorist.com/product/directorist-advanced-review/",
+    "skill": "directorist-ext-advanced-review",
+    "primary": "advanced-review--fix-review-translation-pluralization",
+    "headers": [
+      {
+        "file": "directorist-advanced-review.php",
+        "name": "Directorist - Advanced Review",
+        "version": "1.0.3"
+      }
+    ],
+    "aliases": [
+      "Directorist Advanced Review",
+      "directorist-advanced-review",
+      "Directorist - Advanced Review",
+      "directorist-advanced-review.php"
+    ],
+    "topics": [
+      {
+        "id": "review-data",
+        "symptoms": "advanced review|review criteria|rating average|review translation",
+        "selectors": "Review|Settings|Comment|Snap|resources/views/(create|filter|header|pagination)|components/(action|listing-owner|stars)",
+        "contract": "Review criteria and comments are linked records; activation/deactivation snapshots affect directory builder layouts. Core reviews and extension reviews must not be counted twice.",
+        "qa": "Create two criteria and unequal ratings, edit/delete a review, compare average, sorting and translated singular/plural text. Check activation snapshot restoration only in a disposable clone."
+      },
+      {
+        "id": "moderation-media",
+        "symptoms": "review reply|review attachment|review reaction|report review",
+        "selectors": "Reply|Attachment|Reaction|Report|Middleware|routes|resources/js|delete-modal|login-alert|upload.php|views/replies",
+        "contract": "Replies, upload deletion, reactions and abuse reports have distinct endpoints and authorization.",
+        "qa": "Use owner, reviewer, guest and unrelated account. Test permitted/forbidden edits, attachment type/size, duplicate reaction and report submission; compare API and rendered replies."
+      },
+      {
+        "id": "builder-migration",
+        "symptoms": "review migration|review activation|review layout",
+        "selectors": "Migration|Snap|FrontendServiceProvider",
+        "contract": "Activation/deactivation snapshots preserve builder review-section layouts while extension tables store criteria/reactions. Restoring a layout is distinct from migrating review data.",
+        "qa": "On a disposable clone capture builder meta and reviews, activate/deactivate and compare snapshots/restored layout. Validate no data loss or duplicate review section after repeated activation."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "advanced-review--master",
+        "repo": "directorist-advanced-review",
+        "branch": "master",
+        "commit": "d21cfd0ea7d27149241495c578b7683cbd9823a9",
+        "date": "2026-06-22T04:43:07Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review",
+        "kind": "remote"
+      },
+      {
+        "key": "advanced-review--fix-review-translation-pluralization",
+        "repo": "directorist-advanced-review",
+        "branch": "fix/review-translation-pluralization",
+        "commit": "38089538e124bb99123f0db34860992247bb6506",
+        "date": "2026-09-07T10:18:38Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review__fix-review-translation-pluralization",
+        "kind": "remote"
+      },
+      {
+        "key": "advanced-review--development",
+        "repo": "directorist-advanced-review",
+        "branch": "development",
+        "commit": "e3559325447ddb3ede6b916ffbf9defd658cbbf5",
+        "date": "2026-06-22T04:41:52Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-advanced-review__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 102,
+    "classified_files": 127,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-universal-search",
+    "name": "Directorist Universal Search",
+    "url": "https://directorist.com/product/directorist-universal-search/",
+    "skill": "directorist-ext-universal-search",
+    "primary": "universal-search--master",
+    "headers": [
+      {
+        "file": "directorist-universal-search.php",
+        "name": "Directorist - Universal Search",
+        "version": "1.1.2"
+      }
+    ],
+    "aliases": [
+      "Directorist Universal Search",
+      "directorist-universal-search",
+      "Directorist - Universal Search",
+      "directorist-universal-search.php"
+    ],
+    "topics": [
+      {
+        "id": "cross-directory",
+        "symptoms": "universal search|all directories|cross directory search",
+        "selectors": "UniversalSearch|Shortcode|DirectoristService|PageService|Settings|Repository|helper|Activation",
+        "contract": "The extension owns cross-directory query/response and dedicated pages; Core still owns underlying listing/taxonomy data. AI interception may alter response ordering.",
+        "qa": "Create identically named listings in two directories with distinct taxonomy filters. Submit the universal form and verify result links, pagination, empty query and active directory state."
+      },
+      {
+        "id": "builder-render",
+        "symptoms": "universal form missing|universal results|search preview",
+        "selectors": "templates|views|Shortcode|resources",
+        "contract": "Shortcode and builder renderers must target the extension pages and load interactive assets. Editor placeholders are not frontend search results.",
+        "qa": "Compare shortcode, Divi form/result modules and frontend after save. Submit with keyboard, clear filters and revisit result URL directly."
+      }
+    ],
+    "dependencies": [
+      "directorist-ai-search",
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "universal-search--master",
+        "repo": "directorist-universal-search",
+        "branch": "master",
+        "commit": "9a0d3ca53ba331cb1a473965b4c86d9904a6eb9a",
+        "date": "2026-05-21T10:46:13Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-universal-search",
+        "kind": "remote"
+      },
+      {
+        "key": "universal-search--development",
+        "repo": "directorist-universal-search",
+        "branch": "development",
+        "commit": "3abafc6bd041a96e14cadeb17d0596d90497545c",
+        "date": "2025-12-17T09:04:22Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-universal-search__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 45,
+    "classified_files": 76,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-search-alert",
+    "name": "Directorist Search Alert",
+    "url": "https://directorist.com/product/directorist-search-alert/",
+    "skill": "directorist-ext-search-alert",
+    "primary": "search-alert--main",
+    "headers": [
+      {
+        "file": "directorist-search-alert.php",
+        "name": "Directorist - Search Alert",
+        "version": "1.0.3"
+      }
+    ],
+    "aliases": [
+      "Directorist Search Alert",
+      "directorist-search-alert",
+      "Directorist - Search Alert",
+      "directorist-search-alert.php"
+    ],
+    "topics": [
+      {
+        "id": "saved-search",
+        "symptoms": "search alert|saved search|alert preferences",
+        "selectors": "Ajax|Database|Dashboard|helper|assets/js|Enqueue|admin/js|editing-form|search-result.php",
+        "contract": "Saved searches preserve filter values and ownership; create/edit/delete actions and expiration have different data paths.",
+        "qa": "Save keyword/category/location/custom filters as user A, edit and delete; ensure user B cannot operate A records. Reload dashboard and verify displayed filters match request."
+      },
+      {
+        "id": "alert-delivery",
+        "symptoms": "search alert email|daily alert|weekly alert|monthly alert",
+        "selectors": "Email|Settings|base",
+        "contract": "Listing publication and scheduled delivery select matches on immediate/daily/weekly/monthly paths. Cron execution and email capture must be proved separately.",
+        "qa": "Create matching and nonmatching listings after the save time. Run only relevant local cron events; assert recipient, schedule, no repeat notifications and expired-search cleanup."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "search-alert--main",
+        "repo": "directorist-search-alert",
+        "branch": "main",
+        "commit": "4b62ac4632520a7e5ea2494ac30ca2b3756899df",
+        "date": "2026-08-23T06:57:31Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-search-alert",
+        "kind": "remote"
+      },
+      {
+        "key": "search-alert--local",
+        "repo": "directorist-search-alert",
+        "branch": "main",
+        "commit": "4b62ac4632520a7e5ea2494ac30ca2b3756899df",
+        "date": "2026-08-23T12:57:31+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-search-alert",
+        "kind": "local",
+        "dirty": ""
+      }
+    ],
+    "source_files": 26,
+    "classified_files": 32,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-announcement",
+    "name": "Directorist Announcement",
+    "url": "https://directorist.com/product/directorist-announcement/",
+    "skill": "directorist-ext-announcement",
+    "primary": "announcement--master",
+    "headers": [
+      {
+        "file": "directorist-announcement.php",
+        "name": "Directorist Announcement",
+        "version": "2.3"
+      }
+    ],
+    "aliases": [
+      "Directorist Announcement",
+      "directorist-announcement",
+      "directorist-announcement.php"
+    ],
+    "topics": [
+      {
+        "id": "publish-target",
+        "symptoms": "announcement|target users|announcement email",
+        "selectors": "settings|content-update|helpers|assets/js/admin",
+        "contract": "Announcement post type, recipient selection, expiry and send action control visibility and email.",
+        "qa": "Create announcement for user A only and another for all users with expiry. Check A/B dashboard, captured email and expiry cleanup."
+      },
+      {
+        "id": "read-state",
+        "symptoms": "unread announcement|announcement badge|dismiss announcement",
+        "selectors": "frontend|content-update|helpers|assets/js/main|template-parts/list",
+        "contract": "Seen/dismissed state and new-count responses should be scoped to the current user.",
+        "qa": "Read/close as A, refresh badge and confirm B state unchanged. Test expired and deleted announcements."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "announcement--master",
+        "repo": "directorist-announcement",
+        "branch": "master",
+        "commit": "92c16c32b1f6610316b2250ebf68c5f6c2abd717",
+        "date": "2025-03-18T23:15:36Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-announcement",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 12,
+    "classified_files": 19,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "addonskit-for-bricks",
+    "name": "AddonsKit for Bricks",
+    "url": "https://directorist.com/product/addonskit-for-bricks/",
+    "skill": "directorist-ext-addonskit-for-bricks",
+    "primary": "addonskit-for-bricks--main",
+    "headers": [
+      {
+        "file": "addonskit-for-bricks.php",
+        "name": "Directorist Addonskit for Bricks",
+        "version": "2.0.2"
+      }
+    ],
+    "aliases": [
+      "AddonsKit for Bricks",
+      "addonskit-for-bricks",
+      "Directorist Addonskit for Bricks",
+      "addonskit-for-bricks.php"
+    ],
+    "topics": [
+      {
+        "id": "elements",
+        "symptoms": "bricks|addonskit for bricks|bricks search",
+        "selectors": "Elements|Plugin|Support",
+        "contract": "Element controls convert to Directorist shortcode/query settings; Core owns resulting listing workflows. Dependency checks require actual Bricks and Directorist.",
+        "qa": "Build search, listings, add-listing and checkout elements in a local Bricks page; save/reopen and exercise native search/submission."
+      },
+      {
+        "id": "dynamic-tags",
+        "symptoms": "bricks dynamic|bricks field|bricks category image",
+        "selectors": "DynamicTags|Support",
+        "contract": "Dynamic field/tag values depend on listing/directory/taxonomy context; editor sample is not final queried object.",
+        "qa": "Use two directories with same custom field type, category images and empty values. Compare loop/detail/editor output and escaped field values."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "addonskit-for-bricks--main",
+        "repo": "addonskit-for-bricks",
+        "branch": "main",
+        "commit": "abedcb63f283ae13e899a33c0b2a2a1c7a922c51",
+        "date": "2026-08-10T09:45:47Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/addonskit-for-bricks",
+        "kind": "remote"
+      },
+      {
+        "key": "addonskit-for-bricks--development",
+        "repo": "addonskit-for-bricks",
+        "branch": "development",
+        "commit": "c3056318b531babf4673c18bf2114525814244fa",
+        "date": "2025-07-30T05:32:45Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/addonskit-for-bricks__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 39,
+    "classified_files": 48,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-helpgent-integration",
+    "name": "HelpGent Integration",
+    "url": "https://directorist.com/product/directorist-helpgent-integration/",
+    "skill": "directorist-ext-helpgent-integration",
+    "primary": "helpgent-integration--master",
+    "headers": [
+      {
+        "file": "directorist-helpgent-integration.php",
+        "name": "Directorist - HelpGent Integration",
+        "version": "2.0.6"
+      }
+    ],
+    "aliases": [
+      "HelpGent Integration",
+      "directorist-helpgent-integration",
+      "Directorist - HelpGent Integration",
+      "directorist-helpgent-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "forms-responses",
+        "symptoms": "helpgent|video message|audio message|lead form|response access",
+        "selectors": "FormController|ResponseController|MenuService|Settings|helper|routes|resources/js|Middleware",
+        "contract": "HelpGent owns form/response entities; this integration scopes queries, quotas and dashboard permissions. Pro-only settings depend on the actual HelpGent edition.",
+        "qa": "Create forms as two listing authors, submit test response/media, then edit/read/archive as each user. Check quotas and unauthorized attachment access."
+      },
+      {
+        "id": "contacts-notifications",
+        "symptoms": "helpgent contact|helpgent email|response notification",
+        "selectors": "Contact|Summary|Tag|ListController|EmailNotification",
+        "contract": "Contacts, tags, summary counts, exports and email recipients use integration-specific query scopes.",
+        "qa": "Compare author A/B contacts/counts, tag edits/export and locally captured response email. Verify no cross-author response or media leakage."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "helpgent-integration--master",
+        "repo": "directorist-helpgent-integration",
+        "branch": "master",
+        "commit": "681495a66d0f8072924937b8ae00e6f514ac68ab",
+        "date": "2026-06-15T04:25:28Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-helpgent-integration",
+        "kind": "remote"
+      },
+      {
+        "key": "helpgent-integration--development",
+        "repo": "directorist-helpgent-integration",
+        "branch": "development",
+        "commit": "1637cb93e267271b00d49faa04234a5fdec0a719",
+        "date": "2025-01-07T13:06:19Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-helpgent-integration__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 48,
+    "classified_files": 64,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-wpml-integration",
+    "name": "WPML Integration",
+    "url": "https://directorist.com/product/directorist-wpml-integration/",
+    "skill": "directorist-ext-wpml-integration",
+    "primary": "wpml-integration--main",
+    "headers": [
+      {
+        "file": "directorist-wpml-integration.php",
+        "name": "Directorist WPML Integration",
+        "version": "2.2.2"
+      }
+    ],
+    "aliases": [
+      "WPML Integration",
+      "directorist-wpml-integration",
+      "Directorist WPML Integration",
+      "directorist-wpml-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "translation",
+        "symptoms": "wpml|translation|multilingual|language switch",
+        "selectors": "Translate|Translation|WPML|Taxonomy|Listing|Directory|app.php",
+        "contract": "Language IDs, directory builder data and translated taxonomy/listing relationships require WPML-aware mapping; translating page text alone does not translate listing configuration.",
+        "qa": "Create two languages, two directories and translated listing/category pairs; switch language on add/edit/detail/search and compare object IDs and labels."
+      },
+      {
+        "id": "queries-links",
+        "symptoms": "translated listing missing|wpml search|wpml url|wpml page",
+        "selectors": "Query|Permalink|Page|Search|Filter|Helper|app.php",
+        "contract": "Translated page links and language-filtered queries can differ from the default language and cached results.",
+        "qa": "Search a translated listing, follow pagination and dashboard/add-listing links, then switch language. Verify current-language term IDs, URLs and no unintended cross-language results."
+      },
+      {
+        "id": "string-packages",
+        "symptoms": "wpml labels|wpml builder|wpml settings|ate|string translation|translated shortcode",
+        "selectors": "String_Package|UI_Translation|Translation_Management|Settings|Asset",
+        "contract": "Directory-builder and page/shortcode/block/Elementor UI strings are registered/synchronized through WPML package workflows. Completed ATE translations and runtime fallback strings have separate readers/writers.",
+        "qa": "Translate directory field labels and native page controls via a completed test translation job, save source again and verify update flags, translated frontend/editor labels and unchanged translated object relationships."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "wpml-integration--main",
+        "repo": "directorist-wpml-integration",
+        "branch": "main",
+        "commit": "7d9224d9f6937cf970a562c1abfcd1079c6aad15",
+        "date": "2026-08-23T09:07:55Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-wpml-integration",
+        "kind": "remote"
+      },
+      {
+        "key": "wpml-integration--development",
+        "repo": "directorist-wpml-integration",
+        "branch": "development",
+        "commit": "599d77a4698af796bb8e9b04f0b75684a91ab021",
+        "date": "2026-08-23T04:49:28Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-wpml-integration__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 48,
+    "classified_files": 102,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-digital-marketplace",
+    "name": "Digital Marketplace",
+    "url": "https://directorist.com/product/directorist-digital-marketplace/",
+    "skill": "directorist-ext-digital-marketplace",
+    "primary": "digital-marketplace--fix-safari-source-map-errors",
+    "headers": [
+      {
+        "file": "directorist-digital-marketplace.php",
+        "name": "Directorist - Digital Marketplace",
+        "version": "2.1.2"
+      }
+    ],
+    "aliases": [
+      "Digital Marketplace",
+      "directorist-digital-marketplace",
+      "Directorist - Digital Marketplace",
+      "directorist-digital-marketplace.php"
+    ],
+    "topics": [
+      {
+        "id": "purchase-download",
+        "symptoms": "digital marketplace|download file|price tier|buy file",
+        "selectors": "WooCommerce|Purchase|Listing|Tabs_Downloads|Admin/Builder|Core/Form|Core/Asset|assets/src/js/admin/main|templates/dashboard/downloads",
+        "contract": "Listing files/tiers generate WooCommerce products/orders; authorized download access follows purchase state, not just a visible download button.",
+        "qa": "Create two file tiers and a nonbuyer. Buy one tier in sandbox, test authorized download, unpaid/cancelled order, changed file and refund revocation."
+      },
+      {
+        "id": "vendor-wallet",
+        "symptoms": "vendor commission|digital payout|vendor balance",
+        "selectors": "Payout|Wallet|WC_Helper|Order",
+        "contract": "Order/refund status updates vendor balances and payout records. Do not confuse a payout request with paid settlement.",
+        "qa": "Compare completed and refunded sales for two vendors, commission rates, repeated order-status events and payout request/admin decision; assert no cross-vendor data exposure."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "digital-marketplace--main",
+        "repo": "directorist-digital-marketplace",
+        "branch": "main",
+        "commit": "4d6e283fd759a804d07b6510bbe1d055a80d4b79",
+        "date": "2026-03-30T07:23:23Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-digital-marketplace",
+        "kind": "remote"
+      },
+      {
+        "key": "digital-marketplace--fix-safari-source-map-errors",
+        "repo": "directorist-digital-marketplace",
+        "branch": "fix/safari-source-map-errors",
+        "commit": "dc80ed24ba02b23f9f8157084bc02a5dea7502c7",
+        "date": "2026-08-11T06:58:43Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-digital-marketplace__fix-safari-source-map-errors",
+        "kind": "remote"
+      },
+      {
+        "key": "digital-marketplace--local",
+        "repo": "directorist-digital-marketplace",
+        "branch": "",
+        "commit": "4d6e283fd759a804d07b6510bbe1d055a80d4b79",
+        "date": "2026-03-30T13:23:23+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-digital-marketplace",
+        "kind": "local",
+        "dirty": "M assets/dist/js/public-main.js\n M package.json\n M vendor/composer/installed.php\n?? pnpm-lock.yaml\n?? pnpm-workspace.yaml"
+      }
+    ],
+    "source_files": 60,
+    "classified_files": 98,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-job-manager",
+    "name": "Job Manager",
+    "url": "https://directorist.com/product/directorist-job-manager/",
+    "skill": "directorist-ext-job-manager",
+    "primary": "job-manager--development",
+    "headers": [
+      {
+        "file": "directorist-job-manager.php",
+        "name": "Directorist - Job Manager",
+        "version": "2.3.0"
+      }
+    ],
+    "aliases": [
+      "Job Manager",
+      "directorist-job-manager",
+      "Directorist - Job Manager",
+      "directorist-job-manager.php"
+    ],
+    "topics": [
+      {
+        "id": "job-fields",
+        "symptoms": "job manager|job salary|job deadline|open position",
+        "selectors": "settings-manager|helper|templates|widget|class-scripts",
+        "contract": "Salary/type/position/deadline fields and search filters are separate from application submission. Directory builder placement determines visibility.",
+        "qa": "Create two job types and salary ranges; save/edit, filter and view in native/Divi detail. Check empty and expired deadline presentation."
+      },
+      {
+        "id": "applications",
+        "symptoms": "job application|resume upload|apply now",
+        "selectors": "form|file|mail|ajax|generate-pages",
+        "contract": "Application form generation, upload restrictions, cleanup and email construction form the submission pipeline.",
+        "qa": "Submit valid/invalid attachments and missing required fields as guest/user; capture mail locally, verify intended recipient, validation feedback and temporary file cleanup."
+      }
+    ],
+    "dependencies": [
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "job-manager--main",
+        "repo": "directorist-job-manager",
+        "branch": "main",
+        "commit": "3c106a5bc659890d81844f9f907011fcd9c77b20",
+        "date": "2026-04-23T09:41:54Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-job-manager",
+        "kind": "remote"
+      },
+      {
+        "key": "job-manager--development",
+        "repo": "directorist-job-manager",
+        "branch": "development",
+        "commit": "562615e4ede94f2c41c79c02e15035f7b9e64a41",
+        "date": "2026-06-28T11:15:00Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-job-manager__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 39,
+    "classified_files": 54,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-booking",
+    "name": "Booking (Reservation & Appointment)",
+    "url": "https://directorist.com/product/directorist-booking/",
+    "skill": "directorist-ext-booking",
+    "primary": "booking--fix-client-issue-3257-guest-confirmation",
+    "headers": [
+      {
+        "file": "directorist-booking.php",
+        "name": "Directorist - Booking",
+        "version": "3.1.0"
+      }
+    ],
+    "aliases": [
+      "Booking (Reservation & Appointment)",
+      "directorist-booking",
+      "Directorist - Booking",
+      "directorist-booking.php"
+    ],
+    "topics": [
+      {
+        "id": "availability",
+        "symptoms": "booking|reservation|appointment|time slots|guest confirmation|calendar",
+        "selectors": "Database|Calender|MetaSubmission|FormBuilder|booking|helper|MenuServiceProvider|routes/|resources/js/(admin|common)/index|check-in-out|number-of-guest",
+        "contract": "Availability calculation, slot capacity, guest confirmation and owner status changes are separate paths. Confirm the configured booking type before comparing dates or prices.",
+        "qa": "Create service slots and event capacity; attempt two guests for the last place, overlapping dates, timezone boundary and invalid confirmation. Inspect stored reservation/status and both customer/owner calendars."
+      },
+      {
+        "id": "booking-payments",
+        "symptoms": "booking payment|booking refund|booking commission|wallet payout",
+        "selectors": "Payment|Refund|Commission|Wallet",
+        "contract": "Booking payment uses booking-linked orders and may use WooCommerce. Commission, wallet, refunds and payout records must agree with booking status; an owner approval is not automatically a collected payment.",
+        "qa": "Test sandbox paid/failed booking, owner approval, cancellation, partial/full refund and commission/payout request. Assert booking/order references and balances; capture email without contacting users."
+      },
+      {
+        "id": "calendar-dashboard",
+        "symptoms": "google calendar|booking oauth|calendar conflict|booking dashboard",
+        "selectors": "GoogleCalendar|Dashboard|BookingController|Widget|CustomPage|google-calendar-modal.php",
+        "contract": "The newer branch adds Google Calendar OAuth/settings, event insertion/deletion and conflict checks, plus owner/customer dashboard filters. This is distinct from local slot availability.",
+        "qa": "Use a test calendar with authorized credentials, connect/disconnect and create/cancel a booking. Check conflict behavior, calendar IDs, event deletion and filtered owner/customer counts. Keep OAuth tokens out of evidence."
+      }
+    ],
+    "dependencies": [
+      "directorist-woocommerce-pricing-plans",
+      "directorist-pricing-plans"
+    ],
+    "snapshots": [
+      {
+        "key": "booking--main",
+        "repo": "directorist-booking",
+        "branch": "main",
+        "commit": "3b4ae45ba3b8a1c223d17f7f7573bfcec70cfb24",
+        "date": "2025-05-15T10:43:51Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-booking",
+        "kind": "remote"
+      },
+      {
+        "key": "booking--fix-client-issue-3257-guest-confirmation",
+        "repo": "directorist-booking",
+        "branch": "fix/client-issue-3257-guest-confirmation",
+        "commit": "3dac671d62a54fb22220d790d5b9fbad990717d9",
+        "date": "2026-08-25T04:50:40Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-booking__fix-client-issue-3257-guest-confirmation",
+        "kind": "remote"
+      },
+      {
+        "key": "booking--development",
+        "repo": "directorist-booking",
+        "branch": "development",
+        "commit": "844c13bc26f443a558ef4595446cb964930d1276",
+        "date": "2026-06-28T11:12:07Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-booking__development",
+        "kind": "remote"
+      },
+      {
+        "key": "booking--local",
+        "repo": "directorist-booking",
+        "branch": "unversioned",
+        "commit": "unversioned-local",
+        "date": "unavailable",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-booking",
+        "kind": "local",
+        "dirty": "unversioned folder; use file hashes"
+      }
+    ],
+    "source_files": 103,
+    "classified_files": 160,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-listings-with-map",
+    "name": "Listings with Map",
+    "url": "https://directorist.com/product/directorist-listings-with-map/",
+    "skill": "directorist-ext-listings-with-map",
+    "primary": "listings-with-map--codex-lwm-map-sync-extension",
+    "headers": [
+      {
+        "file": "directorist-listings-map.php",
+        "name": "Directorist - Listings with Map",
+        "version": "2.3"
+      }
+    ],
+    "aliases": [
+      "Listings with Map",
+      "directorist-listings-with-map",
+      "Directorist - Listings with Map",
+      "directorist-listings-map.php"
+    ],
+    "topics": [
+      {
+        "id": "map-query",
+        "symptoms": "listings with map|map pins|map sync|map pagination",
+        "selectors": "Model|ajax|hooks|helper",
+        "contract": "AJAX query state and rendered listing IDs must agree with map markers, directory and taxonomy filters; map-service failures are not automatically query defects.",
+        "qa": "Use three geocoded listings across two directories; filter, change view, paginate and pan where supported. Compare visible IDs/markers and request parameters, including zero results."
+      },
+      {
+        "id": "map-render",
+        "symptoms": "map blank|map layout|map clustering",
+        "selectors": "templates|settings|assets|Model",
+        "contract": "Google/OpenStreetMap templates and asset loading depend on configured provider; keys, geolocation permission and script order affect rendered behavior.",
+        "qa": "Check both supported providers with authorized keys, denied geolocation and narrow viewport. Verify marker click/card focus and no stale pins after AJAX."
+      }
+    ],
+    "dependencies": [
+      "directorist-business-hours"
+    ],
+    "snapshots": [
+      {
+        "key": "listings-with-map--v8-beta",
+        "repo": "directorist-listings-with-map",
+        "branch": "v8-beta",
+        "commit": "7bf445d274ade502b05927729362b4ba7f462a5e",
+        "date": "2025-12-08T04:55:13Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listings-with-map",
+        "kind": "remote"
+      },
+      {
+        "key": "listings-with-map--codex-lwm-map-sync-extension",
+        "repo": "directorist-listings-with-map",
+        "branch": "codex/lwm-map-sync-extension",
+        "commit": "7a0d7a04f9b17b6053c8dee1f1440f84821268ad",
+        "date": "2026-07-16T11:51:34Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-listings-with-map__codex-lwm-map-sync-extension",
+        "kind": "remote"
+      },
+      {
+        "key": "listings-with-map--local",
+        "repo": "directorist-listings-with-map",
+        "branch": "v8-beta",
+        "commit": "7bf445d274ade502b05927729362b4ba7f462a5e",
+        "date": "2025-12-08T10:55:13+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-listings-with-map",
+        "kind": "local",
+        "dirty": ""
+      }
+    ],
+    "source_files": 38,
+    "classified_files": 44,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-business-hours",
+    "name": "Business Hours",
+    "url": "https://directorist.com/product/directorist-business-hours/",
+    "skill": "directorist-ext-business-hours",
+    "primary": "business-hours--development",
+    "headers": [
+      {
+        "file": "bd-business-hour.php",
+        "name": "Directorist - Business Hour",
+        "version": "3.8.0"
+      }
+    ],
+    "aliases": [
+      "Business Hours",
+      "directorist-business-hours",
+      "Directorist - Business Hour",
+      "bd-business-hour.php"
+    ],
+    "topics": [
+      {
+        "id": "schedule",
+        "symptoms": "hours saving|overnight|timezone|open now|closed now|24 hours|business hour",
+        "selectors": "business|hour|directory_types|csv",
+        "contract": "Schedule submission, timezone selection, disabled/24-hour states, overnight ranges, badges and open-now filtering are different paths. Compare the saved listing ID and timezone with the renderer and query clock.",
+        "qa": "Create schedules spanning midnight, a closed day and 24-hour day in two timezones. Save/reload in frontend and admin; compare detail badge and open-now results immediately before/after boundaries. Capture actual time and cache state."
+      },
+      {
+        "id": "display-import",
+        "symptoms": "hours empty|hours not showing|hours missing|hours csv|hours badge|schedule import",
+        "selectors": "csv|rest|widget|show_hours|template|directory",
+        "contract": "Single content widgets, card badges, REST response and CSV integration expose the schedule through separate contracts. A stored schedule alone does not prove any of those paths render.",
+        "qa": "Compare a no-plan listing and a plan allowing hours. Check native detail, card, REST and a builder template using the queried listing ID. Round-trip CSV on disposable listings and compare normalized schedule."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "business-hours--main",
+        "repo": "directorist-business-hours",
+        "branch": "main",
+        "commit": "c909d05184e786fd51cd0727553f3d389f64986b",
+        "date": "2026-04-28T05:46:45Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-business-hours",
+        "kind": "remote"
+      },
+      {
+        "key": "business-hours--development",
+        "repo": "directorist-business-hours",
+        "branch": "development",
+        "commit": "f4ce722e68bff3f85b8b845042c904c7bfd52ef4",
+        "date": "2026-09-06T08:49:44Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-business-hours__development",
+        "kind": "remote"
+      },
+      {
+        "key": "business-hours--local",
+        "repo": "directorist-business-hours",
+        "branch": "development",
+        "commit": "5a42533eb7a29cdab35df86b42ad4749d5c408bd",
+        "date": "2026-08-10T12:08:53+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-business-hours",
+        "kind": "local",
+        "dirty": "M bd-business-hour.php\n?? inc/csv_manager.php\n?? pnpm-lock.yaml\n?? pnpm-workspace.yaml"
+      }
+    ],
+    "source_files": 22,
+    "classified_files": 36,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-woocommerce-pricing-plans",
+    "name": "WooCommerce Pricing Plans",
+    "url": "https://directorist.com/product/directorist-woocommerce-pricing-plans/",
+    "skill": "directorist-ext-woocommerce-pricing-plans",
+    "primary": "woocommerce-pricing-plans--codex-fix-subscription-plan-repair",
+    "headers": [
+      {
+        "file": "directorist-woocommerce-pricing-plans.php",
+        "name": "Directorist - WooCommerce Pricing Plans",
+        "version": "3.7.1"
+      }
+    ],
+    "aliases": [
+      "WooCommerce Pricing Plans",
+      "directorist-woocommerce-pricing-plans",
+      "Directorist - WooCommerce Pricing Plans",
+      "directorist-woocommerce-pricing-plans.php"
+    ],
+    "topics": [
+      {
+        "id": "products-entitlements",
+        "symptoms": "woocommerce plan|wc plan|product plan|wc quota",
+        "selectors": "wc-controller|controller|restriction|listing_type|helper|validator|ajax|views|woo-admin|assets/js|templates/",
+        "contract": "WooCommerce order/product identity drives listing entitlement. The plugin guards against simultaneous native Pricing Plans classes; verify which plan engine actually loaded.",
+        "qa": "Create a package product and two directory types; buy as a new author and assert listing quota, permitted fields and dashboard package. Test no purchase and exhausted quota."
+      },
+      {
+        "id": "orders-subscriptions",
+        "symptoms": "woocommerce renewal|wc subscription|hpos|woocommerce checkout",
+        "selectors": "subscription|payment|wc|direct-purchase|hooks",
+        "contract": "WooCommerce payment/status transitions and subscription repair belong to WooCommerce integration; do not route every payment issue to Directorist Stripe.",
+        "qa": "Use sandbox WooCommerce checkout; process completion, cancellation, renewal failure and retry. Compare HPOS setting, product/order IDs, listing expiry and package recovery without double activation."
+      }
+    ],
+    "dependencies": [
+      "directorist-claim-listing"
+    ],
+    "snapshots": [
+      {
+        "key": "woocommerce-pricing-plans--main",
+        "repo": "directorist-woocommerce-pricing-plans",
+        "branch": "main",
+        "commit": "922d5c0e7c7b2a917b58f46367e588bcde93be38",
+        "date": "2026-08-09T06:03:34Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans",
+        "kind": "remote"
+      },
+      {
+        "key": "woocommerce-pricing-plans--codex-fix-subscription-plan-repair",
+        "repo": "directorist-woocommerce-pricing-plans",
+        "branch": "codex/fix-subscription-plan-repair",
+        "commit": "c61131cdb1a319bc186bae5da4c3b55b10e42342",
+        "date": "2026-08-27T10:26:18Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans__codex-fix-subscription-plan-repair",
+        "kind": "remote"
+      },
+      {
+        "key": "woocommerce-pricing-plans--development",
+        "repo": "directorist-woocommerce-pricing-plans",
+        "branch": "development",
+        "commit": "13bb635bc5bc4736c871556887af3cda1e8e9f58",
+        "date": "2026-08-09T05:59:05Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-woocommerce-pricing-plans__development",
+        "kind": "remote"
+      },
+      {
+        "key": "woocommerce-pricing-plans--local",
+        "repo": "directorist-woocommerce-pricing-plans",
+        "branch": "development",
+        "commit": "d3f517b28dde13d1f88b6329e76ada893f595faa",
+        "date": "2026-07-29T12:12:18+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-woocommerce-pricing-plans",
+        "kind": "local",
+        "dirty": ""
+      }
+    ],
+    "source_files": 34,
+    "classified_files": 39,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-paypal",
+    "name": "PayPal Payment Gateway",
+    "url": "https://directorist.com/product/directorist-paypal/",
+    "skill": "directorist-ext-paypal",
+    "primary": "paypal-new--development",
+    "headers": [
+      {
+        "file": "directorist-paypal.php",
+        "name": "Directorist - Paypal Payment Gateway",
+        "version": "3.0.0"
+      }
+    ],
+    "aliases": [
+      "PayPal Payment Gateway",
+      "directorist-paypal",
+      "Directorist - Paypal Payment Gateway",
+      "directorist-paypal.php",
+      "directorist-paypal-new"
+    ],
+    "topics": [
+      {
+        "id": "checkout",
+        "symptoms": "paypal|paypal checkout|paypal sandbox",
+        "selectors": "paypal|MenuService|Gateway|Payment|helper|SettingsService|DirectoristService|CheckoutService|Paypal|PayPal",
+        "contract": "Legacy IPN and newer registered gateway implementations differ; inspect actual processor/service availability rather than assuming the newer header implies full support.",
+        "qa": "Use authorized sandbox, verify merchant/mode/currency/order return URL, abandon payment and return. Compare displayed receipt with actual stored order status."
+      },
+      {
+        "id": "confirmation",
+        "symptoms": "paypal ipn|paypal webhook|paypal pending",
+        "selectors": "IPN|paypal|Controller|routes|Gateway",
+        "contract": "IPN verification/transaction handling in the legacy implementation must bind to the correct order; a return URL alone is not payment proof.",
+        "qa": "Replay sandbox verified, forged and duplicate notifications, return before notification and failed notification. Check order amount, transaction identity and one-time completion."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans"
+    ],
+    "snapshots": [
+      {
+        "key": "paypal--alpha",
+        "repo": "directorist-paypal",
+        "branch": "alpha",
+        "commit": "89f2ecfeb827881950a35c44f3233afaa80b5d4b",
+        "date": "2024-11-16T13:00:47Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal",
+        "kind": "remote"
+      },
+      {
+        "key": "paypal--undefined-const-error",
+        "repo": "directorist-paypal",
+        "branch": "undefined-const-error",
+        "commit": "b6b11306b4c6388932714b3437eb22147c59345d",
+        "date": "2025-05-07T06:15:34Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal__undefined-const-error",
+        "kind": "remote"
+      },
+      {
+        "key": "paypal-new--master",
+        "repo": "directorist-paypal-new",
+        "branch": "master",
+        "commit": "84ec39c5da30366b388fc05c92bc58f3cb422dce",
+        "date": "2025-06-15T05:08:49Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal-new",
+        "kind": "remote"
+      },
+      {
+        "key": "paypal-new--development",
+        "repo": "directorist-paypal-new",
+        "branch": "development",
+        "commit": "84de33e01f7a8aae9ee2ee801916403ec6537703",
+        "date": "2026-06-28T11:11:03Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-paypal-new__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 28,
+    "classified_files": 53,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-pricing-plans",
+    "name": "Pricing Plans",
+    "url": "https://directorist.com/product/directorist-pricing-plans/",
+    "skill": "directorist-ext-pricing-plans",
+    "primary": "pricing-plans-new--development",
+    "headers": [
+      {
+        "file": "directorist-pricing-plans.php",
+        "name": "Directorist - Pricing Plans",
+        "version": "4.1.1"
+      }
+    ],
+    "aliases": [
+      "Pricing Plans",
+      "directorist-pricing-plans",
+      "Directorist - Pricing Plans",
+      "directorist-pricing-plans.php",
+      "directorist-pricing-plans-new"
+    ],
+    "topics": [
+      {
+        "id": "entitlements",
+        "symptoms": "no plan|missing fields|plan allowance|quota|plan assignment|pricing plans",
+        "selectors": "FormFields|Feature|Restriction|Assignment|listing_type_manager|helper|Plan.php|PlanController|ListingsController|app/DTO/Plan/|app/Enums/Plan/|ExtensionService|SettingsService|listing-owner-dashboard",
+        "contract": "Plan entitlements can suppress fields independently of saved listing metadata. Legacy post/meta plans and newer package tables are separate storage generations; select the actual implementation first.",
+        "qa": "Use two directory types, free/paid plans, exhausted and available quotas, and a listing with no assigned plan. Compare add/edit/detail rendering, assignment permission and package usage."
+      },
+      {
+        "id": "checkout-renewal",
+        "symptoms": "renewal|expired listing|subscription|proration|cancel|trial|paid plan|package",
+        "selectors": "Checkout|Payment|Subscription|Package|Renewal|Proration|Expiration|payments|subscription|data-controller|PlanOrderMeta|Order/|Mail/",
+        "contract": "Checkout completion, recurring collection, package activation, listing renewal, cancellation and fallback plans must preserve distinct states. A paid order alone is not proof the correct package/listing was activated.",
+        "qa": "In a sandbox compare free, one-off, recurring and trial orders; duplicate webhook, failed renewal, cancel-at-period-end, expired listing renewal and plan change. Assert owner, order reference, package limits and dates."
+      },
+      {
+        "id": "migration-admin",
+        "symptoms": "plan migration|legacy plan|plan sorting|missing package|pricing admin",
+        "selectors": "Migration|Jobs|Admin|Setup|hooks|background|views|LegacyPlanApi|Queue|routes/",
+        "contract": "Migration/background repair and admin assignment can change plan relations and expiration. Keep migration status, legacy IDs and new IDs traceable; do not rerun destructive migration on client data.",
+        "qa": "Clone representative legacy plans/orders into disposable DB; capture counts and relations, migrate, retry interrupted batches, verify no duplicate packages and preserved lifetime/period dates."
+      },
+      {
+        "id": "plan-presentation",
+        "symptoms": "pricing table|plan card|plan tabs|plan button|plan display",
+        "selectors": "Shortcode|frontend/plans|PlanRepository|PlanAppConfiguration|badge.tsx|frontend/icons|View.php|plan-app-configurations",
+        "contract": "Public plan presentation filters published/hidden plans and renders plan actions, pricing and features from repository/configuration data. Presentation must not grant package entitlement.",
+        "qa": "Create published, hidden and draft plans with different intervals; compare native plan list, price/tax/feature labels and selected-plan checkout link. Test logged-out, existing package and trial-ineligible users."
+      }
+    ],
+    "dependencies": [
+      "directorist-stripe",
+      "directorist-paypal",
+      "directorist-authorize-net",
+      "directorist-coupon",
+      "directorist-claim-listing"
+    ],
+    "snapshots": [
+      {
+        "key": "pricing-plans--alpha",
+        "repo": "directorist-pricing-plans",
+        "branch": "alpha",
+        "commit": "1e8b549358d30d88ec39b2100b1e2cfe9ac31d49",
+        "date": "2026-03-08T06:31:10Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-pricing-plans",
+        "kind": "remote"
+      },
+      {
+        "key": "pricing-plans-new--master",
+        "repo": "directorist-pricing-plans-new",
+        "branch": "master",
+        "commit": "8977a3e1395636a8710dea2674964558e80f107c",
+        "date": "2026-09-08T14:07:34Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-pricing-plans-new",
+        "kind": "remote"
+      },
+      {
+        "key": "pricing-plans-new--development",
+        "repo": "directorist-pricing-plans-new",
+        "branch": "development",
+        "commit": "99f9cf0be143f40c4422be87ccd6e9ea028cc2df",
+        "date": "2026-09-10T06:14:24Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-pricing-plans-new__development",
+        "kind": "remote"
+      },
+      {
+        "key": "pricing-plans-new--local",
+        "repo": "directorist-pricing-plans-new",
+        "branch": "codex/fix-support-3280-missing-plan-checkout",
+        "commit": "b113fa7cd17d55788da84862046f3e780712db74",
+        "date": "2026-09-03T13:34:08+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-pricing-plans-new",
+        "kind": "local",
+        "dirty": "M pnpm-workspace.yaml"
+      }
+    ],
+    "source_files": 215,
+    "classified_files": 251,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-gamipress-integration",
+    "name": "Gamipress Integration",
+    "url": "https://directorist.com/product/directorist-gamipress-integration/",
+    "skill": "directorist-ext-gamipress-integration",
+    "primary": "gamipress-integration--master",
+    "headers": [
+      {
+        "file": "directorist-gamipress-integration.php",
+        "name": "Directorist - GamiPress Integration",
+        "version": "2.1"
+      }
+    ],
+    "aliases": [
+      "Gamipress Integration",
+      "directorist-gamipress-integration",
+      "Directorist - GamiPress Integration",
+      "directorist-gamipress-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "points",
+        "symptoms": "gamipress|points|achievement|reward",
+        "selectors": "listeners|triggers|requirements|rules|author|dashboard|class-assets|admin-script.js",
+        "contract": "Listing/review/favorite/order events feed GamiPress rules; event occurrence and rule eligibility are separate.",
+        "qa": "Configure one rule each for publish/review/favorite, trigger and repeat, inspect points/log and unrelated user balance."
+      },
+      {
+        "id": "redeem-coupon",
+        "symptoms": "redeem points|gamipress coupon",
+        "selectors": "coupon-manager|settings|utils|assets/js/script.js",
+        "contract": "Coupon redemption bridges GamiPress points and Directorist Coupon state; balance and coupon uses must stay consistent.",
+        "qa": "Redeem with sufficient/insufficient points, repeat request and use/expire coupon. Check both point deduction and coupon ownership/usage."
+      }
+    ],
+    "dependencies": [
+      "directorist-coupon"
+    ],
+    "snapshots": [
+      {
+        "key": "gamipress-integration--master",
+        "repo": "directorist-gamipress-integration",
+        "branch": "master",
+        "commit": "d28b69c0ecce4b699fa8a9bbc7456c7fa7d36dff",
+        "date": "2024-11-16T13:00:44Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gamipress-integration",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 17,
+    "classified_files": 23,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-mailchimp",
+    "name": "Mailchimp Integration",
+    "url": "https://directorist.com/product/directorist-mailchimp/",
+    "skill": "directorist-ext-mailchimp",
+    "primary": "mailchimp--master",
+    "headers": [
+      {
+        "file": "directorist-mailchimp-integration.php",
+        "name": "Directorist - Mailchimp Integration",
+        "version": "2.2"
+      }
+    ],
+    "aliases": [
+      "Mailchimp Integration",
+      "directorist-mailchimp",
+      "Directorist - Mailchimp Integration",
+      "directorist-mailchimp-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "registration",
+        "symptoms": "mailchimp|newsletter signup|audience",
+        "selectors": "registration|mailchimp|settings",
+        "contract": "Registration consent and audience configuration control subscription; successful WordPress registration does not guarantee Mailchimp success.",
+        "qa": "Use stub/test audience; register with/without consent, existing subscribed email and API failure. Check requested list and subscription state."
+      },
+      {
+        "id": "contact-subscription",
+        "symptoms": "mailchimp contact|contact newsletter",
+        "selectors": "listing-contact|mailchimp|settings",
+        "contract": "Contact-owner submission has its own subscription hook and consent path.",
+        "qa": "Submit contact with permitted consent settings; inspect locally captured mail and API request independently. Ensure failed contact validation does not falsely imply subscription."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "mailchimp--master",
+        "repo": "directorist-mailchimp",
+        "branch": "master",
+        "commit": "00943169669bf9caa01ae6ebb1c2a34fb62098ca",
+        "date": "2025-03-27T02:47:36Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mailchimp",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 9,
+    "classified_files": 15,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-directory-linking",
+    "name": "Multi Directory Linking",
+    "url": "https://directorist.com/product/directorist-directory-linking/",
+    "skill": "directorist-ext-directory-linking",
+    "primary": "directory-linking--alpha",
+    "headers": [
+      {
+        "file": "directorist-directory-linking.php",
+        "name": "Directorist - Directory Linking",
+        "version": "2.2"
+      }
+    ],
+    "aliases": [
+      "Multi Directory Linking",
+      "directorist-directory-linking",
+      "Directorist - Directory Linking",
+      "directorist-directory-linking.php"
+    ],
+    "topics": [
+      {
+        "id": "link-selection",
+        "symptoms": "directory linking|linked listing|multi directory linking",
+        "selectors": "Builder|base|templates|admin/js|assets/js/main",
+        "contract": "Selection stores listing IDs, while presentation resolves linked listings and their directory/review data. IDs and scalar/array representations require normalization.",
+        "qa": "Link multiple listings from another directory, edit/remove/reorder and reload. Test deleted/private target and empty selection."
+      },
+      {
+        "id": "link-search",
+        "symptoms": "linked directory search|linked listing missing",
+        "selectors": "Builder|base|Settings",
+        "contract": "Linked-directory search and single display must use the configured target directory and valid IDs.",
+        "qa": "Search by linked listing and compare native single output with Divi LinkDirectory; test two directory types and legacy serialized selection."
+      }
+    ],
+    "dependencies": [
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "directory-linking--alpha",
+        "repo": "directorist-directory-linking",
+        "branch": "alpha",
+        "commit": "ade10cf1e0303510a7c9ad18a925f0799932ce46",
+        "date": "2026-08-03T10:32:23Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-directory-linking",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 17,
+    "classified_files": 22,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-buddypress-integration",
+    "name": "BuddyPress Integration",
+    "url": "https://directorist.com/product/directorist-buddypress-integration/",
+    "skill": "directorist-ext-buddypress-integration",
+    "primary": "buddypress-integration--master",
+    "headers": [
+      {
+        "file": "directorist-buddypress-integration.php",
+        "name": "Directorist - BuddyPress Integration",
+        "version": "2.0"
+      }
+    ],
+    "aliases": [
+      "BuddyPress Integration",
+      "directorist-buddypress-integration",
+      "Directorist - BuddyPress Integration",
+      "directorist-buddypress-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "profile-groups",
+        "symptoms": "buddypress|profile listings|group listings",
+        "selectors": "component|screens|group|functions|settings",
+        "contract": "Profile listing/favorite/add screens and group-connected IDs depend on the community platform and active components.",
+        "qa": "Use two users and public/private groups. Connect/disconnect listings, view profile tabs and attempt unauthorized group edits; check counts/pagination."
+      },
+      {
+        "id": "activity",
+        "symptoms": "buddypress activity|share listing|listing timeline",
+        "selectors": "activity|actions|builder|template|assets/js/main",
+        "contract": "Publication/share events create activity entries; deletion/visibility and login redirects must respect community context.",
+        "qa": "Publish/share/delete a listing; compare timeline, group privacy and redirected login route. Ensure unrelated users do not receive private listing access."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "buddypress-integration--master",
+        "repo": "directorist-buddypress-integration",
+        "branch": "master",
+        "commit": "e63ae3d41639d5ddf4df772f1dbd12136792c8db",
+        "date": "2025-03-27T04:01:44Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-buddypress-integration",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 22,
+    "classified_files": 27,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-buddyboss-integration",
+    "name": "BuddyBoss Integration",
+    "url": "https://directorist.com/product/directorist-buddyboss-integration/",
+    "skill": "directorist-ext-buddyboss-integration",
+    "primary": "buddyboss-integration--master",
+    "headers": [
+      {
+        "file": "directorist-buddyboss-integration.php",
+        "name": "Directorist - BuddyBoss Integration",
+        "version": "2.0"
+      }
+    ],
+    "aliases": [
+      "BuddyBoss Integration",
+      "directorist-buddyboss-integration",
+      "Directorist - BuddyBoss Integration",
+      "directorist-buddyboss-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "profile-groups",
+        "symptoms": "buddyboss|profile listings|group listings",
+        "selectors": "component|screens|group|functions|settings",
+        "contract": "Profile listing/favorite/add screens and group-connected IDs depend on the community platform and active components.",
+        "qa": "Use two users and public/private groups. Connect/disconnect listings, view profile tabs and attempt unauthorized group edits; check counts/pagination."
+      },
+      {
+        "id": "activity",
+        "symptoms": "buddyboss activity|share listing|listing timeline",
+        "selectors": "activity|actions|builder|template|assets/js/main",
+        "contract": "Publication/share events create activity entries; deletion/visibility and login redirects must respect community context.",
+        "qa": "Publish/share/delete a listing; compare timeline, group privacy and redirected login route. Ensure unrelated users do not receive private listing access."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "buddyboss-integration--master",
+        "repo": "directorist-buddyboss-integration",
+        "branch": "master",
+        "commit": "c0d40913b46a04e151ac76f0867fa96e8c3c2827",
+        "date": "2025-03-27T03:53:08Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-buddyboss-integration",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 22,
+    "classified_files": 28,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-oxygen-integration",
+    "name": "Oxygen Builder Integration",
+    "url": "https://directorist.com/product/directorist-oxygen-integration/",
+    "skill": "directorist-ext-oxygen-integration",
+    "primary": "oxygen-integration--improvement-oxygen-6-integration",
+    "headers": [
+      {
+        "file": "directorist-oxygen-integration.php",
+        "name": "Directorist - Oxygen Integration",
+        "version": "2.0.10"
+      }
+    ],
+    "aliases": [
+      "Oxygen Builder Integration",
+      "directorist-oxygen-integration",
+      "Directorist - Oxygen Integration",
+      "directorist-oxygen-integration.php"
+    ],
+    "topics": [
+      {
+        "id": "elements",
+        "symptoms": "oxygen|oxygen 6|oxygen element",
+        "selectors": "element|control|integration|src|includes",
+        "contract": "The Oxygen 6 branch can differ substantially from legacy shortcode elements. Identify the actual integration files and Oxygen generation before changing controls.",
+        "qa": "Build listings/search/detail in the installed Oxygen generation; save/reopen and compare filter IDs, pagination and native form behavior."
+      },
+      {
+        "id": "render-assets",
+        "symptoms": "oxygen blank|oxygen shortcode|oxygen scripts",
+        "selectors": "element|integration|assets|src|includes",
+        "contract": "Element rendering and relaxed shortcode asset restrictions determine whether interactive Directorist scripts load.",
+        "qa": "Compare editor and frontend on add-listing, checkout and search pages; test AJAX validation, map/script load and no duplicate initialization."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "oxygen-integration--main",
+        "repo": "directorist-oxygen-integration",
+        "branch": "main",
+        "commit": "4dc1f5b906b0bdb7c8175c917a58c5b457ddea39",
+        "date": "2025-04-16T05:09:32Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-oxygen-integration",
+        "kind": "remote"
+      },
+      {
+        "key": "oxygen-integration--improvement-oxygen-6-integration",
+        "repo": "directorist-oxygen-integration",
+        "branch": "improvement/oxygen-6-integration",
+        "commit": "6830012382294315a8c6dad1dedf5789540f1e99",
+        "date": "2026-08-10T02:16:12Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-oxygen-integration__improvement-oxygen-6-integration",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 25,
+    "classified_files": 31,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-authorize-net",
+    "name": "Authorize.net Payment Gateway",
+    "url": "https://directorist.com/product/directorist-authorize-net/",
+    "skill": "directorist-ext-authorize-net",
+    "primary": "authorize-net-new--development",
+    "headers": [
+      {
+        "file": "directorist-authorize-net.php",
+        "name": "Directorist - Authorize.net",
+        "version": "3.0.0"
+      }
+    ],
+    "aliases": [
+      "Authorize.net Payment Gateway",
+      "directorist-authorize-net",
+      "Directorist - Authorize.net",
+      "directorist-authorize-net.php",
+      "directorist-authorize-net-new"
+    ],
+    "topics": [
+      {
+        "id": "hosted-checkout",
+        "symptoms": "authorize.net|authorize net|hosted payment|accept hosted",
+        "selectors": "Authorize|Settings|Checkout|TwoCheckout|API|DirectoristServiceProvider",
+        "contract": "Legacy source retains 2Checkout-named internals despite the Authorize.net product. The newer processor contains hosted-payment and subscription paths; do not route by class name alone.",
+        "qa": "Inspect installed generation, sandbox credentials and hosted form request. Test approval, decline, cancel and invalid configuration; compare correct order reference and amount."
+      },
+      {
+        "id": "recurring-webhook",
+        "symptoms": "authorize webhook|authorize subscription",
+        "selectors": "Controller|Payment|routes|Settings",
+        "contract": "Newer webhook/subscription API code is separate from the legacy completion path. Branch header 999.0.0 is not a released-version assertion.",
+        "qa": "Use stubs/sandbox for initial payment, recurring transaction, duplicate event and cancel; check authenticated callback and subscription schedule without charging clients."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans"
+    ],
+    "snapshots": [
+      {
+        "key": "authorize-net--alpha",
+        "repo": "directorist-authorize-net",
+        "branch": "alpha",
+        "commit": "cc402159fa1d088d0acdbbd0eabc37a57845c59f",
+        "date": "2025-12-17T09:49:52Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net",
+        "kind": "remote"
+      },
+      {
+        "key": "authorize-net-new--master",
+        "repo": "directorist-authorize-net-new",
+        "branch": "master",
+        "commit": "8ed560d5ddebb4d72e7f4a4237c6324dc1f873dd",
+        "date": "2025-10-08T06:01:41Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net-new",
+        "kind": "remote"
+      },
+      {
+        "key": "authorize-net-new--development",
+        "repo": "directorist-authorize-net-new",
+        "branch": "development",
+        "commit": "ab7986313aa349c4cea2d9956169ae2d07da4fd0",
+        "date": "2026-06-28T10:48:24Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-authorize-net-new__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 26,
+    "classified_files": 47,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-coupon",
+    "name": "Directorist Coupon",
+    "url": "https://directorist.com/product/directorist-coupon/",
+    "skill": "directorist-ext-coupon",
+    "primary": "coupon--development",
+    "headers": [
+      {
+        "file": "directorist-coupon.php",
+        "name": "Directorist - Coupon",
+        "version": "2.5.0"
+      }
+    ],
+    "aliases": [
+      "Directorist Coupon",
+      "directorist-coupon",
+      "Directorist - Coupon",
+      "directorist-coupon.php"
+    ],
+    "topics": [
+      {
+        "id": "discount-rules",
+        "symptoms": "coupon|discount code|coupon expired|coupon limit",
+        "selectors": "Coupon|Ajax|Helper|AdminCallbacks|CustomWpListTable",
+        "contract": "Admin rules, AJAX eligibility, checkout calculation and usage count are separate. Stripe checkout adaptation does not establish discounts for every future renewal.",
+        "qa": "Create fixed/percentage coupons with expiry, usage limit and plan restrictions. Test eligible/ineligible plans, final allowed use, invalid code, tax and total floor."
+      },
+      {
+        "id": "gateway-usage",
+        "symptoms": "stripe discount|coupon renewal|coupon uses",
+        "selectors": "CouponHandler|coupon.php",
+        "contract": "Coupon application to Stripe session and local order items must agree; update usage only according to the actual hook lifecycle.",
+        "qa": "Complete and abandon sandbox checkout, replay completion and compare usage count/order receipt. Verify first invoice vs renewal behavior explicitly before promising recurring discounts."
+      }
+    ],
+    "dependencies": [
+      "directorist-stripe",
+      "directorist-pricing-plans",
+      "directorist-gamipress-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "coupon--main",
+        "repo": "directorist-coupon",
+        "branch": "main",
+        "commit": "c98c9236247e4f3075732cc345a729cade8f0103",
+        "date": "2026-02-05T06:30:14Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-coupon",
+        "kind": "remote"
+      },
+      {
+        "key": "coupon--development",
+        "repo": "directorist-coupon",
+        "branch": "development",
+        "commit": "d98770d6b7dd98122f1be8fd0cd2038c25abe687",
+        "date": "2026-06-28T11:51:55Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-coupon__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 18,
+    "classified_files": 21,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-adverts-manager",
+    "name": "Directorist Ads Manager",
+    "url": "https://directorist.com/product/directorist-adverts-manager/",
+    "skill": "directorist-ext-adverts-manager",
+    "primary": "adverts-manager--v8-beta",
+    "headers": [
+      {
+        "file": "directorist-adverts-manager.php",
+        "name": "Directorist - Ads Manager",
+        "version": "2.3"
+      }
+    ],
+    "aliases": [
+      "Directorist Ads Manager",
+      "directorist-adverts-manager",
+      "Directorist - Ads Manager",
+      "directorist-adverts-manager.php"
+    ],
+    "topics": [
+      {
+        "id": "ad-placement",
+        "symptoms": "ads manager|advertisement|ad placement",
+        "selectors": "AdDisplayPages|AdsManagerCPT|AdminCallbacks|Helper|assets/admin/js|CustomWpListTable|ExtensionSettings|swbdpam-frontend",
+        "contract": "Page-specific placement hooks, in-loop positions and ad type selection control rendering. A configured slot requires the actual template to invoke its hook.",
+        "qa": "Create image/text ads; test all-listings and search-result loop positions with pagination, empty results and mobile. Compare selected page slots with rendered occurrences."
+      },
+      {
+        "id": "ad-shortcode",
+        "symptoms": "ad shortcode|ad widget|ad styling",
+        "selectors": "Shortcode|Widget|DynamicStyle|Enqueue",
+        "contract": "Shortcode/widget output and dynamic styles are separate from automatic page-hook insertion.",
+        "qa": "Place same ad through widget and shortcode in a test page; verify click destination, dimensions and no unintended duplicate automatic placement."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "adverts-manager--v8-beta",
+        "repo": "directorist-adverts-manager",
+        "branch": "v8-beta",
+        "commit": "b74a1c0372ec005708ea2bad386b30c3e439d402",
+        "date": "2025-07-21T07:07:53Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-adverts-manager",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 34,
+    "classified_files": 108,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-compare-listing",
+    "name": "Compare Listings",
+    "url": "https://directorist.com/product/directorist-compare-listing/",
+    "skill": "directorist-ext-compare-listing",
+    "primary": "compare-listing--alpha",
+    "headers": [
+      {
+        "file": "directorist-compare-listing.php",
+        "name": "Directorist - Compare Listing",
+        "version": "2.2"
+      }
+    ],
+    "aliases": [
+      "Compare Listings",
+      "directorist-compare-listing",
+      "Directorist - Compare Listing",
+      "directorist-compare-listing.php"
+    ],
+    "topics": [
+      {
+        "id": "selection",
+        "symptoms": "compare listings|compare button|compare sidebar",
+        "selectors": "Ajax|CompareButton|Helper|select-window|selected-listings-sidebar|atdlc-admin",
+        "contract": "Selection add/remove, sidebar response and compare-page IDs must remain synchronized for guest and authenticated contexts.",
+        "qa": "Select two listings, remove one, refresh, clear and open comparison. Test repeated clicks and selection across pages."
+      },
+      {
+        "id": "comparison",
+        "symptoms": "comparison table|compare page",
+        "selectors": "Shortcode|Activate|Settings|templates|compare-page",
+        "contract": "Comparison page/shortcode and directory field configuration determine which fields display.",
+        "qa": "Compare listings with missing and populated custom fields from one/two directories; check page setup, values, image output and mobile horizontal overflow."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "compare-listing--alpha",
+        "repo": "directorist-compare-listing",
+        "branch": "alpha",
+        "commit": "b4a2af84bc8bd56edd5ef76306a9912dcc5aeab2",
+        "date": "2025-03-27T02:04:27Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-compare-listing",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 20,
+    "classified_files": 25,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-live-chat",
+    "name": "Live Chat",
+    "url": "https://directorist.com/product/directorist-live-chat/",
+    "skill": "directorist-ext-live-chat",
+    "primary": "live-chat--fix-live-chat-visibility-socket-fallback",
+    "headers": [
+      {
+        "file": "directorist-live-chat.php",
+        "name": "Directorist - Live Chat",
+        "version": "2.5.0"
+      }
+    ],
+    "aliases": [
+      "Live Chat",
+      "directorist-live-chat",
+      "Directorist - Live Chat",
+      "directorist-live-chat.php"
+    ],
+    "topics": [
+      {
+        "id": "conversation",
+        "symptoms": "live chat|chat history|message owner",
+        "selectors": "live-chat|helper|directory_type|admin-chat|templates/chat.php|templates/live_chat.php",
+        "contract": "Listing restriction, participant identity and conversation lookup precede display. Native Live Chat is separate from HelpGent messaging.",
+        "qa": "Use listing owner, buyer and unrelated user. Start a conversation, refresh history, attempt another conversation ID and verify authorized visibility."
+      },
+      {
+        "id": "socket-delivery",
+        "symptoms": "io is not defined|socket|chat messages not sending",
+        "selectors": "assets|live-chat|helper",
+        "contract": "Socket dependency/loading and fallback handling vary by branch; history persistence and real-time delivery require separate proof.",
+        "qa": "Test connected socket, unavailable socket and refreshed history; compare browser errors and stored message identity. Use local test messages only."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "live-chat--main",
+        "repo": "directorist-live-chat",
+        "branch": "main",
+        "commit": "821d8e2b813dca1f26b82fd9f9198b296a63a980",
+        "date": "2025-12-30T05:51:05Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat",
+        "kind": "remote"
+      },
+      {
+        "key": "live-chat--fix-live-chat-visibility-socket-fallback",
+        "repo": "directorist-live-chat",
+        "branch": "fix/live-chat-visibility-socket-fallback",
+        "commit": "3a48f59612eb61ad2fc6308063870e59c02fdb34",
+        "date": "2026-09-10T13:28:57Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat__fix-live-chat-visibility-socket-fallback",
+        "kind": "remote"
+      },
+      {
+        "key": "live-chat--development",
+        "repo": "directorist-live-chat",
+        "branch": "development",
+        "commit": "058296888c848f3cb1ddb4d8bf85713572c7021b",
+        "date": "2026-06-28T11:15:57Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-live-chat__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 13,
+    "classified_files": 19,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-mark-as-sold",
+    "name": "Mark as Sold",
+    "url": "https://directorist.com/product/directorist-mark-as-sold/",
+    "skill": "directorist-ext-mark-as-sold",
+    "primary": "mark-as-sold--details-update",
+    "headers": [
+      {
+        "file": "directorist-mark-as-sold.php",
+        "name": "Directorist - Mark as Sold",
+        "version": "2.3.0"
+      }
+    ],
+    "aliases": [
+      "Mark as Sold",
+      "directorist-mark-as-sold",
+      "Directorist - Mark as Sold",
+      "directorist-mark-as-sold.php"
+    ],
+    "topics": [
+      {
+        "id": "sold-state",
+        "symptoms": "mark as sold|sold button|sold badge",
+        "selectors": "mark-as-sold|assets/(admin|public)/js/main",
+        "contract": "Dashboard action, stored sold state, badge and query exclusion are separate contracts; sold is not inherently WordPress trash/unpublish.",
+        "qa": "Toggle owned listing sold/available, attempt as another author; reload dashboard/detail/archive and verify expected visibility and stored state."
+      },
+      {
+        "id": "sold-display",
+        "symptoms": "sold price|sold contact|hide sold",
+        "selectors": "mark-as-sold",
+        "contract": "Price replacement, contact handling and author/archive query hooks can differ by setting.",
+        "qa": "Compare sold and unsold listings under hide/show settings; check author page, search, price and contact action without deleting either listing."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "mark-as-sold--main",
+        "repo": "directorist-mark-as-sold",
+        "branch": "main",
+        "commit": "0e783d2cd5bc97d13222f01611a2164a8ec86d0b",
+        "date": "2025-03-27T02:21:02Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold",
+        "kind": "remote"
+      },
+      {
+        "key": "mark-as-sold--details-update",
+        "repo": "directorist-mark-as-sold",
+        "branch": "details-update",
+        "commit": "ce63a5af0e80c619d48fe9ba490acbf05b66fab2",
+        "date": "2026-06-28T09:54:07Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold__details-update",
+        "kind": "remote"
+      },
+      {
+        "key": "mark-as-sold--development",
+        "repo": "directorist-mark-as-sold",
+        "branch": "development",
+        "commit": "9dbd24b25d3e9b31ea2850d7cee184559e2d4839",
+        "date": "2026-05-21T06:54:03Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-mark-as-sold__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 8,
+    "classified_files": 13,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-social-login",
+    "name": "Social Login",
+    "url": "https://directorist.com/product/directorist-social-login/",
+    "skill": "directorist-ext-social-login",
+    "primary": "social-login--master",
+    "headers": [
+      {
+        "file": "directorist-social-login.php",
+        "name": "Directorist - Social Login",
+        "version": "2.1.4"
+      }
+    ],
+    "aliases": [
+      "Social Login",
+      "directorist-social-login",
+      "Directorist - Social Login",
+      "directorist-social-login.php"
+    ],
+    "topics": [
+      {
+        "id": "provider-auth",
+        "symptoms": "social login|google login|facebook login|oauth",
+        "selectors": "social-login|compatibility",
+        "contract": "Provider token verification precedes user registration/login. Callback/origin configuration and account mapping must be inspected; browser button appearance is not authentication proof.",
+        "qa": "Use test provider apps and accounts; verify valid/expired/forged token, existing email vs new account and redirect. Never log tokens or mutate production provider apps."
+      },
+      {
+        "id": "login-ui",
+        "symptoms": "social button|google button missing|facebook button",
+        "selectors": "template|assets|social-login",
+        "contract": "Settings, external SDK loading and login/registration compatibility affect button rendering.",
+        "qa": "Compare login/signup, blocked SDK and popup cancellation; keyboard activate and inspect network/console without exposing credentials."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "social-login--master",
+        "repo": "directorist-social-login",
+        "branch": "master",
+        "commit": "94b2eacbd6be5dc019141202abd1a32bf14bf515",
+        "date": "2026-08-20T04:30:45Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-social-login",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 12,
+    "classified_files": 21,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-gallery",
+    "name": "Image Gallery",
+    "url": "https://directorist.com/product/directorist-gallery/",
+    "skill": "directorist-ext-gallery",
+    "primary": "gallery--fix-gallery-import-cron-scheduling",
+    "headers": [
+      {
+        "file": "bd-directorist-gallery.php",
+        "name": "Directorist Gallery",
+        "version": "2.2.2"
+      }
+    ],
+    "aliases": [
+      "Image Gallery",
+      "directorist-gallery",
+      "Directorist Gallery",
+      "bd-directorist-gallery.php"
+    ],
+    "topics": [
+      {
+        "id": "gallery-edit",
+        "symptoms": "image gallery|gallery upload|gallery saving",
+        "selectors": "bd-directorist-gallery|directory_type|templates|admin/assets/js/main",
+        "contract": "Upload, retained-image values and deselected-image cleanup must preserve images still attached to the listing.",
+        "qa": "Upload three images, remove one, save/edit again, test permissions and invalid files; compare attachment IDs and display settings."
+      },
+      {
+        "id": "gallery-import",
+        "symptoms": "gallery cron|gallery import|gallery slider",
+        "selectors": "importer|gallery|templates|public/assets/js/main",
+        "contract": "CSV/gallery import scheduling and remote sideload are distinct from ordinary form uploads; cron schedule registration can affect execution.",
+        "qa": "Use two test image URLs plus failure; run relevant local import event twice, verify deduplication/status and gallery frontend. Inspect theme/builder image context separately."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "gallery--alpha",
+        "repo": "directorist-gallery",
+        "branch": "alpha",
+        "commit": "a4bd383934f2fbedeaab6e00205282bcddbf0ff1",
+        "date": "2026-06-22T04:52:45Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gallery",
+        "kind": "remote"
+      },
+      {
+        "key": "gallery--fix-gallery-import-cron-scheduling",
+        "repo": "directorist-gallery",
+        "branch": "fix/gallery-import-cron-scheduling",
+        "commit": "34048acde9eba93c63d2eb7b66f5d5b1ce21ba3b",
+        "date": "2026-08-15T18:35:41Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-gallery__fix-gallery-import-cron-scheduling",
+        "kind": "remote"
+      },
+      {
+        "key": "gallery--local",
+        "repo": "directorist-gallery",
+        "branch": "fix/gallery-import-cron-scheduling",
+        "commit": "34048acde9eba93c63d2eb7b66f5d5b1ce21ba3b",
+        "date": "2026-08-16T00:35:41+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-gallery",
+        "kind": "local",
+        "dirty": "?? pnpm-workspace.yaml"
+      }
+    ],
+    "source_files": 18,
+    "classified_files": 33,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-faqs",
+    "name": "Listing FAQs",
+    "url": "https://directorist.com/product/directorist-faqs/",
+    "skill": "directorist-ext-faqs",
+    "primary": "faqs--development",
+    "headers": [
+      {
+        "file": "directorist-faqs.php",
+        "name": "Directorist - Listings FAQs",
+        "version": "3.3.0"
+      }
+    ],
+    "aliases": [
+      "Listing FAQs",
+      "directorist-faqs",
+      "Directorist - Listings FAQs",
+      "directorist-faqs.php"
+    ],
+    "topics": [
+      {
+        "id": "faq-edit",
+        "symptoms": "faq|question answer|faq saving",
+        "selectors": "faqs|directory_type|helper|assets/js/(admin-main|main)",
+        "contract": "Frontend/admin FAQ submission and dynamic row actions must preserve question/answer pairing; plan restrictions can hide the field independently.",
+        "qa": "Create three distinct FAQs, delete middle row, reorder if supported, save/reopen and inspect values. Test author ownership, empty answer and markup escaping."
+      },
+      {
+        "id": "faq-render",
+        "symptoms": "faq accordion|faq missing|faq widget",
+        "selectors": "templates|widget|faqs|directory_type",
+        "contract": "Single content widget, shortcode and classic widget are separate render paths.",
+        "qa": "Compare native detail, shortcode/widget and Divi module for same listing; expand/collapse by keyboard and test no-plan vs allowed plan."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "faqs--main",
+        "repo": "directorist-faqs",
+        "branch": "main",
+        "commit": "b83f4f571f845c19024f099fdc40438276c30563",
+        "date": "2025-05-29T04:59:19Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-faqs",
+        "kind": "remote"
+      },
+      {
+        "key": "faqs--development",
+        "repo": "directorist-faqs",
+        "branch": "development",
+        "commit": "cdcc5031f77ca1333fa39d1ee45dca4ca9937c70",
+        "date": "2026-06-28T11:15:38Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-faqs__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 16,
+    "classified_files": 27,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-slider-carousel",
+    "name": "Listings Slider & Carousel",
+    "url": "https://directorist.com/product/directorist-slider-carousel/",
+    "skill": "directorist-ext-slider-carousel",
+    "primary": "slider-carousel--beta",
+    "headers": [
+      {
+        "file": "bd-directorist-slider.php",
+        "name": "Directorist Listings Slider & Carousel",
+        "version": "2.2.1"
+      }
+    ],
+    "aliases": [
+      "Listings Slider & Carousel",
+      "directorist-slider-carousel",
+      "Directorist Listings Slider & Carousel",
+      "bd-directorist-slider.php"
+    ],
+    "topics": [
+      {
+        "id": "slider-query",
+        "symptoms": "listings slider|carousel|slider listings|slider order",
+        "selectors": "slider|template",
+        "contract": "Shortcode attributes select/order listings; this extension is different from Core listing-card image slides and client-specific daily sliders.",
+        "qa": "Create listings with distinct category/date/featured state, set shortcode filters/count and compare returned IDs and ordering."
+      },
+      {
+        "id": "slider-motion",
+        "symptoms": "carousel arrows|slider responsive|autoplay",
+        "selectors": "slider|assets|templates",
+        "contract": "Frontend assets and responsive settings determine carousel navigation/autoplay independently of the listing query.",
+        "qa": "Test desktop/mobile controls, keyboard/focus, one/zero results, multiple sliders and reduced-motion preference. Verify emitted options before changing global scripts."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "slider-carousel--beta",
+        "repo": "directorist-slider-carousel",
+        "branch": "beta",
+        "commit": "fa74bc9ece627c2c36bf5c2464dc2f3710fec438",
+        "date": "2025-12-09T06:34:18Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-slider-carousel",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 9,
+    "classified_files": 17,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-google-recaptcha",
+    "name": "Google reCAPTCHA",
+    "url": "https://directorist.com/product/directorist-google-recaptcha/",
+    "skill": "directorist-ext-google-recaptcha",
+    "primary": "google-recaptcha--v3-support",
+    "headers": [
+      {
+        "file": "directorist-google-recaptcha.php",
+        "name": "Directorist Google reCAPTCHA",
+        "version": "2.2.1"
+      }
+    ],
+    "aliases": [
+      "Google reCAPTCHA",
+      "directorist-google-recaptcha",
+      "Directorist Google reCAPTCHA",
+      "directorist-google-recaptcha.php"
+    ],
+    "topics": [
+      {
+        "id": "verification",
+        "symptoms": "recaptcha|captcha|spam protection|v3 score",
+        "selectors": "recaptcha|directory_type|recaptchalib",
+        "contract": "v2/v3 branches differ. Server verification and per-form enable settings matter; client challenge success alone cannot authorize submission.",
+        "qa": "Test listing, registration, review and contact forms with valid, missing, expired and replayed tokens using test keys. Compare actual installed variant and server error."
+      },
+      {
+        "id": "captcha-render",
+        "symptoms": "captcha missing|captcha badge|captcha key",
+        "selectors": "recaptcha|assets|directory_type",
+        "contract": "Site/secret pairing, configured domains, form options and script loading control visible challenge/badge.",
+        "qa": "Render multiple protected forms, AJAX validation errors and disabled setting; verify no duplicate SDK load or hidden required challenge."
+      }
+    ],
+    "dependencies": [],
+    "snapshots": [
+      {
+        "key": "google-recaptcha--beta",
+        "repo": "directorist-google-recaptcha",
+        "branch": "beta",
+        "commit": "2fcd40af48879a19f1d30aff0ed5ee551709c083",
+        "date": "2025-06-09T14:35:02Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-google-recaptcha",
+        "kind": "remote"
+      },
+      {
+        "key": "google-recaptcha--v3-support",
+        "repo": "directorist-google-recaptcha",
+        "branch": "v3-support",
+        "commit": "ae5173102e9d6f4a69d52159d610bf45856de762",
+        "date": "2025-07-10T06:40:13Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-google-recaptcha__v3-support",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 10,
+    "classified_files": 17,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-claim-listing",
+    "name": "Claim Listing",
+    "url": "https://directorist.com/product/directorist-claim-listing/",
+    "skill": "directorist-ext-claim-listing",
+    "primary": "claim-listing--local",
+    "headers": [
+      {
+        "file": "directorist-claim-listing.php",
+        "name": "Directorist - Claim Listing",
+        "version": "2.6.0"
+      }
+    ],
+    "aliases": [
+      "Claim Listing",
+      "directorist-claim-listing",
+      "Directorist - Claim Listing",
+      "directorist-claim-listing.php"
+    ],
+    "topics": [
+      {
+        "id": "claim-approval",
+        "symptoms": "claim listing|claim button|ownership|duplicate claim|claim approval",
+        "selectors": "claim|helper|directory_type|assets/js/main|class-db.php|admin-meta-fields",
+        "contract": "Claim submission, duplicate detection, admin approval and author transfer are separate operations. A claimed badge is presentation evidence, not proof of ownership transfer.",
+        "qa": "Use an admin-owned listing, claimant and unrelated author. Submit, repeat, reject/approve; check claim record, actual post_author, permissions and outgoing email captured locally."
+      },
+      {
+        "id": "paid-claim-badge",
+        "symptoms": "paid claim|claimed badge|verified badge|claim tooltip",
+        "selectors": "claim|directory_type|helper|verified-badge|plan-selector",
+        "contract": "Claim pricing can use plan allowances or a manual charge; paid completion must reach the correct claim/listing. Badge content may be overridden by a builder/theme.",
+        "qa": "Compare free claim, plan-supported claim and manual fee; test failed/completed payment, card/detail tooltip and Divi badge. Preserve author ownership when only tooltip styling changes."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-woocommerce-pricing-plans",
+      "directorist-divi-integration"
+    ],
+    "snapshots": [
+      {
+        "key": "claim-listing--main",
+        "repo": "directorist-claim-listing",
+        "branch": "main",
+        "commit": "f5e2920c3127bdda2954990f37eb6f1f1c849e16",
+        "date": "2026-06-03T03:43:05Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-claim-listing",
+        "kind": "remote"
+      },
+      {
+        "key": "claim-listing--development",
+        "repo": "directorist-claim-listing",
+        "branch": "development",
+        "commit": "5c797d03501cfe5366590b8d262c9d82460d86df",
+        "date": "2026-08-20T10:15:32Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-claim-listing__development",
+        "kind": "remote"
+      },
+      {
+        "key": "claim-listing--local",
+        "repo": "directorist-claim-listing",
+        "branch": "fix/claimed-badge-tooltip",
+        "commit": "c0f000fef79d885c69881a38947e22fecd989eba",
+        "date": "2026-08-25T12:23:50+06:00",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-claim-listing",
+        "kind": "local",
+        "dirty": ""
+      }
+    ],
+    "source_files": 20,
+    "classified_files": 26,
+    "runtime_status": "not-tested"
+  },
+  {
+    "id": "directorist-stripe",
+    "name": "Stripe Payment Gateway",
+    "url": "https://directorist.com/product/directorist-stripe/",
+    "skill": "directorist-ext-stripe",
+    "primary": "stripe-new--master",
+    "headers": [
+      {
+        "file": "directorist-stripe.php",
+        "name": "Directorist - Stripe Payment Gateway",
+        "version": "3.0.1"
+      }
+    ],
+    "aliases": [
+      "Stripe Payment Gateway",
+      "directorist-stripe",
+      "Directorist - Stripe Payment Gateway",
+      "directorist-stripe.php",
+      "directorist-stripe-new"
+    ],
+    "topics": [
+      {
+        "id": "checkout-tax",
+        "symptoms": "stripe|card payment|sepa|stripe tax|stripe coupon",
+        "selectors": "Stripe.php|directorist-stripe.php|Settings|Checkout|helper|resources/js/index|routes/",
+        "contract": "Legacy and processor generations differ. Amount currency conversion, tax, discounts and trial calculation must be traced to the installed generation; SEPA belongs to a specific branch.",
+        "qa": "Test sandbox zero-decimal and normal currencies, tax-inclusive/exclusive prices, coupon and trial. Inspect checkout total, order amount, redirect and delayed-payment state."
+      },
+      {
+        "id": "webhooks",
+        "symptoms": "stripe webhook|stripe renewal|stripe cancellation",
+        "selectors": "Webhook|Controller|Service|Provider|directorist-stripe.php",
+        "contract": "Browser success, webhook confirmation and subscription renewal are separate. Verify signature handling and order reference before altering completion logic.",
+        "qa": "Replay valid, invalid-signature, delayed, out-of-order and duplicate events in sandbox; assert payment, package dates and cancellation once, plus failed renewal."
+      }
+    ],
+    "dependencies": [
+      "directorist-pricing-plans",
+      "directorist-coupon"
+    ],
+    "snapshots": [
+      {
+        "key": "stripe--alpha",
+        "repo": "directorist-stripe",
+        "branch": "alpha",
+        "commit": "6621828d9236c4dc458393ed17fedbdce4056f66",
+        "date": "2026-03-08T06:31:26Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe",
+        "kind": "remote"
+      },
+      {
+        "key": "stripe--feature-sepa-direct-debit-support",
+        "repo": "directorist-stripe",
+        "branch": "feature/sepa-direct-debit-support",
+        "commit": "a0bd8e43a74c9cc6a2d5ba54a07e3ceb9a4c7c5c",
+        "date": "2026-05-03T09:37:25Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe__feature-sepa-direct-debit-support",
+        "kind": "remote"
+      },
+      {
+        "key": "stripe--local",
+        "repo": "directorist-stripe",
+        "branch": "unversioned",
+        "commit": "unversioned-local",
+        "date": "unavailable",
+        "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-stripe",
+        "kind": "local",
+        "dirty": "unversioned folder; use file hashes"
+      },
+      {
+        "key": "stripe-new--master",
+        "repo": "directorist-stripe-new",
+        "branch": "master",
+        "commit": "498c48755f4168fdfdcaa955fb817647287a95e1",
+        "date": "2026-09-10T05:26:09Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe-new",
+        "kind": "remote"
+      },
+      {
+        "key": "stripe-new--development",
+        "repo": "directorist-stripe-new",
+        "branch": "development",
+        "commit": "6dbd9a3edc3b7453fb34f84a31ee6efebe90752d",
+        "date": "2026-09-10T05:25:25Z",
+        "path": "/Users/rabbiislamrony/Documents/ChatGPT/directorist-extension-sources/directorist-stripe-new__development",
+        "kind": "remote"
+      }
+    ],
+    "source_files": 30,
+    "classified_files": 54,
+    "runtime_status": "not-tested"
+  }
+]

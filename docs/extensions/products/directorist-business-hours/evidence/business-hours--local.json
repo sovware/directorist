@@ -1,0 +1,2644 @@
+{
+  "snapshot": {
+    "key": "business-hours--local",
+    "repo": "directorist-business-hours",
+    "branch": "development",
+    "commit": "5a42533eb7a29cdab35df86b42ad4749d5c408bd",
+    "date": "2026-08-10T12:08:53+06:00",
+    "path": "/Users/rabbiislamrony/Local Sites/directorist-core/app/public/wp-content/plugins/directorist-business-hours",
+    "kind": "local",
+    "dirty": "M bd-business-hour.php\n?? inc/csv_manager.php\n?? pnpm-lock.yaml\n?? pnpm-workspace.yaml"
+  },
+  "files": {
+    ".editorconfig": {
+      "sha256": "49fc03b852c9c14b9cde3677a42eb5010f212fbabec48a320d23eae732867e05",
+      "bytes": 202,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitattributes": {
+      "sha256": "53edd8db88e675518e622b1df56715297a330a66f24baa9f5ad960e1036dc81c",
+      "bytes": 333,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".gitignore": {
+      "sha256": "9a5eec673458be09957c99456ee984e2db18295b7a6a34b546f8be45c9257d1f",
+      "bytes": 86,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".npmrc": {
+      "sha256": "e2300d391ccdd21348d20f4e8db07d65a704990f235ae7265ecf31ded3ca9c42",
+      "bytes": 38,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    ".nvmrc": {
+      "sha256": "a1ea7509e222eedfb91645a7a8aff3f2f958b783358a4c2ea429ae068ffe92c3",
+      "bytes": 7,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "bd-business-hour.php": {
+      "sha256": "fce3dc4074cc56c13688bde4c815336ec9a4b9f6423aaca66f1dd9ff5a725e8f",
+      "bytes": 23602,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BD_Business_Hour",
+          "line": 17,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "instance",
+          "line": 42,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "all_listings_query",
+          "line": 87,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_business_hours_time",
+          "line": 129,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_business_hours_badge",
+          "line": 154,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_fields",
+          "line": 178,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 183,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_extension_settings_submenus",
+          "line": 260,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "businessHours_listing_search_query_argument",
+          "line": 280,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "pricing_plans_features_keys_alias",
+          "line": 323,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "check_pricing_plan_feature",
+          "line": 339,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__construct",
+          "line": 347,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__clone",
+          "line": 362,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "__wakeup",
+          "line": 374,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbh_save_meta_data",
+          "line": 379,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_needed_scripts",
+          "line": 395,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_widget",
+          "line": 417,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template",
+          "line": 427,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_textdomain",
+          "line": 434,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "includes",
+          "line": 449,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update_controller",
+          "line": 467,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "setup_constants",
+          "line": 488,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "display_listings_business_hours",
+          "line": 498,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active",
+          "line": 510,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_plugin_active_for_network",
+          "line": 516,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "BD_Business_Hour",
+          "line": 543,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 16,
+          "args": [
+            "'BD_Business_Hour'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 47,
+          "args": [
+            "'init'",
+            "[self::$instance, 'load_textdomain']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 50,
+          "args": [
+            "'plugins_loaded'",
+            "function() { if ( defined( 'ATBDP_VERSION' ) && version_compare( ATBDP_VERSION, '7.5.0', '>=' ) ) { Directorist_BH\\Asset_Loader::instance(); } else { add_action( 'admin_enqueue_scripts', [self::$instance, 'load_needed_scripts'] ); add_actio"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 51,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 55,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "[self::$instance, 'load_needed_scripts']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 56,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "[self::$instance, 'load_needed_scripts']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 63,
+          "args": [
+            "'atbdp_license_settings_controls'",
+            "[self::$instance, 'businessHours_license_settings_controls']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 65,
+          "args": [
+            "'widgets_init'",
+            "[self::$instance, 'register_widget']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 67,
+          "args": [
+            "'edit_post'",
+            "[self::$instance, 'dbh_save_meta_data']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 68,
+          "args": [
+            "'atbdp_listing_search_query_argument'",
+            "[self::$instance, 'businessHours_listing_search_query_argument']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 70,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "[self::$instance, 'atbdp_listing_type_settings_field_list']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 71,
+          "args": [
+            "'atbdp_extension_fields'",
+            "[self::$instance, 'atbdp_extension_fields']"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 72,
+          "args": [
+            "'atbdp_extension_settings_submenu'",
+            "[self::$instance, 'atbdp_extension_settings_submenus']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 74,
+          "args": [
+            "'wp_ajax_atbdp_business_hours_time'",
+            "[self::$instance, 'atbdp_business_hours_time']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 75,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_business_hours_time'",
+            "[self::$instance, 'atbdp_business_hours_time']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 77,
+          "args": [
+            "'wp_ajax_atbdp_business_hours_badge'",
+            "[self::$instance, 'atbdp_business_hours_badge']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 78,
+          "args": [
+            "'wp_ajax_nopriv_atbdp_business_hours_badge'",
+            "[self::$instance, 'atbdp_business_hours_badge']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 79,
+          "args": [
+            "'directorist_all_listings_query_arguments'",
+            "[self::$instance, 'all_listings_query']"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 80,
+          "args": [
+            "'admin_init'",
+            "[ self::$instance, 'update_controller' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 81,
+          "args": [
+            "'directorist_pricing_plans_features_keys'",
+            "[ self::$instance, 'pricing_plans_features_keys_alias' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 82,
+          "args": [
+            "'atbdp_allow_business_hour'",
+            "[ self::$instance, 'check_pricing_plan_feature' ]"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 132,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 140,
+          "args": [
+            "'text247'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 264,
+          "args": [
+            "'atbdp_business_hours_settings_controls'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 340,
+          "args": [
+            "'directorist_is_listing_feature_available'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 384,
+          "args": [
+            "$post_id",
+            "'_timezone'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 406,
+          "args": [
+            "'cache_plugin_compatibility'"
+          ]
+        },
+        {
+          "name": "register_widget",
+          "line": 419,
+          "args": [
+            "'BD_Business_Hour_Widget'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 438,
+          "args": [
+            "'plugin_locale'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 459,
+          "args": [
+            "'EDD_SL_Plugin_Updater'"
+          ]
+        },
+        {
+          "name": "get_user_meta",
+          "line": 468,
+          "args": [
+            "get_current_user_id()",
+            "'_plugins_available_in_subscriptions'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 489,
+          "args": [
+            "'BDBH_FILE'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 503,
+          "args": [
+            "'atbdp_business_hours'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 509,
+          "args": [
+            "'directorist_is_plugin_active'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 511,
+          "args": [
+            "'active_plugins'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 515,
+          "args": [
+            "'directorist_is_plugin_active_for_network'"
+          ]
+        },
+        {
+          "name": "get_site_option",
+          "line": 521,
+          "args": [
+            "'active_sitewide_plugins'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 547,
+          "args": [
+            "'plugins_loaded'",
+            "function() { if ( ! class_exists( 'Directorist_Base' ) ) { return; } $required_version = '8.8.0'; $current_version = defined( 'ATBDP_VERSION' ) ? ATBDP_VERSION : '0'; if ( version_compare( $current_version, $required_version, '<' ) ) { add_"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 549,
+          "args": [
+            "'Directorist_Base'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 554,
+          "args": [
+            "'ATBDP_VERSION'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 557,
+          "args": [
+            "'admin_notices'",
+            "function() use ( $required_version, $current_version ) { printf( '<div class=\"notice notice-error\"><p>%s</p></div>', wp_kses_post( sprintf( __( '<strong>Directorist Business Hour</strong> requires Directorist version <strong>%1$s</strong> o"
+          ]
+        }
+      ]
+    },
+    "composer.json": {
+      "sha256": "bcbcdf1d651c104411b3de80ad90ec9fdadc5d3f5027f7d5e8849920ad624d1b",
+      "bytes": 642,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "composer.lock": {
+      "sha256": "e8ebb924256d9895f9f536f8b43e4f781bb10f3523a199771483b144fb4dee11",
+      "bytes": 15498,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "config-helper.php": {
+      "sha256": "5783ab1ba703ac35c1e2ed9351953e6a074fb5d1c1a25d15d05b054ab97ae5f0",
+      "bytes": 714,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "bdbh_get_version_from_content",
+          "line": 4,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "bdbh_get_version_from_file_content",
+          "line": 16,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "function_exists",
+          "line": 3,
+          "args": [
+            "'bdbh_get_version_from_content'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 15,
+          "args": [
+            "'bdbh_get_version_from_file_content'"
+          ]
+        }
+      ]
+    },
+    "config.php": {
+      "sha256": "16ecb640711150f292551c603da52bbee73b64cd4ae4ba62fdb7ed7791bc091e",
+      "bytes": 1292,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'BDBH_VERSION'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 5,
+          "args": [
+            "'BDBH_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 7,
+          "args": [
+            "'BDBH_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 9,
+          "args": [
+            "'BDBH_BASE'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 11,
+          "args": [
+            "'BDBH_INC_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 13,
+          "args": [
+            "'BDBH_ASSETS'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 15,
+          "args": [
+            "'BDBH_TEMPLATES_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 17,
+          "args": [
+            "'BDBH_LANG_DIR'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 19,
+          "args": [
+            "'BDBH_NAME'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 21,
+          "args": [
+            "'ATBDP_AUTHOR_URL'"
+          ]
+        },
+        {
+          "name": "defined",
+          "line": 25,
+          "args": [
+            "'ATBDP_BUSINESS_HOURS_POST_ID'"
+          ]
+        }
+      ]
+    },
+    "gulpfile.js": {
+      "sha256": "707e8dd7eb635c12f38ca07c6866e67504856c419f46f396b4d3b7c2f091af57",
+      "bytes": 2575,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "index.php": {
+      "sha256": "5a6ba8768251ac631b711ef52d527fb3959c957c3618c15cc5205f9f4d248fc1",
+      "bytes": 37,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package-lock.json": {
+      "sha256": "abd1604d025ce6b8733c694a68ef74f7c35f6bf3982207072e2bce3f63115863",
+      "bytes": 354743,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "package.json": {
+      "sha256": "602ba5824dba6af5538cb52a3e235984014cb9eccc215d605701a935bc5e9d4c",
+      "bytes": 791,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "phpcs.xml.dist": {
+      "sha256": "b38f1a55c23ec944e784465032c33a7eae13599d5acf65d89dd874e8861f7bda",
+      "bytes": 2502,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "pnpm-lock.yaml": {
+      "sha256": "b69fd756f785a82c9b2bdbec1ad5d7715ff5043806d6a99faea4dfde87634cbe",
+      "bytes": 123127,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "pnpm-workspace.yaml": {
+      "sha256": "8e64b626f8ea415f0ac15ce936b6e14aed57f1ad83d427316ad3dbb5dbf6d7a0",
+      "bytes": 75,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.css": {
+      "sha256": "4d4ad4733aa6522e9455d9f563db17ece097fa70d7e794e9a5b291d3420cbd39",
+      "bytes": 58345,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.min.css": {
+      "sha256": "3dff6cf4028dbce23418a7723101af2495823b2cfe05b88bb681625405741c8e",
+      "bytes": 45214,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.rtl.css": {
+      "sha256": "51f526da2f6e23344e4b810e84200a0bbdc6090ebc2d6221968f822a886278e4",
+      "bytes": 58368,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/css/main.rtl.min.css": {
+      "sha256": "95a4043bbb413964e21973d995833de9d6ca92dab5efa2c3bc12db43ba9a1c02",
+      "bytes": 45239,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "assets/js/main.js": {
+      "sha256": "d132f45993eb2e69d06b9e39b1b9af6caf843969f42fe6be58ecba95a25f2eb1",
+      "bytes": 36308,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "initializeBHSections",
+          "kind": "JS",
+          "line": 3
+        },
+        {
+          "name": "switchCheckbox",
+          "kind": "JS",
+          "line": 7
+        },
+        {
+          "name": "hourSelectionCheckbox",
+          "kind": "JS",
+          "line": 10
+        },
+        {
+          "name": "toggleBusinessHourSections",
+          "kind": "JS",
+          "line": 33
+        },
+        {
+          "name": "isEnabled",
+          "kind": "JS",
+          "line": 34
+        },
+        {
+          "name": "isCustomHour",
+          "kind": "JS",
+          "line": 35
+        },
+        {
+          "name": "handleBHNextDayLabel",
+          "kind": "JS",
+          "line": 58
+        },
+        {
+          "name": "startTime",
+          "kind": "JS",
+          "line": 63
+        },
+        {
+          "name": "endTime",
+          "kind": "JS",
+          "line": 64
+        },
+        {
+          "name": "timeToMinutes",
+          "kind": "JS",
+          "line": 66
+        },
+        {
+          "name": "startTimeCount",
+          "kind": "JS",
+          "line": 72
+        },
+        {
+          "name": "endTimeCount",
+          "kind": "JS",
+          "line": 73
+        },
+        {
+          "name": "isCrossingMidnight",
+          "kind": "JS",
+          "line": 79
+        },
+        {
+          "name": "isCrossingToNextDay",
+          "kind": "JS",
+          "line": 82
+        },
+        {
+          "name": "dayMatch",
+          "kind": "JS",
+          "line": 84
+        },
+        {
+          "name": "day",
+          "kind": "JS",
+          "line": 85
+        },
+        {
+          "name": "days",
+          "kind": "JS",
+          "line": 87
+        },
+        {
+          "name": "nextDay",
+          "kind": "JS",
+          "line": 96
+        },
+        {
+          "name": "suffix",
+          "kind": "JS",
+          "line": 97
+        },
+        {
+          "name": "suffix",
+          "kind": "JS",
+          "line": 98
+        },
+        {
+          "name": "originalText",
+          "kind": "JS",
+          "line": 105
+        },
+        {
+          "name": "updatedText",
+          "kind": "JS",
+          "line": 106
+        },
+        {
+          "name": "rendered",
+          "kind": "JS",
+          "line": 116
+        },
+        {
+          "name": "mainText",
+          "kind": "JS",
+          "line": 120
+        },
+        {
+          "name": "spanHtml",
+          "kind": "JS",
+          "line": 121
+        },
+        {
+          "name": "originalText",
+          "kind": "JS",
+          "line": 125
+        },
+        {
+          "name": "rendered",
+          "kind": "JS",
+          "line": 130
+        },
+        {
+          "name": "initializeBHLabelUpdate",
+          "kind": "JS",
+          "line": 140
+        },
+        {
+          "name": "$container",
+          "kind": "JS",
+          "line": 142
+        },
+        {
+          "name": "$startSelect",
+          "kind": "JS",
+          "line": 143
+        },
+        {
+          "name": "$endSelect",
+          "kind": "JS",
+          "line": 146
+        },
+        {
+          "name": "handleStartTimeChange",
+          "kind": "JS",
+          "line": 154
+        },
+        {
+          "name": "$startSelect",
+          "kind": "JS",
+          "line": 155
+        },
+        {
+          "name": "$endSelect",
+          "kind": "JS",
+          "line": 156
+        },
+        {
+          "name": "handleEndTimeChange",
+          "kind": "JS",
+          "line": 164
+        },
+        {
+          "name": "$endSelect",
+          "kind": "JS",
+          "line": 165
+        },
+        {
+          "name": "$startSelect",
+          "kind": "JS",
+          "line": 166
+        },
+        {
+          "name": "$wrapper",
+          "kind": "JS",
+          "line": 196
+        },
+        {
+          "name": "$select",
+          "kind": "JS",
+          "line": 204
+        },
+        {
+          "name": "placeholder",
+          "kind": "JS",
+          "line": 206
+        },
+        {
+          "name": "if",
+          "kind": "JS",
+          "line": 225
+        },
+        {
+          "name": "$choiceWrapper",
+          "kind": "JS",
+          "line": 246
+        },
+        {
+          "name": "$originalItem",
+          "kind": "JS",
+          "line": 249
+        },
+        {
+          "name": "$originalClose",
+          "kind": "JS",
+          "line": 253
+        },
+        {
+          "name": "$clonedItem",
+          "kind": "JS",
+          "line": 258
+        },
+        {
+          "name": "$select",
+          "kind": "JS",
+          "line": 263
+        },
+        {
+          "name": "$startSelect",
+          "kind": "JS",
+          "line": 293
+        },
+        {
+          "name": "$closeSelect",
+          "kind": "JS",
+          "line": 296
+        },
+        {
+          "name": "$choiceWrapper",
+          "kind": "JS",
+          "line": 337
+        },
+        {
+          "name": "$items",
+          "kind": "JS",
+          "line": 342
+        },
+        {
+          "name": "$remainingItems",
+          "kind": "JS",
+          "line": 352
+        },
+        {
+          "name": "observer",
+          "kind": "JS",
+          "line": 435
+        },
+        {
+          "name": "initializeCopyDropdown",
+          "kind": "JS",
+          "line": 460
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 469
+        },
+        {
+          "name": "isVisible",
+          "kind": "JS",
+          "line": 470
+        },
+        {
+          "name": "currentDayValue",
+          "kind": "JS",
+          "line": 485
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 512
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 520
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 531
+        },
+        {
+          "name": "$enabledCheckboxes",
+          "kind": "JS",
+          "line": 534
+        },
+        {
+          "name": "$item",
+          "kind": "JS",
+          "line": 538
+        },
+        {
+          "name": "checkedCount",
+          "kind": "JS",
+          "line": 544
+        },
+        {
+          "name": "totalCount",
+          "kind": "JS",
+          "line": 545
+        },
+        {
+          "name": "allSelected",
+          "kind": "JS",
+          "line": 546
+        },
+        {
+          "name": "shouldSelect",
+          "kind": "JS",
+          "line": 550
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 572
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 584
+        },
+        {
+          "name": "$item",
+          "kind": "JS",
+          "line": 590
+        },
+        {
+          "name": "$dropdown",
+          "kind": "JS",
+          "line": 610
+        },
+        {
+          "name": "selectedDays",
+          "kind": "JS",
+          "line": 613
+        },
+        {
+          "name": "updateSelectAllState",
+          "kind": "JS",
+          "line": 640
+        },
+        {
+          "name": "$allCheckboxes",
+          "kind": "JS",
+          "line": 641
+        },
+        {
+          "name": "$selectAll",
+          "kind": "JS",
+          "line": 644
+        },
+        {
+          "name": "$selectAllLabel",
+          "kind": "JS",
+          "line": 645
+        },
+        {
+          "name": "$enabledCheckboxes",
+          "kind": "JS",
+          "line": 650
+        },
+        {
+          "name": "$item",
+          "kind": "JS",
+          "line": 651
+        },
+        {
+          "name": "checkedCount",
+          "kind": "JS",
+          "line": 657
+        },
+        {
+          "name": "totalCount",
+          "kind": "JS",
+          "line": 658
+        },
+        {
+          "name": "updateButtonStates",
+          "kind": "JS",
+          "line": 680
+        },
+        {
+          "name": "$allCheckboxes",
+          "kind": "JS",
+          "line": 681
+        },
+        {
+          "name": "$resetBtn",
+          "kind": "JS",
+          "line": 684
+        },
+        {
+          "name": "$applyBtn",
+          "kind": "JS",
+          "line": 687
+        },
+        {
+          "name": "$enabledCheckboxes",
+          "kind": "JS",
+          "line": 692
+        },
+        {
+          "name": "$item",
+          "kind": "JS",
+          "line": 693
+        },
+        {
+          "name": "checkedCount",
+          "kind": "JS",
+          "line": 699
+        },
+        {
+          "name": "totalCount",
+          "kind": "JS",
+          "line": 700
+        },
+        {
+          "name": "$selectAllLabel",
+          "kind": "JS",
+          "line": 709
+        },
+        {
+          "name": "closeDropdown",
+          "kind": "JS",
+          "line": 723
+        },
+        {
+          "name": "from",
+          "kind": "JS",
+          "line": 733
+        },
+        {
+          "name": "from",
+          "kind": "JS",
+          "line": 742
+        },
+        {
+          "name": "copyBusinessHoursToSelectedDays",
+          "kind": "JS",
+          "line": 752
+        },
+        {
+          "name": "sourceDayValue",
+          "kind": "JS",
+          "line": 758
+        },
+        {
+          "name": "sourceDayName",
+          "kind": "JS",
+          "line": 761
+        },
+        {
+          "name": "$targetDay",
+          "kind": "JS",
+          "line": 765
+        },
+        {
+          "name": "targetDayName",
+          "kind": "JS",
+          "line": 771
+        },
+        {
+          "name": "copyDayData",
+          "kind": "JS",
+          "line": 789
+        },
+        {
+          "name": "$sourceEnable",
+          "kind": "JS",
+          "line": 791
+        },
+        {
+          "name": "$targetEnable",
+          "kind": "JS",
+          "line": 794
+        },
+        {
+          "name": "$source247",
+          "kind": "JS",
+          "line": 804
+        },
+        {
+          "name": "$target247",
+          "kind": "JS",
+          "line": 807
+        },
+        {
+          "name": "copyTimeSlots",
+          "kind": "JS",
+          "line": 830
+        },
+        {
+          "name": "$sourceChoice",
+          "kind": "JS",
+          "line": 831
+        },
+        {
+          "name": "$targetChoice",
+          "kind": "JS",
+          "line": 834
+        },
+        {
+          "name": "$sourceWrapper",
+          "kind": "JS",
+          "line": 844
+        },
+        {
+          "name": "$targetWrapper",
+          "kind": "JS",
+          "line": 847
+        },
+        {
+          "name": "$sourceItems",
+          "kind": "JS",
+          "line": 863
+        },
+        {
+          "name": "$targetItems",
+          "kind": "JS",
+          "line": 868
+        },
+        {
+          "name": "$firstItem",
+          "kind": "JS",
+          "line": 879
+        },
+        {
+          "name": "$sourceItem",
+          "kind": "JS",
+          "line": 887
+        },
+        {
+          "name": "$select",
+          "kind": "JS",
+          "line": 905
+        },
+        {
+          "name": "$select",
+          "kind": "JS",
+          "line": 927
+        },
+        {
+          "name": "currentName",
+          "kind": "JS",
+          "line": 928
+        },
+        {
+          "name": "newName",
+          "kind": "JS",
+          "line": 930
+        },
+        {
+          "name": "$sourceStart",
+          "kind": "JS",
+          "line": 936
+        },
+        {
+          "name": "$targetStart",
+          "kind": "JS",
+          "line": 939
+        },
+        {
+          "name": "$sourceEnd",
+          "kind": "JS",
+          "line": 958
+        },
+        {
+          "name": "$targetEnd",
+          "kind": "JS",
+          "line": 961
+        },
+        {
+          "name": "$finalTargetItems",
+          "kind": "JS",
+          "line": 981
+        },
+        {
+          "name": "updateDayUIState",
+          "kind": "JS",
+          "line": 995
+        },
+        {
+          "name": "sourceClasses",
+          "kind": "JS",
+          "line": 997
+        },
+        {
+          "name": "relevantClasses",
+          "kind": "JS",
+          "line": 998
+        },
+        {
+          "name": "$item",
+          "kind": "JS",
+          "line": 1024
+        },
+        {
+          "name": "$startSelect",
+          "kind": "JS",
+          "line": 1025
+        },
+        {
+          "name": "$endSelect",
+          "kind": "JS",
+          "line": 1026
+        },
+        {
+          "name": "disableCurrentDayInDropdown",
+          "kind": "JS",
+          "line": 1040
+        },
+        {
+          "name": "from",
+          "kind": "JS",
+          "line": 1041
+        },
+        {
+          "name": "$matchingCheckbox",
+          "kind": "JS",
+          "line": 1047
+        },
+        {
+          "name": "$parentItem",
+          "kind": "JS",
+          "line": 1051
+        },
+        {
+          "name": "positionDropdownRelativeToButton",
+          "kind": "JS",
+          "line": 1065
+        },
+        {
+          "name": "buttonRect",
+          "kind": "JS",
+          "line": 1067
+        },
+        {
+          "name": "dropdownWidth",
+          "kind": "JS",
+          "line": 1070
+        },
+        {
+          "name": "dropdownHeight",
+          "kind": "JS",
+          "line": 1071
+        }
+      ],
+      "calls": []
+    },
+    "assets/js/main.min.js": {
+      "sha256": "66905889a3463b4661d96ac6ea309ff6bbbb3c9ebb1f374d473814b9b626f502",
+      "bytes": 14823,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/EDD_SL_Plugin_Updater.php": {
+      "sha256": "b7fa4c158791b603ae5e1e40f56f9b96e91689bc9be57aeedc310a9d9aa4611b",
+      "bytes": 21654,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "inc/asset-loader.php": {
+      "sha256": "be2a0374667a8b9d1dcf1ec2b0f06a11be56b564a7673af5cdc0a5815c087566",
+      "bytes": 3141,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Asset_Loader",
+          "line": 16,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "instance",
+          "line": 41,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enqueue_styles",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "load_template_scripts",
+          "line": 61,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "admin_scripts",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "localized_data",
+          "line": 73,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_all_scripts",
+          "line": 93,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_scripts",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 12,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 27,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this, 'register_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 28,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this , 'enqueue_styles' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 29,
+          "args": [
+            "'wp_enqueue_scripts'",
+            "array( $this , 'localized_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 32,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'register_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 33,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'admin_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 34,
+          "args": [
+            "'admin_enqueue_scripts'",
+            "array( $this, 'localized_data' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 37,
+          "args": [
+            "'directorist_bh_before_template_loaded'",
+            "array( $this, 'load_template_scripts' )"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 38,
+          "args": [
+            "'directorist_bh_before_widgets_loaded'",
+            "array( $this, 'load_template_scripts' )"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 76,
+          "args": [
+            "'cache_plugin_compatibility'"
+          ]
+        },
+        {
+          "name": "register_all_scripts",
+          "line": 113,
+          "args": [
+            "$scripts"
+          ]
+        }
+      ]
+    },
+    "inc/csv_manager.php": {
+      "sha256": "71b0efe65c19c3c156ea2dde02f69c74c56db8da21aad00fc99943dc118f1425",
+      "bytes": 4385,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "Directorist_Business_Hours_CSV_Manager",
+          "line": 14,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 18,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_importable_fields",
+          "line": 31,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "register_header_mappings",
+          "line": 49,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "add_export_fields",
+          "line": 65,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "enable_legacy_import",
+          "line": 90,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "get_fields",
+          "line": 110,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 8,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 10,
+          "args": [
+            "'Directorist_Business_Hours_CSV_Manager'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'directorist_importable_fields'",
+            "[ $this, 'register_importable_fields' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'directorist_listings_field_label_to_key_map'",
+            "[ $this, 'register_header_mappings' ]"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 21,
+          "args": [
+            "'directorist_listings_export_row'",
+            "[ $this, 'add_export_fields' ]"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 22,
+          "args": [
+            "'directorist_listing_imported'",
+            "[ $this, 'enable_legacy_import' ]"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 73,
+          "args": [
+            "$listing_id",
+            "'_' . $key"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 94,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 98,
+          "args": [
+            "$listing_id",
+            "'_enable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 100,
+          "args": [
+            "$listing_id",
+            "'_bdbh_version'"
+          ]
+        },
+        {
+          "name": "update_post_meta",
+          "line": 101,
+          "args": [
+            "$listing_id",
+            "'_bdbh_version'"
+          ]
+        }
+      ]
+    },
+    "inc/directory_types_manager.php": {
+      "sha256": "c702191180f2e2acf66d2d7039c4f67277e38923f9c0fa3aeee85149caca2e29",
+      "bytes": 11308,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "DBH_Directory_Type",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 7,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_add_listing_form_validation_logic",
+          "line": 25,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_search_form_widgets",
+          "line": 38,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_all_listings_badge_template",
+          "line": 59,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "listing_meta_user_submission",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_field_template",
+          "line": 77,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_search_field_template",
+          "line": 96,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_single_item_template",
+          "line": 106,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_single_listing_content_widgets",
+          "line": 122,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_form_preset_widget",
+          "line": 136,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_listing_type_settings_field_list",
+          "line": 181,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "class_exists",
+          "line": 4,
+          "args": [
+            "'DBH_Directory_Type'"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 10,
+          "args": [
+            "'atbdp_form_preset_widgets'",
+            "array($this, 'atbdp_form_preset_widget')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 11,
+          "args": [
+            "'atbdp_single_listing_content_widgets'",
+            "array($this, 'atbdp_single_listing_content_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 12,
+          "args": [
+            "'atbdp_listing_type_settings_field_list'",
+            "array($this, 'atbdp_listing_type_settings_field_list')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 13,
+          "args": [
+            "'directorist_field_template'",
+            "array( $this, 'directorist_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 14,
+          "args": [
+            "'directorist_single_item_template'",
+            "array( $this, 'directorist_single_item_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 15,
+          "args": [
+            "'directorist_search_field_template'",
+            "array( $this, 'directorist_search_field_template' )"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 16,
+          "args": [
+            "'atbdp_ultimate_listing_meta_user_submission'",
+            "array($this, 'listing_meta_user_submission')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 17,
+          "args": [
+            "'atbdp_listing_meta_admin_submission'",
+            "array($this, 'listing_meta_user_submission')"
+          ]
+        },
+        {
+          "name": "add_action",
+          "line": 18,
+          "args": [
+            "'atbdp_all_listings_badge_template'",
+            "array($this, 'atbdp_all_listings_badge_template')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 19,
+          "args": [
+            "'directorist_search_form_widgets'",
+            "array($this, 'directorist_search_form_widgets')"
+          ]
+        },
+        {
+          "name": "add_filter",
+          "line": 20,
+          "args": [
+            "'atbdp_add_listing_form_validation_logic'",
+            "array( $this, 'atbdp_add_listing_form_validation_logic' )"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 87,
+          "args": [
+            "'directorist_hours_form_field_templete_on_demand'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 112,
+          "args": [
+            "'directorist_hours_single_field_templete_on_demand'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 166,
+          "args": [
+            "'directorist_get_conditional_logic_field'"
+          ]
+        }
+      ]
+    },
+    "inc/helper-functions.php": {
+      "sha256": "313725a30488d8d322524bdf3241b462977dfd01691fc3dd2ce334e6ded8dc00",
+      "bytes": 75865,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "atbdp_get_option",
+          "line": 15,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_sanitize_array",
+          "line": 45,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_hoursRange",
+          "line": 67,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_get_old_hours",
+          "line": 78,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_hours",
+          "line": 89,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_hoursss",
+          "line": 109,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "dbh_is_open",
+          "line": 127,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_time_calculation",
+          "line": 145,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_time_calculationn",
+          "line": 209,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "atbdp_hours_badge",
+          "line": 276,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "business_open_close_status",
+          "line": 294,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_business_hours_get_template",
+          "line": 308,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_open_close_badge_class",
+          "line": 332,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_business_open_by_hours",
+          "line": 381,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_calculated_status",
+          "line": 432,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_calculated_statuss",
+          "line": 441,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_business_open_close_status",
+          "line": 522,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "is_day_open_now",
+          "line": 567,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_day",
+          "line": 608,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "show_business_hours",
+          "line": 636,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_show_open_close_badge",
+          "line": 835,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_listings_show_open_close_badge",
+          "line": 859,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_human_time_diff_short",
+          "line": 877,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_business_hours_status_times",
+          "line": 906,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_world_timezones",
+          "line": 1048,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_hours_cache_plugin_compatibility",
+          "line": 1461,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_is_business_hour_enabled_for_listing",
+          "line": 1475,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_get_wp_default_timezone_identifier",
+          "line": 1484,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "directorist_convert_gmt_offset_to_timezone",
+          "line": 1501,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 5,
+          "args": [
+            "'atbdp_get_option'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 26,
+          "args": [
+            "$group"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 39,
+          "args": [
+            "'atbdp_sanitize_array'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 90,
+          "args": [
+            "'directorist_business_hours_interval'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 93,
+          "args": [
+            "'atbh_time_format'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 113,
+          "args": [
+            "'atbh_time_format'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 126,
+          "args": [
+            "'dbh_is_open'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 207,
+          "args": [
+            "'atbdp_time_calculationn'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 275,
+          "args": [
+            "'atbdp_hours_badge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 278,
+          "args": [
+            "'open_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 279,
+          "args": [
+            "'close_badge_text'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 293,
+          "args": [
+            "'business_open_close_status'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 324,
+          "args": [
+            "'directorist_bh_before_template_loaded'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 331,
+          "args": [
+            "'directorist_open_close_badge_class'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 379,
+          "args": [
+            "'directorist_business_open_by_hours'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 431,
+          "args": [
+            "'directorist_calculated_status'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 520,
+          "args": [
+            "'directorist_business_open_close_status'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 528,
+          "args": [
+            "'timezone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 529,
+          "args": [
+            "$listing_id",
+            "'_timezone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 532,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 533,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 534,
+          "args": [
+            "$listing_id",
+            "'_disable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 607,
+          "args": [
+            "'directorist_day'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 634,
+          "args": [
+            "'show_business_hours'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 642,
+          "args": [
+            "'timezone'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 643,
+          "args": [
+            "'atbh_time_format'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 644,
+          "args": [
+            "$listing_id",
+            "'_timezone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 646,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 647,
+          "args": [
+            "$listing_id",
+            "'_disable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 648,
+          "args": [
+            "$listing_id",
+            "'_bdbh_version'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 833,
+          "args": [
+            "'directorist_show_open_close_badge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 837,
+          "args": [
+            "'open_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 838,
+          "args": [
+            "'close_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 839,
+          "args": [
+            "'atbh_time_format'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 857,
+          "args": [
+            "'directorist_listings_show_open_close_badge'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 861,
+          "args": [
+            "'open_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 862,
+          "args": [
+            "'close_badge_text'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 909,
+          "args": [
+            "'timezone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 910,
+          "args": [
+            "$listing_id",
+            "'_timezone'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 912,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 913,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1459,
+          "args": [
+            "'directorist_hours_cache_plugin_compatibility'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 1463,
+          "args": [
+            "'cache_plugin_compatibility'"
+          ]
+        },
+        {
+          "name": "function_exists",
+          "line": 1468,
+          "args": [
+            "'directorist_is_business_hour_enabled_for_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1476,
+          "args": [
+            "$listing_id",
+            "'_enable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1477,
+          "args": [
+            "$listing_id",
+            "'_bdbh_version'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 1478,
+          "args": [
+            "$listing_id",
+            "'_disable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1485,
+          "args": [
+            "'timezone_string'"
+          ]
+        },
+        {
+          "name": "get_option",
+          "line": 1492,
+          "args": [
+            "'gmt_offset'"
+          ]
+        }
+      ]
+    },
+    "languages/directorist-business-hours-backup-202603180909500.pot~": {
+      "sha256": "6fe31a24e1843873b03e28486b03b3a94452e857ce03f3d67adae4e39316fa38",
+      "bytes": 6461,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "languages/directorist-business-hours.pot": {
+      "sha256": "51cc62b6357114de75d0b2fb3d451d0d11ee2dc29ea8da0f216efbba21f9956d",
+      "bytes": 7814,
+      "classification": "support-or-generated",
+      "symbols": [],
+      "calls": []
+    },
+    "src/scss/main.css": {
+      "sha256": "7282cc1dc76f71d5e531cdddbd2e5d33a923d43d66ad6efc0dc200ce458b4d02",
+      "bytes": 29222,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "src/scss/main.scss": {
+      "sha256": "d0c7b43ae898e031d1311a5a7118c18931cfca918fb4110b28beecc7b1a9c4ff",
+      "bytes": 42529,
+      "classification": "source",
+      "symbols": [],
+      "calls": []
+    },
+    "templates/badge.php": {
+      "sha256": "23a10a7317512927162e8af44740fb7e88a92502d43ccb4b201ce56e5adbf963",
+      "bytes": 1180,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 5,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 6,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 7,
+          "args": [
+            "$listing_id",
+            "'_disable_bz_hour_listing'"
+          ]
+        }
+      ]
+    },
+    "templates/business-hour-fields.php": {
+      "sha256": "7aab2fdccd0ad354681e66e93119b3832409662ff736d76578e000a65b19e21c",
+      "bytes": 61698,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "get_post_meta",
+          "line": 4,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 5,
+          "args": [
+            "$listing_id",
+            "'_enable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 6,
+          "args": [
+            "$listing_id",
+            "'_bdbh_version'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 7,
+          "args": [
+            "$listing_id",
+            "'_timezone'"
+          ]
+        }
+      ]
+    },
+    "templates/search.php": {
+      "sha256": "a551eda3c4b27c092bb54fc3e5f8591d86faeebd72d110dd6c21597c1cf8aabc",
+      "bytes": 790,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        }
+      ]
+    },
+    "templates/show_hours.php": {
+      "sha256": "92acbdebe204eda1b8442c96b772bf67940c0fc5ad0a17212d461e76b894ffe7",
+      "bytes": 3136,
+      "classification": "source",
+      "symbols": [],
+      "calls": [
+        {
+          "name": "defined",
+          "line": 3,
+          "args": [
+            "'ABSPATH'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 5,
+          "args": [
+            "'text247'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 7,
+          "args": [
+            "'atbh_display_single_listing'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 8,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 9,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 10,
+          "args": [
+            "$listing_id",
+            "'_disable_bz_hour_listing'"
+          ]
+        }
+      ]
+    },
+    "widgets/class-widget.php": {
+      "sha256": "a3f5f284e4b19acf0f03f8e124ca3da13d11b4c0af0738f3e01e8bf567de6850",
+      "bytes": 5847,
+      "classification": "source",
+      "symbols": [
+        {
+          "name": "BD_Business_Hour_Widget",
+          "line": 5,
+          "kind": "T_CLASS"
+        },
+        {
+          "name": "__construct",
+          "line": 10,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "widget",
+          "line": 30,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "form",
+          "line": 101,
+          "kind": "T_FUNCTION"
+        },
+        {
+          "name": "update",
+          "line": 121,
+          "kind": "T_FUNCTION"
+        }
+      ],
+      "calls": [
+        {
+          "name": "get_directorist_option",
+          "line": 35,
+          "args": [
+            "'enable_business_hour'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 38,
+          "args": [
+            "$post->ID",
+            "'_disable_bz_hour_listing'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 43,
+          "args": [
+            "'atbdp_allow_business_hour'"
+          ]
+        },
+        {
+          "name": "get_directorist_option",
+          "line": 47,
+          "args": [
+            "'text247'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 48,
+          "args": [
+            "$listing_id",
+            "'_bdbh'"
+          ]
+        },
+        {
+          "name": "get_post_meta",
+          "line": 49,
+          "args": [
+            "$listing_id",
+            "'_enable247hour'"
+          ]
+        },
+        {
+          "name": "do_action",
+          "line": 60,
+          "args": [
+            "'directorist_bh_before_widgets_loaded'"
+          ]
+        },
+        {
+          "name": "apply_filters",
+          "line": 63,
+          "args": [
+            "'widget_title'"
+          ]
+        }
+      ]
+    }
+  }
+}

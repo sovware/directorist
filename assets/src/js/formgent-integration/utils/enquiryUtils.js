@@ -220,11 +220,11 @@ export const bulkDeleteEnquiries = async (items, onSuccess) => {
 };
 
 /**
- * Send an enquiry reply using the configured email app.
+ * Prepare the recipient and compose links for an enquiry reply.
  * @param {Object|Array} item - The enquiry item
- * @returns {Promise<void>}
+ * @returns {Promise<Object|undefined>} Reply details, when an email is available.
  */
-export const sendEmailToUser = async (item) => {
+export const prepareEmailReply = async (item) => {
 	let enquiry = extractEnquiryData(item);
 
 	if (!enquiry) {
@@ -267,7 +267,20 @@ export const sendEmailToUser = async (item) => {
 	const subject = `Your Enquiry on ${listingTitle}`;
 	const mailtoLink = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(subject)}`;
 
-	window.open(mailtoLink, '_self');
+	return {
+		email: userEmail,
+		subject,
+		mailto: mailtoLink,
+		gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}`,
+	};
+};
+
+/**
+ * Open the configured email app for an enquiry reply.
+ */
+export const sendEmailToUser = async (item) => {
+	const reply = await prepareEmailReply(item);
+	if (reply) window.open(reply.mailto, '_self');
 };
 
 /**

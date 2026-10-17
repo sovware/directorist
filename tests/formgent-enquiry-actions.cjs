@@ -134,3 +134,20 @@ test('missing email and failed detail lookup show an error without opening a mai
 	assert.equal(failed.opens.length, 0);
 	assert.equal(failed.notices[0][1].type, 'error');
 });
+
+test('reply options preserve recipient and subject for Gmail without launching an email app', async () => {
+	const utils = loadUtils();
+	const reply = await utils.prepareEmailReply({
+		id: '3',
+		answers: [emailAnswer('example2@gmail.com')],
+		listing_title: 'Holiday Luxury House',
+	});
+	assert.equal(utils.opens.length, 0);
+	assert.equal(reply.email, 'example2@gmail.com');
+	assert.equal(reply.subject, 'Your Enquiry on Holiday Luxury House');
+	const gmail = new URL(reply.gmail);
+	assert.equal(gmail.origin, 'https://mail.google.com');
+	assert.equal(gmail.searchParams.get('view'), 'cm');
+	assert.equal(gmail.searchParams.get('to'), reply.email);
+	assert.equal(gmail.searchParams.get('su'), reply.subject);
+});

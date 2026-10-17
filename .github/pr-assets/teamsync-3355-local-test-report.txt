@@ -1,0 +1,99 @@
+Directorist Polylang Directory Type mapping — local verification
+Date: 17 October 2026
+Site: http://support-test.local/
+Environment: Directorist 8.10.4, Polylang 3.8.11, PHP 8.2.27, Twenty Twenty-Four.
+
+PR packaging verification
+The fix was applied without conflicts to sovware/directorist trunk at
+cfd22c84763155700b53a2d029b94754097fbd79. PHPCS (the repository standard, with
+warning severity 0), PHP syntax checks and git diff --check passed. The existing
+listing-import-taxonomy-cache.php and listing-taxonomy-subterms.php regression
+tests passed. The only additional core changes during packaging are formatting:
+the new multi-line get_terms call and four pre-existing tab-indented badge lines
+were normalized for PHPCS. The functional local test results below were collected
+during implementation, before the synthetic fixtures were removed.
+
+Result
+The mapping fix is applied to the active local Directorist source. It resolves
+Directory Type IDs/slugs to the current language for All Listings and Search
+Listing, including Gutenberg rendering, shortcodes and AJAX requests. It also
+copies/translates protected _directory_type metadata through Polylang and keeps
+listing meta and Directory Type taxonomy aligned during saves and language changes.
+
+Changed source files (relative to wp-content/plugins/directorist/)
+- includes/classes/class-multilingual-polylang.php
+- includes/model/Listings.php
+- includes/model/SearchForm.php
+
+Baseline
+Synthetic linked English/French Directory Types, taxonomy terms and listings were
+created on the requested site. Each language had three listings. French listings
+had French taxonomy but stale English _directory_type metadata, matching the ticket.
+Copied English Directory Type references rendered a blank French block. The initial
+regression run exited 1 with four failed French assertions: selected directory,
+results, pagination and AJAX ID mapping. English assertions passed.
+
+Verification after the fix
+36 regression assertions passed in the final run, covering:
+- English and French copied Directory Type references.
+- Three results per language with two listings per page and two total pages.
+- AJAX source-language references provided as numeric IDs and slugs.
+- Persisted listing meta matching the listing language and taxonomy.
+- Valid slug/ID translation and unchanged values for missing translations,
+  invalid IDs and non-Directory-Type taxonomy IDs.
+- Actual Polylang metadata-copy lifecycle, including the protected meta key.
+- Metadata writes after language assignment and later language changes.
+- Normal WordPress post saves and idempotent repair calls.
+- Standalone Search Listing and archive filter forms.
+- Multiple Directory Type references and preservation of unrelated attributes.
+
+Browser checks
+- English Gutenberg block: three English results; French results excluded.
+- French Gutenberg block: three French results; English results excluded.
+- French shortcode: three French results with mapped Directory Type ID 753.
+- French AJAX keyword + category filter: Gamma returned one French Clinic Gamma.
+- Clear All restored the three French results.
+- French page 2: one French Clinic Gamma; pagination current page 2.
+- English page 2: one English Clinic Gamma; pagination current page 2.
+- No JavaScript page exceptions were reported in the final browser check.
+The site's existing missing image assets were visible; this patch does not replace
+site media or alter its presentation.
+
+Repair utility
+repair-polylang-directory-types.php defaults to a dry run and processes 200 listings
+per batch. One synthetic stale row was introduced directly for this test. Dry run
+reported 1 candidate without changing its English ID. Apply repaired 1 listing;
+a second dry run reported 0 candidates. The full regression suite passed afterward.
+Back up a target database before running apply. The utility does not modify listing
+content; it updates the Directory Type meta and taxonomy relationship only.
+
+Additional checks
+- PHP syntax checks passed for all three changed files and the repair utility.
+- With Polylang skipped, the existing Catalogo archive returned its original
+  Directory Type ID 493 and twelve listing results; mapping filters were absent.
+- git apply --reverse --check succeeded against the installed modified files.
+- The local homepage returned HTTP 200 after cleanup.
+
+Cleanup and evidence limits
+The site's original Polylang configuration had no languages. The temporary English
+and French languages, synthetic listings/pages and fixture taxonomy terms were
+removed after QA. The original empty-language configuration and infinite_scroll
+pagination setting were restored and verified. The temporary query diagnostic was
+removed. The task's Agent Browser session was explicitly closed; doctor and session
+listing confirmed that t3355-polylang was no longer active. Pre-existing sessions
+were left intact. The code fix remains installed locally.
+
+Testing used synthetic data on the requested local site, not the client's WPvivid
+backup. The patch was generated against this site's pre-change files, preserving
+its pre-existing custom source changes. Review against the target repository before
+release. A normal plugin update can overwrite these local core modifications.
+
+Artifacts
+- tools/repair-polylang-directory-types.php: dry-run/apply utility for existing data.
+- .github/pr-assets/teamsync-3355-fr-search.png: filtered French browser result.
+- .github/pr-assets/teamsync-3355-fr-pagination.png: French page 2 result.
+- .github/pr-assets/teamsync-3355-en-block.png: English Gutenberg result.
+
+Repair usage (from a WordPress shell after applying the source fix)
+wp eval-file /absolute/path/to/repair-polylang-directory-types.php
+wp eval-file /absolute/path/to/repair-polylang-directory-types.php apply

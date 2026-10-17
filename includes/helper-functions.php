@@ -2983,11 +2983,9 @@ if ( ! function_exists( 'directorist_get_default_directory' ) ) {
             ]
         );
 
-        if ( empty( $directories ) || is_wp_error( $directories ) || ! isset( $directories[0] ) ) {
-            return 0;
-        }
+        $directory = ! is_wp_error( $directories ) && isset( $directories[0] ) ? $directories[0] : 0;
 
-        return $directories[0];
+        return apply_filters( 'directorist_default_directory', $directory, $return );
     }
 }
 

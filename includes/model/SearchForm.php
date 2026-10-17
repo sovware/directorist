@@ -87,6 +87,7 @@ class Directorist_Listing_Search_Form {
 
     public function __construct( $type, $directory_id = 0, $atts = [] ) {
         $this->type = $type;
+        $atts       = apply_filters( 'directorist_directory_attributes', $atts );
         $this->atts = $atts;
 
         $this->set_default_options();
@@ -98,7 +99,7 @@ class Directorist_Listing_Search_Form {
         }
 
         if ( directorist_is_directory( $directory_id ) ) {
-            $this->listing_type = (int) $directory_id;
+            $this->listing_type = (int) apply_filters( 'directorist_current_directory', $directory_id );
         } else {
             $this->listing_type = $this->get_default_directory();
         }
@@ -312,7 +313,7 @@ class Directorist_Listing_Search_Form {
             }
         }
 
-        return $default_directory_id;
+        return (int) apply_filters( 'directorist_current_directory', $default_directory_id );
     }
 
     public function build_form_data() {

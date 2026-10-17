@@ -1,0 +1,59 @@
+TeamSync 3355 / client conversation 6557: completed Polylang fix
+Date: 17 October 2026
+PR target: development
+Result: PASS for the targeted Directory Type mapping, default fallback and missing Builder configuration regression.
+
+Evidence boundary
+This run used an isolated local restoration of the client's actual 16 October WPvivid backup, not only synthetic fixtures and not the remote private site. The original client SQL was re-imported before the final repair test. No remote client site, production database or shared development deployment was modified. Private backup files, credentials, client screenshots and identifying content are intentionally excluded from this PR.
+
+Environment
+WordPress 7.1.3; Directorist 8.10.4; Polylang 3.8.11; PHP 8.2.27; original Gantry/Helium theme and client plugins/content. A separate database and loopback-only server were used; email delivery, WP-Cron and external WordPress HTTP requests were disabled. Candidate PHP files were copied from this PR branch and compared byte-for-byte with the tested files.
+
+Baseline from the actual backup
+- The French listing had a French Directory Type taxonomy relationship but an English _directory_type post-meta ID.
+- The linked French Directory Type had no stored Builder configuration and no _default flag.
+- The actual All Listings block did not explicitly select a Directory Type.
+- The initial mapping-only PR repaired the listing ID but still produced zero French archive results and an empty French Single Listing.
+- French Category/Location directory associations also retained English IDs, causing an empty category dropdown after Builder fallback was enabled.
+
+Completed implementation
+- A language-specific default still takes priority. If missing, resolve the global default outside Polylang's current-language term filter, then map it to its linked translation. ID and slug calls stay consistent.
+- Missing Builder layout/presentation keys read through to the linked default-language Directory Type, including all-meta reads used by Directory Builder. No configuration is written during frontend reads.
+- Inheritance is restricted to Builder keys. Existing French arrays, custom labels, empty arrays/strings, false and zero remain authoritative. Identity/default flags, arbitrary third-party metadata and unrelated directories are not inherited.
+- Missing-key defaults do not change metadata_exists() or prevent saving the same inherited layout as an independent French value.
+- Category/Location saves and late metadata writes map Directory Type arrays to the term language and keep legacy association arrays plus indexed directory markers aligned.
+- The batched repair utility now also repairs existing Category/Location associations. It remains dry-run by default.
+
+Actual-backup verification
+1. Original SQL restored; confirmed the original listing mismatch, empty French Directory Type metadata and English-ID category associations before repair.
+2. Repair dry run detected exactly 1 listing and 7 Category/Location terms. Apply repaired those records; repeat dry run detected 0 listings and 0 terms.
+3. Unchanged French All Listings block: resolves translated Directory Type 274, returns exactly 1 French listing, and renders its card plus search controls. No block attributes or page content were changed to select a Directory Type.
+4. French category dropdown: translated categories appear after association repair. Selecting the matching French category and entering a matching keyword returns the one French listing through the real browser/AJAX flow. A nonmatching keyword returns zero results and the French no-results message.
+5. Opening the French listing card renders the French Single Listing heading/description, translated categories/location, address and contact fields. Clicking its English language link opens the linked English Single Listing.
+6. English archive: 115 English results across 15 pages; browser page 1 shows 8 cards. Clicking page 2 shows 8 different English cards. English -> French archive language switch opens the French page with its one French card.
+7. After all tests, the French Directory Type still has 0 physical metadata rows. This confirms the fix is an effective read-through fallback, not the previous temporary copy-all diagnostic workaround.
+8. With Polylang and its SearchWP bridge skipped in a separate WP-CLI process, default Directory Type remains 10 and the new Polylang default/builder filters are absent.
+9. Final browser exception check returned no JavaScript page exceptions.
+
+Regression suite
+Command (disposable local site with the prerequisites documented in the test):
+  wp eval-file wp-content/plugins/directorist/tests/wp-cli/polylang-directory-builder.php
+
+New suite: 47 assertions passed; temporary terms removed.
+Red/green check: the mapping-only integration failed 28 of 46 assertions (exit 1; the unavailable integration-hook branch has one assertion instead of two). Restoring the completed integration passed all 47 assertions (exit 0).
+Coverage includes source/French defaults, explicit French defaults, standalone Search Form, seven Builder payloads, single/multiple/all-meta return contracts, no read-time writes, independent saving, empty/custom French values, source updates, missing translations, unrelated taxonomies, Category/Location mapping/indexes, idempotence and integration-off behavior.
+
+Fresh repository checks
+- PHPCS on all six changed PHP files: passed.
+- php -l on all six changed PHP files: passed.
+- php tests/php/listing-import-taxonomy-cache.php: passed.
+- php tests/php/listing-taxonomy-subterms.php: passed.
+- git diff --check: passed.
+
+Cleanup and limitations
+- Zero temporary regression terms remain. Task browser session closed and its absence verified in session inventory. Local test server stopped.
+- Original remote/private site and support-test.local were not modified in this run. The restored clone retains the applied fix and repaired local mappings for follow-up.
+- Source-language custom Builder labels remain inherited until explicitly translated/saved in the French Directory Builder; arbitrary user-defined text is not machine-translated.
+- Private/intranet image assets, external map behavior and full-site acceptance are outside this targeted test. Some unavailable media showed existing placeholders/broken assets locally.
+- The backup has one published French listing, so there is no real-data French page-2 case in this run. The earlier synthetic pagination test is historical evidence, not a client-data pagination claim.
+- No PR merge or direct push/deployment to development is part of this update.

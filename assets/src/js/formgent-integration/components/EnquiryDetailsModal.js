@@ -329,7 +329,10 @@ export default function EnquiryDetailsModal({
 								<button
 									className="directorist-enquiry-modal-btn directorist-enquiry-modal-btn-reply"
 									onClick={() =>
-										handleSendEmail(singleItem?.response)
+										handleSendEmail({
+											...matchedEnquiry,
+											...singleItem?.response,
+										})
 									}
 								>
 									<Reply />

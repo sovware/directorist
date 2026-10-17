@@ -33,6 +33,142 @@ if ( ! class_exists( 'Directorist_Multilingual_Polylang' ) ) :
         
             // Update term's language link
             add_filter( 'pll_the_language_link', [ $this, 'term_language_link_update' ], 20, 2 );
+
+            // Directory Type is a translated relationship, not a shared numeric ID.
+            add_filter( 'pll_copy_post_metas', [ $this, 'copy_directory_type_meta' ], 10, 3 );
+            add_filter( 'pll_translate_post_meta', [ $this, 'translate_directory_type_meta' ], 10, 3 );
+            add_action( 'pll_save_post', [ $this, 'sync_listing_directory' ], 30 );
+            add_action( 'added_post_meta', [ $this, 'sync_directory_meta' ], 20, 4 );
+            add_action( 'updated_post_meta', [ $this, 'sync_directory_meta' ], 20, 4 );
+            add_action( 'set_object_terms', [ $this, 'sync_directory_terms' ], 30, 4 );
+
+            add_filter( 'directorist_directory_attributes', [ $this, 'translate_directory_attributes' ] );
+            add_filter( 'directorist_current_directory', [ $this, 'translate_current_directory' ] );
+        }
+
+        /** Resolve a Directory Type ID or slug, retaining the original when untranslated. */
+        public function translate_directory_type( $directory, $language ) {
+            if ( ! $language || ! is_scalar( $directory ) || '' === (string) $directory ) {
+                return $directory;
+            }
+
+            if ( is_numeric( $directory ) ) {
+                $term = get_term( (int) $directory, ATBDP_DIRECTORY_TYPE );
+            } else {
+                // A source-language slug must be looked up outside the current
+                // language filter before its translation can be resolved.
+                $terms = get_terms(
+                    [
+                        'taxonomy'   => ATBDP_DIRECTORY_TYPE,
+                        'slug'       => $directory,
+                        'hide_empty' => false,
+                        'number'     => 1,
+                        'lang'       => '',
+                    ]
+                );
+                $term = ! is_wp_error( $terms ) && $terms ? reset( $terms ) : false;
+            }
+
+            if ( ! $term || is_wp_error( $term ) ) {
+                return $directory;
+            }
+
+            $translated_id = pll_get_term( $term->term_id, $language );
+            $translated    = $translated_id ? get_term( $translated_id, ATBDP_DIRECTORY_TYPE ) : false;
+
+            return $translated && ! is_wp_error( $translated ) ? (int) $translated->term_id : $directory;
+        }
+
+        public function copy_directory_type_meta( $keys, $sync, $from ) {
+            if ( ATBDP_POST_TYPE === get_post_type( $from ) ) {
+                $keys[] = '_directory_type';
+            }
+
+            return array_unique( $keys );
+        }
+
+        public function translate_directory_type_meta( $value, $key, $language ) {
+            return '_directory_type' === $key ? $this->translate_directory_type( $value, $language ) : $value;
+        }
+
+        /** Also usable to repair an existing listing without rewriting its content. */
+        public function sync_listing_directory( $post_id ) {
+            static $syncing = [];
+
+            if ( isset( $syncing[ $post_id ] ) || ATBDP_POST_TYPE !== get_post_type( $post_id ) || wp_is_post_revision( $post_id ) ) {
+                return;
+            }
+
+            $language = pll_get_post_language( $post_id );
+            $stored   = get_post_meta( $post_id, '_directory_type', true );
+            $mapped   = $this->translate_directory_type( $stored, $language );
+
+            // An unlinked/missing translation must not change an existing assignment.
+            if ( ! $language || ! is_numeric( $mapped ) || pll_get_term_language( (int) $mapped ) !== $language ) {
+                return;
+            }
+
+            $syncing[ $post_id ] = true;
+            try {
+                if ( (int) $stored !== (int) $mapped ) {
+                    update_post_meta( $post_id, '_directory_type', (int) $mapped );
+                }
+
+                $terms = wp_get_object_terms( $post_id, ATBDP_DIRECTORY_TYPE, [ 'fields' => 'ids' ] );
+                if ( ! is_wp_error( $terms ) && [ (int) $mapped ] !== $terms ) {
+                    wp_set_object_terms( $post_id, [ (int) $mapped ], ATBDP_DIRECTORY_TYPE );
+                }
+            } finally {
+                unset( $syncing[ $post_id ] );
+            }
+        }
+
+        public function sync_directory_meta( $meta_id, $post_id, $key, $value ) {
+            if ( '_directory_type' === $key ) {
+                $this->sync_listing_directory( $post_id );
+            }
+        }
+
+        public function sync_directory_terms( $object_id, $terms, $tt_ids, $taxonomy ) {
+            // Setting a language can happen after the meta was copied (REST/import).
+            if ( in_array( $taxonomy, [ ATBDP_DIRECTORY_TYPE, 'language' ], true ) ) {
+                $this->sync_listing_directory( $object_id );
+            }
+        }
+
+        public function translate_current_directory( $directory ) {
+            return $this->translate_directory_type( $directory, pll_current_language() );
+        }
+
+        /** Blocks and shortcodes can retain source-language slugs after translation. */
+        public function translate_directory_attributes( $attributes ) {
+            $language = pll_current_language();
+            if ( ! $language ) {
+                return $attributes;
+            }
+
+            foreach ( [ 'directory_type', 'default_directory_type' ] as $key ) {
+                if ( empty( $attributes[ $key ] ) || ! is_scalar( $attributes[ $key ] ) ) {
+                    continue;
+                }
+
+                $values = explode( ',', (string) $attributes[ $key ] );
+                foreach ( $values as &$value ) {
+                    $value  = trim( $value );
+                    $mapped = $this->translate_directory_type( $value, $language );
+                    // directory_type is a slug list; default_directory_type accepts IDs.
+                    if ( 'directory_type' === $key && is_numeric( $mapped ) ) {
+                        $term  = get_term( (int) $mapped, ATBDP_DIRECTORY_TYPE );
+                        $value = $term && ! is_wp_error( $term ) ? $term->slug : $value;
+                    } else {
+                        $value = $mapped;
+                    }
+                }
+                unset( $value );
+                $attributes[ $key ] = implode( ',', $values );
+            }
+
+            return $attributes;
         }
 
         public function enable_translation_to_custom_post_types( array $post_types ): array {

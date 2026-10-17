@@ -3,7 +3,7 @@
  * Run inside WP-CLI after applying the mapping fix:
  *   wp eval-file repair-polylang-directory-types.php             # dry run
  *   wp eval-file repair-polylang-directory-types.php apply       # repair
- * Back up the database before apply. Processes listings in batches of 200.
+ * Back up the database before apply. Processes listings and taxonomy terms in batches of 200.
  */
 if ( ! defined( 'WP_CLI' ) || ! WP_CLI || ! function_exists( 'pll_get_post_language' ) ) {
     return;
@@ -15,7 +15,7 @@ foreach ( $GLOBALS['wp_filter']['pll_save_post']->callbacks[30] ?? [] as $callba
         break;
     }
 }
-if ( ! $integration || ! method_exists( $integration, 'sync_listing_directory' ) ) {
+if ( ! $integration || ! method_exists( $integration, 'sync_taxonomy_directory' ) ) {
     WP_CLI::error( 'Apply the Directorist Polylang Directory Type mapping fix first.' );
 }
 $apply = isset( $args[0] ) && 'apply' === $args[0];
@@ -44,3 +44,29 @@ do {
     }
 } while ( count( $ids ) === 200 );
 WP_CLI::success( sprintf( '%d listings %s.', $count, $apply ? 'repaired' : 'would be repaired (dry run)' ) );
+
+$count = 0;
+$offset = 0;
+do {
+    $terms = get_terms( [ 'taxonomy' => [ ATBDP_CATEGORY, ATBDP_LOCATION ], 'hide_empty' => false, 'lang' => '', 'number' => 200, 'offset' => $offset, 'orderby' => 'term_id', 'order' => 'ASC' ] );
+    if ( is_wp_error( $terms ) ) {
+        WP_CLI::error( $terms->get_error_message() );
+    }
+    foreach ( $terms as $term ) {
+        $old = directorist_get_term_directory( $term->term_id );
+        $mapped = $integration->translate_taxonomy_directories( $term->term_id );
+        if ( $old === $mapped ) {
+            continue;
+        }
+        WP_CLI::log( sprintf( '%s term %d (%s): directories %s -> %s', $apply ? 'Repair' : 'Would repair', $term->term_id, $term->taxonomy, wp_json_encode( $old ), wp_json_encode( $mapped ) ) );
+        if ( $apply ) {
+            $integration->sync_taxonomy_directory( $term->term_id );
+            if ( directorist_get_term_directory( $term->term_id ) !== $mapped ) {
+                WP_CLI::error( 'Repair verification failed for term ' . $term->term_id );
+            }
+        }
+        ++$count;
+    }
+    $offset += 200;
+} while ( count( $terms ) === 200 );
+WP_CLI::success( sprintf( '%d taxonomy terms %s.', $count, $apply ? 'repaired' : 'would be repaired (dry run)' ) );

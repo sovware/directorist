@@ -5,6 +5,8 @@ defined( 'ABSPATH' ) || die( 'Direct access is not allowed.' );
 if ( ! class_exists( 'Directorist_Multilingual_Polylang' ) ) :
 
     class Directorist_Multilingual_Polylang {
+        private $reading_builder_meta = false;
+
         public function __construct() {
             if ( ! function_exists( 'PLL' ) ) {
                 return;
@@ -41,9 +43,112 @@ if ( ! class_exists( 'Directorist_Multilingual_Polylang' ) ) :
             add_action( 'added_post_meta', [ $this, 'sync_directory_meta' ], 20, 4 );
             add_action( 'updated_post_meta', [ $this, 'sync_directory_meta' ], 20, 4 );
             add_action( 'set_object_terms', [ $this, 'sync_directory_terms' ], 30, 4 );
+            add_action( 'pll_save_term', [ $this, 'sync_taxonomy_directory' ], 30 );
+            add_action( 'added_term_meta', [ $this, 'sync_taxonomy_directory_meta' ], 20, 4 );
+            add_action( 'updated_term_meta', [ $this, 'sync_taxonomy_directory_meta' ], 20, 4 );
 
             add_filter( 'directorist_directory_attributes', [ $this, 'translate_directory_attributes' ] );
             add_filter( 'directorist_current_directory', [ $this, 'translate_current_directory' ] );
+            add_filter( 'directorist_default_directory', [ $this, 'translate_default_directory' ], 10, 2 );
+            add_filter( 'default_term_metadata', [ $this, 'inherit_directory_builder_meta' ], 10, 4 );
+            add_filter( 'get_term_metadata', [ $this, 'inherit_all_directory_builder_meta' ], 10, 4 );
+        }
+
+        /** A translated term need not duplicate the source's global default flag. */
+        public function translate_default_directory( $directory, $return ) {
+            $language = pll_current_language();
+            if ( ! $language ) {
+                return $directory;
+            }
+
+            if ( ! $directory ) {
+                $defaults = directorist_get_directories(
+                    [
+                        'default_only' => true,
+                        'fields'       => 'ids',
+                        'lang'         => '',
+                    ]
+                );
+                $directory = ! is_wp_error( $defaults ) && isset( $defaults[0] ) ? $defaults[0] : 0;
+            }
+
+            $mapped = $this->translate_directory_type( $directory, $language );
+            if ( 'slug' === $return && is_numeric( $mapped ) && $mapped ) {
+                $term = get_term( (int) $mapped, ATBDP_DIRECTORY_TYPE );
+                return $term && ! is_wp_error( $term ) ? $term->slug : $directory;
+            }
+
+            return $mapped;
+        }
+
+        /** Only builder presentation data is inherited, never identity or third-party meta. */
+        private function directory_builder_meta_keys() {
+            return [
+                'submission_form_fields',
+                'search_form_fields',
+                'single_listing_header',
+                'single_listings_contents',
+                'single_listings_shortcodes',
+                'listings_card_grid_view',
+                'listings_card_list_view',
+                'enable_sidebar',
+                'preview_mode',
+                'submit_button_label',
+                'submit_button_label_old',
+                'enable_single_listing_page',
+            ];
+        }
+
+        /**
+         * Read through to the linked default-language builder without database writes.
+         * Existing values (including empty arrays/strings and false) remain authoritative.
+         * The all-meta form also lets Directory Builder load inherited layouts for editing.
+         */
+        public function inherit_directory_builder_meta( $value, $term_id, $key, $single ) {
+            if ( $this->reading_builder_meta || ! in_array( $key, $this->directory_builder_meta_keys(), true ) || $value !== ( $single ? '' : [] ) ) {
+                return $value;
+            }
+
+            $meta = $this->get_inherited_directory_builder_meta( $term_id );
+            if ( ! isset( $meta[ $key ] ) ) {
+                return $value;
+            }
+
+            $values = array_map( 'maybe_unserialize', $meta[ $key ] );
+            return $single ? reset( $values ) : $values;
+        }
+
+        public function inherit_all_directory_builder_meta( $value, $term_id, $key, $single ) {
+            if ( null !== $value || $this->reading_builder_meta || '' !== $key || $single ) {
+                return $value;
+            }
+
+            $meta = $this->get_inherited_directory_builder_meta( $term_id );
+            return $meta ? $meta : $value;
+        }
+
+        /** Missing-key defaults must not affect metadata_exists() or metadata writes. */
+        private function get_inherited_directory_builder_meta( $term_id ) {
+            $term = get_term( $term_id, ATBDP_DIRECTORY_TYPE );
+            if ( ! $term || is_wp_error( $term ) ) {
+                return [];
+            }
+
+            $source = pll_get_term( $term_id, pll_default_language() );
+            if ( ! $source || (int) $source === (int) $term_id ) {
+                return [];
+            }
+
+            $this->reading_builder_meta = true;
+            try {
+                $stored    = get_term_meta( $term_id );
+                $inherited = array_intersect_key( get_term_meta( $source ), array_flip( $this->directory_builder_meta_keys() ) );
+            } finally {
+                $this->reading_builder_meta = false;
+            }
+
+            // Keep the raw serialized representation expected by all-meta consumers.
+            return $stored + $inherited;
         }
 
         /** Resolve a Directory Type ID or slug, retaining the original when untranslated. */
@@ -133,6 +238,62 @@ if ( ! class_exists( 'Directorist_Multilingual_Polylang' ) ) :
             // Setting a language can happen after the meta was copied (REST/import).
             if ( in_array( $taxonomy, [ ATBDP_DIRECTORY_TYPE, 'language' ], true ) ) {
                 $this->sync_listing_directory( $object_id );
+            }
+        }
+
+        /** Category/location associations are arrays, unlike listing Directory Type meta. */
+        public function translate_taxonomy_directories( $term_id ) {
+            $stored   = directorist_get_term_directory( $term_id );
+            $language = pll_get_term_language( $term_id );
+            $mapped   = [];
+            foreach ( $stored as $directory ) {
+                $mapped[] = (int) $this->translate_directory_type( $directory, $language );
+            }
+
+            return array_values( array_unique( $mapped ) );
+        }
+
+        public function sync_taxonomy_directory_meta( $meta_id, $term_id, $key, $value ) {
+            if ( '_directory_type' === $key || 0 === strpos( $key, '_directory_type_' ) ) {
+                $this->sync_taxonomy_directory( $term_id );
+            }
+        }
+
+        /** Keep both legacy associations and indexed category/location queries aligned. */
+        public function sync_taxonomy_directory( $term_id ) {
+            static $syncing = [];
+            if ( isset( $syncing[ $term_id ] ) ) {
+                return;
+            }
+
+            $term = get_term( $term_id );
+            if ( ! $term || is_wp_error( $term ) || ! in_array( $term->taxonomy, [ ATBDP_CATEGORY, ATBDP_LOCATION ], true ) || ! pll_get_term_language( $term_id ) ) {
+                return;
+            }
+
+            $stored = directorist_get_term_directory( $term_id );
+            if ( ! $stored ) {
+                return;
+            }
+
+            $mapped              = $this->translate_taxonomy_directories( $term_id );
+            $syncing[ $term_id ] = true;
+            try {
+                if ( $stored !== $mapped ) {
+                    update_term_meta( $term_id, '_directory_type', $mapped );
+                }
+                foreach ( $mapped as $directory ) {
+                    if ( ! metadata_exists( 'term', $term_id, '_directory_type_' . $directory ) ) {
+                        update_term_meta( $term_id, '_directory_type_' . $directory, true );
+                    }
+                }
+                foreach ( array_keys( get_term_meta( $term_id ) ) as $key ) {
+                    if ( preg_match( '/^_directory_type_([0-9]+)$/', $key, $matches ) && ! in_array( (int) $matches[1], $mapped, true ) ) {
+                        delete_term_meta( $term_id, $key );
+                    }
+                }
+            } finally {
+                unset( $syncing[ $term_id ] );
             }
         }
 

@@ -44,6 +44,21 @@ export const extractEnquiryData = (item) => {
  */
 export const getUserEmail = (enquiry) => {
 	if (!enquiry) return null;
+	const findEmailAnswer = (answers = []) => {
+		for (const answer of answers) {
+			if (answer.field_type === 'email' && typeof answer.value === 'string') {
+				const email = answer.value.trim();
+				if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+					return email;
+				}
+			}
+			const email = findEmailAnswer(answer.children || []);
+			if (email) return email;
+		}
+		return null;
+	};
+	const answerEmail = findEmailAnswer(enquiry.answers || []);
+	if (answerEmail) return answerEmail;
 	return enquiry.user?.user_email || enquiry.user_email || null;
 };
 
@@ -205,16 +220,35 @@ export const bulkDeleteEnquiries = async (items, onSuccess) => {
 };
 
 /**
- * Send email using native email client
+ * Prepare the recipient and compose links for an enquiry reply.
  * @param {Object|Array} item - The enquiry item
- * @returns {void}
+ * @returns {Promise<Object|undefined>} Reply details, when an email is available.
  */
-export const sendEmailToUser = (item) => {
-	const enquiry = extractEnquiryData(item);
+export const prepareEmailReply = async (item) => {
+	let enquiry = extractEnquiryData(item);
 
 	if (!enquiry) {
 		console.error('No enquiry data found:', item);
 		return;
+	}
+
+	// Table rows may not have loaded their answers yet. Resolve them before
+	// falling back to the submitter's account email.
+	if (!Array.isArray(enquiry.answers) && enquiry.id) {
+		try {
+			const details = await fetchSingleEnquiry(enquiry.id);
+			if (!details?.success || !details.response) {
+				throw new Error('Response not found');
+			}
+			enquiry = { ...enquiry, ...details.response };
+		} catch (error) {
+			console.error('Error loading enquiry email:', error);
+			doAction('helpgent-toast', {
+				message: 'Unable to load enquiry details. Please try again.',
+				type: 'error',
+			});
+			return;
+		}
 	}
 
 	const userEmail = getUserEmail(enquiry);
@@ -231,10 +265,22 @@ export const sendEmailToUser = (item) => {
 
 	// Create mailto link with pre-filled fields
 	const subject = `Your Enquiry on ${listingTitle}`;
-	const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}`;
+	const mailtoLink = `mailto:${encodeURIComponent(userEmail)}?subject=${encodeURIComponent(subject)}`;
 
-	// Open native email client
-	window.open(mailtoLink, '_self');
+	return {
+		email: userEmail,
+		subject,
+		mailto: mailtoLink,
+		gmail: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(userEmail)}&su=${encodeURIComponent(subject)}`,
+	};
+};
+
+/**
+ * Open the configured email app for an enquiry reply.
+ */
+export const sendEmailToUser = async (item) => {
+	const reply = await prepareEmailReply(item);
+	if (reply) window.open(reply.mailto, '_self');
 };
 
 /**

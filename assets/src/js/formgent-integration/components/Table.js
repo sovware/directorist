@@ -21,12 +21,13 @@ import TrashIcon from '../icons/Trash';
  * Internal dependencies
  */
 import EnquiryDetailsModal from './EnquiryDetailsModal';
+import EmailReplyModal from './EmailReplyModal';
 import {
 	markEnquiryAsRead,
 	bulkMarkEnquiriesAsRead,
 	deleteEnquiry,
 	bulkDeleteEnquiries,
-	sendEmailToUser,
+	prepareEmailReply,
 	getStatusBadgeClass,
 	extractEnquiryTitleAndPrefix,
 	enrichEnquiriesWithAnswers,
@@ -36,6 +37,7 @@ import {
 export default function Tables(props) {
 	const { items = [], handleTableRefresh, strings = {} } = props;
 	const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+	const [emailReply, setEmailReply] = useState(null);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [enrichedItems, setEnrichedItems] = useState([]);
 	const [isLoadingAnswers, setIsLoadingAnswers] = useState(false);
@@ -200,9 +202,14 @@ export default function Tables(props) {
 		[handleTableRefresh]
 	);
 
-	const handleSendEmail = useCallback((item) => {
+	const handleSendEmail = useCallback(async (item) => {
 		if (!item) return;
-		sendEmailToUser(item);
+		const reply = await prepareEmailReply(item);
+		if (reply) {
+			setIsViewModalOpen(false);
+			setSelectedItem(null);
+			setEmailReply(reply);
+		}
 	}, []);
 
 	const handleOpenDeleteModal = useCallback((items) => {
@@ -420,6 +427,12 @@ export default function Tables(props) {
 			/>
 
 			{/* View Enquiry Details Modal */}
+			{emailReply && (
+				<EmailReplyModal
+					reply={emailReply}
+					onClose={() => setEmailReply(null)}
+				/>
+			)}
 			<EnquiryDetailsModal
 				isOpen={isViewModalOpen}
 				selectedItem={selectedItem}

@@ -417,6 +417,7 @@ class Localized_Data {
                 'enquiries_description'        => __( 'Track and manage all your incoming messages', 'directorist' ),
                 'total_enquiries'              => __( 'Total Enquiries', 'directorist' ),
                 'new_messages'                 => __( 'New Messages', 'directorist' ),
+                'new'                          => __( 'new', 'directorist' ),
                 'this_week'                    => __( 'This Week', 'directorist' ),
                 'total_resolved'               => __( 'Total Resolved', 'directorist' ),
                 'enquiry_header'               => __( 'Enquiry', 'directorist' ),

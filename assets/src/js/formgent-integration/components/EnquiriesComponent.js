@@ -23,6 +23,28 @@ const EnquiriesComponent = ({ data = {} }) => {
 	const [responses, setResponses] = useState([]);
 	const strings = data?.strings || {};
 
+	useEffect(() => {
+		if (responseKPIs.unread === undefined) return;
+		const unread = Number(responseKPIs.unread) || 0;
+		document
+			.querySelectorAll(
+				'.directorist-user-dashboard__nav a[target="dashboard_formgent"] .directorist_menuItem-text'
+			)
+			.forEach((label) => {
+				let badge = label.querySelector('.directorist-enquiry-badge');
+				if (unread <= 0) {
+					badge?.remove();
+					return;
+				}
+				if (!badge) {
+					badge = document.createElement('span');
+					badge.className = 'directorist-enquiry-badge';
+					label.appendChild(badge);
+				}
+				badge.textContent = `${unread} ${strings.new || 'new'}`;
+			});
+	}, [responseKPIs.unread, strings.new]);
+
 	//get response KPIs
 	useEffect(() => {
 		fetchEnquiryKPIs().then((data) => {
